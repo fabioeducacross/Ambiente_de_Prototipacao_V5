@@ -1,5 +1,8 @@
 # Copilot Instructions - Ambiente de Prototipação V5
 
+> **⚠️ IMPORTANTE - Pasta de Referência**  
+> A pasta `educacross-frontoffice` anexada ao workspace é **SOMENTE PARA CONSULTA** de arquivos, jornadas, ícones e informações sobre desenvolvimento. **NÃO PROGRAMAR NADA NESSA PASTA**. Todo o desenvolvimento deve ser feito APENAS na pasta `Ambiente_de_Prototipacao_V5`.
+
 ## Visão Geral do Projeto
 
 Ambiente de prototipação para criar e testar jornadas educacionais usando **Vue 3 + Vite** com Design System baseado no Vuexy. O projeto usa um banco de dados JSON simples e não tem backend - todos os dados vêm de `src/data/journeys.json`.
