@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "titulo": "Introdução à Educação Digital",
+    "descricao": "Jornada de aprendizado para iniciantes em educação digital",
+    "categoria": "Fundamentos",
+    "duracao": "4 semanas",
+    "nivel": "Iniciante",
+    "objetivos": [
+      "Compreender os fundamentos da educação digital",
+      "Conhecer ferramentas essenciais de aprendizado online",
+      "Desenvolver habilidades básicas de navegação em plataformas educacionais"
+    ],
+    "modulos": [
+      {
+        "id": 1,
+        "nome": "Introdução ao Ambiente Digital",
+        "licoes": 5,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 2,
+        "nome": "Ferramentas de Colaboração",
+        "licoes": 4,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 3,
+        "nome": "Recursos Educacionais Online",
+        "licoes": 6,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 4,
+        "nome": "Projeto Final",
+        "licoes": 3,
+        "duracao": "1 semana"
+      }
+    ],
+    "status": "ativo"
+  },
+  {
+    "id": 2,
+    "titulo": "Metodologias Ativas de Ensino",
+    "descricao": "Aprenda a aplicar metodologias ativas em suas práticas educacionais",
+    "categoria": "Metodologia",
+    "duracao": "6 semanas",
+    "nivel": "Intermediário",
+    "objetivos": [
+      "Conhecer diferentes metodologias ativas de ensino",
+      "Aplicar técnicas de aprendizagem baseada em projetos",
+      "Desenvolver estratégias de engajamento estudantil"
+    ],
+    "modulos": [
+      {
+        "id": 1,
+        "nome": "Fundamentos das Metodologias Ativas",
+        "licoes": 4,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 2,
+        "nome": "Aprendizagem Baseada em Problemas",
+        "licoes": 5,
+        "duracao": "1.5 semanas"
+      },
+      {
+        "id": 3,
+        "nome": "Sala de Aula Invertida",
+        "licoes": 4,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 4,
+        "nome": "Gamificação na Educação",
+        "licoes": 5,
+        "duracao": "1.5 semanas"
+      },
+      {
+        "id": 5,
+        "nome": "Projeto de Implementação",
+        "licoes": 4,
+        "duracao": "1 semana"
+      }
+    ],
+    "status": "ativo"
+  },
+  {
+    "id": 3,
+    "titulo": "Avaliação e Feedback Digital",
+    "descricao": "Técnicas e ferramentas para avaliação formativa e feedback efetivo",
+    "categoria": "Avaliação",
+    "duracao": "3 semanas",
+    "nivel": "Avançado",
+    "objetivos": [
+      "Dominar técnicas de avaliação formativa online",
+      "Criar rubricas e critérios de avaliação claros",
+      "Utilizar ferramentas digitais para feedback eficaz"
+    ],
+    "modulos": [
+      {
+        "id": 1,
+        "nome": "Fundamentos da Avaliação Digital",
+        "licoes": 4,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 2,
+        "nome": "Ferramentas de Avaliação Online",
+        "licoes": 5,
+        "duracao": "1 semana"
+      },
+      {
+        "id": 3,
+        "nome": "Feedback e Acompanhamento",
+        "licoes": 4,
+        "duracao": "1 semana"
+      }
+    ],
+    "status": "ativo"
+  }
+]
