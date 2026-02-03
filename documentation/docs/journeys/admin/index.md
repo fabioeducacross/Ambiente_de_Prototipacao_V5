@@ -16,10 +16,10 @@ Documentação das 6 jornadas do contexto admin/coordenação.
    - Análise de engajamento
    - Status: ✅ Documentado (Sprint 2)
 
-3. **ADMIN-003: Evidence Report** ⏳
+3. **[ADMIN-003: Evidence Report](./evidence-report.md)** ✅
    - Evidências de aprendizagem
    - Documentação pedagógica
-   - Status: ⏳ Pendente (Sprint 2)
+   - Status: ✅ Documentado (Sprint 2)
 
 4. **ADMIN-004: Skill Report** ⏳
    - Desenvolvimento de habilidades
@@ -41,11 +41,11 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 2
+- **Documentadas**: 3
 - **Em Documentação**: 0
-- **Pendentes**: 4
+- **Pendentes**: 3
 
-**Progresso**: 33% completo (2/6)
+**Progresso**: 50% completo (3/6)
 
 ---
 
