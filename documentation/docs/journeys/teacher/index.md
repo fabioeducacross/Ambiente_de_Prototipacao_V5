@@ -18,17 +18,17 @@ Documentação completa das 11 jornadas do contexto educador.
 
 ### Missões Customizadas
 
-3. **PROF-003: Custom Missions** 🚧
+3. **[PROF-003: Custom Missions](./custom-missions.md)** ✅
    - Criação de missões personalizadas
    - Editor de questões e atividades
-   - Status: 🚧 Em documentação
+   - Status: ✅ Documentado
 
 ### Avaliações e Eventos
 
-4. **PROF-004: Events Management** 🚧
+4. **[PROF-004: Events Management](./events-management.md)** ✅
    - Gestão de eventos educacionais
    - Configuração de avaliações
-   - Status: 🚧 Em documentação
+   - Status: ✅ Documentado
 
 ### Registros e Relatórios
 
@@ -45,9 +45,21 @@ Documentação completa das 11 jornadas do contexto educador.
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 2
-- **Em Documentação**: 2
+- **Documentadas**: 4
+- **Em Documentação**: 0
 - **Pendentes**: 7
+
+**Progresso**: 36% completo (4/11)
+
+---
+
+## 🎉 Sprint 1 Completo!
+
+✅ Todas as 4 jornadas de alta prioridade foram documentadas:
+- PROF-001: Education System Books
+- PROF-002: Education System Missions
+- PROF-003: Custom Missions
+- PROF-004: Events Management
 
 ## Próximas Jornadas a Documentar
 
