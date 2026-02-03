@@ -37,19 +37,19 @@ Documentação completa das 11 jornadas do contexto educador.
    - Acompanhamento individual de alunos
    - Status: ✅ Documentado
 
-6. **PROF-006: Classes Records** ⏳
+6. **[PROF-006: Classes Records](./classes-records.md)** ✅
    - Gestão de turmas
    - Relatórios de desempenho coletivo
-   - Status: ⏳ Pendente
+   - Status: ✅ Documentado
 
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 5
+- **Documentadas**: 6
 - **Em Documentação**: 0
-- **Pendentes**: 6
+- **Pendentes**: 5
 
-**Progresso**: 45% completo (5/11)
+**Progresso**: 55% completo (6/11)
 
 ---
 
