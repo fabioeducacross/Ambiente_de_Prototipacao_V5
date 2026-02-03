@@ -6,10 +6,10 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 
 ### Relatórios
 
-1. **ADMIN-001: Mission Reports** 🚧
+1. **[ADMIN-001: Mission Reports](./mission-reports.md)** ✅
    - Relatórios consolidados de missões
    - Análise de desempenho por turma/escola
-   - Status: 🚧 Em documentação (Sprint 1)
+   - Status: ✅ Documentado (Sprint 1)
 
 2. **ADMIN-002: Student Access Report** ⏳
    - Logs de acesso dos alunos
@@ -41,9 +41,17 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 0
-- **Em Documentação**: 1
+- **Documentadas**: 1
+- **Em Documentação**: 0
 - **Pendentes**: 5
+
+**Progresso**: 17% completo (1/6)
+
+---
+
+## 🎉 Alta Prioridade Completa!
+
+✅ ADMIN-001: Mission Reports documentado (dashboard, drill-down, exportação)
 
 ## Próximas Jornadas a Documentar
 
