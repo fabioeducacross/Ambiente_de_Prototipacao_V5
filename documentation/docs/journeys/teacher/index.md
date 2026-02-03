@@ -52,14 +52,19 @@ Documentação completa das 11 jornadas do contexto educador.
    - Timeline cronológica + alertas de risco
    - Status: ✅ Documentado (Sprint 3)
 
+9. **[PROF-009: Collaborative Planning](./collaborative-planning.md)** ✅
+   - Planejamento colaborativo de aulas
+   - Editor em tempo real + biblioteca de materiais
+   - Status: ✅ Documentado (Sprint 3)
+
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 8
+- **Documentadas**: 9
 - **Em Documentação**: 0
-- **Pendentes**: 3
+- **Pendentes**: 2
 
-**Progresso**: 73% completo (8/11)
+**Progresso**: 82% completo (9/11)
 
 ---
 
