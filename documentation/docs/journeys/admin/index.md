@@ -21,10 +21,10 @@ Documentação das 6 jornadas do contexto admin/coordenação.
    - Documentação pedagógica
    - Status: ✅ Documentado (Sprint 2)
 
-4. **ADMIN-004: Skill Report** ⏳
+4. **[ADMIN-004: Skill Report](./skill-report.md)** ✅
    - Desenvolvimento de habilidades
    - Mapas de competências
-   - Status: ⏳ Pendente (Sprint 2)
+   - Status: ✅ Documentado (Sprint 2)
 
 ### Gestão
 
@@ -41,11 +41,11 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 3
+- **Documentadas**: 4
 - **Em Documentação**: 0
-- **Pendentes**: 3
+- **Pendentes**: 2
 
-**Progresso**: 50% completo (3/6)
+**Progresso**: 67% completo (4/6)
 
 ---
 
