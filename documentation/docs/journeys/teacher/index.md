@@ -47,14 +47,19 @@ Documentação completa das 11 jornadas do contexto educador.
    - Dashboard de desempenho por questão
    - Status: ✅ Documentado (Sprint 3)
 
+8. **[PROF-008: Student Progress Tracking](./student-progress-tracking.md)** ✅
+   - Acompanhamento longitudinal individual
+   - Timeline cronológica + alertas de risco
+   - Status: ✅ Documentado (Sprint 3)
+
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 7
+- **Documentadas**: 8
 - **Em Documentação**: 0
-- **Pendentes**: 4
+- **Pendentes**: 3
 
-**Progresso**: 64% completo (7/11)
+**Progresso**: 73% completo (8/11)
 
 ---
 
