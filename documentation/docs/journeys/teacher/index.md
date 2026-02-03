@@ -42,14 +42,19 @@ Documentação completa das 11 jornadas do contexto educador.
    - Relatórios de desempenho coletivo
    - Status: ✅ Documentado
 
+7. **[PROF-007: Mission Analytics](./mission-analytics.md)** ✅
+   - Análise detalhada de missões
+   - Dashboard de desempenho por questão
+   - Status: ✅ Documentado (Sprint 3)
+
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 6
+- **Documentadas**: 7
 - **Em Documentação**: 0
-- **Pendentes**: 5
+- **Pendentes**: 4
 
-**Progresso**: 55% completo (6/11)
+**Progresso**: 64% completo (7/11)
 
 ---
 
