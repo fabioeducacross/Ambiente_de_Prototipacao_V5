@@ -11,10 +11,10 @@ Documentação das 6 jornadas do contexto admin/coordenação.
    - Análise de desempenho por turma/escola
    - Status: ✅ Documentado (Sprint 1)
 
-2. **ADMIN-002: Student Access Report** ⏳
+2. **[ADMIN-002: Student Access Report](./student-access-report.md)** ✅
    - Logs de acesso dos alunos
    - Análise de engajamento
-   - Status: ⏳ Pendente (Sprint 2)
+   - Status: ✅ Documentado (Sprint 2)
 
 3. **ADMIN-003: Evidence Report** ⏳
    - Evidências de aprendizagem
@@ -41,11 +41,11 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 1
+- **Documentadas**: 2
 - **Em Documentação**: 0
-- **Pendentes**: 5
+- **Pendentes**: 4
 
-**Progresso**: 17% completo (1/6)
+**Progresso**: 33% completo (2/6)
 
 ---
 
