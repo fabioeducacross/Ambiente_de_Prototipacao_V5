@@ -32,10 +32,10 @@ Documentação completa das 11 jornadas do contexto educador.
 
 ### Registros e Relatórios
 
-5. **PROF-005: Student Records** ⏳
+5. **[PROF-005: Student Records](./student-records.md)** ✅
    - Diário de classe digital
    - Acompanhamento individual de alunos
-   - Status: ⏳ Pendente
+   - Status: ✅ Documentado
 
 6. **PROF-006: Classes Records** ⏳
    - Gestão de turmas
@@ -45,11 +45,11 @@ Documentação completa das 11 jornadas do contexto educador.
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 4
+- **Documentadas**: 5
 - **Em Documentação**: 0
-- **Pendentes**: 7
+- **Pendentes**: 6
 
-**Progresso**: 36% completo (4/11)
+**Progresso**: 45% completo (5/11)
 
 ---
 
