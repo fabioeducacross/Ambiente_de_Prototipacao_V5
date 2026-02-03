@@ -57,14 +57,19 @@ Documentação completa das 11 jornadas do contexto educador.
    - Editor em tempo real + biblioteca de materiais
    - Status: ✅ Documentado (Sprint 3)
 
+10. **[PROF-010: Parent Communication](./parent-communication.md)** ✅
+   - Comunicação com responsáveis
+   - Chat tempo real + reuniões online + tradução
+   - Status: ✅ Documentado (Sprint 3)
+
 ## Estatísticas
 
 - **Total de Jornadas**: 11
-- **Documentadas**: 9
+- **Documentadas**: 10
 - **Em Documentação**: 0
-- **Pendentes**: 2
+- **Pendentes**: 1
 
-**Progresso**: 82% completo (9/11)
+**Progresso**: 91% completo (10/11)
 
 ---
 
