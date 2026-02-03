@@ -1,0 +1,79 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Vuexy Design System Color Palette */
+:root {
+  /* Primary - Roxo Vuexy */
+  --ifm-color-primary: #7367F0;
+  --ifm-color-primary-dark: #5951E8;
+  --ifm-color-primary-darker: #4A42E6;
+  --ifm-color-primary-darkest: #2C21DB;
+  --ifm-color-primary-light: #8D83F3;
+  --ifm-color-primary-lighter: #9C93F5;
+  --ifm-color-primary-lightest: #BAB3F9;
+  
+  /* Success - Verde */
+  --ifm-color-success: #28C76F;
+  --ifm-color-success-dark: #24B263;
+  --ifm-color-success-darker: #22A95E;
+  --ifm-color-success-darkest: #1C8B4D;
+  --ifm-color-success-light: #3FD47F;
+  --ifm-color-success-lighter: #4FD988;
+  --ifm-color-success-lightest: #7DE3A4;
+  
+  /* Warning - Laranja */
+  --ifm-color-warning: #FF9F43;
+  --ifm-color-warning-dark: #FF8F24;
+  --ifm-color-warning-darker: #FF8610;
+  --ifm-color-warning-darkest: #E66D00;
+  --ifm-color-warning-light: #FFAF62;
+  --ifm-color-warning-lighter: #FFB976;
+  --ifm-color-warning-lightest: #FFCDA4;
+  
+  /* Danger - Vermelho */
+  --ifm-color-danger: #EA5455;
+  --ifm-color-danger-dark: #E83D3E;
+  --ifm-color-danger-darker: #E72F30;
+  --ifm-color-danger-darkest: #D41516;
+  --ifm-color-danger-light: #ED6B6C;
+  --ifm-color-danger-lighter: #EF7C7D;
+  --ifm-color-danger-lightest: #F4A3A4;
+  
+  /* Info - Ciano */
+  --ifm-color-info: #00CFE8;
+  --ifm-color-info-dark: #00BAD1;
+  --ifm-color-info-darker: #00B0C6;
+  --ifm-color-info-darkest: #0091A3;
+  --ifm-color-info-light: #1AD6EE;
+  --ifm-color-info-lighter: #2EDAF0;
+  --ifm-color-info-lightest: #63E4F5;
+  
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(115, 103, 240, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  /* Primary - Roxo claro para dark mode */
+  --ifm-color-primary: #9E95F5;
+  --ifm-color-primary-dark: #8A7FF3;
+  --ifm-color-primary-darker: #7D71F1;
+  --ifm-color-primary-darkest: #5246EC;
+  --ifm-color-primary-light: #B2ABF7;
+  --ifm-color-primary-lighter: #BFB9F8;
+  --ifm-color-primary-lightest: #D9D5FB;
+  
+  /* Success - Verde mais claro */
+  --ifm-color-success: #34E57E;
+  --ifm-color-success-dark: #1FDE6B;
+  --ifm-color-success-darker: #1BD462;
+  --ifm-color-success-darkest: #13B04E;
+  --ifm-color-success-light: #49EC91;
+  --ifm-color-success-lighter: #58EF9A;
+  --ifm-color-success-lightest: #85F4B6;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(158, 149, 245, 0.2);
+}
