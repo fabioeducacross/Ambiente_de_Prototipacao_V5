@@ -1,47 +1,43 @@
-# Jornadas do Estudante 👨‍🎓
+# Jornadas do Aluno 🎓
 
-Documentação das 3 jornadas do contexto estudante.
+Documentação das 3 jornadas do contexto student/aluno.
 
 ## Jornadas Disponíveis
 
-### Missões e Atividades
+### Aprendizagem
 
-1. **STUDENT-001: High Five Missions** ⏳
-   - Realização de missões colaborativas
-   - Sistema de pontuação e ranking
-   - Status: ⏳ Pendente (Sprint 2)
+1. **[STUDENT-001: Student Dashboard](./student-dashboard.md)** ✅
+   - Painel do aluno
+   - Progresso gamificado
+   - Status: ✅ Documentado (Sprint 3)
 
-### Biblioteca Digital
-
-2. **STUDENT-002: Library Games** ⏳
-   - Acesso a jogos educacionais
-   - Gamificação do aprendizado
+2. **STUDENT-002: Learning Path** ⏳
+   - Trilha de aprendizagem personalizada
+   - Recomendações IA
    - Status: ⏳ Pendente (Sprint 3)
 
-3. **STUDENT-003: Library Books** ⏳
-   - Leitura de livros digitais
-   - Biblioteca pessoal do aluno
-   - Status: ⏳ Pendente (Sprint 3)
+3. **Jornada não atribuída** ⏳
+   - A definir
+   - Status: ⏳ Pendente
 
 ## Estatísticas
 
 - **Total de Jornadas**: 3
-- **Documentadas**: 0
+- **Documentadas**: 1
 - **Em Documentação**: 0
-- **Pendentes**: 3
+- **Pendentes**: 2
+
+**Progresso**: 33% completo (1/3)
 
 ## Próximas Jornadas a Documentar
 
 Conforme [PLANO.md](../../../../PLANO.md#-jornadas-prioritárias):
 
-1. 🟡 **Média Prioridade (Sprint 2)**
-   - STUDENT-001: High Five Missions
-
-2. 🟢 **Baixa Prioridade (Sprint 3)**
-   - STUDENT-002: Library Games
-   - STUDENT-003: Library Books
+1. 🟢 **Baixa Prioridade (Sprint 3)**
+   - STUDENT-001: Student Dashboard ✅
+   - STUDENT-002: Learning Path ⏳
 
 ---
 
-**Última Atualização**: 3 de fevereiro de 2026  
-**Progresso**: 0% (0/3)
+**Última Atualização**: 4 de fevereiro de 2026  
+**Progresso**: 33% (1/3)
