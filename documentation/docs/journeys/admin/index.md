@@ -33,19 +33,19 @@ Documentação das 6 jornadas do contexto admin/coordenação.
    - Gestão de instituições
    - Status: ✅ Documentado (Sprint 3)
 
-6. **ADMIN-006: User Management** ⏳
+6. **[ADMIN-006: User Management](./user-management.md)** ✅
    - Gerenciamento de usuários
    - Permissões e acessos
-   - Status: ⏳ Pendente
+   - Status: ✅ Documentado (Sprint 3)
 
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 5
+- **Documentadas**: 6
 - **Em Documentação**: 0
-- **Pendentes**: 1
+- **Pendentes**: 0
 
-**Progresso**: 83% completo (5/6)
+**Progresso**: 🎉 **100% COMPLETO (6/6)** 🎉
 
 ---
 
