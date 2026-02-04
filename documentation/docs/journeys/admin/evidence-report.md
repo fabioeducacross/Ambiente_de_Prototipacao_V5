@@ -1208,7 +1208,7 @@ sequenceDiagram
       { range: '1-5', count: 800 },
       { range: '6-10', count: 1200 },
       { range: '11-20', count: 600 },
-      { range: '>20', count: 200 }
+      { range: 'maior que 20', count: 200 }
     ]
   }
 }
@@ -1218,12 +1218,12 @@ sequenceDiagram
   - Taxa de Produção: 93.3% (progress bar grande)
   - Alunos Produtores: 2800/3000
   - Média por Aluno: 4.2 evidências
-- Alerta (se >5% sem evidências): "200 alunos (6.7%) não produziram evidências no período" (vermelho, ícone warning)
+- Alerta (se maior que 5% sem evidências): "200 alunos (6.7%) não produziram evidências no período" (vermelho, ícone warning)
 - Histograma: Distribuição de alunos por faixa de evidências (barras verticais)
 - Tabela de alunos (sortable por nome, turma, quantidade):
   - Nome + Avatar
   - Turma
-  - Total de Evidências (badge colorido: verde ≥10, amarelo 5-9, vermelho <5)
+  - Total de Evidências (badge colorido: verde ≥10, amarelo 5-9, vermelho menor que 5)
   - Breakdown por tipo (mini gráfico de barras ou pills)
   - Última Evidência (data ou "Nenhuma")
   - Ação: "Ver Portfólio" (se count > 0)
@@ -1667,7 +1667,7 @@ Content-Disposition: attachment; filename="portfolio-ana-silva-2024-02-03.pdf"
   - Sistema classifica evidências por "qualidade pedagógica" (0-100)
   - Critérios: Relevância ao tema, criatividade, esforço percebido, técnica
   - Sugestões automáticas: "15 evidências candidatas a destaque"
-  - Filtro: "Mostrar apenas alta qualidade (>80)"
+  - Filtro: "Mostrar apenas alta qualidade (maior que 80)"
 - **Reconhecimento de Conteúdo**:
   - Imagens: Tags automáticas via visão computacional ("natureza", "animais", "plantas")
   - Vídeos: Transcrição automática de áudio, detecção de objetos

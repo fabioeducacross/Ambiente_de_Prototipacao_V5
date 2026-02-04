@@ -86,7 +86,7 @@ Tabela server-side com:
 
 #### ListTableLocalSorting - Tabela Client-Side
 
-Para datasets pequenos (<1000 registros):
+Para datasets pequenos (menos de 1000 registros):
 - ✅ Sorting local
 - ✅ Filtros client-side
 - ✅ Performance otimizada

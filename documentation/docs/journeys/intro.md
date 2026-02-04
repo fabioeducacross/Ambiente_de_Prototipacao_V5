@@ -62,7 +62,7 @@ Jornadas regulares (100-1000 acessos/dia):
 
 ### 🟢 Baixa Prioridade
 
-Jornadas esporádicas (<100 acessos/dia):
+Jornadas esporádicas (menos de 100 acessos/dia):
 
 - Library Games - Jogos educacionais
 - Library Books - Biblioteca digital

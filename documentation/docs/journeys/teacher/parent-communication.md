@@ -690,7 +690,7 @@ export default {
       return `${hours.toFixed(1)}h`
     },
 
-    // Computed: Responsáveis inativos (>7 dias sem ler)
+    // Computed: Responsáveis inativos (maior que 7 dias sem ler)
     inactiveParents: state => {
       return state.students.filter(s => {
         if (!s.lastReadAt) return true
@@ -1089,7 +1089,7 @@ describe('useCommunication', () => {
     store.commit('communication/students', mockStudents)
     
     const { inactiveParents } = useCommunication()
-    expect(inactiveParents.value).toBe(1) // >7 dias
+    expect(inactiveParents.value).toBe(1) // maior que 7 dias
   })
 })
 ```

@@ -517,9 +517,9 @@ sequenceDiagram
 **Responsabilidade**: Card visual de KPI  
 **Props**:
 - `title` (String, required)
-- `value` (Number|String, required)
+- `value` (Number ou String, required)
 - `subtitle` (String)
-- `trend` (Object) - { value: 12, direction: 'up' }
+- `trend` (Object) - \{ value: 12, direction: 'up' \}
 - `variant` (String) - 'success', 'warning', 'danger'
 
 **Features**:

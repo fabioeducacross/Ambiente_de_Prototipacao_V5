@@ -549,7 +549,7 @@ export default {
     params: state => state.params,
     totalData: state => state.totalData,
 
-    // Computed: Alunos inativos (>7 dias sem acesso)
+    // Computed: Alunos inativos (maior que 7 dias sem acesso)
     inactiveStudents: state => {
       return state.students.filter(s => s.activityStatus === 'inactive')
     },
@@ -991,8 +991,8 @@ sequenceDiagram
 - Botão "Exportar" (topo direita)
 - Tabela com 8 colunas sortable/searchable
 - Status badge: Verde (ativo), Amarelo (em risco), Vermelho (inativo)
-- Último Acesso: Texto colorido por dias (verde 0-3, amarelo 4-7, vermelho >7)
-- Frequência: Progress bar (verde ≥80%, amarelo 50-79%, vermelho <50%)
+- Último Acesso: Texto colorido por dias (verde 0-3, amarelo 4-7, vermelho maior que 7)
+- Frequência: Progress bar (verde ≥80%, amarelo 50-79%, vermelho menor que 50%)
 - Ações: Botão "Ver Detalhes"
 
 ### Estado 3: Lista Filtrada - Inativos
@@ -1043,7 +1043,7 @@ sequenceDiagram
         { range: '0-10min', count: 200 },
         { range: '10-30min', count: 500 },
         { range: '30-60min', count: 400 },
-        { range: '>60min', count: 150 }
+        { range: 'maior que 60min', count: 150 }
       ]
     }
   }
@@ -1069,9 +1069,9 @@ sequenceDiagram
     correlationCoefficient: 0.72, // Correlação forte (Pearson)
     quadrants: {
       highAccessHighPerformance: 450, // ≥70% freq, ≥7.0 nota
-      highAccessLowPerformance: 120,  // ≥70% freq, <7.0 nota
-      lowAccessHighPerformance: 80,   // <70% freq, ≥7.0 nota
-      lowAccessLowPerformance: 350    // <70% freq, <7.0 nota
+      highAccessLowPerformance: 120,  // ≥70% freq, menor que 7.0 nota
+      lowAccessHighPerformance: 80,   // menor que 70% freq, ≥7.0 nota
+      lowAccessLowPerformance: 350    // menor que 70% freq, menor que 7.0 nota
     },
     insights: [
       {
@@ -1499,7 +1499,7 @@ Content-Disposition: attachment; filename="relatorio-acesso-alunos-2024-02-03.xl
 
 **TO-BE**:
 - **Sistema de Alertas Automáticos**:
-  - Email/notificação quando aluno fica inativo >3 dias
+  - Email/notificação quando aluno fica inativo mais de 3 dias
   - Alert semanal: "15 novos alunos inativos esta semana"
   - Dashboard de gestão de alertas: Marcar como "resolvido", "em acompanhamento"
 - **Predição de Evasão com IA**:
@@ -1507,7 +1507,7 @@ Content-Disposition: attachment; filename="relatorio-acesso-alunos-2024-02-03.xl
   - Score de risco (0-100) por aluno
   - Fatores de risco identificados: "Queda gradual de acesso + sem completar missões"
 - **Regras Configuráveis**:
-  - Gestor define thresholds personalizados: "Alerta se <50% acesso em 7 dias"
+  - Gestor define thresholds personalizados: "Alerta se menor que 50% acesso em 7 dias"
   - Diferentes regras por série/instituição
 
 ### Problema 2: Correlação Simples sem Insights Acionáveis

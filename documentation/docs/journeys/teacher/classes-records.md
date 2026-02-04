@@ -719,8 +719,8 @@ sequenceDiagram
 - Nome da turma (heading)
 - Badge: Total de alunos
 - 3 métricas principais com progress bars:
-  - Nota média (0-10, cores: verde >7, amarelo 5-7, vermelho <5)
-  - Frequência % (cores: verde >85%, amarelo 70-85%, vermelho <70%)
+  - Nota média (0-10, cores: verde maior que 7, amarelo 5-7, vermelho menor que 5)
+  - Frequência % (cores: verde maior que 85%, amarelo 70-85%, vermelho menor que 70%)
   - Taxa de conclusão % (missões completadas)
 - Alert badge: "2 habilidades críticas" (se existir)
 - Última atualização (data relativa)
@@ -801,11 +801,11 @@ sequenceDiagram
 **UI - SkillsTab**:
 - Filtros (topo):
   - Dropdown: Categoria (Números, Álgebra, Geometria, etc)
-  - Dropdown: Taxa de acerto (Crítico <50%, Atenção 50-70%, Consolidado >70%)
+  - Dropdown: Taxa de acerto (Crítico menor que 50%, Atenção 50-70%, Consolidado maior que 70%)
 - SkillsHeatmap component:
   - Grid/tabela de habilidades
   - Colunas: Tag, Nome, Taxa de Acerto, Nº Alunos com Dificuldade, Ações
-  - Célula de Taxa de Acerto: Progress bar com cor (vermelho <50%, amarelo 50-70%, verde >70%)
+  - Célula de Taxa de Acerto: Progress bar com cor (vermelho menor que 50%, amarelo 50-70%, verde maior que 70%)
   - Botão de ação: "Ver alunos" (ícone lista)
 - Ao clicar "Ver alunos":
   - Abre StudentListDrawer (lateral direita)
@@ -853,7 +853,7 @@ sequenceDiagram
 - PerformanceHistogram (gráfico de barras verticais):
   - Eixo X: Faixas de nota (0-1, 1-2, ..., 9-10)
   - Eixo Y: Quantidade de alunos
-  - Barras coloridas por faixa (vermelho <5, amarelo 5-7, verde >7)
+  - Barras coloridas por faixa (vermelho menor que 5, amarelo 5-7, verde maior que 7)
   - Hover: Tooltip com nomes dos alunos naquela faixa
 - Box plot visual mostrando quartis
 - Card com interpretação textual:
@@ -1241,8 +1241,8 @@ Content-Disposition: attachment; filename="relatorio-7ano-a-2024-02-01.pdf"
 **TO-BE**:
 - **Alertas Inteligentes Automáticos**:
   - Email/notificação quando habilidade da turma cai abaixo de 50%
-  - Alerta quando >5 alunos faltam na mesma semana
-  - Aviso quando taxa de conclusão de missões cai >10% em relação ao mês anterior
+  - Alerta quando mais de 5 alunos faltam na mesma semana
+  - Aviso quando taxa de conclusão de missões cai mais de 10% em relação ao mês anterior
 - **Dashboard Preditivo**:
   - IA prevê tendências: "Com base no padrão atual, a nota média pode cair para 6.8 até fim do mês"
   - Sugestões proativas: "Considere reforço em [habilidade X] antes da próxima avaliação"
@@ -1255,7 +1255,7 @@ Content-Disposition: attachment; filename="relatorio-7ano-a-2024-02-01.pdf"
 
 **TO-BE**:
 - **Análise de Causa Raiz**:
-  - Correlação com outras variáveis: "65% dos alunos com dificuldade em [habilidade] também faltaram >3 aulas no período"
+  - Correlação com outras variáveis: "65% dos alunos com dificuldade em [habilidade] também faltaram mais de 3 aulas no período"
   - Identificação de pré-requisitos não dominados: "Habilidade EF07MA01 requer domínio de EF06MA08 (apenas 40% da turma possui)"
 - **Sugestões de Intervenção Contextualizadas**:
   - Biblioteca de estratégias pedagógicas por habilidade
@@ -1443,7 +1443,7 @@ describe('SkillsTab - Drawer de Alunos', () => {
 - **Acesso ao Dashboard**: 50% dos professores acessam mensalmente
 - **Tempo Médio na Ferramenta**: 8 minutos por sessão
 - **Exportações para Conselho**: 70% dos professores exportam relatórios trimestrais
-- **Identificação de Habilidades Críticas**: 35% dos professores identificam e atuam sobre habilidades <50%
+- **Identificação de Habilidades Críticas**: 35% dos professores identificam e atuam sobre habilidades menor que 50%
 - **Comparação entre Turmas**: 20% dos professores (apenas quem tem múltiplas turmas)
 
 ### Metas TO-BE

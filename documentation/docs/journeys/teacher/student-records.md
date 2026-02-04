@@ -346,7 +346,7 @@ export default {
       search: '',
       statusFilter: null, // null | 'active' | 'inactive' | 'attention'
       performanceFilter: null, // null | 'high' | 'medium' | 'low'
-      attendanceFilter: null // null | '>90%' | '70-90%' | '<70%'
+      attendanceFilter: null // null | 'maior que 90%' | '70-90%' | 'menor que 70%'
     },
     notes: [],
     notesLoading: false
@@ -746,8 +746,8 @@ sequenceDiagram
 - Nome completo
 - Badges: Status (ativo/inativo), Alerta (se needsAttention)
 - Métricas visuais:
-  - Progress bar de frequência (verde >90%, amarelo 70-90%, vermelho <70%)
-  - Score de desempenho com ícone (estrela se >8, neutro se 5-8, alerta se <5)
+  - Progress bar de frequência (verde maior que 90%, amarelo 70-90%, vermelho menor que 70%)
+  - Score de desempenho com ícone (estrela se maior que 8, neutro se 5-8, alerta se menor que 5)
   - Ícone de comportamento (emoji ou score 1-5)
 - Última atividade (data relativa: "2 dias atrás")
 - Hover: Eleva card e exibe botão "Ver Detalhes"
@@ -855,7 +855,7 @@ sequenceDiagram
 - Tabela de notas por missão:
   - Colunas: Missão, Data, Nota, Ações (ver detalhes)
   - Sortable por nota ou data
-  - Badge colorido por nota (verde >7, amarelo 5-7, vermelho <5)
+  - Badge colorido por nota (verde maior que 7, amarelo 5-7, vermelho menor que 5)
 
 ### Estado 7: Detalhes do Aluno - Aba Frequência
 ```typescript
@@ -1077,7 +1077,7 @@ sequenceDiagram
   "ClassId": 34,
   "StatusFilter": "active",
   "PerformanceFilter": "low",
-  "AttendanceFilter": "<70%"
+  "AttendanceFilter": "menor que 70%"
 }
 ```
 

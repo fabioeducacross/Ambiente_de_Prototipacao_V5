@@ -117,7 +117,7 @@ graph TD
 4. **Análise de Indicadores**
    - Descrição: Professora analisa visualmente os cards
    - Indicadores disponíveis:
-     - **Progresso**: Barra horizontal com % de conclusão (verde: `>70%`, amarelo: `30-70%`, vermelho: `<30%`)
+     - **Progresso**: Barra horizontal com % de conclusão (verde: `maior que 70%`, amarelo: `30-70%`, vermelho: `menor que 30%`)
      - **Rendimento**: Badge colorido (verde: alto, amarelo: médio, vermelho: baixo)
    - Sistema: Calcula valores agregados da turma
 

@@ -185,8 +185,8 @@ graph TD
 5. **Feedback Visual e Legendas**
    - Descrição: Indicadores coloridos auxiliam interpretação rápida
    - Legendas exibidas embaixo da tabela (`LegendEnum`):
-     - **Progresso**: Verde (`>70%`), Amarelo (`30-70%`), Vermelho (`<30%`)
-     - **Rendimento**: Verde (`>70%`), Amarelo (`40-70%`), Vermelho (`<40%`)
+     - **Progresso**: Verde (`maior que 70%`), Amarelo (`30-70%`), Vermelho (`menor que 30%`)
+     - **Rendimento**: Verde (`maior que 70%`), Amarelo (`40-70%`), Vermelho (`menor que 40%`)
    - Badge "Missão Plus": Identifica missões premium com ícone especial
 
 ### Telas do Fluxo Atual

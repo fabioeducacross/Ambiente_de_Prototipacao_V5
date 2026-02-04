@@ -456,7 +456,7 @@ export default {
         <b-card>
           <div class="text-center">
             <h2 class="text-info">{{ skillsAbove75 }}</h2>
-            <p class="text-muted">Habilidades com >75%</p>
+            <p class="text-muted">Habilidades com maior que 75%</p>
           </div>
         </b-card>
       </b-col>
@@ -464,7 +464,7 @@ export default {
         <b-card>
           <div class="text-center">
             <h2 class="text-warning">{{ skillsBelow50 }}</h2>
-            <p class="text-muted">Habilidades com <50%</p>
+            <p class="text-muted">Habilidades com menor que 50%</p>
           </div>
         </b-card>
       </b-col>
@@ -1315,10 +1315,10 @@ sequenceDiagram
 }
 ```
 **UI - Análise de Lacunas**:
-- Card de alerta no topo (se criticalCount > 0): "5 Lacunas Críticas Identificadas" (vermelho, ícone warning)
+- Card de alerta no topo (se criticalCount maior que 0): "5 Lacunas Críticas Identificadas" (vermelho, ícone warning)
 - Lista de lacunas críticas (cards expansíveis):
   - Header: Código BNCC + Nome da habilidade
-  - Badge de proficiência (vermelho <50%)
+  - Badge de proficiência (vermelho menor que 50%)
   - Ícone de grupo + "22 alunos afetados"
   - Botão "Ver Alunos" (expande lista com avatares + nomes)
   - Seção "Missões Trabalhadas": Lista de missões que abordaram a habilidade (com taxa de conclusão)
@@ -1479,7 +1479,7 @@ sequenceDiagram
   - **Tab "Visão Geral"**: Radar + cards de resumo (habilidades dominadas, em desenvolvimento, lacunas)
   - **Tab "Por Componente"**: Accordion com lista de habilidades agrupadas por componente
     - Cada habilidade: Código, nome, badge de nível, progress bar de proficiência, data da última avaliação
-  - **Tab "Lacunas Identificadas"**: Lista de habilidades com proficiência <50%
+  - **Tab "Lacunas Identificadas"**: Lista de habilidades com proficiência menor que 50%
     - Alerta por lacuna com recomendações específicas
   - **Tab "Evolução Temporal"**: Gráfico de linha com proficiência ao longo do tempo (últimos 12 meses)
 - Botão flutuante: "Gerar Relatório Individual" (exporta PDF com perfil completo)
@@ -1971,7 +1971,7 @@ describe('useSkillReport', () => {
     expect(averageProficiency.value).toBe('68.5')
   })
 
-  it('deve filtrar lacunas críticas (<50%)', () => {
+  it('deve filtrar lacunas críticas (menor que 50%)', () => {
     const mockGaps = {
       gaps: [
         { code: 'EF07MA01', proficiency: 35 },
@@ -2086,7 +2086,7 @@ describe('SkillMatrix - Student Profile Navigation', () => {
 
 ### Indicadores de Impacto TO-BE
 - **Melhoria de Proficiência Geral**: +18% em habilidades com lacunas identificadas após 3 meses
-- **Redução de Lacunas Críticas**: -45% em número de habilidades com <50% proficiência
+- **Redução de Lacunas Críticas**: -45% em número de habilidades com menor que 50% proficiência
 - **Alinhamento BNCC**: 90% das habilidades BNCC do ano escolar trabalhadas e avaliadas (vs 65% AS-IS)
 - **Personalização**: 85% das intervenções são personalizadas por perfil de aprendizagem (vs 0% AS-IS)
 - **NPS de Gestores**: Subir de 6.8 para 9.0

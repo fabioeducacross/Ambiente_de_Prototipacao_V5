@@ -1014,7 +1014,7 @@ sequenceDiagram
     Store-->>Index: Renderiza header + alertas críticos + tabs
 
     Prof->>Index: Visualiza alertas críticos
-    Index-->>Prof: "3 missões consecutivas com nota <6.0"
+    Index-->>Prof: "3 missões consecutivas com nota menor que 6.0"
 
     Prof->>Index: Navega para tab Dashboard
     Index->>Dash: Renderiza Dashboard

@@ -630,7 +630,7 @@ export default {
       return suggestions
     },
 
-    // Computed: Alunos com baixo desempenho (<6.0)
+    // Computed: Alunos com baixo desempenho (menor que 6.0)
     studentsAtRisk: state => {
       if (!state.students) return []
       return state.students.filter(s => s.score < 6.0)

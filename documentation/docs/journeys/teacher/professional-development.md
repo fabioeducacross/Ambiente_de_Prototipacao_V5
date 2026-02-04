@@ -940,13 +940,13 @@ describe('useDevelopment', () => {
 ## 13. Métricas de Sucesso
 
 ### KPIs (AS-IS)
-- **Professores com >40h Formação/Ano**: 25%
+- **Professores com maior que 40h Formação/Ano**: 25%
 - **Certificações Obrigatórias em Dia**: 60%
 - **Uso de Portfólio**: 15%
 - **Satisfação com Formação**: 6.5/10
 
 ### Metas TO-BE
-- **>40h Formação**: 85% (+240%)
+- **maior que 40h Formação**: 85% (+240%)
 - **Certificações em Dia**: 95% (+58%)
 - **Uso de Portfólio**: 70% (+367%)
 - **Satisfação**: 9.2/10 (+41%)

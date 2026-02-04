@@ -191,7 +191,7 @@ src/views/pages/admin-context/users/
       <b-col cols="12" md="3">
         <b-card class="text-center">
           <h2 class="mb-0 text-warning">{{ inactiveUsers }}</h2>
-          <p class="text-muted mb-0">Inativos (>90 dias)</p>
+          <p class="text-muted mb-0">Inativos (maior que 90 dias)</p>
         </b-card>
       </b-col>
       <b-col cols="12" md="3">
@@ -772,7 +772,7 @@ export default {
     // Computed: Usuários ativos
     activeUsers: state => state.dashboard?.activeUsers || 0,
 
-    // Computed: Usuários inativos (>90 dias sem acesso)
+    // Computed: Usuários inativos (maior que 90 dias sem acesso)
     inactiveUsers: state => state.dashboard?.inactiveUsers || 0,
 
     // Computed: Usuários bloqueados
