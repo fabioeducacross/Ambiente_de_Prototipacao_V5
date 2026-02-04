@@ -9,19 +9,11 @@
 
 ## 1. Visão Geral
 
-### Problema
+### O que é
 
-Estudantes precisam de momentos lúdicos de aprendizado para consolidar conhecimentos de forma divertida e sem pressão, mas enfrentam: falta de recursos educacionais que pareçam jogos de verdade, ausência de variedade de gêneros (puzzle, aventura, quiz, estratégia), dificuldade para encontrar jogos adequados ao nível de conhecimento, falta de integração entre jogos e currículo escolar, ausência de progressão e conquistas em jogos educacionais, dificuldade para professores avaliarem aprendizado via jogos, e falta de opções offline para uso sem internet.
+A **Biblioteca de Jogos** é um catálogo curado de jogos educacionais HTML5 que permite aos estudantes aprenderem conceitos curriculares de forma lúdica e divertida. Funciona como uma "loja de jogos educacionais" integrada à plataforma.
 
-**Dores principais**:
-- "Jogos educacionais" são chatos e infantis
-- Difícil encontrar jogo sobre tópico específico (ex: divisão de frações)
-- Não há progressão clara como em jogos comerciais
-- Professores não conseguem acompanhar se aluno realmente aprendeu jogando
-- Jogos exigem internet estável (problema em áreas rurais)
-- Variedade limitada (só quiz ou memória)
-
-### Solução AS-IS
+### Como funciona hoje (AS-IS)
 
 Biblioteca de jogos educacionais com:
 - **Catálogo Curado** de 50+ jogos HTML5 educacionais de alta qualidade

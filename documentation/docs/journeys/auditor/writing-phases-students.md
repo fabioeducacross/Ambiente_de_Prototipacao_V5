@@ -9,18 +9,11 @@
 
 ## 1. Visão Geral
 
-### Problema
+### O que é
 
-Auditores precisam validar a evolução da alfabetização dos estudantes através das fases de escrita, mas enfrentam: dificuldade para visualizar progresso individual e coletivo em larga escala, ausência de filtros para identificar alunos em risco, falta de comparativos entre escolas e redes, impossibilidade de exportar dados para análises externas, dificuldade para cruzar fases de escrita com outras métricas (frequência, desempenho), ausência de histórico longitudinal (evolução ao longo de anos), e relatórios genéricos que não permitem drill-down.
+O **Dashboard de Fases de Escrita** é uma ferramenta de auditoria que permite visualizar e analisar o desenvolvimento da alfabetização dos estudantes em larga escala, baseado na teoria de Emilia Ferreiro (pré-silábico → silábico → alfabético). Usado por auditores e gestores educacionais para monitoramento de redes.
 
-**Dores principais**:
-- "Como identificar rapidamente alunos pré-silábicos no 3º ano?"
-- "Qual a distribuição de fases de escrita na rede X?"
-- "Quais escolas têm mais alunos em fases críticas?"
-- "Como comparar evolução entre semestres?"
-- "Preciso exportar isso para apresentar ao secretário de educação"
-
-### Solução AS-IS
+### Como funciona hoje (AS-IS)
 
 Dashboard de auditoria com:
 - **Visão Consolidada** de todos os alunos da rede com sua fase de escrita atual

@@ -9,23 +9,11 @@
 
 ## 1. Visão Geral
 
-### Problema
+### O que é
 
-Estudantes precisam de uma experiência gamificada e personalizada para engajamento com o conteúdo educacional, mas enfrentam dificuldades como: falta de clareza sobre quais atividades fazer primeiro, ausência de senso de progressão e conquista ao longo do aprendizado, dificuldade para manter motivação em tarefas repetitivas, falta de feedback imediato sobre desempenho, ausência de recompensas tangíveis por esforço e dedicação, dificuldade para identificar pontos fortes e fracos, falta de personalização baseada em ritmo individual de aprendizado, ausência de elementos sociais (colaboração, competição saudável), dificuldade para retomar estudos após pausas, e falta de visualização clara de objetivos e metas.
+O **Learning Path** (Caminho de Aprendizado) é o sistema gamificado da plataforma que transforma a jornada educacional do estudante em uma experiência similar a jogos, com progressão clara, recompensas e reconhecimento. Implementado para aumentar o engajamento e motivação dos alunos através de elementos de game design aplicados ao contexto educacional.
 
-**Dores principais**:
-- Estudante não sabe "o que fazer agora" ao entrar na plataforma
-- Ausência de indicadores visuais de progresso (barras, estrelas, níveis)
-- Tarefas são monótonas sem recompensas ou reconhecimento
-- Feedback de desempenho demora a chegar (espera correção do professor)
-- Não há sistema de pontos, badges ou conquistas
-- Dificuldade para identificar habilidades que precisam melhorar
-- Conteúdo não se adapta ao ritmo individual (muito fácil ou muito difícil)
-- Falta de interação social (rankings, desafios entre colegas)
-- Difícil retomar de onde parou após dias sem acessar
-- Objetivos de longo prazo (trimestre, ano) não são claros
-
-### Solução AS-IS
+### Como funciona hoje (AS-IS)
 
 Trilha de aprendizado gamificada com:
 - **Mapa de Missões Visual** mostrando sequência de atividades com status (bloqueado, disponível, em progresso, concluído)
