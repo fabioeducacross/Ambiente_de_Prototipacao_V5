@@ -28,10 +28,10 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 
 ### Gestão
 
-5. **ADMIN-005: Network Management** ⏳
+5. **[ADMIN-005: Network Management](./network-management.md)** ✅
    - Configuração de rede de ensino
    - Gestão de instituições
-   - Status: ⏳ Pendente
+   - Status: ✅ Documentado (Sprint 3)
 
 6. **ADMIN-006: User Management** ⏳
    - Gerenciamento de usuários
@@ -41,11 +41,11 @@ Documentação das 6 jornadas do contexto admin/coordenação.
 ## Estatísticas
 
 - **Total de Jornadas**: 6
-- **Documentadas**: 4
+- **Documentadas**: 5
 - **Em Documentação**: 0
-- **Pendentes**: 2
+- **Pendentes**: 1
 
-**Progresso**: 67% completo (4/6)
+**Progresso**: 83% completo (5/6)
 
 ---
 
