@@ -25,36 +25,7 @@ Biblioteca de jogos educacionais com:
 - **Downloads para Offline** em jogos compatíveis
 - **Relatórios para Professores** sobre engajamento e conceitos dominados
 
-## 2. Rotas e Navegação
-
-```typescript
-// src/router/student-routes.js
-{
-  path: '/student/library/games',
-  name: 'student-games',
-  component: () => import('@/views/pages/student-context/library/Games.vue'),
-  meta: {
-    resource: 'Student',
-    action: 'read',
-    breadcrumb: [
-      { text: 'Início', to: '/student' },
-      { text: 'Biblioteca', to: '/student/library' },
-      { text: 'Jogos', active: true }
-    ]
-  }
-},
-{
-  path: '/student/library/games/:gameId',
-  name: 'student-game-play',
-  component: () => import('@/views/pages/student-context/library/GamePlay.vue'),
-  meta: {
-    resource: 'Student',
-    action: 'read'
-  }
-}
-```
-
-## 3. Fluxo de Usuário
+## 2. Jornada do Usuário (AS-IS)
 
 ```mermaid
 graph TD
@@ -108,7 +79,7 @@ graph TD
     class FilteredResults,ShowProgress,EarnRewards reward
 ```
 
-## 4. Screenshots AS-IS
+## 3. Telas-chave (AS-IS)
 
 ### Biblioteca de Jogos (Grid)
 
@@ -134,139 +105,22 @@ graph TD
 
 **Elementos**: Lista de conquistas do jogo, XP ganho, progresso geral
 
-## 5. Regras de Negócio
+## 4. Regras e comportamentos visíveis (AS-IS)
 
-### Catálogo de Jogos
+- **Catálogo curado**: jogos classificados por disciplina, conteúdo, gênero e faixa etária.
+- **Progressão e conquistas**: XP por fase concluída, badges por feitos especiais (pontuação perfeita, velocidade, primeira vez no jogo).
+- **Histórico e retomada**: salva progresso e permite continuar de onde parou.
+- **Recomendações**: sugere jogos alinhados às lacunas do aluno e ao currículo.
+- **Modo offline**: alguns jogos podem ser baixados para uso sem internet, com sincronização posterior.
+- **Multiplayer**: jogos selecionados suportam partidas locais/online com ranking do jogo.
 
-```typescript
-// Categorias de jogos disponíveis
-const GAME_CATEGORIES = {
-  PUZZLE: 'Quebra-cabeças',
-  QUIZ: 'Quiz',
-  ADVENTURE: 'Aventura',
-  STRATEGY: 'Estratégia',
-  SIMULATION: 'Simulação',
-  ARCADE: 'Arcade Educativo'
-}
+## 5. Valor para o aluno (AS-IS)
 
-// Níveis de dificuldade
-const DIFFICULTY_LEVELS = {
-  EASY: 'Fácil (1º-3º ano)',
-  MEDIUM: 'Médio (4º-6º ano)',
-  HARD: 'Difícil (7º-9º ano)',
-  EXPERT: 'Avançado (Ensino Médio)'
-}
-```
+- Aprender conteúdos curriculares de forma lúdica e variada.
+- Visualizar progresso dentro de cada jogo (fases, pontuação) e no perfil (XP e badges).
+- Competir ou cooperar de maneira leve, mantendo engajamento.
 
-### Sistema de XP e Conquistas
-
-```typescript
-// XP ganho por jogo
-const GAME_XP_RULES = {
-  completeLevel: 20,        // Completar uma fase
-  perfectScore: 10,         // Pontuação perfeita em fase
-  firstTimePlay: 15,        // Primeira vez jogando esse jogo
-  speedBonus: 5,            // Completar fase rapidamente
-  noHints: 10               // Completar sem usar dicas
-}
-
-// Conquistas específicas de jogos
-const GAME_ACHIEVEMENTS = [
-  {
-    id: 'math-master',
-    game: 'fraction-quest',
-    condition: 'Complete todas 10 fases',
-    xp: 100,
-    badge: '🎓'
-  },
-  {
-    id: 'speed-reader',
-    game: 'reading-race',
-    condition: 'Leia 1000 palavras/min',
-    xp: 50,
-    badge: '⚡'
-  }
-]
-```
-
-### Integração com Currículo
-
-```typescript
-// Mapeamento jogo → conceitos BNCC
-const GAME_CURRICULUM_MAP = {
-  'fraction-quest': {
-    subject: 'Matemática',
-    concepts: [
-      'EF06MA07', // Frações
-      'EF06MA08', // Operações com frações
-      'EF06MA09'  // Representação decimal
-    ],
-    skills: ['raciocínio lógico', 'resolução de problemas']
-  },
-  'reading-race': {
-    subject: 'Português',
-    concepts: [
-      'EF67LP20', // Compreensão leitora
-      'EF67LP21'  // Vocabulário
-    ],
-    skills: ['velocidade de leitura', 'interpretação']
-  }
-}
-```
-
-## 6. API Endpoints
-
-### GET /api/student/library/games
-
-**Response**:
-```json
-{
-  "games": [
-    {
-      "id": "fraction-quest",
-      "title": "Aventura das Frações",
-      "thumbnail": "https://cdn.educacross.com/games/fraction-quest.jpg",
-      "category": "ADVENTURE",
-      "subject": "Matemática",
-      "difficulty": "MEDIUM",
-      "avgPlayTime": "15 min",
-      "rating": 4.7,
-      "concepts": ["Frações", "Operações"],
-      "progress": {
-        "played": true,
-        "levelsCompleted": 3,
-        "totalLevels": 10,
-        "highScore": 850
-      }
-    }
-  ]
-}
-```
-
-### POST /api/student/game/progress
-
-**Request**:
-```json
-{
-  "gameId": "fraction-quest",
-  "level": 4,
-  "score": 950,
-  "timeSpent": 180,
-  "hintsUsed": 1
-}
-```
-
-**Response**:
-```json
-{
-  "xpEarned": 25,
-  "levelUnlocked": 5,
-  "achievementsEarned": ["speed-bonus"],
-  "conceptsMastered": ["EF06MA07"]
-}
-```
-
-## 7. Melhorias TO-BE
+## 6. Melhorias TO-BE
 
 1. **Modo Competitivo Online** 🏆
    - Torneios semanais entre alunos da rede
@@ -293,11 +147,10 @@ const GAME_CURRICULUM_MAP = {
    - Battle Pass estilo Fortnite
    - Eventos especiais sazonais
 
-## 8. Referências
+## 7. Referências
 
 - [Design System - DSGameCard](https://storybook.educacross.com/?path=/story/cards-gamecard)
 - [Catálogo de Jogos HTML5 Educacionais](https://kahoot.com/)
-- [API Docs - Library Games](https://apieducacrossmanager-test.azurewebsites.net/index.html)
 - [Learning Path (jornada relacionada)](./learning-path.md)
 
 ---

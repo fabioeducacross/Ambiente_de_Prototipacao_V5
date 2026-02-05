@@ -671,48 +671,6 @@ watch([subject], () => {
 
 ---
 
-## Melhorias Propostas (TO-BE)
-
-### 🎯 Problema 1: Interface Sobrecarregada
-**Impacto**: Professores têm dificuldade para encontrar eventos relevantes
-
-**Proposta**:
-- ✅ Filtros mais visíveis (status, matéria, data)
-- ✅ View em lista (compacta) além de cards
-- ✅ Busca por nome do evento
-- ✅ Ordenação (data, nome, participação)
-
-### 🎯 Problema 2: Sem Preview de Questões
-**Impacto**: Professores habilitam eventos sem saber o conteúdo
-
-**Proposta**:
-- ✅ Botão "Preview" no card do evento
-- ✅ Modal com preview das primeiras 5 questões
-- ✅ Indicador de temas/habilidades abordados
-- ✅ Nível de dificuldade estimado
-
-### 🎯 Problema 3: Acompanhamento Limitado
-**Impacto**: Professores não conseguem intervir durante o evento
-
-**Proposta**:
-- ✅ Dashboard ao vivo de participação
-- ✅ Alertas: "5 alunos não iniciaram (faltam 2 dias)"
-- ✅ Botão "Enviar Lembrete" para alunos pendentes
-- ✅ Comparativo de desempenho entre turmas
-
-### 🎯 Problema 4: Relatórios Pobres
-**Impacto**: Dificulta análise pós-evento e decisões pedagógicas
-
-**Proposta**:
-- ✅ Gráfico de distribuição de notas
-- ✅ Análise por habilidade/tema
-- ✅ Questões com maior taxa de erro
-- ✅ Exportar em múltiplos formatos (PDF, Excel, CSV)
-
-**Protótipo**: [Veja o protótipo TO-BE](/prototypes/events-v2)
-
----
-
 ## Métricas e KPIs
 
 ### Métricas de Uso
@@ -726,12 +684,6 @@ watch([subject], () => {
 - Taxa de participação no prazo (% que completam antes do deadline)
 - Tempo médio de conclusão
 - Taxa de visualização de relatórios pós-evento
-
-### Metas (TO-BE)
-- ⬆️ Taxa de habilitação: de 40% para 70%
-- ⬆️ Taxa de conclusão: de 65% para 85%
-- ⬆️ Participação no prazo: de 55% para 80%
-- ⬆️ Visualização de relatórios: de 30% para 60%
 
 ---
 
@@ -820,7 +772,7 @@ describe('Events - Fluxo de Habilitação', () => {
 | Versão | Data | Mudanças | Autor |
 |--------|------|----------|-------|
 | AS-IS v1.0 | 2026-02-03 | Documentação inicial Sprint 1 | Equipe Docs |
-| TO-BE Planned | 2026-03-15 | Protótipo v2 com dashboard ao vivo | Equipe Product |
+| AS-IS v1.1 | 2026-02-05 | Removida seção TO-BE (aguardando discovery) | Equipe Docs |
 
 ---
 
@@ -828,6 +780,5 @@ describe('Events - Fluxo de Habilitação', () => {
 
 - [Design System - Event Card](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - [API Docs - Events Endpoint](https://apieducacrossmanager-test.azurewebsites.net/index.html)
-- [Protótipo TO-BE - Events v2](/prototypes/events-v2)
 - [Architecture - DDD Pattern](/architecture/intro#ddd-page-structure-pattern)
 - [PROF-003: Custom Missions](/journeys/teacher/custom-missions)

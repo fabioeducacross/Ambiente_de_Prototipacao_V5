@@ -3,149 +3,104 @@ sidebar_position: 1
 title: Catálogo de Jornadas
 ---
 
-# Catálogo de Jornadas Educacross
+# Catálogo de Jornadas
 
-Documentação completa de todas as jornadas de usuário mapeadas no sistema Educacross Front Office.
+Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos perfis de usuários definidos na arquitetura.
 
-## 📊 Visão Geral
+---
 
-O sistema Educacross possui **50+ jornadas** documentadas, organizadas por contexto de usuário:
+## 📊 Resumo
 
-- **Professor Context** (Teacher Context)
-- **Aluno Context** (Student Context)
-- **Admin Context** (Gestor/Coordenador)
-- **Network Manager Context** (Gestor de Rede)
-- **Auditor Context**
-- **Responsável Context** (Pais/Responsáveis)
+| Perfil | Total | Documentadas |
+|--------|-------|--------------|
+| [👨‍🏫 Professor](#-professor) | 11 | 11 |
+| [👨‍🎓 Aluno](#-aluno) | 3 | 1 |
+| [🛠️ Administrador](#-administrador) | 1 | 1 |
+| [👩‍🏫 Coordenador](#-coordenador) | 3 | 3 |
+| [👔 Diretor](#-diretor) | 1 | 1 |
+| [🌐 Gestor de Rede](#-gestor-de-rede) | 1 | 1 |
+| [🔍 Auditor](#-auditor) | 1 | 1 |
 
-## 🎯 Objetivos da Documentação
+---
 
-Para cada jornada, documentamos:
+## 👨‍🏫 Professor
 
-1. **Estado Atual (AS-IS)**: Como funciona hoje no educacross-frontoffice
-2. **Pontos de Dor**: Problemas identificados na experiência atual
-3. **Proposta (TO-BE)**: Como deveria funcionar no futuro
-4. **Protótipo**: Implementação funcional da solução proposta
+Jornadas focadas na gestão de sala de aula e ensino.
 
-## 📂 Estrutura das Jornadas
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| PROF-001 | Acesso e Login | Acesso | [Ver Detalhe](./teacher/login-flow) |
+| PROF-002 | Gestão de Missões | Ensino | [Ver Detalhe](./teacher/mission-management) |
+| PROF-003 | Relatórios de Turma | Acompanhamento | [Ver Detalhe](./teacher/class-reports) |
+| PROF-004 | Gestão de Eventos | Ensino | [Ver Detalhe](./teacher/events-management) |
+| PROF-005 | Criar Missão do Zero | Ensino | [Ver Detalhe](./teacher/create-mission-scratch) |
+| PROF-006 | Consultar Livros | Conteúdo | [Ver Detalhe](./teacher/book-consultation) |
+| PROF-007 | Meus Jogos (Avaliar/Jogar) | Conteúdo | [Ver Detalhe](./teacher/my-games) |
+| PROF-008 | Relatório de Desempenho | Acompanhamento | [Ver Detalhe](./teacher/performance-report) |
+| PROF-009 | Relatório de Alunos | Acompanhamento | [Ver Detalhe](./teacher/student-report) |
+| PROF-010 | Relatório de Habilidades | Acompanhamento | [Ver Detalhe](./teacher/skills-report) |
+| PROF-011 | Lista de Alunos | Gestão | [Ver Detalhe](./teacher/students-list) |
 
-### Navegação e Descoberta
-- Acesso ao sistema (login/autenticação)
-- Dashboard inicial por contexto
-- Navegação entre módulos
+---
 
-### Professor Context
+## 👨‍🎓 Aluno
 
-#### Sistema Educacional
-- Visualizar livros do sistema educacional
-- Acessar missões do livro
-- Visualizar questões e exercícios
-- Acompanhar progresso dos alunos
+Jornadas do estudante na plataforma gamificada.
 
-#### Avaliações
-- Criar avaliações personalizadas
-- Aplicar avaliações para turmas
-- Corrigir avaliações discursivas
-- Visualizar resultados e relatórios
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| STD-001 | Realizar Missão | Engajamento | [Ver Detalhe](./student/mission-execution) |
+| STD-002 | Personalizar Avatar | Engajamento | (Pendente) |
+| STD-003 | Ver Conquistas | Engajamento | (Pendente) |
 
-#### Gestão de Turma
-- Visualizar lista de alunos
-- Acompanhar frequência
-- Gerenciar atividades e tarefas
+---
 
-### Aluno Context
+## 🛠️ Administrador
 
-#### Aprendizagem
-- Acessar missões do sistema educacional
-- Realizar exercícios e questões
-- Responder avaliações
-- Visualizar feedback do professor
+Jornadas técnicas e operacionais da escola.
 
-#### Progresso
-- Acompanhar pontuação e ranking
-- Ver certificados e conquistas
-- Consultar desempenho por matéria
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| ADM-001 | Gestão de Usuários e Acessos | Operacional | [Ver Detalhe](./administrator/user-management) |
 
-### Admin Context
+---
 
-#### Gestão Escolar
-- Gerenciar professores e turmas
-- Configurar períodos letivos
-- Acompanhar indicadores da escola
+## 👩‍🏫 Coordenador
 
-#### Relatórios
-- Relatórios de desempenho geral
-- Análise de uso da plataforma
-- Indicadores de engajamento
+Jornadas de acompanhamento pedagógico.
 
-### Network Manager Context
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| COORD-001 | Relatório de Missões | Pedagógico | [Ver Detalhe](./coordinator/mission-reports) |
+| COORD-002 | Relatório de Evidências | Pedagógico | [Ver Detalhe](./coordinator/evidence-report) |
+| COORD-003 | Relatório de Competências | Pedagógico | [Ver Detalhe](./coordinator/skill-report) |
 
-#### Visão de Rede
-- Dashboard consolidado de múltiplas escolas
-- Comparativo entre instituições
-- Indicadores de rede
+---
 
-#### Gestão Multi-escola
-- Configuração em lote
-- Relatórios consolidados
-- Gestão de acessos
+## 👔 Diretor
 
-## 📝 Template de Jornada
+Jornadas de gestão estratégica e macro-indicadores.
 
-Todas as jornadas seguem o [template padronizado](/docs/templates/journey-template) com:
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| DIR-001 | Relatório de Acesso Escolar | Estratégico | [Ver Detalhe](./director/student-access-report) |
 
-- Informações básicas (título, contexto, persona)
-- Fluxograma AS-IS
-- Lista de pontos de dor
-- Proposta de solução TO-BE
-- Mockups/Wireframes
-- Critérios de aceite
-- Referências ao protótipo
+---
 
-## 🗂️ Índice de Jornadas (Em Construção)
+## 🌐 Gestor de Rede
 
-:::info
-Esta seção será populada gradualmente com a documentação de cada jornada.
-Use o template para documentar novas jornadas.
-:::
+Jornadas de gestão multi-escola.
 
-### Jornadas Prioritárias
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| REDE-001 | Gestão de Rede | Estratégico | [Ver Detalhe](./network-manager/network-management) |
 
-Estas jornadas serão as primeiras a serem documentadas e prototipadas:
+---
 
-1. **Login e Autenticação** - Acesso inicial ao sistema
-2. **Dashboard Professor** - Visão geral do professor
-3. **Livros do Sistema Educacional** - Navegação nos conteúdos
-4. **Missões e Exercícios** - Fluxo de realização de atividades
-5. **Criar Avaliação** - Processo de criação de provas
+## 🔍 Auditor
 
-### Como Documentar uma Nova Jornada
+Perfil especializado em verificação de integridade/qualidade.
 
-1. Copie o [template de jornada](/docs/templates/journey-template)
-2. Crie novo arquivo em `docs/journeys/[contexto]/[nome-jornada].md`
-3. Preencha todas as seções do template
-4. Adicione link nesta página índice
-5. Crie protótipo correspondente em `src/views/`
-
-## 🔗 Recursos Relacionados
-
-- [Template de Jornada](/docs/templates/journey-template) - Use para documentar novas jornadas
-- [Protótipos](/docs/prototypes) - Veja implementações das soluções
-- [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy) - Componentes disponíveis
-- [Referência educacross-frontoffice](https://github.com/fabioeducacross/educacross-frontoffice) - Sistema original
-
-## 📈 Status da Documentação
-
-| Contexto | Jornadas Identificadas | Jornadas Documentadas | Protótipos Criados |
-|----------|------------------------|------------------------|---------------------|
-| Professor | 15+ | 0 | 0 |
-| Aluno | 10+ | 0 | 0 |
-| Admin | 12+ | 0 | 0 |
-| Network Manager | 8+ | 0 | 0 |
-| Auditor | 5+ | 0 | 0 |
-| Responsável | 3+ | 0 | 0 |
-| **TOTAL** | **50+** | **0** | **0** |
-
-:::tip
-A documentação está sendo construída iterativamente. Contribua documentando jornadas usando o template!
-:::
+| ID | Jornada | Categoria | Link |
+|----|---------|-----------|------|
+| AUD-001 | Auditoria de Conteúdo | Qualidade | (Consulte documentação específica) |
