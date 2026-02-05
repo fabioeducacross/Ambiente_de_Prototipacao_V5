@@ -4,8 +4,20 @@
  * work well for content-centric websites.
  */
 
+/* Import Montserrat Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 /* Vuexy Design System Color Palette */
 :root {
+  /* Typography */
+  --ifm-font-family-base: 'Montserrat', Helvetica, Arial, sans-serif;
+  --ifm-font-size-base: 18px; /* Increased from 16px default */
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-font-weight: 600;
+
+  /* Code Blocks */
+  --ifm-code-font-size: 95%;
+
   /* Primary - Roxo Vuexy */
   --ifm-color-primary: #7367F0;
   --ifm-color-primary-dark: #5951E8;
