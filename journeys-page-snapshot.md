@@ -1,0 +1,401 @@
+- generic [ref=e2]:
+  - region "Pular para o conteúdo principal":
+    - link "Pular para o conteúdo principal" [ref=e3] [cursor=pointer]:
+      - /url: "#__docusaurus_skipToContent_fallback"
+  - navigation "Navegação principal" [ref=e4]:
+    - generic [ref=e6]:
+      - button "Alternar painel de navegação" [ref=e7] [cursor=pointer]:
+        - img [ref=e8]
+      - link "Educacross Logo Educacross Prototipação" [ref=e10] [cursor=pointer]:
+        - /url: /Ambiente_de_Prototipacao_V5/
+        - img "Educacross Logo" [ref=e12]
+        - generic [ref=e13]: Educacross Prototipação
+  - main [ref=e17]:
+    - generic [ref=e21]:
+      - article [ref=e22]:
+        - navigation "Trilha" [ref=e23]:
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - link "Página Inicial" [ref=e26] [cursor=pointer]:
+                - /url: /Ambiente_de_Prototipacao_V5/
+                - img [ref=e27]
+            - listitem [ref=e29]:
+              - generic [ref=e30]: Jornadas
+            - listitem [ref=e31]:
+              - generic [ref=e32]: Catálogo de Jornadas
+        - button "Nesta página" [ref=e34] [cursor=pointer]
+        - generic [ref=e35]:
+          - heading "Catálogo de Jornadas" [level=1] [ref=e37]
+          - paragraph [ref=e38]: Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos perfis de usuários definidos na arquitetura.
+          - separator [ref=e39]
+          - heading "📊 ResumoLink direto para 📊 Resumo" [level=2] [ref=e40]:
+            - text: 📊 Resumo
+            - link "Link direto para 📊 Resumo" [ref=e41] [cursor=pointer]:
+              - /url: "#-resumo"
+              - text: "#"
+          - table [ref=e42]:
+            - rowgroup [ref=e43]:
+              - row "Perfil Total Documentadas" [ref=e44]:
+                - columnheader "Perfil" [ref=e45]
+                - columnheader "Total" [ref=e46]
+                - columnheader "Documentadas" [ref=e47]
+            - rowgroup [ref=e48]:
+              - row "Professor Professor 11 11" [ref=e49]:
+                - cell "Professor Professor" [ref=e50]:
+                  - link "Professor Professor" [ref=e51] [cursor=pointer]:
+                    - /url: "#professor"
+                    - img "Professor" [ref=e52]
+                    - text: Professor
+                - cell "11" [ref=e53]
+                - cell "11" [ref=e54]
+              - row "Aluno Aluno 3 1" [ref=e55]:
+                - cell "Aluno Aluno" [ref=e56]:
+                  - link "Aluno Aluno" [ref=e57] [cursor=pointer]:
+                    - /url: "#aluno"
+                    - img "Aluno" [ref=e58]
+                    - text: Aluno
+                - cell "3" [ref=e59]
+                - cell "1" [ref=e60]
+              - row "Administrador Administrador 1 1" [ref=e61]:
+                - cell "Administrador Administrador" [ref=e62]:
+                  - link "Administrador Administrador" [ref=e63] [cursor=pointer]:
+                    - /url: "#administrador"
+                    - img "Administrador" [ref=e64]
+                    - text: Administrador
+                - cell "1" [ref=e65]
+                - cell "1" [ref=e66]
+              - row "Coordenador Coordenador 3 3" [ref=e67]:
+                - cell "Coordenador Coordenador" [ref=e68]:
+                  - link "Coordenador Coordenador" [ref=e69] [cursor=pointer]:
+                    - /url: "#coordenador"
+                    - img "Coordenador" [ref=e70]
+                    - text: Coordenador
+                - cell "3" [ref=e71]
+                - cell "3" [ref=e72]
+              - row "Diretor Diretor 1 1" [ref=e73]:
+                - cell "Diretor Diretor" [ref=e74]:
+                  - link "Diretor Diretor" [ref=e75] [cursor=pointer]:
+                    - /url: "#diretor"
+                    - img "Diretor" [ref=e76]
+                    - text: Diretor
+                - cell "1" [ref=e77]
+                - cell "1" [ref=e78]
+              - row "Gestor de Rede Gestor de Rede 1 1" [ref=e79]:
+                - cell "Gestor de Rede Gestor de Rede" [ref=e80]:
+                  - link "Gestor de Rede Gestor de Rede" [ref=e81] [cursor=pointer]:
+                    - /url: "#gestor-de-rede"
+                    - img "Gestor de Rede" [ref=e82]
+                    - text: Gestor de Rede
+                - cell "1" [ref=e83]
+                - cell "1" [ref=e84]
+              - row "Auditor Auditor 1 1" [ref=e85]:
+                - cell "Auditor Auditor" [ref=e86]:
+                  - link "Auditor Auditor" [ref=e87] [cursor=pointer]:
+                    - /url: "#auditor"
+                    - img "Auditor" [ref=e88]
+                    - text: Auditor
+                - cell "1" [ref=e89]
+                - cell "1" [ref=e90]
+          - separator [ref=e91]
+          - heading "Professor ProfessorLink direto para -professor" [level=2] [ref=e92]:
+            - img "Professor" [ref=e93]
+            - text: Professor
+            - link "Link direto para -professor" [ref=e94] [cursor=pointer]:
+              - /url: "#-professor"
+              - text: "#"
+          - paragraph [ref=e95]: Jornadas focadas na gestão de sala de aula e ensino.
+          - table [ref=e96]:
+            - rowgroup [ref=e97]:
+              - row "ID Jornada Categoria Link" [ref=e98]:
+                - columnheader "ID" [ref=e99]
+                - columnheader "Jornada" [ref=e100]
+                - columnheader "Categoria" [ref=e101]
+                - columnheader "Link" [ref=e102]
+            - rowgroup [ref=e103]:
+              - row "PROF-001 Acesso e Login Acesso Ver Detalhe" [ref=e104]:
+                - cell "PROF-001" [ref=e105]
+                - cell "Acesso e Login" [ref=e106]
+                - cell "Acesso" [ref=e107]
+                - cell "Ver Detalhe" [ref=e108]:
+                  - link "Ver Detalhe" [ref=e109] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/login-flow
+              - row "PROF-002 Gestão de Missões Ensino Ver Detalhe" [ref=e110]:
+                - cell "PROF-002" [ref=e111]
+                - cell "Gestão de Missões" [ref=e112]
+                - cell "Ensino" [ref=e113]
+                - cell "Ver Detalhe" [ref=e114]:
+                  - link "Ver Detalhe" [ref=e115] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/mission-management
+              - row "PROF-003 Relatórios de Turma Acompanhamento Ver Detalhe" [ref=e116]:
+                - cell "PROF-003" [ref=e117]
+                - cell "Relatórios de Turma" [ref=e118]
+                - cell "Acompanhamento" [ref=e119]
+                - cell "Ver Detalhe" [ref=e120]:
+                  - link "Ver Detalhe" [ref=e121] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/class-reports
+              - row "PROF-004 Gestão de Eventos Ensino Ver Detalhe" [ref=e122]:
+                - cell "PROF-004" [ref=e123]
+                - cell "Gestão de Eventos" [ref=e124]
+                - cell "Ensino" [ref=e125]
+                - cell "Ver Detalhe" [ref=e126]:
+                  - link "Ver Detalhe" [ref=e127] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/events-management
+              - row "PROF-005 Criar Missão do Zero Ensino Ver Detalhe" [ref=e128]:
+                - cell "PROF-005" [ref=e129]
+                - cell "Criar Missão do Zero" [ref=e130]
+                - cell "Ensino" [ref=e131]
+                - cell "Ver Detalhe" [ref=e132]:
+                  - link "Ver Detalhe" [ref=e133] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/create-mission-scratch
+              - row "PROF-006 Consultar Livros Conteúdo Ver Detalhe" [ref=e134]:
+                - cell "PROF-006" [ref=e135]
+                - cell "Consultar Livros" [ref=e136]
+                - cell "Conteúdo" [ref=e137]
+                - cell "Ver Detalhe" [ref=e138]:
+                  - link "Ver Detalhe" [ref=e139] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/book-consultation
+              - row "PROF-007 Meus Jogos (Avaliar/Jogar) Conteúdo Ver Detalhe" [ref=e140]:
+                - cell "PROF-007" [ref=e141]
+                - cell "Meus Jogos (Avaliar/Jogar)" [ref=e142]
+                - cell "Conteúdo" [ref=e143]
+                - cell "Ver Detalhe" [ref=e144]:
+                  - link "Ver Detalhe" [ref=e145] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/my-games
+              - row "PROF-008 Relatório de Desempenho Acompanhamento Ver Detalhe" [ref=e146]:
+                - cell "PROF-008" [ref=e147]
+                - cell "Relatório de Desempenho" [ref=e148]
+                - cell "Acompanhamento" [ref=e149]
+                - cell "Ver Detalhe" [ref=e150]:
+                  - link "Ver Detalhe" [ref=e151] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/performance-report
+              - row "PROF-009 Relatório de Alunos Acompanhamento Ver Detalhe" [ref=e152]:
+                - cell "PROF-009" [ref=e153]
+                - cell "Relatório de Alunos" [ref=e154]
+                - cell "Acompanhamento" [ref=e155]
+                - cell "Ver Detalhe" [ref=e156]:
+                  - link "Ver Detalhe" [ref=e157] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/student-report
+              - row "PROF-010 Relatório de Habilidades Acompanhamento Ver Detalhe" [ref=e158]:
+                - cell "PROF-010" [ref=e159]
+                - cell "Relatório de Habilidades" [ref=e160]
+                - cell "Acompanhamento" [ref=e161]
+                - cell "Ver Detalhe" [ref=e162]:
+                  - link "Ver Detalhe" [ref=e163] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/skills-report
+              - row "PROF-011 Lista de Alunos Gestão Ver Detalhe" [ref=e164]:
+                - cell "PROF-011" [ref=e165]
+                - cell "Lista de Alunos" [ref=e166]
+                - cell "Gestão" [ref=e167]
+                - cell "Ver Detalhe" [ref=e168]:
+                  - link "Ver Detalhe" [ref=e169] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/teacher/students-list
+          - separator [ref=e170]
+          - heading "Aluno AlunoLink direto para -aluno" [level=2] [ref=e171]:
+            - img "Aluno" [ref=e172]
+            - text: Aluno
+            - link "Link direto para -aluno" [ref=e173] [cursor=pointer]:
+              - /url: "#-aluno"
+              - text: "#"
+          - paragraph [ref=e174]: Jornadas do estudante na plataforma gamificada.
+          - table [ref=e175]:
+            - rowgroup [ref=e176]:
+              - row "ID Jornada Categoria Link" [ref=e177]:
+                - columnheader "ID" [ref=e178]
+                - columnheader "Jornada" [ref=e179]
+                - columnheader "Categoria" [ref=e180]
+                - columnheader "Link" [ref=e181]
+            - rowgroup [ref=e182]:
+              - row "STD-001 Realizar Missão Engajamento Ver Detalhe" [ref=e183]:
+                - cell "STD-001" [ref=e184]
+                - cell "Realizar Missão" [ref=e185]
+                - cell "Engajamento" [ref=e186]
+                - cell "Ver Detalhe" [ref=e187]:
+                  - link "Ver Detalhe" [ref=e188] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/student/mission-execution
+              - row "STD-002 Personalizar Avatar Engajamento (Pendente)" [ref=e189]:
+                - cell "STD-002" [ref=e190]
+                - cell "Personalizar Avatar" [ref=e191]
+                - cell "Engajamento" [ref=e192]
+                - cell "(Pendente)" [ref=e193]
+              - row "STD-003 Ver Conquistas Engajamento (Pendente)" [ref=e194]:
+                - cell "STD-003" [ref=e195]
+                - cell "Ver Conquistas" [ref=e196]
+                - cell "Engajamento" [ref=e197]
+                - cell "(Pendente)" [ref=e198]
+          - separator [ref=e199]
+          - heading "Administrador AdministradorLink direto para -administrador" [level=2] [ref=e200]:
+            - img "Administrador" [ref=e201]
+            - text: Administrador
+            - link "Link direto para -administrador" [ref=e202] [cursor=pointer]:
+              - /url: "#-administrador"
+              - text: "#"
+          - paragraph [ref=e203]: Jornadas técnicas e operacionais da escola.
+          - table [ref=e204]:
+            - rowgroup [ref=e205]:
+              - row "ID Jornada Categoria Link" [ref=e206]:
+                - columnheader "ID" [ref=e207]
+                - columnheader "Jornada" [ref=e208]
+                - columnheader "Categoria" [ref=e209]
+                - columnheader "Link" [ref=e210]
+            - rowgroup [ref=e211]:
+              - row "ADM-001 Gestão de Usuários e Acessos Operacional Ver Detalhe" [ref=e212]:
+                - cell "ADM-001" [ref=e213]
+                - cell "Gestão de Usuários e Acessos" [ref=e214]
+                - cell "Operacional" [ref=e215]
+                - cell "Ver Detalhe" [ref=e216]:
+                  - link "Ver Detalhe" [ref=e217] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/administrator/user-management
+          - separator [ref=e218]
+          - heading "Coordenador CoordenadorLink direto para -coordenador" [level=2] [ref=e219]:
+            - img "Coordenador" [ref=e220]
+            - text: Coordenador
+            - link "Link direto para -coordenador" [ref=e221] [cursor=pointer]:
+              - /url: "#-coordenador"
+              - text: "#"
+          - paragraph [ref=e222]: Jornadas de acompanhamento pedagógico.
+          - table [ref=e223]:
+            - rowgroup [ref=e224]:
+              - row "ID Jornada Categoria Link" [ref=e225]:
+                - columnheader "ID" [ref=e226]
+                - columnheader "Jornada" [ref=e227]
+                - columnheader "Categoria" [ref=e228]
+                - columnheader "Link" [ref=e229]
+            - rowgroup [ref=e230]:
+              - row "COORD-001 Relatório de Missões Pedagógico Ver Detalhe" [ref=e231]:
+                - cell "COORD-001" [ref=e232]
+                - cell "Relatório de Missões" [ref=e233]
+                - cell "Pedagógico" [ref=e234]
+                - cell "Ver Detalhe" [ref=e235]:
+                  - link "Ver Detalhe" [ref=e236] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/coordinator/mission-reports
+              - row "COORD-002 Relatório de Evidências Pedagógico Ver Detalhe" [ref=e237]:
+                - cell "COORD-002" [ref=e238]
+                - cell "Relatório de Evidências" [ref=e239]
+                - cell "Pedagógico" [ref=e240]
+                - cell "Ver Detalhe" [ref=e241]:
+                  - link "Ver Detalhe" [ref=e242] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/coordinator/evidence-report
+              - row "COORD-003 Relatório de Competências Pedagógico Ver Detalhe" [ref=e243]:
+                - cell "COORD-003" [ref=e244]
+                - cell "Relatório de Competências" [ref=e245]
+                - cell "Pedagógico" [ref=e246]
+                - cell "Ver Detalhe" [ref=e247]:
+                  - link "Ver Detalhe" [ref=e248] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/coordinator/skill-report
+          - separator [ref=e249]
+          - heading "Diretor DiretorLink direto para -diretor" [level=2] [ref=e250]:
+            - img "Diretor" [ref=e251]
+            - text: Diretor
+            - link "Link direto para -diretor" [ref=e252] [cursor=pointer]:
+              - /url: "#-diretor"
+              - text: "#"
+          - paragraph [ref=e253]: Jornadas de gestão estratégica e macro-indicadores.
+          - table [ref=e254]:
+            - rowgroup [ref=e255]:
+              - row "ID Jornada Categoria Link" [ref=e256]:
+                - columnheader "ID" [ref=e257]
+                - columnheader "Jornada" [ref=e258]
+                - columnheader "Categoria" [ref=e259]
+                - columnheader "Link" [ref=e260]
+            - rowgroup [ref=e261]:
+              - row "DIR-001 Relatório de Acesso Escolar Estratégico Ver Detalhe" [ref=e262]:
+                - cell "DIR-001" [ref=e263]
+                - cell "Relatório de Acesso Escolar" [ref=e264]
+                - cell "Estratégico" [ref=e265]
+                - cell "Ver Detalhe" [ref=e266]:
+                  - link "Ver Detalhe" [ref=e267] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/director/student-access-report
+          - separator [ref=e268]
+          - heading "Gestor de Rede Gestor de RedeLink direto para -gestor-de-rede" [level=2] [ref=e269]:
+            - img "Gestor de Rede" [ref=e270]
+            - text: Gestor de Rede
+            - link "Link direto para -gestor-de-rede" [ref=e271] [cursor=pointer]:
+              - /url: "#-gestor-de-rede"
+              - text: "#"
+          - paragraph [ref=e272]: Jornadas de gestão multi-escola.
+          - table [ref=e273]:
+            - rowgroup [ref=e274]:
+              - row "ID Jornada Categoria Link" [ref=e275]:
+                - columnheader "ID" [ref=e276]
+                - columnheader "Jornada" [ref=e277]
+                - columnheader "Categoria" [ref=e278]
+                - columnheader "Link" [ref=e279]
+            - rowgroup [ref=e280]:
+              - row "REDE-001 Gestão de Rede Estratégico Ver Detalhe" [ref=e281]:
+                - cell "REDE-001" [ref=e282]
+                - cell "Gestão de Rede" [ref=e283]
+                - cell "Estratégico" [ref=e284]
+                - cell "Ver Detalhe" [ref=e285]:
+                  - link "Ver Detalhe" [ref=e286] [cursor=pointer]:
+                    - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/network-manager/network-management
+          - separator [ref=e287]
+          - heading "Auditor AuditorLink direto para -auditor" [level=2] [ref=e288]:
+            - img "Auditor" [ref=e289]
+            - text: Auditor
+            - link "Link direto para -auditor" [ref=e290] [cursor=pointer]:
+              - /url: "#-auditor"
+              - text: "#"
+          - paragraph [ref=e291]: Perfil especializado em verificação de integridade/qualidade.
+          - table [ref=e292]:
+            - rowgroup [ref=e293]:
+              - row "ID Jornada Categoria Link" [ref=e294]:
+                - columnheader "ID" [ref=e295]
+                - columnheader "Jornada" [ref=e296]
+                - columnheader "Categoria" [ref=e297]
+                - columnheader "Link" [ref=e298]
+            - rowgroup [ref=e299]:
+              - row "AUD-001 Auditoria de Conteúdo Qualidade (Consulte documentação específica)" [ref=e300]:
+                - cell "AUD-001" [ref=e301]
+                - cell "Auditoria de Conteúdo" [ref=e302]
+                - cell "Qualidade" [ref=e303]
+                - cell "(Consulte documentação específica)" [ref=e304]
+        - link "Editar esta página" [ref=e308] [cursor=pointer]:
+          - /url: https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5/edit/main/documentation/docs/journeys/index.md
+          - img [ref=e309]
+          - text: Editar esta página
+      - navigation "Páginas de documento" [ref=e312]:
+        - link "Anterior « Gerar Relatório" [ref=e313] [cursor=pointer]:
+          - /url: /Ambiente_de_Prototipacao_V5/docs/fluxos/gerar-relatorio
+          - generic [ref=e314]: Anterior
+          - generic [ref=e315]: « Gerar Relatório
+        - link "Próxima Jornadas de Usuário »" [ref=e316] [cursor=pointer]:
+          - /url: /Ambiente_de_Prototipacao_V5/docs/journeys/intro
+          - generic [ref=e317]: Próxima
+          - generic [ref=e318]: Jornadas de Usuário »
+  - contentinfo [ref=e319]:
+    - generic [ref=e320]:
+      - generic [ref=e321]:
+        - generic [ref=e322]:
+          - generic [ref=e323]: Documentação
+          - list [ref=e324]:
+            - listitem [ref=e325]:
+              - link "Começar" [ref=e326] [cursor=pointer]:
+                - /url: /Ambiente_de_Prototipacao_V5/docs/intro
+            - listitem [ref=e327]:
+              - link "Jornadas" [ref=e328] [cursor=pointer]:
+                - /url: /Ambiente_de_Prototipacao_V5/docs/journeys
+            - listitem [ref=e329]:
+              - link "Protótipos" [ref=e330] [cursor=pointer]:
+                - /url: /Ambiente_de_Prototipacao_V5/docs/prototypes
+        - generic [ref=e331]:
+          - generic [ref=e332]: Recursos
+          - list [ref=e333]:
+            - listitem [ref=e334]:
+              - link "Design System(opens in new tab)" [ref=e335] [cursor=pointer]:
+                - /url: https://fabioeducacross.github.io/DesignSystem-Vuexy
+                - text: Design System
+                - img "(opens in new tab)" [ref=e336]
+            - listitem [ref=e338]:
+              - link "Educacross(opens in new tab)" [ref=e339] [cursor=pointer]:
+                - /url: https://educacross.com.br
+                - text: Educacross
+                - img "(opens in new tab)" [ref=e340]
+        - generic [ref=e342]:
+          - generic [ref=e343]: Repositório
+          - list [ref=e344]:
+            - listitem [ref=e345]:
+              - link "GitHub(opens in new tab)" [ref=e346] [cursor=pointer]:
+                - /url: https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5
+                - text: GitHub
+                - img "(opens in new tab)" [ref=e347]
+      - generic [ref=e350]: Copyright © 2026 Educacross. Documentação construída com Docusaurus.
