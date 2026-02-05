@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # ADMIN-003: Relatório de Evidências de Aprendizagem (Evidence Report)
 
 :::info Contexto
 **Jornada**: Administrador (Coordenador, Gestor, Gerente de Rede)  
 **Prioridade**: Média  
 **Complexidade**: Média-Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

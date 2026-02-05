@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # ADMIN-004: Relatório de Desenvolvimento de Habilidades (Skill Report)
 
 :::info Contexto
 **Jornada**: Administrador (Coordenador, Gestor, Gerente de Rede)  
 **Prioridade**: Média  
 **Complexidade**: Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

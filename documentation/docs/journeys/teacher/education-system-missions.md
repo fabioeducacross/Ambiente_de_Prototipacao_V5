@@ -2,10 +2,27 @@
 sidebar_position: 2
 title: Missões do Livro
 ---
+import {
+  IconBookOpen,
+  IconBooks,
+  IconCheck,
+  IconCircleRed,
+  IconClipboard,
+  IconDocument,
+  IconEdit,
+  IconEye,
+  IconLink,
+  IconRefresh,
+  IconSearch,
+  IconSettings,
+  IconTarget,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 
 # Missões do Livro do Sistema Educacional
 
-## 📋 Informações Básicas
+## <IconClipboard /> Informações Básicas
 
 | Campo | Valor |
 |-------|-------|
@@ -13,11 +30,11 @@ title: Missões do Livro
 | **Título** | Visualizar e Gerenciar Missões de um Livro |
 | **Contexto** | Professor / Teacher Context |
 | **Persona** | Professora Maria - 35 anos, ensina Matemática para 5º ano |
-| **Prioridade** | 🔴 Alta |
-| **Status** | 📝 Documentado - Aguardando Protótipo |
+| **Prioridade** | <IconCircleRed /> Alta |
+| **Status** | <IconEdit /> Documentado - Aguardando Protótipo |
 | **Última Atualização** | 2026-02-03 |
 
-## 🎯 Objetivo da Jornada
+## <IconTarget /> Objetivo da Jornada
 
 Após selecionar um livro, a professora Maria precisa visualizar todas as missões (atividades) daquele livro, acompanhar o progresso e rendimento da turma em cada missão, e realizar ações de gestão como habilitar, pausar ou visualizar detalhes de missões.
 
@@ -64,33 +81,33 @@ Após selecionar um livro, a professora Maria precisa visualizar todas as missõ
 
 ```mermaid
 graph TD
-    Start([📚 Origem: Grid de Livros<br/>PROF-001]) --> ClickBook[🖱️ Clica em livro<br/>exemplo: Geometria]
-    ClickBook --> LoadMissions[⚙️ Sistema carrega<br/>Missões do Livro]
+    Start([<IconBooks /> Origem: Grid de Livros<br/>PROF-001]) --> ClickBook[🖱️ Clica em livro<br/>exemplo: Geometria]
+    ClickBook --> LoadMissions[<IconSettings /> Sistema carrega<br/>Missões do Livro]
     LoadMissions --> ViewFilters[👀 Visualiza Filtros<br/>Unidade + Status]
-    ViewFilters --> ViewTable[📋 Visualiza Tabela<br/>de Missões]
+    ViewFilters --> ViewTable[<IconClipboard /> Visualiza Tabela<br/>de Missões]
     
     ViewTable --> FilterDecision{🤔 Quer<br/>filtrar?}
     
-    FilterDecision -->|✅ Sim| SelectFilter[🔍 Seleciona filtro<br/>Unidade ou Status]
-    SelectFilter --> UpdateTable[🔄 Tabela atualiza<br/>com filtro aplicado]
-    FilterDecision -->|❌ Não| ActionDecision
+    FilterDecision -->|<IconCheck /> Sim| SelectFilter[<IconSearch /> Seleciona filtro<br/>Unidade ou Status]
+    SelectFilter --> UpdateTable[<IconRefresh /> Tabela atualiza<br/>com filtro aplicado]
+    FilterDecision -->|<IconX /> Não| ActionDecision
     UpdateTable --> ActionDecision{💭 Qual<br/>ação?}
     
     ActionDecision -->|▶️ Habilitar| ActionEnable[🎬 Clica ícone play]
     ActionDecision -->|⏸️ Pausar| ActionPause[⏸️ Clica ícone pause]
-    ActionDecision -->|👁️ Ver Detalhes| ActionView[🔍 Clica ícone visibility]
-    ActionDecision -->|🔗 Copiar Link| ActionLink[📎 Clica ícone link]
-    ActionDecision -->|📖 Abrir| ActionOpen[📄 Clica no nome da missão]
+    ActionDecision -->|<IconEye /> Ver Detalhes| ActionView[<IconSearch /> Clica ícone visibility]
+    ActionDecision -->|<IconLink /> Copiar Link| ActionLink[📎 Clica ícone link]
+    ActionDecision -->|<IconBookOpen /> Abrir| ActionOpen[<IconDocument /> Clica no nome da missão]
     
-    ActionEnable --> ModalEnable[📝 Modal: Confirmar<br/>habilitação + agendar]
-    ModalEnable --> ResultEnable[✅ Missão habilitada<br/>status atualizado]
+    ActionEnable --> ModalEnable[<IconEdit /> Modal: Confirmar<br/>habilitação + agendar]
+    ModalEnable --> ResultEnable[<IconCheck /> Missão habilitada<br/>status atualizado]
     
-    ActionPause --> ModalPause[📝 Modal: Confirmar<br/>pausa da missão]
+    ActionPause --> ModalPause[<IconEdit /> Modal: Confirmar<br/>pausa da missão]
     ModalPause --> ResultPause[⏸️ Missão pausada<br/>status atualizado]
     
-    ActionView --> ModalDetails[📄 Modal: Detalhes<br/>conteúdo da missão]
+    ActionView --> ModalDetails[<IconDocument /> Modal: Detalhes<br/>conteúdo da missão]
     
-    ActionLink --> ResultLink[✅ Link copiado<br/>tooltip de feedback]
+    ActionLink --> ResultLink[<IconCheck /> Link copiado<br/>tooltip de feedback]
     
     ActionOpen --> ResultRedirect[➡️ Redireciona para<br/>tela de exercícios]
     
@@ -271,7 +288,7 @@ graph TD
 
 ---
 
-## 🔗 Referências
+## <IconLink /> Referências
 
 ### Documentação Relacionada
 

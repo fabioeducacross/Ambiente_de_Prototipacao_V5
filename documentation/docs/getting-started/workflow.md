@@ -2,12 +2,23 @@
 sidebar_position: 3
 title: Workflow de Prototipação
 ---
+import {
+  IconBooks,
+  IconChart,
+  IconCheck,
+  IconEdit,
+  IconLink,
+  IconRefresh,
+  IconRocket,
+  IconTarget
+} from '@site/src/components/MaterialIcon';
+
 
 # Workflow de Prototipação
 
 Metodologia completa para criar protótipos validados com Git branches e deploy automatizado.
 
-## 🎯 Objetivos
+## <IconTarget /> Objetivos
 
 1. **Documentar AS-IS** - Capturar estado atual das jornadas
 2. **Criar Baseline** - Branch `prototypes/as-is` com réplicas funcionais
@@ -38,7 +49,7 @@ graph TB
 | `prototypes/as-is` | Baseline - Réplica das telas produção | `main` | Manual |
 | `prototypes/feature/*` | Protótipos de melhorias | `prototypes/as-is` | Vercel Preview |
 
-## 🔄 Fluxo de Trabalho Completo
+## <IconRefresh /> Fluxo de Trabalho Completo
 
 ### Fase 1: Documentar AS-IS
 
@@ -165,7 +176,7 @@ git push --tags
 # com novo fluxo AS-IS
 ```
 
-## 🚀 Deploy Automatizado
+## <IconRocket /> Deploy Automatizado
 
 ### Vercel Setup
 
@@ -200,7 +211,7 @@ https://ambiente-v5-git-[branch-name]-educacross.vercel.app
 - `prototypes/feature/missions-v3` →
   `https://ambiente-v5-git-missions-v3-educacross.vercel.app`
 
-## 📝 Convenções de Commit
+## <IconEdit /> Convenções de Commit
 
 ### Pattern
 
@@ -295,7 +306,7 @@ npm run preview
 - NPS: [0-10]
 ```
 
-## 📊 Versionamento AS-IS
+## <IconChart /> Versionamento AS-IS
 
 ### Tags Semânticas
 
@@ -337,14 +348,14 @@ Manter arquivo `CHANGELOG.md` no branch `prototypes/as-is`:
 - Jornadas: education-system-books, custom-missions, class-management
 ```
 
-## 🔗 Recursos
+## <IconLink /> Recursos
 
 - [Git Branching Model](https://nvie.com/posts/a-successful-git-branching-model/)
 - [Vercel Preview Deployments](https://vercel.com/docs/concepts/deployments/preview-deployments)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
 
-## ✅ Checklist de Protótipo Completo
+## <IconCheck /> Checklist de Protótipo Completo
 
 Antes de considerar um protótipo pronto para validação:
 
@@ -409,7 +420,7 @@ npm run build
 # Geralmente: dependências faltando ou env vars
 ```
 
-## 📚 Próximos Passos
+## <IconBooks /> Próximos Passos
 
 1. Crie seu primeiro baseline: [Documentação AS-IS](/docs/journeys)
 2. Experimente o workflow: [Criar protótipo](/docs/prototypes)

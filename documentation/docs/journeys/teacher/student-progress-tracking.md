@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # PROF-008: Student Progress Tracking (Acompanhamento de Progresso Individual)
 
 :::info Contexto
 **Jornada**: Professor  
 **Prioridade**: Baixa  
 **Complexidade**: Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

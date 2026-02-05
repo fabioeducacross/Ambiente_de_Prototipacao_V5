@@ -3,12 +3,23 @@ sidebar_position: 1
 title: Protótipos
 description: Telas e componentes interativos do Educacross
 ---
+import {
+  IconBooks,
+  IconChart,
+  IconClipboard,
+  IconLink,
+  IconPalette,
+  IconRocket,
+  IconTarget,
+  IconWarning
+} from '@site/src/components/MaterialIcon';
+
 
 # Protótipos Interativos
 
 Área dedicada aos protótipos funcionais e componentes visuais do **Educacross**.
 
-## 🎯 Objetivo
+## <IconTarget /> Objetivo
 
 Os protótipos servem para:
 
@@ -19,11 +30,11 @@ Os protótipos servem para:
 
 ---
 
-## 📚 Storybook - Biblioteca de Componentes
+## <IconBooks /> Storybook - Biblioteca de Componentes
 
 O **Design System Vuexy** está documentado no Storybook, organizado por contexto:
 
-### 🔗 Acesso Direto
+### <IconLink /> Acesso Direto
 
 👉 **[Abrir Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/)**
 
@@ -53,7 +64,7 @@ O **Design System Vuexy** está documentado no Storybook, organizado por context
 
 ---
 
-## 🎨 Preview: Modal Aceitar/Recusar Perfil
+## <IconPalette /> Preview: Modal Aceitar/Recusar Perfil
 
 Este é um dos componentes principais documentados:
 
@@ -75,7 +86,7 @@ Este é um dos componentes principais documentados:
 ```html
 <!-- HTML/Vanilla -->
 <div class="modal-container">
-  <span class="warning-icon">⚠️</span>
+  <span class="warning-icon"><IconWarning /></span>
   <h1 class="modal-title">
     Deseja <span class="text-danger">recusar</span> esse perfil?
   </h1>
@@ -92,12 +103,12 @@ Este é um dos componentes principais documentados:
 
 ---
 
-## 🚀 Protótipos Vue 3 (Ambiente Local)
+## <IconRocket /> Protótipos Vue 3 (Ambiente Local)
 ├── JourneyList.vue             # Lista de jornadas (3 colunas)
 └── JourneyDetail.vue           # Detalhes da jornada (layout 2 colunas)
 ```
 
-## 🎨 Usando o Design System
+## <IconPalette /> Usando o Design System
 
 ### Paleta de Cores Vuexy
 
@@ -153,7 +164,7 @@ O Design System Vuexy é HTML-based, então você importa o markup:
 </template>
 ```
 
-## 🚀 Criando um Novo Protótipo
+## <IconRocket /> Criando um Novo Protótipo
 
 ### 1. Definir a Jornada
 
@@ -306,7 +317,7 @@ Se precisa ajustes, descreva para o Claude:
 Aumenta para 24px e adiciona um gradiente roxo no hover."
 ```
 
-## 📋 Checklist de Qualidade
+## <IconClipboard /> Checklist de Qualidade
 
 Antes de considerar um protótipo completo:
 
@@ -319,14 +330,14 @@ Antes de considerar um protótipo completo:
 - [ ] Dados vêm de `src/data/` (não hardcoded)
 - [ ] Componente está documentado em JSDoc
 
-## 🔗 Links Úteis
+## <IconLink /> Links Úteis
 
 - [Design System Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy) - Catálogo de componentes
 - [Vue 3 Docs](https://vuejs.org/) - Documentação oficial
 - [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html) - Guia da Composition API
 - [Bootstrap Icons](https://icons.getbootstrap.com/) - Ícones disponíveis
 
-## 📊 Protótipos Existentes
+## <IconChart /> Protótipos Existentes
 
 ### 1. Journey List
 

@@ -1,6 +1,8 @@
+import { IconCheck, IconCircleRed, IconSparkle, IconTarget, IconX } from '@site/src/components/MaterialIcon';
+
 # PROF-003: Custom Missions
 
-<span class="badge badge-warning">🔴 Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-primary">Teacher Context</span>
+<span class="badge badge-warning"><IconCircleRed /> Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-primary">Teacher Context</span>
 
 ## Visão Geral
 
@@ -8,7 +10,7 @@ Jornada que permite professores criarem **missões personalizadas** (Missions Pl
 
 **Contexto de Usuário**: Professor  
 **Categoria**: Gestão de Conteúdo  
-**Complexidade**: ⭐⭐⭐ Avançado  
+**Complexidade**: <IconSparkle /><IconSparkle /><IconSparkle /> Avançado  
 **Duração Média**: 15-30 minutos para criar uma missão completa
 
 ---
@@ -22,10 +24,10 @@ Professores precisam criar avaliações e atividades personalizadas que:
 - Integrem com o sistema de notas e desempenho
 
 **Pain Points Atuais**:
-- ❌ Fluxo longo com muitos passos
-- ❌ Preview limitado de questões antes de adicionar
-- ❌ Dificuldade para reorganizar questões adicionadas
-- ❌ Falta de templates ou duplicação de missões existentes
+- <IconX /> Fluxo longo com muitos passos
+- <IconX /> Preview limitado de questões antes de adicionar
+- <IconX /> Dificuldade para reorganizar questões adicionadas
+- <IconX /> Falta de templates ou duplicação de missões existentes
 
 ---
 
@@ -585,37 +587,37 @@ watch([classe, subject], () => {
 
 ## Melhorias Propostas (TO-BE)
 
-### 🎯 Problema 1: Fluxo Muito Longo (4 steps)
+### <IconTarget /> Problema 1: Fluxo Muito Longo (4 steps)
 **Impacto**: Professores abandonam criação no meio do processo
 
 **Proposta**:
-- ✅ Reduzir para 2 steps: (1) Info + Questões, (2) Revisão
-- ✅ Permitir adicionar questões inline sem modal
-- ✅ Salvar draft automático a cada 30 segundos
+- <IconCheck /> Reduzir para 2 steps: (1) Info + Questões, (2) Revisão
+- <IconCheck /> Permitir adicionar questões inline sem modal
+- <IconCheck /> Salvar draft automático a cada 30 segundos
 
-### 🎯 Problema 2: Preview Limitado de Questões
+### <IconTarget /> Problema 2: Preview Limitado de Questões
 **Impacto**: Professores adicionam questões erradas e só percebem na revisão
 
 **Proposta**:
-- ✅ Preview expansível ao hover (mostrar enunciado completo + alternativas)
-- ✅ Botão "Visualizar Questão" abre modal com preview completo
-- ✅ Indicador visual de dificuldade e tema na listagem
+- <IconCheck /> Preview expansível ao hover (mostrar enunciado completo + alternativas)
+- <IconCheck /> Botão "Visualizar Questão" abre modal com preview completo
+- <IconCheck /> Indicador visual de dificuldade e tema na listagem
 
-### 🎯 Problema 3: Sem Templates ou Duplicação
+### <IconTarget /> Problema 3: Sem Templates ou Duplicação
 **Impacto**: Professores recriam missões similares manualmente
 
 **Proposta**:
-- ✅ Botão "Duplicar Missão" na lista
-- ✅ Galeria de templates pré-configurados (Avaliação Diagnóstica, Revisão, etc.)
-- ✅ Salvar como template para reutilização
+- <IconCheck /> Botão "Duplicar Missão" na lista
+- <IconCheck /> Galeria de templates pré-configurados (Avaliação Diagnóstica, Revisão, etc.)
+- <IconCheck /> Salvar como template para reutilização
 
-### 🎯 Problema 4: Reordenar Questões é Difícil
+### <IconTarget /> Problema 4: Reordenar Questões é Difícil
 **Impacto**: Professores não conseguem organizar ordem lógica facilmente
 
 **Proposta**:
-- ✅ Drag & drop intuitivo com visual feedback
-- ✅ Botões "Mover para Cima/Baixo"
-- ✅ Numeração automática das questões
+- <IconCheck /> Drag & drop intuitivo com visual feedback
+- <IconCheck /> Botões "Mover para Cima/Baixo"
+- <IconCheck /> Numeração automática das questões
 
 **Protótipo**: [Veja o protótipo TO-BE](/prototypes/missions-plus-v3)
 

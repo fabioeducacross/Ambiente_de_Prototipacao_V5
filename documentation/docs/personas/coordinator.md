@@ -3,8 +3,9 @@ sidebar_position: 2
 title: Coordenador
 description: Perfil responsável pelo acompanhamento pedagógico e apoio aos professores
 ---
+import CoordinatorIcon from '@site/static/img/icons/coordinator.svg';
 
-# <img src="/img/icons/coordinator.svg" width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Coordenador Pedagógico
+# <CoordinatorIcon width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Coordenador Pedagógico
 
 O Coordenador é o elo entre a direção e os professores. Seu foco no Educacross é garantir a qualidade do uso pedagógico, verificando se as missões estão sendo enviadas e se os alunos estão desenvolvendo as habilidades esperadas.
 

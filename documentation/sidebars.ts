@@ -9,7 +9,7 @@ const sidebars: SidebarsConfig = {
     // === DOCUMENTAÇÃO DE PRODUTO ===
     {
       type: 'category',
-      label: '🎯 Visão do Produto',
+      label: 'Visão do Produto',
       collapsed: false,
       items: [
         'produto/index',
@@ -17,7 +17,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '👥 Personas',
+      label: 'Personas',
       collapsed: false,
       items: [
         'personas/index',
@@ -31,7 +31,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '🔄 Fluxos Críticos',
+      label: 'Fluxos Críticos',
       collapsed: false,
       items: [
         'fluxos/index',
@@ -45,7 +45,7 @@ const sidebars: SidebarsConfig = {
     // === JORNADAS POR PERSONA ===
     {
       type: 'category',
-      label: '🗺️ Jornadas',
+      label: 'Jornadas',
       collapsed: true,
       items: [
         'journeys/index',

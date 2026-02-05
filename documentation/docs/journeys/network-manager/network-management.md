@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # ADMIN-005: Network Management (Gestão de Rede)
 
 :::info Contexto
 **Jornada**: Admin/Coordenação  
 **Prioridade**: Baixa  
 **Complexidade**: Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

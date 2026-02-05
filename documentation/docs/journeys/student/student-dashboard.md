@@ -1,10 +1,12 @@
+import { IconCheck, IconEdit, IconLightbulb, IconTarget, IconTrending } from '@site/src/components/MaterialIcon';
+
 # STUDENT-001: Student Dashboard (Painel do Aluno)
 
 :::info Contexto
 **Jornada**: Student/Aluno  
 **Prioridade**: Baixa  
 **Complexidade**: Média  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral
@@ -263,7 +265,7 @@ src/views/pages/student-context/dashboard/
       </b-col>
       <b-col cols="12" md="4">
         <b-card>
-          <h5 class="mb-3">Ranking da Turma 🏆</h5>
+          <h5 class="mb-3">Ranking da Turma <IconTrending /></h5>
           <RankingCard
             :ranking="classRanking"
             :current-student-id="studentId"
@@ -287,7 +289,7 @@ src/views/pages/student-context/dashboard/
       </b-col>
       <b-col cols="12" md="4">
         <b-card>
-          <h5 class="mb-3">Recomendações para Você 💡</h5>
+          <h5 class="mb-3">Recomendações para Você <IconLightbulb /></h5>
           <div v-for="recommendation in recommendations" :key="recommendation.id" class="mb-2">
             <RecommendationCard :recommendation="recommendation" />
           </div>
@@ -298,7 +300,7 @@ src/views/pages/student-context/dashboard/
       </b-col>
       <b-col cols="12" md="4">
         <b-card>
-          <h5 class="mb-3">Feedback dos Professores 📝</h5>
+          <h5 class="mb-3">Feedback dos Professores <IconEdit /></h5>
           <div v-for="feedback in recentFeedback" :key="feedback.id" class="mb-2">
             <FeedbackCard :feedback="feedback" />
           </div>
@@ -311,7 +313,7 @@ src/views/pages/student-context/dashboard/
 
     <!-- Metas de Aprendizagem -->
     <b-card class="mb-3">
-      <h5 class="mb-3">Minhas Metas 🎯</h5>
+      <h5 class="mb-3">Minhas Metas <IconTarget /></h5>
       <b-row>
         <b-col
           v-for="goal in activeGoals"

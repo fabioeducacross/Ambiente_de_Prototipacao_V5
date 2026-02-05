@@ -1,8 +1,10 @@
 ---
 sidebar_position: 1
-title: 👨‍🏫 Professor
+title: <IconTeacher /> Professor
 description: Pesquisa e hipóteses sobre o professor
 ---
+import { IconCheck, IconCircleYellow, IconClipboard, IconLightbulb, IconTeacher } from '@site/src/components/MaterialIcon';
+
 
 # Discovery: Professor
 
@@ -14,7 +16,7 @@ Documentação das **dores**, **objetivos** e **oportunidades** identificadas pa
 
 | Fonte | Tipo | Data | Confiança |
 |-------|------|------|-----------|
-| Hipótese inicial | Suposição da equipe | Fev/2026 | 🟡 Baixa |
+| Hipótese inicial | Suposição da equipe | Fev/2026 | <IconCircleYellow /> Baixa |
 | *Entrevistas (pendente)* | *Pesquisa primária* | *—* | *—* |
 | *Analytics (pendente)* | *Dados quantitativos* | *—* | *—* |
 
@@ -28,10 +30,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Dor | Impacto | Frequência | Fonte | Confiança |
 |-----|---------|------------|-------|-----------|
-| Alunos desmotivados com conteúdo digital | Alta | Diária | Hipótese | 🟡 |
-| Dificuldade em ver progresso individual | Alta | Semanal | Hipótese | 🟡 |
-| Muitos cliques para habilitar missões | Média | Diária | Hipótese | 🟡 |
-| Relatórios confusos ou incompletos | Média | Mensal | Hipótese | 🟡 |
+| Alunos desmotivados com conteúdo digital | Alta | Diária | Hipótese | <IconCircleYellow /> |
+| Dificuldade em ver progresso individual | Alta | Semanal | Hipótese | <IconCircleYellow /> |
+| Muitos cliques para habilitar missões | Média | Diária | Hipótese | <IconCircleYellow /> |
+| Relatórios confusos ou incompletos | Média | Mensal | Hipótese | <IconCircleYellow /> |
 
 ### Como validar
 
@@ -45,10 +47,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Objetivo | Prioridade | Fonte | Confiança |
 |----------|------------|-------|-----------|
-| Engajar alunos nas atividades digitais | Alta | Hipótese | 🟡 |
-| Acompanhar progresso de cada aluno | Alta | Hipótese | 🟡 |
-| Personalizar ritmo por grupo | Média | Hipótese | 🟡 |
-| Economizar tempo na preparação | Média | Hipótese | 🟡 |
+| Engajar alunos nas atividades digitais | Alta | Hipótese | <IconCircleYellow /> |
+| Acompanhar progresso de cada aluno | Alta | Hipótese | <IconCircleYellow /> |
+| Personalizar ritmo por grupo | Média | Hipótese | <IconCircleYellow /> |
+| Economizar tempo na preparação | Média | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -73,10 +75,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Oportunidade | Impacto | Esforço | Fonte | Status |
 |--------------|---------|---------|-------|--------|
-| Ações em lote para missões | Alto | Médio | Hipótese | 📋 Backlog |
-| Atalhos rápidos nos cards | Médio | Baixo | Hipótese | 📋 Backlog |
-| Alertas de alunos inativos | Alto | Alto | Hipótese | 💡 Ideação |
-| Templates de habilitação | Médio | Médio | Hipótese | 💡 Ideação |
+| Ações em lote para missões | Alto | Médio | Hipótese | <IconClipboard /> Backlog |
+| Atalhos rápidos nos cards | Médio | Baixo | Hipótese | <IconClipboard /> Backlog |
+| Alertas de alunos inativos | Alto | Alto | Hipótese | <IconLightbulb /> Ideação |
+| Templates de habilitação | Médio | Médio | Hipótese | <IconLightbulb /> Ideação |
 
 ---
 
@@ -88,9 +90,9 @@ Quando [CONTEXTO], eu quero [MOTIVAÇÃO], para que [RESULTADO ESPERADO].
 
 | Job | Fonte | Confiança |
 |-----|-------|-----------|
-| Quando preparo a aula da semana, quero ver rapidamente os livros disponíveis, para escolher o conteúdo certo para minha turma. | Hipótese | 🟡 |
-| Quando quero liberar atividades, quero habilitar várias missões de uma vez, para não perder tempo repetindo a mesma ação. | Hipótese | 🟡 |
-| Quando a coordenação pede relatório, quero exportar dados de desempenho, para mostrar o progresso da turma. | Hipótese | 🟡 |
+| Quando preparo a aula da semana, quero ver rapidamente os livros disponíveis, para escolher o conteúdo certo para minha turma. | Hipótese | <IconCircleYellow /> |
+| Quando quero liberar atividades, quero habilitar várias missões de uma vez, para não perder tempo repetindo a mesma ação. | Hipótese | <IconCircleYellow /> |
+| Quando a coordenação pede relatório, quero exportar dados de desempenho, para mostrar o progresso da turma. | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -108,11 +110,11 @@ As seguintes jornadas implementam os JTBDs acima:
 
 | JTBD | Jornada | Status |
 |------|---------|--------|
-| Quando preparo a aula, quero ver os livros disponíveis | [PROF-001: Education System Books](../journeys/teacher/education-system-books) | ✅ |
-| Quando quero liberar atividades, quero habilitar missões | [PROF-002: Education System Missions](../journeys/teacher/education-system-missions) | ✅ |
-| Quando o conteúdo padrão não atende, quero criar missões | [PROF-003: Custom Missions](../journeys/teacher/custom-missions) | ✅ |
-| Quando preciso avaliar a turma, quero configurar eventos | [PROF-004: Events Management](../journeys/teacher/events-management) | ✅ |
-| Quando a coordenação pede relatório, quero exportar dados | [PROF-007: Mission Analytics](../journeys/teacher/mission-analytics) | ✅ |
+| Quando preparo a aula, quero ver os livros disponíveis | [PROF-001: Education System Books](../journeys/teacher/education-system-books) | <IconCheck /> |
+| Quando quero liberar atividades, quero habilitar missões | [PROF-002: Education System Missions](../journeys/teacher/education-system-missions) | <IconCheck /> |
+| Quando o conteúdo padrão não atende, quero criar missões | [PROF-003: Custom Missions](../journeys/teacher/custom-missions) | <IconCheck /> |
+| Quando preciso avaliar a turma, quero configurar eventos | [PROF-004: Events Management](../journeys/teacher/events-management) | <IconCheck /> |
+| Quando a coordenação pede relatório, quero exportar dados | [PROF-007: Mission Analytics](../journeys/teacher/mission-analytics) | <IconCheck /> |
 
 → [Ver todas as jornadas de Professor](../journeys/teacher/)
 

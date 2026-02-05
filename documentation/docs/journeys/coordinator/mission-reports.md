@@ -1,6 +1,19 @@
+import {
+  IconChart,
+  IconCheck,
+  IconCircleGreen,
+  IconCircleRed,
+  IconCircleYellow,
+  IconClipboard,
+  IconDocument,
+  IconSparkle,
+  IconTarget,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 # ADMIN-001: Mission Reports
 
-<span class="badge badge-danger">🔴 Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-warning">Admin Context</span>
+<span class="badge badge-danger"><IconCircleRed /> Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-warning">Admin Context</span>
 
 ## Visão Geral
 
@@ -8,7 +21,7 @@ Jornada que permite **gestores e coordenadores** acessarem relatórios consolida
 
 **Contexto de Usuário**: Coordenador, Gestor de Rede, Secretaria  
 **Categoria**: Relatórios e Analytics  
-**Complexidade**: ⭐⭐⭐⭐ Muito Avançado  
+**Complexidade**: <IconSparkle /><IconSparkle /><IconSparkle /><IconSparkle /> Muito Avançado  
 **Duração Média**: 10-20 minutos por análise
 
 ---
@@ -23,11 +36,11 @@ Gestores educacionais precisam:
 - **Prestação de contas** com dados exportáveis
 
 **Pain Points Atuais**:
-- ❌ Muitos cliques para chegar aos dados relevantes
-- ❌ Gráficos complexos demais ou simplificados demais
-- ❌ Falta de drill-down (visão geral → detalhe específico)
-- ❌ Exportação limitada (apenas PDF, sem Excel/CSV)
-- ❌ Sem alertas automáticos para situações críticas
+- <IconX /> Muitos cliques para chegar aos dados relevantes
+- <IconX /> Gráficos complexos demais ou simplificados demais
+- <IconX /> Falta de drill-down (visão geral → detalhe específico)
+- <IconX /> Exportação limitada (apenas PDF, sem Excel/CSV)
+- <IconX /> Sem alertas automáticos para situações críticas
 
 ---
 
@@ -311,19 +324,19 @@ sequenceDiagram
 2. **Taxa de Participação Média**
    - Número: 78.5%
    - Subtexto: "Meta: 85%"
-   - Indicador: 🟡 Abaixo da meta
+   - Indicador: <IconCircleYellow /> Abaixo da meta
    - Trend: -3% vs período anterior
 
 3. **Média de Desempenho**
    - Número: 72.3 pontos
    - Subtexto: "De 100 pontos"
-   - Indicador: 🟢 Dentro da meta
+   - Indicador: <IconCircleGreen /> Dentro da meta
    - Trend: +5% vs período anterior
 
 4. **Missões Críticas**
    - Número: 8
    - Subtexto: "Requerem atenção"
-   - Indicador: 🔴 Alerta
+   - Indicador: <IconCircleRed /> Alerta
    - Link: "Ver detalhes"
 
 **Gráfico Principal**:
@@ -442,9 +455,9 @@ sequenceDiagram
 **Modal de Exportação**:
 - Título: "Exportar Relatório"
 - Opções de formato:
-  - 📄 PDF (visual completo)
-  - 📊 Excel (.xlsx) - dados tabulares
-  - 📋 CSV - dados brutos
+  - <IconDocument /> PDF (visual completo)
+  - <IconChart /> Excel (.xlsx) - dados tabulares
+  - <IconClipboard /> CSV - dados brutos
   - 📷 PNG - gráficos como imagens
 - Opções de conteúdo:
   - [ ] Dashboard completo
@@ -863,41 +876,41 @@ watch([networkGroup, institution], () => {
 
 ## Melhorias Propostas (TO-BE)
 
-### 🎯 Problema 1: Muitos Cliques para Dados Relevantes
+### <IconTarget /> Problema 1: Muitos Cliques para Dados Relevantes
 **Impacto**: Gestores perdem tempo navegando
 
 **Proposta**:
-- ✅ Dashboard personalizável (drag & drop de widgets)
-- ✅ Favoritos/bookmarks de relatórios
-- ✅ Atalhos contextuais (clicar em KPI → drill-down direto)
-- ✅ Navegação breadcrumb sempre visível
+- <IconCheck /> Dashboard personalizável (drag & drop de widgets)
+- <IconCheck /> Favoritos/bookmarks de relatórios
+- <IconCheck /> Atalhos contextuais (clicar em KPI → drill-down direto)
+- <IconCheck /> Navegação breadcrumb sempre visível
 
-### 🎯 Problema 2: Gráficos Pouco Acionáveis
+### <IconTarget /> Problema 2: Gráficos Pouco Acionáveis
 **Impacto**: Dados não geram insights claros
 
 **Proposta**:
-- ✅ Gráficos interativos (clicar em barra → detalhes)
-- ✅ Anotações automáticas ("Queda de 15% em relação ao mês anterior")
-- ✅ Recomendações baseadas em IA ("Turma 5A precisa de reforço em frações")
-- ✅ Comparação visual com meta/benchmark
+- <IconCheck /> Gráficos interativos (clicar em barra → detalhes)
+- <IconCheck /> Anotações automáticas ("Queda de 15% em relação ao mês anterior")
+- <IconCheck /> Recomendações baseadas em IA ("Turma 5A precisa de reforço em frações")
+- <IconCheck /> Comparação visual com meta/benchmark
 
-### 🎯 Problema 3: Sem Alertas Proativos
+### <IconTarget /> Problema 3: Sem Alertas Proativos
 **Impacto**: Problemas são descobertos tarde demais
 
 **Proposta**:
-- ✅ Sistema de alertas configurável (email, notificação)
-- ✅ Regras personalizadas ("Se participação < 60% por 3 dias, alertar")
-- ✅ Dashboard de "Situações Críticas" separado
-- ✅ Botão "Tomar Ação" direto do alerta (enviar mensagem, agendar reunião)
+- <IconCheck /> Sistema de alertas configurável (email, notificação)
+- <IconCheck /> Regras personalizadas ("Se participação < 60% por 3 dias, alertar")
+- <IconCheck /> Dashboard de "Situações Críticas" separado
+- <IconCheck /> Botão "Tomar Ação" direto do alerta (enviar mensagem, agendar reunião)
 
-### 🎯 Problema 4: Exportação Limitada
+### <IconTarget /> Problema 4: Exportação Limitada
 **Impacto**: Dificulta compartilhamento e análises externas
 
 **Proposta**:
-- ✅ Templates de relatório prontos (para diretoria, para pais, etc.)
-- ✅ Agendamento de relatórios automáticos (semanal, mensal)
-- ✅ Compartilhamento seguro via link (com senha)
-- ✅ API para integração com BI externo (Power BI, Tableau)
+- <IconCheck /> Templates de relatório prontos (para diretoria, para pais, etc.)
+- <IconCheck /> Agendamento de relatórios automáticos (semanal, mensal)
+- <IconCheck /> Compartilhamento seguro via link (com senha)
+- <IconCheck /> API para integração com BI externo (Power BI, Tableau)
 
 **Protótipo**: [Veja o protótipo TO-BE](/prototypes/mission-reports-v2)
 

@@ -4,6 +4,8 @@ title: Gerar Relatório
 description: Fluxo de geração de relatórios de desempenho
 ---
 
+import { PriorityMedium, StatusPlanned } from '@site/src/components/StatusIcons';
+
 # Fluxo: Gerar Relatório
 
 ## Visão Geral
@@ -13,8 +15,8 @@ description: Fluxo de geração de relatórios de desempenho
 | **ID** | FLX-004 |
 | **Persona** | [Gestor](../personas/gestor), [Professor](../personas/professor) |
 | **Frequência** | Semanal/Mensal |
-| **Prioridade** | 🟡 Média |
-| **Status** | 📋 Planejado |
+| **Prioridade** | <PriorityMedium /> |
+| **Status** | <StatusPlanned /> |
 
 ---
 

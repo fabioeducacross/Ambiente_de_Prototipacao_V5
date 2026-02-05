@@ -1,10 +1,12 @@
+import { IconCheck, IconX } from '@site/src/components/MaterialIcon';
+
 # ADMIN-006: User Management (Gestão de Usuários)
 
 :::info Contexto
 **Jornada**: Admin/Coordenação  
 **Prioridade**: Baixa  
 **Complexidade**: Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral
@@ -131,7 +133,7 @@ export default [
 5. Confirma importação → 485 usuários criados com sucesso (15 rejeitados por duplicatas)
 6. Sistema envia e-mails de boas-vindas automaticamente com credenciais temporárias
 7. Acessa "Permissões" → Configura matriz RBAC para perfil "Coordenador Pedagógico"
-8. Define permissões granulares: pode criar missões ✅, pode editar usuários ✅, pode excluir turmas ❌
+8. Define permissões granulares: pode criar missões <IconCheck />, pode editar usuários <IconCheck />, pode excluir turmas <IconX />
 9. Acessa "Auditoria" → Filtra logs de acesso do usuário "professor.maria@escola.com" últimos 30 dias
 10. Identifica login suspeito de IP estrangeiro → Bloqueia usuário e força reset de senha
 

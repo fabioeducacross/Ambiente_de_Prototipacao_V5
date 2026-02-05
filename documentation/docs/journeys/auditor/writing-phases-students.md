@@ -1,10 +1,12 @@
+import { IconCheck, IconEdit } from '@site/src/components/MaterialIcon';
+
 # AUDITOR-001: Writing Phases Students (Auditoria de Fases de Escrita)
 
 :::info Contexto
 **Jornada**: Auditor  
 **Prioridade**: Baixa  
 **Complexidade**: Média  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão geral (AS-IS)
@@ -57,4 +59,4 @@ Auditor acompanha a fase de escrita dos alunos por rede/escola, identifica casos
 
 **Última atualização**: 2026-02-04  
 **Versão**: AS-IS v1.0  
-**Status**: 📝 Documentado - Aguardando Protótipo TO-BE
+**Status**: <IconEdit /> Documentado - Aguardando Protótipo TO-BE

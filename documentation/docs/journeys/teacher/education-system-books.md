@@ -2,10 +2,24 @@
 sidebar_position: 1
 title: Livros do Sistema Educacional
 ---
+import {
+  IconBooks,
+  IconChart,
+  IconCheck,
+  IconCircleRed,
+  IconClipboard,
+  IconEdit,
+  IconHome,
+  IconSettings,
+  IconTarget,
+  IconWarning,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 
 # Livros do Sistema Educacional
 
-## 📋 Informações Básicas
+## <IconClipboard /> Informações Básicas
 
 | Campo | Valor |
 |-------|-------|
@@ -13,11 +27,11 @@ title: Livros do Sistema Educacional
 | **Título** | Visualizar e Navegar nos Livros do Sistema Educacional |
 | **Contexto** | Professor / Teacher Context |
 | **Persona** | Professora Maria - 35 anos, ensina Matemática para 5º ano |
-| **Prioridade** | 🔴 Alta |
-| **Status** | 📝 Documentado - Aguardando Protótipo |
+| **Prioridade** | <IconCircleRed /> Alta |
+| **Status** | <IconEdit /> Documentado - Aguardando Protótipo |
 | **Última Atualização** | 2026-02-03 |
 
-## 🎯 Objetivo da Jornada
+## <IconTarget /> Objetivo da Jornada
 
 A professora Maria precisa acessar os livros (ou trilhas) do sistema educacional para visualizar o progresso e rendimento dos seus alunos em cada livro. A partir dessa visão geral, ela pode navegar para as missões específicas de cada livro.
 
@@ -58,23 +72,23 @@ A professora Maria precisa acessar os livros (ou trilhas) do sistema educacional
 
 ```mermaid
 graph TD
-    Start([🏠 Professora na Home]) --> SelectFilters[📋 Seleciona Turma e Disciplina<br/>nos filtros globais]
-    SelectFilters --> ClickMenu[📚 Clica em Sistema Educacional<br/>no menu lateral]
-    ClickMenu --> LoadBooks[⚙️ Sistema carrega<br/>tela de Livros]
+    Start([<IconHome /> Professora na Home]) --> SelectFilters[<IconClipboard /> Seleciona Turma e Disciplina<br/>nos filtros globais]
+    SelectFilters --> ClickMenu[<IconBooks /> Clica em Sistema Educacional<br/>no menu lateral]
+    ClickMenu --> LoadBooks[<IconSettings /> Sistema carrega<br/>tela de Livros]
     LoadBooks --> ViewGrid[👀 Visualiza Cards<br/>de Livros em Grid]
     
     ViewGrid --> Decision1{🤔 Quer ver<br/>missões?}
     
-    Decision1 -->|✅ Sim| ClickCard[🖱️ Clica no card ou<br/>botão Ver Missões]
-    Decision1 -->|❌ Não| AnalyzeMetrics[📊 Analisa indicadores<br/>de progresso/rendimento]
+    Decision1 -->|<IconCheck /> Sim| ClickCard[🖱️ Clica no card ou<br/>botão Ver Missões]
+    Decision1 -->|<IconX /> Não| AnalyzeMetrics[<IconChart /> Analisa indicadores<br/>de progresso/rendimento]
     
     ClickCard --> Navigate[➡️ Navega para tela<br/>de Missões do Livro]
     
-    AnalyzeMetrics --> Identify[⚠️ Identifica livros<br/>com problemas]
+    AnalyzeMetrics --> Identify[<IconWarning /> Identifica livros<br/>com problemas]
     Identify --> Decision2{💭 Quer<br/>intervir?}
     
-    Decision2 -->|✅ Sim| ClickCard
-    Decision2 -->|❌ Não| End1([🏁 Fim])
+    Decision2 -->|<IconCheck /> Sim| ClickCard
+    Decision2 -->|<IconX /> Não| End1([🏁 Fim])
     Navigate --> End2([🏁 Fim])
     
     classDef startEnd fill:#e1f5e1,stroke:#4caf50,stroke-width:3px,color:#000

@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # ADMIN-002: Relatório de Acesso de Alunos (Student Access Report)
 
 :::info Contexto
 **Jornada**: Administrador (Coordenador, Gestor, Gerente de Rede)  
 **Prioridade**: Média  
 **Complexidade**: Média-Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

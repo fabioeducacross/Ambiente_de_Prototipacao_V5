@@ -1,8 +1,10 @@
 ---
 sidebar_position: 2
-title: 👨‍💼 Gestor
+title: <IconAdmin /> Gestor
 description: Pesquisa e hipóteses sobre o gestor/coordenador
 ---
+import { IconAdmin, IconCheck, IconCircleYellow, IconClipboard, IconLightbulb } from '@site/src/components/MaterialIcon';
+
 
 # Discovery: Gestor
 
@@ -14,7 +16,7 @@ Documentação das **dores**, **objetivos** e **oportunidades** identificadas pa
 
 | Fonte | Tipo | Data | Confiança |
 |-------|------|------|-----------|
-| Hipótese inicial | Suposição da equipe | Fev/2026 | 🟡 Baixa |
+| Hipótese inicial | Suposição da equipe | Fev/2026 | <IconCircleYellow /> Baixa |
 | *Entrevistas (pendente)* | *Pesquisa primária* | *—* | *—* |
 | *Analytics (pendente)* | *Dados quantitativos* | *—* | *—* |
 
@@ -28,10 +30,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Dor | Impacto | Frequência | Fonte | Confiança |
 |-----|---------|------------|-------|-----------|
-| Não sabe quem está pendente de aprovação | Alta | Diária | Hipótese | 🟡 |
-| Difícil comparar desempenho entre turmas | Alta | Semanal | Hipótese | 🟡 |
-| Processo de aprovar perfis é manual e lento | Média | Diária | Hipótese | 🟡 |
-| Relatórios não têm formato para diretoria | Média | Mensal | Hipótese | 🟡 |
+| Não sabe quem está pendente de aprovação | Alta | Diária | Hipótese | <IconCircleYellow /> |
+| Difícil comparar desempenho entre turmas | Alta | Semanal | Hipótese | <IconCircleYellow /> |
+| Processo de aprovar perfis é manual e lento | Média | Diária | Hipótese | <IconCircleYellow /> |
+| Relatórios não têm formato para diretoria | Média | Mensal | Hipótese | <IconCircleYellow /> |
 
 ### Como validar
 
@@ -45,10 +47,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Objetivo | Prioridade | Fonte | Confiança |
 |----------|------------|-------|-----------|
-| Gerenciar acessos rapidamente | Alta | Hipótese | 🟡 |
-| Ter visão consolidada de todas turmas | Alta | Hipótese | 🟡 |
-| Garantir que professores usem a plataforma | Média | Hipótese | 🟡 |
-| Reportar resultados para diretoria | Média | Hipótese | 🟡 |
+| Gerenciar acessos rapidamente | Alta | Hipótese | <IconCircleYellow /> |
+| Ter visão consolidada de todas turmas | Alta | Hipótese | <IconCircleYellow /> |
+| Garantir que professores usem a plataforma | Média | Hipótese | <IconCircleYellow /> |
+| Reportar resultados para diretoria | Média | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -67,10 +69,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Oportunidade | Impacto | Esforço | Fonte | Status |
 |--------------|---------|---------|-------|--------|
-| Aprovação em lote | Alto | Médio | Hipótese | 📋 Backlog |
-| Filtros por escola/tipo/data | Médio | Baixo | Hipótese | 📋 Backlog |
-| Notificação push de pendências | Alto | Alto | Hipótese | 💡 Ideação |
-| Templates de relatório | Médio | Médio | Hipótese | 💡 Ideação |
+| Aprovação em lote | Alto | Médio | Hipótese | <IconClipboard /> Backlog |
+| Filtros por escola/tipo/data | Médio | Baixo | Hipótese | <IconClipboard /> Backlog |
+| Notificação push de pendências | Alto | Alto | Hipótese | <IconLightbulb /> Ideação |
+| Templates de relatório | Médio | Médio | Hipótese | <IconLightbulb /> Ideação |
 
 ---
 
@@ -78,9 +80,9 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Job | Fonte | Confiança |
 |-----|-------|-----------|
-| Quando chego na escola, quero ver se há perfis pendentes, para não atrasar o acesso de novos usuários. | Hipótese | 🟡 |
-| Quando a diretoria pede métricas, quero gerar relatório consolidado, para mostrar o ROI da plataforma. | Hipótese | 🟡 |
-| Quando preciso recusar um perfil, quero registrar o motivo, para ter histórico da decisão. | Hipótese | 🟡 |
+| Quando chego na escola, quero ver se há perfis pendentes, para não atrasar o acesso de novos usuários. | Hipótese | <IconCircleYellow /> |
+| Quando a diretoria pede métricas, quero gerar relatório consolidado, para mostrar o ROI da plataforma. | Hipótese | <IconCircleYellow /> |
+| Quando preciso recusar um perfil, quero registrar o motivo, para ter histórico da decisão. | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -98,10 +100,10 @@ As seguintes jornadas implementam os JTBDs acima:
 
 | JTBD | Jornada | Status |
 |------|---------|--------|
-| Quando chego na escola, quero ver perfis pendentes | [ADMIN-006: User Management](../journeys/admin/user-management) | ✅ |
-| Quando a diretoria pede métricas, quero gerar relatório | [ADMIN-001: Mission Reports](../journeys/admin/mission-reports) | ✅ |
-| Quando preciso recusar um perfil, quero registrar o motivo | [ADMIN-006: User Management](../journeys/admin/user-management) | ✅ |
-| Quando analiso competências, quero ver mapas de habilidades | [ADMIN-004: Skill Report](../journeys/admin/skill-report) | ✅ |
+| Quando chego na escola, quero ver perfis pendentes | [ADMIN-006: User Management](../journeys/admin/user-management) | <IconCheck /> |
+| Quando a diretoria pede métricas, quero gerar relatório | [ADMIN-001: Mission Reports](../journeys/admin/mission-reports) | <IconCheck /> |
+| Quando preciso recusar um perfil, quero registrar o motivo | [ADMIN-006: User Management](../journeys/admin/user-management) | <IconCheck /> |
+| Quando analiso competências, quero ver mapas de habilidades | [ADMIN-004: Skill Report](../journeys/admin/skill-report) | <IconCheck /> |
 
 → [Ver todas as jornadas de Gestor](../journeys/admin/)
 

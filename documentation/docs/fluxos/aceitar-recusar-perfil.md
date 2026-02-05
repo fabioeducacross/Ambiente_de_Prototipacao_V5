@@ -4,6 +4,8 @@ title: Aceitar/Recusar Perfil
 description: Fluxo de aprovação ou recusa de perfis de acesso
 ---
 
+import { IconCircleRed, IconCheck, IconX, IconEye, IconWarning, StatusDone, PriorityHigh } from '@site/src/components/StatusIcons';
+
 # Fluxo: Aceitar/Recusar Perfil
 
 ## Visão Geral
@@ -13,8 +15,8 @@ description: Fluxo de aprovação ou recusa de perfis de acesso
 | **ID** | FLX-001 |
 | **Persona** | [Gestor/Admin](../personas/gestor) |
 | **Frequência** | Diária |
-| **Prioridade** | 🔴 Alta |
-| **Status** | ✅ Documentado |
+| **Prioridade** | <PriorityHigh /> |
+| **Status** | <StatusDone /> |
 
 ---
 
@@ -47,8 +49,8 @@ stateDiagram-v2
     ModalRecusa --> Recusado: Confirma recusa
     ModalRecusa --> EmAnalise: Cancela
     
-    Aceito --> [*]: Notifica usuário ✅
-    Recusado --> [*]: Notifica usuário ❌
+    Aceito --> [*]: Notifica usuário (aprovado)
+    Recusado --> [*]: Notifica usuário (recusado)
 ```
 
 ---
@@ -66,9 +68,9 @@ O gestor acessa a lista de perfis aguardando aprovação.
 - Data da solicitação
 
 **Ações disponíveis:**
-- ✅ Aceitar perfil
-- ❌ Recusar perfil
-- 👁️ Ver detalhes
+- <IconCheck size={14} /> Aceitar perfil
+- <IconX size={14} /> Recusar perfil
+- <IconEye size={14} /> Ver detalhes
 
 ---
 
@@ -77,7 +79,7 @@ O gestor acessa a lista de perfis aguardando aprovação.
 Ao clicar em "Aceitar", exibe confirmação simples:
 
 ```
-✅ Confirmar aprovação?
+Confirmar aprovação?
 
 Perfil: Professor
 Nome: Maria Silva
@@ -109,7 +111,7 @@ Ao clicar em "Recusar", exibe modal de confirmação com destaque de ação dest
 ```html
 <!-- HTML/Vanilla -->
 <div class="modal-container">
-  <span class="warning-icon">⚠️</span>
+  <span class="warning-icon"><IconWarning size={24} /></span>
   <h1 class="modal-title">
     Deseja <span class="text-danger">recusar</span> esse perfil?
   </h1>

@@ -3,6 +3,16 @@ sidebar_position: 1
 title: Visão do Produto
 description: Conheça o Educacross - Plataforma educacional gamificada
 ---
+import {
+  IconAdmin,
+  IconBooks,
+  IconChart,
+  IconGame,
+  IconGraduation,
+  IconStudent,
+  IconTeacher
+} from '@site/src/components/MaterialIcon';
+
 
 # Visão do Produto
 
@@ -19,19 +29,19 @@ Professores e coordenadores enfrentam dificuldades para:
 
 O **Educacross** é uma plataforma educacional gamificada que transforma a experiência de ensino-aprendizagem através de:
 
-### 🎮 Gamificação Inteligente
+### <IconGame /> Gamificação Inteligente
 
 - Missões e jornadas de aprendizado com recompensas
 - Rankings e medalhas que motivam sem excluir
 - Progressão visual do aluno em tempo real
 
-### 📚 Conteúdo Estruturado
+### <IconBooks /> Conteúdo Estruturado
 
 - Livros digitais interativos organizados por sistema de ensino
 - Missões alinhadas à BNCC
 - Banco de atividades customizáveis
 
-### 📊 Visibilidade Total
+### <IconChart /> Visibilidade Total
 
 - Dashboards de acompanhamento por turma e aluno
 - Relatórios de desempenho exportáveis
@@ -56,9 +66,9 @@ O Educacross atende três perfis principais:
 
 | Persona | Necessidade Principal | Valor Entregue |
 |---------|----------------------|----------------|
-| [👨‍🏫 Professor](../personas/professor) | Engajar e acompanhar alunos | Dashboards + Missões gamificadas |
-| [👨‍💼 Gestor/Admin](../personas/gestor) | Gerenciar turmas e medir resultados | Relatórios + Gestão de acessos |
-| [👨‍🎓 Aluno](../personas/aluno) | Aprender de forma divertida | Jornadas gamificadas + Recompensas |
+| [<IconTeacher /> Professor](../personas/professor) | Engajar e acompanhar alunos | Dashboards + Missões gamificadas |
+| [<IconAdmin /> Gestor/Admin](../personas/gestor) | Gerenciar turmas e medir resultados | Relatórios + Gestão de acessos |
+| [<IconStudent /> Aluno](../personas/aluno) | Aprender de forma divertida | Jornadas gamificadas + Recompensas |
 
 ---
 

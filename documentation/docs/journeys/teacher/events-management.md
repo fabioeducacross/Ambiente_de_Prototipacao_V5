@@ -1,6 +1,8 @@
+import { IconCircleGreen, IconCircleRed, IconCircleYellow, IconSparkle, IconX } from '@site/src/components/MaterialIcon';
+
 # PROF-004: Events Management
 
-<span class="badge badge-warning">🔴 Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-primary">Teacher Context</span>
+<span class="badge badge-warning"><IconCircleRed /> Alta Prioridade</span> <span class="badge badge-info">Sprint 1</span> <span class="badge badge-primary">Teacher Context</span>
 
 ## Visão Geral
 
@@ -8,7 +10,7 @@ Jornada que permite professores gerenciarem **eventos educacionais** (avaliaçõ
 
 **Contexto de Usuário**: Professor  
 **Categoria**: Avaliações e Eventos  
-**Complexidade**: ⭐⭐ Intermediário  
+**Complexidade**: <IconSparkle /><IconSparkle /> Intermediário  
 **Duração Média**: 5-10 minutos por evento
 
 ---
@@ -22,10 +24,10 @@ Professores precisam gerenciar eventos educacionais que:
 - Precisam ser acompanhados em tempo real (participação, conclusão)
 
 **Pain Points Atuais**:
-- ❌ Interface confusa com muitas informações visuais
-- ❌ Falta de clareza sobre status do evento (ativo, pendente, encerrado)
-- ❌ Dificuldade para ver quais turmas já habilitaram o evento
-- ❌ Sem preview das questões antes de habilitar
+- <IconX /> Interface confusa com muitas informações visuais
+- <IconX /> Falta de clareza sobre status do evento (ativo, pendente, encerrado)
+- <IconX /> Dificuldade para ver quais turmas já habilitaram o evento
+- <IconX /> Sem preview das questões antes de habilitar
 
 ---
 
@@ -267,9 +269,9 @@ sequenceDiagram
 - Contador: "X turmas habilitadas"
 
 **Variações de Badge**:
-- 🟢 **Ativo** (verde) - Evento em andamento, dentro do período
-- 🟡 **Em Breve** (amarelo) - Evento futuro, ainda não iniciou
-- 🔴 **Encerrado** (vermelho) - Evento finalizado, fora do período
+- <IconCircleGreen /> **Ativo** (verde) - Evento em andamento, dentro do período
+- <IconCircleYellow /> **Em Breve** (amarelo) - Evento futuro, ainda não iniciou
+- <IconCircleRed /> **Encerrado** (vermelho) - Evento finalizado, fora do período
 - ⚫ **Rascunho** (cinza) - Evento não publicado (apenas admin)
 
 ### Estado: Modal de Habilitação

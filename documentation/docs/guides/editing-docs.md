@@ -3,8 +3,26 @@ sidebar_position: 1
 title: Como Editar a Documentação
 description: Guia prático para o time editar jornadas e documentos
 ---
+import {
+  IconArchitecture,
+  IconBooks,
+  IconCheck,
+  IconClipboard,
+  IconCode,
+  IconDocument,
+  IconEdit,
+  IconGlobe,
+  IconHome,
+  IconPalette,
+  IconPhone,
+  IconRocket,
+  IconSettings,
+  IconSparkle,
+  IconTarget
+} from '@site/src/components/MaterialIcon';
 
-# 📝 Como Editar a Documentação
+
+# <IconEdit /> Como Editar a Documentação
 
 Este guia mostra as diferentes formas de editar a documentação do Ambiente de Prototipação.
 
@@ -14,31 +32,31 @@ Este guia mostra as diferentes formas de editar a documentação do Ambiente de 
 graph TD
     Start([👤 Membro do Time]) --> Decision1{🤔 Tipo de<br/>edição?}
     
-    Decision1 -->|📝 Correção<br/>rápida| GitHub[🌐 GitHub Web Editor]
-    Decision1 -->|🔧 Mudança<br/>complexa| Local[💻 Edição Local]
+    Decision1 -->|<IconEdit /> Correção<br/>rápida| GitHub[<IconGlobe /> GitHub Web Editor]
+    Decision1 -->|<IconSettings /> Mudança<br/>complexa| Local[<IconCode /> Edição Local]
     Decision1 -->|☁️ Sem setup| Codespaces[☁️ GitHub Codespaces]
     
-    GitHub --> Navigate1[📄 Navegar até a página<br/>na wiki]
+    GitHub --> Navigate1[<IconDocument /> Navegar até a página<br/>na wiki]
     Navigate1 --> ClickEdit[✏️ Clicar em Edit this page]
     ClickEdit --> EditOnline[🖊️ Editar no navegador]
     EditOnline --> Commit1[💾 Commit changes]
-    Commit1 --> Deploy1[🚀 Deploy automático]
-    Deploy1 --> End1([✅ Concluído])
+    Commit1 --> Deploy1[<IconRocket /> Deploy automático]
+    Deploy1 --> End1([<IconCheck /> Concluído])
     
     Local --> Clone[📥 git clone repositório]
     Clone --> Install[📦 npm install]
-    Install --> StartServer[🖥️ npm start]
+    Install --> StartServer[<IconCode /> npm start]
     StartServer --> EditLocal[✏️ Editar arquivos<br/>com preview local]
     EditLocal --> Commit2[💾 git commit + push]
-    Commit2 --> Deploy2[🚀 Deploy automático]
-    Deploy2 --> End2([✅ Concluído])
+    Commit2 --> Deploy2[<IconRocket /> Deploy automático]
+    Deploy2 --> End2([<IconCheck /> Concluído])
     
     Codespaces --> CreateSpace[☁️ Criar Codespace]
-    CreateSpace --> AutoSetup[⚙️ Setup automático]
+    CreateSpace --> AutoSetup[<IconSettings /> Setup automático]
     AutoSetup --> EditCloud[✏️ Editar no VS Code Web]
     EditCloud --> Commit3[💾 Commit pelo UI]
-    Commit3 --> Deploy3[🚀 Deploy automático]
-    Deploy3 --> End3([✅ Concluído])
+    Commit3 --> Deploy3[<IconRocket /> Deploy automático]
+    Deploy3 --> End3([<IconCheck /> Concluído])
     
     classDef startEnd fill:#e1f5e1,stroke:#4caf50,stroke-width:3px,color:#000
     classDef action fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#000
@@ -51,7 +69,7 @@ graph TD
     class Commit1,Commit2,Commit3,Deploy1,Deploy2,Deploy3 deploy
 ```
 
-## 🚀 Método 1: Edição Direta no GitHub (Mais Fácil)
+## <IconRocket /> Método 1: Edição Direta no GitHub (Mais Fácil)
 
 **Ideal para:** Correções rápidas, ajustes de texto, atualização de informações
 
@@ -67,17 +85,17 @@ graph TD
    docs: atualiza jornada PROF-001 com novos pain points
    ```
 7. **Escolha uma opção:**
-   - ✅ **"Commit directly to main"** - Para mudanças pequenas e diretas
+   - <IconCheck /> **"Commit directly to main"** - Para mudanças pequenas e diretas
    - 🔀 **"Create a new branch and start a pull request"** - Para mudanças que precisam revisão
 
 8. Clique em **"Commit changes"**
 
-### Vantagens ✨
+### Vantagens <IconSparkle />
 
-- ✅ Não precisa clonar repositório
-- ✅ Não precisa instalar nada
-- ✅ Edição visual com preview
-- ✅ Funciona direto no navegador
+- <IconCheck /> Não precisa clonar repositório
+- <IconCheck /> Não precisa instalar nada
+- <IconCheck /> Edição visual com preview
+- <IconCheck /> Funciona direto no navegador
 
 ### Quando Usar
 
@@ -89,7 +107,7 @@ graph TD
 
 ---
 
-## 💻 Método 2: Edição Local (Para Mudanças Complexas)
+## <IconCode /> Método 2: Edição Local (Para Mudanças Complexas)
 
 **Ideal para:** Adicionar novas jornadas, reestruturar documentos, testar diagramas Mermaid
 
@@ -132,17 +150,17 @@ graph TD
    git push origin main
    ```
 
-### Vantagens ✨
+### Vantagens <IconSparkle />
 
-- ✅ Preview em tempo real
-- ✅ Validação de Markdown
-- ✅ Autocomplete no VS Code
-- ✅ Teste de diagramas Mermaid
-- ✅ Busca e replace em múltiplos arquivos
+- <IconCheck /> Preview em tempo real
+- <IconCheck /> Validação de Markdown
+- <IconCheck /> Autocomplete no VS Code
+- <IconCheck /> Teste de diagramas Mermaid
+- <IconCheck /> Busca e replace em múltiplos arquivos
 
 ---
 
-## 🎨 Método 3: GitHub Codespaces (Recomendado para Times)
+## <IconPalette /> Método 3: GitHub Codespaces (Recomendado para Times)
 
 **Ideal para:** Colaboração em tempo real, sem configuração local
 
@@ -160,16 +178,16 @@ graph TD
 5. Edite e visualize mudanças no navegador integrado
 6. Commit pelo Source Control do VS Code Web
 
-### Vantagens ✨
+### Vantagens <IconSparkle />
 
-- ✅ Ambiente completo na nuvem
-- ✅ Sem setup local
-- ✅ Mesmo ambiente para todos
-- ✅ 60 horas grátis/mês por usuário
+- <IconCheck /> Ambiente completo na nuvem
+- <IconCheck /> Sem setup local
+- <IconCheck /> Mesmo ambiente para todos
+- <IconCheck /> 60 horas grátis/mês por usuário
 
 ---
 
-## 📐 Guia de Sintaxe Markdown
+## <IconArchitecture /> Guia de Sintaxe Markdown
 
 ### Cabeçalhos
 ```markdown
@@ -243,7 +261,7 @@ graph TD
 
 ---
 
-## 🎯 Boas Práticas
+## <IconTarget /> Boas Práticas
 
 ### Mensagens de Commit
 
@@ -289,7 +307,7 @@ docs/
 
 ### Diagramas Mermaid
 
-- Use emojis para contexto visual: 🏠 📋 📚 👀 🤔 ⚙️
+- Use emojis para contexto visual: <IconHome /> <IconClipboard /> <IconBooks /> 👀 🤔 <IconSettings />
 - Defina cores com `classDef`:
   ```mermaid
   classDef action fill:#e3f2fd,stroke:#2196f3
@@ -325,7 +343,7 @@ docs/
 
 ---
 
-## 📞 Suporte
+## <IconPhone /> Suporte
 
 - **Dúvidas sobre Markdown:** [Guia Docusaurus](https://docusaurus.io/docs/markdown-features)
 - **Diagramas Mermaid:** [Documentação Mermaid](https://mermaid.js.org/intro/)

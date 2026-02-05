@@ -1,8 +1,17 @@
 ---
 sidebar_position: 3
-title: 👨‍🎓 Aluno
+title: <IconStudent /> Aluno
 description: Pesquisa e hipóteses sobre o estudante
 ---
+import {
+  IconCheck,
+  IconCircleYellow,
+  IconClipboard,
+  IconGraduation,
+  IconLightbulb,
+  IconStudent
+} from '@site/src/components/MaterialIcon';
+
 
 # Discovery: Aluno
 
@@ -14,7 +23,7 @@ Documentação das **dores**, **objetivos** e **oportunidades** identificadas pa
 
 | Fonte | Tipo | Data | Confiança |
 |-------|------|------|-----------|
-| Hipótese inicial | Suposição da equipe | Fev/2026 | 🟡 Baixa |
+| Hipótese inicial | Suposição da equipe | Fev/2026 | <IconCircleYellow /> Baixa |
 | *Observação em sala (pendente)* | *Pesquisa primária* | *—* | *—* |
 | *Analytics (pendente)* | *Dados quantitativos* | *—* | *—* |
 
@@ -28,10 +37,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Dor | Impacto | Frequência | Fonte | Confiança |
 |-----|---------|------------|-------|-----------|
-| Atividades chatas e repetitivas | Alta | Diária | Hipótese | 🟡 |
-| Não sabe quantas missões faltam | Média | Semanal | Hipótese | 🟡 |
-| Demora para carregar em internet lenta | Alta | Diária | Hipótese | 🟡 |
-| Não entende o que errou | Média | Por atividade | Hipótese | 🟡 |
+| Atividades chatas e repetitivas | Alta | Diária | Hipótese | <IconCircleYellow /> |
+| Não sabe quantas missões faltam | Média | Semanal | Hipótese | <IconCircleYellow /> |
+| Demora para carregar em internet lenta | Alta | Diária | Hipótese | <IconCircleYellow /> |
+| Não entende o que errou | Média | Por atividade | Hipótese | <IconCircleYellow /> |
 
 ### Como validar
 
@@ -46,10 +55,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Objetivo | Prioridade | Fonte | Confiança |
 |----------|------------|-------|-----------|
-| Se divertir enquanto aprende | Alta | Hipótese | 🟡 |
-| Ganhar recompensas (medalhas, pontos) | Alta | Hipótese | 🟡 |
-| Ver progresso de forma visual | Média | Hipótese | 🟡 |
-| Competir saudavelmente com colegas | Média | Hipótese | 🟡 |
+| Se divertir enquanto aprende | Alta | Hipótese | <IconCircleYellow /> |
+| Ganhar recompensas (medalhas, pontos) | Alta | Hipótese | <IconCircleYellow /> |
+| Ver progresso de forma visual | Média | Hipótese | <IconCircleYellow /> |
+| Competir saudavelmente com colegas | Média | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -68,10 +77,10 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Oportunidade | Impacto | Esforço | Fonte | Status |
 |--------------|---------|---------|-------|--------|
-| Modo offline | Alto | Alto | Hipótese | 💡 Ideação |
-| Avatar customizável | Médio | Médio | Hipótese | 💡 Ideação |
-| Mini-jogos bônus | Alto | Alto | Hipótese | 💡 Ideação |
-| Feedback explicativo de erros | Médio | Médio | Hipótese | 📋 Backlog |
+| Modo offline | Alto | Alto | Hipótese | <IconLightbulb /> Ideação |
+| Avatar customizável | Médio | Médio | Hipótese | <IconLightbulb /> Ideação |
+| Mini-jogos bônus | Alto | Alto | Hipótese | <IconLightbulb /> Ideação |
+| Feedback explicativo de erros | Médio | Médio | Hipótese | <IconClipboard /> Backlog |
 
 ---
 
@@ -79,9 +88,9 @@ Os dados abaixo são **hipóteses não validadas**. Foram gerados por IA com bas
 
 | Job | Fonte | Confiança |
 |-----|-------|-----------|
-| Quando abro o app, quero ver minhas missões rapidamente, para saber o que preciso fazer hoje. | Hipótese | 🟡 |
-| Quando termino uma atividade, quero saber se fui bem, para me sentir motivado a continuar. | Hipótese | 🟡 |
-| Quando erro uma questão, quero entender por que errei, para não errar de novo. | Hipótese | 🟡 |
+| Quando abro o app, quero ver minhas missões rapidamente, para saber o que preciso fazer hoje. | Hipótese | <IconCircleYellow /> |
+| Quando termino uma atividade, quero saber se fui bem, para me sentir motivado a continuar. | Hipótese | <IconCircleYellow /> |
+| Quando erro uma questão, quero entender por que errei, para não errar de novo. | Hipótese | <IconCircleYellow /> |
 
 ---
 
@@ -114,9 +123,9 @@ As seguintes jornadas implementam os JTBDs acima:
 
 | JTBD | Jornada | Status |
 |------|---------|--------|
-| Quando abro o app, quero ver minhas missões | [STUDENT-001: Student Dashboard](../journeys/student/student-dashboard) | ✅ |
-| Quando quero aprender algo novo, quero uma trilha personalizada | [STUDENT-002: Learning Path](../journeys/student/learning-path) | 📋 Pendente |
-| Quando quero explorar, quero acessar jogos e conteúdos | [STUDENT-003: Library & Games](../journeys/student/library-games) | 📋 Pendente |
+| Quando abro o app, quero ver minhas missões | [STUDENT-001: Student Dashboard](../journeys/student/student-dashboard) | <IconCheck /> |
+| Quando quero aprender algo novo, quero uma trilha personalizada | [STUDENT-002: Learning Path](../journeys/student/learning-path) | <IconClipboard /> Pendente |
+| Quando quero explorar, quero acessar jogos e conteúdos | [STUDENT-003: Library & Games](../journeys/student/library-games) | <IconClipboard /> Pendente |
 
 → [Ver todas as jornadas de Aluno](../journeys/student/)
 

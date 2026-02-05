@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # PROF-007: Mission Analytics (Análise Detalhada de Missões)
 
 :::info Contexto
 **Jornada**: Professor  
 **Prioridade**: Baixa  
 **Complexidade**: Média  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

@@ -1,10 +1,26 @@
+import {
+  IconBookOpen,
+  IconChart,
+  IconCheck,
+  IconClipboard,
+  IconEdit,
+  IconGame,
+  IconHome,
+  IconPalette,
+  IconSearch,
+  IconSparkle,
+  IconTarget,
+  IconTrending,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 # STUDENT-003: Library Games (Jogos Educacionais)
 
 :::info Contexto
 **Jornada**: Estudante  
 **Prioridade**: Baixa  
 **Complexidade**: Baixa  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral
@@ -29,42 +45,42 @@ Biblioteca de jogos educacionais com:
 
 ```mermaid
 graph TD
-    Start([🏠 Aluno acessa Biblioteca]) --> GameLibrary[🎮 Vê grid de jogos<br/>disponíveis]
-    GameLibrary --> Filters{🔍 Quer<br/>filtrar?}
+    Start([<IconHome /> Aluno acessa Biblioteca]) --> GameLibrary[<IconGame /> Vê grid de jogos<br/>disponíveis]
+    GameLibrary --> Filters{<IconSearch /> Quer<br/>filtrar?}
     
-    Filters -->|✅ Sim| ApplyFilters[📋 Seleciona:<br/>Disciplina + Conteúdo + Gênero]
-    Filters -->|❌ Não| Browse[👀 Navega pelo<br/>catálogo completo]
+    Filters -->|<IconCheck /> Sim| ApplyFilters[<IconClipboard /> Seleciona:<br/>Disciplina + Conteúdo + Gênero]
+    Filters -->|<IconX /> Não| Browse[👀 Navega pelo<br/>catálogo completo]
     
-    ApplyFilters --> FilteredResults[🎯 Vê jogos filtrados]
+    ApplyFilters --> FilteredResults[<IconTarget /> Vê jogos filtrados]
     Browse --> SelectGame[🖱️ Clica em um jogo]
     FilteredResults --> SelectGame
     
-    SelectGame --> GameDetail[📖 Tela de detalhes do jogo]
-    GameDetail --> CheckProgress{📊 Já jogou<br/>antes?}
+    SelectGame --> GameDetail[<IconBookOpen /> Tela de detalhes do jogo]
+    GameDetail --> CheckProgress{<IconChart /> Já jogou<br/>antes?}
     
-    CheckProgress -->|✅ Sim| ShowProgress[⭐ Mostra progresso anterior<br/>Fases completadas + Pontuação]
-    CheckProgress -->|❌ Não| ShowIntro[🎬 Mostra tutorial rápido<br/>do jogo]
+    CheckProgress -->|<IconCheck /> Sim| ShowProgress[<IconSparkle /> Mostra progresso anterior<br/>Fases completadas + Pontuação]
+    CheckProgress -->|<IconX /> Não| ShowIntro[🎬 Mostra tutorial rápido<br/>do jogo]
     
     ShowProgress --> StartGame[▶️ Clica Jogar]
     ShowIntro --> StartGame
     
-    StartGame --> GameIframe[🎮 Jogo carrega<br/>em iframe fullscreen]
+    StartGame --> GameIframe[<IconGame /> Jogo carrega<br/>em iframe fullscreen]
     GameIframe --> Playing[🕹️ Aluno joga]
     
     Playing --> GameEnd{🏁 Terminou<br/>sessão?}
     
-    GameEnd -->|❌ Pausou| SaveProgress[💾 Salva progresso<br/>automaticamente]
-    GameEnd -->|✅ Completou fase| EarnRewards[🏆 Ganha XP + Badge<br/>se aplicável]
+    GameEnd -->|<IconX /> Pausou| SaveProgress[💾 Salva progresso<br/>automaticamente]
+    GameEnd -->|<IconCheck /> Completou fase| EarnRewards[<IconTrending /> Ganha XP + Badge<br/>se aplicável]
     
     SaveProgress --> Decision1{💭 Decisão}
     EarnRewards --> Decision2{💭 Decisão}
     
     Decision1 -->|▶️ Continuar| Playing
-    Decision1 -->|🏠 Sair| End([🏁 Fim])
+    Decision1 -->|<IconHome /> Sair| End([🏁 Fim])
     
-    Decision2 -->|🎮 Próxima fase| Playing
-    Decision2 -->|🏆 Ver conquistas| ShowAchievements[📊 Tela de conquistas]
-    Decision2 -->|🎮 Jogar outro| GameLibrary
+    Decision2 -->|<IconGame /> Próxima fase| Playing
+    Decision2 -->|<IconTrending /> Ver conquistas| ShowAchievements[<IconChart /> Tela de conquistas]
+    Decision2 -->|<IconGame /> Jogar outro| GameLibrary
     
     ShowAchievements --> End
     
@@ -122,12 +138,12 @@ graph TD
 
 ## 6. Melhorias TO-BE
 
-1. **Modo Competitivo Online** 🏆
+1. **Modo Competitivo Online** <IconTrending />
    - Torneios semanais entre alunos da rede
    - Leaderboards globais por jogo
    - Recompensas exclusivas para vencedores
 
-2. **Criador de Jogos** 🎨
+2. **Criador de Jogos** <IconPalette />
    - Professores criam variações de jogos existentes
    - Editor visual drag-and-drop
    - Compartilhamento entre escolas
@@ -142,7 +158,7 @@ graph TD
    - Desafiar colegas para duelos
    - Sistema de presentes virtuais
 
-5. **Gamification Avançada** 🎮
+5. **Gamification Avançada** <IconGame />
    - Temporadas com jogos rotativos
    - Battle Pass estilo Fortnite
    - Eventos especiais sazonais
@@ -157,4 +173,4 @@ graph TD
 
 **Última atualização**: 2026-02-04  
 **Versão**: AS-IS v1.0  
-**Status**: 📝 Documentado - Aguardando Protótipo TO-BE
+**Status**: <IconEdit /> Documentado - Aguardando Protótipo TO-BE

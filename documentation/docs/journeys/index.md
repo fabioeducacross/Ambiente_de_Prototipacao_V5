@@ -2,6 +2,13 @@
 sidebar_position: 1
 title: Catálogo de Jornadas
 ---
+import TeacherIcon from '@site/static/img/icons/teacher.svg';
+import StudentIcon from '@site/static/img/icons/student.svg';
+import AdminIcon from '@site/static/img/icons/admin.svg';
+import CoordinatorIcon from '@site/static/img/icons/coordinator.svg';
+import DirectorIcon from '@site/static/img/icons/director.svg';
+import AuditorIcon from '@site/static/img/icons/auditor.svg';
+import { IconChart } from '@site/src/components/StatusIcons';
 
 # Catálogo de Jornadas
 
@@ -9,21 +16,21 @@ Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos 
 
 ---
 
-## 📊 Resumo
+## <IconChart size={24} /> Resumo
 
 | Perfil | Total | Documentadas |
 |--------|-------|--------------|
-| [👨‍🏫 Professor](#-professor) | 11 | 11 |
-| [👨‍🎓 Aluno](#-aluno) | 3 | 1 |
-| [🛠️ Administrador](#-administrador) | 1 | 1 |
-| [👩‍🏫 Coordenador](#-coordenador) | 3 | 3 |
-| [👔 Diretor](#-diretor) | 1 | 1 |
-| [🌐 Gestor de Rede](#-gestor-de-rede) | 1 | 1 |
-| [🔍 Auditor](#-auditor) | 1 | 1 |
+| [<TeacherIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Professor](#professor) | 11 | 11 |
+| [<StudentIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Aluno](#aluno) | 3 | 1 |
+| [<AdminIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Administrador](#administrador) | 1 | 1 |
+| [<CoordinatorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Coordenador](#coordenador) | 3 | 3 |
+| [<DirectorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Diretor](#diretor) | 1 | 1 |
+| [<img src={require('@site/static/img/icons/network.png').default} alt="Gestor de Rede" width="20" style={{verticalAlign: 'text-bottom'}} /> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
+| [<AuditorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Auditor](#auditor) | 1 | 1 |
 
 ---
 
-## 👨‍🏫 Professor
+## <TeacherIcon width="30" style={{verticalAlign: 'middle'}} /> Professor
 
 Jornadas focadas na gestão de sala de aula e ensino.
 
@@ -43,7 +50,7 @@ Jornadas focadas na gestão de sala de aula e ensino.
 
 ---
 
-## 👨‍🎓 Aluno
+## <StudentIcon width="30" style={{verticalAlign: 'middle'}} /> Aluno
 
 Jornadas do estudante na plataforma gamificada.
 
@@ -55,7 +62,7 @@ Jornadas do estudante na plataforma gamificada.
 
 ---
 
-## 🛠️ Administrador
+## <AdminIcon width="30" style={{verticalAlign: 'middle'}} /> Administrador
 
 Jornadas técnicas e operacionais da escola.
 
@@ -65,7 +72,7 @@ Jornadas técnicas e operacionais da escola.
 
 ---
 
-## 👩‍🏫 Coordenador
+## <CoordinatorIcon width="30" style={{verticalAlign: 'middle'}} /> Coordenador
 
 Jornadas de acompanhamento pedagógico.
 
@@ -77,7 +84,7 @@ Jornadas de acompanhamento pedagógico.
 
 ---
 
-## 👔 Diretor
+## <DirectorIcon width="30" style={{verticalAlign: 'middle'}} /> Diretor
 
 Jornadas de gestão estratégica e macro-indicadores.
 
@@ -87,7 +94,7 @@ Jornadas de gestão estratégica e macro-indicadores.
 
 ---
 
-## 🌐 Gestor de Rede
+## <img src={require('@site/static/img/icons/network.png').default} alt="Gestor de Rede" width="30" style={{verticalAlign: 'middle'}} /> Gestor de Rede
 
 Jornadas de gestão multi-escola.
 
@@ -97,7 +104,7 @@ Jornadas de gestão multi-escola.
 
 ---
 
-## 🔍 Auditor
+## <AuditorIcon width="30" style={{verticalAlign: 'middle'}} /> Auditor
 
 Perfil especializado em verificação de integridade/qualidade.
 

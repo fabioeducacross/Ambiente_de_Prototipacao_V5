@@ -4,6 +4,8 @@ title: Habilitar Missões
 description: Fluxo de habilitação de missões pelo professor
 ---
 
+import { PriorityHigh, StatusProgress } from '@site/src/components/StatusIcons';
+
 # Fluxo: Habilitar Missões
 
 ## Visão Geral
@@ -13,8 +15,8 @@ description: Fluxo de habilitação de missões pelo professor
 | **ID** | FLX-002 |
 | **Persona** | [Professor](../personas/professor) |
 | **Frequência** | Diária |
-| **Prioridade** | 🔴 Alta |
-| **Status** | 🚧 Em progresso |
+| **Prioridade** | <PriorityHigh /> |
+| **Status** | <StatusProgress /> |
 
 ---
 
@@ -48,7 +50,7 @@ stateDiagram-v2
     SelecionarMissoes --> Confirmar: Clica "Habilitar"
     Confirmar --> Habilitado: Confirma no modal
     
-    Habilitado --> [*]: Missões liberadas ✅
+    Habilitado --> [*]: Missões liberadas
 ```
 
 ---
@@ -92,7 +94,7 @@ Ao clicar no livro, abre a lista de missões.
 ### 3. Modal de Confirmação
 
 ```
-✅ Habilitar missões?
+Habilitar missões?
 
 Você está prestes a habilitar 5 missões para a turma 4º Ano A.
 

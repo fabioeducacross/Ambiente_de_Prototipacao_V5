@@ -4,6 +4,8 @@ title: Fluxos Críticos
 description: Documentação detalhada dos fluxos mais importantes do Educacross
 ---
 
+import { IconCircleRed, IconCircleYellow, IconCheck, IconConstruction, IconClipboard, StatusDone, StatusProgress, StatusPlanned, PriorityHigh, PriorityMedium } from '@site/src/components/StatusIcons';
+
 # Fluxos Críticos
 
 Esta seção documenta os fluxos de usuário mais importantes da plataforma, com foco em:
@@ -20,10 +22,10 @@ Esta seção documenta os fluxos de usuário mais importantes da plataforma, com
 
 | ID | Fluxo | Persona | Prioridade | Status |
 |----|-------|---------|------------|--------|
-| FLX-001 | [Aceitar/Recusar Perfil](./aceitar-recusar-perfil) | Gestor | 🔴 Alta | ✅ Documentado |
-| FLX-002 | [Habilitar Missões](./habilitar-missoes) | Professor | 🔴 Alta | 🚧 Em progresso |
-| FLX-003 | [Completar Missão](./completar-missao) | Aluno | 🔴 Alta | 📋 Planejado |
-| FLX-004 | [Gerar Relatório](./gerar-relatorio) | Gestor/Professor | 🟡 Média | 📋 Planejado |
+| FLX-001 | [Aceitar/Recusar Perfil](./aceitar-recusar-perfil) | Gestor | <PriorityHigh /> | <StatusDone /> |
+| FLX-002 | [Habilitar Missões](./habilitar-missoes) | Professor | <PriorityHigh /> | <StatusProgress /> |
+| FLX-003 | [Completar Missão](./completar-missao) | Aluno | <PriorityHigh /> | <StatusPlanned /> |
+| FLX-004 | [Gerar Relatório](./gerar-relatorio) | Gestor/Professor | <PriorityMedium /> | <StatusPlanned /> |
 
 ---
 
@@ -32,12 +34,12 @@ Esta seção documenta os fluxos de usuário mais importantes da plataforma, com
 ```mermaid
 quadrantChart
     title Fluxos por Frequência e Complexidade
-    x-axis Baixa Frequência --> Alta Frequência
-    y-axis Baixa Complexidade --> Alta Complexidade
-    quadrant-1 Otimizar UX
-    quadrant-2 Prioridade Máxima
-    quadrant-3 Manter Simples
-    quadrant-4 Automatizar
+    x-axis "Baixa Frequência" --> "Alta Frequência"
+    y-axis "Baixa Complexidade" --> "Alta Complexidade"
+    quadrant-1 "Otimizar UX"
+    quadrant-2 "Prioridade Máxima"
+    quadrant-3 "Manter Simples"
+    quadrant-4 "Automatizar"
     "Aceitar Perfil": [0.7, 0.3]
     "Habilitar Missões": [0.9, 0.5]
     "Completar Missão": [0.95, 0.2]

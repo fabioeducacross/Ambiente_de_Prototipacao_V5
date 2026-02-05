@@ -3,6 +3,10 @@ sidebar_position: 3
 title: Completar Missão
 description: Fluxo do aluno ao completar uma missão
 ---
+import { IconSparkle } from '@site/src/components/MaterialIcon';
+
+
+import { PriorityHigh, StatusPlanned } from '@site/src/components/StatusIcons';
 
 # Fluxo: Completar Missão
 
@@ -13,8 +17,8 @@ description: Fluxo do aluno ao completar uma missão
 | **ID** | FLX-003 |
 | **Persona** | [Aluno](../personas/aluno) |
 | **Frequência** | Diária |
-| **Prioridade** | 🔴 Alta |
-| **Status** | 📋 Planejado |
+| **Prioridade** | <PriorityHigh /> |
+| **Status** | <StatusPlanned /> |
 
 ---
 
@@ -60,7 +64,7 @@ stateDiagram-v2
 | Momento | Elemento | Feedback |
 |---------|----------|----------|
 | Início | Animação de entrada | "Vamos lá!" |
-| Acerto | Som + visual | ⭐ +10 pontos |
+| Acerto | Som + visual | <IconSparkle /> +10 pontos |
 | Erro | Feedback gentil | "Tente de novo!" |
 | Conclusão | Celebração | 🎉 Confetti + medalha |
 

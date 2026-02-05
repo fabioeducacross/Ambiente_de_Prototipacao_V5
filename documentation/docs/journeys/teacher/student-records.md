@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # PROF-005: Diário de Classe Digital (Student Records)
 
 :::info Contexto
 **Jornada**: Professor  
 **Prioridade**: Média  
 **Complexidade**: Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

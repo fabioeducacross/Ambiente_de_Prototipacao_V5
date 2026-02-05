@@ -1,10 +1,12 @@
 ---
 sidebar_position: 4
-title: 🔬 Discovery
+title: Discovery
 description: Pesquisa de usuário e validação de hipóteses
 ---
 
-# 🔬 Discovery
+import { IconCircleYellow, IconCircleRed, IconCheck } from '@site/src/components/StatusIcons';
+
+# Discovery
 
 Esta seção documenta as **pesquisas de usuário**, **hipóteses** e **validações** que fundamentam as decisões de produto do Educacross.
 
@@ -25,14 +27,14 @@ Sem fontes claras, decisões de produto viram opiniões. Aqui registramos:
 
 | Persona | Dores | Objetivos | Jobs-to-be-Done | Status |
 |---------|-------|-----------|-----------------|--------|
-| [Professor](./professor) | 🟡 Hipótese | 🟡 Hipótese | 🟡 Hipótese | Pendente validação |
-| [Gestor](./gestor) | 🟡 Hipótese | 🟡 Hipótese | 🟡 Hipótese | Pendente validação |
-| [Aluno](./aluno) | 🟡 Hipótese | 🟡 Hipótese | 🟡 Hipótese | Pendente validação |
+| [Professor](./professor) | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | Pendente validação |
+| [Gestor](./gestor) | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | Pendente validação |
+| [Aluno](./aluno) | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | <IconCircleYellow /> Hipótese | Pendente validação |
 
 **Legenda:**
-- 🟢 **Validado** — Confirmado com pesquisa primária (entrevistas, observação)
-- 🟡 **Hipótese** — Suposição baseada em dados secundários ou experiência
-- 🔴 **Invalidado** — Pesquisa mostrou que estava errado
+- <IconCheck size={12} /> **Validado** — Confirmado com pesquisa primária (entrevistas, observação)
+- <IconCircleYellow /> **Hipótese** — Suposição baseada em dados secundários ou experiência
+- <IconCircleRed /> **Invalidado** — Pesquisa mostrou que estava errado
 
 ---
 

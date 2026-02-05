@@ -1,10 +1,12 @@
+import { IconCheck } from '@site/src/components/MaterialIcon';
+
 # PROF-006: Gestão de Turmas (Classes Records)
 
 :::info Contexto
 **Jornada**: Professor  
 **Prioridade**: Média  
 **Complexidade**: Média-Alta  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral

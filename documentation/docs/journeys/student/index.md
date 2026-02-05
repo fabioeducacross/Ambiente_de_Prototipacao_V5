@@ -1,4 +1,6 @@
-# Jornadas do Aluno 🎓
+import { IconCheck, IconCircleGreen, IconGraduation, IconPending } from '@site/src/components/MaterialIcon';
+
+# Jornadas do Aluno <IconGraduation />
 
 Documentação das 3 jornadas do contexto student/aluno.
 
@@ -6,19 +8,19 @@ Documentação das 3 jornadas do contexto student/aluno.
 
 ### Aprendizagem
 
-1. **[STUDENT-001: Student Dashboard](./student-dashboard.md)** ✅
+1. **[STUDENT-001: Student Dashboard](./student-dashboard.md)** <IconCheck />
    - Painel do aluno
    - Progresso gamificado
-   - Status: ✅ Documentado (Sprint 3)
+   - Status: <IconCheck /> Documentado (Sprint 3)
 
-2. **STUDENT-002: Learning Path** ⏳
+2. **STUDENT-002: Learning Path** <IconPending />
    - Trilha de aprendizagem personalizada
    - Recomendações IA
-   - Status: ⏳ Pendente (Sprint 3)
+   - Status: <IconPending /> Pendente (Sprint 3)
 
-3. **Jornada não atribuída** ⏳
+3. **Jornada não atribuída** <IconPending />
    - A definir
-   - Status: ⏳ Pendente
+   - Status: <IconPending /> Pendente
 
 ## Estatísticas
 
@@ -33,9 +35,9 @@ Documentação das 3 jornadas do contexto student/aluno.
 
 Conforme [PLANO.md](../../../../PLANO.md#-jornadas-prioritárias):
 
-1. 🟢 **Baixa Prioridade (Sprint 3)**
-   - STUDENT-001: Student Dashboard ✅
-   - STUDENT-002: Learning Path ⏳
+1. <IconCircleGreen /> **Baixa Prioridade (Sprint 3)**
+   - STUDENT-001: Student Dashboard <IconCheck />
+   - STUDENT-002: Learning Path <IconPending />
 
 ---
 

@@ -1,4 +1,6 @@
-# Protótipos TO-BE 🚀
+# Protótipos TO-BE
+
+import { IconCircleRed, IconCircleYellow, IconClipboard, IconLightbulb, IconBook, IconChart, IconTarget, IconCheck } from '@site/src/components/StatusIcons';
 
 Documentação dos protótipos de melhorias propostas.
 
@@ -32,20 +34,20 @@ Cada protótipo tem sua própria branch:
 
 ## Protótipos Planejados
 
-### 🔴 Alta Prioridade
+### <IconCircleRed /> Alta Prioridade
 
 #### 1. Education System V2
 
-**Status**: 📋 Planejado  
+**Status**: <IconClipboard size={14} /> Planejado  
 **Jornada Base**: [PROF-001: Books](../journeys/teacher/education-system-books.md)  
 **Branch**: `prototypes/feature/education-system-v2`
 
 **Melhorias Propostas**:
-- ✨ Wizard de seleção de livros (passo-a-passo)
-- 🔍 Preview interativo de páginas antes de abrir
-- ⭐ Sistema de favoritos
-- 📚 Histórico de últimos livros acessados
-- 🔎 Busca avançada por capítulo/conteúdo
+- Wizard de seleção de livros (passo-a-passo)
+- Preview interativo de páginas antes de abrir
+- Sistema de favoritos
+- <IconBook size={14} /> Histórico de últimos livros acessados
+- Busca avançada por capítulo/conteúdo
 
 **Componentes Novos**:
 - `DSBookSelector.vue` - Wizard de seleção
@@ -58,16 +60,16 @@ Cada protótipo tem sua própria branch:
 
 #### 2. Missions V3
 
-**Status**: 📋 Planejado  
+**Status**: <IconClipboard size={14} /> Planejado  
 **Jornada Base**: [PROF-002: Missions](../journeys/teacher/education-system-missions.md)  
 **Branch**: `prototypes/feature/missions-v3`
 
 **Melhorias Propostas**:
-- 📊 Visualização em sequência/timeline
-- ☑️ Seleção múltipla com checkboxes
-- ⚡ Ações em lote melhoradas
-- 🎯 Preview de questões antes de habilitar
-- 📈 Dashboard de uso
+- <IconChart size={14} /> Visualização em sequência/timeline
+- Seleção múltipla com checkboxes
+- Ações em lote melhoradas
+- <IconTarget size={14} /> Preview de questões antes de habilitar
+- Dashboard de uso
 
 **Componentes Novos**:
 - `DSMissionTimeline.vue` - Visualização sequencial
@@ -78,35 +80,35 @@ Cada protótipo tem sua própria branch:
 
 ---
 
-### 🟡 Média Prioridade
+### <IconCircleYellow /> Média Prioridade
 
 #### 3. Custom Missions Editor V2
 
-**Status**: 💡 Ideação  
+**Status**: <IconLightbulb size={14} /> Ideação  
 **Jornada Base**: PROF-003: Custom Missions  
 **Branch**: `prototypes/feature/missions-editor-v2`
 
 **Melhorias Propostas**:
-- 🎨 Editor WYSIWYG para questões
-- 📸 Upload de imagens drag-and-drop
-- 🎬 Suporte a vídeos e áudio
-- 🧩 Banco de questões reutilizáveis
-- 🤖 Sugestões de IA
+- Editor WYSIWYG para questões
+- Upload de imagens drag-and-drop
+- Suporte a vídeos e áudio
+- Banco de questões reutilizáveis
+- Sugestões de IA
 
 ---
 
 #### 4. Reports Dashboard V2
 
-**Status**: 💡 Ideação  
+**Status**: <IconLightbulb size={14} /> Ideação  
 **Jornada Base**: ADMIN-001: Mission Reports  
 **Branch**: `prototypes/feature/reports-v2`
 
 **Melhorias Propostas**:
-- 📊 Dashboards interativos com drill-down
-- 📈 Gráficos comparativos
-- 📥 Exportação em múltiplos formatos
-- 🔔 Alertas automáticos
-- 📱 Versão mobile otimizada
+- <IconChart size={14} /> Dashboards interativos com drill-down
+- Gráficos comparativos
+- Exportação em múltiplos formatos
+- Alertas automáticos
+- Versão mobile otimizada
 
 ---
 
@@ -152,12 +154,12 @@ Cada protótipo tem sua própria branch:
 
 Para um protótipo ser aprovado e migrado para produção:
 
-- ✅ **Usabilidade**: Testado com 5+ usuários reais
-- ✅ **Performance**: Lighthouse score >90
-- ✅ **Acessibilidade**: WCAG 2.1 Level AA
-- ✅ **Design System**: 100% componentes do DS
-- ✅ **Responsivo**: Mobile + Tablet + Desktop
-- ✅ **Testes**: Cobertura >80%
+- <IconCheck size={14} /> **Usabilidade**: Testado com 5+ usuários reais
+- <IconCheck size={14} /> **Performance**: Lighthouse score >90
+- <IconCheck size={14} /> **Acessibilidade**: WCAG 2.1 Level AA
+- <IconCheck size={14} /> **Design System**: 100% componentes do DS
+- <IconCheck size={14} /> **Responsivo**: Mobile + Tablet + Desktop
+- <IconCheck size={14} /> **Testes**: Cobertura >80%
 
 ---
 

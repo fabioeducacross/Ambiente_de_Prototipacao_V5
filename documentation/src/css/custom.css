@@ -7,6 +7,9 @@
 /* Import Montserrat Font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
+/* Import Material Symbols */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+
 /* Vuexy Design System Color Palette */
 :root {
   /* Typography */
@@ -104,6 +107,127 @@
   /* Layout */
   --doc-sidebar-width: 280px;
   --ifm-navbar-height: 60px;
+  
+  /* Heading Sizes - Refinados */
+  --ifm-h1-font-size: 2rem;     /* 32px - era ~42px */
+  --ifm-h2-font-size: 1.5rem;   /* 24px */
+  --ifm-h3-font-size: 1.25rem;  /* 20px */
+  --ifm-h4-font-size: 1.1rem;   /* ~18px */
+  --ifm-h5-font-size: 1rem;     /* 16px */
+}
+
+/* ========================================
+   TYPOGRAPHY REFINEMENTS
+   ======================================== */
+
+/* H1 - Título principal de página */
+article h1 {
+  font-size: var(--ifm-h1-font-size);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-heading-color);
+}
+
+/* H2 - Seções principais */
+article h2 {
+  font-size: var(--ifm-h2-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* H3 - Subseções */
+article h3 {
+  font-size: var(--ifm-h3-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ========================================
+   MATERIAL SYMBOLS - Tamanhos Maiores
+   ======================================== */
+
+/* Ícones inline em headings - proporcionais ao título */
+article h1 .material-symbols-outlined,
+h1 .material-symbols-outlined {
+  font-size: 1.8rem !important;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+article h2 .material-symbols-outlined,
+h2 .material-symbols-outlined {
+  font-size: 1.4rem !important;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+
+article h3 .material-symbols-outlined,
+h3 .material-symbols-outlined {
+  font-size: 1.2rem !important;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+/* Ícones em texto normal - um pouco maiores */
+p .material-symbols-outlined,
+li .material-symbols-outlined,
+td .material-symbols-outlined,
+span .material-symbols-outlined {
+  font-size: 1.1rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Ícones de status em tabelas - destaque visual */
+table td .material-symbols-outlined {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+
+/* ============================================
+   Círculos de Prioridade - Visual Destacado
+   ============================================ */
+
+/* Círculos de prioridade em headings - maiores e preenchidos */
+h1 .priority-circle,
+h2 .priority-circle,
+h3 .priority-circle {
+  font-size: 1.1rem !important;
+  font-variation-settings: 'FILL' 1 !important; /* Preenchido */
+  vertical-align: middle;
+}
+
+/* Círculos em texto normal e listas */
+p .priority-circle,
+li .priority-circle {
+  font-size: 0.9rem;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+
+/* Círculos em tabelas - um pouco maiores */
+table .priority-circle,
+td .priority-circle {
+  font-size: 1rem !important;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+/* Círculos em badges */
+.badge .priority-circle {
+  font-size: 0.8rem !important;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.2rem;
 }
 
 /* Badges */
@@ -259,4 +383,103 @@ div[class^='codeBlockContainer'] {
 
 .status-dot.pending {
   background-color: var(--ifm-color-warning);
+}
+
+/* ========================================
+   INLINE STATUS ICONS (substituir emojis)
+   ======================================== */
+
+/* Container para ícones inline com texto */
+.status-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.status-icon svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Variantes de status */
+.status-icon--done,
+.status-icon--check {
+  color: var(--ifm-color-success);
+}
+
+.status-icon--error,
+.status-icon--reject {
+  color: var(--ifm-color-danger);
+}
+
+.status-icon--warning,
+.status-icon--progress {
+  color: var(--ifm-color-warning);
+}
+
+.status-icon--info,
+.status-icon--planned {
+  color: var(--ifm-color-primary);
+}
+
+/* Círculos de prioridade */
+.priority-circle {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+
+.priority-circle--high {
+  background-color: var(--ifm-color-danger);
+}
+
+.priority-circle--medium {
+  background-color: var(--ifm-color-warning);
+}
+
+.priority-circle--low {
+  background-color: var(--ifm-color-success);
+}
+
+/* Badge de status inline para tabelas */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.status-badge--done {
+  background-color: rgba(40, 199, 111, 0.15);
+  color: var(--ifm-color-success);
+}
+
+.status-badge--progress {
+  background-color: rgba(255, 159, 67, 0.15);
+  color: var(--ifm-color-warning);
+}
+
+.status-badge--planned {
+  background-color: rgba(115, 103, 240, 0.15);
+  color: var(--ifm-color-primary);
+}
+
+.status-badge--error {
+  background-color: rgba(234, 84, 85, 0.15);
+  color: var(--ifm-color-danger);
 }

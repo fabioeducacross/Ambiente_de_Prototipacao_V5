@@ -1,10 +1,29 @@
+import {
+  IconBookOpen,
+  IconBooks,
+  IconChart,
+  IconCheck,
+  IconCircleYellow,
+  IconClipboard,
+  IconCode,
+  IconEdit,
+  IconGame,
+  IconHome,
+  IconLightbulb,
+  IconPalette,
+  IconRefresh,
+  IconSparkle,
+  IconTrending,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 # STUDENT-002: Learning Path (Trilha de Aprendizado)
 
 :::info Contexto
 **Jornada**: Estudante  
 **Prioridade**: Média  
 **Complexidade**: Média  
-**Status**: ✅ Documentado (AS-IS Baseline)
+**Status**: <IconCheck /> Documentado (AS-IS Baseline)
 :::
 
 ## 1. Visão Geral
@@ -47,42 +66,42 @@ Trilha de aprendizado gamificada com:
 
 ```mermaid
 graph TD
-    Start([🏠 João entra na plataforma]) --> Dashboard[📊 Vê Dashboard com<br/>mapa de missões]
+    Start([<IconHome /> João entra na plataforma]) --> Dashboard[<IconChart /> Vê Dashboard com<br/>mapa de missões]
     Dashboard --> CheckStreak{🔥 Tem streak<br/>ativo?}
     
-    CheckStreak -->|✅ Sim| ShowStreak[⭐ Animação: 5 dias consecutivos!]
-    CheckStreak -->|❌ Não| CheckPending{📋 Tem missões<br/>pendentes?}
+    CheckStreak -->|<IconCheck /> Sim| ShowStreak[<IconSparkle /> Animação: 5 dias consecutivos!]
+    CheckStreak -->|<IconX /> Não| CheckPending{<IconClipboard /> Tem missões<br/>pendentes?}
     
     ShowStreak --> CheckPending
-    CheckPending -->|✅ Sim| ShowMissions[📚 Lista missões disponíveis<br/>por prioridade]
-    CheckPending -->|❌ Não| ShowCompleted[🎉 Todas missões concluídas!<br/>Mostra badges conquistados]
+    CheckPending -->|<IconCheck /> Sim| ShowMissions[<IconBooks /> Lista missões disponíveis<br/>por prioridade]
+    CheckPending -->|<IconX /> Não| ShowCompleted[🎉 Todas missões concluídas!<br/>Mostra badges conquistados]
     
     ShowMissions --> SelectMission[🖱️ João seleciona<br/>Missão de Matemática]
-    SelectMission --> MissionDetail[📖 Tela de detalhes da missão]
+    SelectMission --> MissionDetail[<IconBookOpen /> Tela de detalhes da missão]
     
     MissionDetail --> StartMission[▶️ Clica Iniciar Missão]
     StartMission --> Exercises[💪 Resolve exercícios<br/>um a um]
     
-    Exercises --> SubmitAnswer[📝 Submete resposta]
-    SubmitAnswer --> InstantFeedback{✅ Resposta<br/>correta?}
+    Exercises --> SubmitAnswer[<IconEdit /> Submete resposta]
+    SubmitAnswer --> InstantFeedback{<IconCheck /> Resposta<br/>correta?}
     
-    InstantFeedback -->|✅ Sim| GainXP[⬆️ +10 XP<br/>Barra de progresso atualiza]
-    InstantFeedback -->|❌ Não| ShowHint[💡 Mostra dica<br/>+ Explicação]
+    InstantFeedback -->|<IconCheck /> Sim| GainXP[⬆️ +10 XP<br/>Barra de progresso atualiza]
+    InstantFeedback -->|<IconX /> Não| ShowHint[<IconLightbulb /> Mostra dica<br/>+ Explicação]
     
-    ShowHint --> RetryAnswer{🔄 Quer<br/>tentar de novo?}
-    RetryAnswer -->|✅ Sim| Exercises
-    RetryAnswer -->|❌ Não| NextExercise[➡️ Próximo exercício]
+    ShowHint --> RetryAnswer{<IconRefresh /> Quer<br/>tentar de novo?}
+    RetryAnswer -->|<IconCheck /> Sim| Exercises
+    RetryAnswer -->|<IconX /> Não| NextExercise[➡️ Próximo exercício]
     
     GainXP --> CheckAllCompleted{🏁 Completou<br/>toda missão?}
     
-    CheckAllCompleted -->|❌ Não| NextExercise
-    CheckAllCompleted -->|✅ Sim| MissionComplete[🎊 Missão Concluída!]
+    CheckAllCompleted -->|<IconX /> Não| NextExercise
+    CheckAllCompleted -->|<IconCheck /> Sim| MissionComplete[🎊 Missão Concluída!]
     
-    MissionComplete --> EarnRewards[🏆 Ganha recompensas:<br/>50 XP + Badge + 10 moedas]
-    EarnRewards --> CheckLevelUp{⭐ Subiu<br/>de nível?}
+    MissionComplete --> EarnRewards[<IconTrending /> Ganha recompensas:<br/>50 XP + Badge + 10 moedas]
+    EarnRewards --> CheckLevelUp{<IconSparkle /> Subiu<br/>de nível?}
     
-    CheckLevelUp -->|✅ Sim| LevelUpAnimation[🎉 LEVEL UP!<br/>Nível 5 → Nível 6]
-    CheckLevelUp -->|❌ Não| UpdateRanking[📊 Atualiza ranking<br/>da turma]
+    CheckLevelUp -->|<IconCheck /> Sim| LevelUpAnimation[🎉 LEVEL UP!<br/>Nível 5 → Nível 6]
+    CheckLevelUp -->|<IconX /> Não| UpdateRanking[<IconChart /> Atualiza ranking<br/>da turma]
     
     LevelUpAnimation --> UpdateRanking
     UpdateRanking --> UnlockNext[🔓 Desbloqueia<br/>próxima missão]
@@ -90,7 +109,7 @@ graph TD
     UnlockNext --> Decision{💭 João<br/>decide}
     
     Decision -->|▶️ Continuar| ShowMissions
-    Decision -->|🏠 Sair| End([🏁 Fim])
+    Decision -->|<IconHome /> Sair| End([🏁 Fim])
     ShowCompleted --> End
     
     classDef startEnd fill:#e1f5e1,stroke:#4caf50,stroke-width:3px,color:#000
@@ -111,7 +130,7 @@ graph TD
 
 **Elementos na tela**:
 - Mapa visual com missões em sequência (nós conectados)
-- Indicadores de status: 🔒 Bloqueado, 🟡 Disponível, 🔵 Em Progresso, ✅ Concluído
+- Indicadores de status: 🔒 Bloqueado, <IconCircleYellow /> Disponível, 🔵 Em Progresso, <IconCheck /> Concluído
 - Barra de progresso geral no topo
 - Contador de streak (dias consecutivos)
 - XP atual e próximo nível
@@ -146,7 +165,7 @@ graph TD
 ![Learning Path: Feedback de Acerto](../../../static/img/screenshots/student-002-feedback-correct-as-is.png)
 
 **Elementos na tela**:
-- ✅ Animação de acerto (confete ou estrelas)
+- <IconCheck /> Animação de acerto (confete ou estrelas)
 - "+10 XP" com animação de contagem
 - Barra de XP se enchendo
 - Explicação complementar (opcional)
@@ -157,9 +176,9 @@ graph TD
 ![Learning Path: Feedback de Erro](../../../static/img/screenshots/student-002-feedback-incorrect-as-is.png)
 
 **Elementos na tela**:
-- ❌ Indicação de erro (sem efeitos negativos visuais pesados)
-- 💡 Dica ou explicação
-- 📚 Link para conteúdo teórico relacionado
+- <IconX /> Indicação de erro (sem efeitos negativos visuais pesados)
+- <IconLightbulb /> Dica ou explicação
+- <IconBooks /> Link para conteúdo teórico relacionado
 - Botões: "Tentar Novamente" ou "Ver Resposta Correta"
 
 ### Modal de Missão Concluída
@@ -217,7 +236,7 @@ graph TD
 
 ### Propostas de Evolução
 
-1. **Modo Multiplayer em Tempo Real** 🎮
+1. **Modo Multiplayer em Tempo Real** <IconGame />
    - Desafios síncronos entre 2-4 alunos
    - Questões aparecem simultaneamente, primeiro a responder ganha bônus
    - Chat integrado para interação social saudável
@@ -227,7 +246,7 @@ graph TD
    - Se aluno acerta 3 seguidas, aumenta nível de complexidade
    - Se erra 2 seguidas, diminui dificuldade e oferece revisão
 
-3. **Modo História/Narrativa** 📖
+3. **Modo História/Narrativa** <IconBookOpen />
    - Missões conectadas por narrativa envolvente (ex: "Salve o Reino da Matemática")
    - Personagens NPCs que guiam o aluno
    - Cutscenes animadas entre capítulos
@@ -242,7 +261,7 @@ graph TD
    - Leaderboards temporários
    - Badges de edição limitada
 
-6. **Integração com Realidade Aumentada** 📱
+6. **Integração com Realidade Aumentada** <IconCode />
    - Usar câmera do tablet para "caçar" exercícios pela sala
    - Gamificação física (andar pela escola para desbloquear missões)
 
@@ -251,7 +270,7 @@ graph TD
    - Ganham XP especial por ensinar
    - Sistema de agendamento de sessões de ajuda
 
-8. **Personalização Avançada de Avatar** 🎨
+8. **Personalização Avançada de Avatar** <IconPalette />
    - Criar avatar 3D customizável
    - Roupas e acessórios desbloqueáveis
    - Avatar aparece em rankings e perfil
@@ -278,4 +297,4 @@ graph TD
 
 **Última atualização**: 2026-02-04  
 **Versão**: AS-IS v1.0  
-**Status**: 📝 Documentado - Aguardando Protótipo TO-BE
+**Status**: <IconEdit /> Documentado - Aguardando Protótipo TO-BE
