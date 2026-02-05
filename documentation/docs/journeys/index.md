@@ -2,7 +2,7 @@
 sidebar_position: 1
 title: Catálogo de Jornadas
 ---
-import { IconChart, IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconAuditor } from '@site/src/components/MaterialIcon';
+import { IconChart, IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconAuditor, IconNetworkManager } from '@site/src/components/MaterialIcon';
 
 # Catálogo de Jornadas
 
@@ -19,7 +19,7 @@ Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos 
 | [<IconAdmin size={20} /> Administrador](#administrador) | 1 | 1 |
 | [<IconCoordinator size={20} /> Coordenador](#coordenador) | 3 | 3 |
 | [<IconDirector size={20} /> Diretor](#diretor) | 1 | 1 |
-| [<span class="material-symbols-outlined" style={{fontSize: '20px', verticalAlign: 'text-bottom'}}>group</span> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
+| [<IconNetworkManager size={20} /> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
 | [<IconAuditor size={20} /> Auditor](#auditor) | 1 | 1 |
 
 ---
@@ -88,7 +88,7 @@ Jornadas de gestão estratégica e macro-indicadores.
 
 ---
 
-## <span class="material-symbols-outlined" style={{fontSize: '28px', verticalAlign: 'middle'}}>group</span> Gestor de Rede
+## <IconNetworkManager size={24} /> Gestor de Rede
 
 Jornadas de gestão multi-escola.
 

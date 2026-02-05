@@ -10,7 +10,7 @@ Documentação técnica completa do **Ambiente de Prototipação V5** - Sistema 
 
 ## <IconTarget size={22} /> Objetivo
 
-Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e serve como ambiente de prototipação para melhorias, seguindo o workflow definido no [PLANO.md](../../PLANO.md).
+Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e serve como ambiente de prototipação para melhorias.
 
 ## <IconBooks size={22} /> Seções Principais
 
@@ -142,7 +142,7 @@ Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
 
 ## <IconLink size={22} /> Links Úteis
 
-- <IconClipboard size={16} /> [PLANO.md](../../PLANO.md) - Planejamento completo do projeto
+- <IconClipboard size={16} /> **Planejamento** - Workflow e estratégia de prototipação
 - <IconPalette size={16} /> [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - <IconGlobe size={16} /> [Educacross](https://educacross.com.br/)
 - <IconCode size={16} /> [Repositório GitHub](https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5)

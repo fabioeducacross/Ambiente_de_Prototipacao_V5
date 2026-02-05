@@ -114,6 +114,11 @@ export const IconAuditor = ({ size = 20, className = '' }) => (
   <MaterialIcon name="fact_check" size={size} color="#7367F0" className={className} />
 );
 
+// 👥 Gestor de Rede
+export const IconNetworkManager = ({ size = 20, className = '' }) => (
+  <MaterialIcon name="group" size={size} color="#7367F0" className={className} />
+);
+
 // 🎓 Graduação/Educação
 export const IconGraduation = ({ size = 20, className = '' }) => (
   <MaterialIcon name="school" size={size} color="#7367F0" className={className} />

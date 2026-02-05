@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Personas
 description: Conheça os usuários do Educacross
 ---
-import { IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconCheck } from '@site/src/components/MaterialIcon';
+import { IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconCheck, IconNetworkManager } from '@site/src/components/MaterialIcon';
 
 # Personas
 
@@ -51,7 +51,7 @@ O apoio pedagógico. Monitora se a metodologia está sendo aplicada, analisa rel
 ### [<IconDirector size={24} /> Diretor](./director)
 O gestor estratégico da unidade. Acompanha indicadores macro de uso e retorno sobre o investimento (ROI).
 
-### [<span class="material-symbols-outlined" style={{fontSize: '24px', verticalAlign: 'middle', marginRight: '5px'}}>group</span> Gestor de Rede](./network-manager)
+### [<IconNetworkManager size={24} /> Gestor de Rede](./network-manager)
 A visão consolidada. Acompanha o desempenho de múltiplas escolas de uma rede (privada ou pública) para identificar pontos de atenção.
 
 ---

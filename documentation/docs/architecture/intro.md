@@ -37,7 +37,7 @@ feature-name/
 └── useDomainName.js       # Composable com lógica de negócio
 ```
 
-**Documentação Completa**: [DDD Pattern](./ddd-pattern.md) <IconPending />
+**Documentação Completa**: DDD Pattern <IconPending />
 
 ---
 
@@ -58,7 +58,7 @@ const {
 } = useFilters()
 ```
 
-**Documentação Completa**: [useFilters()](./use-filters.md) <IconPending />
+**Documentação Completa**: useFilters() <IconPending />
 
 ---
 
@@ -75,7 +75,7 @@ Dropdown customizado com:
 - <IconCheck /> Estados de validação
 - <IconCheck /> Variantes (primary, success, danger, etc.)
 
-**Documentação Completa**: [ESelect Component](./components/eselect.md) <IconPending />
+**Documentação Completa**: ESelect Component <IconPending />
 
 ---
 
@@ -91,7 +91,7 @@ Tabela server-side com:
 - <IconCheck /> Exportação Excel
 - <IconCheck /> Slots customizáveis
 
-**Documentação Completa**: [ListTable Component](./components/list-table.md) <IconPending />
+**Documentação Completa**: ListTable Component <IconPending />
 
 ---
 
@@ -102,7 +102,7 @@ Para datasets pequenos (menos de 1000 registros):
 - <IconCheck /> Filtros client-side
 - <IconCheck /> Performance otimizada
 
-**Documentação Completa**: [ListTableLocalSorting](./components/list-table-local.md) <IconPending />
+**Documentação Completa**: ListTableLocalSorting <IconPending />
 
 ---
 
@@ -137,7 +137,7 @@ export default {
 }
 ```
 
-**Documentação Completa**: [Vuex Patterns](./vuex-patterns.md) <IconPending />
+**Documentação Completa**: Vuex Patterns <IconPending />
 
 ---
 
@@ -158,7 +158,7 @@ export default {
 }
 ```
 
-**Documentação Completa**: [Routing Strategy](./routing.md) <IconPending />
+**Documentação Completa**: Routing Strategy <IconPending />
 
 ---
 
@@ -186,7 +186,7 @@ export default {
 - **Interceptors**: Token refresh automático
 - **Blob Storage**: Assets e mídia
 
-**Documentação Completa**: [API Integration](./api-integration.md) <IconPending />
+**Documentação Completa**: API Integration <IconPending />
 
 ---
 
@@ -194,21 +194,21 @@ export default {
 
 ### Para Novos Desenvolvedores
 
-1. **[Quick Start](./quick-start.md)** <IconPending /> - Setup e primeiros passos
-2. **[DDD Pattern](./ddd-pattern.md)** <IconPending /> - Estrutura de páginas
-3. **[Component Library](./component-library.md)** <IconPending /> - Componentes disponíveis
-4. **[Best Practices](./best-practices.md)** <IconPending /> - Convenções e padrões
+1. **Quick Start** <IconPending /> - Setup e primeiros passos
+2. **DDD Pattern** <IconPending /> - Estrutura de páginas
+3. **Component Library** <IconPending /> - Componentes disponíveis
+4. **Best Practices** <IconPending /> - Convenções e padrões
 
 ### Para Arquitetos
 
-1. **[System Design](./system-design.md)** <IconPending /> - Visão macro
-2. **[State Management](./state-management.md)** <IconPending /> - Vuex estratégias
-3. **[Performance](./performance.md)** <IconPending /> - Otimizações
-4. **[Security](./security.md)** <IconPending /> - Autenticação e autorização
+1. **System Design** <IconPending /> - Visão macro
+2. **State Management** <IconPending /> - Vuex estratégias
+3. **Performance** <IconPending /> - Otimizações
+4. **Security** <IconPending /> - Autenticação e autorização
 
 ### Para QA
 
-1. **[Testing Strategy](./testing-strategy.md)** <IconPending /> - Pirâmide de testes
+1. **Testing Strategy** <IconPending /> - Pirâmide de testes
 2. **[E2E Tests](./e2e-tests.md)** <IconPending /> - Playwright
 3. **[Accessibility](./accessibility.md)** <IconPending /> - WCAG compliance
 
