@@ -1,10 +1,10 @@
 ---
 sidebar_position: 4
-title: 🌐 Gestor de Rede
+title: Gestor de Rede
 description: Responsável pelo acompanhamento consolidado de múltiplas escolas
 ---
 
-# 🌐 Gestor de Rede
+# <img src="/img/icons/network.png" width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Gestor de Rede
 
 O Gestor de Rede (Secretarias de Educação ou Redes de Ensino Privadas) acessa dados consolidados. Ele não gerencia alunos individualmente, mas sim o desempenho comparativo entre unidades escolares.
 

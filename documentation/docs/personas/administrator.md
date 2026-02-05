@@ -1,10 +1,10 @@
 ---
 sidebar_position: 1
-title: 🛠️ Administrador
+title: Administrador
 description: Perfil responsável pela gestão de acessos e configurações da escola
 ---
 
-# 🛠️ Administrador
+# <img src="/img/icons/admin.svg" width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Administrador
 
 O Administrador Escolar é a peça chave operacional. Ele garante que todos (professores e alunos) tenham acesso à plataforma e que a estrutura de turmas reflita a realidade da escola.
 

@@ -1,10 +1,10 @@
 ---
 sidebar_position: 3
-title: 👨‍🎓 Aluno
+title: Aluno
 description: Conheça o perfil do estudante que usa o Educacross
 ---
 
-# 👨‍🎓 Aluno
+# <img src="/img/icons/student.svg" width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Aluno
 
 O aluno é quem **realiza as missões** e **aprende de forma gamificada**. A experiência é projetada para ser divertida, com recompensas e progressão visual.
 
