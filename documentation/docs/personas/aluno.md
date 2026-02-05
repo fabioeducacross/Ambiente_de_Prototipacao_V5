@@ -3,11 +3,9 @@ sidebar_position: 3
 title: Aluno
 description: Conheça o perfil do estudante que usa o Educacross
 ---
-import { IconChart, IconSparkle, IconTarget } from '@site/src/components/MaterialIcon';
+import { IconChart, IconSparkle, IconTarget, IconStudent } from '@site/src/components/MaterialIcon';
 
-import StudentIcon from '@site/static/img/icons/student.svg';
-
-# <StudentIcon width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Aluno
+# <IconStudent size={28} /> Aluno
 
 O aluno é quem **realiza as missões** e **aprende de forma gamificada**. A experiência é projetada para ser divertida, com recompensas e progressão visual.
 

@@ -99,6 +99,21 @@ export const IconStudent = ({ size = 20, className = '' }) => (
   <MaterialIcon name="person" size={size} color="#7367F0" className={className} />
 );
 
+// 👥 Coordenador
+export const IconCoordinator = ({ size = 20, className = '' }) => (
+  <MaterialIcon name="people" size={size} color="#7367F0" className={className} />
+);
+
+// 🏛️ Diretor
+export const IconDirector = ({ size = 20, className = '' }) => (
+  <MaterialIcon name="corporate_fare" size={size} color="#7367F0" className={className} />
+);
+
+// 📊 Auditor
+export const IconAuditor = ({ size = 20, className = '' }) => (
+  <MaterialIcon name="fact_check" size={size} color="#7367F0" className={className} />
+);
+
 // 🎓 Graduação/Educação
 export const IconGraduation = ({ size = 20, className = '' }) => (
   <MaterialIcon name="school" size={size} color="#7367F0" className={className} />

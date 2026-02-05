@@ -3,9 +3,9 @@ sidebar_position: 3
 title: Diretor
 description: Perfil com visão estratégica de uso e resultados da escola
 ---
-import DirectorIcon from '@site/static/img/icons/director.svg';
+import { IconDirector } from '@site/src/components/MaterialIcon';
 
-# <DirectorIcon width="36" style={{verticalAlign: 'middle', marginRight: '10px'}} /> Diretor Escolar
+# <IconDirector size={28} /> Diretor Escolar
 
 O Diretor utiliza a plataforma para ter uma visão macro do investimento em tecnologia. Ele está menos preocupado com "qual jogo foi jogado" e mais com "a escola está usando a ferramenta pela qual pagamos?".
 

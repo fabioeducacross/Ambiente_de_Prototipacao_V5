@@ -2,13 +2,7 @@
 sidebar_position: 1
 title: Catálogo de Jornadas
 ---
-import TeacherIcon from '@site/static/img/icons/teacher.svg';
-import StudentIcon from '@site/static/img/icons/student.svg';
-import AdminIcon from '@site/static/img/icons/admin.svg';
-import CoordinatorIcon from '@site/static/img/icons/coordinator.svg';
-import DirectorIcon from '@site/static/img/icons/director.svg';
-import AuditorIcon from '@site/static/img/icons/auditor.svg';
-import { IconChart } from '@site/src/components/StatusIcons';
+import { IconChart, IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconAuditor } from '@site/src/components/MaterialIcon';
 
 # Catálogo de Jornadas
 
@@ -20,17 +14,17 @@ Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos 
 
 | Perfil | Total | Documentadas |
 |--------|-------|--------------|
-| [<TeacherIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Professor](#professor) | 11 | 11 |
-| [<StudentIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Aluno](#aluno) | 3 | 1 |
-| [<AdminIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Administrador](#administrador) | 1 | 1 |
-| [<CoordinatorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Coordenador](#coordenador) | 3 | 3 |
-| [<DirectorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Diretor](#diretor) | 1 | 1 |
-| [<img src={require('@site/static/img/icons/network.png').default} alt="Gestor de Rede" width="20" style={{verticalAlign: 'text-bottom'}} /> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
-| [<AuditorIcon width="20" style={{verticalAlign: 'text-bottom'}} /> Auditor](#auditor) | 1 | 1 |
+| [<IconTeacher size={20} /> Professor](#professor) | 11 | 11 |
+| [<IconStudent size={20} /> Aluno](#aluno) | 3 | 1 |
+| [<IconAdmin size={20} /> Administrador](#administrador) | 1 | 1 |
+| [<IconCoordinator size={20} /> Coordenador](#coordenador) | 3 | 3 |
+| [<IconDirector size={20} /> Diretor](#diretor) | 1 | 1 |
+| [<span class="material-symbols-outlined" style={{fontSize: '20px', verticalAlign: 'text-bottom'}}>group</span> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
+| [<IconAuditor size={20} /> Auditor](#auditor) | 1 | 1 |
 
 ---
 
-## <TeacherIcon width="30" style={{verticalAlign: 'middle'}} /> Professor
+## <IconTeacher size={28} /> Professor
 
 Jornadas focadas na gestão de sala de aula e ensino.
 
@@ -50,7 +44,7 @@ Jornadas focadas na gestão de sala de aula e ensino.
 
 ---
 
-## <StudentIcon width="30" style={{verticalAlign: 'middle'}} /> Aluno
+## <IconStudent size={28} /> Aluno
 
 Jornadas do estudante na plataforma gamificada.
 
@@ -62,7 +56,7 @@ Jornadas do estudante na plataforma gamificada.
 
 ---
 
-## <AdminIcon width="30" style={{verticalAlign: 'middle'}} /> Administrador
+## <IconAdmin size={28} /> Administrador
 
 Jornadas técnicas e operacionais da escola.
 
@@ -72,7 +66,7 @@ Jornadas técnicas e operacionais da escola.
 
 ---
 
-## <CoordinatorIcon width="30" style={{verticalAlign: 'middle'}} /> Coordenador
+## <IconCoordinator size={28} /> Coordenador
 
 Jornadas de acompanhamento pedagógico.
 
@@ -84,7 +78,7 @@ Jornadas de acompanhamento pedagógico.
 
 ---
 
-## <DirectorIcon width="30" style={{verticalAlign: 'middle'}} /> Diretor
+## <IconDirector size={28} /> Diretor
 
 Jornadas de gestão estratégica e macro-indicadores.
 
@@ -94,7 +88,7 @@ Jornadas de gestão estratégica e macro-indicadores.
 
 ---
 
-## <img src={require('@site/static/img/icons/network.png').default} alt="Gestor de Rede" width="30" style={{verticalAlign: 'middle'}} /> Gestor de Rede
+## <span class="material-symbols-outlined" style={{fontSize: '28px', verticalAlign: 'middle'}}>group</span> Gestor de Rede
 
 Jornadas de gestão multi-escola.
 
@@ -104,7 +98,7 @@ Jornadas de gestão multi-escola.
 
 ---
 
-## <AuditorIcon width="30" style={{verticalAlign: 'middle'}} /> Auditor
+## <IconAuditor size={28} /> Auditor
 
 Perfil especializado em verificação de integridade/qualidade.
 

@@ -3,11 +3,7 @@ sidebar_position: 2
 title: Personas
 description: Conheça os usuários do Educacross
 ---
-import TeacherIcon from '@site/static/img/icons/teacher.svg';
-import StudentIcon from '@site/static/img/icons/student.svg';
-import AdminIcon from '@site/static/img/icons/admin.svg';
-import CoordinatorIcon from '@site/static/img/icons/coordinator.svg';
-import DirectorIcon from '@site/static/img/icons/director.svg';
+import { IconTeacher, IconStudent, IconAdmin, IconCoordinator, IconDirector, IconCheck } from '@site/src/components/MaterialIcon';
 
 # Personas
 
@@ -40,27 +36,25 @@ mindmap
 
 ## Perfis de Usuário
 
-### [<TeacherIcon width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Professor](./professor)
+### [<IconTeacher size={24} /> Professor](./professor)
 O protagonista em sala de aula. Responsável por selecionar o conteúdo (missões/jogos) e acompanhar o desenvolvimento dos alunos no dia a dia.
 
-### [<StudentIcon width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Aluno](./aluno)
+### [<IconStudent size={24} /> Aluno](./aluno)
 O usuário final. Utiliza a plataforma para aprender matemática e letramento de forma lúdica e gamificada.
 
-### [<AdminIcon width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Administrador](./administrator)
+### [<IconAdmin size={24} /> Administrador](./administrator)
 O braço operacional. Responsável por cadastros, senhas, enturmação e garantia de que todos conseguem acessar o sistema.
 
-### [<CoordinatorIcon width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Coordenador](./coordinator)
+### [<IconCoordinator size={24} /> Coordenador](./coordinator)
 O apoio pedagógico. Monitora se a metodologia está sendo aplicada, analisa relatórios de aprendizagem e orienta professores.
 
-### [<DirectorIcon width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Diretor](./director)
+### [<IconDirector size={24} /> Diretor](./director)
 O gestor estratégico da unidade. Acompanha indicadores macro de uso e retorno sobre o investimento (ROI).
 
-### [<img src={require('@site/static/img/icons/network.png').default} alt="Ícone Gestor de Rede" width="24" style={{verticalAlign: 'middle', marginRight: '5px'}} /> Gestor de Rede](./network-manager)
+### [<span class="material-symbols-outlined" style={{fontSize: '24px', verticalAlign: 'middle', marginRight: '5px'}}>group</span> Gestor de Rede](./network-manager)
 A visão consolidada. Acompanha o desempenho de múltiplas escolas de uma rede (privada ou pública) para identificar pontos de atenção.
 
 ---
-
-import { IconCheck } from '@site/src/components/StatusIcons';
 
 ## Matriz de Responsabilidades
 
