@@ -2,12 +2,23 @@
 sidebar_position: 1
 title: Integração Design System
 ---
+import {
+  IconCheck,
+  IconEdit,
+  IconGraduation,
+  IconLink,
+  IconPalette,
+  IconSettings,
+  IconTarget,
+  IconX
+} from '@site/src/components/MaterialIcon';
+
 
 # Integração do Design System Vuexy
 
 Guia completo para usar o Design System Vuexy nos protótipos Vue 3.
 
-## 🎨 Sobre o Design System
+## <IconPalette /> Sobre o Design System
 
 O **Design System Vuexy** é um sistema de componentes **HTML-based e framework-agnostic**:
 
@@ -18,13 +29,13 @@ O **Design System Vuexy** é um sistema de componentes **HTML-based e framework-
 
 ### Vantagens
 
-✅ **Framework Agnostic**: Não depende de Vue ou React  
-✅ **HTML Puro**: Fácil de copiar e adaptar  
-✅ **Consistência Visual**: Componentes padronizados  
-✅ **Acessível**: Seguindo boas práticas de a11y  
-✅ **Documentado**: Todos os componentes no Storybook  
+<IconCheck /> **Framework Agnostic**: Não depende de Vue ou React  
+<IconCheck /> **HTML Puro**: Fácil de copiar e adaptar  
+<IconCheck /> **Consistência Visual**: Componentes padronizados  
+<IconCheck /> **Acessível**: Seguindo boas práticas de a11y  
+<IconCheck /> **Documentado**: Todos os componentes no Storybook  
 
-## 🎯 Paleta de Cores
+## <IconTarget /> Paleta de Cores
 
 ### Cores Principais
 
@@ -340,7 +351,7 @@ const showModal = ref(false)
 </script>
 ```
 
-## 🔧 Integrando no Vue 3
+## <IconSettings /> Integrando no Vue 3
 
 ### 1. Consultar o Storybook
 
@@ -434,7 +445,7 @@ const verDetalhes = (id) => {
 </style>
 ```
 
-## 🎓 Exemplos Práticos
+## <IconGraduation /> Exemplos Práticos
 
 ### Exemplo 1: Lista de Cards
 
@@ -560,23 +571,23 @@ const verDS = () => {
 </style>
 ```
 
-## 🔗 Recursos
+## <IconLink /> Recursos
 
 - [Storybook do DS](https://fabioeducacross.github.io/DesignSystem-Vuexy)
 - [Bootstrap Icons](https://icons.getbootstrap.com/)
 - [Vue 3 Template Syntax](https://vuejs.org/guide/essentials/template-syntax.html)
 - [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html)
 
-## 📝 Boas Práticas
+## <IconEdit /> Boas Práticas
 
-✅ **DO**:
+<IconCheck /> **DO**:
 - Use classes CSS do Vuexy diretamente
 - Mantenha consistência com a paleta de cores
 - Adicione hover effects nos cards
 - Use badges para status e categorias
 - Torne componentes responsivos
 
-❌ **DON'T**:
+<IconX /> **DON'T**:
 - Não sobrescreva estilos base do DS sem necessidade
 - Não misture cores fora da paleta Vuexy
 - Não ignore responsividade mobile

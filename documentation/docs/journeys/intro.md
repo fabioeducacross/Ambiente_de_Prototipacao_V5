@@ -1,3 +1,5 @@
+import { IconTeacher, IconAdmin, IconStudent, IconChart, IconSearch, IconClipboard, IconTarget, IconCamera, IconCheck, IconConstruction, IconRefresh, IconX, IconCircleRed, IconCircleYellow, IconCircleGreen } from '@site/src/components/MaterialIcon';
+
 # Jornadas de Usuário
 
 Bem-vindo à documentação completa das jornadas de usuário da plataforma Educacross.
@@ -6,26 +8,26 @@ Bem-vindo à documentação completa das jornadas de usuário da plataforma Educ
 
 Esta seção documenta **50+ jornadas** organizadas por contexto de usuário:
 
-- 👨‍🏫 **[Professor](./teacher/)** - 11 jornadas do contexto educador
-- 👨‍💼 **[Admin](./admin/)** - 6 jornadas administrativas
-- 👨‍🎓 **[Estudante](./student/)** - 3 jornadas de aprendizado
-- 📊 **Network Manager** - Jornadas de gestão de rede
-- 🔍 **Auditor** - Jornadas de auditoria
+- <IconTeacher size={18} /> **[Professor](./teacher/)** - 11 jornadas do contexto educador
+- <IconAdmin size={18} /> **[Admin](./admin/)** - 6 jornadas administrativas
+- <IconStudent size={18} /> **[Estudante](./student/)** - 3 jornadas de aprendizado
+- <IconChart size={18} /> **Network Manager** - Jornadas de gestão de rede
+- <IconSearch size={18} /> **Auditor** - Jornadas de auditoria
 
 ## Formato das Jornadas
 
 Cada jornada documentada segue este formato padronizado:
 
-### 📋 Metadata
+### <IconClipboard size={20} /> Metadata
 
 | Propriedade | Descrição |
 |-------------|-----------|
 | **ID** | Identificador único (ex: PROF-001) |
 | **Contexto** | Professor, Admin, Estudante, etc. |
 | **Rota** | Caminho da URL (`/education-system/books`) |
-| **Status** | ✅ Ativo, 🚧 Em desenvolvimento, ❌ Descontinuado |
+| **Status** | <IconCheck size={14} /> Ativo, <IconConstruction size={14} /> Em desenvolvimento, <IconX size={14} /> Descontinuado |
 
-### 🎯 Conteúdo
+### <IconTarget size={20} /> Conteúdo
 
 - **Visão Geral** - Descrição da funcionalidade
 - **Fluxo de Usuário** - Diagrama Mermaid interativo
@@ -34,7 +36,7 @@ Cada jornada documentada segue este formato padronizado:
 - **API Endpoints** - Documentação de integração
 - **Melhorias Propostas** - Link para protótipos TO-BE
 
-### 📸 Screenshots
+### <IconCamera size={20} /> Screenshots
 
 Todas as jornadas incluem:
 
@@ -43,16 +45,16 @@ Todas as jornadas incluem:
 
 ## Jornadas Prioritárias
 
-### 🔴 Alta Prioridade
+### <IconCircleRed size={16} /> Alta Prioridade
 
 Jornadas mais acessadas (>1000 acessos/dia):
 
-1. [Education System Books](./teacher/education-system-books.md) - Visualização de livros
-2. [Custom Missions](./teacher/custom-missions.md) - Criação de missões personalizadas
-3. [Events Management](./teacher/events.md) - Gestão de eventos educacionais
-4. [Mission Reports](./admin/mission-reports.md) - Relatórios de missões
+1. [Education System Books](./teacher/education-system-books) - Visualização de livros
+2. [Custom Missions](./teacher/custom-missions) - Criação de missões personalizadas
+3. [Events Management](./teacher/events) - Gestão de eventos educacionais
+4. [Mission Reports](./admin/mission-reports) - Relatórios de missões
 
-### 🟡 Média Prioridade
+### <IconCircleYellow size={16} /> Média Prioridade
 
 Jornadas regulares (100-1000 acessos/dia):
 
@@ -60,9 +62,9 @@ Jornadas regulares (100-1000 acessos/dia):
 6. Classes Records - Gestão de turmas
 7. High Five Missions - Missões colaborativas
 
-### 🟢 Baixa Prioridade
+### <IconCircleGreen size={16} /> Baixa Prioridade
 
-Jornadas esporádicas (<100 acessos/dia):
+Jornadas esporádicas (menos de 100 acessos/dia):
 
 - Library Games - Jogos educacionais
 - Library Books - Biblioteca digital
@@ -95,10 +97,10 @@ Jornadas esporádicas (<100 acessos/dia):
 
 ### Status de Jornada
 
-- ✅ **Ativo** - Em produção e funcionando
-- 🚧 **Em Desenvolvimento** - Implementação em andamento
-- 🔄 **Refatoração** - Melhoria técnica planejada
-- ❌ **Descontinuado** - Funcionalidade removida
+- <IconCheck size={16} /> **Ativo** - Em produção e funcionando
+- <IconConstruction size={16} /> **Em Desenvolvimento** - Implementação em andamento
+- <IconRefresh size={16} /> **Refatoração** - Melhoria técnica planejada
+- <IconX size={16} /> **Descontinuado** - Funcionalidade removida
 
 ### Badges de Nível
 
@@ -112,9 +114,9 @@ Jornadas esporádicas (<100 acessos/dia):
 
 ### Por Contexto
 
-- [👨‍🏫 Jornadas do Professor](./teacher/)
-- [👨‍💼 Jornadas Administrativas](./admin/)
-- [👨‍🎓 Jornadas do Estudante](./student/)
+- [<IconTeacher size={16} /> Jornadas do Professor](./teacher/)
+- [<IconAdmin size={16} /> Jornadas Administrativas](./admin/)
+- [<IconStudent size={16} /> Jornadas do Estudante](./student/)
 
 ### Por Funcionalidade
 

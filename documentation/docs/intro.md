@@ -2,50 +2,52 @@
 sidebar_position: 1
 ---
 
-# Bem-vindo à Documentação Educacross 🎓
+import { IconGraduation, IconTarget, IconBooks, IconTeacher, IconAdmin, IconStudent, IconChart, IconCamera, IconExtension, IconApi, IconSparkle, IconRocket, IconPalette, IconArchitecture, IconRoute, IconStorage, IconClipboard, IconCheck, IconConstruction, IconPending, IconLink, IconBookOpen, IconHandshake, IconPhone, IconGlobe, IconCode, IconAntenna, IconCircleYellow, StatusDone, StatusProgress, StatusPlanned } from '@site/src/components/MaterialIcon';
+
+# Bem-vindo à Documentação Educacross <IconGraduation size={28} />
 
 Documentação técnica completa do **Ambiente de Prototipação V5** - Sistema de documentação AS-IS e prototipação TO-BE para jornadas educacionais.
 
-## 🎯 Objetivo
+## <IconTarget size={22} /> Objetivo
 
-Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e serve como ambiente de prototipação para melhorias, seguindo o workflow definido no [PLANO.md](../../PLANO.md).
+Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e serve como ambiente de prototipação para melhorias.
 
-## 📚 Seções Principais
+## <IconBooks size={22} /> Seções Principais
 
-### 1. [Jornadas de Usuário](./journeys/intro.md)
+### 1. [Jornadas de Usuário](./journeys/intro)
 
 Documentação AS-IS (estado atual) das jornadas:
 
-- 👨‍🏫 **[Professor](./journeys/teacher/)** - 11 jornadas (2 documentadas)
-- 👨‍💼 **[Admin](./journeys/admin/)** - 6 jornadas (0 documentadas)
-- 👨‍🎓 **[Estudante](./journeys/student/)** - 3 jornadas (0 documentadas)
+- <IconTeacher size={18} /> **[Professor](./journeys/teacher/)** - 11 jornadas (2 documentadas)
+- <IconAdmin size={18} /> **[Admin](./journeys/admin/)** - 6 jornadas (0 documentadas)
+- <IconStudent size={18} /> **[Estudante](./journeys/student/)** - 3 jornadas (0 documentadas)
 
 Cada jornada inclui:
-- 📊 Fluxo de usuário (diagrama Mermaid)
-- 📸 Screenshots AS-IS
-- 🧩 Componentes utilizados
-- 🔌 Documentação de API
-- ✨ Propostas de melhoria TO-BE
+- <IconChart size={16} /> Fluxo de usuário (diagrama Mermaid)
+- <IconCamera size={16} /> Screenshots AS-IS
+- <IconExtension size={16} /> Componentes utilizados
+- <IconApi size={16} /> Documentação de API
+- <IconSparkle size={16} /> Propostas de melhoria TO-BE
 
-### 2. [Protótipos TO-BE](./prototypes/intro.md)
+### 2. [Protótipos TO-BE](./prototypes/intro)
 
 Protótipos interativos de melhorias propostas:
 
-- 🚀 **Education System V2** - Wizard de livros (planejado)
-- 🎯 **Missions V3** - Timeline e ações em lote (planejado)
-- 🎨 **Custom Missions Editor V2** - Editor WYSIWYG (ideação)
-- 📊 **Reports Dashboard V2** - Dashboards interativos (ideação)
+- <IconRocket size={16} /> **Education System V2** - Wizard de livros (planejado)
+- <IconTarget size={16} /> **Missions V3** - Timeline e ações em lote (planejado)
+- <IconPalette size={16} /> **Custom Missions Editor V2** - Editor WYSIWYG (ideação)
+- <IconChart size={16} /> **Reports Dashboard V2** - Dashboards interativos (ideação)
 
-### 3. [Arquitetura Técnica](./architecture/intro.md)
+### 3. [Arquitetura Técnica](./architecture/intro)
 
 Padrões e documentação técnica:
 
-- 📐 **DDD Pattern** - Estrutura Index → Filters → List
-- 🧩 **Componentes** - ESelect, ListTable, useFilters()
-- 🛣️ **Roteamento** - Lazy loading e meta tags
-- 🗄️ **Vuex** - State management patterns
+- <IconArchitecture size={16} /> **DDD Pattern** - Estrutura Index → Filters → List
+- <IconExtension size={16} /> **Componentes** - ESelect, ListTable, useFilters()
+- <IconRoute size={16} /> **Roteamento** - Lazy loading e meta tags
+- <IconStorage size={16} /> **Vuex** - State management patterns
 
-## 🚀 Quick Start
+## <IconRocket size={22} /> Quick Start
 
 ### Para Visualizar a Documentação
 
@@ -68,9 +70,9 @@ npm run dev
 
 Acesse: http://localhost:5173
 
-## 📋 Status do Projeto
+## <IconClipboard size={22} /> Status do Projeto
 
-### Fase 1: Fundação (Semana 1) - ✅ 80% Concluída
+### Fase 1: Fundação (Semana 1) - <IconCheck size={18} /> 80% Concluída
 
 - [x] Docusaurus customizado com tema Vuexy
 - [x] Mermaid integrado para diagramas
@@ -84,20 +86,20 @@ Acesse: http://localhost:5173
 
 | ID | Jornada | Contexto | Status |
 |----|---------|----------|--------|
-| PROF-001 | Education System Books | Professor | ✅ Documentado |
-| PROF-002 | Education System Missions | Professor | ✅ Documentado |
-| PROF-003 | Custom Missions | Professor | 🚧 Sprint 1 |
-| PROF-004 | Events Management | Professor | 🚧 Sprint 1 |
-| ADMIN-001 | Mission Reports | Admin | 🚧 Sprint 1 |
-| ... | ... | ... | ⏳ Pendente |
+| PROF-001 | Education System Books | Professor | <StatusDone /> |
+| PROF-002 | Education System Missions | Professor | <StatusDone /> |
+| PROF-003 | Custom Missions | Professor | <StatusProgress>Sprint 1</StatusProgress> |
+| PROF-004 | Events Management | Professor | <StatusProgress>Sprint 1</StatusProgress> |
+| ADMIN-001 | Mission Reports | Admin | <StatusProgress>Sprint 1</StatusProgress> |
+| ... | ... | ... | <StatusPlanned>Pendente</StatusPlanned> |
 
 **Progresso**: 2/50+ jornadas documentadas (4%)
 
-## 🎨 Design System
+## <IconPalette size={22} /> Design System
 
 Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
 
-🔗 [fabioeducacross.github.io/DesignSystem-Vuexy](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
+<IconLink size={16} /> [fabioeducacross.github.io/DesignSystem-Vuexy](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 
 ### Paleta de Cores
 
@@ -115,13 +117,13 @@ Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
   <div style={{width: '80px', height: '80px', background: '#00CFE8', borderRadius: '8px'}}></div>
 </div>
 
-## 📖 Como Usar Esta Documentação
+## <IconBookOpen size={22} /> Como Usar Esta Documentação
 
 ### Para Desenvolvedores
 
-1. **Entenda o Contexto**: Leia as [jornadas documentadas](./journeys/intro.md)
-2. **Estude a Arquitetura**: Consulte os [padrões técnicos](./architecture/intro.md)
-3. **Veja Protótipos**: Explore os [protótipos TO-BE](./prototypes/intro.md)
+1. **Entenda o Contexto**: Leia as [jornadas documentadas](./journeys/intro)
+2. **Estude a Arquitetura**: Consulte os [padrões técnicos](./architecture/intro)
+3. **Veja Protótipos**: Explore os [protótipos TO-BE](./prototypes/intro)
 4. **Contribua**: Siga o [workflow Git](../../PLANO.md#-workflow-de-prototipação)
 
 ### Para Designers
@@ -138,30 +140,30 @@ Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
 3. **Aprove Protótipos**: Via Pull Requests
 4. **Acompanhe Roadmap**: [PLANO.md](../../PLANO.md#-roadmap-de-implementação)
 
-## 🔗 Links Úteis
+## <IconLink size={22} /> Links Úteis
 
-- 📋 [PLANO.md](../../PLANO.md) - Planejamento completo do projeto
-- 🎨 [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
-- 🌐 [Educacross](https://educacross.com.br/)
-- 🐙 [Repositório GitHub](https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5)
-- 📡 [API Test](https://apieducacrossmanager-test.azurewebsites.net/index.html)
+- <IconClipboard size={16} /> **Planejamento** - Workflow e estratégia de prototipação
+- <IconPalette size={16} /> [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
+- <IconGlobe size={16} /> [Educacross](https://educacross.com.br/)
+- <IconCode size={16} /> [Repositório GitHub](https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5)
+- <IconAntenna size={16} /> [API Test](https://apieducacrossmanager-test.azurewebsites.net/index.html)
 
-## 🤝 Contribuindo
+## <IconHandshake size={22} /> Contribuindo
 
 Para contribuir com esta documentação:
 
 1. **Fork o Repositório**
 2. **Crie uma Branch**: `docs/nome-da-jornada`
-3. **Documente**: Siga o [template de jornada](./journeys/intro.md#formato-das-jornadas)
+3. **Documente**: Siga o [template de jornada](./journeys/intro#formato-das-jornadas)
 4. **Pull Request**: Para `develop`
 
-## 📞 Contato
+## <IconPhone size={22} /> Contato
 
 - **Organização**: Educacross
 - **Repositório**: [fabioeducacross/Ambiente_de_Prototipacao_V5](https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5)
 
 ---
 
-**Última Atualização**: 3 de fevereiro de 2026  
+**Última Atualização**: 5 de fevereiro de 2026  
 **Versão**: 1.0.0  
-**Status**: 🟡 Em Desenvolvimento (Fase 1 - 80% completa)
+**Status**: <IconCircleYellow /> Em Desenvolvimento (Fase 1 - 80% completa)

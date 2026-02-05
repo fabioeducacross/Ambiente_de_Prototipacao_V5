@@ -2,12 +2,23 @@
 sidebar_position: 2
 title: Configuração do Ambiente
 ---
+import {
+  IconApi,
+  IconBooks,
+  IconClipboard,
+  IconEdit,
+  IconPalette,
+  IconRocket,
+  IconSearch,
+  IconSettings
+} from '@site/src/components/MaterialIcon';
+
 
 # Configuração do Ambiente
 
 Guia passo a passo para configurar o ambiente de prototipação no seu computador.
 
-## 📋 Pré-requisitos
+## <IconClipboard /> Pré-requisitos
 
 Antes de começar, certifique-se de ter instalado:
 
@@ -16,7 +27,7 @@ Antes de começar, certifique-se de ter instalado:
 - **Git**: Para controle de versão
 - **Editor de código**: VSCode recomendado
 
-## 🔧 Instalação
+## <IconSettings /> Instalação
 
 ### 1. Clonar o Repositório
 
@@ -39,7 +50,7 @@ npm install
 cd ..
 ```
 
-## 🚀 Executar o Ambiente
+## <IconRocket /> Executar o Ambiente
 
 ### Modo Desenvolvimento - Protótipo Vue 3
 
@@ -75,7 +86,7 @@ cd documentation
 npm run build
 ```
 
-## 🎨 Estrutura de Pastas
+## <IconPalette /> Estrutura de Pastas
 
 ```
 Ambiente_de_Prototipacao_V5/
@@ -93,7 +104,7 @@ Ambiente_de_Prototipacao_V5/
 └── .github/              # Copilot instructions e workflows
 ```
 
-## 🔌 Integração com Design System
+## <IconApi /> Integração com Design System
 
 O Design System Vuexy está catalogado em Storybook separado:
 
@@ -148,7 +159,7 @@ npm run test:unit
 npm run test:e2e
 ```
 
-## 📝 Variáveis de Ambiente
+## <IconEdit /> Variáveis de Ambiente
 
 Crie arquivo `.env` na raiz do projeto (se necessário):
 
@@ -160,7 +171,7 @@ VITE_API_URL=
 VITE_DEV_MODE=true
 ```
 
-## 🔍 Troubleshooting
+## <IconSearch /> Troubleshooting
 
 ### Erro: "Module not found"
 
@@ -190,7 +201,7 @@ npm install
 npm start
 ```
 
-## 📚 Próximos Passos
+## <IconBooks /> Próximos Passos
 
 Agora que o ambiente está configurado:
 

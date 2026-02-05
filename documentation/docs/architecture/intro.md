@@ -1,3 +1,14 @@
+import {
+  IconArchitecture,
+  IconCheck,
+  IconConstruction,
+  IconExtension,
+  IconPending,
+  IconRoute,
+  IconStorage,
+  IconTarget
+} from '@site/src/components/MaterialIcon';
+
 # Arquitetura Técnica 🏗️
 
 Documentação dos padrões arquiteturais e técnicos do projeto Educacross.
@@ -6,11 +17,11 @@ Documentação dos padrões arquiteturais e técnicos do projeto Educacross.
 
 Esta seção documenta a **arquitetura de referência** baseada no projeto `educacross-frontoffice`, incluindo:
 
-- 📐 **Padrões DDD** - Domain-Driven Design
-- 🧩 **Componentes Reutilizáveis** - ESelect, ListTable, etc.
-- 🎯 **Composables** - useFilters(), useDomainName()
-- 🛣️ **Roteamento** - Vue Router com lazy loading
-- 🗄️ **Estado Global** - Vuex com modules
+- <IconArchitecture /> **Padrões DDD** - Domain-Driven Design
+- <IconExtension /> **Componentes Reutilizáveis** - ESelect, ListTable, etc.
+- <IconTarget /> **Composables** - useFilters(), useDomainName()
+- <IconRoute /> **Roteamento** - Vue Router com lazy loading
+- <IconStorage /> **Estado Global** - Vuex com modules
 
 ## Padrões Fundamentais
 
@@ -26,7 +37,7 @@ feature-name/
 └── useDomainName.js       # Composable com lógica de negócio
 ```
 
-**Documentação Completa**: [DDD Pattern](./ddd-pattern.md) ⏳
+**Documentação Completa**: DDD Pattern <IconPending />
 
 ---
 
@@ -47,7 +58,7 @@ const {
 } = useFilters()
 ```
 
-**Documentação Completa**: [useFilters()](./use-filters.md) ⏳
+**Documentação Completa**: useFilters() <IconPending />
 
 ---
 
@@ -58,13 +69,13 @@ const {
 **Arquivo**: `src/components/selects/ESelect.vue` (976 linhas)
 
 Dropdown customizado com:
-- ✅ Single/Multiple selection
-- ✅ Busca com debounce
-- ✅ Paginação
-- ✅ Estados de validação
-- ✅ Variantes (primary, success, danger, etc.)
+- <IconCheck /> Single/Multiple selection
+- <IconCheck /> Busca com debounce
+- <IconCheck /> Paginação
+- <IconCheck /> Estados de validação
+- <IconCheck /> Variantes (primary, success, danger, etc.)
 
-**Documentação Completa**: [ESelect Component](./components/eselect.md) ⏳
+**Documentação Completa**: ESelect Component <IconPending />
 
 ---
 
@@ -73,25 +84,25 @@ Dropdown customizado com:
 **Arquivo**: `src/components/table/ListTable.vue` (418 linhas)
 
 Tabela server-side com:
-- ✅ Paginação
-- ✅ Ordenação
-- ✅ Busca integrada
-- ✅ Loading states
-- ✅ Exportação Excel
-- ✅ Slots customizáveis
+- <IconCheck /> Paginação
+- <IconCheck /> Ordenação
+- <IconCheck /> Busca integrada
+- <IconCheck /> Loading states
+- <IconCheck /> Exportação Excel
+- <IconCheck /> Slots customizáveis
 
-**Documentação Completa**: [ListTable Component](./components/list-table.md) ⏳
+**Documentação Completa**: ListTable Component <IconPending />
 
 ---
 
 #### ListTableLocalSorting - Tabela Client-Side
 
-Para datasets pequenos (<1000 registros):
-- ✅ Sorting local
-- ✅ Filtros client-side
-- ✅ Performance otimizada
+Para datasets pequenos (menos de 1000 registros):
+- <IconCheck /> Sorting local
+- <IconCheck /> Filtros client-side
+- <IconCheck /> Performance otimizada
 
-**Documentação Completa**: [ListTableLocalSorting](./components/list-table-local.md) ⏳
+**Documentação Completa**: ListTableLocalSorting <IconPending />
 
 ---
 
@@ -126,7 +137,7 @@ export default {
 }
 ```
 
-**Documentação Completa**: [Vuex Patterns](./vuex-patterns.md) ⏳
+**Documentação Completa**: Vuex Patterns <IconPending />
 
 ---
 
@@ -147,7 +158,7 @@ export default {
 }
 ```
 
-**Documentação Completa**: [Routing Strategy](./routing.md) ⏳
+**Documentação Completa**: Routing Strategy <IconPending />
 
 ---
 
@@ -166,7 +177,7 @@ export default {
 
 - **Vuexy**: Paleta de cores e componentes
 - **Storybook**: [fabioeducacross.github.io/DesignSystem-Vuexy](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
-- **MCP Server**: Integração via Model Context Protocol ⏳
+- **MCP Server**: Integração via Model Context Protocol <IconPending />
 
 ### APIs
 
@@ -175,7 +186,7 @@ export default {
 - **Interceptors**: Token refresh automático
 - **Blob Storage**: Assets e mídia
 
-**Documentação Completa**: [API Integration](./api-integration.md) ⏳
+**Documentação Completa**: API Integration <IconPending />
 
 ---
 
@@ -183,23 +194,23 @@ export default {
 
 ### Para Novos Desenvolvedores
 
-1. **[Quick Start](./quick-start.md)** ⏳ - Setup e primeiros passos
-2. **[DDD Pattern](./ddd-pattern.md)** ⏳ - Estrutura de páginas
-3. **[Component Library](./component-library.md)** ⏳ - Componentes disponíveis
-4. **[Best Practices](./best-practices.md)** ⏳ - Convenções e padrões
+1. **Quick Start** <IconPending /> - Setup e primeiros passos
+2. **DDD Pattern** <IconPending /> - Estrutura de páginas
+3. **Component Library** <IconPending /> - Componentes disponíveis
+4. **Best Practices** <IconPending /> - Convenções e padrões
 
 ### Para Arquitetos
 
-1. **[System Design](./system-design.md)** ⏳ - Visão macro
-2. **[State Management](./state-management.md)** ⏳ - Vuex estratégias
-3. **[Performance](./performance.md)** ⏳ - Otimizações
-4. **[Security](./security.md)** ⏳ - Autenticação e autorização
+1. **System Design** <IconPending /> - Visão macro
+2. **State Management** <IconPending /> - Vuex estratégias
+3. **Performance** <IconPending /> - Otimizações
+4. **Security** <IconPending /> - Autenticação e autorização
 
 ### Para QA
 
-1. **[Testing Strategy](./testing-strategy.md)** ⏳ - Pirâmide de testes
-2. **[E2E Tests](./e2e-tests.md)** ⏳ - Playwright
-3. **[Accessibility](./accessibility.md)** ⏳ - WCAG compliance
+1. **Testing Strategy** <IconPending /> - Pirâmide de testes
+2. **[E2E Tests](./e2e-tests.md)** <IconPending /> - Playwright
+3. **[Accessibility](./accessibility.md)** <IconPending /> - WCAG compliance
 
 ---
 
@@ -295,4 +306,4 @@ test(scope): descrição curta       # Testes
 
 **Última Atualização**: 3 de fevereiro de 2026  
 **Documentos Pendentes**: 15  
-**Status**: 🚧 Em construção
+**Status**: <IconConstruction /> Em construção

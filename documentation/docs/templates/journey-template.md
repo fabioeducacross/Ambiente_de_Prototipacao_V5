@@ -2,6 +2,10 @@
 sidebar_position: 1
 title: Template de Jornada
 ---
+import { IconLink, IconPalette, IconSparkle } from '@site/src/components/MaterialIcon';
+
+
+import { IconClipboard, IconTarget, IconCheck, IconChart } from '@site/src/components/StatusIcons';
 
 # Template de Documentação de Jornada
 
@@ -16,7 +20,7 @@ Use este template para documentar novas jornadas de usuário no sistema Educacro
 
 ---
 
-## 📋 Informações Básicas
+## <IconClipboard size={20} /> Informações Básicas
 
 | Campo | Valor |
 |-------|-------|
@@ -28,7 +32,7 @@ Use este template para documentar novas jornadas de usuário no sistema Educacro
 | **Status** | [Em Análise / Documentado / Prototipado / Implementado] |
 | **Última Atualização** | [YYYY-MM-DD] |
 
-## 🎯 Objetivo da Jornada
+## <IconTarget size={20} /> Objetivo da Jornada
 
 [Descreva em 2-3 parágrafos qual é o objetivo principal desta jornada e por que é importante para o usuário]
 
@@ -129,7 +133,7 @@ graph TD
 | Tickets de suporte | [X/mês] | [Y/mês] |
 | NPS da funcionalidade | [X] | [Y] |
 
-## ✨ Proposta TO-BE (Estado Futuro)
+## <IconSparkle /> Proposta TO-BE (Estado Futuro)
 
 ### Visão Geral da Solução
 
@@ -193,7 +197,7 @@ Componentes Vuexy que serão utilizados:
   - Link: [URL do Storybook]
   - Uso: [Como será usado]
 
-## 🎨 Implementação
+## <IconPalette /> Implementação
 
 ### Arquitetura Técnica
 
@@ -261,7 +265,7 @@ export default function use[Feature]() {
 }
 ```
 
-## ✅ Critérios de Aceite
+## <IconCheck size={20} /> Critérios de Aceite
 
 ### Funcionalidades Obrigatórias
 
@@ -283,7 +287,7 @@ export default function use[Feature]() {
 - [ ] Testes de acessibilidade
 - [ ] Testes de performance
 
-## 📊 Métricas de Sucesso
+## <IconChart size={20} /> Métricas de Sucesso
 
 | Métrica | Baseline | Meta | Medição |
 |---------|----------|------|---------|
@@ -292,7 +296,7 @@ export default function use[Feature]() {
 | Satisfação do usuário | [X/10] | [Y/10] | NPS survey |
 | Taxa de erro | [X%] | [Y%] | Error tracking |
 
-## 🔗 Referências
+## <IconLink /> Referências
 
 ### Documentação Relacionada
 

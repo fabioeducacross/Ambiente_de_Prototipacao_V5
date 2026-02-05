@@ -1,68 +1,114 @@
 ---
 sidebar_position: 1
-title: Introdução aos Protótipos
+title: Protótipos
+description: Telas e componentes interativos do Educacross
 ---
+import {
+  IconBooks,
+  IconChart,
+  IconClipboard,
+  IconLink,
+  IconPalette,
+  IconRocket,
+  IconTarget,
+  IconWarning
+} from '@site/src/components/MaterialIcon';
+
 
 # Protótipos Interativos
 
-Área dedicada aos protótipos funcionais criados com **Vue 3 + Vite** usando o **Design System Vuexy**.
+Área dedicada aos protótipos funcionais e componentes visuais do **Educacross**.
 
-## 🎯 Objetivo
+## <IconTarget /> Objetivo
 
 Os protótipos servem para:
 
-1. **Validar** soluções TO-BE propostas nas jornadas
+1. **Validar** soluções TO-BE antes de implementar
 2. **Testar** interações e fluxos com usuários reais
 3. **Demonstrar** funcionalidades para stakeholders
-4. **Acelerar** desenvolvimento com código reutilizável
+4. **Documentar** o Design System em ação
 
-## 🏗️ Arquitetura dos Protótipos
+---
 
-```mermaid
-graph LR
-    A[Jornada Documentada] -->|Requisitos| B[Protótipo Vue 3]
-    C[Design System Vuexy] -->|Componentes HTML| B
-    D[Claude AI] -->|Gera Código| B
-    B -->|Deploy| E[GitHub Pages]
-    E -->|Feedback| F[Refinamento]
-    F -->|Atualiza| A
+## <IconBooks /> Storybook - Biblioteca de Componentes
+
+O **Design System Vuexy** está documentado no Storybook, organizado por contexto:
+
+### <IconLink /> Acesso Direto
+
+👉 **[Abrir Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/)**
+
+---
+
+## 🗂️ Componentes por Contexto
+
+### Front-Office (Usuário Final)
+
+| Componente | Descrição | Link |
+|------------|-----------|------|
+| **AcceptOrRejectAccess** | Modal de aceitar/recusar perfil | [Ver no Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/front-office-modals-acceptorrejectaccess--documentation) |
+| Recusar Perfil | Estado de confirmação de recusa | [Ver Story](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/story/front-office-modals-acceptorrejectaccess--recusar-perfil) |
+| Recusar Perfil (Loading) | Estado de loading durante ação | [Ver Story](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/story/front-office-modals-acceptorrejectaccess--recusar-perfil-loading) |
+| Aceitar Perfil | Estado de confirmação de aceite | [Ver Story](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/story/front-office-modals-acceptorrejectaccess--aceitar-perfil) |
+| Aceitar Perfil (Termos) | Com checkbox de termos | [Ver Story](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/story/front-office-modals-acceptorrejectaccess--aceitar-perfil-termos-aceitos) |
+
+### Vuexy Design System
+
+| Categoria | Componentes | Link |
+|-----------|-------------|------|
+| **Atoms** | Buttons, Badges, Icons | [Ver Atoms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-atoms--docs) |
+| **Molecules** | Cards, Forms, Inputs | [Ver Molecules](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-molecules--docs) |
+| **Organisms** | Tables, Modals, Sidebars | [Ver Organisms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-organisms--docs) |
+| **Templates** | Layouts, Pages | [Ver Templates](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-templates--docs) |
+| **Foundations** | Colors, Typography, Spacing | [Ver Foundations](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-foundations--docs) |
+
+---
+
+## <IconPalette /> Preview: Modal Aceitar/Recusar Perfil
+
+Este é um dos componentes principais documentados:
+
+![Modal Recusar Perfil](/img/fluxos/modal-recusar-perfil.png)
+
+### Variantes Disponíveis
+
+| Variante | Uso | Estado |
+|----------|-----|--------|
+| Recusar Perfil | Confirmação de recusa | Default |
+| Recusar Perfil (Loading) | Durante requisição | Loading |
+| Aceitar Perfil | Confirmação de aceite | Default |
+| Aceitar Perfil (Termos) | Com aceite de termos | Checkbox |
+| Aceitar Perfil (Loading) | Durante requisição | Loading |
+| Todos os Perfis | Lista consolidada | Overview |
+
+### Código de Exemplo
+
+```html
+<!-- HTML/Vanilla -->
+<div class="modal-container">
+  <span class="warning-icon"><IconWarning /></span>
+  <h1 class="modal-title">
+    Deseja <span class="text-danger">recusar</span> esse perfil?
+  </h1>
+  <div class="profile-info">
+    <p>Perfil: <span class="text-primary">Professor</span></p>
+    <p>Escola: <span class="text-primary">Escola Devs</span></p>
+  </div>
+  <div class="actions-container">
+    <button class="btn btn-outline-danger">Cancelar</button>
+    <button class="btn btn-danger">Recusar perfil</button>
+  </div>
+</div>
 ```
 
-### Stack Técnico
+---
 
-- **Framework**: Vue 3.5.24 com Composition API
-- **Build Tool**: Vite 7.2.4
-- **Router**: Vue Router 4.6.4
-- **Design System**: Vuexy (HTML-based)
-- **Ícones**: Bootstrap Icons
-- **Deploy**: GitHub Pages
-
-## 📂 Estrutura de Arquivos
-
-Todos os protótipos seguem o **padrão DDD (Domain-Driven Design)**:
-
-```
-src/views/[contexto]/[feature]/
-├── Index.vue           # Orquestrador principal
-├── Filters.vue         # Componentes de filtro (se aplicável)
-├── List.vue            # Tabela/lista de dados (se aplicável)
-├── Title.vue           # Cabeçalho da página (opcional)
-├── use[Feature].js     # Composable com lógica de domínio
-└── components/         # Componentes específicos da feature
-    ├── [Component]Card.vue
-    └── [Component]Modal.vue
-```
-
-### Exemplo Real: Journey List
-
-```
-src/views/
-├── Home.vue                    # Landing page
+## <IconRocket /> Protótipos Vue 3 (Ambiente Local)
 ├── JourneyList.vue             # Lista de jornadas (3 colunas)
 └── JourneyDetail.vue           # Detalhes da jornada (layout 2 colunas)
 ```
 
-## 🎨 Usando o Design System
+## <IconPalette /> Usando o Design System
 
 ### Paleta de Cores Vuexy
 
@@ -118,7 +164,7 @@ O Design System Vuexy é HTML-based, então você importa o markup:
 </template>
 ```
 
-## 🚀 Criando um Novo Protótipo
+## <IconRocket /> Criando um Novo Protótipo
 
 ### 1. Definir a Jornada
 
@@ -271,7 +317,7 @@ Se precisa ajustes, descreva para o Claude:
 Aumenta para 24px e adiciona um gradiente roxo no hover."
 ```
 
-## 📋 Checklist de Qualidade
+## <IconClipboard /> Checklist de Qualidade
 
 Antes de considerar um protótipo completo:
 
@@ -284,14 +330,14 @@ Antes de considerar um protótipo completo:
 - [ ] Dados vêm de `src/data/` (não hardcoded)
 - [ ] Componente está documentado em JSDoc
 
-## 🔗 Links Úteis
+## <IconLink /> Links Úteis
 
 - [Design System Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy) - Catálogo de componentes
 - [Vue 3 Docs](https://vuejs.org/) - Documentação oficial
 - [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html) - Guia da Composition API
 - [Bootstrap Icons](https://icons.getbootstrap.com/) - Ícones disponíveis
 
-## 📊 Protótipos Existentes
+## <IconChart /> Protótipos Existentes
 
 ### 1. Journey List
 

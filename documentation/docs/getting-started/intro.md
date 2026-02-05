@@ -2,12 +2,22 @@
 sidebar_position: 1
 title: Introdução
 ---
+import {
+  IconBookOpen,
+  IconBooks,
+  IconCheck,
+  IconLink,
+  IconPalette,
+  IconRocket,
+  IconTarget
+} from '@site/src/components/MaterialIcon';
+
 
 # Ambiente de Prototipação V5
 
 Bem-vindo ao **Ambiente de Prototipação V5** - a documentação oficial para jornadas educacionais e design system da Educacross.
 
-## 🎯 Objetivo
+## <IconTarget /> Objetivo
 
 Este ambiente foi criado para:
 
@@ -35,7 +45,7 @@ graph LR
 - **IA**: Claude Sonnet 4.5 / Opus 4.5
 - **Integração**: Model Context Protocol (MCP)
 
-## 📚 Estrutura da Documentação
+## <IconBooks /> Estrutura da Documentação
 
 Esta documentação está organizada em seções:
 
@@ -51,13 +61,13 @@ Instruções para criar e testar protótipos interativos.
 ### [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy)
 Catálogo de componentes Vuexy (link externo ao Storybook).
 
-## 🎨 Design System Vuexy
+## <IconPalette /> Design System Vuexy
 
 O Design System utilizado é baseado no template Vuexy, renderizado como **HTML puro** no Storybook:
 
-- ✅ Framework-agnostic (funciona com Vue, React, Angular, etc.)
-- ✅ Componentes HTML + CSS + JavaScript vanilla
-- ✅ Paleta de cores customizada:
+- <IconCheck /> Framework-agnostic (funciona com Vue, React, Angular, etc.)
+- <IconCheck /> Componentes HTML + CSS + JavaScript vanilla
+- <IconCheck /> Paleta de cores customizada:
   - **Primary**: `#7367F0` (roxo)
   - **Success**: `#28C76F` (verde)
   - **Warning**: `#FF9F43` (laranja)
@@ -66,7 +76,7 @@ O Design System utilizado é baseado no template Vuexy, renderizado como **HTML 
 
 Acesse o Storybook: https://fabioeducacross.github.io/DesignSystem-Vuexy
 
-## 🚀 Workflow de Desenvolvimento
+## <IconRocket /> Workflow de Desenvolvimento
 
 Como **vibecoder designer**, você trabalha com Claude AI para gerar código:
 
@@ -77,13 +87,13 @@ Como **vibecoder designer**, você trabalha com Claude AI para gerar código:
 
 Não é necessário entender Vue ou React - o Claude cuida do código!
 
-## 🔗 Links Úteis
+## <IconLink /> Links Úteis
 
 - [Repositório GitHub](https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5)
 - [Design System Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy)
 - [Educacross](https://educacross.com.br)
 
-## 📖 Próximos Passos
+## <IconBookOpen /> Próximos Passos
 
 1. Explore a [lista de jornadas](/docs/journeys)
 2. Veja o [template de jornada](/docs/templates/journey-template)
