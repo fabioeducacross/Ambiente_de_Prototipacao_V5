@@ -26,7 +26,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--outline button--lg"
-            to="/docs/category/regras-de-negocio">
+            to="/docs/business-rules">
             Ver Regras de Negócio
           </Link>
         </div>
@@ -43,9 +43,9 @@ const categories = [
     description: 'Especificações técnicas e regras de sistema (RN001-RN999)',
     color: '#0969DA',
     links: [
-      { label: 'RN001-010: Gestão de Turmas', href: '/docs/regras-negocio/rn001-010-gestao-turmas' },
-      { label: 'RN011-020: Sistema de Missões', href: '/docs/regras-negocio/rn011-020-sistema-missoes' },
-      { label: 'Ver todas as regras', href: '/docs/category/regras-de-negocio' }
+      { label: 'Regras de Validação', href: '/docs/business-rules/validation-rules' },
+      { label: 'Regras de Cálculo', href: '/docs/business-rules/calculation-rules' },
+      { label: 'Ver todas as regras', href: '/docs/business-rules' }
     ]
   },
   {
@@ -54,9 +54,9 @@ const categories = [
     description: 'PRDs, visão de produto e especificações de funcionalidades',
     color: '#8250DF',
     links: [
-      { label: 'Template PRD', href: '/docs/produto/template-prd' },
-      { label: 'Visão de Produto 2024', href: '/docs/produto/visao-produto' },
-      { label: 'Ver documentos', href: '/docs/category/produto' }
+      { label: 'Templates', href: '/docs/templates' },
+      { label: 'Visão de Produto 2024', href: '/docs/product-strategy/vision' },
+      { label: 'Ver documentos', href: '/docs/prds' }
     ]
   },
   {
@@ -65,9 +65,9 @@ const categories = [
     description: 'Fluxos de alunos, professores e gestores na plataforma',
     color: '#1A7F37',
     links: [
-      { label: 'Jornada do Professor', href: '/docs/jornadas/professor' },
-      { label: 'Jornada do Aluno', href: '/docs/jornadas/aluno' },
-      { label: 'Ver jornadas', href: '/docs/category/jornadas' }
+      { label: 'Fluxos e Jornadas', href: '/docs/fluxos' },
+      { label: 'Personas', href: '/docs/personas' },
+      { label: 'Ver jornadas', href: '/docs/journeys' }
     ]
   },
   {
@@ -76,9 +76,9 @@ const categories = [
     description: 'Guias de instalação, arquitetura e padrões de código',
     color: '#D1242F',
     links: [
-      { label: 'Guia de Início Rápido', href: '/docs/setup/quickstart' },
-      { label: 'PDR-001: Arquitetura', href: '/docs/pdr/pdr-001-arquitetura' },
-      { label: 'Ver setup', href: '/docs/category/setup' }
+      { label: 'Guia de Início Rápido', href: '/docs/getting-started/intro' },
+      { label: 'Decisões Arquiteturais', href: '/docs/decisions' },
+      { label: 'Ver setup', href: '/docs/getting-started' }
     ]
   },
   {
@@ -89,7 +89,7 @@ const categories = [
     links: [
       { label: 'Persona: Professor', href: '/docs/personas/professor' },
       { label: 'Persona: Aluno', href: '/docs/personas/aluno' },
-      { label: 'Ver personas', href: '/docs/category/personas' }
+      { label: 'Ver personas', href: '/docs/personas' }
     ]
   },
   {
@@ -98,9 +98,9 @@ const categories = [
     description: 'Perguntas frequentes e resolução de problemas',
     color: '#00CFE8',
     links: [
-      { label: 'FAQ Técnico', href: '/docs/faq/tecnico' },
-      { label: 'Troubleshooting', href: '/docs/faq/troubleshooting' },
-      { label: 'Ver FAQ', href: '/docs/category/faq' }
+      { label: 'Guias Práticos', href: '/docs/guides' },
+      { label: 'Meta Documentação', href: '/docs/meta' },
+      { label: 'Ver FAQ', href: '/docs/intro' }
     ]
   }
 ];

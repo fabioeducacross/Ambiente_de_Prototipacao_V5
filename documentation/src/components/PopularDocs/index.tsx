@@ -23,28 +23,28 @@ const popularDocs: PopularDoc[] = [
     icon: '🎯',
     title: 'Visão de Produto 2024',
     description: 'Estratégia e roadmap da plataforma Educacross',
-    href: '/docs/produto/visao-produto',
+    href: '/docs/product-strategy/vision',
     badge: 'Estratégia'
   },
   {
     icon: '📘',
-    title: 'RN001-010: Gestão de Turmas',
+    title: 'Regras de Negócio',
     description: 'Regras de negócio para gestão de turmas e matrículas',
-    href: '/docs/regras-negocio/rn001-010-gestao-turmas',
+    href: '/docs/business-rules',
     badge: 'Regras'
   },
   {
     icon: '🚀',
     title: 'Guia de Início Rápido',
     description: 'Setup do ambiente de desenvolvimento em 10 minutos',
-    href: '/docs/setup/quickstart',
+    href: '/docs/getting-started/intro',
     badge: 'Setup'
   },
   {
     icon: '⚙️',
-    title: 'PDR-001: Arquitetura',
+    title: 'Decisões Arquiteturais',
     description: 'Decisão técnica sobre arquitetura do sistema',
-    href: '/docs/pdr/pdr-001-arquitetura',
+    href: '/docs/decisions',
     badge: 'Arquitetura'
   },
   {
