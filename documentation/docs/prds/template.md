@@ -74,7 +74,7 @@ Evidências:
 **Segmento específico (se aplicável):**
 - Séries: [ex: 5º ao 9º ano]
 - Tipo de rede: [Pública / Privada / Ambas]
-- Tamanho de escola: [Pequena (<300 alunos) / Média / Grande]
+- Tamanho de escola: [Pequena (menos de 300 alunos) / Média / Grande]
 
 ---
 

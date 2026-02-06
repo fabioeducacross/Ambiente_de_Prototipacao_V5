@@ -66,6 +66,14 @@
   --ifm-color-info-lighter: #2EDAF0;
   --ifm-color-info-lightest: #63E4F5;
   
+  /* GitHub-inspired Category Colors */
+  --color-intro: #0969DA;        /* Blue - Regras de Negócio */
+  --color-collab: #8250DF;       /* Purple - Documentação de Produto */
+  --color-devops: #1A7F37;       /* Green - Jornadas Educacionais */
+  --color-security: #D1242F;     /* Red - Setup & Desenvolvimento */
+  --color-management: #BF8700;   /* Orange - Personas & Contexto */
+  --color-support: #00CFE8;      /* Cyan - FAQ & Suporte */
+  
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(115, 103, 240, 0.1);
 }

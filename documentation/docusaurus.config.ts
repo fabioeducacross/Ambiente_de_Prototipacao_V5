@@ -44,6 +44,18 @@ const config: Config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
 
+  plugins: [
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        indexDocs: true,
+        indexBlog: false,
+        language: 'pt',
+        maxSearchResults: 8,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -70,6 +82,11 @@ const config: Config = {
         },
         theme: {
           customCss: './src/css/custom.css',
+        },
+        // Google Analytics configuration
+        gtag: {
+          trackingID: 'G-XXXXXXXXXX', // TODO: Replace with actual tracking ID
+          anonymizeIP: true,
         },
       } satisfies Preset.Options,
     ],
@@ -110,6 +127,10 @@ const config: Config = {
           position: 'left',
         },
         {
+          type: 'search',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5',
           label: 'GitHub',
           position: 'right',
@@ -120,38 +141,54 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Documentação',
+          title: '📚 Documentação',
           items: [
             {
               label: 'Começar',
               to: '/docs/intro',
             },
             {
-              label: 'Jornadas',
-              to: '/docs/journeys',
+              label: 'Regras de Negócio',
+              to: '/docs/category/regras-de-negocio',
             },
             {
-              label: 'Protótipos',
-              to: '/docs/prototypes',
+              label: 'Produto',
+              to: '/docs/category/produto',
+            },
+            {
+              label: 'Jornadas',
+              to: '/docs/journeys',
             },
           ],
         },
         {
-          title: 'Recursos',
+          title: '🤝 Ajuda e Suporte',
           items: [
             {
-              label: 'Design System',
+              label: 'GitHub Discussions',
+              href: 'https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5/discussions',
+            },
+            {
+              label: 'FAQ',
+              to: '/docs/faq',
+            },
+            {
+              label: 'Guia de Início Rápido',
+              to: '/docs/setup/quickstart',
+            },
+          ],
+        },
+        {
+          title: '🔗 Recursos',
+          items: [
+            {
+              label: 'Design System Vuexy',
               href: 'https://fabioeducacross.github.io/DesignSystem-Vuexy',
             },
             {
               label: 'Educacross',
               href: 'https://educacross.com.br',
             },
-          ],
-        },
-        {
-          title: 'Repositório',
-          items: [
             {
               label: 'GitHub',
               href: 'https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5',
@@ -159,7 +196,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Educacross. Documentação construída com Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Educacross. Construído com ❤️ e Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

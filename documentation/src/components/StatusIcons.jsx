@@ -293,6 +293,15 @@ export const PriorityMedium = () => (
   </span>
 );
 
+export const PriorityLow = () => (
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ display: 'inline-block' }}>
+      <circle cx="8" cy="8" r="7" fill="#10B981"/>
+    </svg>
+    {' '}Baixa
+  </span>
+);
+
 // Export default com todos os ícones
 export default {
   IconCheck,
@@ -316,4 +325,5 @@ export default {
   StatusPlanned,
   PriorityHigh,
   PriorityMedium,
+  PriorityLow,
 };
