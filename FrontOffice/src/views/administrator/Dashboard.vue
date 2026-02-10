@@ -1,0 +1,72 @@
+<script setup>
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+const journeys = ref([
+  { id: 'ADM-001', name: 'Gerenciar Usuários', description: 'Criar, editar e desabilitar usuários', status: 'Planejado', color: '#FF9F43' },
+  { id: 'ADM-002', name: 'Configurar Sistema', description: 'Ajustar parâmetros e configurações', status: 'Planejado', color: '#FF9F43' },
+  { id: 'ADM-003', name: 'Logs e Auditoria', description: 'Visualizar logs de sistema', status: 'Planejado', color: '#FF9F43' }
+])
+
+const stats = ref([
+  { label: 'Usuários Ativos', value: '1850', icon: 'bi-people', color: '#7367F0' },
+  { label: 'Escolas', value: '12', icon: 'bi-building', color: '#28C76F' },
+  { label: 'Uptime', value: '99.9%', icon: 'bi-check-circle', color: '#28C76F' },
+  { label: 'Tickets Abertos', value: '4', icon: 'bi-exclamation-circle', color: '#EA5455' }
+])
+</script>
+
+<template>
+  <div class="dashboard">
+    <header class="dashboard-header">
+      <div class="container">
+        <div class="header-content">
+          <div>
+            <RouterLink to="/" class="back-link"><i class="bi bi-arrow-left"></i> Voltar</RouterLink>
+            <h1 class="header-title"><i class="bi bi-gear"></i>Dashboard Administrador</h1>
+            <p class="header-subtitle">Configuração do sistema e gestão de usuários</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="stats-section">
+      <div class="container">
+        <div class="grid grid-cols-4">
+          <div v-for="stat in stats" :key="stat.label" class="stat-card" :style="{ '--stat-color': stat.color }">
+            <div class="stat-icon"><i :class="stat.icon"></i></div>
+            <div class="stat-content">
+              <div class="stat-value">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journeys-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title"><i class="bi bi-map"></i>Jornadas Disponíveis</h2>
+        </div>
+        <div class="grid grid-cols-2">
+          <div v-for="journey in journeys" :key="journey.id" class="journey-card">
+            <div class="journey-header">
+              <div class="journey-id">{{ journey.id }}</div>
+              <span class="badge" :style="{ backgroundColor: journey.color, color: 'white' }">{{ journey.status }}</span>
+            </div>
+            <h3 class="journey-title">{{ journey.name }}</h3>
+            <p class="journey-description">{{ journey.description }}</p>
+            <div class="journey-footer">
+              <button class="btn btn-primary" disabled><i class="bi bi-play-circle"></i>Em breve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<style scoped>
+@import '../teacher/Dashboard.vue';
+</style>

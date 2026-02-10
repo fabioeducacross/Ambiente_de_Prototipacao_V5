@@ -5,15 +5,24 @@
 
 ## Visão Geral do Projeto
 
-Ambiente de prototipação para criar e testar jornadas educacionais usando **Vue 3 + Vite** com Design System baseado no Vuexy. O projeto usa um banco de dados JSON simples e não tem backend - todos os dados vêm de `src/data/journeys.json`.
+Ambiente de prototipação com **2 sub-projetos integrados**:
+1. **Aplicação Vue 3** (`src/`) - Protótipos interativos de jornadas educacionais
+2. **Documentação Docusaurus** (`documentation/`) - Design System + 50+ jornadas documentadas
 
 ## Arquitetura
 
+### Aplicação Vue 3 (Protótipos)
 - **Frontend**: Vue 3 com Composition API e `<script setup>` syntax
-- **Router**: Vue Router com history mode (3 rotas principais)
-- **Design System**: Vuexy color palette + Bootstrap Icons
-- **Data**: JSON estático em `src/data/journeys.json` - importado diretamente nos componentes
+- **Router**: Vue Router com history mode (3 rotas: `/`, `/jornadas`, `/jornada/:id`)
+- **Design System**: Vuexy color palette + Bootstrap Icons (importado via CDN em `src/style.css`)
+- **Data**: JSON estático em `src/data/journeys.json` - importado diretamente nos componentes (sem API)
 - **Build**: Vite (dev server na porta 5173)
+
+### Documentação Docusaurus
+- **Framework**: Docusaurus 3.9.2 + TypeScript
+- **Icons**: Material Symbols (194 ícones migrados - ver `documentation/ICON_MIGRATION_COMPLETE.md`)
+- **Servidor**: Porta 3000 (via `npm start` na raiz ou `npm start --prefix documentation`)
+- **Build**: `documentation/build/` - site estático pronto para deploy
 
 ## Convenções de Código
 
@@ -107,10 +116,18 @@ const journey = ref(journeysData.find(j => j.id === journeyId.value))
 
 ## Comandos de Desenvolvimento
 
+### Aplicação Vue 3
 ```bash
-npm run dev      # Inicia dev server (http://localhost:5173)
+npm run dev      # Inicia dev server Vue (http://localhost:5173)
 npm run build    # Build de produção
 npm run preview  # Preview do build
+```
+
+### Documentação Docusaurus
+```bash
+npm start                      # Inicia Docusaurus (http://localhost:3000) - na raiz
+npm start --prefix documentation  # Ou dentro de documentation/
+cd documentation && npm run build # Build documentação
 ```
 
 ## Guidelines para Novas Features
@@ -122,7 +139,23 @@ npm run preview  # Preview do build
 5. **Card Pattern**: Seguir estrutura `.card > .card-header/.card-body/.card-footer` com hover effects
 6. **Gradientes**: Hero sections usam `linear-gradient(135deg, #7367F0 0%, #9E95F5 100%)`
 
-## Referência Externa
+## Workflow Git (Protótipos)
+
+**Branch Strategy** (ver `PROTOTYPES-WORKFLOW.md` para detalhes):
+- `prototypes/as-is` - Baseline que replica produção (nunca desenvolver aqui)
+- `prototypes/feature/*` - Branches para protótipos TO-BE (ex: `prototypes/feature/education-system-v2`)
+
+**Fluxo típico**:
+1. Partir de `prototypes/as-is` para criar feature branch
+2. Desenvolver protótipo com commits frequentes
+3. Deploy automático gera preview URL
+4. Após aprovação: migrar para `educacross-frontoffice` (produção)
+5. Atualizar `prototypes/as-is` com tag (ex: `as-is-v1.1`)
+6. Deletar feature branch
+
+## Referências
 
 - Design System completo: https://fabioeducacross.github.io/DesignSystem-Vuexy/
 - Organização: https://educacross.com.br/
+- Status do projeto: `PROJECT_STATUS.md`
+- Workflow completo: `PROTOTYPES-WORKFLOW.md`
