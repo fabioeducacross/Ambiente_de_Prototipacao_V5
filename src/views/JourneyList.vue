@@ -9,6 +9,42 @@
 
     <div class="container">
       <div class="row">
+        <!-- Card especial: Calendário (nova feature) -->
+        <div class="col-md-4">
+          <router-link to="/teacher/calendar" class="journey-card-link">
+            <div class="card journey-card calendar-card">
+              <div class="card-header">
+                <span class="badge badge-info">Nova Feature</span>
+                <span class="badge badge-primary">PROF-XXX</span>
+              </div>
+              <div class="card-body">
+                <div class="calendar-icon">
+                  <i class="bi bi-calendar3"></i>
+                </div>
+                <h3 class="card-title">Calendário de Eventos</h3>
+                <p class="card-text">Visualize e gerencie todos os eventos das suas turmas em Mês, Semana, Dia ou Lista</p>
+                
+                <div class="journey-info">
+                  <div class="info-item">
+                    <i class="bi bi-eye"></i>
+                    <span>4 visualizações</span>
+                  </div>
+                  <div class="info-item">
+                    <i class="bi bi-plus-circle"></i>
+                    <span>Criar eventos</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span class="btn btn-primary btn-block">
+                  Acessar Calendário
+                </span>
+              </div>
+            </div>
+          </router-link>
+        </div>
+
+        <!-- Demais jornadas -->
         <div class="col-md-4" v-for="journey in journeys" :key="journey.id">
           <div class="card journey-card">
             <div class="card-header">
@@ -211,6 +247,64 @@ const getBadgeClass = (nivel) => {
 .badge-secondary {
   background-color: #82868B;
   color: white;
+}
+
+.badge-primary {
+  background-color: #7367F0;
+  color: white;
+}
+
+.badge-info {
+  background-color: #00CFE8;
+  color: white;
+}
+
+/* Calendar card special styling */
+.journey-card-link {
+  text-decoration: none;
+  display: block;
+}
+
+.calendar-card {
+  border: 2px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #7367F0, #00CFE8, #28C76F);
+}
+
+.calendar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #7367F0 0%, #9E95F5 100%);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.calendar-icon i {
+  font-size: 32px;
+  color: white;
+}
+
+.calendar-card .card-title {
+  color: var(--primary);
+}
+
+.calendar-card:hover {
+  border-color: var(--info);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(115, 103, 240, 0.3);
 }
 
 .badge-primary {

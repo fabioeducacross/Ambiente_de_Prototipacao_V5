@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 
 // Lazy load journey pages
 const TeacherDashboard = () => import('../views/teacher/Dashboard.vue')
+const TeacherCalendar = () => import('../views/teacher/Calendar.vue')
 const StudentDashboard = () => import('../views/student/Dashboard.vue')
 const AdministratorDashboard = () => import('../views/administrator/Dashboard.vue')
 const CoordinatorDashboard = () => import('../views/coordinator/Dashboard.vue')
@@ -21,6 +22,12 @@ const routes = [
     name: 'TeacherDashboard',
     component: TeacherDashboard,
     meta: { title: 'Dashboard Professor | Educacross', persona: 'Professor' }
+  },
+  {
+    path: '/teacher/calendar',
+    name: 'TeacherCalendar',
+    component: TeacherCalendar,
+    meta: { title: 'Calendário | Educacross', persona: 'Professor', breadcrumb: 'Calendário' }
   },
   {
     path: '/student',

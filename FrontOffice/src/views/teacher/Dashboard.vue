@@ -107,6 +107,36 @@ const stats = ref([
         </div>
 
         <div class="grid grid-cols-2">
+          <!-- Calendar Card (TO-BE) -->
+          <RouterLink to="/teacher/calendar" class="journey-card calendar-card">
+            <div class="journey-header">
+              <div class="journey-badges">
+                <span class="badge badge-info">Nova Feature</span>
+                <span class="badge badge-primary">PROF-XXX</span>
+              </div>
+            </div>
+            <div class="calendar-icon">
+              <i class="bi bi-calendar3"></i>
+            </div>
+            <h3 class="journey-title calendar-title">Calendário de Eventos</h3>
+            <p class="journey-description">Visualize e gerencie todos os eventos das suas turmas em Mês, Semana, Dia ou Lista</p>
+            <div class="journey-meta">
+              <span class="meta-item">
+                <i class="bi bi-grid-3x3"></i> 4 visualizações
+              </span>
+              <span class="meta-item">
+                <i class="bi bi-plus-circle"></i> Criar eventos
+              </span>
+            </div>
+            <div class="journey-footer">
+              <button class="btn btn-primary">
+                <i class="bi bi-calendar-event"></i>
+                Acessar Calendário
+              </button>
+            </div>
+          </RouterLink>
+
+          <!-- Existing Journeys -->
           <div 
             v-for="journey in journeys"
             :key="journey.id"
@@ -387,6 +417,77 @@ const stats = ref([
 .doc-content p {
   color: var(--gray-600);
   margin-bottom: 1.5rem;
+}
+
+/* Calendar Card (TO-BE Feature) */
+.calendar-card {
+  position: relative;
+  border: 2px solid var(--primary);
+  border-top: 4px solid;
+  border-image: linear-gradient(135deg, #7367F0 0%, #00CFE8 50%, #28C76F 100%);
+  border-image-slice: 1 0 0 0;
+  background: linear-gradient(135deg, rgba(115, 103, 240, 0.03) 0%, rgba(0, 207, 232, 0.03) 100%);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.calendar-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(115, 103, 240, 0.2);
+  border-color: var(--primary);
+}
+
+.calendar-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7367F0 0%, #9E95F5 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin: 0 auto 1rem;
+}
+
+.calendar-title {
+  color: var(--primary) !important;
+}
+
+.journey-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.badge-info {
+  background-color: var(--info);
+  color: white;
+}
+
+.journey-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.meta-item i {
+  color: var(--primary);
 }
 
 /* Responsive */

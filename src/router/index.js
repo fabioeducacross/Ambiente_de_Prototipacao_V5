@@ -18,6 +18,16 @@ const routes = [
     path: '/jornada/:id',
     name: 'JourneyDetail',
     component: JourneyDetail
+  },
+  {
+    path: '/teacher/calendar',
+    name: 'TeacherCalendar',
+    component: () => import('../views/teacher/Calendar.vue'),
+    meta: {
+      title: 'Calendário | Educacross',
+      persona: 'Professor',
+      breadcrumb: 'Calendário'
+    }
   }
 ]
 
