@@ -1,39 +1,21 @@
 <template>
-  <div class="calendar-page">
-    <!-- Sidebar -->
-    <Sidebar />
+  <div>
+    <AppNavbar @toggle-sidebar="toggleSidebar" />
+    <div class="calendar-page" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+      <!-- Sidebar (lateral) -->
+      <Sidebar :collapsed="sidebarCollapsed" />
 
-    <!-- Main Content -->
-    <div class="calendar-main">
-      <!-- Header -->
-      <div class="calendar-header">
-        <div class="header-top">
-          <div class="turma-selector-wrapper">
-            <select
-              v-model="selectedTurma"
-              class="turma-selector"
-            >
-              <option value="5a-manha">Turma 5° A - Manhã</option>
-              <option value="5b-manha">5° B - Manhã</option>
-              <option value="5a-tarde">5° A - Tarde</option>
-              <option value="6a-manha">6° A - Manhã</option>
-              <option value="6b-manha">6° B - Manhã</option>
-              <option value="7a-manha">7° A - Manhã</option>
-            </select>
-            <span class="badge-year">ano</span>
-          </div>
-
-          <button class="btn-add-event" @click="openDrawer">
-            <i class="bi bi-plus-lg"></i>
-            Adicionar evento
-          </button>
-        </div>
-      </div>
-
+      <!-- Main Content -->
+      <div class="calendar-main">
       <!-- Content Grid -->
       <div class="calendar-content">
-        <!-- Left Column: Mini Calendar + Legend -->
+        <!-- Left Column: Add Event Button + Mini Calendar + Legend -->
         <aside class="calendar-sidebar-left">
+          <button class="btn btn-primary btn-add-event" @click="openDrawer">
+            <i class="bi bi-plus-lg"></i>
+            Adicionar Evento
+          </button>
+
           <MiniCalendar
             :selected-date="currentDate"
             @select-date="handleDateSelect"
@@ -49,30 +31,33 @@
         <div class="calendar-center">
           <!-- Navigation Controls -->
           <div class="calendar-navigation">
-            <button class="nav-btn" @click="previousPeriod">
-              <i class="bi bi-chevron-left"></i>
-            </button>
+            <div class="nav-buttons">
+              <button class="nav-btn" @click="previousPeriod" aria-label="Período anterior">
+                <MaterialIcon name="chevron_left" size="22" />
+              </button>
+              <button class="nav-btn" @click="nextPeriod" aria-label="Próximo período">
+                <MaterialIcon name="chevron_right" size="22" />
+              </button>
+            </div>
             
             <h2 class="current-period">{{ currentPeriod }}</h2>
-            
-            <button class="nav-btn" @click="nextPeriod">
-              <i class="bi bi-chevron-right"></i>
-            </button>
+
+            <!-- View Tabs -->
+            <div class="view-tabs">
+              <button
+                v-for="view in views"
+                :key="view.id"
+                class="btn"
+                :class="{ active: selectedView === view.id }"
+                @click="selectedView = view.id"
+              >
+                {{ view.label }}
+              </button>
+            </div>
           </div>
 
-          <!-- View Tabs -->
-          <div class="view-tabs">
-            <button
-              v-for="view in views"
-              :key="view.id"
-              class="tab-btn"
-              :class="{ active: selectedView === view.id }"
-              @click="selectedView = view.id"
-            >
-              <i :class="view.icon"></i>
-              <span>{{ view.label }}</span>
-            </button>
-          </div>
+          <!-- Divider -->
+          <div class="calendar-divider"></div>
 
           <!-- Calendar Views -->
           <div class="calendar-view-content">
@@ -100,19 +85,28 @@
       @save="saveEvent"
     />
   </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useCalendar } from '../../composables/useCalendar'
+import AppNavbar from '../../components/AppNavbar.vue'
 import Sidebar from '../../components/Sidebar.vue'
 import MiniCalendar from '../../components/MiniCalendar.vue'
 import ActivityLegend from '../../components/ActivityLegend.vue'
+import MaterialIcon from '../../components/MaterialIcon.vue'
 import EventDrawer from '../../components/EventDrawer.vue'
 import MonthView from './calendar/MonthView.vue'
 import WeekView from './calendar/WeekView.vue'
 import DayView from './calendar/DayView.vue'
 import ListView from './calendar/ListView.vue'
+
+// Sidebar state
+const sidebarCollapsed = ref(false)
+const toggleSidebar = () => {
+  sidebarCollapsed.value = !sidebarCollapsed.value
+}
 
 // Composable
 const { formatDate, getActivityColor, getActivityIcon, getActivityLabel } = useCalendar()
@@ -273,187 +267,185 @@ onMounted(async () => {
 
 .calendar-main {
   flex: 1;
-  margin-left: 240px;
+  margin-left: 240px; /* Largura do Sidebar */
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
+  transition: margin-left 0.3s ease;
+  padding: 1.5rem 2rem;
 }
 
-/* Header */
-.calendar-header {
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 1.25rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1600px;
-  margin: 0 auto;
-}
-
-.turma-selector-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.turma-selector {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: white;
-  color: #1e1e2d;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.turma-selector:hover {
-  border-color: #7367F0;
-}
-
-.turma-selector:focus {
-  outline: none;
-  border-color: #7367F0;
-  box-shadow: 0 0 0 3px rgba(115, 103, 240, 0.1);
-}
-
-.badge-year {
-  padding: 0.25rem 0.625rem;
-  background: #e0e0ff;
-  color: #7367F0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.btn-add-event {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  background: #7367F0;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-add-event:hover {
-  background: #6558d3;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(115, 103, 240, 0.3);
+.calendar-page.sidebar-collapsed .calendar-main {
+  margin-left: 70px;
 }
 
 /* Content Grid */
 .calendar-content {
   flex: 1;
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem 2rem;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
+  box-shadow: 0px 3px 12px rgba(47, 43, 61, 0.14);
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
 }
 
 .calendar-sidebar-left {
+  width: 300px;
+  background: var(--Misc-paper, white);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-right: 1px solid rgba(47, 43, 61, 0.12);
+}
+
+.btn-add-event {
+  width: 100%;
+  justify-content: center;
+  padding: 24px;
+  background: #7367F0;
+  box-shadow: 0px 2px 6px rgba(115, 103, 240, 0.30);
+  border: none;
+  border-radius: 0;
+  color: white;
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  text-transform: capitalize;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease;
+}
+
+.btn-add-event:hover {
+  background: #6558d3;
+}
+
+.btn-add-event i {
+  font-size: 16px;
 }
 
 .calendar-center {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  overflow: hidden;
+  background: var(--Misc-paper, white);
 }
 
 /* Navigation */
 .calendar-navigation {
+  padding: 24px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.nav-buttons {
+  display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  align-items: center;
 }
 
 .nav-btn {
-  width: 32px;
-  height: 32px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d1d5db;
-  background: white;
-  color: #6b7280;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
+  color: rgba(47, 43, 61, 0.90);
 }
 
 .nav-btn:hover {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-  color: #1e1e2d;
+  background: rgba(47, 43, 61, 0.08);
 }
 
 .current-period {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e1e2d;
-  margin: 0;
-  min-width: 200px;
+  flex: 1;
   text-align: center;
+  color: rgba(47, 43, 61, 0.90);
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  line-height: 38px;
+  margin: 0;
+}
+
+.calendar-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(47, 43, 61, 0.12);
 }
 
 /* View Tabs */
 .view-tabs {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  align-self: flex-end;
+  margin-right: 24px;
 }
 
-.tab-btn {
+.view-tabs .btn {
+  background: rgba(115, 103, 240, 0.16);
+  color: #7367F0;
+  border: none;
+  border-radius: 0;
+  border-right: 1px solid rgba(115, 103, 240, 0.32);
+  padding: 8px 20px;
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  text-transform: capitalize;
+  line-height: 22px;
+  transition: background 0.2s ease;
+}
+
+.view-tabs .btn:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.view-tabs .btn:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-right: none;
+}
+
+.view-tabs .btn:hover {
+  background: rgba(115, 103, 240, 0.24);
+}
+
+.view-tabs .btn.active,
+.btn.btn-outline-primary.active {
+  background: rgba(115, 103, 240, 0.24);
+  border-color: rgba(115, 103, 240, 0.32);
+  color: #7367F0;
+}
+
+.view-tabs .btn {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: white;
-  border: 1px solid #e5e7eb;
-  color: #6b7280;
-  border-radius: 6px;
   font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.tab-btn:hover {
-  background: #f9fafb;
-  color: #1e1e2d;
-}
-
-.tab-btn.active {
-  background: #7367F0;
-  border-color: #7367F0;
-  color: white;
-}
-
-.tab-btn i {
+.view-tabs .btn i {
   font-size: 1rem;
 }
 
@@ -479,6 +471,10 @@ onMounted(async () => {
     margin-left: 0;
   }
   
+  .sidebar-open ~ .calendar-main {
+    margin-left: 240px;
+  }
+  
   .calendar-content {
     grid-template-columns: 1fr;
   }
@@ -490,27 +486,17 @@ onMounted(async () => {
 }
 
 @media (max-width: 768px) {
-  .header-top {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
-  
-  .turma-selector-wrapper {
-    justify-content: center;
-  }
-  
-  .btn-add-event {
-    width: 100%;
-    justify-content: center;
-  }
-  
   .view-tabs {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .tab-btn span {
+  .view-tabs .btn span {
     display: none;
+  }
+  
+  .btn-add-event {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
   }
 }
 </style>

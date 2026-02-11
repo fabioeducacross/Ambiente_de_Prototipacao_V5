@@ -138,7 +138,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-outline"
+            class="btn btn-outline-primary"
             @click="closeDrawer"
           >
             Cancelar

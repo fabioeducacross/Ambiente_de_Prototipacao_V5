@@ -15,9 +15,13 @@
           class="day-cell"
           :class="{
             'other-month': !dayInfo.isCurrentMonth,
-            'today': dayInfo.isToday
+            'current-month': dayInfo.isCurrentMonth,
+            'today': dayInfo.isToday,
+            'hovering': hoveringDay === dayInfo.date.getTime()
           }"
           @click="handleDayClick(dayInfo.date)"
+          @mouseenter="hoveringDay = dayInfo.date.getTime()"
+          @mouseleave="hoveringDay = null"
         >
           <div class="day-number">{{ dayInfo.date.getDate() }}</div>
           
@@ -26,19 +30,11 @@
             <div
               v-for="event in getEventsForThisDay(dayInfo.date)"
               :key="event.id"
-              class="event-pill"
-              :style="{ backgroundColor: getActivityColor(event.tipo) }"
+              class="event-label"
+              :style="{ background: getEventBgColor(event.tipo), color: getEventTextColor(event.tipo) }"
               @click.stop="$emit('edit-event', event)"
             >
-              <span class="event-title">{{ truncate(event.titulo, 20) }}</span>
-            </div>
-            
-            <!-- Overflow indicator -->
-            <div 
-              v-if="getEventsForThisDay(dayInfo.date).length > 3"
-              class="event-overflow"
-            >
-              +{{ getEventsForThisDay(dayInfo.date).length - 3 }} mais
+              <span class="event-title">{{ event.horario ? event.horario + ' ' : '' }}{{ truncate(event.titulo, 30) }}</span>
             </div>
           </div>
         </div>
@@ -48,7 +44,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useCalendar } from '../../../composables/useCalendar'
 
 const props = defineProps({
@@ -75,7 +71,9 @@ const {
   getActivityIcon 
 } = useCalendar()
 
-const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+const weekDays = ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sáb.']
+
+const hoveringDay = ref(null)
 
 // Generate calendar days grid (7x6 = 42 days)
 const calendarDays = computed(() => {
@@ -98,6 +96,30 @@ const getEventsForThisDay = (date) => {
   return eventsByDay.value.get(date.getTime()) || []
 }
 
+// Get event label background color
+const getEventBgColor = (tipo) => {
+  const colors = {
+    'missao': 'rgba(115, 103, 240, 0.16)',
+    'olimpiada': 'rgba(40, 199, 111, 0.16)',
+    'avaliacao': 'rgba(255, 76, 81, 0.16)',
+    'trilha': 'rgba(0, 186, 209, 0.16)',
+    'expedicao': 'rgba(255, 159, 67, 0.16)'
+  }
+  return colors[tipo] || 'rgba(115, 103, 240, 0.16)'
+}
+
+// Get event label text color
+const getEventTextColor = (tipo) => {
+  const colors = {
+    'missao': '#7367F0',
+    'olimpiada': '#28C76F',
+    'avaliacao': '#FF4C51',
+    'trilha': '#00BAD1',
+    'expedicao': '#FF9F43'
+  }
+  return colors[tipo] || '#7367F0'
+}
+
 // Handle day click
 const handleDayClick = (date) => {
   emit('select-date', date)
@@ -114,6 +136,7 @@ const truncate = (text, length) => {
 .month-view {
   width: 100%;
   height: 100%;
+  background: var(--Misc-paper, white);
 }
 
 .calendar-grid {
@@ -124,160 +147,153 @@ const truncate = (text, length) => {
 
 /* Weekday header */
 .weekday-header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 42px;
+  padding-right: 42px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  gap: 86px;
 }
 
 .weekday {
-  padding: 12px;
   text-align: center;
-  font-weight: 600;
-  font-size: 14px;
-  color: #6c757d;
-  text-transform: uppercase;
+  color: rgba(47, 43, 61, 0.90);
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  line-height: 22px;
 }
 
 /* Days grid */
 .days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(6, minmax(125px, auto));
   flex: 1;
-  gap: 1px;
-  background-color: #e0e0e0;
 }
 
 .day-cell {
-  background-color: #fff;
   padding: 8px;
-  min-height: 100px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  border-top: 1px solid rgba(47, 43, 61, 0.12);
+  border-right: 1px solid rgba(47, 43, 61, 0.12);
   display: flex;
   flex-direction: column;
-  position: relative;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.day-cell:hover {
-  background-color: #f8f9fa;
+.day-cell:nth-child(7n) {
+  border-right: 1px solid rgba(47, 43, 61, 0.12);
 }
 
-.day-cell.other-month {
-  background-color: #fafafa;
-  opacity: 0.5;
-}
-
-.day-cell.today {
-  background-color: #f0efff;
-  border: 2px solid var(--primary);
-}
-
-.day-number {
-  font-size: 14px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 6px;
-  text-align: right;
+.day-cell.hovering {
+  background: rgba(47, 43, 61, 0.06);
 }
 
 .day-cell.other-month .day-number {
-  color: #adb5bd;
+  color: rgba(47, 43, 61, 0.40);
 }
 
-.day-cell.today .day-number {
-  color: var(--primary);
-  background-color: var(--primary);
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin-left: auto;
+.day-cell.current-month .day-number {
+  color: rgba(47, 43, 61, 0.70);
+}
+
+.day-number {
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 22px;
 }
 
 /* Events */
 .day-events {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex: 1;
-  overflow: hidden;
+  gap: 8px;
+  width: 100%;
 }
 
-.event-pill {
-  display: flex;
-  align-items: center;
-  padding: 5px 8px;
+.event-label {
   border-radius: 4px;
-  font-size: 12px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 28px;
+  padding: 4px 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.event-pill:hover {
-  transform: translateX(2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.event-label:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .event-title {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  line-height: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
-}
-
-.event-overflow {
-  font-size: 11px;
-  color: #6c757d;
-  padding: 4px 8px;
-  text-align: center;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  margin-top: 2px;
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
   .day-cell {
-    min-height: 80px;
+    height: 100px;
     padding: 6px;
   }
   
-  .event-pill {
-    font-size: 11px;
-    padding: 3px 6px;
+  .weekday-header {
+    padding-left: 24px;
+    padding-right: 24px;
+    gap: 60px;
+  }
+  
+  .event-label {
+    padding: 3px 10px;
+  }
+  
+  .event-title {
+    font-size: 12px;
   }
 }
 
 @media (max-width: 768px) {
+  .weekday-header {
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 40px;
+  }
+  
   .weekday {
-    padding: 8px;
-    font-size: 12px;
+    font-size: 13px;
   }
   
   .day-cell {
-    min-height: 60px;
+    height: 80px;
     padding: 4px;
   }
   
   .day-number {
-    font-size: 12px;
+    font-size: 13px;
   }
   
-  .event-pill {
-    font-size: 10px;
-    padding: 2px 4px;
+  .event-label {
+    padding: 2px 8px;
   }
   
-  .event-pill i {
-    display: none;
+  .event-title {
+    font-size: 11px;
   }
 }
 </style>

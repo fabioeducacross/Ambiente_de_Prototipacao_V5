@@ -1,28 +1,11 @@
 <template>
-  <div class="sidebar">
-    <!-- Logo / Header -->
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <i class="bi bi-mortarboard-fill"></i>
-        <span>educacross</span>
-      </div>
-    </div>
-
-    <!-- User Info -->
-    <div class="sidebar-user">
-      <div class="user-avatar">IC</div>
-      <div class="user-info">
-        <div class="user-name">Isabella Cross</div>
-        <div class="user-role">Professora</div>
-      </div>
-    </div>
-
+  <aside class="sidebar" :class="{ 'collapsed': collapsed }">
     <!-- Navigation Menu -->
     <nav class="sidebar-nav">
       <div class="nav-section">
         <div class="nav-title">Painel Inicial</div>
         <RouterLink to="/teacher" class="nav-item">
-          <i class="bi bi-house-door"></i>
+          <MaterialIcon name="home" :size="18" />
           <span>Dashboard</span>
         </RouterLink>
       </div>
@@ -31,25 +14,25 @@
         <div class="nav-title">Relatórios gerais</div>
         
         <button class="nav-item collapsible">
-          <i class="bi bi-graph-up"></i>
+          <MaterialIcon name="pie_chart" :size="18" />
           <span>Acessos</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-file-earmark-text"></i>
+          <MaterialIcon name="pie_chart" :size="18" />
           <span>Evidências</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-star"></i>
+          <MaterialIcon name="graph_5" :size="18" />
           <span>Habilidades</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <RouterLink to="/teacher/calendar" class="nav-item active">
-          <i class="bi bi-calendar3"></i>
+          <MaterialIcon name="calendar_month" :size="18" />
           <span>Calendário</span>
         </RouterLink>
       </div>
@@ -58,21 +41,21 @@
         <div class="nav-title">Missões da Escola</div>
         
         <button class="nav-item collapsible">
-          <i class="bi bi-flag"></i>
+          <MaterialIcon name="add_circle" :size="18" />
           <span>Criar Missão</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-trophy"></i>
+          <MaterialIcon name="mountain_flag" :size="18" />
           <span>Missões</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-clipboard-check"></i>
+          <MaterialIcon name="frame_inspect" :size="18" />
           <span>Revisões</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
       </div>
 
@@ -80,28 +63,28 @@
         <div class="nav-title">Trilhas</div>
         
         <button class="nav-item">
-          <i class="bi bi-award"></i>
+          <MaterialIcon name="anchor" :size="18" />
           <span>BNCC</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-columns-gap"></i>
+          <MaterialIcon name="location_on" :size="18" />
           <span>SAEB</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-diagram-3"></i>
-          <span>Programa 3Z</span>
+          <MaterialIcon name="footprint" :size="18" />
+          <span>Programa 32</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-book"></i>
+          <MaterialIcon name="auto_stories" :size="18" />
           <span>Super Ensino</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-puzzle"></i>
-          <span>GOC</span>
+          <MaterialIcon name="auto_stories" :size="18" />
+          <span>COC</span>
         </button>
       </div>
 
@@ -109,28 +92,28 @@
         <div class="nav-title">Avaliações</div>
         
         <button class="nav-item collapsible">
-          <i class="bi bi-check2-square"></i>
-          <span>Diagnóstico</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="thermostat" :size="18" />
+          <span>Diagnósticas</span>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-file-text"></i>
+          <MaterialIcon name="quiz" :size="18" />
           <span>Somativas</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-graph-up-arrow"></i>
+          <MaterialIcon name="checklist_rtl" :size="18" />
           <span>Simulados</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-pencil-square"></i>
+          <MaterialIcon name="mic" :size="18" />
           <span>Fluência Leitora</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-clipboard-data"></i>
+          <MaterialIcon name="checkbook" :size="18" />
           <span>Testes de Escrita</span>
         </button>
       </div>
@@ -138,7 +121,7 @@
       <div class="nav-section">
         <div class="nav-title">Olimpíadas</div>
         <button class="nav-item">
-          <i class="bi bi-trophy-fill"></i>
+          <MaterialIcon name="emoji_events" :size="18" />
           <span>Olimpíadas</span>
         </button>
       </div>
@@ -146,7 +129,7 @@
       <div class="nav-section">
         <div class="nav-title">Educateca</div>
         <button class="nav-item">
-          <i class="bi bi-book-half"></i>
+          <MaterialIcon name="auto_stories" :size="18" />
           <span>Educateca</span>
         </button>
       </div>
@@ -155,15 +138,15 @@
         <div class="nav-title">Expedições</div>
         
         <button class="nav-item collapsible">
-          <i class="bi bi-compass"></i>
-          <span>Expedição Leitum</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="airplane_ticket" :size="18" />
+          <span>Expedição Leitura</span>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-lightbulb"></i>
-          <span>Expedições Aprendizagem</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="explore" :size="18" />
+          <span>Expedição Aprendizagem</span>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
       </div>
 
@@ -171,15 +154,15 @@
         <div class="nav-title">Formação e Apoio</div>
         
         <button class="nav-item collapsible">
-          <i class="bi bi-file-earmark-arrow-down"></i>
+          <MaterialIcon name="folder_open" :size="18" />
           <span>Ajudas e Materiais</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
 
         <button class="nav-item collapsible">
-          <i class="bi bi-mortarboard"></i>
+          <MaterialIcon name="account_balance" :size="18" />
           <span>Academia Educacross</span>
-          <i class="bi bi-chevron-down"></i>
+          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
       </div>
 
@@ -187,22 +170,22 @@
         <div class="nav-title">Jornada Super</div>
         
         <button class="nav-item">
-          <i class="bi bi-bullseye"></i>
+          <MaterialIcon name="swords" :size="18" />
           <span>Desafios</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-calendar-week"></i>
-          <span>Plansnig</span>
+          <MaterialIcon name="trophy" :size="18" />
+          <span>Ranking</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-basket"></i>
+          <MaterialIcon name="shopping_cart" :size="18" />
           <span>Loja</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-star-fill"></i>
+          <MaterialIcon name="crown" :size="18" />
           <span>Especiais</span>
         </button>
       </div>
@@ -211,21 +194,29 @@
         <div class="nav-title">Administração</div>
         
         <button class="nav-item">
-          <i class="bi bi-people"></i>
+          <MaterialIcon name="sentiment_satisfied" :size="18" />
           <span>Alunos</span>
         </button>
 
         <button class="nav-item">
-          <i class="bi bi-shield-check"></i>
+          <MaterialIcon name="person_play" :size="18" />
           <span>Permissões</span>
         </button>
       </div>
     </nav>
-  </div>
+  </aside>
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router'
+import MaterialIcon from './MaterialIcon.vue'
+
+defineProps({
+  collapsed: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <style scoped>
@@ -240,88 +231,48 @@ import { RouterLink } from 'vue-router'
   overflow-x: hidden;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 70px;
   z-index: 100;
+  height: calc(100vh - 70px);
+  transition: width 0.3s ease;
 }
 
-/* Custom Scrollbar */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
+.sidebar.collapsed {
+  width: 70px;
 }
 
-.sidebar::-webkit-scrollbar-track {
-  background: #1a1a27;
+.sidebar.collapsed .nav-title,
+.sidebar.collapsed .nav-item > span:not(.material-symbols-outlined),
+.sidebar.collapsed .chevron {
+  display: none;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
-  background: #2d2d3f;
-  border-radius: 3px;
+.sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px 0;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #3a3a4d;
+.sidebar.collapsed .nav-section {
+  padding: 0;
+  margin-bottom: 0.25rem;
 }
 
-/* Header */
+/* Logo Header */
 .sidebar-header {
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #2d2d3f;
+  padding: 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.sidebar-logo i {
-  color: #7367F0;
-  font-size: 1.5rem;
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 /* User Info */
-.sidebar-user {
-  padding: 1rem;
-  border-bottom: 1px solid #2d2d3f;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #7367F0;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.875rem;
-  flex-shrink: 0;
-}
-
-.user-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.user-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #ffffff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.user-role {
-  font-size: 0.75rem;
-  color: #a1a5b7;
+.
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #3a3a4d;
 }
 
 /* Navigation */
@@ -360,15 +311,19 @@ import { RouterLink } from 'vue-router'
   border-left: 3px solid transparent;
 }
 
-.nav-item i {
-  font-size: 1rem;
-  width: 20px;
-  text-align: center;
+.nav-item .material-symbols-outlined {
   flex-shrink: 0;
+  font-size: 18px;
 }
 
-.nav-item span {
+.nav-item span:not(.material-symbols-outlined) {
   flex: 1;
+}
+
+.nav-item .chevron {
+  margin-left: auto;
+  opacity: 0.6;
+  font-size: 14px;
 }
 
 .nav-item:hover {
@@ -382,25 +337,13 @@ import { RouterLink } from 'vue-router'
   border-left-color: #00CFE8;
 }
 
-.nav-item.collapsible i:last-child {
-  margin-left: auto;
-  font-size: 0.75rem;
+.nav-item.collapsible .chevron {
   transition: transform 0.2s ease;
 }
 
-.nav-item.collapsible:hover i:last-child {
+.nav-item.collapsible:hover .chevron {
   transform: rotate(180deg);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-}
 </style>
+

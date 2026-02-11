@@ -2,28 +2,46 @@
   <div class="activity-legend">
     <div class="legend-title">Atividades</div>
     
-    <label
-      v-for="activity in activities"
-      :key="activity.tipo"
-      class="activity-item"
-    >
-      <input
-        type="checkbox"
-        :checked="isActivityVisible(activity.tipo)"
-        @change="toggleActivity(activity.tipo)"
-        class="activity-checkbox"
-      />
-      <span
-        class="activity-dot"
-        :style="{ backgroundColor: activity.cor }"
-      ></span>
-      <span class="activity-label">{{ activity.label }}</span>
-    </label>
+    <div class="activity-list">
+      <label
+        v-for="activity in activities"
+        :key="activity.tipo"
+        class="activity-item"
+      >
+        <div class="checkbox-wrapper">
+          <div class="custom-checkbox-container">
+            <input
+              type="checkbox"
+              :checked="isActivityVisible(activity.tipo)"
+              @change="toggleActivity(activity.tipo)"
+              class="activity-checkbox-hidden"
+            />
+            <div 
+              class="custom-checkbox"
+              :class="{ 'checked': isActivityVisible(activity.tipo) }"
+              :style="{ 
+                background: isActivityVisible(activity.tipo) ? activity.cor : 'transparent',
+                boxShadow: isActivityVisible(activity.tipo) ? `0px 2px 6px ${activity.corOpacity}` : 'none'
+              }"
+            >
+              <MaterialIcon 
+                v-if="isActivityVisible(activity.tipo)" 
+                name="check" 
+                size="12" 
+                style="color: white;"
+              />
+            </div>
+          </div>
+        </div>
+        <span class="activity-label">{{ activity.label }}</span>
+      </label>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import MaterialIcon from './MaterialIcon.vue'
 
 const props = defineProps({
   visibleActivities: {
@@ -35,11 +53,11 @@ const props = defineProps({
 const emit = defineEmits(['update:visible-activities'])
 
 const activities = [
-  { tipo: 'missao', label: 'Missões', cor: '#7367F0' },
-  { tipo: 'olimpiada', label: 'Olimpíadas', cor: '#00CFE8' },
-  { tipo: 'avaliacao', label: 'Avaliações', cor: '#FF9F43' },
-  { tipo: 'trilha', label: 'Trilhas', cor: '#28C76F' },
-  { tipo: 'expedicao', label: 'Expedições', cor: '#EA5455' }
+  { tipo: 'missao', label: 'Missões', cor: '#7367F0', corOpacity: 'rgba(115, 103, 240, 0.30)' },
+  { tipo: 'olimpiada', label: 'Olimpíadas', cor: '#28C76F', corOpacity: 'rgba(40, 199, 111, 0.30)' },
+  { tipo: 'avaliacao', label: 'Avaliações', cor: '#FF4C51', corOpacity: 'rgba(255, 76, 81, 0.30)' },
+  { tipo: 'trilha', label: 'Trilhas', cor: '#00BAD1', corOpacity: 'rgba(0, 186, 209, 0.30)' },
+  { tipo: 'expedicao', label: 'Expedições', cor: '#FF9F43', corOpacity: 'rgba(255, 159, 67, 0.30)' }
 ]
 
 const isActivityVisible = (tipo) => {
@@ -62,55 +80,83 @@ const toggleActivity = (tipo) => {
 
 <style scoped>
 .activity-legend {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  background: var(--Misc-paper, white);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .legend-title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #1e1e2d;
-  margin-bottom: 0.75rem;
+  color: rgba(47, 43, 61, 0.90);
+  font-size: 18px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
 }
 
 .activity-item {
+  width: 100%;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 0;
+  overflow: hidden;
   cursor: pointer;
-  transition: background 0.2s ease;
-  border-radius: 4px;
-  margin: 0 -0.25rem;
-  padding-left: 0.25rem;
   user-select: none;
 }
 
-.activity-item:hover {
-  background: #f9fafb;
+.checkbox-wrapper {
+  padding: 6px;
+  border-radius: 21px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.activity-checkbox {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  flex-shrink: 0;
-  accent-color: #7367F0;
+.custom-checkbox-container {
+  padding: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.activity-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.activity-checkbox-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(47, 43, 61, 0.20);
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox.checked {
+  border-color: transparent;
 }
 
 .activity-label {
-  font-size: 0.875rem;
-  color: #4b5563;
-  font-weight: 500;
+  color: rgba(47, 43, 61, 0.90);
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 22px;
 }
 </style>

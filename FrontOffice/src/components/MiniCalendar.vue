@@ -1,16 +1,16 @@
 <template>
   <div class="mini-calendar">
-    <!-- Header with month/year -->
+    <!-- Header com mês/ano e navegação -->
     <div class="mini-calendar-header">
-      <button class="nav-btn" @click="previousMonth">
-        <i class="bi bi-chevron-left"></i>
-      </button>
-      <div class="current-month">
-        {{ monthYear }}
+      <div class="current-month">{{ monthYear }}</div>
+      <div class="nav-buttons">
+        <button class="nav-btn" @click="previousMonth" aria-label="Mês anterior">
+          <MaterialIcon name="chevron_left" size="20" />
+        </button>
+        <button class="nav-btn" @click="nextMonth" aria-label="Próximo mês">
+          <MaterialIcon name="chevron_right" size="20" />
+        </button>
       </div>
-      <button class="nav-btn" @click="nextMonth">
-        <i class="bi bi-chevron-right"></i>
-      </button>
     </div>
 
     <!-- Weekday headers -->
@@ -22,19 +22,24 @@
 
     <!-- Days grid -->
     <div class="mini-calendar-days">
-      <button
-        v-for="(dayInfo, index) in calendarDays"
-        :key="index"
-        class="day-cell"
-        :class="{
-          'other-month': !dayInfo.isCurrentMonth,
-          'today': dayInfo.isToday,
-          'selected': isSelectedDate(dayInfo.date)
-        }"
-        @click="selectDate(dayInfo.date)"
-      >
-        {{ dayInfo.date.getDate() }}
-      </button>
+      <template v-for="(week, weekIndex) in weekRows" :key="weekIndex">
+        <div class="day-row">
+          <div
+            v-for="(dayInfo, dayIndex) in week"
+            :key="`${weekIndex}-${dayIndex}`"
+            class="day-cell"
+            :class="{
+              'other-month': !dayInfo.isCurrentMonth,
+              'today': dayInfo.isToday,
+              'selected': isSelectedDate(dayInfo.date),
+              'has-event': dayInfo.hasEvent
+            }"
+            @click="selectDate(dayInfo.date)"
+          >
+            {{ dayInfo.date.getDate() }}
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -42,6 +47,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useCalendar } from '../composables/useCalendar'
+import MaterialIcon from './MaterialIcon.vue'
 
 const { getMonthDays, formatDate } = useCalendar()
 
@@ -56,14 +62,29 @@ const emit = defineEmits(['select-date'])
 
 const currentDate = ref(new Date(props.selectedDate))
 
-const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Seb']
 
 const monthYear = computed(() => {
-  return formatDate(currentDate.value, 'month-year')
+  const months = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ]
+  const month = months[currentDate.value.getMonth()]
+  const year = currentDate.value.getFullYear()
+  return `${month} ${year}`
 })
 
 const calendarDays = computed(() => {
   return getMonthDays(currentDate.value)
+})
+
+const weekRows = computed(() => {
+  const days = calendarDays.value
+  const weeks = []
+  for (let i = 0; i < days.length; i += 7) {
+    weeks.push(days.slice(i, i + 7))
+  }
+  return weeks
 })
 
 const previousMonth = () => {
@@ -89,111 +110,149 @@ const isSelectedDate = (date) => {
 
 <style scoped>
 .mini-calendar {
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  width: 100%;
+  height: 100%;
+  background: var(--Misc-paper, white);
+  overflow: hidden;
+  border-radius: 6px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  display: inline-flex;
 }
 
 .mini-calendar-header {
-  display: flex;
+  align-self: stretch;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  overflow: hidden;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  gap: 0.5rem;
+  gap: 12px;
+  display: inline-flex;
 }
 
 .current-month {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #1e1e2d;
-  text-align: center;
-  flex: 1;
+  flex: 1 1 0;
+  color: var(--Theme-text-primary, rgba(47, 43, 61, 0.90));
+  font-size: 18px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  line-height: 27px;
+  word-wrap: break-word;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0;
 }
 
 .nav-btn {
-  width: 24px;
-  height: 24px;
-  display: flex;
+  background: var(--Theme-action-selected, rgba(47, 43, 61, 0.08));
+  border-radius: 500px;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
+  display: inline-flex;
   border: none;
-  background: transparent;
-  color: #6b7280;
-  border-radius: 4px;
+  padding: 5px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 0;
+  transition: background 0.2s ease;
+  color: var(--Theme-text-secondary, rgba(47, 43, 61, 0.70));
 }
 
 .nav-btn:hover {
-  background: #f3f4f6;
-  color: #1e1e2d;
+  background: rgba(47, 43, 61, 0.12);
 }
 
 .mini-calendar-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-  margin-bottom: 0.5rem;
+  align-self: stretch;
+  overflow: hidden;
+  justify-content: center;
+  align-items: flex-start;
+  display: inline-flex;
 }
 
 .weekday {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #6b7280;
+  width: 36px;
   text-align: center;
-  padding: 0.25rem 0;
+  color: var(--Theme-text-secondary, rgba(47, 43, 61, 0.70));
+  font-size: 13px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
 }
 
 .mini-calendar-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  align-self: stretch;
+  padding-top: 12px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+}
+
+.day-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .day-cell {
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
+  width: 36px;
+  height: 36px;
+  text-align: center;
   justify-content: center;
-  font-size: 0.75rem;
-  color: #1e1e2d;
-  background: transparent;
-  border: none;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  color: var(--Theme-text-primary, rgba(47, 43, 61, 0.90));
+  font-size: 15px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 22px;
+  word-wrap: break-word;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  border-radius: 500px;
+  transition: background 0.2s ease;
 }
 
 .day-cell:hover {
-  background: #f3f4f6;
+  background: var(--Theme-action-hover, rgba(47, 43, 61, 0.06));
 }
 
 .day-cell.other-month {
-  color: #d1d5db;
+  color: var(--Theme-text-disabled, rgba(47, 43, 61, 0.40));
+}
+
+.day-cell.selected {
+  background: var(--Color-Palette-primary-opacity-main, rgba(115, 103, 240, 0.24));
+  color: var(--Color-Primary-primary-500, #7367F0);
 }
 
 .day-cell.today {
-  background: #7367F0;
-  color: white;
-  font-weight: 600;
+  background: var(--Color-Palette-primary-main, #7367F0);
+  box-shadow: 0px 2px 6px rgba(115, 103, 240, 0.30);
+  color: var(--Misc-bg-white, white);
 }
 
 .day-cell.today:hover {
   background: #6558d3;
 }
 
-.day-cell.selected {
-  background: #e0e0ff;
-  color: #7367F0;
-  font-weight: 600;
+.day-cell.has-event {
+  background: var(--Color-Palette-success-opacity-light, rgba(40, 199, 111, 0.16));
+  color: var(--Color-Palette-success-main, #28C76F);
 }
 
-.day-cell.selected.today {
-  background: #7367F0;
-  color: white;
+.day-cell.has-event.selected {
+  background: var(--Color-Palette-primary-opacity-main, rgba(115, 103, 240, 0.24));
+  color: var(--Color-Primary-primary-500, #7367F0);
 }
 </style>
