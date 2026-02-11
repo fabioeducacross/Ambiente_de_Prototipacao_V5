@@ -133,15 +133,25 @@
 
         <!-- Buttons -->
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">
-            {{ eventData ? 'Atualizar' : 'Adicionar' }}
-          </button>
+          <div class="form-actions-left">
+            <button type="submit" class="btn btn-primary">
+              {{ eventData ? 'Atualizar' : 'Adicionar' }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              @click="closeDrawer"
+            >
+              Cancelar
+            </button>
+          </div>
           <button
+            v-if="eventData"
             type="button"
-            class="btn btn-outline-primary"
-            @click="closeDrawer"
+            class="btn btn-danger"
+            @click="handleDelete"
           >
-            Cancelar
+            Deletar
           </button>
         </div>
       </form>
@@ -163,7 +173,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close', 'save'])
+const emit = defineEmits(['close', 'save', 'delete'])
 
 // Form data
 const formData = reactive({
@@ -273,6 +283,14 @@ const handleSubmit = () => {
 const closeDrawer = () => {
   emit('close')
   setTimeout(resetForm, 300) // Wait for animation
+}
+
+// Delete event
+const handleDelete = () => {
+  if (props.eventData && confirm('Tem certeza que deseja deletar este evento?')) {
+    emit('delete', props.eventData.id)
+    closeDrawer()
+  }
 }
 
 // Reset form
@@ -453,10 +471,18 @@ watch(() => props.isOpen, (isOpen) => {
 /* Form actions */
 .form-actions {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
   padding-top: 8px;
   margin-top: 24px;
   border-top: 1px solid #e0e0e0;
+}
+
+.form-actions-left {
+  display: flex;
+  gap: 12px;
+  flex: 1;
 }
 
 .btn {
@@ -469,6 +495,19 @@ watch(() => props.isOpen, (isOpen) => {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: #fff;
+  flex: 0 0 auto;
+  min-width: 100px;
+}
+
+.btn-danger:hover {
+  background-color: #d43f40;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 84, 85, 0.3);
 }
 
 .btn-primary {

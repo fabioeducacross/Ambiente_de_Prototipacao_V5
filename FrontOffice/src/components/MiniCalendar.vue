@@ -62,7 +62,7 @@ const emit = defineEmits(['select-date'])
 
 const currentDate = ref(new Date(props.selectedDate))
 
-const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Seb']
+const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 
 const monthYear = computed(() => {
   const months = [

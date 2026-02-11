@@ -46,7 +46,11 @@ defineEmits(['toggle-sidebar'])
   padding: 16px 24px;
   gap: 1rem;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 110;
 }
 
