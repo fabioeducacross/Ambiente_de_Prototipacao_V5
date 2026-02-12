@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" style="font-family: Montserrat, sans-serif;">
+  <defs>
+    <!-- Gradientes Vuexy -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7367F0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9E95F5;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="successGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#28C76F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#48E68B;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9F43;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFBC69;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="infoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00CFE8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#26E3F5;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Sombra -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Título -->
+  <text x="500" y="40" text-anchor="middle" font-size="28" font-weight="700" fill="#2F2B3D">
+    Árvore de Decisão: Atomic Design
+  </text>
+  
+  <text x="500" y="70" text-anchor="middle" font-size="14" fill="rgba(47,43,61,0.6)">
+    Como classificar componentes no Educacross
+  </text>
+  
+  <!-- Nó inicial (pergunta raiz) -->
+  <g filter="url(#shadow)">
+    <rect x="350" y="100" width="300" height="80" rx="12" fill="url(#primaryGradient)"/>
+    <text x="500" y="135" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      Posso dividir este
+    </text>
+    <text x="500" y="160" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      componente em partes?
+    </text>
+  </g>
+  
+  <!-- Linha ➔ NÃO -->
+  <line x1="350" y1="140" x2="200" y2="240" stroke="#7367F0" stroke-width="3" stroke-dasharray="5,5"/>
+  <text x="270" y="185" font-size="14" font-weight="600" fill="#7367F0">NÃO</text>
+  
+  <!-- Resultado: ÁTOMO -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="240" width="300" height="120" rx="12" fill="url(#successGradient)"/>
+    <text x="200" y="275" text-anchor="middle" font-size="20" font-weight="700" fill="white">
+      ⚛️ ÁTOMO
+    </text>
+    <text x="200" y="305" text-anchor="middle" font-size="13" fill="white">
+      src/components/atoms/
+    </text>
+    <text x="200" y="330" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      Exemplos: DayCell, NavigationButton,
+    </text>
+    <text x="200" y="348" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      LegendDot, WeekdayLabel
+    </text>
+  </g>
+  
+  <!-- Linha ➔ SIM -->
+  <line x1="650" y1="140" x2="800" y2="240" stroke="#7367F0" stroke-width="3"/>
+  <text x="730" y="185" font-size="14" font-weight="600" fill="#7367F0">SIM</text>
+  
+  <!-- Nó 2: Quantos componentes? -->
+  <g filter="url(#shadow)">
+    <rect x="650" y="240" width="300" height="80" rx="12" fill="url(#primaryGradient)"/>
+    <text x="800" y="275" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      Usa 2 a 4 componentes
+    </text>
+    <text x="800" y="300" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      pequenos (átomos)?
+    </text>
+  </g>
+  
+  <!-- Linha ➔ SIM (Molécula) -->
+  <line x1="650" y1="280" x2="500" y2="380" stroke="#7367F0" stroke-width="3"/>
+  <text x="570" y="325" font-size="14" font-weight="600" fill="#7367F0">SIM</text>
+  
+  <!-- Resultado: MOLÉCULA -->
+  <g filter="url(#shadow)">
+    <rect x="350" y="380" width="300" height="120" rx="12" fill="url(#warningGradient)"/>
+    <text x="500" y="415" text-anchor="middle" font-size="20" font-weight="700" fill="white">
+      🧬 MOLÉCULA
+    </text>
+    <text x="500" y="445" text-anchor="middle" font-size="13" fill="white">
+      src/components/molecules/
+    </text>
+    <text x="500" y="470" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      Exemplos: WeekdaysRow, CalendarHeader,
+    </text>
+    <text x="500" y="488" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      LegendItem, WeekRow
+    </text>
+  </g>
+  
+  <!-- Linha ➔ NÃO (mais complexo) -->
+  <line x1="800" y1="320" x2="800" y2="400" stroke="#7367F0" stroke-width="3"/>
+  <text x="820" y="360" font-size="14" font-weight="600" fill="#7367F0">NÃO</text>
+  
+  <!-- Nó 3: Gerencia estado? -->
+  <g filter="url(#shadow)">
+    <rect x="650" y="400" width="300" height="80" rx="12" fill="url(#primaryGradient)"/>
+    <text x="800" y="435" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      Gerencia estado ou faz
+    </text>
+    <text x="800" y="460" text-anchor="middle" font-size="16" font-weight="600" fill="white">
+      chamadas de API?
+    </text>
+  </g>
+  
+  <!-- Linha ➔ SIM (Organismo) -->
+  <line x1="800" y1="480" x2="800" y2="540" stroke="#7367F0" stroke-width="3"/>
+  <text x="820" y="510" font-size="14" font-weight="600" fill="#7367F0">SIM</text>
+  
+  <!-- Resultado: ORGANISMO -->
+  <g filter="url(#shadow)">
+    <rect x="650" y="540" width="300" height="120" rx="12" fill="url(#infoGradient)"/>
+    <text x="800" y="575" text-anchor="middle" font-size="20" font-weight="700" fill="white">
+      🧫 ORGANISMO
+    </text>
+    <text x="800" y="605" text-anchor="middle" font-size="13" fill="white">
+      src/components/organisms/
+    </text>
+    <text x="800" y="630" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      Exemplos: CalendarGrid, ActivityLegend,
+    </text>
+    <text x="800" y="648" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      CalendarSidebar
+    </text>
+  </g>
+  
+  <!-- Linha ➔ NÃO (Template) -->
+  <line x1="650" y1="440" x2="500" y2="540" stroke="#7367F0" stroke-width="3" stroke-dasharray="5,5"/>
+  <text x="570" y="485" font-size="14" font-weight="600" fill="#7367F0">NÃO</text>
+  
+  <!-- Resultado: TEMPLATE -->
+  <g filter="url(#shadow)">
+    <rect x="350" y="540" width="300" height="120" rx="12" fill="#6E62B6"/>
+    <text x="500" y="575" text-anchor="middle" font-size="20" font-weight="700" fill="white">
+      📐 TEMPLATE
+    </text>
+    <text x="500" y="605" text-anchor="middle" font-size="13" fill="white">
+      src/components/templates/
+    </text>
+    <text x="500" y="630" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      Exemplos: CalendarLayoutTemplate
+    </text>
+    <text x="500" y="648" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      (define estrutura com slots)
+    </text>
+  </g>
+  
+  <!-- Caso especial: Página (View) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="540" width="250" height="90" rx="12" fill="#2F2B3D" stroke="#7367F0" stroke-width="2"/>
+    <text x="175" y="572" text-anchor="middle" font-size="18" font-weight="700" fill="white">
+      📄 PÁGINA (View)
+    </text>
+    <text x="175" y="598" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      Não é componente reutilizável!
+    </text>
+    <text x="175" y="618" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)">
+      src/views/
+    </text>
+  </g>
+  
+  <!-- Linha de conexão explicativa -->
+  <line x1="175" y1="540" x2="175" y2="380" stroke="#7367F0" stroke-width="2" stroke-dasharray="2,4" opacity="0.3"/>
+  <text x="185" y="460" font-size="10" fill="rgba(47,43,61,0.6)">
+    usa Templates
+  </text>
+  
+  <!-- Legenda no rodapé -->
+  <g>
+    <text x="50" y="710" font-size="14" font-weight="600" fill="#2F2B3D">Convenções:</text>
+    
+    <!-- Linha contínua -->
+    <line x1="50" y1="730" x2="100" y2="730" stroke="#7367F0" stroke-width="3"/>
+    <text x="110" y="735" font-size="11" fill="rgba(47,43,61,0.8)">Fluxo principal de decisão</text>
+    
+    <!-- Linha tracejada -->
+    <line x1="280" y1="730" x2="330" y2="730" stroke="#7367F0" stroke-width="3" stroke-dasharray="5,5"/>
+    <text x="340" y="735" font-size="11" fill="rgba(47,43,61,0.8)">Caminho alternativo/exceção</text>
+    
+    <!-- Cores -->
+    <rect x="50" y="750" width="20" height="20" rx="4" fill="url(#successGradient)"/>
+    <text x="80" y="765" font-size="11" fill="rgba(47,43,61,0.8)">Átomo (indivisível)</text>
+    
+    <rect x="250" y="750" width="20" height="20" rx="4" fill="url(#warningGradient)"/>
+    <text x="280" y="765" font-size="11" fill="rgba(47,43,61,0.8)">Molécula (2-4 átomos)</text>
+    
+    <rect x="480" y="750" width="20" height="20" rx="4" fill="url(#infoGradient)"/>
+    <text x="510" y="765" font-size="11" fill="rgba(47,43,61,0.8)">Organismo (com estado/API)</text>
+    
+    <rect x="720" y="750" width="20" height="20" rx="4" fill="#6E62B6"/>
+    <text x="750" y="765" font-size="11" fill="rgba(47,43,61,0.8)">Template (estrutura com slots)</text>
+  </g>
+</svg>

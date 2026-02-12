@@ -56,11 +56,185 @@
           </div>
         </div>
       </div>
+
+      <!-- Demonstração do MiniCalendar -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <h2 class="section-title text-center mb-4">Componente MiniCalendar</h2>
+          <p class="text-center text-muted mb-4">Calendário implementado pixel-perfect do Figma Design System</p>
+        </div>
+        <div class="col-md-4 offset-md-4">
+          <MiniCalendar />
+        </div>
+      </div>
+
+      <!-- Demonstração da ActivityLegend -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <h2 class="section-title text-center mb-4">Componente ActivityLegend</h2>
+          <p class="text-center text-muted mb-4">Legenda de tipos de atividades com Atomic Design</p>
+        </div>
+        <div class="col-12">
+          <ActivityLegend
+            title="Tipos de Atividade:"
+            :activities="activityTypes"
+            interactive
+            @activity-click="handleActivityClick"
+          />
+        </div>
+      </div>
+
+      <!-- Demonstração do CalendarLayoutTemplate (Layout Completo) -->
+      <div class="row mt-5">
+        <div class="col-12">
+          <h2 class="section-title text-center mb-4">Layout Completo do Calendário</h2>
+          <p class="text-center text-muted mb-4">Template com sidebar, filtros e visualização mensal integrada</p>
+        </div>
+        <div class="col-12">
+          <div class="calendar-demo-container">
+            <CalendarLayoutTemplate
+              :events="sampleEvents"
+              :activity-options="activityOptions"
+              :initial-date="new Date(2022, 0, 1)"
+              @add-event="handleAddEvent"
+              @activity-change="handleActivityChange"
+              @day-click="handleDayClick"
+              @event-click="handleEventClick"
+              @view-change="handleViewChange"
+              @month-change="handleMonthChange"
+            >
+              <template #footer>
+                <ActivityLegend
+                  title="Legenda de Atividades:"
+                  :activities="activityTypes"
+                  interactive
+                  @activity-click="handleActivityClick"
+                />
+              </template>
+            </CalendarLayoutTemplate>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import MiniCalendar from '../components/MiniCalendar.vue'
+import ActivityLegend from '../components/organisms/ActivityLegend.vue'
+import CalendarLayoutTemplate from '../components/templates/CalendarLayoutTemplate.vue'
+
+// Activity types para a legenda
+const activityTypes = [
+  { type: 'missao', color: '#7367F0', label: 'Missões' },
+  { type: 'olimpiada', color: '#00CFE8', label: 'Olimpíadas' },
+  { type: 'avaliacao', color: '#FF9F43', label: 'Avaliações' },
+  { type: 'trilha', color: '#28C76F', label: 'Trilhas' },
+  { type: 'expedicao', color: '#EA5455', label: 'Expedições' },
+  { type: 'outro', color: '#82868B', label: 'Outros' }
+]
+
+// Activity options para filtros (checkbox format)
+const activityOptions = [
+  { value: 'missao', label: 'Missões', disabled: false },
+  { value: 'olimpiada', label: 'Olimpíadas', disabled: false },
+  { value: 'avaliacao', label: 'Avaliações', disabled: false },
+  { value: 'trilha', label: 'Trilhas', disabled: false },
+  { value: 'expedicao', label: 'Expedições', disabled: false }
+]
+
+// Sample events para demo
+const sampleEvents = [
+  {
+    id: 1,
+    title: 'Missão: Matemática Básica',
+    date: '2022-01-05',
+    type: 'missao',
+    color: '#7367F0'
+  },
+  {
+    id: 2,
+    title: 'Olimpíada de Português',
+    date: '2022-01-10',
+    type: 'olimpiada',
+    color: '#00CFE8'
+  },
+  {
+    id: 3,
+    title: 'Avaliação Trimestral',
+    date: '2022-01-15',
+    type: 'avaliacao',
+    color: '#FF9F43'
+  },
+  {
+    id: 4,
+    title: 'Trilha: Ciências',
+    date: '2022-01-20',
+    type: 'trilha',
+    color: '#28C76F'
+  },
+  {
+    id: 5,
+    title: 'Expedição Virtual',
+    date: '2022-01-25',
+    type: 'expedicao',
+    color: '#EA5455'
+  },
+  {
+    id: 6,
+    title: 'Reunião de Pais',
+    date: '2022-01-28',
+    type: 'outro',
+    color: '#82868B'
+  },
+  // Múltiplos eventos no mesmo dia
+  {
+    id: 7,
+    title: 'Missão: História do Brasil',
+    date: '2022-01-15',
+    type: 'missao',
+    color: '#7367F0'
+  },
+  {
+    id: 8,
+    title: 'Trilha: Geografia',
+    date: '2022-01-15',
+    type: 'trilha',
+    color: '#28C76F'
+  }
+]
+
+// Handlers
+const handleActivityClick = (activityType) => {
+  console.log('Activity clicked:', activityType)
+}
+
+const handleAddEvent = () => {
+  console.log('Add event clicked')
+  alert('Funcionalidade "Adicionar Evento" - Abriria modal ou drawer')
+}
+
+const handleActivityChange = (selectedActivities) => {
+  console.log('Selected activities:', selectedActivities)
+}
+
+const handleDayClick = (day) => {
+  console.log('Day clicked:', day)
+}
+
+const handleEventClick = (event) => {
+  console.log('Event clicked:', event)
+  alert(`Evento: ${event.title}`)
+}
+
+const handleViewChange = (newView) => {
+  console.log('View changed to:', newView)
+}
+
+const handleMonthChange = (date) => {
+  console.log('Month changed to:', date)
+}
 </script>
 
 <style scoped>
@@ -110,10 +284,24 @@
   margin-bottom: 30px;
 }
 
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 15px;
+}
+
+.offset-md-4 {
+  margin-left: 33.333333%;
+}
+
 @media (max-width: 768px) {
   .col-md-4 {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+  
+  .offset-md-4 {
+    margin-left: 0;
   }
 }
 
@@ -178,5 +366,38 @@
 
 .mt-5 {
   margin-top: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2F2B3D;
+}
+
+.calendar-demo-container {
+  height: 800px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .calendar-demo-container {
+    height: 600px;
+  }
 }
 </style>

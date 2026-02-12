@@ -1,0 +1,52 @@
+
+> documentation@0.0.0 start
+> docusaurus start
+
+[INFO] Starting the development server...
+[SUCCESS] Docusaurus website is running at: http://localhost:3000/Ambiente_de_Prototipacao_V5/
+[90m[[90mwebpackbar[90m][39m [36mÔä╣[39m Compiling Client
+[WARNING] Markdown link with URL `./e2e-tests.md` in source file "docs/architecture/intro.md" (212:6) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./accessibility.md` in source file "docs/architecture/intro.md" (213:6) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../prds/prd-aaa.md` in source file "docs/decisions/template.md" (298:3) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../prds/prd-bbb.md` in source file "docs/decisions/template.md" (299:3) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../journeys/student/missions-ranking.md` in source file "docs/decisions/template.md" (345:3) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../prds/prd-ranking.md` in source file "docs/decisions/template.md" (347:3) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../../PLANO.md#-workflow-de-prototipa├º├úo` in source file "docs/intro.md" (127:26) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../../PLANO.md#-roadmap-de-implementa├º├úo` in source file "docs/intro.md" (141:27) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../../../../PLANO.md#-jornadas-priorit├írias` in source file "docs/journeys/student/index.md" (36:10) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../../../../PLANO.md#-jornadas-priorit├írias` in source file "docs/journeys/teacher/index.md" (93:25) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../decisions/pdr-xxx.md` in source file "docs/prds/template.md" (337:3) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./network-management.md` in source file "docs/journeys/administrator/user-management.md" (1274:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./mission-reports.md` in source file "docs/journeys/director/student-access-report.md" (1734:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./student-access-report.md` in source file "docs/journeys/coordinator/evidence-report.md" (1905:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./student-access-report.md` in source file "docs/journeys/coordinator/skill-report.md" (2102:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../teacher/mission-management.md` in source file "docs/journeys/student/student-dashboard.md" (1135:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../teacher/student-progress.md` in source file "docs/journeys/student/student-dashboard.md" (1136:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./student-access-report.md` in source file "docs/journeys/network-manager/network-management.md" (1153:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `./user-management.md` in source file "docs/journeys/network-manager/network-management.md" (1154:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../admin/skill-report.md` in source file "docs/journeys/teacher/mission-analytics.md" (1309:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[WARNING] Markdown link with URL `../admin/skill-report.md` in source file "docs/journeys/teacher/student-progress-tracking.md" (1377:5) couldn't be resolved.
+Make sure it references a local Markdown file that exists within the current plugin.
+[90m[[90mwebpackbar[90m][39m [32mÔ£ö[39m Client: Compiled successfully in 11.38s
+[1mclient[39m[22m (webpack 5.104.1) compiled [1m[32msuccessfully[39m[22m
+^C

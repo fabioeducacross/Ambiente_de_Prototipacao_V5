@@ -1,0 +1,53 @@
+[
+  {
+    "id": "evt-a001",
+    "title": "Olimpíada de Matemática - Gestão de Inscrições",
+    "description": "Gerenciar processo de inscrição e logística da olimpíada em todas as escolas",
+    "category": "OLYMPIADS",
+    "origin_level": "EDUCACROSS",
+    "source_type": "MODULE_OLYMPIAD",
+    "source_id": "olympiad-789",
+    "scope_level": "NETWORK",
+    "scope_ids": ["network-all"],
+    "start_at": "2026-02-22T00:00:00-03:00",
+    "end_at": "2026-02-28T23:59:59-03:00",
+    "all_day": true,
+    "status": "ACTIVE",
+    "deeplink": "/administrator/olympics/789",
+    "created_by": "Educacross",
+    "created_at": "2026-01-15T10:00:00-03:00"
+  },
+  {
+    "id": "evt-a002",
+    "title": "Trilha BNCC - Configuração e Monitoramento",
+    "description": "Configurar trilhas de habilidades para rede e acompanhar métricas",
+    "category": "TRAILS",
+    "origin_level": "NETWORK",
+    "source_type": "MODULE_TRAIL",
+    "source_id": "trail-321",
+    "scope_level": "NETWORK",
+    "scope_ids": ["network-sp-001"],
+    "start_at": "2026-02-24T00:00:00-03:00",
+    "end_at": "2026-03-30T23:59:59-03:00",
+    "all_day": true,
+    "status": "SCHEDULED",
+    "deeplink": "/administrator/trails/321",
+    "created_by": "Admin. Carlos Silva",
+    "created_at": "2026-02-01T09:00:00-03:00"
+  },
+  {
+    "id": "evt-a003",
+    "title": "Lembrete: Fechamento de Relatórios",
+    "description": "Consolidar relatórios de todas as escolas para envio à Secretaria de Educação",
+    "category": "REMINDERS",
+    "origin_level": "NETWORK",
+    "source_type": "CALENDAR_MANUAL",
+    "scope_level": "NETWORK",
+    "scope_ids": ["network-sp-001"],
+    "start_at": "2026-02-28T00:00:00-03:00",
+    "all_day": true,
+    "status": "PUBLISHED",
+    "created_by": "Admin. Carlos Silva",
+    "created_at": "2026-02-01T10:00:00-03:00"
+  }
+]

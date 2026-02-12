@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import JourneyList from '../views/JourneyList.vue'
 import JourneyDetail from '../views/JourneyDetail.vue'
+import teacherRoutes from './modules/teacher.routes'
 
 const routes = [
   {
@@ -19,16 +20,8 @@ const routes = [
     name: 'JourneyDetail',
     component: JourneyDetail
   },
-  {
-    path: '/teacher/calendar',
-    name: 'TeacherCalendar',
-    component: () => import('../views/teacher/Calendar.vue'),
-    meta: {
-      title: 'Calendário | Educacross',
-      persona: 'Professor',
-      breadcrumb: 'Calendário'
-    }
-  }
+  // Rotas do módulo Professor (44 rotas organizadas por funcionalidade)
+  ...teacherRoutes
 ]
 
 const router = createRouter({
