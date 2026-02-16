@@ -7,6 +7,10 @@
 
       <!-- Main Content com CalendarLayoutTemplate -->
       <div class="calendar-main">
+        <ClassSelector 
+          :initial-class="selectedTurma"
+          @class-change="handleClassChange"
+        />
         <!-- Container com sombra e padding (matching Figma) -->
         <div class="calendar-container">
           <CalendarLayoutTemplate
@@ -14,8 +18,10 @@
             :initial-date="currentDate"
             :activity-options="activityOptions"
             :show-sidebar="true"
+            :sidebar-collapsed="sidebarCollapsed"
             @add-event="openDrawer"
             @activity-change="handleActivityChange"
+            @toggle-sidebar="toggleSidebar"
             @day-click="handleDayClick"
             @event-click="handleEventClick"
             @month-change="handleMonthChange"
@@ -30,54 +36,93 @@
     <EventDrawer
       :is-open="isDrawerOpen"
       :event-data="editingEvent"
+      :mode="drawerMode"
+      :default-turma="selectedTurma"
       @close="closeDrawer"
       @save="saveEvent"
       @delete="deleteEvent"
+      @edit="handleEditEvent"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 // Components
 import AppNavbar from '../../components/AppNavbar.vue'
 import Sidebar from '../../components/Sidebar.vue'
 import EventDrawer from '../../components/EventDrawer.vue'
 import CalendarLayoutTemplate from '../../components/templates/CalendarLayoutTemplate.vue'
+import ClassSelector from '../../components/calendar/ClassSelector.vue'
 
-// State
-const sidebarCollapsed = ref(false)
-const currentDate = ref(new Date(2022, 0, 13)) // Janeiro 13, 2022 (matching Figma)
+// Composables
+import { useSidebarState } from '../../composables/useSidebarState'
+
+// State - usando composable compartilhado
+const { sidebarCollapsed, toggleSidebar, initSidebar } = useSidebarState()
+const currentDate = ref(new Date(2026, 1, 15)) // Fevereiro 15, 2026 (matching events data)
 const selectedTurma = ref('5a-manha') // Para filtro futuro
 const events = ref([])
 const isDrawerOpen = ref(false)
 const editingEvent = ref(null)
+const drawerMode = ref('create') // 'view', 'edit', 'create'
 
 // Activity options para o CalendarLayoutTemplate
+// Cores conforme Especificacao_Calendario_Educacross_v1_1.docx
 const activityOptions = [
-  { value: 'missao', label: 'Missões', disabled: false },
-  { value: 'olimpiada', label: 'Olimpíadas', disabled: false },
-  { value: 'avaliacao', label: 'Avaliações', disabled: false },
-  { value: 'trilha', label: 'Trilhas', disabled: false },
-  { value: 'expedicao', label: 'Expedições', disabled: false }
+  { value: 'missao', label: 'Missões', color: '#7F6CC3', disabled: false },
+  { value: 'olimpiada', label: 'Olimpíadas', color: '#8BC728', disabled: false },
+  { value: 'avaliacao', label: 'Avaliações', color: '#FE5153', disabled: false },
+  { value: 'trilha', label: 'Trilhas', color: '#00A5A0', disabled: false },
+  { value: 'expedicao', label: 'Expedições', color: '#FFB443', disabled: false },
+  { value: 'lembrete', label: 'Lembretes', color: '#7CD7D3', disabled: false }
 ]
 
-// Computed - eventos já são filtrados pelo CalendarLayoutTemplate por tipo de atividade
-// Aqui podemos adicionar filtro adicional por turma se necessário
+// Mapeamento tipo → cor
+const typeColorMap = {
+  missao: '#7F6CC3',
+  olimpiada: '#8BC728',
+  avaliacao: '#FE5153',
+  trilha: '#00A5A0',
+  expedicao: '#FFB443',
+  lembrete: '#7CD7D3',
+  outro: '#888888'
+}
+
+// Função para transformar eventos do JSON para o formato dos componentes
+const transformEvent = (event) => {
+  const startDate = new Date(event.dataInicio)
+  const hours = startDate.getHours().toString().padStart(2, '0')
+  const minutes = startDate.getMinutes().toString().padStart(2, '0')
+  
+  return {
+    ...event,
+    // Campos para compatibilidade com componentes
+    title: event.titulo,
+    type: event.tipo,
+    date: event.dataInicio,
+    color: typeColorMap[event.tipo] || typeColorMap.outro,
+    horaInicio: `${hours}:${minutes}`
+  }
+}
+
+// Computed - eventos transformados e filtrados
 const calendarEvents = computed(() => {
-  return events.value.filter(event => {
-    // Se quisermos filtrar por turma específica
-    if (event.turmasAfetadas) {
-      return event.turmasAfetadas.includes(selectedTurma.value)
-    }
-    return true
-  })
+  return events.value
+    .map(transformEvent)
+    .filter(event => {
+      // Filtrar por turma se necessário
+      if (event.turmas) {
+        return event.turmas.includes(selectedTurma.value)
+      }
+      return true
+    })
 })
 
 // Methods
-const toggleSidebar = () => {
-  sidebarCollapsed.value = !sidebarCollapsed.value
+const handleClassChange = (newClass) => {
+  selectedTurma.value = newClass.id
 }
 
 const handleActivityChange = (selectedActivities) => {
@@ -92,7 +137,13 @@ const handleDayClick = (date) => {
 
 const handleEventClick = (event) => {
   editingEvent.value = event
+  drawerMode.value = 'view' // Abre em modo visualização
   isDrawerOpen.value = true
+}
+
+const handleEditEvent = (event) => {
+  editingEvent.value = event
+  drawerMode.value = 'edit' // Muda para modo edição
 }
 
 const handleMonthChange = (newDate) => {
@@ -102,26 +153,28 @@ const handleMonthChange = (newDate) => {
 
 const openDrawer = () => {
   editingEvent.value = null
+  drawerMode.value = 'create' // Abre em modo criação
   isDrawerOpen.value = true
 }
 
 const closeDrawer = () => {
   isDrawerOpen.value = false
   editingEvent.value = null
+  drawerMode.value = 'create' // Reset para modo padrão
 }
 
 const saveEvent = (eventData) => {
-  if (eventData.id) {
+  // Verificar se é atualização de evento existente
+  const existingIndex = events.value.findIndex(e => e.id === eventData.id)
+  
+  if (existingIndex !== -1) {
     // Atualizar evento existente
-    const index = events.value.findIndex(e => e.id === eventData.id)
-    if (index !== -1) {
-      events.value[index] = { ...eventData }
-    }
+    events.value[existingIndex] = { ...eventData }
   } else {
     // Criar novo evento
     const newEvent = {
       ...eventData,
-      id: Date.now(),
+      id: eventData.id || Date.now(),
       status: 'ativo',
       origem: 'professor'
     }
@@ -139,6 +192,10 @@ const deleteEvent = (eventId) => {
 
 // Load events from JSON
 onMounted(async () => {
+  // Inicializar sidebar com listener de resize
+  const cleanupSidebar = initSidebar()
+  onUnmounted(cleanupSidebar)
+  
   try {
     const response = await fetch('/src/data/eventsCalendar.json')
     const data = await response.json()

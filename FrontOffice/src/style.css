@@ -41,6 +41,14 @@
   --github-orange: #BF8700;
   --github-cyan: #00CFE8;
   
+  /* Calendar Category Colors - Especificacao_Calendario_Educacross_v1_1 */
+  --category-missao: #7F6CC3;
+  --category-olimpiada: #8BC728;
+  --category-avaliacao: #FE5153;
+  --category-trilha: #00A5A0;
+  --category-expedicao: #FFB443;
+  --category-lembrete: #7CD7D3;
+  
   /* Neutral Colors */
   --white: #FFFFFF;
   --gray-50: #FAFAFA;

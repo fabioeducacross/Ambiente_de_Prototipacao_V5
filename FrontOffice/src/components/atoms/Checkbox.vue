@@ -10,15 +10,25 @@
       @change="handleChange"
       class="checkbox-input"
     />
-    <span class="checkbox-custom" :class="{ 'checkbox-checked': modelValue }">
+    <span 
+      class="checkbox-custom" 
+      :class="{ 'checkbox-checked': modelValue }"
+      :style="checkboxStyle"
+    >
       <span v-if="modelValue" class="material-symbols-outlined check-icon">check</span>
     </span>
+    <span v-if="icon" class="checkbox-icon">
+      <span class="material-symbols-outlined">{{ icon }}</span>
+    </span>
+    <img v-if="iconSvg" :src="iconSvg" class="checkbox-icon-svg" :alt="label" />
     <span class="checkbox-label">{{ label }}</span>
   </label>
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   modelValue: {
     type: Boolean,
     required: true
@@ -30,10 +40,32 @@ defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  color: {
+    type: String,
+    default: '#7367f0'
+  },
+  icon: {
+    type: String,
+    default: ''
+  },
+  iconSvg: {
+    type: String,
+    default: ''
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
+
+const checkboxStyle = computed(() => {
+  if (props.modelValue) {
+    return {
+      backgroundColor: props.color,
+      borderColor: props.color
+    }
+  }
+  return {}
+})
 
 const handleChange = (event) => {
   emit('update:modelValue', event.target.checked)
@@ -108,6 +140,29 @@ const handleChange = (event) => {
   line-height: 22px;
   color: rgba(47, 43, 61, 0.9);
   flex: 1;
+}
+
+/* Ícone opcional antes do label */
+.checkbox-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(47, 43, 61, 0.7);
+}
+
+.checkbox-icon .material-symbols-outlined {
+  font-size: 20px;
+  font-variation-settings: 
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 20;
+}
+
+.checkbox-icon-svg {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .checkbox-disabled .checkbox-label {

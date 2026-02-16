@@ -21,31 +21,60 @@
     
     <div class="divider"></div>
     
-    <!-- Filtros de Atividades -->
+    <!-- Área de Filtros Expansíveis -->
     <div class="sidebar-filters">
-      <CheckboxGroup
-        title="Atividades"
-        :options="activityOptions"
-        :model-value="selectedActivities"
-        @update:model-value="handleActivityChange"
-      />
+      <!-- Filtros de Tipo de Atividade -->
+      <FilterSection
+        title="Tipo de Atividade"
+        icon="layers"
+        :default-open="true"
+        :active-count="activeActivityCount"
+      >
+        <CheckboxGroup
+          :options="activityOptions"
+          :model-value="selectedActivities"
+          @update:model-value="handleActivityChange"
+        />
+      </FilterSection>
+      
+      <!-- Filtros de Perfil de Origem -->
+      <FilterSection
+        title="Perfil de Origem"
+        icon="account_circle"
+        :default-open="false"
+        :active-count="activeOriginCount"
+      >
+        <CheckboxGroup
+          :options="originOptions"
+          :model-value="selectedOrigins"
+          @update:model-value="handleOriginChange"
+        />
+      </FilterSection>
     </div>
   </aside>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import MiniCalendar from '../MiniCalendar.vue'
 import CheckboxGroup from '../molecules/CheckboxGroup.vue'
+import FilterSection from '../molecules/FilterSection.vue'
+import iconeBelinha from '../../assets/icons/icone_belinha.svg'
 
 const props = defineProps({
+  currentDate: {
+    type: Date,
+    default: () => new Date()
+  },
   activityOptions: {
     type: Array,
     default: () => [
-      { value: 'missao', label: 'Missões', disabled: false },
-      { value: 'olimpiada', label: 'Olimpíadas', disabled: false },
-      { value: 'avaliacao', label: 'Avaliações', disabled: false },
-      { value: 'trilha', label: 'Trilhas', disabled: false },
-      { value: 'expedicao', label: 'Expedições', disabled: false }
+      { value: 'missao', label: 'Missões', color: '#7F6CC3', disabled: false },
+      { value: 'olimpiada', label: 'Olimpíadas', color: '#8BC728', disabled: false },
+      { value: 'avaliacao', label: 'Avaliações', color: '#FE5153', disabled: false },
+      { value: 'trilha', label: 'Trilhas', color: '#00A5A0', disabled: false },
+      { value: 'expedicao', label: 'Expedições', color: '#FFB443', disabled: false },
+      { value: 'lembrete', label: 'Lembretes', color: '#7CD7D3', disabled: false }
     ],
     validator: (value) => {
       return value.every(option =>
@@ -57,10 +86,27 @@ const props = defineProps({
   selectedActivities: {
     type: Array,
     default: () => []
+  },
+  originOptions: {
+    type: Array,
+    default: () => [
+      { value: 'educacross', label: 'Educacross', iconSvg: iconeBelinha, disabled: false },
+      { value: 'gestor-rede', label: 'Gestor de Rede', icon: 'lan', disabled: false },
+      { value: 'gestor-escolar', label: 'Gestor Escolar', icon: 'hub', disabled: false },
+      { value: 'professor', label: 'Professor', icon: 'school', disabled: false }
+    ]
+  },
+  selectedOrigins: {
+    type: Array,
+    default: () => []
   }
 })
 
-const emit = defineEmits(['add-event', 'activity-change'])
+const emit = defineEmits(['add-event', 'activity-change', 'origin-change'])
+
+// Contagem de filtros ativos
+const activeActivityCount = computed(() => props.selectedActivities.length)
+const activeOriginCount = computed(() => props.selectedOrigins.length)
 
 const handleAddEvent = () => {
   emit('add-event')
@@ -68,6 +114,10 @@ const handleAddEvent = () => {
 
 const handleActivityChange = (newSelectedActivities) => {
   emit('activity-change', newSelectedActivities)
+}
+
+const handleOriginChange = (newSelectedOrigins) => {
+  emit('origin-change', newSelectedOrigins)
 }
 </script>
 
@@ -143,8 +193,8 @@ const handleActivityChange = (newSelectedActivities) => {
 
 /* Filtros */
 .sidebar-filters {
-  padding: 24px;
   flex: 1;
+  overflow-y: auto;
 }
 
 /* Scrollbar customizado */
@@ -174,21 +224,6 @@ const handleActivityChange = (newSelectedActivities) => {
   .sidebar-header,
   .sidebar-filters {
     padding: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .calendar-sidebar {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-    transition: left 0.3s ease;
-  }
-  
-  .calendar-sidebar.sidebar-open {
-    left: 0;
   }
 }
 </style>

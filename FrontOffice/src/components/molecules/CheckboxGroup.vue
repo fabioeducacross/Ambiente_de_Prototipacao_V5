@@ -9,6 +9,9 @@
         :model-value="modelValue.includes(option.value)"
         :label="option.label"
         :disabled="option.disabled || false"
+        :color="option.color || '#7367f0'"
+        :icon="option.icon || ''"
+        :icon-svg="option.iconSvg || ''"
         @update:model-value="handleChange(option.value, $event)"
       />
     </div>

@@ -3,10 +3,14 @@
     <!-- Sidebar (300px ou colapsada) -->
     <CalendarSidebar
       v-if="showSidebar"
+      :current-date="currentDate"
       :activity-options="activityOptions"
       :selected-activities="selectedActivities"
+      :origin-options="originOptions"
+      :selected-origins="selectedOrigins"
       @add-event="handleAddEvent"
       @activity-change="handleActivityChange"
+      @origin-change="handleOriginChange"
     />
     
     <!-- Botão para toggle sidebar em mobile -->
@@ -17,7 +21,7 @@
       aria-label="Alternar menu lateral"
     >
       <span class="material-symbols-outlined">
-        {{ sidebarCollapsed ? 'menu' : 'close' }}
+        {{ sidebarCollapsed ? 'close' : 'menu' }}
       </span>
     </button>
     
@@ -70,7 +74,7 @@
     
     <!-- Overlay para mobile quando sidebar aberta -->
     <div
-      v-if="showSidebar && !sidebarCollapsed"
+      v-if="showSidebar && sidebarCollapsed"
       class="sidebar-overlay"
       @click="toggleSidebar"
     ></div>
@@ -83,20 +87,35 @@ import CalendarSidebar from '../organisms/CalendarSidebar.vue'
 import MonthViewGrid from '../organisms/MonthViewGrid.vue'
 import WeekViewGrid from '../organisms/WeekViewGrid.vue'
 import DayViewGrid from '../organisms/DayViewGrid.vue'
+import iconeBelinha from '../../assets/icons/icone_belinha.svg'
 
 const props = defineProps({
   showSidebar: {
     type: Boolean,
     default: true
   },
+  sidebarCollapsed: {
+    type: Boolean,
+    default: false
+  },
   activityOptions: {
     type: Array,
     default: () => [
-      { value: 'missao', label: 'Missões', disabled: false },
-      { value: 'olimpiada', label: 'Olimpíadas', disabled: false },
-      { value: 'avaliacao', label: 'Avaliações', disabled: false },
-      { value: 'trilha', label: 'Trilhas', disabled: false },
-      { value: 'expedicao', label: 'Expedições', disabled: false }
+      { value: 'missao', label: 'Missões', color: '#7F6CC3', disabled: false },
+      { value: 'olimpiada', label: 'Olimpíadas', color: '#8BC728', disabled: false },
+      { value: 'avaliacao', label: 'Avaliações', color: '#FE5153', disabled: false },
+      { value: 'trilha', label: 'Trilhas', color: '#00A5A0', disabled: false },
+      { value: 'expedicao', label: 'Expedições', color: '#FFB443', disabled: false },
+      { value: 'lembrete', label: 'Lembretes', color: '#7CD7D3', disabled: false }
+    ]
+  },
+  originOptions: {
+    type: Array,
+    default: () => [
+      { value: 'educacross', label: 'Educacross', iconSvg: iconeBelinha, disabled: false },
+      { value: 'gestor-rede', label: 'Gestor de Rede', icon: 'lan', disabled: false },
+      { value: 'gestor-escolar', label: 'Gestor Escolar', icon: 'hub', disabled: false },
+      { value: 'professor', label: 'Professor', icon: 'school', disabled: false }
     ]
   },
   events: {
@@ -117,30 +136,38 @@ const props = defineProps({
 const emit = defineEmits([
   'add-event',
   'activity-change',
+  'origin-change',
   'view-change',
   'day-click',
   'event-click',
   'month-change',
   'week-change',
   'day-change',
-  'slot-click'
+  'slot-click',
+  'toggle-sidebar'
 ])
 
-// Estado
-const selectedActivities = ref([])
-const sidebarCollapsed = ref(false)
+// Estado - inicializa com todos os filtros selecionados
+const selectedActivities = ref(props.activityOptions.map(opt => opt.value))
+const selectedOrigins = ref(props.originOptions.map(opt => opt.value))
 const activeView = ref(props.currentView)
 const currentDate = ref(new Date(props.initialDate))
 
 // Computed
 const filteredEvents = computed(() => {
-  if (selectedActivities.value.length === 0) {
-    return props.events
-  }
-  
-  return props.events.filter(event =>
-    selectedActivities.value.includes(event.type)
-  )
+  return props.events.filter(event => {
+    // Filtro por Tipo de Atividade (suporta 'type', 'tipo' e 'category')
+    const eventType = event.type || event.tipo || event.category
+    const passesActivityFilter = selectedActivities.value.length === 0 || 
+      selectedActivities.value.includes(eventType)
+    
+    // Filtro por Perfil de Origem (suporta 'origin', 'origem' e 'origin_level')
+    const eventOrigin = event.origin || event.origem || event.origin_level
+    const passesOriginFilter = selectedOrigins.value.length === 0 || 
+      selectedOrigins.value.includes(eventOrigin)
+    
+    return passesActivityFilter && passesOriginFilter
+  })
 })
 
 const currentDayEvents = computed(() => {
@@ -162,6 +189,11 @@ const handleAddEvent = () => {
 const handleActivityChange = (newSelectedActivities) => {
   selectedActivities.value = newSelectedActivities
   emit('activity-change', newSelectedActivities)
+}
+
+const handleOriginChange = (newSelectedOrigins) => {
+  selectedOrigins.value = newSelectedOrigins
+  emit('origin-change', newSelectedOrigins)
 }
 
 const handleViewChange = (newView) => {
@@ -197,7 +229,7 @@ const handleSlotClick = (data) => {
 }
 
 const toggleSidebar = () => {
-  sidebarCollapsed.value = !sidebarCollapsed.value
+  emit('toggle-sidebar')
 }
 </script>
 
@@ -280,21 +312,22 @@ const toggleSidebar = () => {
     justify-content: center;
   }
   
-  .calendar-layout:not(.sidebar-collapsed) .sidebar-overlay {
+  .calendar-layout.sidebar-collapsed .sidebar-overlay {
     display: block;
   }
   
   .calendar-layout :deep(.calendar-sidebar) {
     position: fixed;
-    left: -300px;
+    left: 0;
     top: 0;
     height: 100vh;
     z-index: 1000;
-    transition: left 0.3s ease;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
   
-  .calendar-layout:not(.sidebar-collapsed) :deep(.calendar-sidebar) {
-    left: 0;
+  .calendar-layout.sidebar-collapsed :deep(.calendar-sidebar) {
+    transform: translateX(0);
   }
 }
 

@@ -12,13 +12,13 @@
     <!-- Número do dia -->
     <div class="date-number">{{ day }}</div>
     
-    <!-- Área de eventos -->
-    <div class="events-container">
+    <!-- Área de eventos (apenas eventos de 1 dia) -->
+    <div class="events-container" :style="eventsContainerStyle">
       <div
         v-for="event in visibleEvents"
         :key="event.id"
         class="event-item"
-        :style="{ backgroundColor: event.color }"
+        :style="getEventStyle(event)"
         :title="event.title"
         @click.stop="handleEventClick(event)"
       >
@@ -28,7 +28,7 @@
       
       <!-- Indicador de mais eventos -->
       <div v-if="hasMoreEvents" class="more-events" @click.stop="handleMoreClick">
-        +{{ moreEventsCount }} more
+        +{{ moreEventsCount }} mais
       </div>
     </div>
   </div>
@@ -36,6 +36,10 @@
 
 <script setup>
 import { computed } from 'vue'
+
+// Constantes consistentes com MonthViewGrid
+const EVENT_HEIGHT = 24 // px
+const EVENT_GAP = 4 // px
 
 const props = defineProps({
   day: {
@@ -60,14 +64,11 @@ const props = defineProps({
   },
   events: {
     type: Array,
-    default: () => [],
-    validator: (value) => {
-      return value.every(event => 
-        typeof event.id !== 'undefined' &&
-        typeof event.title === 'string' &&
-        typeof event.color === 'string'
-      )
-    }
+    default: () => []
+  },
+  spanningSlotCount: {
+    type: Number,
+    default: 0
   },
   maxVisibleEvents: {
     type: Number,
@@ -85,6 +86,33 @@ const visibleEvents = computed(() => {
 const hasMoreEvents = computed(() => props.events.length > props.maxVisibleEvents)
 
 const moreEventsCount = computed(() => props.events.length - props.maxVisibleEvents)
+
+// Estilo do container de eventos com padding-top para eventos spanning
+const eventsContainerStyle = computed(() => {
+  if (props.spanningSlotCount > 0) {
+    const paddingTop = props.spanningSlotCount * (EVENT_HEIGHT + EVENT_GAP)
+    return { paddingTop: `${paddingTop}px` }
+  }
+  return {}
+})
+
+// Converte cor hex para rgba com opacidade especificada
+const hexToRgba = (hex, opacity = 0.16) => {
+  if (!hex) return `rgba(115, 103, 240, ${opacity})` // fallback para primary
+  const cleanHex = hex.replace('#', '')
+  const r = parseInt(cleanHex.substring(0, 2), 16)
+  const g = parseInt(cleanHex.substring(2, 4), 16)
+  const b = parseInt(cleanHex.substring(4, 6), 16)
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+
+// Estilo do evento com cores claras
+const getEventStyle = (event) => {
+  return {
+    backgroundColor: hexToRgba(event.color, 0.16),
+    color: event.color
+  }
+}
 
 // Formatar horário para exibição (ex: "2:30p", "9:00a")
 const formatTime = (time) => {
@@ -117,12 +145,14 @@ const handleMoreClick = () => {
   display: flex;
   flex-direction: column;
   min-height: 125px;
+  height: 100%; /* Preenche toda a altura da linha */
   width: 100%;
   padding: 8px;
   background-color: white;
   border: 1px solid rgba(47, 43, 61, 0.12);
   cursor: pointer;
   transition: all 0.2s ease;
+  overflow: hidden; /* Célula não transborda, spanning fica na camada harness */
 }
 
 .date-cell-large:hover {
@@ -146,10 +176,10 @@ const handleMoreClick = () => {
   flex-direction: column;
   gap: 4px;
   flex: 1;
-  overflow: hidden;
+  position: relative;
 }
 
-/* Item de evento */
+/* Item de evento (apenas eventos de 1 dia) */
 .event-item {
   display: flex;
   align-items: center;
@@ -158,22 +188,21 @@ const handleMoreClick = () => {
   border-radius: 4px;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 16px;
-  color: white;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: filter 0.2s ease, transform 0.15s ease;
   min-height: 24px;
 }
 
 .event-item:hover {
-  opacity: 0.85;
+  filter: brightness(0.95);
+  transform: translateY(-1px);
 }
 
 .event-time {
   font-size: 12px;
-  font-weight: 500;
-  opacity: 0.95;
+  font-weight: 600;
   flex-shrink: 0;
 }
 
