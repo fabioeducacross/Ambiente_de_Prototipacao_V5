@@ -1,9 +1,8 @@
-/* Bootstrap Icons - Local */
-@import 'bootstrap-icons/font/bootstrap-icons.css';
-
 /* ===================================
    DESIGN SYSTEM VUEXY - CSS VARIABLES
    =================================== */
+
+/* Bootstrap Icons importado em main.js */
 
 :root {
   /* Primary Colors - Vuexy Purple */

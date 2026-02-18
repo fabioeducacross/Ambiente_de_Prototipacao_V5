@@ -7,6 +7,9 @@ import { createBootstrap } from 'bootstrap-vue-next'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 
+// Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'
+
 // Flatpickr (date picker)
 import 'flatpickr/dist/flatpickr.css'
 
