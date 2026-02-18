@@ -13,7 +13,7 @@
               <div class="class-selector-button" @click="toggleClassDropdown">
                 <div class="class-info">
                   <span class="class-name">{{ selectedClass.name }}</span>
-                  <span class="class-badge">{{ selectedClass.grade }}</span>
+                  <EBadge variant="primary" pill>{{ selectedClass.grade }}</EBadge>
                 </div>
                 <span class="material-symbols-outlined chevron">expand_more</span>
               </div>
@@ -28,7 +28,7 @@
                   @click="selectClass(classItem)"
                 >
                   <span class="item-name">{{ classItem.name }}</span>
-                  <span class="item-badge">{{ classItem.grade }}</span>
+                  <EBadge variant="light" pill>{{ classItem.grade }}</EBadge>
                 </button>
               </div>
             </div>
@@ -312,7 +312,7 @@
                         :style="getEventStyle(event)"
                         @click.stop="openEventModal(event)"
                       >
-                         <div class="chip-header">
+                         <div v-if="showEventTime" class="chip-header">
                             <span class="chip-time">{{ formatTime(event.start_at) }}</span>
                          </div>
                          <div class="chip-content">
@@ -344,7 +344,7 @@
                            @click="openEventModal(event)"
                          >
                             <div class="event-color-bar" :style="{ backgroundColor: getEventColor(event.category) }"></div>
-                            <div class="event-time">
+                            <div v-if="showEventTime" class="event-time">
                                {{ formatTime(event.start_at) }}
                             </div>
                             <div class="event-content">
@@ -362,46 +362,15 @@
       </div>
     </div>
     
-    <!-- Event Modal (Inlined) -->
-    <Teleport to="body">
-      <Transition name="modal">
-        <div v-if="isEventModalOpen" class="modal-overlay" @click.self="closeEventModal">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3 class="modal-title">{{ selectedEvent?.title }}</h3>
-              <button class="btn-icon" @click="closeEventModal">
-                <span class="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="event-detail-row">
-                 <span class="material-symbols-outlined">schedule</span>
-                 <div class="event-detail-content">
-                    <strong>{{ formatEventDate(selectedEvent?.start_at) }}</strong>
-                    <span>{{ formatTime(selectedEvent?.start_at) }} - {{ formatTime(selectedEvent?.end_at) }}</span>
-                 </div>
-              </div>
-              <div class="event-detail-row">
-                 <span class="material-symbols-outlined">category</span>
-                 <div class="event-detail-content">
-                    <span class="badge" :style="{ color: getEventColor(selectedEvent?.category) }">
-                       {{ getCategoryLabel(selectedEvent?.category) }}
-                    </span>
-                 </div>
-              </div>
-              <div v-if="selectedEvent?.description" class="event-detail-row">
-                 <span class="material-symbols-outlined">description</span>
-                 <p>{{ selectedEvent?.description }}</p>
-              </div>
-            </div>
-            <div class="modal-footer">
-               <button class="btn btn-secondary" @click="closeEventModal">Fechar</button>
-               <button class="btn btn-primary" @click="handleEventAction('edit', selectedEvent)">Editar</button>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+    <!-- Event Drawer -->
+    <EventDrawer
+      :is-open="isDrawerOpen"
+      :event-data="selectedEvent"
+      mode="view"
+      @close="closeDrawer"
+      @edit="handleEdit"
+      @delete="handleDelete"
+    />
   </div>
 </template>
 
@@ -433,20 +402,24 @@ import { ptBR } from 'date-fns/locale'
 // Imports
 import AppNavbar from '@/components/AppNavbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
+import EventDrawer from '@/components/EventDrawer.vue'
+import { EBadge } from '@/components/base'
 import calendarMockData from '@/data/calendar-mock-teacher.json'
 import { CATEGORIES, ORIGIN_LEVELS, isVisibleStatus } from '@/data/calendar-enums'
 import { useCalendarPermissions } from '@/composables/useCalendarPermissions'
 import { useCurrentUser } from '@/composables/useCurrentUser'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
 
 const { canCreateEvent } = useCalendarPermissions()
 const { setMockUser } = useCurrentUser()
+const { showEventTime } = useFeatureFlags()
 
 // State
 const sidebarCollapsed = ref(false)
 const currentView = ref('month')
 const currentDate = ref(new Date(2026, 1, 12))
 const events = ref(calendarMockData)
-const isEventModalOpen = ref(false)
+const isDrawerOpen = ref(false)
 const selectedEvent = ref(null)
 const selectedCategories = ref(Object.keys(CATEGORIES))
 const selectedOrigins = ref(Object.keys(ORIGIN_LEVELS))
@@ -698,12 +671,20 @@ const navigatePrevMonth = () => currentDate.value = subMonths(currentDate.value,
 const navigateNextMonth = () => currentDate.value = addMonths(currentDate.value, 1)
 const handleDateSelect = (dateStr) => { currentDate.value = new Date(dateStr); currentView.value = 'day'; }
 
-const openEventModal = (event) => { selectedEvent.value = event; isEventModalOpen.value = true; }
-const closeEventModal = () => { isEventModalOpen.value = false; selectedEvent.value = null; }
+const openEventModal = (event) => { 
+  console.log('[CalendarFigma] openEventModal - event object:', JSON.stringify(event, null, 2))
+  selectedEvent.value = event
+  isDrawerOpen.value = true
+}
+const closeDrawer = () => { isDrawerOpen.value = false; selectedEvent.value = null; }
 const openCreateModal = () => console.log('Create Event')
-const handleEventAction = (action, event) => {
-  console.log(action, event)
-  closeEventModal()
+const handleEdit = (event) => {
+  console.log('Edit event:', event)
+  closeDrawer()
+}
+const handleDelete = (event) => {
+  console.log('Delete event:', event)
+  closeDrawer()
 }
 const toggleSidebar = () => sidebarCollapsed.value = !sidebarCollapsed.value
 
@@ -738,7 +719,6 @@ onUnmounted(() => {
 .class-selector-button { display: flex; align-items: center; gap: 12px; padding: 8px 16px; height: 40px; background: #ffffff; border: 1.5px solid #B9B9C3; border-radius: 100px; cursor: pointer; transition: all 0.2s; }
 .class-selector-button:hover { border-color: #7367F0; background: rgba(115, 103, 240, 0.04); }
 .class-name { font-family: 'Montserrat', sans-serif; font-size: 14px; color: #7367F0; }
-.class-badge { padding: 2px 8px; background: rgba(115, 103, 240, 0.12); border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; color: #7367F0; }
 .class-dropdown { position: absolute; top: calc(100% + 8px); left: 0; min-width: 280px; background: #ffffff; border: 1px solid rgba(47, 43, 61, 0.16); border-radius: 6px; box-shadow: 0px 4px 16px rgba(47, 43, 61, 0.12); z-index: 1000; padding: 8px 0; }
 .dropdown-item { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: none; border: none; cursor: pointer; }
 .dropdown-item:hover { background: rgba(115, 103, 240, 0.08); }
@@ -759,7 +739,7 @@ onUnmounted(() => {
 .mini-picker-figma { margin: 0 16px; background: #ffffff; padding: 8px; border-radius: 6px; display: flex; flex-direction: column; gap: 6px; }
 .picker-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; }
 .month-label { font-family: 'Montserrat', sans-serif; font-size: 15px; text-transform: capitalize; }
-.nav-buttons { display: flex; }
+.nav-buttons { display: flex; gap: 8px; }
 .nav-btn { width: 30px; height: 30px; background: rgba(47, 43, 61, 0.08); border: none; border-radius: 500px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .weekdays-row { display: flex; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 13px; text-align: center; }
 .weekday-label { width: 36px; }
@@ -804,7 +784,37 @@ onUnmounted(() => {
 .day-cell.today { background: rgba(115, 103, 240, 0.08); }
 .day-cell.other-month { background: rgba(47, 43, 61, 0.02); }
 .day-number { font-family: 'Montserrat', sans-serif; font-size: 13px; text-align: right; margin-bottom: 8px; }
-.event-badge { padding: 4px 8px; border-radius: 4px; border-left: 3px solid; font-family: 'Montserrat', sans-serif; font-size: 12px; margin-bottom: 4px; background: rgba(255,255,255,0.9); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+.event-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 3px solid;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: rgba(47, 43, 61, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0px 1px 3px rgba(47, 43, 61, 0.1);
+}
+
+.event-badge:hover {
+  transform: translateX(2px);
+  box-shadow: 0px 2px 6px rgba(47, 43, 61, 0.15);
+}
+
+.event-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .show-more-btn { background: none; border: none; font-size: 11px; color: #7367F0; cursor: pointer; }
 
 /* Week & Day View Common */
@@ -820,7 +830,18 @@ onUnmounted(() => {
 .day-column { border-right: 1px solid #e0e0e0; min-width: 120px; }
 .day-header { height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 2px solid #e0e0e0; }
 .day-timeline, .events-column { position: relative; }
-.calendar-chip { font-family: 'Montserrat', sans-serif; z-index: 10; overflow: hidden; /* Chip styles inline in script */ }
+.calendar-chip { 
+  font-family: 'Montserrat', sans-serif; 
+  z-index: 10; 
+  overflow: hidden; 
+  cursor: pointer;
+  transition: all 0.15s;
+  /* Chip styles inline in script */ 
+}
+.calendar-chip:hover {
+  opacity: 0.9;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+}
 .calendar-chip .chip-title { font-weight: 600; }
 .chip-time { font-size: 10px; font-weight: 600; }
 

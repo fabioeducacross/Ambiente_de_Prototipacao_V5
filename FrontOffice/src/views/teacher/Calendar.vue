@@ -58,6 +58,10 @@ import ClassSelector from '../../components/calendar/ClassSelector.vue'
 
 // Composables
 import { useSidebarState } from '../../composables/useSidebarState'
+import { ORIGIN_LEVELS, normalizeOriginLevel } from '../../data/calendar-enums'
+
+// Mock Data
+import calendarMockData from '../../data/calendar-mock-teacher.json'
 
 // State - usando composable compartilhado
 const { sidebarCollapsed, toggleSidebar, initSidebar } = useSidebarState()
@@ -92,32 +96,55 @@ const typeColorMap = {
 
 // Função para transformar eventos do JSON para o formato dos componentes
 const transformEvent = (event) => {
-  const startDate = new Date(event.dataInicio)
+  // calendar-mock-teacher.json usa start_at e end_at (novo schema)
+  const startDate = new Date(event.start_at || event.dataInicio)
   const hours = startDate.getHours().toString().padStart(2, '0')
   const minutes = startDate.getMinutes().toString().padStart(2, '0')
+  const originLevel = normalizeOriginLevel(event.origin_level || event.origin || event.origem) || ORIGIN_LEVELS.EDUCACROSS.value
   
-  return {
+  // Mapear category (enum) para tipo (legacy) para compatibilidade
+  const categoryToTypeMap = {
+    'MISSIONS': 'missao',
+    'OLYMPIADS': 'olimpiada',
+    'ASSESSMENTS': 'avaliacao',
+    'TRAILS': 'trilha',
+    'EXPEDITIONS': 'expedicao',
+    'REMINDERS': 'lembrete'
+  }
+  
+  const tipo = categoryToTypeMap[event.category] || event.tipo || 'outro'
+  
+  const transformed = {
     ...event,
     // Campos para compatibilidade com componentes
-    title: event.titulo,
-    type: event.tipo,
-    date: event.dataInicio,
-    color: typeColorMap[event.tipo] || typeColorMap.outro,
-    horaInicio: `${hours}:${minutes}`
+    title: event.title || event.titulo,
+    tipo: tipo,
+    type: tipo,
+    date: event.start_at || event.dataInicio,
+    dataInicio: event.start_at || event.dataInicio,
+    dataTermino: event.end_at || event.dataTermino,
+    color: typeColorMap[tipo] || typeColorMap.outro,
+    horaInicio: `${hours}:${minutes}`,
+    origin_level: originLevel
   }
+  
+  return transformed
 }
 
 // Computed - eventos transformados e filtrados
 const calendarEvents = computed(() => {
-  return events.value
-    .map(transformEvent)
-    .filter(event => {
-      // Filtrar por turma se necessário
-      if (event.turmas) {
-        return event.turmas.includes(selectedTurma.value)
-      }
-      return true
-    })
+  const transformed = events.value.map(transformEvent)
+  
+  const filtered = transformed.filter(event => {
+    // Filtrar por turma se necessário
+    if (event.turmas) {
+      const match = event.turmas.includes(selectedTurma.value)
+      return match
+    }
+    return true
+  })
+  
+  return filtered
 })
 
 // Methods
@@ -126,12 +153,10 @@ const handleClassChange = (newClass) => {
 }
 
 const handleActivityChange = (selectedActivities) => {
-  // CalendarLayoutTemplate já filtra os eventos, apenas log para debug
-  console.log('Atividades selecionadas:', selectedActivities)
+  // CalendarLayoutTemplate já filtra os eventos
 }
 
 const handleDayClick = (date) => {
-  console.log('Dia clicado:', date)
   // Possível ação: abrir drawer com data pré-preenchida
 }
 
@@ -148,7 +173,6 @@ const handleEditEvent = (event) => {
 
 const handleMonthChange = (newDate) => {
   currentDate.value = newDate
-  console.log('Mês alterado para:', newDate)
 }
 
 const openDrawer = () => {
@@ -166,17 +190,19 @@ const closeDrawer = () => {
 const saveEvent = (eventData) => {
   // Verificar se é atualização de evento existente
   const existingIndex = events.value.findIndex(e => e.id === eventData.id)
+  const normalizedOrigin = normalizeOriginLevel(eventData.origin_level || eventData.origin || eventData.origem || 'professor') || ORIGIN_LEVELS.TEACHER.value
   
   if (existingIndex !== -1) {
     // Atualizar evento existente
-    events.value[existingIndex] = { ...eventData }
+    events.value[existingIndex] = { ...eventData, origin_level: normalizedOrigin }
   } else {
     // Criar novo evento
     const newEvent = {
       ...eventData,
       id: eventData.id || Date.now(),
       status: 'ativo',
-      origem: 'professor'
+      origem: eventData.origem || 'professor',
+      origin_level: normalizedOrigin
     }
     events.value.push(newEvent)
   }
@@ -191,20 +217,13 @@ const deleteEvent = (eventId) => {
 }
 
 // Load events from JSON
-onMounted(async () => {
+onMounted(() => {
   // Inicializar sidebar com listener de resize
   const cleanupSidebar = initSidebar()
   onUnmounted(cleanupSidebar)
   
-  try {
-    const response = await fetch('/src/data/eventsCalendar.json')
-    const data = await response.json()
-    events.value = data.events || []  // Corrigido: data.events ao invés de data
-  } catch (error) {
-    console.error('Erro ao carregar eventos:', error)
-    // Fallback: alguns eventos de exemplo
-    events.value = []
-  }
+  // Carregar eventos do mock atualizado (schema com category e origin_level)
+  events.value = calendarMockData
 })
 </script>
 

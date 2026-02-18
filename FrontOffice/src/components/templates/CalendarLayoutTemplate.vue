@@ -88,6 +88,7 @@ import MonthViewGrid from '../organisms/MonthViewGrid.vue'
 import WeekViewGrid from '../organisms/WeekViewGrid.vue'
 import DayViewGrid from '../organisms/DayViewGrid.vue'
 import iconeBelinha from '../../assets/icons/icone_belinha.svg'
+import { ORIGIN_LEVELS, normalizeOriginLevel } from '@/data/calendar-enums'
 
 const props = defineProps({
   showSidebar: {
@@ -112,10 +113,10 @@ const props = defineProps({
   originOptions: {
     type: Array,
     default: () => [
-      { value: 'educacross', label: 'Educacross', iconSvg: iconeBelinha, disabled: false },
-      { value: 'gestor-rede', label: 'Gestor de Rede', icon: 'lan', disabled: false },
-      { value: 'gestor-escolar', label: 'Gestor Escolar', icon: 'hub', disabled: false },
-      { value: 'professor', label: 'Professor', icon: 'school', disabled: false }
+      { value: ORIGIN_LEVELS.EDUCACROSS.value, label: ORIGIN_LEVELS.EDUCACROSS.label, iconSvg: iconeBelinha, disabled: false },
+      { value: ORIGIN_LEVELS.NETWORK.value, label: ORIGIN_LEVELS.NETWORK.label, icon: ORIGIN_LEVELS.NETWORK.icon, disabled: false },
+      { value: ORIGIN_LEVELS.SCHOOL.value, label: ORIGIN_LEVELS.SCHOOL.label, icon: ORIGIN_LEVELS.SCHOOL.icon, disabled: false },
+      { value: ORIGIN_LEVELS.TEACHER.value, label: ORIGIN_LEVELS.TEACHER.label, icon: ORIGIN_LEVELS.TEACHER.icon, disabled: false }
     ]
   },
   events: {
@@ -154,20 +155,24 @@ const activeView = ref(props.currentView)
 const currentDate = ref(new Date(props.initialDate))
 
 // Computed
+const normalizeEventOrigin = (originValue) => normalizeOriginLevel(originValue)
+
 const filteredEvents = computed(() => {
-  return props.events.filter(event => {
+  const filtered = props.events.filter(event => {
     // Filtro por Tipo de Atividade (suporta 'type', 'tipo' e 'category')
     const eventType = event.type || event.tipo || event.category
     const passesActivityFilter = selectedActivities.value.length === 0 || 
       selectedActivities.value.includes(eventType)
     
     // Filtro por Perfil de Origem (suporta 'origin', 'origem' e 'origin_level')
-    const eventOrigin = event.origin || event.origem || event.origin_level
+    const eventOrigin = normalizeEventOrigin(event.origin || event.origem || event.origin_level)
     const passesOriginFilter = selectedOrigins.value.length === 0 || 
-      selectedOrigins.value.includes(eventOrigin)
+      !eventOrigin || selectedOrigins.value.includes(eventOrigin)
     
     return passesActivityFilter && passesOriginFilter
   })
+  
+  return filtered
 })
 
 const currentDayEvents = computed(() => {

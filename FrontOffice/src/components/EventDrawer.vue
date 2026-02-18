@@ -26,9 +26,9 @@
       <!-- View Mode - Visualização do evento -->
       <div v-if="mode === 'view' && eventData" class="drawer-content">
         <!-- Badge do tipo -->
-        <div class="event-type-badge" :style="{ backgroundColor: eventTypeColor }">
+        <EBadge :background-color="eventTypeColor" pill>
           {{ eventTypeLabel }}
-        </div>
+        </EBadge>
 
         <!-- Título do evento -->
         <h3 class="event-title">{{ eventData.titulo || eventData.title }}</h3>
@@ -37,7 +37,7 @@
         <div class="event-info">
           <!-- Período -->
           <div class="info-row">
-            <i class="bi bi-calendar3"></i>
+            <span class="material-symbols-outlined info-icon">calendar_today</span>
             <div class="info-content">
               <span class="info-label">Período</span>
               <span class="info-value">{{ formattedPeriod }}</span>
@@ -45,8 +45,8 @@
           </div>
 
           <!-- Horário -->
-          <div class="info-row" v-if="hasTime">
-            <i class="bi bi-clock"></i>
+          <div class="info-row" v-if="showEventTime && hasTime">
+            <span class="material-symbols-outlined info-icon">schedule</span>
             <div class="info-content">
               <span class="info-label">Horário</span>
               <span class="info-value">{{ formattedTime }}</span>
@@ -55,37 +55,38 @@
 
           <!-- Turmas -->
           <div class="info-row" v-if="eventData.turmas && eventData.turmas.length">
-            <i class="bi bi-people"></i>
+            <span class="material-symbols-outlined info-icon">groups</span>
             <div class="info-content">
               <span class="info-label">Turmas</span>
               <div class="turmas-list">
-                <span v-for="turma in eventData.turmas" :key="turma" class="turma-badge">
+                <EBadge v-for="turma in eventData.turmas" :key="turma" variant="light" pill>
                   {{ formatTurmaName(turma) }}
-                </span>
+                </EBadge>
               </div>
             </div>
           </div>
 
-          <!-- Status -->
-          <div class="info-row">
-            <i class="bi bi-flag"></i>
+          <!-- Status (unificado: mission_status para atividades, status geral para demais) -->
+          <div class="info-row" v-if="displayStatusData">
+            <span class="material-symbols-outlined info-icon">info</span>
             <div class="info-content">
               <span class="info-label">Status</span>
-              <span 
-                class="status-badge" 
-                :class="eventData.status === 'ativo' ? 'status-active' : 'status-inactive'"
+              <EBadge
+                :background-color="displayStatusData.color"
+                pill
               >
-                {{ eventData.status === 'ativo' ? 'Ativo' : 'Inativo' }}
-              </span>
+                {{ displayStatusData.label }}
+              </EBadge>
+              <small class="text-muted d-block mt-1" v-if="displayStatusData.description">{{ displayStatusData.description }}</small>
             </div>
           </div>
 
           <!-- Origem -->
-          <div class="info-row" v-if="eventData.origem">
-            <i class="bi bi-building"></i>
+          <div class="info-row" v-if="eventOriginData">
+            <span class="material-symbols-outlined info-icon">account_circle</span>
             <div class="info-content">
               <span class="info-label">Origem</span>
-              <span class="info-value">{{ eventData.origem === 'escola' ? 'Escola' : 'Professor' }}</span>
+              <span class="info-value">{{ eventOriginData.label }}</span>
             </div>
           </div>
         </div>
@@ -98,146 +99,138 @@
 
         <!-- Ações -->
         <div class="view-actions">
-          <button class="btn btn-primary" @click="switchToEdit">
-            <i class="bi bi-pencil"></i>
+          <EButton variant="primary" icon="pencil" @click="switchToEdit">
             Editar
-          </button>
-          <button class="btn btn-outline-secondary" @click="closeDrawer">
+          </EButton>
+          <EButton variant="outline-primary" @click="closeDrawer">
             Fechar
-          </button>
+          </EButton>
         </div>
       </div>
 
       <!-- Edit/Create Mode - Form -->
       <form v-else @submit.prevent="handleSubmit" class="drawer-form">
-        <!-- Título -->
-        <div class="form-group">
-          <label for="titulo" class="form-label">Título</label>
-          <input
-            id="titulo"
-            v-model="formData.titulo"
-            type="text"
-            class="form-control"
-            placeholder="Selecione"
-            :class="{ 'is-invalid': errors.titulo }"
-          />
-          <span v-if="errors.titulo" class="error-message">
-            {{ errors.titulo }}
-          </span>
-        </div>
+        <!-- Campos do formulário com scroll -->
+        <div class="form-fields">
+          <!-- Título -->
+          <EFormGroup
+          id="titulo"
+          label="Título"
+          :error-message="errors.titulo"
+          required
+        >
+          <template #default="{ invalid, id }">
+            <EInput
+              :id="id"
+              v-model="formData.titulo"
+              placeholder="Digite o título do evento"
+              :invalid="invalid"
+            />
+          </template>
+        </EFormGroup>
 
         <!-- Atividade -->
-        <div class="form-group">
-          <label for="atividade" class="form-label">Atividade</label>
-          <select
-            id="atividade"
-            v-model="formData.atividade"
-            class="form-control form-select"
-            :class="{ 'is-invalid': errors.atividade }"
-          >
-            <option value="">Select Status</option>
-            <option value="missao">Missão</option>
-            <option value="olimpiada">Olimpíada</option>
-            <option value="avaliacao">Avaliação</option>
-            <option value="trilha">Trilha</option>
-            <option value="expedicao">Expedição</option>
-            <option value="outro">Outro</option>
-          </select>
-          <span v-if="errors.atividade" class="error-message">
-            {{ errors.atividade }}
-          </span>
-        </div>
+        <EFormGroup
+          id="atividade"
+          label="Atividade"
+          :error-message="errors.atividade"
+          required
+        >
+          <template #default="{ invalid, id }">
+            <ESelect
+              :id="id"
+              v-model="formData.atividade"
+              placeholder="Selecione o tipo"
+              :invalid="invalid"
+              :options="atividadeOptions"
+              label="name"
+              trackBy="id"
+            />
+          </template>
+        </EFormGroup>
 
         <!-- Turmas -->
-        <div class="form-group">
-          <label for="turmas" class="form-label">Turmas</label>
-          <select
-            id="turmas"
-            v-model="formData.turmas"
-            class="form-control form-select"
-            :class="{ 'is-invalid': errors.turmas }"
-            multiple
-          >
-            <option value="5a-manha">5° A - Manhã</option>
-            <option value="5b-manha">5° B - Manhã</option>
-            <option value="5a-tarde">5° A - Tarde</option>
-            <option value="6a-manha">6° A - Manhã</option>
-            <option value="6b-manha">6° B - Manhã</option>
-            <option value="7a-manha">7° A - Manhã</option>
-          </select>
-          <span v-if="errors.turmas" class="error-message">
-            {{ errors.turmas }}
-          </span>
-        </div>
+        <EFormGroup
+          id="turmas"
+          label="Turmas"
+          :error-message="errors.turmas"
+          hint="Selecione uma ou mais turmas"
+        >
+          <template #default="{ invalid, id }">
+            <ESelect
+              :id="id"
+              v-model="formData.turmas"
+              :invalid="invalid"
+              :options="turmaOptions"
+              label="name"
+              trackBy="id"
+              multiple
+              searchable
+            />
+          </template>
+        </EFormGroup>
 
         <!-- Data de início -->
-        <div class="form-group">
-          <label for="dataInicio" class="form-label">Data de início</label>
-          <input
-            id="dataInicio"
-            v-model="formData.dataInicio"
-            type="date"
-            class="form-control"
-            :class="{ 'is-invalid': errors.dataInicio }"
-          />
-          <span v-if="errors.dataInicio" class="error-message">
-            {{ errors.dataInicio }}
-          </span>
-        </div>
+        <EDatePicker
+          id="dataInicio"
+          v-model="formData.dataInicio"
+          label="Data de início"
+          placeholder="Selecione a data de início"
+          :invalid="!!errors.dataInicio"
+          :error-message="errors.dataInicio"
+          :required="true"
+        />
 
         <!-- Data de término -->
-        <div class="form-group">
-          <label for="dataTermino" class="form-label">Data de término</label>
-          <input
-            id="dataTermino"
-            v-model="formData.dataTermino"
-            type="date"
-            class="form-control"
-            :class="{ 'is-invalid': errors.dataTermino }"
-          />
-          <span v-if="errors.dataTermino" class="error-message">
-            {{ errors.dataTermino }}
-          </span>
+        <EDatePicker
+          id="dataTermino"
+          v-model="formData.dataTermino"
+          label="Data de término"
+          placeholder="Selecione a data de término"
+          :invalid="!!errors.dataTermino"
+          :error-message="errors.dataTermino"
+        />
+
+        <!-- Descrição -->
+        <EFormGroup
+          id="description"
+          label="Descrição"
+          :error-message="errors.description"
+        >
+          <template #default="{ invalid, id }">
+            <ETextarea
+              :id="id"
+              v-model="formData.description"
+              placeholder="Descreva os detalhes do evento..."
+              :rows="4"
+              :invalid="invalid"
+            />
+          </template>
+          </EFormGroup>
         </div>
 
-        <!-- Description -->
-        <div class="form-group">
-          <label for="description" class="form-label">Description</label>
-          <textarea
-            id="description"
-            v-model="formData.description"
-            class="form-control form-textarea"
-            placeholder="Enter category description..."
-            rows="4"
-            :class="{ 'is-invalid': errors.description }"
-          ></textarea>
-          <span v-if="errors.description" class="error-message">
-            {{ errors.description }}
-          </span>
-        </div>
-
-        <!-- Buttons -->
+        <!-- Footer fixo com botões -->
         <div class="form-actions">
           <div class="form-actions-left">
-            <button type="submit" class="btn btn-primary">
-              {{ eventData ? 'Atualizar' : 'Adicionar' }}
-            </button>
-            <button
+            <EButton
+              v-if="eventData"
               type="button"
-              class="btn btn-outline-primary"
+              variant="danger"
+              @click="handleDelete"
+            >
+              Deletar
+            </EButton>
+            <EButton
+              type="button"
+              variant="outline-primary"
               @click="closeDrawer"
             >
               Cancelar
-            </button>
+            </EButton>
           </div>
-          <button
-            v-if="eventData"
-            type="button"
-            class="btn btn-danger"
-            @click="handleDelete"
-          >
-            Deletar
-          </button>
+          <EButton type="submit" variant="primary">
+            {{ eventData ? 'Atualizar' : 'Adicionar' }}
+          </EButton>
         </div>
       </form>
     </aside>
@@ -246,6 +239,18 @@
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue'
+import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker } from './base'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+import { useToast } from '@/composables/useToast'
+import { 
+  CATEGORIES,
+  ORIGIN_LEVELS,
+  MISSION_STATUS_TEACHER, 
+  getMissionStatusData, 
+  getEventStatusData, 
+  isEducationalActivity, 
+  isMissionEvent 
+} from '@/data/calendar-enums'
 
 const props = defineProps({
   isOpen: {
@@ -269,16 +274,62 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'save', 'delete', 'edit'])
 
-// Mapeamento de tipos para cores e labels
-const typeConfig = {
-  missao: { color: '#7F6CC3', label: 'Missão' },
-  olimpiada: { color: '#8BC728', label: 'Olimpíada' },
-  avaliacao: { color: '#FE5153', label: 'Avaliação' },
-  trilha: { color: '#00A5A0', label: 'Trilha' },
-  expedicao: { color: '#FFB443', label: 'Expedição' },
-  lembrete: { color: '#7CD7D3', label: 'Lembrete' },
-  outro: { color: '#888888', label: 'Outro' }
+// Feature Flags
+const { showEventTime } = useFeatureFlags()
+
+// Toast Notifications
+const toast = useToast()
+
+// Helper: Get category data from CATEGORIES enum
+const getCategoryData = (categoryValue) => {
+  if (!categoryValue) return { color: '#888888', label: 'Outro' }
+  const uppercased = categoryValue.toString().toUpperCase()
+  return CATEGORIES[uppercased] || { color: '#888888', label: 'Outro' }
 }
+
+// Helper: Get origin level data from ORIGIN_LEVELS enum  
+const getOriginData = (originValue) => {
+  if (!originValue) return { label: 'Não definido' }
+  const uppercased = originValue.toString().toUpperCase()
+  const originData = ORIGIN_LEVELS[uppercased]
+  return originData ? { label: originData.label } : { label: originValue }
+}
+
+// Verificar se é uma missão
+const isMission = computed(() => {
+  if (!props.eventData) return false
+  return isMissionEvent(props.eventData)
+})
+
+// Verificar se é uma atividade educacional (tem controle do professor)
+const isActivity = computed(() => {
+  if (!props.eventData) return false
+  return isEducationalActivity(props.eventData)
+})
+
+// Obter dados de status geral do evento
+const eventStatusData = computed(() => {
+  if (!props.eventData) return null
+  const statusValue = props.eventData?.status || 'ACTIVE'
+  return getEventStatusData(statusValue)
+})
+
+// Obter dados de status de controle (professor)
+const activityStatusData = computed(() => {
+  if (!isActivity.value) return null
+  const statusValue = props.eventData?.mission_status || 'NOT_SENT'
+  return getMissionStatusData(statusValue)
+})
+
+// Status unificado: prioriza mission_status para atividades educacionais
+const displayStatusData = computed(() => {
+  // Atividades educacionais mostram mission_status
+  if (isActivity.value && activityStatusData.value) {
+    return activityStatusData.value
+  }
+  // Demais eventos mostram status geral
+  return eventStatusData.value
+})
 
 // Computed properties para modo visualização
 const drawerTitle = computed(() => {
@@ -286,9 +337,18 @@ const drawerTitle = computed(() => {
   return props.eventData ? 'Editar evento' : 'Adicionar evento'
 })
 
-const eventType = computed(() => props.eventData?.tipo || props.eventData?.type || 'outro')
-const eventTypeColor = computed(() => typeConfig[eventType.value]?.color || typeConfig.outro.color)
-const eventTypeLabel = computed(() => typeConfig[eventType.value]?.label || typeConfig.outro.label)
+const eventCategoryData = computed(() => {
+  const categoryValue = props.eventData?.category || props.eventData?.tipo || props.eventData?.type
+  return getCategoryData(categoryValue)
+})
+
+const eventTypeColor = computed(() => eventCategoryData.value.color)
+const eventTypeLabel = computed(() => eventCategoryData.value.label)
+
+const eventOriginData = computed(() => {
+  const originValue = props.eventData?.origin_level || props.eventData?.origem
+  return originValue ? getOriginData(originValue) : null
+})
 
 const formattedPeriod = computed(() => {
   if (!props.eventData) return ''
@@ -357,12 +417,31 @@ const switchToEdit = () => {
 // Form data
 const formData = reactive({
   titulo: '',
-  atividade: '',
+  atividade: null,
   turmas: [],
   dataInicio: '',
   dataTermino: '',
   description: ''
 })
+
+// Options para selects
+const atividadeOptions = [
+  { id: 'missao', name: 'Missão' },
+  { id: 'olimpiada', name: 'Olimpíada' },
+  { id: 'avaliacao', name: 'Avaliação' },
+  { id: 'trilha', name: 'Trilha' },
+  { id: 'expedicao', name: 'Expedição' },
+  { id: 'outro', name: 'Outro' }
+]
+
+const turmaOptions = [
+  { id: '5a-manha', name: '5° A - Manhã' },
+  { id: '5b-manha', name: '5° B - Manhã' },
+  { id: '5a-tarde', name: '5° A - Tarde' },
+  { id: '6a-manha', name: '6° A - Manhã' },
+  { id: '6b-manha', name: '6° B - Manhã' },
+  { id: '7a-manha', name: '7° A - Manhã' }
+]
 
 // Errors
 const errors = reactive({
@@ -377,14 +456,28 @@ const errors = reactive({
 // Watch for eventData changes (edit mode)
 watch(() => props.eventData, (newData) => {
   if (newData) {
-    formData.titulo = newData.titulo || ''
-    formData.atividade = newData.tipo || ''
-    formData.turmas = newData.turmas || []
-    formData.dataInicio = newData.dataInicio ? newData.dataInicio.split('T')[0] : ''
-    formData.dataTermino = newData.dataTermino ? newData.dataTermino.split('T')[0] : ''
-    formData.description = newData.descricao || ''
+    // Título: suporta tanto 'titulo' quanto 'title'
+    formData.titulo = newData.titulo || newData.title || ''
+    
+    // Converter tipo para objeto da lista de opções
+    const tipoId = newData.tipo || newData.type || ''
+    formData.atividade = atividadeOptions.find(opt => opt.id === tipoId) || null
+    
+    // Converter turmas para objetos da lista de opções
+    const turmaIds = newData.turmas || newData.classes || []
+    formData.turmas = turmaOptions.filter(opt => turmaIds.includes(opt.id))
+    
+    // Datas: suporta tanto formato ISO quanto formato brasileiro
+    const dataInicioRaw = newData.dataInicio || newData.start_at || newData.date || ''
+    const dataTerminoRaw = newData.dataTermino || newData.end_at || ''
+    
+    formData.dataInicio = dataInicioRaw ? dataInicioRaw.split('T')[0] : ''
+    formData.dataTermino = dataTerminoRaw ? dataTerminoRaw.split('T')[0] : ''
+    
+    // Descrição: suporta tanto 'descricao' quanto 'description'
+    formData.description = newData.descricao || newData.description || ''
   }
-}, { immediate: true })
+}, { immediate: true, deep: true })
 
 // Validation
 const validateForm = () => {
@@ -444,8 +537,8 @@ const handleSubmit = () => {
     const eventPayload = {
       id: props.eventData?.id || Date.now(),
       titulo: formData.titulo,
-      tipo: formData.atividade,
-      turmas: formData.turmas,
+      tipo: formData.atividade?.id || formData.atividade,
+      turmas: formData.turmas.map(t => t.id || t),
       dataInicio: `${formData.dataInicio}T08:00:00`,
       dataTermino: `${formData.dataTermino}T18:00:00`,
       descricao: formData.description,
@@ -453,8 +546,19 @@ const handleSubmit = () => {
       origem: 'professor'
     }
     emit('save', eventPayload)
+    
+    // Feedback visual
+    const isEdit = props.eventData?.id
+    toast.success(
+      isEdit ? 'Evento atualizado com sucesso!' : 'Evento criado com sucesso!',
+      3000
+    )
+    
     resetForm()
     closeDrawer()
+  } else {
+    // Feedback de erro de validação
+    toast.error('Preencha todos os campos obrigatórios corretamente', 4000)
   }
 }
 
@@ -466,8 +570,10 @@ const closeDrawer = () => {
 
 // Delete event
 const handleDelete = () => {
+  // TODO: Substituir confirm() nativo por modal customizado
   if (props.eventData && confirm('Tem certeza que deseja deletar este evento?')) {
     emit('delete', props.eventData.id)
+    toast.success('Evento deletado com sucesso!', 3000)
     closeDrawer()
   }
 }
@@ -475,7 +581,7 @@ const handleDelete = () => {
 // Reset form
 const resetForm = () => {
   formData.titulo = ''
-  formData.atividade = ''
+  formData.atividade = null
   formData.turmas = []
   formData.dataInicio = ''
   formData.dataTermino = ''
@@ -492,7 +598,11 @@ watch(() => props.isOpen, (isOpen) => {
     document.body.style.overflow = 'hidden'
     // Pré-selecionar turma no modo criação
     if (props.mode === 'create' && props.defaultTurma) {
-      formData.turmas = [props.defaultTurma]
+      // Converter ID da turma para objeto da lista de opções
+      const turmaObj = turmaOptions.find(opt => opt.id === props.defaultTurma)
+      if (turmaObj) {
+        formData.turmas = [turmaObj]
+      }
     }
   } else {
     document.body.style.overflow = ''
@@ -574,92 +684,31 @@ watch(() => props.isOpen, (isOpen) => {
 /* Form */
 .drawer-form {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Campos do formulário com scroll */
+.form-fields {
+  flex: 1;
   overflow-y: auto;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-.form-control {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 14px;
-  border: 1px solid #d0d5dd;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  background-color: #fff;
-  color: #2c3e50;
-  font-family: inherit;
-}
-
-.form-control::placeholder {
-  color: #98a2b3;
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(115, 103, 240, 0.1);
-}
-
-.form-control.is-invalid {
-  border-color: var(--danger);
-}
-
-.form-control.is-invalid:focus {
-  box-shadow: 0 0 0 3px rgba(234, 84, 85, 0.1);
-}
-
-/* Select */
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236C757D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 40px;
-  cursor: pointer;
-}
-
-.form-select[multiple] {
-  background-image: none;
-  padding-right: 14px;
-  min-height: 100px;
-}
-
-/* Textarea */
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-  line-height: 1.5;
-}
-
-/* Error message */
-.error-message {
-  display: block;
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--danger);
-}
-
-/* Form actions */
+/* Form actions - Footer fixo */
 .form-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding-top: 8px;
-  margin-top: 24px;
-  border-top: 1px solid #e0e0e0;
+  padding: 16px 24px;
+  background-color: var(--white);
+  border-top: 1px solid var(--gray-300);
+  flex-shrink: 0;
 }
 
 .form-actions-left {
@@ -668,55 +717,32 @@ watch(() => props.isOpen, (isOpen) => {
   flex: 1;
 }
 
-.btn {
+.form-actions-left .e-button {
   flex: 1;
-  padding: 12px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
 }
 
-.btn-danger {
-  background-color: var(--danger);
-  color: #fff;
-  flex: 0 0 auto;
-  min-width: 100px;
+/* Estilos específicos dos botões do formulário */
+.form-actions .btn-outline-secondary {
+  background-color: var(--gray-100) !important;
+  color: var(--gray-700) !important;
+  border: 1px solid var(--gray-300) !important;
 }
 
-.btn-danger:hover {
-  background-color: #d43f40;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(234, 84, 85, 0.3);
+.form-actions .btn-outline-secondary:hover {
+  background-color: var(--gray-200) !important;
+  color: var(--gray-800) !important;
+  border-color: var(--gray-400) !important;
 }
 
-.btn-primary {
-  background-color: var(--primary);
-  color: #fff;
+.form-actions .btn-danger {
+  background-color: var(--danger) !important;
+  border-color: var(--danger) !important;
+  color: white !important;
 }
 
-.btn-primary:hover {
-  background-color: #5f54d4;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(115, 103, 240, 0.3);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-outline {
-  background-color: transparent;
-  color: #6c757d;
-  border: 1px solid #d0d5dd;
-}
-
-.btn-outline:hover {
-  background-color: #f8f9fa;
-  border-color: #adb5bd;
+.form-actions .btn-danger:hover {
+  background-color: var(--danger-dark) !important;
+  border-color: var(--danger-dark) !important;
 }
 
 /* Animations */
@@ -741,20 +767,20 @@ watch(() => props.isOpen, (isOpen) => {
 }
 
 /* Scrollbar */
-.drawer-form::-webkit-scrollbar {
+.form-fields::-webkit-scrollbar {
   width: 6px;
 }
 
-.drawer-form::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.form-fields::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.drawer-form::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+.form-fields::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 3px;
 }
 
-.drawer-form::-webkit-scrollbar-thumb:hover {
+.form-fields::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
 
@@ -769,15 +795,21 @@ watch(() => props.isOpen, (isOpen) => {
     padding: 16px;
   }
 
-  .drawer-form {
+  .form-fields {
     padding: 16px;
   }
 
   .form-actions {
+    padding: 12px 16px;
     flex-direction: column-reverse;
+    gap: 8px;
   }
-
-  .btn {
+  
+  .form-actions-left {
+    width: 100%;
+  }
+  
+  .form-actions .btn-danger {
     width: 100%;
   }
 }
@@ -791,42 +823,30 @@ watch(() => props.isOpen, (isOpen) => {
   padding: 24px;
 }
 
-.event-type-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 16px;
-}
-
 .event-title {
-  margin: 0 0 24px 0;
-  font-size: 22px;
+  margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+  font-size: var(--font-size-xl);
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--gray-900);
   line-height: 1.3;
 }
 
 .event-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .info-row {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
-.info-row i {
-  font-size: 18px;
-  color: #7367f0;
+.info-icon {
+  font-size: 20px;
+  color: var(--primary);
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -838,97 +858,54 @@ watch(() => props.isOpen, (isOpen) => {
 }
 
 .info-label {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 500;
-  color: #98a2b3;
+  color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .info-value {
-  font-size: 14px;
-  color: #2c3e50;
+  font-size: var(--font-size-sm);
+  color: var(--gray-900);
 }
 
 .turmas-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.turma-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  background-color: #f3f2ff;
-  color: #7367f0;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.status-active {
-  background-color: #e8f8f0;
-  color: #28c76f;
-}
-
-.status-inactive {
-  background-color: #fef3f3;
-  color: #ea5455;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
 }
 
 .event-description {
-  padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--gray-200);
 }
 
 .event-description h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--font-size-sm);
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--gray-900);
 }
 
 .event-description p {
   margin: 0;
-  font-size: 14px;
-  color: #6c757d;
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
   line-height: 1.6;
 }
 
 .view-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid #e0e0e0;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--gray-200);
 }
 
-.view-actions .btn {
+.view-actions .e-button {
   flex: 1;
-}
-
-.view-actions .btn i {
-  margin-right: 6px;
-}
-
-.btn-outline-secondary {
-  background-color: transparent;
-  color: #6c757d;
-  border: 1px solid #d0d5dd;
-}
-
-.btn-outline-secondary:hover {
-  background-color: #f8f9fa;
-  border-color: #adb5bd;
 }
 
 .drawer-content::-webkit-scrollbar {
@@ -946,5 +923,31 @@ watch(() => props.isOpen, (isOpen) => {
 
 .drawer-content::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+</style>
+
+<!-- Estilos não-scoped para sobrescrever Bootstrap nos botões -->
+<style>
+.event-drawer .form-actions .btn-outline-secondary {
+  background-color: var(--gray-100) !important;
+  color: var(--gray-700) !important;
+  border: 1px solid var(--gray-300) !important;
+}
+
+.event-drawer .form-actions .btn-outline-secondary:hover {
+  background-color: var(--gray-200) !important;
+  color: var(--gray-800) !important;
+  border-color: var(--gray-400) !important;
+}
+
+.event-drawer .form-actions .btn-danger {
+  background-color: var(--danger) !important;
+  border-color: var(--danger) !important;
+  color: white !important;
+}
+
+.event-drawer .form-actions .btn-danger:hover {
+  background-color: var(--danger-dark) !important;
+  border-color: var(--danger-dark) !important;
 }
 </style>

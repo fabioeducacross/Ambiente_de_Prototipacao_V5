@@ -51,7 +51,7 @@
               :style="getEventStyle(event)"
               @click.stop="$emit('edit-event', event)"
             >
-              <div class="event-time">{{ formatEventTime(event) }}</div>
+              <div v-if="showEventTime" class="event-time">{{ formatEventTime(event) }}</div>
               <div class="event-title-block">{{ event.titulo }}</div>
             </div>
           </div>
@@ -64,6 +64,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useCalendar } from '../../../composables/useCalendar'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+
+const { showEventTime } = useFeatureFlags()
 
 const props = defineProps({
   currentDate: {

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { EBadge } from '@/components/base'
 
 const journeys = ref([
   { id: 'DIR-001', name: 'Indicadores Estratégicos', description: 'Visualizar KPIs e métricas da escola', status: 'Planejado', color: '#FF9F43' },
@@ -53,7 +54,7 @@ const stats = ref([
           <div v-for="journey in journeys" :key="journey.id" class="journey-card">
             <div class="journey-header">
               <div class="journey-id">{{ journey.id }}</div>
-              <span class="badge" :style="{ backgroundColor: journey.color, color: 'white' }">{{ journey.status }}</span>
+              <EBadge :background-color="journey.color" color="white" pill>{{ journey.status }}</EBadge>
             </div>
             <h3 class="journey-title">{{ journey.name }}</h3>
             <p class="journey-description">{{ journey.description }}</p>

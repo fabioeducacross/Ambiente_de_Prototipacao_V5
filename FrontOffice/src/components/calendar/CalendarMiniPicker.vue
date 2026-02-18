@@ -117,7 +117,7 @@ const handleDayClick = (day) => {
 
 .nav-buttons {
   display: flex;
-  gap: 0;
+  gap: 8px;
 }
 
 .nav-btn {

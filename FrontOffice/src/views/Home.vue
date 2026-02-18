@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { EBadge } from '@/components/base'
 
 const personas = ref([
   {
@@ -71,15 +72,15 @@ const personas = ref([
             Selecione um perfil abaixo para navegar pelo protótipo interativo.
           </p>
           <div class="hero-badges">
-            <span class="badge badge-primary">
+            <EBadge variant="primary" pill>
               <i class="bi bi-lightbulb"></i> Protótipos V1.0
-            </span>
-            <span class="badge bg-success">
+            </EBadge>
+            <EBadge variant="success" pill>
               <i class="bi bi-check-circle"></i> 6 Personas
-            </span>
-            <span class="badge bg-info">
+            </EBadge>
+            <EBadge variant="info" pill>
               <i class="bi bi-palette"></i> Design System Vuexy
-            </span>
+            </EBadge>
           </div>
         </div>
       </div>

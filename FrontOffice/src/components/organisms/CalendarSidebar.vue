@@ -60,6 +60,7 @@ import MiniCalendar from '../MiniCalendar.vue'
 import CheckboxGroup from '../molecules/CheckboxGroup.vue'
 import FilterSection from '../molecules/FilterSection.vue'
 import iconeBelinha from '../../assets/icons/icone_belinha.svg'
+import { ORIGIN_LEVELS } from '@/data/calendar-enums'
 
 const props = defineProps({
   currentDate: {
@@ -90,10 +91,10 @@ const props = defineProps({
   originOptions: {
     type: Array,
     default: () => [
-      { value: 'educacross', label: 'Educacross', iconSvg: iconeBelinha, disabled: false },
-      { value: 'gestor-rede', label: 'Gestor de Rede', icon: 'lan', disabled: false },
-      { value: 'gestor-escolar', label: 'Gestor Escolar', icon: 'hub', disabled: false },
-      { value: 'professor', label: 'Professor', icon: 'school', disabled: false }
+      { value: ORIGIN_LEVELS.EDUCACROSS.value, label: ORIGIN_LEVELS.EDUCACROSS.label, iconSvg: iconeBelinha, disabled: false },
+      { value: ORIGIN_LEVELS.NETWORK.value, label: ORIGIN_LEVELS.NETWORK.label, icon: ORIGIN_LEVELS.NETWORK.icon, disabled: false },
+      { value: ORIGIN_LEVELS.SCHOOL.value, label: ORIGIN_LEVELS.SCHOOL.label, icon: ORIGIN_LEVELS.SCHOOL.icon, disabled: false },
+      { value: ORIGIN_LEVELS.TEACHER.value, label: ORIGIN_LEVELS.TEACHER.label, icon: ORIGIN_LEVELS.TEACHER.icon, disabled: false }
     ]
   },
   selectedOrigins: {

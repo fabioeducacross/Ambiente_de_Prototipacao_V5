@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { EBadge } from '@/components/base'
 
 const journeys = ref([
   {
@@ -111,8 +112,8 @@ const stats = ref([
           <RouterLink to="/teacher/calendar" class="journey-card calendar-card">
             <div class="journey-header">
               <div class="journey-badges">
-                <span class="badge badge-info">Nova Feature</span>
-                <span class="badge badge-primary">PROF-XXX</span>
+                <EBadge variant="info" pill>Nova Feature</EBadge>
+                <EBadge variant="primary" pill>PROF-XXX</EBadge>
               </div>
             </div>
             <div class="calendar-icon">
@@ -144,12 +145,13 @@ const stats = ref([
           >
             <div class="journey-header">
               <div class="journey-id">{{ journey.id }}</div>
-              <span 
-                class="badge"
-                :style="{ backgroundColor: journey.color, color: 'white' }"
+              <EBadge 
+                :background-color="journey.color"
+                color="white"
+                pill
               >
                 {{ journey.status }}
-              </span>
+              </EBadge>
             </div>
             <h3 class="journey-title">{{ journey.name }}</h3>
             <p class="journey-description">{{ journey.description }}</p>
@@ -458,16 +460,6 @@ const stats = ref([
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-}
-
-.badge-primary {
-  background-color: var(--primary);
-  color: white;
-}
-
-.badge-info {
-  background-color: var(--info);
-  color: white;
 }
 
 .journey-meta {

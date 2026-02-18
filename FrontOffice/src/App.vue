@@ -1,10 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import { EToast } from '@/components/base'
 </script>
 
 <template>
   <div id="app">
     <RouterView />
+    <EToast />
   </div>
 </template>
 

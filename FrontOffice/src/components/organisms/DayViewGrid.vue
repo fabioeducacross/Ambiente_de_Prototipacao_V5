@@ -66,7 +66,7 @@
               @click.stop="handleEventClick(event)"
             >
               <div class="event-header">
-                <div class="event-time">
+                <div v-if="showEventTime" class="event-time">
                   {{ formatEventTime(event.horaInicio) }} - {{ formatEventTime(event.horaTermino) }}
                 </div>
                 <div class="event-duration">{{ calculateDuration(event) }}</div>
@@ -101,6 +101,9 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
 import { useCalendar } from '../../composables/useCalendar'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+
+const { showEventTime } = useFeatureFlags()
 
 const props = defineProps({
   currentView: {

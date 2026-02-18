@@ -129,7 +129,7 @@ const handleChange = (event) => {
     'FILL' 1,
     'wght' 500,
     'GRAD' 0,
-    'opsz' 20;
+    'opsz' 24;
 }
 
 /* Label */
@@ -156,13 +156,19 @@ const handleChange = (event) => {
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 20;
+    'opsz' 24;
 }
 
 .checkbox-icon-svg {
   width: 20px;
   height: 20px;
   object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.checkbox-container.checkbox-disabled .checkbox-icon-svg {
+  opacity: 0.4;
 }
 
 .checkbox-disabled .checkbox-label {

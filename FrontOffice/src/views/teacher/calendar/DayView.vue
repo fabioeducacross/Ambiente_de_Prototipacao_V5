@@ -44,7 +44,7 @@
           >
             <div class="event-header">
               <i :class="['bi', getActivityIcon(event.tipo)]"></i>
-              <span class="event-time-range">{{ formatEventTime(event) }}</span>
+              <span v-if="showEventTime" class="event-time-range">{{ formatEventTime(event) }}</span>
             </div>
             <div class="event-title-day">{{ event.titulo }}</div>
             <div class="event-meta">
@@ -73,6 +73,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useCalendar } from '../../../composables/useCalendar'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+
+const { showEventTime } = useFeatureFlags()
 
 const props = defineProps({
   currentDate: {

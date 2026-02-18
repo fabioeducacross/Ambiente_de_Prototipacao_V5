@@ -36,8 +36,18 @@
             :title="spanEvent.title"
             @click.stop="handleEventClick(spanEvent)"
           >
-            <span v-if="!spanEvent.isContinuation && spanEvent.horaInicio" class="event-time">
+            <span v-if="showEventTime && !spanEvent.isContinuation && spanEvent.horaInicio" class="event-time">
               {{ formatTime(spanEvent.horaInicio) }}
+            </span>
+            <span
+              v-if="isEducacrossOrigin(spanEvent.origin_level || spanEvent.origin || spanEvent.origem)"
+              :style="belinhaMaskStyle"
+              class="event-icon-coruja"
+              role="img"
+              aria-label="Educacross"
+            />
+            <span v-else class="material-symbols-outlined event-icon" aria-hidden="true">
+              {{ getOriginIcon(spanEvent.origin_level || spanEvent.origin || spanEvent.origem) }}
             </span>
             <span class="event-title">{{ spanEvent.title }}</span>
           </div>
@@ -69,6 +79,11 @@ import { ref, computed } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
 import CalendarDaysHeader from '../molecules/CalendarDaysHeader.vue'
 import DateCellLarge from '../atoms/DateCellLarge.vue'
+import { getOriginIcon, normalizeOriginLevel, ORIGIN_LEVELS } from '@/data/calendar-enums'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+import iconeBelinha from '@/assets/icons/icone_belinha.svg'
+
+const { showEventTime } = useFeatureFlags()
 
 const props = defineProps({
   currentView: {
@@ -147,6 +162,21 @@ const formatTime = (time) => {
   const ampm = h >= 12 ? 'p' : 'a'
   const hour12 = h % 12 || 12
   return `${hour12}:${minutes}${ampm}`
+}
+
+const resolveOrigin = (originValue) => normalizeOriginLevel(originValue)
+const isEducacrossOrigin = (originValue) => resolveOrigin(originValue) === ORIGIN_LEVELS.EDUCACROSS.value
+
+const belinhaMaskStyle = {
+  WebkitMaskImage: `url(${iconeBelinha})`,
+  maskImage: `url(${iconeBelinha})`,
+  WebkitMaskRepeat: 'no-repeat',
+  maskRepeat: 'no-repeat',
+  WebkitMaskSize: 'contain',
+  maskSize: 'contain',
+  WebkitMaskPosition: 'center',
+  maskPosition: 'center',
+  backgroundColor: 'currentColor'
 }
 
 // Converte cor hex para rgba com opacidade especificada
@@ -322,7 +352,9 @@ const getEventsForDate = (year, month, date, dayIndexInWeek) => {
   
   props.events.forEach(event => {
     const eventStartStr = event.date || event.dataInicio
-    if (!eventStartStr) return
+    if (!eventStartStr) {
+      return
+    }
     
     const eventStart = new Date(eventStartStr)
     eventStart.setHours(0, 0, 0, 0)
@@ -490,6 +522,26 @@ const handleViewChange = (newView) => {
   text-overflow: ellipsis;
   white-space: nowrap;
   flex: 1;
+}
+
+.spanning-event-item .event-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  color: inherit;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.event-icon-coruja {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* Responsive */

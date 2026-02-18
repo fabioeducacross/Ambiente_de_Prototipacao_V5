@@ -74,7 +74,7 @@
                 :style="getEventStyle(event)"
                 @click.stop="handleEventClick(event)"
               >
-                <div class="event-time">{{ formatEventTime(event.horaInicio) }}</div>
+                <div v-if="showEventTime" class="event-time">{{ formatEventTime(event.horaInicio) }}</div>
                 <div class="event-title">{{ event.titulo }}</div>
                 <div class="event-activity" :style="{ color: getActivityColor(event.tipoAtividade) }">
                   <i :class="getActivityIcon(event.tipoAtividade)"></i>
@@ -93,6 +93,9 @@
 import { ref, computed } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
 import { useCalendar } from '../../composables/useCalendar'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+
+const { showEventTime } = useFeatureFlags()
 
 const props = defineProps({
   currentView: {

@@ -36,7 +36,7 @@
     {
       "id": 4,
       "titulo": "Trilha BNCC: Língua Portuguesa",
-      "tipo": "trilha",
+      "tipo": "olimpiada",
       "dataInicio": "2026-02-01T08:00:00",
       "dataTermino": "2026-02-28T18:00:00",
       "turmas": ["5a-manha", "5a-tarde"],
@@ -58,7 +58,7 @@
     {
       "id": 6,
       "titulo": "Reunião de Pais - 1º Trimestre",
-      "tipo": "outro",
+      "tipo": "lembrete",
       "dataInicio": "2026-02-18T19:00:00",
       "dataTermino": "2026-02-18T21:00:00",
       "turmas": ["5a-manha", "5b-manha", "5a-tarde"],
@@ -80,7 +80,7 @@
     {
       "id": 8,
       "titulo": "Missão: Produção de Texto Criativo",
-      "tipo": "missao",
+      "tipo": "expedicao",
       "dataInicio": "2026-02-12T08:00:00",
       "dataTermino": "2026-02-19T18:00:00",
       "turmas": ["6a-manha"],
@@ -135,7 +135,7 @@
     {
       "id": 13,
       "titulo": "Feira de Ciências 2026",
-      "tipo": "outro",
+      "tipo": "trilha",
       "dataInicio": "2026-04-15T08:00:00",
       "dataTermino": "2026-04-15T17:00:00",
       "turmas": ["5a-manha", "5b-manha", "5a-tarde", "6a-manha", "6b-manha", "7a-manha"],
@@ -329,6 +329,90 @@
       "descricao": "Projeto sobre planetas, luas e corpos celestes do sistema solar",
       "status": "ativo",
       "origem": "escola"
+    },
+    {
+      "id": 31,
+      "titulo": "Atualização de Conteúdo Educacross",
+      "tipo": "outro",
+      "dataInicio": "2026-02-16T10:00:00",
+      "dataTermino": "2026-02-16T11:00:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Comunicado oficial de atualização de conteúdos e correções na plataforma",
+      "status": "ativo",
+      "origem": "educacross",
+      "origin_level": "EDUCACROSS"
+    },
+    {
+      "id": 32,
+      "titulo": "Formação Continuada da Rede",
+      "tipo": "outro",
+      "dataInicio": "2026-02-21T15:00:00",
+      "dataTermino": "2026-02-21T17:00:00",
+      "turmas": ["5a-manha", "6a-manha"],
+      "descricao": "Sessão de alinhamento regional para gestores de rede e escolas",
+      "status": "ativo",
+      "origem": "rede",
+      "origin_level": "NETWORK"
+    },
+    {
+      "id": 33,
+      "titulo": "Lembrete: Entrega de Portfólios",
+      "tipo": "lembrete",
+      "dataInicio": "2026-02-19T08:00:00",
+      "dataTermino": "2026-02-19T18:00:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Aviso para alunos entregarem os portfólios de projetos até o final do dia",
+      "status": "ativo",
+      "origem": "professor",
+      "origin_level": "TEACHER"
+    },
+    {
+      "id": 34,
+      "titulo": "Olimpíada Interna de Matemática",
+      "tipo": "olimpiada",
+      "dataInicio": "2026-02-16T09:00:00",
+      "dataTermino": "2026-02-16T11:00:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Etapa interna de olimpíada para selecionar alunos para fase regional",
+      "status": "ativo",
+      "origem": "escola",
+      "origin_level": "SCHOOL"
+    },
+    {
+      "id": 35,
+      "titulo": "Expedição: Explorando os Biomas",
+      "tipo": "expedicao",
+      "dataInicio": "2026-02-14T08:00:00",
+      "dataTermino": "2026-02-20T18:00:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Sequência de atividades sobre biomas brasileiros com foco em Mata Atlântica e Cerrado",
+      "status": "ativo",
+      "origem": "escola",
+      "origin_level": "SCHOOL"
+    },
+    {
+      "id": 36,
+      "titulo": "Missão Educacross: Revisão Gamificada",
+      "tipo": "missao",
+      "dataInicio": "2026-02-13T08:00:00",
+      "dataTermino": "2026-02-15T18:00:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Missão oficial da Educacross com desafios gamificados para reforço de conteúdos",
+      "status": "ativo",
+      "origem": "educacross",
+      "origin_level": "EDUCACROSS"
+    },
+    {
+      "id": 37,
+      "titulo": "Avaliação Especial da Rede",
+      "tipo": "avaliacao",
+      "dataInicio": "2026-02-18T10:00:00",
+      "dataTermino": "2026-02-18T11:30:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Prova aplicada pela gestão de rede para monitorar desempenho consolidado",
+      "status": "ativo",
+      "origem": "rede",
+      "origin_level": "NETWORK"
     }
   ]
 }

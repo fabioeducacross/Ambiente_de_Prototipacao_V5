@@ -22,7 +22,17 @@
         :title="event.title"
         @click.stop="handleEventClick(event)"
       >
-        <span v-if="event.horaInicio" class="event-time">{{ formatTime(event.horaInicio) }}</span>
+        <span v-if="showEventTime && event.horaInicio" class="event-time">{{ formatTime(event.horaInicio) }}</span>
+        <span
+          v-if="isEducacrossOrigin(event.origin_level || event.origin || event.origem)"
+          :style="belinhaMaskStyle"
+          class="event-icon-coruja"
+          role="img"
+          aria-label="Educacross"
+        />
+        <span v-else class="material-symbols-outlined event-icon" aria-hidden="true">
+          {{ getOriginIcon(event.origin_level || event.origin || event.origem) }}
+        </span>
         <span class="event-title">{{ event.title }}</span>
       </div>
       
@@ -36,6 +46,11 @@
 
 <script setup>
 import { computed } from 'vue'
+import { getOriginIcon, normalizeOriginLevel, ORIGIN_LEVELS } from '@/data/calendar-enums'
+import { useFeatureFlags } from '@/composables/useFeatureFlags'
+import iconeBelinha from '@/assets/icons/icone_belinha.svg'
+
+const { showEventTime } = useFeatureFlags()
 
 // Constantes consistentes com MonthViewGrid
 const EVENT_HEIGHT = 24 // px
@@ -122,6 +137,21 @@ const formatTime = (time) => {
   const ampm = h >= 12 ? 'p' : 'a'
   const hour12 = h % 12 || 12
   return `${hour12}:${minutes}${ampm}`
+}
+
+const resolveOrigin = (originValue) => normalizeOriginLevel(originValue)
+const isEducacrossOrigin = (originValue) => resolveOrigin(originValue) === ORIGIN_LEVELS.EDUCACROSS.value
+
+const belinhaMaskStyle = {
+  WebkitMaskImage: `url(${iconeBelinha})`,
+  maskImage: `url(${iconeBelinha})`,
+  WebkitMaskRepeat: 'no-repeat',
+  maskRepeat: 'no-repeat',
+  WebkitMaskSize: 'contain',
+  maskSize: 'contain',
+  WebkitMaskPosition: 'center',
+  maskPosition: 'center',
+  backgroundColor: 'currentColor'
 }
 
 const handleClick = () => {
@@ -211,6 +241,25 @@ const handleMoreClick = () => {
   text-overflow: ellipsis;
   white-space: nowrap;
   flex: 1;
+}
+
+.event-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  color: inherit;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.event-icon-coruja {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* Indicador "mais eventos" */
