@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/Ambiente_de_Prototipacao_V5/',
   plugins: [vue()],
   resolve: {
     alias: {
