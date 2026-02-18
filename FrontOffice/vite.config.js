@@ -6,6 +6,11 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   base: '/Ambiente_de_Prototipacao_V5/',
   plugins: [vue()],
+  css: {
+    postcss: {
+      plugins: []  // Desabilita todos os plugins PostCSS padrão incluindo postcss-import
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
