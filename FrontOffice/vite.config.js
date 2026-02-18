@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: '/Ambiente_de_Prototipacao_V5/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/Ambiente_de_Prototipacao_V5/' : '/',
   plugins: [vue()],
   css: {
     postcss: {
@@ -20,4 +20,4 @@ export default defineConfig({
     port: 5174,
     open: true
   }
-})
+}))
