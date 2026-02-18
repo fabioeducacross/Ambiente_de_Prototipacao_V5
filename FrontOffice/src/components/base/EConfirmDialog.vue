@@ -10,8 +10,8 @@
   >
     <!-- Body com mensagem e ícone -->
     <div class="confirm-dialog-body">
-      <div v-if="icon" class="confirm-icon" :class="`icon-${variant}`">
-        <span class="material-symbols-outlined">{{ icon }}</span>
+      <div class="confirm-icon" :class="`icon-${variant}`">
+        <span class="material-symbols-outlined">{{ dialogIcon }}</span>
       </div>
       <div class="confirm-message">
         <p class="message-text">{{ message }}</p>
@@ -29,7 +29,7 @@
         {{ cancelText }}
       </EButton>
       <EButton
-        :variant="confirmVariant"
+        :variant="confirmButtonVariant"
         @click="handleConfirm"
         :disabled="loading"
       >
@@ -106,12 +106,12 @@ const confirmButtonVariant = computed(() => {
   return variants[props.variant] || 'primary'
 })
 
-// Ícone padrão baseado no variant
-const defaultIcon = computed(() => {
+// Ícone padrão baseado no variant (Material Symbols)
+const dialogIcon = computed(() => {
   if (props.icon) return props.icon
   
   const icons = {
-    danger: 'error',
+    danger: 'delete',
     warning: 'warning',
     success: 'check_circle',
     info: 'info'

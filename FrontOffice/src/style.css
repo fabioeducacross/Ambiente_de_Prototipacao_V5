@@ -459,3 +459,456 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ===================================
+   MODAL COMPONENT (Bootstrap 5 + Vuexy)
+   =================================== */
+
+/* Modal Variables */
+:root {
+  --modal-zindex: 1055;
+  --modal-width: 500px;
+  --modal-padding: 1rem;
+  --modal-margin: 0.5rem;
+  --modal-color: var(--gray-900);
+  --modal-bg: var(--white);
+  --modal-border-color: var(--gray-300);
+  --modal-border-width: 1px;
+  --modal-border-radius: var(--radius-lg);
+  --modal-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --modal-inner-border-radius: calc(var(--radius-lg) - 1px);
+  --modal-header-padding-x: 1rem;
+  --modal-header-padding-y: 1rem;
+  --modal-header-border-color: var(--gray-200);
+  --modal-header-border-width: 1px;
+  --modal-title-line-height: 1.5;
+  --modal-footer-gap: 0.5rem;
+  --modal-footer-bg: null;
+  --modal-footer-border-color: var(--gray-200);
+  --modal-footer-border-width: 1px;
+  
+  --backdrop-zindex: 1050;
+  --backdrop-bg: var(--black);
+  --backdrop-opacity: 0.5;
+}
+
+/* Modal Structure */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--modal-zindex);
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: var(--modal-margin);
+  pointer-events: none;
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - var(--modal-margin) * 2);
+}
+
+.modal-dialog-scrollable {
+  height: calc(100% - var(--modal-margin) * 2);
+}
+
+.modal-dialog-scrollable .modal-content {
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.modal-dialog-scrollable .modal-body {
+  overflow-y: auto;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--modal-color);
+  pointer-events: auto;
+  background-color: var(--modal-bg);
+  background-clip: padding-box;
+  border: var(--modal-border-width) solid var(--modal-border-color);
+  border-radius: var(--modal-border-radius);
+  box-shadow: var(--modal-box-shadow);
+  outline: 0;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--modal-header-padding-y) var(--modal-header-padding-x);
+  border-bottom: var(--modal-header-border-width) solid var(--modal-header-border-color);
+  border-top-left-radius: var(--modal-inner-border-radius);
+  border-top-right-radius: var(--modal-inner-border-radius);
+}
+
+.modal-title {
+  margin: 0;
+  line-height: var(--modal-title-line-height);
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  color: var(--gray-900);
+}
+
+/* Modal Body */
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: var(--modal-padding);
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(var(--modal-padding) - var(--modal-footer-gap) * 0.5);
+  border-top: var(--modal-footer-border-width) solid var(--modal-footer-border-color);
+  border-bottom-right-radius: var(--modal-inner-border-radius);
+  border-bottom-left-radius: var(--modal-inner-border-radius);
+  gap: var(--modal-footer-gap);
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--backdrop-zindex);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--backdrop-bg);
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop.show {
+  opacity: var(--backdrop-opacity);
+}
+
+/* Modal Sizes */
+.modal-sm {
+  --modal-width: 300px;
+}
+
+.modal-lg {
+  --modal-width: 800px;
+}
+
+.modal-xl {
+  --modal-width: 1140px;
+}
+
+/* Modal Close Button */
+.btn-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: var(--gray-600);
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236E7175'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  border: 0;
+  border-radius: var(--radius-sm);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.btn-close:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+/* Modal Responsive Breakpoints */
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: var(--modal-width);
+    margin: 1.75rem auto;
+  }
+
+  .modal-sm {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg,
+  .modal-xl {
+    max-width: 800px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .modal-xl {
+    max-width: 1140px;
+  }
+}
+
+/* Modal Animations */
+.modal.fade {
+  transition: opacity 0.15s linear;
+}
+
+.modal.fade:not(.show) {
+  opacity: 0;
+}
+
+.modal-backdrop.fade {
+  transition: opacity 0.15s linear;
+}
+
+/* ===================================
+   TOAST COMPONENT (Bootstrap 5 + Vuexy)
+   =================================== */
+
+/* Toast Variables */
+:root {
+  --toast-zindex: 1090;
+  --toast-padding-x: 0.75rem;
+  --toast-padding-y: 0.5rem;
+  --toast-spacing: 1rem;
+  --toast-max-width: 350px;
+  --toast-font-size: 0.875rem;
+  --toast-color: var(--gray-700);
+  --toast-bg: rgba(255, 255, 255, 0.95);
+  --toast-border-width: 1px;
+  --toast-border-color: rgba(0, 0, 0, 0.1);
+  --toast-border-radius: var(--radius-md);
+  --toast-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --toast-header-color: var(--gray-800);
+  --toast-header-bg: rgba(255, 255, 255, 0.95);
+  --toast-header-border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Toast Structure */
+.toast {
+  --bs-toast-zindex: var(--toast-zindex);
+  --bs-toast-padding-x: var(--toast-padding-x);
+  --bs-toast-padding-y: var(--toast-padding-y);
+  --bs-toast-spacing: var(--toast-spacing);
+  --bs-toast-max-width: var(--toast-max-width);
+  --bs-toast-font-size: var(--toast-font-size);
+  --bs-toast-color: var(--toast-color);
+  --bs-toast-bg: var(--toast-bg);
+  --bs-toast-border-width: var(--toast-border-width);
+  --bs-toast-border-color: var(--toast-border-color);
+  --bs-toast-border-radius: var(--toast-border-radius);
+  --bs-toast-box-shadow: var(--toast-box-shadow);
+  --bs-toast-header-color: var(--toast-header-color);
+  --bs-toast-header-bg: var(--toast-header-bg);
+  --bs-toast-header-border-color: var(--toast-header-border-color);
+
+  width: var(--bs-toast-max-width);
+  max-width: 100%;
+  font-size: var(--bs-toast-font-size);
+  color: var(--bs-toast-color);
+  pointer-events: auto;
+  background-color: var(--bs-toast-bg);
+  background-clip: padding-box;
+  border: var(--bs-toast-border-width) solid var(--bs-toast-border-color);
+  box-shadow: var(--bs-toast-box-shadow);
+  border-radius: var(--bs-toast-border-radius);
+}
+
+.toast.showing {
+  opacity: 0;
+}
+
+.toast:not(.show) {
+  display: none;
+}
+
+.toast.show {
+  display: block;
+  opacity: 1;
+}
+
+.toast.hide {
+  display: none;
+}
+
+/* Toast Container */
+.toast-container {
+  --bs-toast-zindex: var(--toast-zindex);
+  position: absolute;
+  z-index: var(--bs-toast-zindex);
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none;
+}
+
+.toast-container > .toast {
+  pointer-events: auto;
+}
+
+.toast-container > :not(:last-child) {
+  margin-bottom: var(--bs-toast-spacing);
+}
+
+/* Toast Header */
+.toast-header {
+  display: flex;
+  align-items: center;
+  padding: var(--bs-toast-padding-y) var(--bs-toast-padding-x);
+  color: var(--bs-toast-header-color);
+  background-color: var(--bs-toast-header-bg);
+  background-clip: padding-box;
+  border-bottom: var(--bs-toast-border-width) solid var(--bs-toast-header-border-color);
+  border-top-left-radius: calc(var(--bs-toast-border-radius) - var(--bs-toast-border-width));
+  border-top-right-radius: calc(var(--bs-toast-border-radius) - var(--bs-toast-border-width));
+  gap: 0.5rem;
+}
+
+.toast-header strong {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Toast Body */
+.toast-body {
+  padding: var(--bs-toast-padding-x);
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+/* Toast Color Variants - Vuexy Colors */
+.toast-primary {
+  --bs-toast-bg: rgba(115, 103, 240, 0.1);
+  --bs-toast-border-color: rgba(115, 103, 240, 0.25);
+  border-left: 4px solid var(--primary);
+}
+
+.toast-success {
+  --bs-toast-bg: rgba(40, 199, 111, 0.1);
+  --bs-toast-border-color: rgba(40, 199, 111, 0.25);
+  border-left: 4px solid var(--success);
+}
+
+.toast-warning {
+  --bs-toast-bg: rgba(255, 159, 67, 0.1);
+  --bs-toast-border-color: rgba(255, 159, 67, 0.25);
+  border-left: 4px solid var(--warning);
+}
+
+.toast-danger,
+.toast-error {
+  --bs-toast-bg: rgba(234, 84, 85, 0.1);
+  --bs-toast-border-color: rgba(234, 84, 85, 0.25);
+  border-left: 4px solid var(--danger);
+}
+
+.toast-info {
+  --bs-toast-bg: rgba(0, 207, 232, 0.1);
+  --bs-toast-border-color: rgba(0, 207, 232, 0.25);
+  border-left: 4px solid var(--info);
+}
+
+/* Toast Positioning Classes */
+.toast-container.position-fixed {
+  position: fixed;
+}
+
+.toast-container.position-absolute {
+  position: absolute;
+}
+
+.toast-container.top-0 {
+  top: 0;
+}
+
+.toast-container.top-50 {
+  top: 50%;
+}
+
+.toast-container.bottom-0 {
+  bottom: 0;
+}
+
+.toast-container.start-0 {
+  left: 0;
+}
+
+.toast-container.start-50 {
+  left: 50%;
+}
+
+.toast-container.end-0 {
+  right: 0;
+}
+
+.toast-container.p-3 {
+  padding: var(--spacing-md);
+}
+
+/* Toast Animations */
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.3s ease;
+}
+
+.toast-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.toast-leave-to {
+  opacity: 0;
+  transform: translateX(100px) scale(0.8);
+}
+
+/* Toast Mobile Responsive */
+@media (max-width: 768px) {
+  .toast-container {
+    width: 100%;
+    max-width: calc(100% - 1rem);
+  }
+
+  .toast {
+    width: 100%;
+  }
+}
