@@ -486,7 +486,7 @@ body {
   --modal-footer-bg: null;
   --modal-footer-border-color: var(--gray-200);
   --modal-footer-border-width: 1px;
-  
+
   --backdrop-zindex: 1050;
   --backdrop-bg: var(--black);
   --backdrop-opacity: 0.5;
@@ -676,6 +676,7 @@ body {
 }
 
 @media (min-width: 992px) {
+
   .modal-lg,
   .modal-xl {
     max-width: 800px;
@@ -781,11 +782,11 @@ body {
   pointer-events: none;
 }
 
-.toast-container > .toast {
+.toast-container>.toast {
   pointer-events: auto;
 }
 
-.toast-container > :not(:last-child) {
+.toast-container> :not(:last-child) {
   margin-bottom: var(--bs-toast-spacing);
 }
 
