@@ -235,11 +235,25 @@
       </form>
     </aside>
   </Transition>
+
+  <!-- Modal de Confirmação de Deleção -->
+  <EConfirmDialog
+    v-model="showDeleteConfirm"
+    title="Deletar Evento"
+    message="Tem certeza que deseja deletar este evento?"
+    description="Esta ação não pode ser desfeita."
+    variant="danger"
+    icon="delete"
+    confirm-text="Sim, deletar"
+    cancel-text="Cancelar"
+    @confirm="confirmDelete"
+    @cancel="showDeleteConfirm = false"
+  />
 </template>
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue'
-import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker } from './base'
+import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker, EConfirmDialog } from './base'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
 import { useToast } from '@/composables/useToast'
 import { 
@@ -279,6 +293,9 @@ const { showEventTime } = useFeatureFlags()
 
 // Toast Notifications
 const toast = useToast()
+
+// Delete Confirmation State
+const showDeleteConfirm = ref(false)
 
 // Helper: Get category data from CATEGORIES enum
 const getCategoryData = (categoryValue) => {
@@ -570,10 +587,17 @@ const closeDrawer = () => {
 
 // Delete event
 const handleDelete = () => {
-  // TODO: Substituir confirm() nativo por modal customizado
-  if (props.eventData && confirm('Tem certeza que deseja deletar este evento?')) {
+  if (props.eventData) {
+    showDeleteConfirm.value = true
+  }
+}
+
+// Confirm delete after modal confirmation
+const confirmDelete = () => {
+  if (props.eventData) {
     emit('delete', props.eventData.id)
     toast.success('Evento deletado com sucesso!', 3000)
+    showDeleteConfirm.value = false
     closeDrawer()
   }
 }
