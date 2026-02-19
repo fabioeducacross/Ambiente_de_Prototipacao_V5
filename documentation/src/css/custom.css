@@ -1,0 +1,493 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Import Montserrat Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Import Material Symbols */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+
+/* Vuexy Design System Color Palette */
+:root {
+  /* Typography */
+  --ifm-font-family-base: 'Montserrat', Helvetica, Arial, sans-serif;
+  --ifm-font-size-base: 18px; /* Increased from 16px default */
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-font-weight: 600;
+
+  /* Code Blocks */
+  --ifm-code-font-size: 95%;
+
+  /* Primary - Roxo Vuexy */
+  --ifm-color-primary: #7367F0;
+  --ifm-color-primary-dark: #5951E8;
+  --ifm-color-primary-darker: #4A42E6;
+  --ifm-color-primary-darkest: #2C21DB;
+  --ifm-color-primary-light: #8D83F3;
+  --ifm-color-primary-lighter: #9C93F5;
+  --ifm-color-primary-lightest: #BAB3F9;
+  
+  /* Success - Verde */
+  --ifm-color-success: #28C76F;
+  --ifm-color-success-dark: #24B263;
+  --ifm-color-success-darker: #22A95E;
+  --ifm-color-success-darkest: #1C8B4D;
+  --ifm-color-success-light: #3FD47F;
+  --ifm-color-success-lighter: #4FD988;
+  --ifm-color-success-lightest: #7DE3A4;
+  
+  /* Warning - Laranja */
+  --ifm-color-warning: #FF9F43;
+  --ifm-color-warning-dark: #FF8F24;
+  --ifm-color-warning-darker: #FF8610;
+  --ifm-color-warning-darkest: #E66D00;
+  --ifm-color-warning-light: #FFAF62;
+  --ifm-color-warning-lighter: #FFB976;
+  --ifm-color-warning-lightest: #FFCDA4;
+  
+  /* Danger - Vermelho */
+  --ifm-color-danger: #EA5455;
+  --ifm-color-danger-dark: #E83D3E;
+  --ifm-color-danger-darker: #E72F30;
+  --ifm-color-danger-darkest: #D41516;
+  --ifm-color-danger-light: #ED6B6C;
+  --ifm-color-danger-lighter: #EF7C7D;
+  --ifm-color-danger-lightest: #F4A3A4;
+  
+  /* Info - Ciano */
+  --ifm-color-info: #00CFE8;
+  --ifm-color-info-dark: #00BAD1;
+  --ifm-color-info-darker: #00B0C6;
+  --ifm-color-info-darkest: #0091A3;
+  --ifm-color-info-light: #1AD6EE;
+  --ifm-color-info-lighter: #2EDAF0;
+  --ifm-color-info-lightest: #63E4F5;
+  
+  /* GitHub-inspired Category Colors */
+  --color-intro: #0969DA;        /* Blue - Regras de Negócio */
+  --color-collab: #8250DF;       /* Purple - Documentação de Produto */
+  --color-devops: #1A7F37;       /* Green - Jornadas Educacionais */
+  --color-security: #D1242F;     /* Red - Setup & Desenvolvimento */
+  --color-management: #BF8700;   /* Orange - Personas & Contexto */
+  --color-support: #00CFE8;      /* Cyan - FAQ & Suporte */
+  
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(115, 103, 240, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  /* Primary - Roxo claro para dark mode */
+  --ifm-color-primary: #9E95F5;
+  --ifm-color-primary-dark: #8A7FF3;
+  --ifm-color-primary-darker: #7D71F1;
+  --ifm-color-primary-darkest: #5246EC;
+  --ifm-color-primary-light: #B2ABF7;
+  --ifm-color-primary-lighter: #BFB9F8;
+  --ifm-color-primary-lightest: #D9D5FB;
+  
+  /* Success - Verde mais claro */
+  --ifm-color-success: #34E57E;
+  --ifm-color-success-dark: #1FDE6B;
+  --ifm-color-success-darker: #1BD462;
+  --ifm-color-success-darkest: #13B04E;
+  --ifm-color-success-light: #49EC91;
+  --ifm-color-success-lighter: #58EF9A;
+  --ifm-color-success-lightest: #85F4B6;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(158, 149, 245, 0.2);
+}
+
+/* ========================================
+   VUEXY CUSTOM STYLES
+   ======================================== */
+
+/* Typography - Montserrat Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ifm-font-family-base: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --ifm-heading-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Layout */
+  --doc-sidebar-width: 280px;
+  --ifm-navbar-height: 60px;
+  
+  /* Heading Sizes - Refinados */
+  --ifm-h1-font-size: 2rem;     /* 32px - era ~42px */
+  --ifm-h2-font-size: 1.5rem;   /* 24px */
+  --ifm-h3-font-size: 1.25rem;  /* 20px */
+  --ifm-h4-font-size: 1.1rem;   /* ~18px */
+  --ifm-h5-font-size: 1rem;     /* 16px */
+}
+
+/* ========================================
+   TYPOGRAPHY REFINEMENTS
+   ======================================== */
+
+/* H1 - Título principal de página */
+article h1 {
+  font-size: var(--ifm-h1-font-size);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-heading-color);
+}
+
+/* H2 - Seções principais */
+article h2 {
+  font-size: var(--ifm-h2-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* H3 - Subseções */
+article h3 {
+  font-size: var(--ifm-h3-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ========================================
+   MATERIAL SYMBOLS - Tamanhos Maiores
+   ======================================== */
+
+/* Ícones inline em headings - proporcionais ao título */
+article h1 .material-symbols-outlined,
+h1 .material-symbols-outlined {
+  font-size: 1.8rem !important;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+article h2 .material-symbols-outlined,
+h2 .material-symbols-outlined {
+  font-size: 1.4rem !important;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+
+article h3 .material-symbols-outlined,
+h3 .material-symbols-outlined {
+  font-size: 1.2rem !important;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+/* Ícones em texto normal - um pouco maiores */
+p .material-symbols-outlined,
+li .material-symbols-outlined,
+td .material-symbols-outlined,
+span .material-symbols-outlined {
+  font-size: 1.1rem;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Ícones de status em tabelas - destaque visual */
+table td .material-symbols-outlined {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+
+/* ============================================
+   Círculos de Prioridade - Visual Destacado
+   ============================================ */
+
+/* Círculos de prioridade em headings - maiores e preenchidos */
+h1 .priority-circle,
+h2 .priority-circle,
+h3 .priority-circle {
+  font-size: 1.1rem !important;
+  font-variation-settings: 'FILL' 1 !important; /* Preenchido */
+  vertical-align: middle;
+}
+
+/* Círculos em texto normal e listas */
+p .priority-circle,
+li .priority-circle {
+  font-size: 0.9rem;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+
+/* Círculos em tabelas - um pouco maiores */
+table .priority-circle,
+td .priority-circle {
+  font-size: 1rem !important;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+}
+
+/* Círculos em badges */
+.badge .priority-circle {
+  font-size: 0.8rem !important;
+  font-variation-settings: 'FILL' 1 !important;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.375rem;
+}
+
+.badge-primary {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.badge-success {
+  background-color: var(--ifm-color-success);
+  color: white;
+}
+
+.badge-danger {
+  background-color: var(--ifm-color-danger);
+  color: white;
+}
+
+.badge-warning {
+  background-color: var(--ifm-color-warning);
+  color: white;
+}
+
+.badge-info {
+  background-color: var(--ifm-color-info);
+  color: white;
+}
+
+/* Feature Cards */
+.feature-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px 0 rgba(115, 103, 240, 0.3);
+  border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .feature-card:hover {
+  box-shadow: 0 8px 30px 0 rgba(158, 149, 245, 0.4);
+}
+
+/* Tables - Vuexy Style */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table thead tr {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+table thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+/* Admonitions - Vuexy Style */
+.admonition {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero--primary {
+  background: linear-gradient(135deg, #7367F0 0%, #9E95F5 100%);
+  color: white;
+}
+
+/* Mermaid Diagrams - Custom Theme */
+.docusaurus-mermaid-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Code Blocks - Vuexy Style */
+div[class^='codeBlockContainer'] {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Sidebar - Vuexy Style */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ifm-color-emphasis-300);
+}
+
+/* Navigation Pills */
+.pills {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pill {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background-color: var(--ifm-color-emphasis-200);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill:hover {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.pill.active {
+  background-color: var(--ifm-color-primary);
+  color: white;
+}
+
+/* Status Indicators */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.status-dot.active {
+  background-color: var(--ifm-color-success);
+}
+
+.status-dot.inactive {
+  background-color: var(--ifm-color-danger);
+}
+
+.status-dot.pending {
+  background-color: var(--ifm-color-warning);
+}
+
+/* ========================================
+   INLINE STATUS ICONS (substituir emojis)
+   ======================================== */
+
+/* Container para ícones inline com texto */
+.status-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.status-icon svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Variantes de status */
+.status-icon--done,
+.status-icon--check {
+  color: var(--ifm-color-success);
+}
+
+.status-icon--error,
+.status-icon--reject {
+  color: var(--ifm-color-danger);
+}
+
+.status-icon--warning,
+.status-icon--progress {
+  color: var(--ifm-color-warning);
+}
+
+.status-icon--info,
+.status-icon--planned {
+  color: var(--ifm-color-primary);
+}
+
+/* Círculos de prioridade */
+.priority-circle {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 0.25rem;
+}
+
+.priority-circle--high {
+  background-color: var(--ifm-color-danger);
+}
+
+.priority-circle--medium {
+  background-color: var(--ifm-color-warning);
+}
+
+.priority-circle--low {
+  background-color: var(--ifm-color-success);
+}
+
+/* Badge de status inline para tabelas */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-badge svg {
+  width: 14px;
+  height: 14px;
+}
+
+.status-badge--done {
+  background-color: rgba(40, 199, 111, 0.15);
+  color: var(--ifm-color-success);
+}
+
+.status-badge--progress {
+  background-color: rgba(255, 159, 67, 0.15);
+  color: var(--ifm-color-warning);
+}
+
+.status-badge--planned {
+  background-color: rgba(115, 103, 240, 0.15);
+  color: var(--ifm-color-primary);
+}
+
+.status-badge--error {
+  background-color: rgba(234, 84, 85, 0.15);
+  color: var(--ifm-color-danger);
+}

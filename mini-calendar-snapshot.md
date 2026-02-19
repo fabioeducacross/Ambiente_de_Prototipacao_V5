@@ -1,0 +1,306 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - button "Abrir menu" [ref=e7] [cursor=pointer]:
+      - generic [ref=e8]: menu
+    - link "Educacross" [ref=e10] [cursor=pointer]:
+      - /url: /
+      - img "Educacross" [ref=e11]
+    - generic [ref=e12]:
+      - button "Visão aluno" [ref=e13] [cursor=pointer]:
+        - generic [ref=e14]: person
+        - generic [ref=e15]: Visão aluno
+      - generic [ref=e16]:
+        - generic [ref=e17]: Isabela Cross
+        - generic [ref=e18]: Professor
+        - img "Avatar" [ref=e20]
+  - generic [ref=e21]:
+    - complementary [ref=e22]:
+      - navigation [ref=e23]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: Painel Inicial
+          - link "home Dashboard" [ref=e26] [cursor=pointer]:
+            - /url: /teacher
+            - generic [ref=e27]: home
+            - generic [ref=e28]: Dashboard
+        - generic [ref=e29]:
+          - generic [ref=e30]: Relatórios gerais
+          - button "pie_chart Acessos expand_more" [ref=e31] [cursor=pointer]:
+            - generic [ref=e32]: pie_chart
+            - generic [ref=e33]: Acessos
+            - generic [ref=e34]: expand_more
+          - button "pie_chart Evidências expand_more" [ref=e35] [cursor=pointer]:
+            - generic [ref=e36]: pie_chart
+            - generic [ref=e37]: Evidências
+            - generic [ref=e38]: expand_more
+          - button "graph_5 Habilidades expand_more" [ref=e39] [cursor=pointer]:
+            - generic [ref=e40]: graph_5
+            - generic [ref=e41]: Habilidades
+            - generic [ref=e42]: expand_more
+          - link "calendar_month Calendário" [ref=e43] [cursor=pointer]:
+            - /url: /teacher/calendar
+            - generic [ref=e44]: calendar_month
+            - generic [ref=e45]: Calendário
+        - generic [ref=e46]:
+          - generic [ref=e47]: Missões da Escola
+          - button "add_circle Criar Missão expand_more" [ref=e48] [cursor=pointer]:
+            - generic [ref=e49]: add_circle
+            - generic [ref=e50]: Criar Missão
+            - generic [ref=e51]: expand_more
+          - button "mountain_flag Missões expand_more" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: mountain_flag
+            - generic [ref=e54]: Missões
+            - generic [ref=e55]: expand_more
+          - button "frame_inspect Revisões expand_more" [ref=e56] [cursor=pointer]:
+            - generic [ref=e57]: frame_inspect
+            - generic [ref=e58]: Revisões
+            - generic [ref=e59]: expand_more
+        - generic [ref=e60]:
+          - generic [ref=e61]: Trilhas
+          - button "anchor BNCC" [ref=e62] [cursor=pointer]:
+            - generic [ref=e63]: anchor
+            - generic [ref=e64]: BNCC
+          - button "location_on SAEB" [ref=e65] [cursor=pointer]:
+            - generic [ref=e66]: location_on
+            - generic [ref=e67]: SAEB
+          - button "footprint Programa 32" [ref=e68] [cursor=pointer]:
+            - generic [ref=e69]: footprint
+            - generic [ref=e70]: Programa 32
+          - button "auto_stories Super Ensino" [ref=e71] [cursor=pointer]:
+            - generic [ref=e72]: auto_stories
+            - generic [ref=e73]: Super Ensino
+          - button "auto_stories COC" [ref=e74] [cursor=pointer]:
+            - generic [ref=e75]: auto_stories
+            - generic [ref=e76]: COC
+        - generic [ref=e77]:
+          - generic [ref=e78]: Avaliações
+          - button "thermostat Diagnósticas expand_more" [ref=e79] [cursor=pointer]:
+            - generic [ref=e80]: thermostat
+            - generic [ref=e81]: Diagnósticas
+            - generic [ref=e82]: expand_more
+          - button "quiz Somativas" [ref=e83] [cursor=pointer]:
+            - generic [ref=e84]: quiz
+            - generic [ref=e85]: Somativas
+          - button "checklist_rtl Simulados" [ref=e86] [cursor=pointer]:
+            - generic [ref=e87]: checklist_rtl
+            - generic [ref=e88]: Simulados
+          - button "mic Fluência Leitora" [ref=e89] [cursor=pointer]:
+            - generic [ref=e90]: mic
+            - generic [ref=e91]: Fluência Leitora
+          - button "checkbook Testes de Escrita" [ref=e92] [cursor=pointer]:
+            - generic [ref=e93]: checkbook
+            - generic [ref=e94]: Testes de Escrita
+        - generic [ref=e95]:
+          - generic [ref=e96]: Olimpíadas
+          - button "emoji_events Olimpíadas" [ref=e97] [cursor=pointer]:
+            - generic [ref=e98]: emoji_events
+            - generic [ref=e99]: Olimpíadas
+        - generic [ref=e100]:
+          - generic [ref=e101]: Educateca
+          - button "auto_stories Educateca" [ref=e102] [cursor=pointer]:
+            - generic [ref=e103]: auto_stories
+            - generic [ref=e104]: Educateca
+        - generic [ref=e105]:
+          - generic [ref=e106]: Expedições
+          - button "airplane_ticket Expedição Leitura expand_more" [ref=e107] [cursor=pointer]:
+            - generic [ref=e108]: airplane_ticket
+            - generic [ref=e109]: Expedição Leitura
+            - generic [ref=e110]: expand_more
+          - button "explore Expedição Aprendizagem expand_more" [ref=e111] [cursor=pointer]:
+            - generic [ref=e112]: explore
+            - generic [ref=e113]: Expedição Aprendizagem
+            - generic [ref=e114]: expand_more
+        - generic [ref=e115]:
+          - generic [ref=e116]: Formação e Apoio
+          - button "folder_open Ajudas e Materiais expand_more" [ref=e117] [cursor=pointer]:
+            - generic [ref=e118]: folder_open
+            - generic [ref=e119]: Ajudas e Materiais
+            - generic [ref=e120]: expand_more
+          - button "account_balance Academia Educacross expand_more" [ref=e121] [cursor=pointer]:
+            - generic [ref=e122]: account_balance
+            - generic [ref=e123]: Academia Educacross
+            - generic [ref=e124]: expand_more
+        - generic [ref=e125]:
+          - generic [ref=e126]: Jornada Super
+          - button "swords Desafios" [ref=e127] [cursor=pointer]:
+            - generic [ref=e128]: swords
+            - generic [ref=e129]: Desafios
+          - button "trophy Ranking" [ref=e130] [cursor=pointer]:
+            - generic [ref=e131]: trophy
+            - generic [ref=e132]: Ranking
+          - button "shopping_cart Loja" [ref=e133] [cursor=pointer]:
+            - generic [ref=e134]: shopping_cart
+            - generic [ref=e135]: Loja
+          - button "crown Especiais" [ref=e136] [cursor=pointer]:
+            - generic [ref=e137]: crown
+            - generic [ref=e138]: Especiais
+        - generic [ref=e139]:
+          - generic [ref=e140]: Administração
+          - button "sentiment_satisfied Alunos" [ref=e141] [cursor=pointer]:
+            - generic [ref=e142]: sentiment_satisfied
+            - generic [ref=e143]: Alunos
+          - button "person_play Permissões" [ref=e144] [cursor=pointer]:
+            - generic [ref=e145]: person_play
+            - generic [ref=e146]: Permissões
+    - generic [ref=e148]:
+      - complementary [ref=e149]:
+        - button " Adicionar Evento" [ref=e150] [cursor=pointer]:
+          - generic [ref=e151]: 
+          - text: Adicionar Evento
+        - generic [ref=e152]:
+          - generic [ref=e153]:
+            - generic [ref=e154]: janeiro de 2022
+            - generic [ref=e155]:
+              - button "Mês anterior" [ref=e156] [cursor=pointer]:
+                - generic [ref=e157]: chevron_left
+              - button "Próximo mês" [ref=e158] [cursor=pointer]:
+                - generic [ref=e159]: chevron_right
+          - generic [ref=e160]:
+            - generic [ref=e161]: Dom
+            - generic [ref=e162]: Seg
+            - generic [ref=e163]: Ter
+            - generic [ref=e164]: Qua
+            - generic [ref=e165]: Qui
+            - generic [ref=e166]: Sex
+            - generic [ref=e167]: Sab
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e170] [cursor=pointer]: "26"
+              - generic [ref=e171] [cursor=pointer]: "27"
+              - generic [ref=e172] [cursor=pointer]: "28"
+              - generic [ref=e173] [cursor=pointer]: "29"
+              - generic [ref=e174] [cursor=pointer]: "30"
+              - generic [ref=e175] [cursor=pointer]: "31"
+              - generic [ref=e176] [cursor=pointer]: "1"
+            - generic [ref=e177]:
+              - generic [ref=e178] [cursor=pointer]: "2"
+              - generic [ref=e179] [cursor=pointer]: "3"
+              - generic [ref=e180] [cursor=pointer]: "4"
+              - generic [ref=e181] [cursor=pointer]: "5"
+              - generic [ref=e182] [cursor=pointer]: "6"
+              - generic [ref=e183] [cursor=pointer]: "7"
+              - generic [ref=e184] [cursor=pointer]: "8"
+            - generic [ref=e185]:
+              - generic [ref=e186] [cursor=pointer]: "9"
+              - generic [ref=e187] [cursor=pointer]: "10"
+              - generic [ref=e188] [cursor=pointer]: "11"
+              - generic [ref=e189] [cursor=pointer]: "12"
+              - generic [ref=e190] [cursor=pointer]: "13"
+              - generic [ref=e191] [cursor=pointer]: "14"
+              - generic [ref=e192] [cursor=pointer]: "15"
+            - generic [ref=e193]:
+              - generic [ref=e194] [cursor=pointer]: "16"
+              - generic [ref=e195] [cursor=pointer]: "17"
+              - generic [ref=e196] [cursor=pointer]: "18"
+              - generic [ref=e197] [cursor=pointer]: "19"
+              - generic [ref=e198] [cursor=pointer]: "20"
+              - generic [ref=e199] [cursor=pointer]: "21"
+              - generic [ref=e200] [cursor=pointer]: "22"
+            - generic [ref=e201]:
+              - generic [ref=e202] [cursor=pointer]: "23"
+              - generic [ref=e203] [cursor=pointer]: "24"
+              - generic [ref=e204] [cursor=pointer]: "25"
+              - generic [ref=e205] [cursor=pointer]: "26"
+              - generic [ref=e206] [cursor=pointer]: "27"
+              - generic [ref=e207] [cursor=pointer]: "28"
+              - generic [ref=e208] [cursor=pointer]: "29"
+            - generic [ref=e209]:
+              - generic [ref=e210] [cursor=pointer]: "30"
+              - generic [ref=e211] [cursor=pointer]: "31"
+              - generic [ref=e212] [cursor=pointer]: "1"
+              - generic [ref=e213] [cursor=pointer]: "2"
+              - generic [ref=e214] [cursor=pointer]: "3"
+              - generic [ref=e215] [cursor=pointer]: "4"
+              - generic [ref=e216] [cursor=pointer]: "5"
+        - generic [ref=e217]:
+          - generic [ref=e218]: Atividades
+          - generic [ref=e219]:
+            - generic [ref=e220] [cursor=pointer]:
+              - generic [ref=e222]:
+                - checkbox "check Missões" [checked]
+                - generic [ref=e224]: check
+              - generic [ref=e225]: Missões
+            - generic [ref=e226] [cursor=pointer]:
+              - generic [ref=e228]:
+                - checkbox "check Olimpíadas" [checked]
+                - generic [ref=e230]: check
+              - generic [ref=e231]: Olimpíadas
+            - generic [ref=e232] [cursor=pointer]:
+              - generic [ref=e234]:
+                - checkbox "check Avaliações" [checked]
+                - generic [ref=e236]: check
+              - generic [ref=e237]: Avaliações
+            - generic [ref=e238] [cursor=pointer]:
+              - generic [ref=e240]:
+                - checkbox "check Trilhas" [checked]
+                - generic [ref=e242]: check
+              - generic [ref=e243]: Trilhas
+            - generic [ref=e244] [cursor=pointer]:
+              - generic [ref=e246]:
+                - checkbox "check Expedições" [checked]
+                - generic [ref=e248]: check
+              - generic [ref=e249]: Expedições
+      - generic [ref=e250]:
+        - generic [ref=e251]:
+          - generic [ref=e252]:
+            - button "Período anterior" [ref=e253] [cursor=pointer]:
+              - generic [ref=e254]: chevron_left
+            - button "Próximo período" [ref=e255] [cursor=pointer]:
+              - generic [ref=e256]: chevron_right
+          - heading "janeiro de 2022" [level=2] [ref=e257]
+          - generic [ref=e258]:
+            - button "Mês" [ref=e259] [cursor=pointer]
+            - button "Semana" [ref=e260] [cursor=pointer]
+            - button "Dia" [ref=e261] [cursor=pointer]
+            - button "Lista" [ref=e262] [cursor=pointer]
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]: Dom.
+            - generic [ref=e269]: Seg.
+            - generic [ref=e270]: Ter.
+            - generic [ref=e271]: Qua.
+            - generic [ref=e272]: Qui.
+            - generic [ref=e273]: Sex.
+            - generic [ref=e274]: Sáb.
+          - generic [ref=e275]:
+            - generic [ref=e277] [cursor=pointer]: "26"
+            - generic [ref=e279] [cursor=pointer]: "27"
+            - generic [ref=e281] [cursor=pointer]: "28"
+            - generic [ref=e283] [cursor=pointer]: "29"
+            - generic [ref=e285] [cursor=pointer]: "30"
+            - generic [ref=e287] [cursor=pointer]: "31"
+            - generic [ref=e289] [cursor=pointer]: "1"
+            - generic [ref=e291] [cursor=pointer]: "2"
+            - generic [ref=e293] [cursor=pointer]: "3"
+            - generic [ref=e295] [cursor=pointer]: "4"
+            - generic [ref=e297] [cursor=pointer]: "5"
+            - generic [ref=e299] [cursor=pointer]: "6"
+            - generic [ref=e301] [cursor=pointer]: "7"
+            - generic [ref=e303] [cursor=pointer]: "8"
+            - generic [ref=e305] [cursor=pointer]: "9"
+            - generic [ref=e307] [cursor=pointer]: "10"
+            - generic [ref=e309] [cursor=pointer]: "11"
+            - generic [ref=e311] [cursor=pointer]: "12"
+            - generic [ref=e313] [cursor=pointer]: "13"
+            - generic [ref=e315] [cursor=pointer]: "14"
+            - generic [ref=e317] [cursor=pointer]: "15"
+            - generic [ref=e319] [cursor=pointer]: "16"
+            - generic [ref=e321] [cursor=pointer]: "17"
+            - generic [ref=e323] [cursor=pointer]: "18"
+            - generic [ref=e325] [cursor=pointer]: "19"
+            - generic [ref=e327] [cursor=pointer]: "20"
+            - generic [ref=e329] [cursor=pointer]: "21"
+            - generic [ref=e331] [cursor=pointer]: "22"
+            - generic [ref=e333] [cursor=pointer]: "23"
+            - generic [ref=e335] [cursor=pointer]: "24"
+            - generic [ref=e337] [cursor=pointer]: "25"
+            - generic [ref=e339] [cursor=pointer]: "26"
+            - generic [ref=e341] [cursor=pointer]: "27"
+            - generic [ref=e343] [cursor=pointer]: "28"
+            - generic [ref=e345] [cursor=pointer]: "29"
+            - generic [ref=e347] [cursor=pointer]: "30"
+            - generic [ref=e349] [cursor=pointer]: "31"
+            - generic [ref=e351] [cursor=pointer]: "1"
+            - generic [ref=e353] [cursor=pointer]: "2"
+            - generic [ref=e355] [cursor=pointer]: "3"
+            - generic [ref=e357] [cursor=pointer]: "4"
+            - generic [ref=e359] [cursor=pointer]: "5"

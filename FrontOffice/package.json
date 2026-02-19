@@ -1,0 +1,27 @@
+{
+  "name": "educacross-frontoffice",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "FrontOffice Educacross - Protótipos de Jornadas com Design System Vuexy",
+  "scripts": {
+    "dev": "vite --port 5174",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.4",
+    "autoprefixer": "^10.4.24",
+    "vite": "^7.3.1",
+    "vue": "^3.5.28",
+    "vue-router": "^5.0.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@vuepic/vue-datepicker": "^12.1.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "bootstrap-vue-next": "^0.43.1",
+    "flatpickr": "^4.6.13",
+    "vue-flatpickr-component": "^12.0.0"
+  }
+}

@@ -54,6 +54,12 @@ npm run build
 npm run preview
 ```
 
+### Publicação (GitHub Pages)
+
+1. Faça push para `v1.1` ou `main` (ou use **Run workflow** no GitHub Actions para `Deploy Vite to GitHub Pages`).
+2. O workflow executa `npm ci` + `npm run build` e publica o conteúdo de `dist`.
+3. Acesse a versão pública em https://fabioeducacross.github.io/Ambiente_de_Prototipacao_V5/.
+
 ## 📁 Estrutura do Projeto
 
 ```

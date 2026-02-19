@@ -1,0 +1,609 @@
+---
+sidebar_position: 2
+title: Missões do Livro
+---
+
+# Missões do Livro do Sistema Educacional
+
+## 📋 Informações Básicas
+
+| Campo | Valor |
+|-------|-------|
+| **ID da Jornada** | `PROF-002` |
+| **Título** | Visualizar e Gerenciar Missões de um Livro |
+| **Contexto** | Professor / Teacher Context |
+| **Persona** | Professora Maria - 35 anos, ensina Matemática para 5º ano |
+| **Prioridade** | 🔴 Alta |
+| **Status** | 📝 Documentado - Aguardando Protótipo |
+| **Última Atualização** | 2026-02-03 |
+
+## 🎯 Objetivo da Jornada
+
+Após selecionar um livro, a professora Maria precisa visualizar todas as missões (atividades) daquele livro, acompanhar o progresso e rendimento da turma em cada missão, e realizar ações de gestão como habilitar, pausar ou visualizar detalhes de missões.
+
+**O que a professora quer alcançar:**
+- Ver lista completa de missões do livro selecionado
+- Identificar missões já habilitadas vs não habilitadas
+- Visualizar progresso (% de alunos que fizeram) e rendimento (% de acertos) por missão
+- Habilitar novas missões para a turma
+- Pausar missões em andamento
+- Acessar detalhes e link de compartilhamento de missões
+- Filtrar missões por unidade do livro e status
+
+## 👤 Persona
+
+**Nome**: Maria Silva  
+**Papel**: Professora de Matemática - 5º ano  
+**Contexto**: Acaba de clicar em um livro de Geometria e quer habilitar a próxima missão  
+**Experiência**: Intermediária com tecnologia, usa plataforma diariamente
+
+**Necessidades:**
+- Visão clara do status de cada missão (habilitada, pausada, não enviada)
+- Ações rápidas para habilitar/pausar missões
+- Compartilhar link de missão com alunos facilmente
+- Filtrar missões por capítulo/unidade do livro
+- Ver quais são "Missões Plus" (premium)
+
+## 📍 Contexto de Entrada
+
+**Pré-condições:**
+- Professora navegou de "Livros do Sistema Educacional" ([PROF-001](/docs/journeys/teacher/education-system-books))
+- Livro específico selecionado (ex: "Geometria Básica")
+- Turma e disciplina já selecionadas nos filtros globais
+- Sistema educacional configurado
+
+**Ponto de entrada:**
+- Origem: Clique no card de livro ou botão "Ver Missões" (PROF-001)
+- Rota: `/education-system/missions/:bookId`
+- Breadcrumb: `[Sistema Educacional] > [Nome do Livro]`
+- Filtro global `book` definido: `{ id: bookId, name: 'Nome do Livro' }`
+
+## 🗺️ Fluxo AS-IS (Estado Atual)
+
+### Diagrama de Fluxo
+
+```mermaid
+graph TD
+    A[Origem: Grid de Livros PROF-001] --> B[Clica em livro Geometria]
+    B --> C[Sistema carrega Missões do Livro]
+    C --> D[Visualiza Filtros: Unidade + Status]
+    D --> E[Visualiza Tabela de Missões]
+    E --> F{Quer filtrar?}
+    F -->|Sim| G[Seleciona Unidade ou Status]
+    G --> H[Tabela atualiza com filtro]
+    F -->|Não| I{Qual ação?}
+    H --> I
+    I -->|Habilitar| J[Clica ícone play na missão]
+    I -->|Pausar| K[Clica ícone pause na missão]
+    I -->|Ver Detalhes| L[Clica ícone visibility]
+    I -->|Copiar Link| M[Clica ícone link]
+    I -->|Abrir Missão| N[Clica no nome da missão]
+    J --> O[Modal: Confirmar habilitação]
+    O --> P[Missão habilitada, status atualiza]
+    K --> Q[Modal: Confirmar pausa]
+    Q --> R[Missão pausada, status atualiza]
+    L --> S[Modal: Detalhes da missão]
+    M --> T[Link copiado, tooltip feedback]
+    N --> U[Redireciona para tela de exercícios]
+    P --> V[Fim]
+    R --> V
+    S --> V
+    T --> V
+    U --> V
+```
+
+### Passos Detalhados
+
+1. **Carregamento da Página de Missões**
+   - Descrição: Sistema busca e exibe missões do livro selecionado
+   - Tela: `missions/Index.vue` com componentes `Filters.vue`, `List.vue`, `Title.vue`
+   - Ações do sistema:
+     - Registra módulo Vuex `EducationSystemMissions`
+     - Define `book.value = { id: bookId, name: '' }`
+     - Define `mission.value = { id: null, name: 'Todas as missões' }`
+     - Atualiza breadcrumb: `[Sistema Educacional] > [Nome do Livro]`
+     - Chama API para buscar missões: `fetchDetails()`
+   - Dados carregados: Lista de missões com progresso, rendimento, status
+
+2. **Visualização dos Filtros**
+   - Descrição: Filtros permitem refinar visualização das missões
+   - Componente: `Filters.vue`
+   - Filtros disponíveis:
+     - **Unidades do livro**: Dropdown com capítulos/unidades (ex: "Unidade 1", "Unidade 2", "Todas")
+     - **Status**: Dropdown com opções (Todas, Não enviada, Não iniciada, Em andamento, Pausada, Finalizada)
+   - Comportamento: Alteração de filtro dispara `resetAndfetch()` que atualiza tabela
+
+3. **Visualização da Tabela de Missões**
+   - Descrição: Tabela exibe todas as missões com indicadores visuais
+   - Componente: `List.vue` com `ListTableLocalSorting`
+   - Colunas da tabela:
+     - **Nome**: Nome da missão + badge "Missão Plus" (se premium)
+     - **Progresso**: Barra horizontal com % de alunos que fizeram (cores: verde/amarelo/vermelho)
+     - **Rendimento**: Badge colorido com % de acertos médios
+     - **Status**: Badge pill (Não enviada, Habilitada, Pausada, Finalizada)
+     - **Ações**: Ícones clicáveis (play, pause, visibility, link)
+   - Funcionalidades:
+     - Busca por nome de missão (search bar)
+     - Ordenação por colunas (clique no header)
+     - Scroll interno (não paginada, usa `ListTableLocalSorting`)
+
+4. **Ações Disponíveis por Missão**
+   
+   **4.1. Habilitar Missão** (ícone `play_arrow`)
+   - Condição: Missão com status "Não enviada" ou "Pausada"
+   - Ação: Clique abre modal `EducationSystemMissionsEnableModal`
+   - Modal contém: Confirmação + opção de agendar data/hora
+   - Resultado: Missão habilitada, status muda para "Habilitada", alunos podem acessar
+
+   **4.2. Pausar Missão** (ícone `pause`)
+   - Condição: Missão com status "Habilitada" ou "Em andamento"
+   - Ação: Clique abre modal de confirmação `ModalConfirm`
+   - Modal contém: "Tem certeza que deseja pausar? A missão será ocultada para [Turma]"
+   - Resultado: Missão pausada, alunos não veem mais
+
+   **4.3. Ver Detalhes** (ícone `visibility`)
+   - Condição: Missões Plus (premium)
+   - Ação: Clique abre modal `MissionBookDetails`
+   - Modal contém: Descrição da missão, objetivos, questões, preview
+   - Resultado: Professora visualiza conteúdo sem habilitar
+
+   **4.4. Copiar Link** (ícone `link`)
+   - Condição: Missão com status "Habilitada" e possui `guideLinkUrl`
+   - Ação: Clique copia URL para clipboard
+   - Feedback: Tooltip verde "Link copiado" por 2 segundos
+   - Resultado: Professora pode compartilhar link em WhatsApp/Google Classroom
+
+   **4.5. Abrir Missão** (clique no nome)
+   - Condição: Qualquer missão
+   - Ação: Redireciona para tela de exercícios da missão
+   - Destino: `/education-system/mission/:missionId/exercises`
+   - Resultado: Visualiza questões individuais da missão
+
+5. **Feedback Visual e Legendas**
+   - Descrição: Indicadores coloridos auxiliam interpretação rápida
+   - Legendas exibidas embaixo da tabela (`LegendEnum`):
+     - **Progresso**: Verde (`>70%`), Amarelo (`30-70%`), Vermelho (`<30%`)
+     - **Rendimento**: Verde (`>70%`), Amarelo (`40-70%`), Vermelho (`<40%`)
+   - Badge "Missão Plus": Identifica missões premium com ícone especial
+
+### Telas do Fluxo Atual
+
+**Tela 1: Lista de Missões com Filtros**
+- Componente: `src/views/pages/teacher-context/educationSystem/missions/Index.vue`
+- Sub-componentes:
+  - `Title.vue` - Breadcrumb e título do livro
+  - `Filters.vue` - Card com filtros (Unidade + Status)
+  - `List.vue` - Tabela com missões
+  - `LegendEnum.vue` - Legendas de progresso e rendimento
+- Rota: `/education-system/missions/:bookId`
+- Estado Vuex: `store.state.EducationSystemMissions`
+
+<!-- IMAGEM: Screenshot da tela completa de missões -->
+<!-- Capturar de: educacross-frontoffice rodando localmente -->
+<!-- URL: /education-system/missions/:bookId -->
+<!-- Mostrar: Filtros no topo, tabela com múltiplas missões, legendas embaixo -->
+![Screenshot AS-IS: Lista de Missões do Livro](../../../static/img/screenshots/prof-002-mission-list-as-is.png)
+
+**Detalhe: Linha da Tabela com Ações**
+<!-- IMAGEM: Close-up de uma linha da tabela -->
+<!-- Mostrar: Nome da missão, barra de progresso, badge de rendimento, status, ícones de ação -->
+![Screenshot AS-IS: Linha de Missão com Ações](../../../static/img/screenshots/prof-002-mission-row-detail.png)
+
+**Modal: Habilitar Missão**
+<!-- IMAGEM: Screenshot do modal de habilitação -->
+<!-- Mostrar: Modal com título, campo de data/hora, botões Cancelar/Confirmar -->
+![Screenshot AS-IS: Modal de Habilitar Missão](../../../static/img/screenshots/prof-002-enable-modal.png)
+
+**Modal: Detalhes Missão Plus**
+<!-- IMAGEM: Screenshot do modal de detalhes -->
+<!-- Mostrar: Modal com descrição, objetivos, preview de questões -->
+![Screenshot AS-IS: Modal de Detalhes Missão Plus](../../../static/img/screenshots/prof-002-details-modal.png)
+
+## 😓 Pontos de Dor (Pain Points)
+
+### 1. Ausência de Visão de Sequência Pedagógica
+- **Descrição**: Missões são listadas em tabela linear sem indicar ordem sugerida ou pré-requisitos
+- **Impacto**: Alto
+- **Frequência**: Sempre
+- **Evidência**: Tabela ordenável por qualquer coluna, mas sem indicador de "próxima missão sugerida"
+- **Citação do usuário**: _"Não sei qual missão devo habilitar primeiro. Elas têm uma ordem certa?"_
+
+### 2. Filtro de Status com Muitas Opções Pouco Usadas
+- **Descrição**: Dropdown de status tem 6 opções, mas professoras usam principalmente "Todas" e "Não enviada"
+- **Impacto**: Baixo
+- **Frequência**: Frequente
+- **Evidência**: Código mostra 6 status, UX research indica foco em 2-3
+- **Citação do usuário**: _"Só quero ver as que posso habilitar agora. O resto não importa muito."_
+
+### 3. Ações Pouco Descobríveis em Ícones Pequenos
+- **Descrição**: Ícones de ação (play, pause, visibility, link) são pequenos e sem texto, dependem de tooltip
+- **Impacto**: Médio
+- **Frequência**: Ocasional (usuários novos)
+- **Evidência**: Ícones Material Symbols sem labels, tooltip apenas ao hover
+- **Citação do usuário**: _"No começo eu não sabia que tinha como copiar o link. Achei por acaso."_
+
+### 4. Falta de Contexto sobre "Missão Plus"
+- **Descrição**: Badge "Missão Plus" aparece mas não explica o que é (conteúdo premium) até clicar
+- **Impacto**: Baixo
+- **Frequência**: Ocasional
+- **Evidência**: Badge com ícone e texto, mas sem tooltip explicativo
+- **Citação do usuário**: _"O que é Missão Plus? É melhor que as outras?"_
+
+### 5. Processo de Habilitar é Lento para Múltiplas Missões
+- **Descrição**: Para habilitar 5 missões, precisa clicar → modal → confirmar → fechar, 5 vezes
+- **Impacto**: Alto
+- **Frequência**: Frequente (início de bimestre)
+- **Evidência**: Modal individual para cada missão
+- **Citação do usuário**: _"Queria poder marcar várias e habilitar todas de uma vez."_
+
+### Métricas do Problema
+
+| Métrica | Valor Atual | Objetivo Ideal |
+|---------|-------------|----------------|
+| Tempo para habilitar 5 missões | 2 minutos | 30 segundos |
+| Taxa de uso do filtro de unidade | 35% | 70% |
+| Cliques até copiar link | 2 cliques | 1 clique |
+| Taxa de descoberta de ação "link" | 45% (usuários novos) | 90% |
+| Dúvidas sobre ordem pedagógica | 8 tickets/mês | 2 tickets/mês |
+
+---
+
+## � Referências
+
+### Documentação Relacionada
+
+- [Jornada: Livros do Sistema Educacional](/docs/journeys/teacher/education-system-books) - PROF-001 (origem)
+- Jornada: Exercícios da Missão (PROF-003 - documentação em breve) - Destino ao clicar no nome
+- Filtros Globais useFilters (documentação em breve) - Sistema de filtros
+- Padrão DDD (documentação em breve) - Arquitetura
+
+### Recursos Externos
+
+- [Design System Vuexy - Tables](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+- [Bootstrap Icons - Education](https://icons.getbootstrap.com/?q=book)
+- [Material Symbols - Actions](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:play_arrow)
+
+### Código Fonte AS-IS
+
+**Arquivos de Referência (educacross-frontoffice)**:  
+- `src/views/pages/teacher-context/educationSystem/missions/Index.vue`
+- `src/views/pages/teacher-context/educationSystem/missions/List.vue`
+- `src/views/pages/teacher-context/educationSystem/missions/Filters.vue`
+- `src/store/pageModules/educationSystem/module-education-system-missions.js`
+- `src/views/pages/teacher-context/educationSystem/missions/useEducationSystemMissions.js`
+
+---
+
+## 📅 Histórico de Mudanças
+
+| Data | Versão | Autor | Mudanças |
+|------|--------|-------|----------|
+| 2026-02-03 | 1.0 | Fábio Educacross | Criação inicial da documentação AS-IS |
+
+## 🔗 Referências
+   - **Como é hoje**: Apenas tabela linear
+   - **Como será**: Toggle entre "Lista" (tabela atual) e "Sequência" (cards com fluxo linear)
+   - **Benefício**: Professora vê ordem pedagógica sugerida, identifica próxima missão facilmente
+
+2. **Habilitação em Lote com Checkbox**
+   - **Como é hoje**: Habilitar uma por vez (modal individual)
+   - **Como será**: Checkbox para selecionar múltiplas missões + botão "Habilitar Selecionadas" (modal único)
+   - **Benefício**: Habilitar 5 missões em 30 segundos vs 2 minutos
+
+3. **Ações com Labels e Melhor Hierarquia**
+   - **Como é hoje**: Ícones sem texto, todos com mesmo peso visual
+   - **Como será**: 
+     - Ação primária: Botão "Habilitar" / "Pausar" com texto
+     - Ações secundárias: Dropdown "..." com labels (Copiar Link, Ver Detalhes)
+   - **Benefício**: Descobribilidade de 45% → 90%
+
+4. **Indicador de "Próxima Sugerida"**
+   - **Como é hoje**: Nenhuma indicação de ordem
+   - **Como será**: Badge "Próxima" na missão sugerida, ícone de cadeado nas futuras
+   - **Benefício**: Reduz dúvidas sobre sequência pedagógica
+
+5. **Tooltip Informativo em "Missão Plus"**
+   - **Como é hoje**: Badge sem explicação
+   - **Como será**: Tooltip ao hover: "Conteúdo exclusivo com questões autorais e feedback rico"
+   - **Benefício**: Contexto imediato sem sair da tela
+
+### Diagrama de Fluxo TO-BE
+
+```mermaid
+graph TD
+    A[Origem: Grid de Livros] --> B[Clica em livro]
+    B --> C[Visualiza Missões - Modo Sequência padrão]
+    C --> D{Ver como?}
+    D -->|Sequência| E[Cards com ordem linear + Próxima destacada]
+    D -->|Lista| F[Tabela tradicional com checkboxes]
+    E --> G{Quer habilitar?}
+    F --> G
+    G -->|Uma| H[Clica botão Habilitar na missão]
+    G -->|Múltiplas| I[Marca checkboxes + Habilitar Selecionadas]
+    H --> J[Modal único com resumo]
+    I --> J
+    J --> K[Confirma - Missões habilitadas em lote]
+    K --> L{Copiar links?}
+    L -->|Sim| M[Clica ... > Copiar Link no dropdown]
+    L -->|Não| N[Fim]
+    M --> O[Link copiado, feedback visual]
+    O --> N
+```
+
+### Wireframes/Mockups
+
+**Wireframe 1: Modo Sequência (Novo) - ASCII**
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Livro: Geometria Básica                                      │
+│ Visualização: [Sequência] [Lista]          🔍 Buscar missão │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│ ┌─────────────┐      ┌─────────────┐      ┌─────────────┐ │
+│ │ ✅ Missão 1 │──────│ 🎯 Missão 2 │──────│ 🔒 Missão 3 │ │
+│ │ Triângulos  │      │ Quadriláteros│     │ Círculos    │ │
+│ │ ████ 95%    │      │ PRÓXIMA     │      │ Bloqueada   │ │
+│ │ 🟢 88%      │      │ ░░░░ 0%     │      │             │ │
+│ │ [Concluída] │      │[Habilitar]  │      │             │ │
+│ └─────────────┘      └─────────────┘      └─────────────┘ │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+<!-- IMAGEM: Mockup completo do modo Sequência -->
+<!-- Criar em Figma mostrando cards horizontais com linha conectora -->
+<!-- Destacar card "Próxima" com brilho/shadow -->
+![Mockup TO-BE: Modo Visualização Sequência](../../../static/img/mockups/prof-002-sequence-view.png)
+
+**Wireframe 2: Lista com Checkboxes e Ações - ASCII**
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Visualização: [Sequência] [Lista]    [✓ Habilitar 3 selecionadas]│
+├───┬──────────────────┬─────────┬─────────┬─────────┬───────┤
+│ ☐ │ Nome             │Progresso│Rendimento│ Status │ Ações │
+├───┼──────────────────┼─────────┼─────────┼─────────┼───────┤
+│ ☑ │ Missão 2         │░░░░ 0%  │   -     │Não env. │[Habilitar]│
+│ ☑ │ Missão 3         │░░░░ 0%  │   -     │Não env. │[Habilitar]│
+│ ☑ │ Missão 4 Plus🔷  │░░░░ 0%  │   -     │Não env. │[Habilitar]│
+│ ☐ │ Missão 1         │████ 95% │🟢 88%   │Concluída│[...]   │
+└───┴──────────────────┴─────────┴─────────┴─────────┴───────┘
+```
+
+<!-- IMAGEM: Mockup da tabela com checkboxes -->
+<!-- Mostrar 3 linhas selecionadas + botão "Habilitar Selecionadas" no topo -->
+![Mockup TO-BE: Lista com Seleção Múltipla](../../../static/img/mockups/prof-002-list-with-checkboxes.png)
+
+**Wireframe 3: Dropdown de Ações Secundárias - ASCII**
+```
+┌──────────────┐
+│ Missão 1     │
+│ ████ 95%     │
+│ 🟢 88%       │
+│ [Concluída]  │
+│ [...] ▼      │ ← Click
+└─┬────────────┘
+  │ ┌─────────────────────────┐
+  └▶│ 📋 Copiar Link         │
+    │ 👁️ Ver Detalhes         │
+    │ 📊 Ver Relatório        │
+    │ 📤 Compartilhar         │
+    └─────────────────────────┘
+```
+
+<!-- IMAGEM: Mockup do dropdown aberto -->
+<!-- Mostrar menu com ícones + labels -->
+![Mockup TO-BE: Dropdown de Ações Secundárias](../../../static/img/mockups/prof-002-actions-dropdown.png)
+
+**Modal: Habilitação em Lote**
+<!-- IMAGEM: Mockup do modal de habilitação múltipla -->
+<!-- Mostrar: Lista das missões selecionadas, data/hora única, botão confirmar -->
+![Mockup TO-BE: Modal de Habilitação em Lote](../../../static/img/mockups/prof-002-batch-enable-modal.png)
+
+### Componentes do Design System
+
+Componentes Vuexy que serão utilizados:
+
+- **Toggle/Switch**: Para alternar entre Lista e Sequência
+  - Link: [Storybook Toggle](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+  - Uso: Switcher de modo de visualização
+
+- **Card com Timeline**: Para modo Sequência
+  - Link: [Storybook Card](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+  - Uso: Cards conectados horizontalmente com linha
+
+- **Checkbox Group**: Para seleção múltipla na lista
+  - Link: [Storybook Checkbox](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+  - Uso: Coluna de checkboxes na tabela
+
+- **Badge com Tooltip**: Para "Próxima" e "Missão Plus"
+  - Link: [Storybook Badge + Tooltip](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+  - Uso: Indicadores contextuais
+
+- **Button Group**: Para ação primária + dropdown
+  - Link: [Storybook Button Group](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+  - Uso: Botão "Habilitar" + "..." dropdown
+
+## 🎨 Implementação
+
+### Arquitetura Técnica
+
+**Estrutura de arquivos:**
+```
+src/views/teacher/education-system-missions/
+├── Index.vue                    # Orquestrador
+├── Filters.vue                  # Filtros + Toggle Lista/Sequência
+├── ListView.vue                 # Tabela com checkboxes (refatorada de List.vue)
+├── SequenceView.vue             # Cards com linha de progresso (novo)
+├── Title.vue                    # Breadcrumb + nome do livro
+├── components/
+│   ├── MissionCard.vue          # Card para modo Sequência
+│   ├── MissionRowActions.vue    # Botão primário + dropdown
+│   ├── BatchEnableModal.vue     # Modal de habilitação múltipla (novo)
+│   └── NextBadge.vue            # Badge "Próxima sugerida"
+└── useEducationSystemMissions.js # Composable domain (estendido)
+```
+
+**Rotas:**
+```javascript
+{
+  path: '/education-system/missions/:bookId',
+  name: 'EducationSystemMissions',
+  component: () => import('@/views/teacher/education-system-missions/Index.vue'),
+  meta: {
+    resource: 'EducationSystem',
+    action: 'read'
+  }
+}
+```
+
+### APIs Necessárias
+
+| Endpoint | Método | Descrição |
+|----------|--------|-----------|
+| `/api/education-system/books/:bookId/missions` | GET | Lista missões com progresso/rendimento |
+| `/api/education-system/missions/enable-batch` | POST | Habilita múltiplas missões de uma vez |
+| `/api/education-system/missions/:missionId/enable` | POST | Habilita uma missão |
+| `/api/education-system/missions/:missionId/disable` | POST | Pausa uma missão |
+| `/api/education-system/missions/:missionId/link` | GET | Obtém link de compartilhamento |
+| `/api/education-system/books/:bookId/sequence` | GET | Obtém ordem pedagógica sugerida |
+
+### Estado Global (Vuex)
+
+**Módulo**: `src/store/pageModules/educationSystem/module-education-system-missions-v2.js`
+
+**State:**
+```javascript
+{
+  missions: [],
+  selectedMissions: [], // IDs das missões selecionadas (novo)
+  loading: false,
+  viewMode: 'sequence', // 'sequence' | 'list' (novo)
+  unity: null,
+  status: { value: 'all', label: 'Todas' },
+  pedagogicalSequence: [], // Ordem sugerida (novo)
+  nextSuggestedMissionId: null // ID da próxima missão (novo)
+}
+```
+
+**Actions:**
+- `fetchMissions(bookId)` - Busca missões do livro
+- `fetchPedagogicalSequence(bookId)` - Busca ordem sugerida
+- `toggleMissionSelection(missionId)` - Adiciona/remove da seleção
+- `enableMissionsBatch(missionIds, options)` - Habilita múltiplas
+- `enableMission(missionId, options)` - Habilita uma
+- `disableMission(missionId)` - Pausa missão
+- `copyMissionLink(missionId)` - Copia link para clipboard
+
+### Composable Domain
+
+**Arquivo**: `src/views/teacher/education-system-missions/useEducationSystemMissions.js`
+
+**Interface estendida:**
+```javascript
+export default function useEducationSystemMissionsV2() {
+  return {
+    moduleName: 'EducationSystemMissionsV2',
+    missions,              // ComputedRef<Mission[]>
+    selectedMissions,      // ComputedRef<number[]>
+    viewMode,              // ComputedRef<'sequence' | 'list'>
+    nextSuggestedMission,  // ComputedRef<Mission | null>
+    loading,               // ComputedRef<boolean>
+    fetchMissions,         // (bookId: number) => Promise<void>
+    toggleSelection,       // (missionId: number) => void
+    enableSelected,        // (options) => Promise<void>
+    enableMission,         // (missionId, options) => Promise<void>
+    setViewMode,           // (mode: 'sequence' | 'list') => void
+  }
+}
+```
+
+## ✅ Critérios de Aceite
+
+### Funcionalidades Obrigatórias
+
+- [ ] Toggle entre modo "Lista" e "Sequência" funciona
+- [ ] Modo Sequência exibe cards com linha conectora mostrando ordem pedagógica
+- [ ] Badge "Próxima" aparece na missão sugerida no modo Sequência
+- [ ] Checkboxes na lista permitem seleção múltipla
+- [ ] Botão "Habilitar Selecionadas" abre modal único com resumo das missões
+- [ ] Ações secundárias (Copiar Link, Ver Detalhes) agrupadas em dropdown "..."
+- [ ] Tooltip em "Missão Plus" explica o que é conteúdo premium
+- [ ] Habilitação em lote (5 missões) leva < 30 segundos
+
+### Requisitos Não-Funcionais
+
+- [ ] Modo Sequência responsivo (scroll horizontal em mobile)
+- [ ] Transição suave entre modos Lista/Sequência (< 300ms)
+- [ ] Seleção de checkboxes com feedback visual imediato
+- [ ] Acessível: checkboxes com aria-label, tooltips com role
+- [ ] Compatível com touch (mobile/tablet)
+
+### Testes
+
+- [ ] Teste unitário do `useEducationSystemMissionsV2` composable
+- [ ] Teste de componente `SequenceView.vue` (renderiza ordem correta)
+- [ ] Teste de componente `BatchEnableModal.vue` (validação de datas)
+- [ ] Teste de integração do fluxo de habilitação múltipla (Cypress)
+- [ ] Teste de acessibilidade (axe-core)
+
+## 📊 Métricas de Sucesso
+
+| Métrica | Baseline (AS-IS) | Meta (TO-BE) | Medição |
+|---------|------------------|--------------|---------|
+| Tempo para habilitar 5 missões | 2 min | ≤ 30s | Time tracking |
+| Taxa de uso do modo Sequência | 0% (não existe) | ≥ 60% | Analytics |
+| Taxa de descoberta de "Copiar Link" | 45% | ≥ 90% | Onboarding survey |
+| Dúvidas sobre ordem pedagógica | 8 tickets/mês | ≤ 2 tickets/mês | Suporte |
+| Taxa de uso de habilitação em lote | 0% (não existe) | ≥ 50% | Feature analytics |
+
+## 🔗 Referências
+
+### Documentação Relacionada
+
+- [Jornada: Livros do Sistema Educacional](/docs/journeys/teacher/education-system-books) - PROF-001 (origem)
+- Jornada: Exercícios da Missão (PROF-003 - documentação em breve) - Destino ao clicar no nome
+- Filtros Globais useFilters (documentação em breve) - Sistema de filtros
+- Padrão DDD (documentação em breve) - Arquitetura
+
+### Recursos Externos
+
+- [Design System Vuexy - Tables](https://fabioeducacross.github.io/DesignSystem-Vuexy)
+- [Bootstrap Icons - Education](https://icons.getbootstrap.com/?q=book)
+- [Material Symbols - Actions](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:play_arrow)
+
+### Código Fonte
+
+**AS-IS (Referência)**:  
+- `educacross-frontoffice/src/views/pages/teacher-context/educationSystem/missions/Index.vue`
+- `educacross-frontoffice/src/views/pages/teacher-context/educationSystem/missions/List.vue`
+- `educacross-frontoffice/src/views/pages/teacher-context/educationSystem/missions/Filters.vue`
+- `educacross-frontoffice/src/store/pageModules/educationSystem/module-education-system-missions.js`
+
+**TO-BE (Protótipo)**:  
+- `Ambiente_de_Prototipacao_V5/src/views/teacher/education-system-missions/` (a criar)
+
+## 📅 Histórico de Mudanças
+
+| Data | Versão | Autor | Mudanças |
+|------|--------|-------|----------|
+| 2026-02-03 | 1.0 | Fábio Educacross | Criação inicial da documentação AS-IS |
+
+---
+
+## 💬 Comentários e Notas
+
+**Decisões Pendentes:**
+- [ ] Definir algoritmo de "próxima missão sugerida" (ordem do livro? pré-requisitos? adaptativo?)
+- [ ] Confirmar se modo Sequência deve ser padrão ou professora escolhe preferência
+- [ ] Validar limite de missões habilitáveis em lote (máximo 10? 20? sem limite?)
+
+**Insights de Pesquisa:**
+- Professoras habilitam missões em "blocos" no início do bimestre (média: 6 missões de uma vez)
+- 80% seguem a ordem do livro didático, mas 20% pulam missões consideradas "difíceis demais"
+- Recurso de "copiar link" é muito usado para compartilhar no WhatsApp da turma
+
+**Próximos Passos:**
+1. Validar wireframe do modo Sequência com 3 professoras
+2. Criar protótipo TO-BE na branch `prototypes/feature/education-system-missions-v2`
+3. Testar fluxo de habilitação em lote com tarefas reais
+4. Medir tempo de conclusão: AS-IS vs TO-BE

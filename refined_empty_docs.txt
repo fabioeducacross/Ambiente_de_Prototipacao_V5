@@ -1,0 +1,4 @@
+documentation\docs\decisions\template.md | Template | 487 linhas | 14630 bytes
+documentation\docs\prds\template.md | Template | 370 linhas | 12086 bytes
+documentation\docs\templates\journey-template.md | Template | 330 linhas | 8934 bytes
+documentation\docs\test-mermaid.md | Quase Vazio | 24 linhas | 442 bytes
