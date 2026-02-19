@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   title: {
@@ -46,16 +46,38 @@ const props = defineProps({
   activeCount: {
     type: Number,
     default: 0
+  },
+  // Suporte a v-model para controle externo (accordion)
+  modelValue: {
+    type: Boolean,
+    default: undefined
   }
 })
 
-const emit = defineEmits(['toggle'])
+const emit = defineEmits(['toggle', 'update:modelValue'])
 
-const isOpen = ref(props.defaultOpen)
+// Estado interno (usado quando não há v-model)
+const internalOpen = ref(props.defaultOpen)
+
+// Computed que decide se usa estado interno ou externo
+const isOpen = computed(() => {
+  // Se modelValue foi passado, usar ele (controle externo)
+  if (props.modelValue !== undefined) {
+    return props.modelValue
+  }
+  // Senão, usar estado interno
+  return internalOpen.value
+})
 
 const toggle = () => {
-  isOpen.value = !isOpen.value
-  emit('toggle', isOpen.value)
+  if (props.modelValue !== undefined) {
+    // Modo controlado - emitir evento para o pai
+    emit('update:modelValue', !props.modelValue)
+  } else {
+    // Modo não controlado - atualizar estado interno
+    internalOpen.value = !internalOpen.value
+  }
+  emit('toggle', !isOpen.value)
 }
 </script>
 

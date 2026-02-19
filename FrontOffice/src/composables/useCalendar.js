@@ -4,7 +4,7 @@ import { computed } from 'vue'
  * Composable para lógica compartilhada do calendário
  */
 export function useCalendar() {
-  
+
   // Cores por tipo de atividade (Vuexy palette)
   const activityColors = {
     missao: '#7367F0',      // Roxo (primary)
@@ -35,6 +35,17 @@ export function useCalendar() {
     outro: 'Outro'
   }
 
+  // Ícones Material Symbols por tipo de atividade
+  const activityMaterialIcons = {
+    missao: 'school',
+    olimpiada: 'emoji_events',
+    avaliacao: 'network_intelligence',
+    trilha: 'network_intel_node',
+    expedicao: 'airplane_ticket',
+    lembrete: 'notifications',
+    outro: 'event'
+  }
+
   /**
    * Retorna cor da atividade
    */
@@ -57,23 +68,30 @@ export function useCalendar() {
   }
 
   /**
+   * Retorna ícone Material Symbols da atividade
+   */
+  const getActivityMaterialIcon = (tipo) => {
+    return activityMaterialIcons[tipo] || activityMaterialIcons.outro
+  }
+
+  /**
    * Filtra eventos por data específica
    */
   const getEventsForDate = (events, date, turma = null) => {
     if (!Array.isArray(events)) return []
-    
+
     const targetDate = new Date(date)
     targetDate.setHours(0, 0, 0, 0)
-    
+
     return events.filter(event => {
       const eventStart = new Date(event.dataInicio)
       const eventEnd = new Date(event.dataTermino)
       eventStart.setHours(0, 0, 0, 0)
       eventEnd.setHours(0, 0, 0, 0)
-      
+
       const isInDateRange = targetDate >= eventStart && targetDate <= eventEnd
       const matchesTurma = !turma || !event.turmas || event.turmas.includes(turma)
-      
+
       return isInDateRange && matchesTurma
     })
   }
@@ -83,22 +101,22 @@ export function useCalendar() {
    */
   const getEventsForWeek = (events, date, turma = null) => {
     if (!Array.isArray(events)) return []
-    
+
     const startOfWeek = new Date(date)
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay())
     startOfWeek.setHours(0, 0, 0, 0)
-    
+
     const endOfWeek = new Date(startOfWeek)
     endOfWeek.setDate(endOfWeek.getDate() + 6)
     endOfWeek.setHours(23, 59, 59, 999)
-    
+
     return events.filter(event => {
       const eventStart = new Date(event.dataInicio)
       const eventEnd = new Date(event.dataTermino)
-      
+
       const overlaps = eventStart <= endOfWeek && eventEnd >= startOfWeek
       const matchesTurma = !turma || !event.turmas || event.turmas.includes(turma)
-      
+
       return overlaps && matchesTurma
     })
   }
@@ -108,20 +126,20 @@ export function useCalendar() {
    */
   const getEventsForMonth = (events, date, turma = null) => {
     if (!Array.isArray(events)) return []
-    
+
     const year = date.getFullYear()
     const month = date.getMonth()
-    
+
     const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0)
     const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59, 999)
-    
+
     return events.filter(event => {
       const eventStart = new Date(event.dataInicio)
       const eventEnd = new Date(event.dataTermino)
-      
+
       const overlaps = eventStart <= endOfMonth && eventEnd >= startOfMonth
       const matchesTurma = !turma || !event.turmas || event.turmas.includes(turma)
-      
+
       return overlaps && matchesTurma
     })
   }
@@ -132,15 +150,15 @@ export function useCalendar() {
   const getMonthDays = (date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
-    
+
     const firstDay = new Date(year, month, 1)
     const lastDay = new Date(year, month + 1, 0)
-    
+
     const firstDayOfWeek = firstDay.getDay() // 0 = domingo
     const daysInMonth = lastDay.getDate()
-    
+
     const days = []
-    
+
     // Dias do mês anterior
     const prevMonthLastDay = new Date(year, month, 0).getDate()
     for (let i = firstDayOfWeek - 1; i >= 0; i--) {
@@ -150,7 +168,7 @@ export function useCalendar() {
         isPast: true
       })
     }
-    
+
     // Dias do mês atual
     for (let day = 1; day <= daysInMonth; day++) {
       const currentDate = new Date(year, month, day)
@@ -160,7 +178,7 @@ export function useCalendar() {
         isToday: isToday(currentDate)
       })
     }
-    
+
     // Dias do próximo mês (completar até 42 dias = 6 semanas)
     const remainingDays = 42 - days.length
     for (let day = 1; day <= remainingDays; day++) {
@@ -170,7 +188,7 @@ export function useCalendar() {
         isFuture: true
       })
     }
-    
+
     return days
   }
 
@@ -180,8 +198,8 @@ export function useCalendar() {
   const isToday = (date) => {
     const today = new Date()
     return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear()
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
   }
 
   /**
@@ -189,24 +207,24 @@ export function useCalendar() {
    */
   const formatDate = (date, format = 'short') => {
     const d = new Date(date)
-    
+
     if (format === 'short') {
       return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
     }
-    
+
     if (format === 'long') {
-      return d.toLocaleDateString('pt-BR', { 
-        weekday: 'long', 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
+      return d.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
       })
     }
-    
+
     if (format === 'month-year') {
       return d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
     }
-    
+
     return d.toLocaleDateString('pt-BR')
   }
 
@@ -216,7 +234,7 @@ export function useCalendar() {
   const getWeekDays = (date) => {
     const startOfWeek = new Date(date)
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay())
-    
+
     const days = []
     for (let i = 0; i < 7; i++) {
       const day = new Date(startOfWeek)
@@ -226,7 +244,7 @@ export function useCalendar() {
         isToday: isToday(day)
       })
     }
-    
+
     return days
   }
 
@@ -236,24 +254,24 @@ export function useCalendar() {
   const groupEventsByPeriod = (events) => {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
-    
+
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
-    
+
     const weekEnd = new Date(today)
     weekEnd.setDate(weekEnd.getDate() + 7)
-    
+
     const groups = {
       hoje: [],
       amanha: [],
       semana: [],
       futuro: []
     }
-    
+
     events.forEach(event => {
       const eventDate = new Date(event.dataInicio)
       eventDate.setHours(0, 0, 0, 0)
-      
+
       if (eventDate.getTime() === today.getTime()) {
         groups.hoje.push(event)
       } else if (eventDate.getTime() === tomorrow.getTime()) {
@@ -264,7 +282,7 @@ export function useCalendar() {
         groups.futuro.push(event)
       }
     })
-    
+
     return groups
   }
 
@@ -273,11 +291,13 @@ export function useCalendar() {
     activityColors,
     activityIcons,
     activityLabels,
-    
+    activityMaterialIcons,
+
     // Funções
     getActivityColor,
     getActivityIcon,
     getActivityLabel,
+    getActivityMaterialIcon,
     getEventsForDate,
     getEventsForWeek,
     getEventsForMonth,

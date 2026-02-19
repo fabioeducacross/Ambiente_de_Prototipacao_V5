@@ -80,7 +80,9 @@ const customStyle = computed(() => {
 
 <style scoped>
 .e-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: var(--font-size-xs);
   font-weight: 600;
@@ -90,6 +92,8 @@ const customStyle = computed(() => {
   vertical-align: baseline;
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
+  min-height: 22px;
+  min-width: fit-content;
 }
 
 /* Pill shape */
@@ -97,6 +101,7 @@ const customStyle = computed(() => {
   border-radius: var(--radius-full);
   padding-left: var(--spacing-md);
   padding-right: var(--spacing-md);
+  min-height: 24px;
 }
 
 /* Variantes de cor */

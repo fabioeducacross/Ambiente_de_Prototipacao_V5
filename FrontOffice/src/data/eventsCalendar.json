@@ -12,6 +12,61 @@
       "origem": "escola"
     },
     {
+      "id": 101,
+      "titulo": "Missão: Olimpíada de Raciocínio",
+      "tipo": "olimpiada",
+      "dataInicio": "2026-02-15T08:00:00",
+      "dataTermino": "2026-02-15T09:00:00",
+      "turmas": ["5a-manha"],
+      "descricao": "Desafios de raciocínio lógico para alunos do 5º ano",
+      "status": "ativo",
+      "origem": "professor"
+    },
+    {
+      "id": 102,
+      "titulo": "Lembrete: Entregar trabalho de Geografia",
+      "tipo": "lembrete",
+      "dataInicio": "2026-02-15T12:00:00",
+      "dataTermino": "2026-02-15T12:30:00",
+      "turmas": ["5a-manha"],
+      "descricao": "Prazo final para entrega do trabalho sobre relevo brasileiro",
+      "status": "ativo",
+      "origem": "professor"
+    },
+    {
+      "id": 103,
+      "titulo": "Expedição: Museu de Ciências",
+      "tipo": "expedicao",
+      "dataInicio": "2026-02-15T09:30:00",
+      "dataTermino": "2026-02-15T11:30:00",
+      "turmas": ["5a-manha", "5b-manha"],
+      "descricao": "Visita ao museu de ciências naturais com atividades práticas",
+      "status": "ativo",
+      "origem": "escola"
+    },
+    {
+      "id": 104,
+      "titulo": "Missão: Quiz de Português",
+      "tipo": "missao",
+      "dataInicio": "2026-02-15T16:00:00",
+      "dataTermino": "2026-02-15T17:00:00",
+      "turmas": ["5a-manha"],
+      "descricao": "Quiz interativo de gramática e interpretação de texto",
+      "status": "ativo",
+      "origem": "professor"
+    },
+    {
+      "id": 105,
+      "titulo": "Trilha: Matemática Básica",
+      "tipo": "trilha",
+      "dataInicio": "2026-02-15T10:00:00",
+      "dataTermino": "2026-02-15T11:00:00",
+      "turmas": ["5a-manha"],
+      "descricao": "Revisão de conceitos fundamentais de matemática",
+      "status": "ativo",
+      "origem": "escola"
+    },
+    {
       "id": 2,
       "titulo": "Missão: Jogo das Tabuadas",
       "tipo": "missao",
