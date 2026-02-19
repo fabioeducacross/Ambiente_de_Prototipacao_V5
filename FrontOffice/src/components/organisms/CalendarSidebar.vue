@@ -21,14 +21,15 @@
     
     <div class="divider"></div>
     
-    <!-- Área de Filtros Expansíveis -->
+    <!-- Área de Filtros Expansíveis (Accordion) -->
     <div class="sidebar-filters">
       <!-- Filtros de Tipo de Atividade -->
       <FilterSection
         title="Tipo de Atividade"
         icon="layers"
-        :default-open="true"
+        v-model="isActivitySectionOpen"
         :active-count="activeActivityCount"
+        @toggle="handleActivitySectionToggle"
       >
         <CheckboxGroup
           :options="activityOptions"
@@ -41,8 +42,9 @@
       <FilterSection
         title="Perfil de Origem"
         icon="account_circle"
-        :default-open="false"
+        v-model="isOriginSectionOpen"
         :active-count="activeOriginCount"
+        @toggle="handleOriginSectionToggle"
       >
         <CheckboxGroup
           :options="originOptions"
@@ -55,7 +57,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import MiniCalendar from '../MiniCalendar.vue'
 import CheckboxGroup from '../molecules/CheckboxGroup.vue'
 import FilterSection from '../molecules/FilterSection.vue'
@@ -108,6 +110,23 @@ const emit = defineEmits(['add-event', 'activity-change', 'origin-change'])
 // Contagem de filtros ativos
 const activeActivityCount = computed(() => props.selectedActivities.length)
 const activeOriginCount = computed(() => props.selectedOrigins.length)
+
+// Estado das seções do accordion
+const isActivitySectionOpen = ref(true)
+const isOriginSectionOpen = ref(false)
+
+// Handlers para comportamento de accordion (um fecha quando o outro abre)
+const handleActivitySectionToggle = (isOpening) => {
+  if (isOpening) {
+    isOriginSectionOpen.value = false
+  }
+}
+
+const handleOriginSectionToggle = (isOpening) => {
+  if (isOpening) {
+    isActivitySectionOpen.value = false
+  }
+}
 
 const handleAddEvent = () => {
   emit('add-event')

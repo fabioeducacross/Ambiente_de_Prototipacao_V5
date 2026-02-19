@@ -204,6 +204,10 @@
         </button>
       </div>
     </nav>
+
+    <footer class="sidebar-footer">
+      <span class="version-note">Calendário v1.2</span>
+    </footer>
   </aside>
 </template>
 
@@ -257,6 +261,26 @@ defineProps({
   margin-bottom: 0.25rem;
 }
 
+.sidebar-footer {
+  border-top: 1px solid rgba(161, 165, 183, 0.2);
+  padding: 12px 16px;
+  margin-top: auto;
+}
+
+.version-note {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #a1a5b7;
+  text-align: center;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  display: none;
+}
+
 /* Logo Header */
 .sidebar-header {
   padding: 20px 16px;
@@ -270,7 +294,6 @@ defineProps({
 }
 
 /* User Info */
-.
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: #3a3a4d;
 }
@@ -308,7 +331,6 @@ defineProps({
   background: transparent;
   cursor: pointer;
   text-align: left;
-  border-left: 3px solid transparent;
 }
 
 .nav-item .material-symbols-outlined {
@@ -334,7 +356,6 @@ defineProps({
 .nav-item.active {
   background: #7367F0;
   color: #ffffff;
-  border-left-color: #00CFE8;
 }
 
 .nav-item.collapsible .chevron {

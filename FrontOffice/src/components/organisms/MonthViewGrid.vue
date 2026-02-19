@@ -28,29 +28,15 @@
       >
         <!-- Camada harness para eventos spanning (multi-dia) -->
         <div class="spanning-events-harness">
-          <div
+          <SpanningEventItem
             v-for="spanEvent in week.spanningEvents"
             :key="`span-${spanEvent.id}-${spanEvent.slotIndex}`"
-            class="spanning-event-item"
-            :style="getSpanningEventStyle(spanEvent)"
-            :title="spanEvent.title"
-            @click.stop="handleEventClick(spanEvent)"
-          >
-            <span v-if="showEventTime && !spanEvent.isContinuation && spanEvent.horaInicio" class="event-time">
-              {{ formatTime(spanEvent.horaInicio) }}
-            </span>
-            <span
-              v-if="isEducacrossOrigin(spanEvent.origin_level || spanEvent.origin || spanEvent.origem)"
-              :style="belinhaMaskStyle"
-              class="event-icon-coruja"
-              role="img"
-              aria-label="Educacross"
-            />
-            <span v-else class="material-symbols-outlined event-icon" aria-hidden="true">
-              {{ getOriginIcon(spanEvent.origin_level || spanEvent.origin || spanEvent.origem) }}
-            </span>
-            <span class="event-title">{{ spanEvent.title }}</span>
-          </div>
+            :event="spanEvent"
+            :is-continuation="spanEvent.isContinuation"
+            :show-time="showEventTime && !spanEvent.isContinuation"
+            :position-style="getSpanningEventPosition(spanEvent)"
+            @click="handleEventClick(spanEvent)"
+          />
         </div>
         
         <!-- Células de data (renderizam apenas eventos de 1 dia) -->
@@ -71,6 +57,37 @@
         />
       </div>
     </div>
+    
+    <!-- Popover de eventos extras -->
+    <Teleport to="body">
+      <div 
+        v-if="morePopover.visible" 
+        class="more-events-overlay"
+        @click="closeMorePopover"
+      >
+        <div 
+          class="more-events-popover"
+          :style="morePopoverStyle"
+          @click.stop
+        >
+          <div class="popover-header">
+            <span class="popover-date">{{ morePopover.dateLabel }}</span>
+            <button class="popover-close" @click="closeMorePopover" aria-label="Fechar">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+          <div class="popover-events">
+            <EventItem
+              v-for="event in morePopover.events"
+              :key="event.id"
+              :event="event"
+              variant="compact"
+              @click="handlePopoverEventClick(event)"
+            />
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -79,9 +96,9 @@ import { ref, computed } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
 import CalendarDaysHeader from '../molecules/CalendarDaysHeader.vue'
 import DateCellLarge from '../atoms/DateCellLarge.vue'
-import { getOriginIcon, normalizeOriginLevel, ORIGIN_LEVELS } from '@/data/calendar-enums'
+import SpanningEventItem from '../molecules/SpanningEventItem.vue'
+import EventItem from '../molecules/EventItem.vue'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
-import iconeBelinha from '@/assets/icons/icone_belinha.svg'
 
 const { showEventTime } = useFeatureFlags()
 
@@ -137,6 +154,15 @@ const emit = defineEmits(['day-click', 'event-click', 'month-change', 'view-chan
 // Estado
 const currentDate = ref(new Date(props.initialDate))
 
+// Estado do popover "mais eventos"
+const morePopover = ref({
+  visible: false,
+  day: null,
+  events: [],
+  dateLabel: '',
+  position: { top: 0, left: 0 }
+})
+
 // Constantes para cálculo de posição
 const DAY_WIDTH_PERCENT = 100 / 7 // ~14.2857%
 const EVENT_HEIGHT = 24 // px
@@ -154,50 +180,13 @@ const formattedMonthYear = computed(() => {
   return `${month} de ${year}`
 })
 
-// Formatar horário para exibição
-const formatTime = (time) => {
-  if (!time) return ''
-  const [hours, minutes] = time.split(':')
-  const h = parseInt(hours)
-  const ampm = h >= 12 ? 'p' : 'a'
-  const hour12 = h % 12 || 12
-  return `${hour12}:${minutes}${ampm}`
-}
-
-const resolveOrigin = (originValue) => normalizeOriginLevel(originValue)
-const isEducacrossOrigin = (originValue) => resolveOrigin(originValue) === ORIGIN_LEVELS.EDUCACROSS.value
-
-const belinhaMaskStyle = {
-  WebkitMaskImage: `url(${iconeBelinha})`,
-  maskImage: `url(${iconeBelinha})`,
-  WebkitMaskRepeat: 'no-repeat',
-  maskRepeat: 'no-repeat',
-  WebkitMaskSize: 'contain',
-  maskSize: 'contain',
-  WebkitMaskPosition: 'center',
-  maskPosition: 'center',
-  backgroundColor: 'currentColor'
-}
-
-// Converte cor hex para rgba com opacidade especificada
-const hexToRgba = (hex, opacity = 0.16) => {
-  if (!hex) return `rgba(115, 103, 240, ${opacity})` // fallback para primary
-  const cleanHex = hex.replace('#', '')
-  const r = parseInt(cleanHex.substring(0, 2), 16)
-  const g = parseInt(cleanHex.substring(2, 4), 16)
-  const b = parseInt(cleanHex.substring(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
-
-// Calcular estilo do evento spanning com posição absoluta
-const getSpanningEventStyle = (event) => {
+// Calcular posição do evento spanning (apenas posicionamento, não estilo base)
+const getSpanningEventPosition = (event) => {
   const left = event.dayIndexInWeek * DAY_WIDTH_PERCENT
   const right = (7 - event.dayIndexInWeek - event.spanDays) * DAY_WIDTH_PERCENT
   const top = EVENT_TOP_OFFSET + (event.slotIndex * (EVENT_HEIGHT + EVENT_GAP))
   
   return {
-    backgroundColor: hexToRgba(event.color, 0.16),
-    color: event.color,
     left: `${left}%`,
     right: `${right}%`,
     top: `${top}px`,
@@ -441,9 +430,58 @@ const handleEventClick = (event) => {
   emit('event-click', event)
 }
 
-const handleMoreClick = (data) => {
-  // Pode abrir um popover ou expandir célula com todos os eventos
+const handleMoreClick = (data, nativeEvent) => {
+  // Calcular posição do popover baseado no elemento clicado
+  const cell = nativeEvent?.target?.closest('.date-cell-large')
+  const rect = cell ? cell.getBoundingClientRect() : { top: 100, left: 100 }
+  
+  // Formatar data para o header do popover
+  const monthNames = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ]
+  const year = currentDate.value.getFullYear()
+  const monthIndex = currentDate.value.getMonth()
+  
+  // Calcular posição com boundary detection
+  let left = rect.left
+  let top = rect.top
+  const popoverWidth = 260
+  const popoverHeight = 280
+  
+  // Ajustar se sair da tela pela direita
+  if (left + popoverWidth > window.innerWidth - 16) {
+    left = window.innerWidth - popoverWidth - 16
+  }
+  // Ajustar se sair da tela por baixo
+  if (top + popoverHeight > window.innerHeight - 16) {
+    top = rect.top - popoverHeight + rect.height
+  }
+  
+  morePopover.value = {
+    visible: true,
+    day: data.day,
+    events: data.allEvents,
+    dateLabel: `${data.day} de ${monthNames[monthIndex]} de ${year}`,
+    position: { top, left }
+  }
+  
   emit('more-click', data)
+}
+
+// Estilo posicional do popover
+const morePopoverStyle = computed(() => ({
+  top: `${morePopover.value.position.top}px`,
+  left: `${morePopover.value.position.left}px`
+}))
+
+const closeMorePopover = () => {
+  morePopover.value.visible = false
+}
+
+const handlePopoverEventClick = (event) => {
+  closeMorePopover()
+  emit('event-click', event)
 }
 
 const handleViewChange = (newView) => {
@@ -486,83 +524,85 @@ const handleViewChange = (newView) => {
   z-index: 10;
 }
 
-/* Item de evento spanning com posição absoluta */
-.spanning-event-item {
-  position: absolute;
+/* Popover de mais eventos */
+.more-events-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.more-events-popover {
+  position: fixed;
+  min-width: 220px;
+  max-width: 280px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 1001;
+  animation: popoverFadeIn 0.15s ease-out;
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popover-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 8px;
-  border-radius: 4px;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(47, 43, 61, 0.08);
+  background: rgba(47, 43, 61, 0.02);
+}
+
+.popover-date {
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 24px;
-  cursor: pointer;
-  pointer-events: auto; /* Reativa cliques no evento */
-  transition: opacity 0.2s ease, transform 0.15s ease, background-color 0.2s ease;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.spanning-event-item:hover {
-  filter: brightness(0.95);
-  transform: translateY(-1px);
-}
-
-.spanning-event-item .event-time {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  flex-shrink: 0;
+  color: rgba(47, 43, 61, 0.9);
 }
 
-.spanning-event-item .event-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
+.popover-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgba(47, 43, 61, 0.5);
+  transition: all 0.15s ease;
 }
 
-.spanning-event-item .event-icon {
-  font-size: 16px;
-  line-height: 1;
-  flex-shrink: 0;
-  color: inherit;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+.popover-close:hover {
+  background: rgba(47, 43, 61, 0.08);
+  color: rgba(47, 43, 61, 0.9);
 }
 
-.event-icon-coruja {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  object-fit: contain;
-  flex-shrink: 0;
+.popover-close .material-symbols-outlined {
+  font-size: 18px;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .week-row {
-    min-height: 100px;
-  }
-  
-  .spanning-event-item {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .week-row {
-    min-height: 80px;
-  }
-  
-  .spanning-event-item {
-    font-size: 11px;
-    padding: 0 6px;
-  }
+.popover-events {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  max-height: 240px;
+  overflow-y: auto;
 }
 </style>

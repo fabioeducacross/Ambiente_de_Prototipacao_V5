@@ -3,6 +3,7 @@
     v-model="isOpen"
     :title="title"
     size="sm"
+    :show-header="false"
     :closable="!loading"
     :close-on-overlay="!loading"
     :close-on-esc="!loading"
@@ -11,7 +12,7 @@
     <!-- Body com mensagem e ícone -->
     <div class="confirm-dialog-body">
       <div class="confirm-icon" :class="`icon-${variant}`">
-        <span class="material-symbols-outlined">{{ dialogIcon }}</span>
+        <i :class="['bi', dialogIconClass]"></i>
       </div>
       <div class="confirm-message">
         <p class="message-text">{{ message }}</p>
@@ -21,21 +22,23 @@
 
     <!-- Footer com botões -->
     <template #footer>
-      <EButton
-        variant="outline-secondary"
-        @click="handleCancel"
-        :disabled="loading"
-      >
-        {{ cancelText }}
-      </EButton>
-      <EButton
-        :variant="confirmButtonVariant"
-        @click="handleConfirm"
-        :disabled="loading"
-      >
-        <span v-if="loading" class="loading-spinner"></span>
-        {{ confirmText }}
-      </EButton>
+      <div class="confirm-footer">
+        <EButton
+          variant="outline-secondary"
+          @click="handleCancel"
+          :disabled="loading"
+        >
+          {{ cancelText }}
+        </EButton>
+        <EButton
+          :variant="confirmButtonVariant"
+          @click="handleConfirm"
+          :disabled="loading"
+        >
+          <span v-if="loading" class="loading-spinner"></span>
+          {{ confirmText }}
+        </EButton>
+      </div>
     </template>
   </EModal>
 </template>
@@ -106,17 +109,28 @@ const confirmButtonVariant = computed(() => {
   return variants[props.variant] || 'primary'
 })
 
-// Ícone padrão baseado no variant (Material Symbols)
-const dialogIcon = computed(() => {
-  if (props.icon) return props.icon
-  
-  const icons = {
-    danger: 'delete',
-    warning: 'warning',
-    success: 'check_circle',
-    info: 'info'
+// Ícone baseado no variant ou no valor informado (Bootstrap Icons)
+const dialogIconClass = computed(() => {
+  // Se vier um ícone custom, tenta mapear palavras-chave para Bootstrap Icons
+  if (props.icon) {
+    const keywordMap = {
+      delete: 'bi-trash-fill',
+      trash: 'bi-trash-fill',
+      warning: 'bi-exclamation-triangle-fill',
+      info: 'bi-info-circle-fill',
+      success: 'bi-check-circle-fill',
+      danger: 'bi-x-circle-fill'
+    }
+    if (props.icon.startsWith('bi-')) return props.icon
+    return keywordMap[props.icon] || 'bi-question-circle-fill'
   }
-  return icons[props.variant] || 'help'
+  const icons = {
+    danger: 'bi-trash-fill',
+    warning: 'bi-exclamation-triangle-fill',
+    success: 'bi-check-circle-fill',
+    info: 'bi-info-circle-fill'
+  }
+  return icons[props.variant] || 'bi-question-circle-fill'
 })
 
 watch(() => props.modelValue, (value) => {
@@ -138,12 +152,33 @@ const handleCancel = () => {
 </script>
 
 <style scoped>
+:deep(.modal-dialog) {
+  max-width: 520px;
+}
+
+:deep(.modal-content) {
+  border: 1px solid #e5e3f3;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+:deep(.modal-body) {
+  padding: 28px 28px 18px;
+  text-align: center;
+}
+
+:deep(.modal-footer) {
+  border: none;
+  padding: 0 24px 24px;
+}
+
 .confirm-dialog-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 20px;
+  gap: 14px;
 }
 
 .confirm-icon {
@@ -152,36 +187,28 @@ const handleCancel = () => {
   justify-content: center;
   width: 64px;
   height: 64px;
-  border-radius: 50%;
-}
-
-.confirm-icon .material-symbols-outlined {
-  font-size: 32px;
-  font-variation-settings: 
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 32;
+  font-size: 52px;
+  color: #e25757;
 }
 
 .icon-danger {
-  background-color: rgba(234, 84, 85, 0.12);
-  color: #EA5455;
+  background-color: transparent;
+  color: #e25757;
 }
 
 .icon-warning {
-  background-color: rgba(255, 159, 67, 0.12);
-  color: #FF9F43;
+  background-color: transparent;
+  color: #ff9f43;
 }
 
 .icon-success {
-  background-color: rgba(40, 199, 111, 0.12);
-  color: #28C76F;
+  background-color: transparent;
+  color: #28c76f;
 }
 
 .icon-info {
-  background-color: rgba(115, 103, 240, 0.12);
-  color: #7367F0;
+  background-color: transparent;
+  color: #7367f0;
 }
 
 .confirm-message {
@@ -190,19 +217,46 @@ const handleCancel = () => {
   gap: 8px;
 }
 
+.confirm-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+:deep(.confirm-footer .btn) {
+  min-width: 130px;
+  height: 42px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+:deep(.confirm-footer .btn-outline-secondary) {
+  color: #7367f0;
+  border-color: #7367f0;
+  background-color: #fff;
+}
+
+:deep(.confirm-footer .btn-danger) {
+  background-color: #e25757;
+  border-color: #e25757;
+  box-shadow: 0 6px 18px rgba(226, 87, 87, 0.25);
+}
+
 .message-text {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  color: #2f2b3d;
+  color: #4a4a4a;
   font-family: 'Montserrat', sans-serif;
 }
 
 .message-description {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
-  color: #6e6b7b;
+  line-height: 1.6;
+  color: #6a6a78;
 }
 
 .loading-spinner {

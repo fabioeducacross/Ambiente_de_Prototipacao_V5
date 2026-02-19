@@ -180,9 +180,13 @@ const currentDayEvents = computed(() => {
   targetDate.setHours(0, 0, 0, 0)
   
   return filteredEvents.value.filter(event => {
-    const eventDate = new Date(event.dataInicio)
-    eventDate.setHours(0, 0, 0, 0)
-    return eventDate.getTime() === targetDate.getTime()
+    const eventStart = new Date(event.dataInicio)
+    const eventEnd = new Date(event.dataTermino || event.dataInicio)
+    eventStart.setHours(0, 0, 0, 0)
+    eventEnd.setHours(23, 59, 59, 999)
+    
+    // Inclui eventos que estejam ativos no dia selecionado
+    return targetDate >= eventStart && targetDate <= eventEnd
   })
 })
 
