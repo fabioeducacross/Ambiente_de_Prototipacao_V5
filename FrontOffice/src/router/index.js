@@ -10,6 +10,7 @@ const AdministratorDashboard = () => import('../views/administrator/Dashboard.vu
 const CoordinatorDashboard = () => import('../views/coordinator/Dashboard.vue')
 const DirectorDashboard = () => import('../views/director/Dashboard.vue')
 const NetworkManagerDashboard = () => import('../views/network-manager/Dashboard.vue')
+const About = () => import('../views/About.vue')
 
 const routes = [
   {
@@ -65,6 +66,12 @@ const routes = [
     name: 'NetworkManagerDashboard',
     component: NetworkManagerDashboard,
     meta: { title: 'Dashboard Gestor de Rede | Educacross', persona: 'Gestor de Rede' }
+  },
+  {
+    path: '/sobre',
+    name: 'About',
+    component: About,
+    meta: { title: 'Sobre o Ambiente | Educacross' }
   }
 ]
 

@@ -163,6 +163,9 @@ const personas = ref([
         </button>
 
         <span class="nav-label">Recursos</span>
+        <RouterLink class="nav-link" to="/sobre">
+          <span class="material-symbols-outlined">info</span> Sobre
+        </RouterLink>
         <a class="nav-link" href="http://localhost:3000" target="_blank">
           <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
           <span class="material-symbols-outlined nav-external">open_in_new</span>
@@ -264,60 +267,18 @@ const personas = ref([
           </div>
         </section>
 
-        <!-- Seção: Sobre o Ambiente -->
-        <section class="about-section">
-          <span class="section-label">Sobre este ambiente</span>
-          <div class="about-grid">
-
-            <!-- O que é -->
-            <div class="about-card">
-              <div class="about-card-icon" style="--a-color:#7367F0">
-                <span class="material-symbols-outlined">layers</span>
-              </div>
-              <h3 class="about-card-title">O que é</h3>
-              <p class="about-card-text">
-                Ambiente de prototipação das jornadas do <strong>Educacross</strong>.
-                Documenta o estado AS-IS e antecipa melhorias TO-BE antes da implementação em produção.
-              </p>
+        <!-- CTA → Sobre o Ambiente -->
+        <section class="about-cta-section">
+          <RouterLink to="/sobre" class="about-cta-card">
+            <div class="about-cta-icon">
+              <span class="material-symbols-outlined">layers</span>
             </div>
-
-            <!-- Como funciona -->
-            <div class="about-card">
-              <div class="about-card-icon" style="--a-color:#00CFE8">
-                <span class="material-symbols-outlined">account_tree</span>
-              </div>
-              <h3 class="about-card-title">Como funciona</h3>
-              <p class="about-card-text">
-                Cada melhoria parte de uma branch <code>prototypes/as-is</code>, é desenvolvida em
-                <code>prototypes/feature/*</code> e publicada via Vercel para validação antes de ir a produção.
-              </p>
+            <div class="about-cta-body">
+              <p class="about-cta-title">Sobre este ambiente</p>
+              <p class="about-cta-desc">Vue 3.5 + Vite · 50+ jornadas · 6 personas · Azure DevOps</p>
             </div>
-
-            <!-- Escopo -->
-            <div class="about-card">
-              <div class="about-card-icon" style="--a-color:#28C76F">
-                <span class="material-symbols-outlined">route</span>
-              </div>
-              <h3 class="about-card-title">Escopo</h3>
-              <p class="about-card-text">
-                <strong>50+ jornadas</strong> mapeadas em 6 personas: Professor, Aluno, Coordenador,
-                Diretor, Administrador e Gestor de Rede — cobrindo todos os fluxos críticos da plataforma.
-              </p>
-            </div>
-
-            <!-- Stack -->
-            <div class="about-card">
-              <div class="about-card-icon" style="--a-color:#FF9F43">
-                <span class="material-symbols-outlined">code</span>
-              </div>
-              <h3 class="about-card-title">Stack técnica</h3>
-              <p class="about-card-text">
-                Protótipos em <strong>Vue 3.5</strong> + Vite. Documentação em <strong>Docusaurus</strong>.
-                Referência de produção: Vue 2.7 (somente consulta, não editar).
-              </p>
-            </div>
-
-          </div>
+            <span class="material-symbols-outlined about-cta-arrow">arrow_forward</span>
+          </RouterLink>
         </section>
       </template>
 
@@ -755,64 +716,48 @@ const personas = ref([
 .quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
 .quick-card-desc { font-size: 11.5px; color: var(--text-muted); }
 
-/* ── About section ───────────── */
-.about-section {
-  padding: 24px 24px 28px;
-}
+/* ── About CTA ───────────────── */
+.about-cta-section { padding: 24px 24px 28px; }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 2px;
-}
-
-.about-card {
+.about-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
+}
+.about-cta-card:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
 }
 
-.about-card-icon {
+.about-cta-icon {
   width: 32px; height: 32px;
   border-radius: 7px;
-  background: color-mix(in srgb, var(--a-color, var(--accent)) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--a-color, var(--accent)) 24%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
   display: flex; align-items: center; justify-content: center;
-  color: var(--a-color, var(--accent));
+  color: var(--accent);
   flex-shrink: 0;
 }
-.about-card-icon .material-symbols-outlined { font-size: 16px; }
+.about-cta-icon .material-symbols-outlined { font-size: 16px; }
 
-.about-card-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
+.about-cta-body { flex: 1; min-width: 0; }
+.about-cta-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.about-cta-desc  { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
 
-.about-card-text {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.55;
+.about-cta-arrow {
+  font-size: 16px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: color var(--t);
 }
-.about-card-text strong {
-  color: var(--text);
-  font-weight: 500;
-}
-.about-card-text code {
-  font-family: var(--font-family-mono);
-  font-size: 11px;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  border-radius: 3px;
-  padding: 1px 4px;
-}
+.about-cta-card:hover .about-cta-arrow { color: var(--accent); }
 
 /* ── Responsivo ──────────────── */
 @media (max-width: 1024px) {
@@ -834,7 +779,6 @@ const personas = ref([
   .sidebar-nav { flex-direction: row; align-items: center; flex: 1; }
   .nav-label, .sidebar-footer, .nav-persona { display: none; }
   .quick-grid { grid-template-columns: 1fr; }
-  .about-grid  { grid-template-columns: 1fr; }
 
   .hero-strip {
     flex-direction: column;
