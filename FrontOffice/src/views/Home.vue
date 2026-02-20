@@ -125,7 +125,12 @@ const personas = ref([
 
       <nav class="sidebar-nav">
         <span class="nav-label">Navegação</span>
-        <a class="nav-link active" href="#">
+        <a
+          class="nav-link"
+          :class="{ active: !selectedPersonaId }"
+          href="#"
+          @click.prevent="goHome"
+        >
           <span class="material-symbols-outlined">home</span> Início
         </a>
 
