@@ -264,9 +264,6 @@ const personas = ref([
                 </div>
                 <p class="journey-card-label">{{ j.label }}</p>
                 <p class="journey-card-id">{{ j.id }}</p>
-                <div class="journey-card-footer">
-                  <span class="journey-cta">Abrir <span class="material-symbols-outlined">arrow_forward</span></span>
-                </div>
               </RouterLink>
 
               <!-- Jornada planejada: div muted -->
@@ -730,21 +727,6 @@ const personas = ref([
   color: var(--accent);
   letter-spacing: 0.02em;
 }
-
-.journey-card-footer {
-  margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
-}
-.journey-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11.5px;
-  color: var(--text-dim);
-  transition: color var(--t);
-}
-.journey-card--active:hover .journey-cta { color: var(--p-color); }
 
 .journey-status {
   font-size: 10px;
