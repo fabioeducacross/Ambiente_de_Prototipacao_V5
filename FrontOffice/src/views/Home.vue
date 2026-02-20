@@ -1,5 +1,5 @@
 ﻿<script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { RouterLink } from 'vue-router'
 
 /** Converte hex + alpha (0-1) para rgba */
@@ -16,10 +16,19 @@ const personaIconStyle = (color) => ({
   color
 })
 
-const drawerPersona = ref(null)
-const openDrawer  = (id) => { drawerPersona.value = id }
-const closeDrawer = () => { drawerPersona.value = null }
-const activePersona = computed(() => personas.value.find(p => p.id === drawerPersona.value) ?? null)
+const drawerPersona  = ref(null)
+const drawerCloseBtn = ref(null)
+const openDrawer     = (id) => { drawerPersona.value = id }
+const closeDrawer    = () => { drawerPersona.value = null }
+const activePersona  = computed(() => personas.value.find(p => p.id === drawerPersona.value) ?? null)
+
+// Fecha com ESC
+const onKeydown = (e) => { if (e.key === 'Escape' && drawerPersona.value) closeDrawer() }
+onMounted(()  => document.addEventListener('keydown', onKeydown))
+onUnmounted(() => document.removeEventListener('keydown', onKeydown))
+
+// Foco no botão de fechar ao abrir o drawer
+watch(drawerPersona, (val) => { if (val) nextTick(() => drawerCloseBtn.value?.focus()) })
 
 const personas = ref([
   {
@@ -194,14 +203,16 @@ const personas = ref([
           <template v-for="persona in personas" :key="persona.id">
 
             <!-- Persona com drawer (teacher) -->
-            <div
+            <button
               v-if="persona.journeys"
+              type="button"
               class="persona-card"
               :style="{ '--p-color': persona.color }"
+              :aria-label="'Ver jornadas de ' + persona.name"
               @click="openDrawer(persona.id)"
             >
               <div class="persona-top">
-                <div class="persona-icon" :style="personaIconStyle(persona.color)">
+                <div class="persona-icon" :style="personaIconStyle(persona.color)" aria-hidden="true">
                   <span class="material-symbols-outlined">{{ persona.icon }}</span>
                 </div>
                 <span class="persona-status">Ativo</span>
@@ -213,10 +224,10 @@ const personas = ref([
               <div class="persona-footer">
                 <span class="persona-cta">
                   Ver jornadas
-                  <span class="material-symbols-outlined cta-icon">chevron_right</span>
+                  <span class="material-symbols-outlined cta-icon" aria-hidden="true">chevron_right</span>
                 </span>
               </div>
-            </div>
+            </button>
 
             <!-- Persona padrão (RouterLink) -->
             <RouterLink
@@ -252,25 +263,38 @@ const personas = ref([
       <div
         v-if="drawerPersona"
         class="drawer-overlay"
+        aria-hidden="true"
         @click="closeDrawer"
       ></div>
     </Transition>
 
     <!-- Drawer panel -->
     <Transition name="drawer-slide">
-      <div v-if="activePersona" class="drawer-panel" :style="{ '--p-color': activePersona.color }">
+      <div
+        v-if="activePersona"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="activePersona.name + ' — Jornadas'"
+        class="drawer-panel"
+        :style="{ '--p-color': activePersona.color }"
+      >
 
         <!-- Cabeçalho do drawer -->
         <div class="drawer-header">
-          <div class="drawer-persona-icon" :style="personaIconStyle(activePersona.color)">
+          <div class="drawer-persona-icon" :style="personaIconStyle(activePersona.color)" aria-hidden="true">
             <span class="material-symbols-outlined">{{ activePersona.icon }}</span>
           </div>
           <div class="drawer-persona-info">
             <p class="drawer-persona-name">{{ activePersona.name }}</p>
             <p class="drawer-persona-meta">{{ activePersona.journeys.length }} jornadas</p>
           </div>
-          <button class="drawer-close" @click="closeDrawer">
-            <span class="material-symbols-outlined">close</span>
+          <button
+            ref="drawerCloseBtn"
+            class="drawer-close"
+            aria-label="Fechar painel"
+            @click="closeDrawer"
+          >
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
           </button>
         </div>
 
@@ -278,7 +302,7 @@ const personas = ref([
         <p class="drawer-persona-desc">{{ activePersona.description }}</p>
 
         <!-- Lista de jornadas -->
-        <div class="drawer-section-label">Jornadas disponíveis</div>
+        <div class="drawer-section-label" role="heading" aria-level="3">Jornadas Disponíveis</div>
         <div class="drawer-body">
           <template v-for="j in activePersona.journeys" :key="j.id">
 
@@ -288,7 +312,7 @@ const personas = ref([
               class="drawer-journey-row"
               @click="closeDrawer"
             >
-              <div class="drawer-journey-icon" :style="{ color: activePersona.color }">
+              <div class="drawer-journey-icon" :style="{ color: activePersona.color }" aria-hidden="true">
                 <span class="material-symbols-outlined">{{ j.icon }}</span>
               </div>
               <div class="drawer-journey-body">
@@ -300,7 +324,7 @@ const personas = ref([
             </RouterLink>
 
             <div v-else class="drawer-journey-row drawer-journey-row--muted">
-              <div class="drawer-journey-icon">
+              <div class="drawer-journey-icon" aria-hidden="true">
                 <span class="material-symbols-outlined">{{ j.icon }}</span>
               </div>
               <div class="drawer-journey-body">
@@ -612,6 +636,15 @@ const personas = ref([
   color: var(--text);
   cursor: pointer;
   transition: border-color var(--t), background var(--t);
+  /* reset button element */
+  font-family: inherit;
+  font-size: inherit;
+  text-align: left;
+  width: 100%;
+}
+.persona-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .persona-card:hover { border-color: var(--p-color); background: var(--surface-2); }
@@ -708,6 +741,7 @@ const personas = ref([
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .drawer-header {
@@ -751,6 +785,11 @@ const personas = ref([
   flex-shrink: 0;
 }
 .drawer-close:hover { background: var(--surface-2); color: var(--text); }
+.drawer-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  background: var(--surface-2);
+}
 
 .drawer-persona-desc {
   font-size: 12.5px;
@@ -773,29 +812,32 @@ const personas = ref([
 .drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 0 10px 20px;
+  padding: 0 0 20px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
+  overscroll-behavior: contain;
 }
 
 .drawer-journey-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 10px;
-  border-radius: 8px;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 0;
   text-decoration: none;
   color: var(--text);
   border: 1px solid transparent;
+  border-left: 2px solid transparent;
   transition: background var(--t), border-color var(--t);
   cursor: pointer;
+  touch-action: manipulation;
 }
 .drawer-journey-row:not(.drawer-journey-row--muted):hover {
   background: rgba(115,103,240,0.07);
-  border-color: rgba(115,103,240,0.18);
+  border-left-color: var(--p-color);
 }
-.drawer-journey-row--muted { opacity: 0.38; cursor: default; }
+.drawer-journey-row--muted { opacity: 0.42; cursor: default; touch-action: none; }
 
 .drawer-journey-icon {
   width: 34px; height: 34px;
@@ -817,6 +859,7 @@ const personas = ref([
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-wrap: pretty;
 }
 .drawer-journey-id {
   font-size: 10.5px;
@@ -855,5 +898,15 @@ const personas = ref([
   transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .drawer-slide-enter-from, .drawer-slide-leave-to { transform: translateX(100%); }
+
+/* ── prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .drawer-fade-enter-active,
+  .drawer-fade-leave-active,
+  .drawer-slide-enter-active,
+  .drawer-slide-leave-active {
+    transition: none;
+  }
+}
 
 </style>
