@@ -34,6 +34,17 @@ const allQuickLinks = computed(() =>
 const quickLinks    = computed(() => allQuickLinks.value.slice(0, QUICK_CAP))
 const hasMoreLinks  = computed(() => allQuickLinks.value.length > QUICK_CAP)
 
+// Stats computados do estado real das personas
+const totalJornadas  = computed(() => personas.value.flatMap(p => p.journeys).length)
+const jornadasAtivas = computed(() => personas.value.flatMap(p => p.journeys).filter(j => j.route).length)
+const coberturaPercent = computed(() => totalJornadas.value ? Math.round(jornadasAtivas.value / totalJornadas.value * 100) : 0)
+const personasProgress = computed(() => personas.value.map(p => ({
+  ...p,
+  ativas: p.journeys.filter(j => j.route).length,
+  total:  p.journeys.length,
+  pct:    p.journeys.length ? Math.round(p.journeys.filter(j => j.route).length / p.journeys.length * 100) : 0
+})))
+
 const personas = ref([
   {
     id: 'teacher',
@@ -183,19 +194,47 @@ const personas = ref([
           </div>
           <div class="hero-stats">
             <div class="stat">
-              <span class="stat-value">6</span>
+              <span class="stat-value">{{ jornadasAtivas }}<span class="stat-value-total">/{{ totalJornadas }}</span></span>
+              <span class="stat-label">Jornadas Ativas</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">{{ coberturaPercent }}<span class="stat-value-unit">%</span></span>
+              <span class="stat-label">Cobertura</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">{{ personas.length }}</span>
               <span class="stat-label">Personas</span>
             </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-value">v1.2</span>
-              <span class="stat-label">Baseline</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-value">3</span>
-              <span class="stat-label">Artefatos</span>
-            </div>
+          </div>
+        </section>
+
+        <!-- Progresso por persona -->
+        <section class="progress-section">
+          <span class="section-label">Progresso por Persona</span>
+          <div class="progress-grid">
+            <button
+              v-for="p in personasProgress"
+              :key="p.id"
+              type="button"
+              class="progress-card"
+              :class="{ 'progress-card--done': p.pct === 100 }"
+              :style="{ '--p-color': p.color }"
+              :aria-label="'Ver jornadas de ' + p.name"
+              @click="selectPersona(p.id)"
+            >
+              <div class="progress-card-header">
+                <div class="progress-card-icon" :style="journeyIconStyle(p.color)" aria-hidden="true">
+                  <span class="material-symbols-outlined">{{ p.icon }}</span>
+                </div>
+                <span class="progress-card-name">{{ p.name }}</span>
+                <span class="progress-card-count">{{ p.ativas }}<span class="progress-card-total">/{{ p.total }}</span></span>
+              </div>
+              <div class="progress-bar-track" role="progressbar" :aria-valuenow="p.pct" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar-fill" :style="{ width: p.pct + '%', '--p-color': p.color }"></div>
+              </div>
+            </button>
           </div>
         </section>
 
@@ -488,9 +527,92 @@ const personas = ref([
 .hero-stats { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
 
 .stat { display: flex; flex-direction: column; align-items: center; }
-.stat-value { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1; }
+.stat-value { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-value-total { font-size: 13px; font-weight: 400; color: var(--text-dim); }
+.stat-value-unit  { font-size: 13px; font-weight: 400; color: var(--text-muted); }
 .stat-label { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
 .stat-divider { width: 1px; height: 30px; background: var(--border); }
+
+/* ── Progress section ────────── */
+.progress-section { padding: 24px 24px 0; }
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
+  touch-action: manipulation;
+}
+.progress-card:hover {
+  border-color: var(--p-color);
+  background: var(--surface-2);
+}
+.progress-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.progress-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-card-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.progress-card-icon .material-symbols-outlined { font-size: 15px; }
+
+.progress-card-name {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-card-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--p-color);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.progress-card-total { font-size: 10.5px; font-weight: 400; color: var(--text-dim); }
+
+.progress-bar-track {
+  height: 3px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--p-color);
+  border-radius: 99px;
+  transition: width 400ms ease;
+  min-width: 0;
+}
 
 /* ── Quick section ───────────── */
 .quick-section { padding: 24px 24px 0; }
