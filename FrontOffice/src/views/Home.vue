@@ -263,6 +263,62 @@ const personas = ref([
             </RouterLink>
           </div>
         </section>
+
+        <!-- Seção: Sobre o Ambiente -->
+        <section class="about-section">
+          <span class="section-label">Sobre este ambiente</span>
+          <div class="about-grid">
+
+            <!-- O que é -->
+            <div class="about-card">
+              <div class="about-card-icon" style="--a-color:#7367F0">
+                <span class="material-symbols-outlined">layers</span>
+              </div>
+              <h3 class="about-card-title">O que é</h3>
+              <p class="about-card-text">
+                Ambiente de prototipação das jornadas do <strong>Educacross</strong>.
+                Documenta o estado AS-IS e antecipa melhorias TO-BE antes da implementação em produção.
+              </p>
+            </div>
+
+            <!-- Como funciona -->
+            <div class="about-card">
+              <div class="about-card-icon" style="--a-color:#00CFE8">
+                <span class="material-symbols-outlined">account_tree</span>
+              </div>
+              <h3 class="about-card-title">Como funciona</h3>
+              <p class="about-card-text">
+                Cada melhoria parte de uma branch <code>prototypes/as-is</code>, é desenvolvida em
+                <code>prototypes/feature/*</code> e publicada via Vercel para validação antes de ir a produção.
+              </p>
+            </div>
+
+            <!-- Escopo -->
+            <div class="about-card">
+              <div class="about-card-icon" style="--a-color:#28C76F">
+                <span class="material-symbols-outlined">route</span>
+              </div>
+              <h3 class="about-card-title">Escopo</h3>
+              <p class="about-card-text">
+                <strong>50+ jornadas</strong> mapeadas em 6 personas: Professor, Aluno, Coordenador,
+                Diretor, Administrador e Gestor de Rede — cobrindo todos os fluxos críticos da plataforma.
+              </p>
+            </div>
+
+            <!-- Stack -->
+            <div class="about-card">
+              <div class="about-card-icon" style="--a-color:#FF9F43">
+                <span class="material-symbols-outlined">code</span>
+              </div>
+              <h3 class="about-card-title">Stack técnica</h3>
+              <p class="about-card-text">
+                Protótipos em <strong>Vue 3.5</strong> + Vite. Documentação em <strong>Docusaurus</strong>.
+                Referência de produção: Vue 2.7 (somente consulta, não editar).
+              </p>
+            </div>
+
+          </div>
+        </section>
       </template>
 
       <!-- Vista: Jornadas da persona selecionada -->
@@ -699,6 +755,65 @@ const personas = ref([
 .quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
 .quick-card-desc { font-size: 11.5px; color: var(--text-muted); }
 
+/* ── About section ───────────── */
+.about-section {
+  padding: 24px 24px 28px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-card-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--a-color, var(--accent)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--a-color, var(--accent)) 24%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--a-color, var(--accent));
+  flex-shrink: 0;
+}
+.about-card-icon .material-symbols-outlined { font-size: 16px; }
+
+.about-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.about-card-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.about-card-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.about-card-text code {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
 /* ── Responsivo ──────────────── */
 @media (max-width: 1024px) {
   .shell { grid-template-columns: 1fr; }
@@ -719,6 +834,7 @@ const personas = ref([
   .sidebar-nav { flex-direction: row; align-items: center; flex: 1; }
   .nav-label, .sidebar-footer, .nav-persona { display: none; }
   .quick-grid { grid-template-columns: 1fr; }
+  .about-grid  { grid-template-columns: 1fr; }
 
   .hero-strip {
     flex-direction: column;
