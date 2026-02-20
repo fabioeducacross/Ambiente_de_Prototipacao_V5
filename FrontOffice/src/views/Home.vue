@@ -142,20 +142,6 @@ const personas = ref([
 
     <!-- Main -->
     <main class="main">
-      <!-- Topbar -->
-      <header class="topbar">
-        <div class="topbar-breadcrumb">
-          <span class="bc-root">Workspace</span>
-          <span class="material-symbols-outlined bc-sep">chevron_right</span>
-          <span class="bc-current">Início</span>
-        </div>
-        <RouterLink to="/teacher/calendar" class="topbar-cta">
-          <span class="material-symbols-outlined">play_arrow</span>
-          Abrir Protótipo
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </RouterLink>
-      </header>
-
       <!-- Hero strip -->
       <section class="hero-strip">
         <div class="hero-text">
@@ -481,40 +467,6 @@ const personas = ref([
 
 /* ── Main ────────────────────── */
 .main { display: flex; flex-direction: column; min-width: 0; }
-
-/* ── Topbar ──────────────────── */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 24px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: rgba(10,10,10,0.88);
-  backdrop-filter: blur(8px);
-  z-index: 10;
-}
-
-.topbar-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; }
-.bc-root { color: var(--text-muted); }
-.bc-sep { color: var(--text-dim); font-size: 14px; }
-.bc-current { color: var(--text); font-weight: 500; }
-
-.topbar-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: var(--r);
-  transition: opacity var(--t);
-}
-.topbar-cta:hover { opacity: 0.82; }
 
 /* ── Hero strip ──────────────── */
 .hero-strip {
