@@ -1,5 +1,5 @@
 ﻿<script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 /** Converte hex + alpha (0-1) para rgba */
@@ -16,10 +16,10 @@ const personaIconStyle = (color) => ({
   color
 })
 
-const selectedPersona = ref(null)
-const togglePersona = (id) => {
-  selectedPersona.value = selectedPersona.value === id ? null : id
-}
+const drawerPersona = ref(null)
+const openDrawer  = (id) => { drawerPersona.value = id }
+const closeDrawer = () => { drawerPersona.value = null }
+const activePersona = computed(() => personas.value.find(p => p.id === drawerPersona.value) ?? null)
 
 const personas = ref([
   {
@@ -193,13 +193,12 @@ const personas = ref([
         <div class="personas-grid">
           <template v-for="persona in personas" :key="persona.id">
 
-            <!-- Persona com acordeão (teacher) -->
+            <!-- Persona com drawer (teacher) -->
             <div
               v-if="persona.journeys"
               class="persona-card"
-              :class="{ 'is-expanded': selectedPersona === persona.id }"
               :style="{ '--p-color': persona.color }"
-              @click="togglePersona(persona.id)"
+              @click="openDrawer(persona.id)"
             >
               <div class="persona-top">
                 <div class="persona-icon" :style="personaIconStyle(persona.color)">
@@ -213,34 +212,9 @@ const personas = ref([
               </div>
               <div class="persona-footer">
                 <span class="persona-cta">
-                  {{ selectedPersona === persona.id ? 'Fechar' : 'Ver jornadas' }}
-                  <span class="material-symbols-outlined cta-icon">
-                    {{ selectedPersona === persona.id ? 'expand_less' : 'expand_more' }}
-                  </span>
+                  Ver jornadas
+                  <span class="material-symbols-outlined cta-icon">chevron_right</span>
                 </span>
-              </div>
-
-              <!-- Acordeão de jornadas -->
-              <div v-if="selectedPersona === persona.id" class="persona-journeys" @click.stop>
-                <template v-for="j in persona.journeys" :key="j.id">
-                  <RouterLink v-if="j.route" :to="j.route" class="journey-row">
-                    <span class="journey-row-icon" :style="{ color: persona.color }">
-                      <span class="material-symbols-outlined">{{ j.icon }}</span>
-                    </span>
-                    <span class="journey-row-id">{{ j.id }}</span>
-                    <span class="journey-row-label">{{ j.label }}</span>
-                    <span class="journey-row-status status-ativo">{{ j.status }}</span>
-                    <span class="material-symbols-outlined journey-row-arrow">arrow_forward</span>
-                  </RouterLink>
-                  <div v-else class="journey-row journey-row--muted">
-                    <span class="journey-row-icon">
-                      <span class="material-symbols-outlined">{{ j.icon }}</span>
-                    </span>
-                    <span class="journey-row-id">{{ j.id }}</span>
-                    <span class="journey-row-label">{{ j.label }}</span>
-                    <span class="journey-row-status status-planejado">{{ j.status }}</span>
-                  </div>
-                </template>
               </div>
             </div>
 
@@ -272,6 +246,76 @@ const personas = ref([
         </div>
       </section>
     </main>
+
+    <!-- Drawer overlay -->
+    <Transition name="drawer-fade">
+      <div
+        v-if="drawerPersona"
+        class="drawer-overlay"
+        @click="closeDrawer"
+      ></div>
+    </Transition>
+
+    <!-- Drawer panel -->
+    <Transition name="drawer-slide">
+      <div v-if="activePersona" class="drawer-panel" :style="{ '--p-color': activePersona.color }">
+
+        <!-- Cabeçalho do drawer -->
+        <div class="drawer-header">
+          <div class="drawer-persona-icon" :style="personaIconStyle(activePersona.color)">
+            <span class="material-symbols-outlined">{{ activePersona.icon }}</span>
+          </div>
+          <div class="drawer-persona-info">
+            <p class="drawer-persona-name">{{ activePersona.name }}</p>
+            <p class="drawer-persona-meta">{{ activePersona.journeys.length }} jornadas</p>
+          </div>
+          <button class="drawer-close" @click="closeDrawer">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <!-- Descrição -->
+        <p class="drawer-persona-desc">{{ activePersona.description }}</p>
+
+        <!-- Lista de jornadas -->
+        <div class="drawer-section-label">Jornadas disponíveis</div>
+        <div class="drawer-body">
+          <template v-for="j in activePersona.journeys" :key="j.id">
+
+            <RouterLink
+              v-if="j.route"
+              :to="j.route"
+              class="drawer-journey-row"
+              @click="closeDrawer"
+            >
+              <div class="drawer-journey-icon" :style="{ color: activePersona.color }">
+                <span class="material-symbols-outlined">{{ j.icon }}</span>
+              </div>
+              <div class="drawer-journey-body">
+                <p class="drawer-journey-label">{{ j.label }}</p>
+                <p class="drawer-journey-id">{{ j.id }}</p>
+              </div>
+              <span class="drawer-journey-status status-ativo">{{ j.status }}</span>
+              <span class="material-symbols-outlined drawer-journey-arrow">arrow_forward</span>
+            </RouterLink>
+
+            <div v-else class="drawer-journey-row drawer-journey-row--muted">
+              <div class="drawer-journey-icon">
+                <span class="material-symbols-outlined">{{ j.icon }}</span>
+              </div>
+              <div class="drawer-journey-body">
+                <p class="drawer-journey-label">{{ j.label }}</p>
+                <p class="drawer-journey-id">{{ j.id }}</p>
+              </div>
+              <span class="drawer-journey-status status-planejado">{{ j.status }}</span>
+            </div>
+
+          </template>
+        </div>
+
+      </div>
+    </Transition>
+
   </div>
 </template>
 
@@ -572,7 +616,7 @@ const personas = ref([
 
 .persona-card:hover { border-color: var(--p-color); background: var(--surface-2); }
 .persona-card:hover .persona-cta { color: var(--p-color); }
-.persona-card.is-expanded { border-color: var(--p-color); background: var(--surface-2); }
+.persona-card[style*='--p-color']:hover .persona-cta { color: var(--p-color); }
 
 .persona-top {
   display: flex;
@@ -644,68 +688,151 @@ const personas = ref([
   .personas-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
-/* ── Acordeão de jornadas ────── */
-.persona-journeys {
-  margin-top: 10px;
-  border-top: 1px solid var(--border);
-  padding-top: 8px;
+/* ── Drawer lateral ─────────── */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(3px);
+  z-index: 200;
+}
+
+.drawer-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  z-index: 201;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  overflow: hidden;
 }
 
-.journey-row {
+.drawer-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 8px;
+  gap: 12px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.drawer-persona-icon {
+  width: 40px; height: 40px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.drawer-persona-info { flex: 1; min-width: 0; }
+.drawer-persona-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.drawer-persona-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+
+.drawer-close {
+  width: 30px; height: 30px;
   border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: background var(--t), color var(--t);
+  flex-shrink: 0;
+}
+.drawer-close:hover { background: var(--surface-2); color: var(--text); }
+
+.drawer-persona-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  padding: 12px 18px 0;
+  flex-shrink: 0;
+}
+
+.drawer-section-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+  padding: 16px 18px 8px;
+  flex-shrink: 0;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.drawer-journey-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 8px;
   text-decoration: none;
   color: var(--text);
-  transition: background var(--t);
+  border: 1px solid transparent;
+  transition: background var(--t), border-color var(--t);
+  cursor: pointer;
 }
-.journey-row:not(.journey-row--muted):hover { background: rgba(115,103,240,0.1); }
-.journey-row--muted { opacity: 0.4; cursor: default; }
+.drawer-journey-row:not(.drawer-journey-row--muted):hover {
+  background: rgba(115,103,240,0.07);
+  border-color: rgba(115,103,240,0.18);
+}
+.drawer-journey-row--muted { opacity: 0.38; cursor: default; }
 
-.journey-row-icon {
-  width: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-dim);
+.drawer-journey-icon {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
-.journey-row-id {
-  font-size: 10px;
-  font-family: var(--font-family-mono);
+.drawer-journey-body { flex: 1; min-width: 0; }
+.drawer-journey-label {
+  font-size: 13px;
   font-weight: 500;
-  color: var(--accent);
-  background: rgba(115,103,240,0.1);
-  border: 1px solid rgba(115,103,240,0.18);
-  padding: 1px 5px;
-  border-radius: 4px;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.journey-row-label {
-  flex: 1;
-  font-size: 12px;
   color: var(--text);
-  min-width: 0;
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.drawer-journey-id {
+  font-size: 10.5px;
+  font-family: var(--font-family-mono);
+  color: var(--accent);
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
 
-.journey-row-status {
+.drawer-journey-status {
   font-size: 10px;
   font-weight: 500;
-  padding: 1px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 .status-ativo {
   background: rgba(40,199,111,0.1);
@@ -718,6 +845,15 @@ const personas = ref([
   color: #FF9F43;
 }
 
-.journey-row-arrow { font-size: 14px; color: var(--text-dim); margin-left: 2px; }
+.drawer-journey-arrow { font-size: 15px; color: var(--text-dim); flex-shrink: 0; }
+
+/* ── Transições drawer ───────── */
+.drawer-fade-enter-active, .drawer-fade-leave-active { transition: opacity 200ms ease; }
+.drawer-fade-enter-from, .drawer-fade-leave-to { opacity: 0; }
+
+.drawer-slide-enter-active, .drawer-slide-leave-active {
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.drawer-slide-enter-from, .drawer-slide-leave-to { transform: translateX(100%); }
 
 </style>
