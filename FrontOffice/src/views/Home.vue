@@ -1,6 +1,5 @@
 ﻿<script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
-import { RouterLink } from 'vue-router'
 
 /** Converte hex + alpha (0-1) para rgba */
 const hexAlpha = (hex, a) => {
@@ -52,7 +51,12 @@ const personas = ref([
     icon: 'school',
     color: '#00CFE8',
     description: 'Missões, conquistas e progresso individual',
-    route: '/student'
+    journeys: [
+      { id: 'ALUNO-001', label: 'Acessar Missões',      icon: 'flag',         route: null, status: 'Planejado' },
+      { id: 'ALUNO-002', label: 'Completar Atividades', icon: 'task_alt',     route: null, status: 'Planejado' },
+      { id: 'ALUNO-003', label: 'Ver Conquistas',        icon: 'emoji_events', route: null, status: 'Planejado' },
+      { id: 'ALUNO-004', label: 'Receber Feedback',      icon: 'reviews',      route: null, status: 'Planejado' },
+    ]
   },
   {
     id: 'coordinator',
@@ -60,7 +64,11 @@ const personas = ref([
     icon: 'account_tree',
     color: '#28C76F',
     description: 'Coordenação pedagógica e gestão de turmas',
-    route: '/coordinator'
+    journeys: [
+      { id: 'COORD-001', label: 'Gestão Pedagógica',     icon: 'account_tree',  route: null, status: 'Planejado' },
+      { id: 'COORD-002', label: 'Suporte a Professores', icon: 'support_agent', route: null, status: 'Planejado' },
+      { id: 'COORD-003', label: 'Análise de Turmas',     icon: 'bar_chart',     route: null, status: 'Planejado' },
+    ]
   },
   {
     id: 'director',
@@ -68,7 +76,11 @@ const personas = ref([
     icon: 'apartment',
     color: '#FF9F43',
     description: 'Gestão escolar e indicadores estratégicos',
-    route: '/director'
+    journeys: [
+      { id: 'DIR-001', label: 'Indicadores Estratégicos', icon: 'insights',    route: null, status: 'Planejado' },
+      { id: 'DIR-002', label: 'Gestão de Recursos',       icon: 'inventory_2', route: null, status: 'Planejado' },
+      { id: 'DIR-003', label: 'Relatórios Gerenciais',    icon: 'summarize',   route: null, status: 'Planejado' },
+    ]
   },
   {
     id: 'administrator',
@@ -76,7 +88,11 @@ const personas = ref([
     icon: 'settings',
     color: '#EA5455',
     description: 'Configuração do sistema e gestão de usuários',
-    route: '/administrator'
+    journeys: [
+      { id: 'ADM-001', label: 'Gerenciar Usuários', icon: 'manage_accounts', route: null, status: 'Planejado' },
+      { id: 'ADM-002', label: 'Configurar Sistema', icon: 'build',           route: null, status: 'Planejado' },
+      { id: 'ADM-003', label: 'Logs e Auditoria',   icon: 'policy',          route: null, status: 'Planejado' },
+    ]
   },
   {
     id: 'network-manager',
@@ -84,7 +100,11 @@ const personas = ref([
     icon: 'language',
     color: '#9E95F5',
     description: 'Gestão de múltiplas escolas e indicadores de rede',
-    route: '/network-manager'
+    journeys: [
+      { id: 'REDE-001', label: 'Visão Geral da Rede',      icon: 'hub',            route: null, status: 'Planejado' },
+      { id: 'REDE-002', label: 'Comparações',               icon: 'compare_arrows', route: null, status: 'Planejado' },
+      { id: 'REDE-003', label: 'Planejamento Estratégico',  icon: 'route',          route: null, status: 'Planejado' },
+    ]
   }
 ])
 </script>
@@ -200,60 +220,32 @@ const personas = ref([
           <span class="personas-count">{{ personas.length }} disponíveis</span>
         </div>
         <div class="personas-grid">
-          <template v-for="persona in personas" :key="persona.id">
-
-            <!-- Persona com drawer (teacher) -->
-            <button
-              v-if="persona.journeys"
-              type="button"
-              class="persona-card"
-              :style="{ '--p-color': persona.color }"
-              :aria-label="'Ver jornadas de ' + persona.name"
-              @click="openDrawer(persona.id)"
-            >
-              <div class="persona-top">
-                <div class="persona-icon" :style="personaIconStyle(persona.color)" aria-hidden="true">
-                  <span class="material-symbols-outlined">{{ persona.icon }}</span>
-                </div>
-                <span class="persona-status">Ativo</span>
+          <button
+            v-for="persona in personas"
+            :key="persona.id"
+            type="button"
+            class="persona-card"
+            :style="{ '--p-color': persona.color }"
+            :aria-label="'Ver jornadas de ' + persona.name"
+            @click="openDrawer(persona.id)"
+          >
+            <div class="persona-top">
+              <div class="persona-icon" :style="personaIconStyle(persona.color)" aria-hidden="true">
+                <span class="material-symbols-outlined">{{ persona.icon }}</span>
               </div>
-              <div class="persona-body">
-                <p class="persona-name">{{ persona.name }}</p>
-                <p class="persona-desc">{{ persona.description }}</p>
-              </div>
-              <div class="persona-footer">
-                <span class="persona-cta">
-                  Ver jornadas
-                  <span class="material-symbols-outlined cta-icon" aria-hidden="true">chevron_right</span>
-                </span>
-              </div>
-            </button>
-
-            <!-- Persona padrão (RouterLink) -->
-            <RouterLink
-              v-else
-              :to="persona.route"
-              class="persona-card"
-              :style="{ '--p-color': persona.color }"
-            >
-              <div class="persona-top">
-                <div class="persona-icon" :style="personaIconStyle(persona.color)">
-                  <span class="material-symbols-outlined">{{ persona.icon }}</span>
-                </div>
-                <span class="persona-status">Ativo</span>
-              </div>
-              <div class="persona-body">
-                <p class="persona-name">{{ persona.name }}</p>
-                <p class="persona-desc">{{ persona.description }}</p>
-              </div>
-              <div class="persona-footer">
-                <span class="persona-cta">
-                  Abrir jornada <span class="material-symbols-outlined cta-icon">arrow_forward</span>
-                </span>
-              </div>
-            </RouterLink>
-
-          </template>
+              <span class="persona-status">Ativo</span>
+            </div>
+            <div class="persona-body">
+              <p class="persona-name">{{ persona.name }}</p>
+              <p class="persona-desc">{{ persona.description }}</p>
+            </div>
+            <div class="persona-footer">
+              <span class="persona-cta">
+                Ver jornadas
+                <span class="material-symbols-outlined cta-icon" aria-hidden="true">chevron_right</span>
+              </span>
+            </div>
+          </button>
         </div>
       </section>
     </main>
