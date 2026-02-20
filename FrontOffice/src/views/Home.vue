@@ -136,9 +136,23 @@ const personas = ref([
         <a class="nav-link active" href="#">
           <span class="material-symbols-outlined">home</span> Início
         </a>
-        <a class="nav-link" href="#personas">
-          <span class="material-symbols-outlined">group</span> Personas
-        </a>
+
+        <span class="nav-label nav-label--personas">Personas</span>
+        <button
+          v-for="persona in personas"
+          :key="persona.id"
+          type="button"
+          class="nav-persona"
+          :style="{ '--p-color': persona.color }"
+          :aria-label="'Ver jornadas de ' + persona.name"
+          @click="openDrawer(persona.id)"
+        >
+          <span class="material-symbols-outlined nav-persona-icon" aria-hidden="true">{{ persona.icon }}</span>
+          <span class="nav-persona-name">{{ persona.name }}</span>
+          <span class="material-symbols-outlined nav-persona-arrow" aria-hidden="true">chevron_right</span>
+        </button>
+
+        <span class="nav-label">Recursos</span>
         <a class="nav-link" href="http://localhost:3000" target="_blank">
           <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
           <span class="material-symbols-outlined nav-external">open_in_new</span>
@@ -210,41 +224,6 @@ const personas = ref([
         </div>
       </section>
 
-      <!-- Personas grid -->
-      <section id="personas" class="personas-section">
-        <div class="personas-header">
-          <h2 class="section-label">Personas</h2>
-          <span class="personas-count">{{ personas.length }} disponíveis</span>
-        </div>
-        <div class="personas-grid">
-          <button
-            v-for="persona in personas"
-            :key="persona.id"
-            type="button"
-            class="persona-card"
-            :style="{ '--p-color': persona.color }"
-            :aria-label="'Ver jornadas de ' + persona.name"
-            @click="openDrawer(persona.id)"
-          >
-            <div class="persona-top">
-              <div class="persona-icon" :style="personaIconStyle(persona.color)" aria-hidden="true">
-                <span class="material-symbols-outlined">{{ persona.icon }}</span>
-              </div>
-              <span class="persona-status">Ativo</span>
-            </div>
-            <div class="persona-body">
-              <p class="persona-name">{{ persona.name }}</p>
-              <p class="persona-desc">{{ persona.description }}</p>
-            </div>
-            <div class="persona-footer">
-              <span class="persona-cta">
-                Ver jornadas
-                <span class="material-symbols-outlined cta-icon" aria-hidden="true">chevron_right</span>
-              </span>
-            </div>
-          </button>
-        </div>
-      </section>
     </main>
 
     <!-- Drawer overlay -->
@@ -456,6 +435,32 @@ const personas = ref([
 
 .nav-external { margin-left: auto; font-size: 13px; opacity: 0.4; }
 
+.nav-label--personas { margin-top: 8px; }
+
+.nav-persona {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--r);
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: background var(--t), color var(--t);
+}
+.nav-persona:hover { background: var(--surface-2); color: var(--text); }
+.nav-persona:hover .nav-persona-icon { color: var(--p-color); }
+.nav-persona:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r); }
+.nav-persona-icon { font-size: 15px; color: var(--text-dim); transition: color var(--t); flex-shrink: 0; }
+.nav-persona-name { flex: 1; }
+.nav-persona-arrow { font-size: 13px; color: var(--text-dim); opacity: 0; transition: opacity var(--t); }
+.nav-persona:hover .nav-persona-arrow { opacity: 1; }
+
 .sidebar-footer {
   padding-top: 14px;
   border-top: 1px solid var(--border);
@@ -595,74 +600,6 @@ const personas = ref([
   background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); flex-shrink: 0;
 }
 
-/* ── Personas ────────────────── */
-.personas-section { padding: 24px; }
-.personas-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.personas-count { font-size: 11.5px; color: var(--text-dim); }
-
-.personas-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.persona-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 14px;
-  text-decoration: none;
-  color: var(--text);
-  cursor: pointer;
-  transition: border-color var(--t), background var(--t);
-  /* reset button element */
-  font-family: inherit;
-  font-size: inherit;
-  text-align: left;
-  width: 100%;
-}
-.persona-card:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.persona-card:hover { border-color: var(--p-color); background: var(--surface-2); }
-.persona-card:hover .persona-cta { color: var(--p-color); }
-.persona-card[style*='--p-color']:hover .persona-cta { color: var(--p-color); }
-
-.persona-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.persona-icon {
-  width: 34px; height: 34px;
-  border-radius: 7px;
-  border: 1px solid transparent;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
-}
-
-.persona-status {
-  font-size: 10px; padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(40,199,111,0.1);
-  border: 1px solid rgba(40,199,111,0.22);
-  color: #28C76F;
-  font-weight: 500;
-}
-
-.persona-body { flex: 1; margin-bottom: 12px; }
-.persona-name { font-size: 13.5px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin-bottom: 3px; }
-.persona-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
-
-.persona-footer { padding-top: 10px; border-top: 1px solid var(--border); }
-.persona-cta { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--text-dim); transition: color var(--t); }
-
 /* ── Responsivo ──────────────── */
 @media (max-width: 1024px) {
   .shell { grid-template-columns: 1fr; }
@@ -681,8 +618,8 @@ const personas = ref([
   }
 
   .sidebar-nav { flex-direction: row; align-items: center; flex: 1; }
-  .nav-label, .sidebar-footer { display: none; }
-  .personas-grid, .quick-grid { grid-template-columns: 1fr; }
+  .nav-label, .sidebar-footer, .nav-persona { display: none; }
+  .quick-grid { grid-template-columns: 1fr; }
 
   .hero-strip {
     flex-direction: column;
@@ -695,11 +632,6 @@ const personas = ref([
 
 @media (min-width: 1440px) {
   .shell { grid-template-columns: 240px 1fr; }
-  .personas-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-@media (min-width: 1800px) {
-  .personas-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
 /* ── Drawer lateral ─────────── */
