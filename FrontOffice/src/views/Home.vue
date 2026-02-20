@@ -213,15 +213,14 @@ const personas = ref([
               :key="link.id"
               :to="link.route"
               class="quick-card"
-              :class="{ 'quick-card--featured': quickLinks.length === 1 }"
               :style="{ '--q-color': link.personaColor }"
             >
-              <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
-              <div class="quick-card-body">
-                <p class="quick-card-title">{{ link.label }}</p>
-                <p class="quick-card-desc">{{ link.personaName }}</p>
+              <div class="quick-card-top">
+                <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
+                <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
               </div>
-              <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
+              <p class="quick-card-title">{{ link.label }}</p>
+              <p class="quick-card-desc">{{ link.personaName }}</p>
             </RouterLink>
           </div>
         </section>
@@ -528,14 +527,14 @@ const personas = ref([
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 8px;
 }
 
 .quick-card {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 15px;
+  flex-direction: column;
+  padding: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -543,42 +542,40 @@ const personas = ref([
   color: var(--text);
   transition: border-color var(--t), background var(--t);
 }
-
-.quick-card:hover { border-color: var(--q-color, var(--border-hover)); background: var(--surface-2); }
-
-.quick-card--featured {
-  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 30%, transparent);
-  background: color-mix(in srgb, var(--q-color, var(--accent)) 6%, transparent);
+.quick-card:hover {
+  border-color: var(--q-color, var(--border-hover));
+  background: var(--surface-2);
 }
-.quick-card--featured:hover {
-  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 55%, transparent);
-  background: color-mix(in srgb, var(--q-color, var(--accent)) 11%, transparent);
-}
+.quick-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.quick-card--muted { opacity: 0.45; cursor: default; pointer-events: none; }
+.quick-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 
 .quick-card-icon {
-  width: 32px; height: 32px;
+  width: 34px; height: 34px;
   border-radius: 7px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 14px; color: var(--text-muted);
-}
-.quick-card--featured .quick-card-icon {
   background: color-mix(in srgb, var(--q-color, var(--accent)) 13%, transparent);
-  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--q-color, var(--accent)) 28%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
   color: var(--q-color, var(--accent));
+  flex-shrink: 0;
 }
+.quick-card-icon .material-symbols-outlined { font-size: 17px; }
 
-.quick-card-body { flex: 1; min-width: 0; }
-.quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
-.quick-card-desc { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
-.quick-card-arrow { color: var(--text-dim); font-size: 14px; flex-shrink: 0; }
-.quick-card-badge {
-  font-size: 10.5px; padding: 2px 6px; border-radius: 4px;
-  background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); flex-shrink: 0;
+.quick-card-arrow {
+  font-size: 14px;
+  color: var(--text-dim);
+  transition: color var(--t);
 }
+.quick-card:hover .quick-card-arrow { color: var(--q-color, var(--text-muted)); }
+
+.quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.quick-card-desc { font-size: 11.5px; color: var(--text-muted); }
 
 /* ── Responsivo ──────────────── */
 @media (max-width: 1024px) {
