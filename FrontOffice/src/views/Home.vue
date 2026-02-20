@@ -127,9 +127,13 @@ const personas = ref([
           <span class="material-symbols-outlined">group</span> Personas
         </a>
         <a class="nav-link" href="http://localhost:3000" target="_blank">
-          <span class="material-symbols-outlined">menu_book</span> Wiki
+          <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
           <span class="material-symbols-outlined nav-external">open_in_new</span>
         </a>
+        <span class="nav-link nav-link--disabled">
+          <span class="material-symbols-outlined">view_kanban</span> Kanban
+          <span class="nav-soon">Em breve</span>
+        </span>
       </nav>
 
       <div class="sidebar-footer">
@@ -179,23 +183,6 @@ const personas = ref([
             <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
           </RouterLink>
 
-          <a href="http://localhost:3000" target="_blank" class="quick-card">
-            <div class="quick-card-icon"><span class="material-symbols-outlined">book_4</span></div>
-            <div class="quick-card-body">
-              <p class="quick-card-title">Wiki TO-BE</p>
-              <p class="quick-card-desc">Documentação de produto e engenharia</p>
-            </div>
-            <span class="material-symbols-outlined quick-card-arrow">open_in_new</span>
-          </a>
-
-          <div class="quick-card quick-card--muted">
-            <div class="quick-card-icon"><span class="material-symbols-outlined">view_kanban</span></div>
-            <div class="quick-card-body">
-              <p class="quick-card-title">Kanban de Demandas</p>
-              <p class="quick-card-desc">Em breve</p>
-            </div>
-            <span class="quick-card-badge">Em breve</span>
-          </div>
         </div>
       </section>
 
@@ -440,6 +427,8 @@ const personas = ref([
 
 .nav-link:hover { background: var(--surface-2); color: var(--text); }
 .nav-link.active { background: var(--accent-glow); color: var(--accent); }
+.nav-link--disabled { opacity: 0.38; cursor: default; pointer-events: none; }
+.nav-soon { margin-left: auto; font-size: 10px; font-weight: 500; color: var(--text-dim); background: var(--surface-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 20px; }
 
 .nav-external { margin-left: auto; font-size: 13px; opacity: 0.4; }
 
