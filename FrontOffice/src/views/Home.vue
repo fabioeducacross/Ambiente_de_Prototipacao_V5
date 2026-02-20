@@ -1,5 +1,5 @@
 ﻿<script setup>
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 /** Converte hex + alpha (0-1) para rgba */
@@ -10,32 +10,24 @@ const hexAlpha = (hex, a) => {
   return `rgba(${r},${g},${b},${a})`
 }
 
-const personaIconStyle = (color) => ({
+const journeyIconStyle = (color) => ({
   background: hexAlpha(color, 0.13),
   borderColor: hexAlpha(color, 0.22),
   color
 })
 
-const drawerPersona  = ref(null)
-const drawerCloseBtn = ref(null)
-const openDrawer     = (id) => { drawerPersona.value = id }
-const closeDrawer    = () => { drawerPersona.value = null }
-const activePersona  = computed(() => personas.value.find(p => p.id === drawerPersona.value) ?? null)
-
-// Fecha com ESC
-const onKeydown = (e) => { if (e.key === 'Escape' && drawerPersona.value) closeDrawer() }
-onMounted(()  => document.addEventListener('keydown', onKeydown))
-onUnmounted(() => document.removeEventListener('keydown', onKeydown))
-
-// Foco no botão de fechar ao abrir o drawer
-watch(drawerPersona, (val) => { if (val) nextTick(() => drawerCloseBtn.value?.focus()) })
+// Master-detail inline
+const selectedPersonaId = ref(null)
+const selectedPersona   = computed(() => personas.value.find(p => p.id === selectedPersonaId.value) ?? null)
+const selectPersona     = (id) => { selectedPersonaId.value = id }
+const goHome            = () => { selectedPersonaId.value = null }
 
 // Acesso rápido — jornadas com rota ativa, cap 4
 const QUICK_CAP = 4
 const allQuickLinks = computed(() =>
   personas.value.flatMap(p =>
     (p.journeys ?? []).filter(j => j.route).map(j => ({
-      ...j, personaName: p.name, personaColor: p.color, personaIcon: p.icon
+      ...j, personaId: p.id, personaName: p.name, personaColor: p.color, personaIcon: p.icon
     }))
   )
 )
@@ -143,9 +135,11 @@ const personas = ref([
           :key="persona.id"
           type="button"
           class="nav-persona"
+          :class="{ 'nav-persona--active': selectedPersonaId === persona.id }"
           :style="{ '--p-color': persona.color }"
           :aria-label="'Ver jornadas de ' + persona.name"
-          @click="openDrawer(persona.id)"
+          :aria-current="selectedPersonaId === persona.id ? 'page' : undefined"
+          @click="selectPersona(persona.id)"
         >
           <span class="material-symbols-outlined nav-persona-icon" aria-hidden="true">{{ persona.icon }}</span>
           <span class="nav-persona-name">{{ persona.name }}</span>
@@ -173,140 +167,121 @@ const personas = ref([
 
     <!-- Main -->
     <main class="main">
-      <!-- Hero strip -->
-      <section class="hero-strip">
-        <div class="hero-text">
-          <h1 class="hero-title">Ambiente de Prototipação</h1>
-          <p class="hero-desc">Explore e valide fluxos de cada persona antes de migrar para produção.</p>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-value">6</span>
-            <span class="stat-label">Personas</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">v1.2</span>
-            <span class="stat-label">Baseline</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-value">3</span>
-            <span class="stat-label">Artefatos</span>
-          </div>
-        </div>
-      </section>
 
-      <!-- Quick links (dinâmico) -->
-      <section v-if="quickLinks.length" class="quick-section">
-        <div class="quick-section-header">
-          <h2 class="section-label">Acesso rápido</h2>
-          <a v-if="hasMoreLinks" href="#personas" class="quick-see-all">
-            Ver todas <span class="material-symbols-outlined">arrow_downward</span>
-          </a>
-        </div>
-        <div class="quick-grid">
-          <RouterLink
-            v-for="link in quickLinks"
-            :key="link.id"
-            :to="link.route"
-            class="quick-card"
-            :class="{ 'quick-card--featured': quickLinks.length === 1 }"
-            :style="{ '--q-color': link.personaColor }"
-          >
-            <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
-            <div class="quick-card-body">
-              <p class="quick-card-title">{{ link.label }}</p>
-              <p class="quick-card-desc">{{ link.personaName }}</p>
+      <!-- Vista: Home (nenhuma persona selecionada) -->
+      <template v-if="!selectedPersona">
+        <!-- Hero strip -->
+        <section class="hero-strip">
+          <div class="hero-text">
+            <h1 class="hero-title">Ambiente de Prototipação</h1>
+            <p class="hero-desc">Explore e valide fluxos de cada persona antes de migrar para produção.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value">6</span>
+              <span class="stat-label">Personas</span>
             </div>
-            <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
-          </RouterLink>
-        </div>
-      </section>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">v1.2</span>
+              <span class="stat-label">Baseline</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">3</span>
+              <span class="stat-label">Artefatos</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Acesso rápido (dinâmico) -->
+        <section v-if="quickLinks.length" class="quick-section">
+          <div class="quick-section-header">
+            <h2 class="section-label">Acesso rápido</h2>
+            <a v-if="hasMoreLinks" href="#" class="quick-see-all" @click.prevent="selectPersona(quickLinks[0].personaId)">
+              Ver todas <span class="material-symbols-outlined">arrow_downward</span>
+            </a>
+          </div>
+          <div class="quick-grid">
+            <RouterLink
+              v-for="link in quickLinks"
+              :key="link.id"
+              :to="link.route"
+              class="quick-card"
+              :class="{ 'quick-card--featured': quickLinks.length === 1 }"
+              :style="{ '--q-color': link.personaColor }"
+            >
+              <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
+              <div class="quick-card-body">
+                <p class="quick-card-title">{{ link.label }}</p>
+                <p class="quick-card-desc">{{ link.personaName }}</p>
+              </div>
+              <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
+            </RouterLink>
+          </div>
+        </section>
+      </template>
+
+      <!-- Vista: Jornadas da persona selecionada -->
+      <template v-else>
+        <!-- Header da persona -->
+        <section class="persona-view-header" :style="{ '--p-color': selectedPersona.color }">
+          <button type="button" class="back-btn" @click="goHome" aria-label="Voltar ao início">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <div class="persona-view-icon" :style="journeyIconStyle(selectedPersona.color)" aria-hidden="true">
+            <span class="material-symbols-outlined">{{ selectedPersona.icon }}</span>
+          </div>
+          <div class="persona-view-info">
+            <h1 class="persona-view-name">{{ selectedPersona.name }}</h1>
+            <p class="persona-view-desc">{{ selectedPersona.description }}</p>
+          </div>
+        </section>
+
+        <!-- Grid de jornadas -->
+        <section class="journeys-section">
+          <h2 class="section-label">Jornadas</h2>
+          <div class="journeys-grid">
+            <template v-for="j in selectedPersona.journeys" :key="j.id">
+
+              <!-- Jornada ativa: RouterLink -->
+              <RouterLink
+                v-if="j.route"
+                :to="j.route"
+                class="journey-card journey-card--active"
+                :style="{ '--p-color': selectedPersona.color }"
+              >
+                <div class="journey-card-top">
+                  <div class="journey-card-icon" :style="journeyIconStyle(selectedPersona.color)" aria-hidden="true">
+                    <span class="material-symbols-outlined">{{ j.icon }}</span>
+                  </div>
+                  <span class="journey-status status-ativo">{{ j.status }}</span>
+                </div>
+                <p class="journey-card-label">{{ j.label }}</p>
+                <p class="journey-card-id">{{ j.id }}</p>
+                <div class="journey-card-footer">
+                  <span class="journey-cta">Abrir <span class="material-symbols-outlined">arrow_forward</span></span>
+                </div>
+              </RouterLink>
+
+              <!-- Jornada planejada: div muted -->
+              <div v-else class="journey-card journey-card--planned">
+                <div class="journey-card-top">
+                  <div class="journey-card-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">{{ j.icon }}</span>
+                  </div>
+                  <span class="journey-status status-planejado">{{ j.status }}</span>
+                </div>
+                <p class="journey-card-label">{{ j.label }}</p>
+                <p class="journey-card-id">{{ j.id }}</p>
+              </div>
+
+            </template>
+          </div>
+        </section>
+      </template>
 
     </main>
-
-    <!-- Drawer overlay -->
-    <Transition name="drawer-fade">
-      <div
-        v-if="drawerPersona"
-        class="drawer-overlay"
-        aria-hidden="true"
-        @click="closeDrawer"
-      ></div>
-    </Transition>
-
-    <!-- Drawer panel -->
-    <Transition name="drawer-slide">
-      <div
-        v-if="activePersona"
-        role="dialog"
-        aria-modal="true"
-        :aria-label="activePersona.name + ' — Jornadas'"
-        class="drawer-panel"
-        :style="{ '--p-color': activePersona.color }"
-      >
-
-        <!-- Cabeçalho do drawer -->
-        <div class="drawer-header">
-          <div class="drawer-persona-icon" :style="personaIconStyle(activePersona.color)" aria-hidden="true">
-            <span class="material-symbols-outlined">{{ activePersona.icon }}</span>
-          </div>
-          <div class="drawer-persona-info">
-            <p class="drawer-persona-name">{{ activePersona.name }}</p>
-            <p class="drawer-persona-meta">{{ activePersona.journeys.length }} jornadas</p>
-          </div>
-          <button
-            ref="drawerCloseBtn"
-            class="drawer-close"
-            aria-label="Fechar painel"
-            @click="closeDrawer"
-          >
-            <span class="material-symbols-outlined" aria-hidden="true">close</span>
-          </button>
-        </div>
-
-        <!-- Descrição -->
-        <p class="drawer-persona-desc">{{ activePersona.description }}</p>
-
-        <!-- Lista de jornadas -->
-        <div class="drawer-section-label" role="heading" aria-level="3">Jornadas Disponíveis</div>
-        <div class="drawer-body">
-          <template v-for="j in activePersona.journeys" :key="j.id">
-
-            <RouterLink
-              v-if="j.route"
-              :to="j.route"
-              class="drawer-journey-row"
-              @click="closeDrawer"
-            >
-              <div class="drawer-journey-icon" :style="{ color: activePersona.color }" aria-hidden="true">
-                <span class="material-symbols-outlined">{{ j.icon }}</span>
-              </div>
-              <div class="drawer-journey-body">
-                <p class="drawer-journey-label">{{ j.label }}</p>
-                <p class="drawer-journey-id">{{ j.id }}</p>
-              </div>
-              <span class="drawer-journey-status status-ativo">{{ j.status }}</span>
-              <span class="material-symbols-outlined drawer-journey-arrow">arrow_forward</span>
-            </RouterLink>
-
-            <div v-else class="drawer-journey-row drawer-journey-row--muted">
-              <div class="drawer-journey-icon" aria-hidden="true">
-                <span class="material-symbols-outlined">{{ j.icon }}</span>
-              </div>
-              <div class="drawer-journey-body">
-                <p class="drawer-journey-label">{{ j.label }}</p>
-                <p class="drawer-journey-id">{{ j.id }}</p>
-              </div>
-              <span class="drawer-journey-status status-planejado">{{ j.status }}</span>
-            </div>
-
-          </template>
-        </div>
-
-      </div>
-    </Transition>
 
   </div>
 </template>
@@ -460,6 +435,9 @@ const personas = ref([
 .nav-persona-name { flex: 1; }
 .nav-persona-arrow { font-size: 13px; color: var(--text-dim); opacity: 0; transition: opacity var(--t); }
 .nav-persona:hover .nav-persona-arrow { opacity: 1; }
+.nav-persona--active { background: var(--surface-2); color: var(--text); }
+.nav-persona--active .nav-persona-icon { color: var(--p-color); }
+.nav-persona--active .nav-persona-arrow { opacity: 1; color: var(--p-color); }
 
 .sidebar-footer {
   padding-top: 14px;
@@ -634,155 +612,135 @@ const personas = ref([
   .shell { grid-template-columns: 240px 1fr; }
 }
 
-/* ── Drawer lateral ─────────── */
-.drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(3px);
-  z-index: 200;
-}
-
-.drawer-panel {
-  position: fixed;
-  top: 0; right: 0; bottom: 0;
-  width: 380px;
-  max-width: calc(100vw - 40px);
-  background: var(--surface);
-  border-left: 1px solid var(--border);
-  z-index: 201;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  overscroll-behavior: contain;
-}
-
-.drawer-header {
+/* ── Persona view header ─────── */
+.persona-view-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 18px 18px 14px;
+  gap: 14px;
+  padding: 24px 24px 20px;
   border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
 }
 
-.drawer-persona-icon {
-  width: 40px; height: 40px;
-  border-radius: 9px;
-  border: 1px solid transparent;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.drawer-persona-info { flex: 1; min-width: 0; }
-.drawer-persona-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-.drawer-persona-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
-
-.drawer-close {
-  width: 30px; height: 30px;
-  border-radius: 6px;
+.back-btn {
+  width: 32px; height: 32px;
+  border-radius: var(--r);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px;
-  transition: background var(--t), color var(--t);
   flex-shrink: 0;
+  transition: background var(--t), color var(--t), border-color var(--t);
 }
-.drawer-close:hover { background: var(--surface-2); color: var(--text); }
-.drawer-close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  background: var(--surface-2);
-}
+.back-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-hover); }
+.back-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.drawer-persona-desc {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.55;
-  padding: 12px 18px 0;
+.persona-view-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
   flex-shrink: 0;
 }
 
-.drawer-section-label {
-  font-size: 10.5px;
+.persona-view-info { min-width: 0; }
+.persona-view-name {
+  font-size: 16px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--text-dim);
-  padding: 16px 18px 8px;
-  flex-shrink: 0;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.persona-view-desc { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Journeys grid ───────────── */
+.journeys-section { padding: 20px 24px 24px; }
+
+.journeys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.drawer-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 0 20px;
+.journey-card {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  overscroll-behavior: contain;
-}
-
-.drawer-journey-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 18px;
-  border-radius: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
   text-decoration: none;
   color: var(--text);
-  border: 1px solid transparent;
-  border-left: 2px solid transparent;
-  transition: background var(--t), border-color var(--t);
-  cursor: pointer;
-  touch-action: manipulation;
+  transition: border-color var(--t), background var(--t);
 }
-.drawer-journey-row:not(.drawer-journey-row--muted):hover {
-  background: rgba(115,103,240,0.07);
-  border-left-color: var(--p-color);
-}
-.drawer-journey-row--muted { opacity: 0.42; cursor: default; touch-action: none; }
 
-.drawer-journey-icon {
+.journey-card--active {
+  cursor: pointer;
+}
+.journey-card--active:hover {
+  border-color: var(--p-color);
+  background: var(--surface-2);
+}
+.journey-card--active:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.journey-card--planned {
+  opacity: 0.42;
+  cursor: default;
+}
+
+.journey-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.journey-card-icon {
   width: 34px; height: 34px;
   border-radius: 7px;
+  border: 1px solid transparent;
   background: var(--surface-2);
-  border: 1px solid var(--border);
   display: flex; align-items: center; justify-content: center;
   font-size: 16px;
-  color: var(--text-muted);
-  flex-shrink: 0;
 }
 
-.drawer-journey-body { flex: 1; min-width: 0; }
-.drawer-journey-label {
+.journey-card-label {
   font-size: 13px;
   font-weight: 500;
   color: var(--text);
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-wrap: pretty;
+  line-height: 1.4;
+  flex: 1;
+  margin-bottom: 3px;
 }
-.drawer-journey-id {
+.journey-card-id {
   font-size: 10.5px;
   font-family: var(--font-family-mono);
   color: var(--accent);
-  margin-top: 2px;
   letter-spacing: 0.02em;
 }
 
-.drawer-journey-status {
+.journey-card-footer {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.journey-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  transition: color var(--t);
+}
+.journey-card--active:hover .journey-cta { color: var(--p-color); }
+
+.journey-status {
   font-size: 10px;
   font-weight: 500;
   padding: 2px 7px;
@@ -799,27 +757,6 @@ const personas = ref([
   background: rgba(255,159,67,0.1);
   border: 1px solid rgba(255,159,67,0.2);
   color: #FF9F43;
-}
-
-.drawer-journey-arrow { font-size: 15px; color: var(--text-dim); flex-shrink: 0; }
-
-/* ── Transições drawer ───────── */
-.drawer-fade-enter-active, .drawer-fade-leave-active { transition: opacity 200ms ease; }
-.drawer-fade-enter-from, .drawer-fade-leave-to { opacity: 0; }
-
-.drawer-slide-enter-active, .drawer-slide-leave-active {
-  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-.drawer-slide-enter-from, .drawer-slide-leave-to { transform: translateX(100%); }
-
-/* ── prefers-reduced-motion ─── */
-@media (prefers-reduced-motion: reduce) {
-  .drawer-fade-enter-active,
-  .drawer-fade-leave-active,
-  .drawer-slide-enter-active,
-  .drawer-slide-leave-active {
-    transition: none;
-  }
 }
 
 </style>
