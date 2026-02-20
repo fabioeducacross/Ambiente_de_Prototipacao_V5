@@ -1,5 +1,6 @@
 ﻿<script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { RouterLink } from 'vue-router'
 
 /** Converte hex + alpha (0-1) para rgba */
 const hexAlpha = (hex, a) => {
@@ -28,6 +29,18 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 // Foco no botão de fechar ao abrir o drawer
 watch(drawerPersona, (val) => { if (val) nextTick(() => drawerCloseBtn.value?.focus()) })
+
+// Acesso rápido — jornadas com rota ativa, cap 4
+const QUICK_CAP = 4
+const allQuickLinks = computed(() =>
+  personas.value.flatMap(p =>
+    (p.journeys ?? []).filter(j => j.route).map(j => ({
+      ...j, personaName: p.name, personaColor: p.color, personaIcon: p.icon
+    }))
+  )
+)
+const quickLinks    = computed(() => allQuickLinks.value.slice(0, QUICK_CAP))
+const hasMoreLinks  = computed(() => allQuickLinks.value.length > QUICK_CAP)
 
 const personas = ref([
   {
@@ -170,19 +183,30 @@ const personas = ref([
         </div>
       </section>
 
-      <!-- Quick links -->
-      <section class="quick-section">
-        <h2 class="section-label">Acesso rápido</h2>
+      <!-- Quick links (dinâmico) -->
+      <section v-if="quickLinks.length" class="quick-section">
+        <div class="quick-section-header">
+          <h2 class="section-label">Acesso rápido</h2>
+          <a v-if="hasMoreLinks" href="#personas" class="quick-see-all">
+            Ver todas <span class="material-symbols-outlined">arrow_downward</span>
+          </a>
+        </div>
         <div class="quick-grid">
-          <RouterLink to="/teacher/calendar" class="quick-card quick-card--featured">
-            <div class="quick-card-icon"><span class="material-symbols-outlined">calendar_month</span></div>
+          <RouterLink
+            v-for="link in quickLinks"
+            :key="link.id"
+            :to="link.route"
+            class="quick-card"
+            :class="{ 'quick-card--featured': quickLinks.length === 1 }"
+            :style="{ '--q-color': link.personaColor }"
+          >
+            <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
             <div class="quick-card-body">
-              <p class="quick-card-title">Calendário do Professor</p>
-              <p class="quick-card-desc">Fluxo principal em validação</p>
+              <p class="quick-card-title">{{ link.label }}</p>
+              <p class="quick-card-desc">{{ link.personaName }}</p>
             </div>
             <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
           </RouterLink>
-
         </div>
       </section>
 
@@ -487,6 +511,26 @@ const personas = ref([
 /* ── Quick section ───────────── */
 .quick-section { padding: 24px 24px 0; }
 
+.quick-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.quick-section-header .section-label { margin-bottom: 0; }
+
+.quick-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--t);
+}
+.quick-see-all .material-symbols-outlined { font-size: 13px; }
+.quick-see-all:hover { color: var(--text); }
+
 .section-label {
   font-size: 11px;
   font-weight: 600;
@@ -515,15 +559,15 @@ const personas = ref([
   transition: border-color var(--t), background var(--t);
 }
 
-.quick-card:hover { border-color: var(--border-hover); background: var(--surface-2); }
+.quick-card:hover { border-color: var(--q-color, var(--border-hover)); background: var(--surface-2); }
 
 .quick-card--featured {
-  border-color: rgba(115,103,240,0.3);
-  background: rgba(115,103,240,0.06);
+  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 30%, transparent);
+  background: color-mix(in srgb, var(--q-color, var(--accent)) 6%, transparent);
 }
 .quick-card--featured:hover {
-  border-color: rgba(115,103,240,0.55);
-  background: rgba(115,103,240,0.11);
+  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 55%, transparent);
+  background: color-mix(in srgb, var(--q-color, var(--accent)) 11%, transparent);
 }
 
 .quick-card--muted { opacity: 0.45; cursor: default; pointer-events: none; }
@@ -536,7 +580,11 @@ const personas = ref([
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; font-size: 14px; color: var(--text-muted);
 }
-.quick-card--featured .quick-card-icon { background: var(--accent-glow); border-color: rgba(115,103,240,0.28); color: var(--accent); }
+.quick-card--featured .quick-card-icon {
+  background: color-mix(in srgb, var(--q-color, var(--accent)) 13%, transparent);
+  border-color: color-mix(in srgb, var(--q-color, var(--accent)) 28%, transparent);
+  color: var(--q-color, var(--accent));
+}
 
 .quick-card-body { flex: 1; min-width: 0; }
 .quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
