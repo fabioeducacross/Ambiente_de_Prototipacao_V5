@@ -16,19 +16,31 @@ const personaIconStyle = (color) => ({
   color
 })
 
+const selectedPersona = ref(null)
+const togglePersona = (id) => {
+  selectedPersona.value = selectedPersona.value === id ? null : id
+}
+
 const personas = ref([
   {
     id: 'teacher',
     name: 'Professor',
-    icon: 'bi-person-workspace',
+    icon: 'manage_accounts',
     color: '#7367F0',
     description: 'Gestão de turmas, missões e acompanhamento de alunos',
-    route: '/teacher'
+    route: '/teacher',
+    journeys: [
+      { id: 'CAL', label: 'Calendário de Eventos', icon: 'calendar_month', route: '/teacher/calendar', status: 'Ativo' },
+      { id: 'PROF-001', label: 'Criar Turma', icon: 'group_add', route: null, status: 'Planejado' },
+      { id: 'PROF-002', label: 'Criar Missão', icon: 'flag', route: null, status: 'Planejado' },
+      { id: 'PROF-003', label: 'Acompanhar Progresso', icon: 'trending_up', route: null, status: 'Planejado' },
+      { id: 'PROF-004', label: 'Avaliar Atividades', icon: 'grading', route: null, status: 'Planejado' },
+    ]
   },
   {
     id: 'student',
     name: 'Aluno',
-    icon: 'bi-person',
+    icon: 'school',
     color: '#00CFE8',
     description: 'Missões, conquistas e progresso individual',
     route: '/student'
@@ -36,7 +48,7 @@ const personas = ref([
   {
     id: 'coordinator',
     name: 'Coordenador',
-    icon: 'bi-diagram-3',
+    icon: 'account_tree',
     color: '#28C76F',
     description: 'Coordenação pedagógica e gestão de turmas',
     route: '/coordinator'
@@ -44,7 +56,7 @@ const personas = ref([
   {
     id: 'director',
     name: 'Diretor',
-    icon: 'bi-building',
+    icon: 'apartment',
     color: '#FF9F43',
     description: 'Gestão escolar e indicadores estratégicos',
     route: '/director'
@@ -52,7 +64,7 @@ const personas = ref([
   {
     id: 'administrator',
     name: 'Administrador',
-    icon: 'bi-gear',
+    icon: 'settings',
     color: '#EA5455',
     description: 'Configuração do sistema e gestão de usuários',
     route: '/administrator'
@@ -60,7 +72,7 @@ const personas = ref([
   {
     id: 'network-manager',
     name: 'Gestor de Rede',
-    icon: 'bi-globe',
+    icon: 'language',
     color: '#9E95F5',
     description: 'Gestão de múltiplas escolas e indicadores de rede',
     route: '/network-manager'
@@ -73,21 +85,21 @@ const personas = ref([
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-logo"><i class="bi bi-grid-1x2-fill"></i></div>
+        <div class="brand-logo"><span class="material-symbols-outlined">grid_view</span></div>
         <span class="brand-name">Educacross</span>
       </div>
 
       <nav class="sidebar-nav">
         <span class="nav-label">Navegação</span>
         <a class="nav-link active" href="#">
-          <i class="bi bi-house-door"></i> Início
+          <span class="material-symbols-outlined">home</span> Início
         </a>
         <a class="nav-link" href="#personas">
-          <i class="bi bi-people"></i> Personas
+          <span class="material-symbols-outlined">group</span> Personas
         </a>
         <a class="nav-link" href="http://localhost:3000" target="_blank">
-          <i class="bi bi-journal-text"></i> Wiki
-          <i class="bi bi-arrow-up-right nav-external"></i>
+          <span class="material-symbols-outlined">menu_book</span> Wiki
+          <span class="material-symbols-outlined nav-external">open_in_new</span>
         </a>
       </nav>
 
@@ -105,13 +117,13 @@ const personas = ref([
       <header class="topbar">
         <div class="topbar-breadcrumb">
           <span class="bc-root">Workspace</span>
-          <i class="bi bi-chevron-right bc-sep"></i>
+          <span class="material-symbols-outlined bc-sep">chevron_right</span>
           <span class="bc-current">Início</span>
         </div>
-        <RouterLink to="/teacher" class="topbar-cta">
-          <i class="bi bi-play-fill"></i>
+        <RouterLink to="/teacher/calendar" class="topbar-cta">
+          <span class="material-symbols-outlined">play_arrow</span>
           Abrir Protótipo
-          <i class="bi bi-arrow-right"></i>
+          <span class="material-symbols-outlined">arrow_forward</span>
         </RouterLink>
       </header>
 
@@ -144,25 +156,25 @@ const personas = ref([
         <h2 class="section-label">Acesso rápido</h2>
         <div class="quick-grid">
           <RouterLink to="/teacher/calendar" class="quick-card quick-card--featured">
-            <div class="quick-card-icon"><i class="bi bi-calendar3"></i></div>
+            <div class="quick-card-icon"><span class="material-symbols-outlined">calendar_month</span></div>
             <div class="quick-card-body">
               <p class="quick-card-title">Calendário do Professor</p>
               <p class="quick-card-desc">Fluxo principal em validação</p>
             </div>
-            <i class="bi bi-arrow-right quick-card-arrow"></i>
+            <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
           </RouterLink>
 
           <a href="http://localhost:3000" target="_blank" class="quick-card">
-            <div class="quick-card-icon"><i class="bi bi-journal-bookmark"></i></div>
+            <div class="quick-card-icon"><span class="material-symbols-outlined">book_4</span></div>
             <div class="quick-card-body">
               <p class="quick-card-title">Wiki TO-BE</p>
               <p class="quick-card-desc">Documentação de produto e engenharia</p>
             </div>
-            <i class="bi bi-arrow-up-right quick-card-arrow"></i>
+            <span class="material-symbols-outlined quick-card-arrow">open_in_new</span>
           </a>
 
           <div class="quick-card quick-card--muted">
-            <div class="quick-card-icon"><i class="bi bi-kanban"></i></div>
+            <div class="quick-card-icon"><span class="material-symbols-outlined">view_kanban</span></div>
             <div class="quick-card-body">
               <p class="quick-card-title">Kanban de Demandas</p>
               <p class="quick-card-desc">Em breve</p>
@@ -179,25 +191,84 @@ const personas = ref([
           <span class="personas-count">{{ personas.length }} disponíveis</span>
         </div>
         <div class="personas-grid">
-          <RouterLink
-            v-for="persona in personas"
-            :key="persona.id"
-            :to="persona.route"
-            class="persona-card"
-            :style="{ '--p-color': persona.color }"
-          >
-            <div class="persona-top">
-              <div class="persona-icon" :style="personaIconStyle(persona.color)"><i :class="['bi', persona.icon]"></i></div>
-              <span class="persona-status">Ativo</span>
+          <template v-for="persona in personas" :key="persona.id">
+
+            <!-- Persona com acordeão (teacher) -->
+            <div
+              v-if="persona.journeys"
+              class="persona-card"
+              :class="{ 'is-expanded': selectedPersona === persona.id }"
+              :style="{ '--p-color': persona.color }"
+              @click="togglePersona(persona.id)"
+            >
+              <div class="persona-top">
+                <div class="persona-icon" :style="personaIconStyle(persona.color)">
+                  <span class="material-symbols-outlined">{{ persona.icon }}</span>
+                </div>
+                <span class="persona-status">Ativo</span>
+              </div>
+              <div class="persona-body">
+                <p class="persona-name">{{ persona.name }}</p>
+                <p class="persona-desc">{{ persona.description }}</p>
+              </div>
+              <div class="persona-footer">
+                <span class="persona-cta">
+                  {{ selectedPersona === persona.id ? 'Fechar' : 'Ver jornadas' }}
+                  <span class="material-symbols-outlined cta-icon">
+                    {{ selectedPersona === persona.id ? 'expand_less' : 'expand_more' }}
+                  </span>
+                </span>
+              </div>
+
+              <!-- Acordeão de jornadas -->
+              <div v-if="selectedPersona === persona.id" class="persona-journeys" @click.stop>
+                <template v-for="j in persona.journeys" :key="j.id">
+                  <RouterLink v-if="j.route" :to="j.route" class="journey-row">
+                    <span class="journey-row-icon" :style="{ color: persona.color }">
+                      <span class="material-symbols-outlined">{{ j.icon }}</span>
+                    </span>
+                    <span class="journey-row-id">{{ j.id }}</span>
+                    <span class="journey-row-label">{{ j.label }}</span>
+                    <span class="journey-row-status status-ativo">{{ j.status }}</span>
+                    <span class="material-symbols-outlined journey-row-arrow">arrow_forward</span>
+                  </RouterLink>
+                  <div v-else class="journey-row journey-row--muted">
+                    <span class="journey-row-icon">
+                      <span class="material-symbols-outlined">{{ j.icon }}</span>
+                    </span>
+                    <span class="journey-row-id">{{ j.id }}</span>
+                    <span class="journey-row-label">{{ j.label }}</span>
+                    <span class="journey-row-status status-planejado">{{ j.status }}</span>
+                  </div>
+                </template>
+              </div>
             </div>
-            <div class="persona-body">
-              <p class="persona-name">{{ persona.name }}</p>
-              <p class="persona-desc">{{ persona.description }}</p>
-            </div>
-            <div class="persona-footer">
-              <span class="persona-cta">Abrir jornada <i class="bi bi-arrow-right"></i></span>
-            </div>
-          </RouterLink>
+
+            <!-- Persona padrão (RouterLink) -->
+            <RouterLink
+              v-else
+              :to="persona.route"
+              class="persona-card"
+              :style="{ '--p-color': persona.color }"
+            >
+              <div class="persona-top">
+                <div class="persona-icon" :style="personaIconStyle(persona.color)">
+                  <span class="material-symbols-outlined">{{ persona.icon }}</span>
+                </div>
+                <span class="persona-status">Ativo</span>
+              </div>
+              <div class="persona-body">
+                <p class="persona-name">{{ persona.name }}</p>
+                <p class="persona-desc">{{ persona.description }}</p>
+              </div>
+              <div class="persona-footer">
+                <span class="persona-cta">
+                  Abrir jornada <span class="material-symbols-outlined cta-icon">arrow_forward</span>
+                </span>
+              </div>
+            </RouterLink>
+
+          </template>
         </div>
       </section>
     </main>
@@ -205,6 +276,26 @@ const personas = ref([
 </template>
 
 <style scoped>
+/* ── Material Symbols ────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+  font-size: inherit;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  flex-shrink: 0;
+}
+.brand-logo .material-symbols-outlined {
+  font-size: 15px;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+}
+.quick-card-icon .material-symbols-outlined { font-size: 17px; }
+.persona-icon .material-symbols-outlined { font-size: 18px; }
+.journey-row-icon .material-symbols-outlined { font-size: 15px; }
+.cta-icon { font-size: 16px; }
+
 /* ── Tokens dark ─────────────── */
 .shell {
   --bg: #0a0a0a;
@@ -304,7 +395,7 @@ const personas = ref([
 .nav-link:hover { background: var(--surface-2); color: var(--text); }
 .nav-link.active { background: var(--accent-glow); color: var(--accent); }
 
-.nav-external { margin-left: auto; font-size: 11px; opacity: 0.4; }
+.nav-external { margin-left: auto; font-size: 13px; opacity: 0.4; }
 
 .sidebar-footer {
   padding-top: 14px;
@@ -347,7 +438,7 @@ const personas = ref([
 
 .topbar-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; }
 .bc-root { color: var(--text-muted); }
-.bc-sep { color: var(--text-dim); font-size: 10px; }
+.bc-sep { color: var(--text-dim); font-size: 14px; }
 .bc-current { color: var(--text); font-weight: 500; }
 
 .topbar-cta {
@@ -475,11 +566,13 @@ const personas = ref([
   padding: 14px;
   text-decoration: none;
   color: var(--text);
+  cursor: pointer;
   transition: border-color var(--t), background var(--t);
 }
 
 .persona-card:hover { border-color: var(--p-color); background: var(--surface-2); }
 .persona-card:hover .persona-cta { color: var(--p-color); }
+.persona-card.is-expanded { border-color: var(--p-color); background: var(--surface-2); }
 
 .persona-top {
   display: flex;
@@ -550,5 +643,81 @@ const personas = ref([
 @media (min-width: 1800px) {
   .personas-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
+
+/* ── Acordeão de jornadas ────── */
+.persona-journeys {
+  margin-top: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.journey-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background var(--t);
+}
+.journey-row:not(.journey-row--muted):hover { background: rgba(115,103,240,0.1); }
+.journey-row--muted { opacity: 0.4; cursor: default; }
+
+.journey-row-icon {
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.journey-row-id {
+  font-size: 10px;
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(115,103,240,0.1);
+  border: 1px solid rgba(115,103,240,0.18);
+  padding: 1px 5px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.journey-row-label {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.journey-row-status {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.status-ativo {
+  background: rgba(40,199,111,0.1);
+  border: 1px solid rgba(40,199,111,0.2);
+  color: #28C76F;
+}
+.status-planejado {
+  background: rgba(255,159,67,0.1);
+  border: 1px solid rgba(255,159,67,0.2);
+  color: #FF9F43;
+}
+
+.journey-row-arrow { font-size: 14px; color: var(--text-dim); margin-left: 2px; }
 
 </style>
