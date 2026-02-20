@@ -266,20 +266,6 @@ const personas = ref([
             </RouterLink>
           </div>
         </section>
-
-        <!-- CTA → Sobre o Ambiente -->
-        <section class="about-cta-section">
-          <RouterLink to="/sobre" class="about-cta-card">
-            <div class="about-cta-icon">
-              <span class="material-symbols-outlined">layers</span>
-            </div>
-            <div class="about-cta-body">
-              <p class="about-cta-title">Sobre este ambiente</p>
-              <p class="about-cta-desc">Vue 3.5 + Vite · 50+ jornadas · 6 personas · Azure DevOps</p>
-            </div>
-            <span class="material-symbols-outlined about-cta-arrow">arrow_forward</span>
-          </RouterLink>
-        </section>
       </template>
 
       <!-- Vista: Jornadas da persona selecionada -->
@@ -715,49 +701,6 @@ const personas = ref([
 
 .quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
 .quick-card-desc { font-size: 11.5px; color: var(--text-muted); }
-
-/* ── About CTA ───────────────── */
-.about-cta-section { padding: 24px 24px 28px; }
-
-.about-cta-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 14px 16px;
-  text-decoration: none;
-  color: var(--text);
-  transition: border-color var(--t), background var(--t);
-}
-.about-cta-card:hover {
-  border-color: var(--accent);
-  background: var(--surface-2);
-}
-
-.about-cta-icon {
-  width: 32px; height: 32px;
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.about-cta-icon .material-symbols-outlined { font-size: 16px; }
-
-.about-cta-body { flex: 1; min-width: 0; }
-.about-cta-title { font-size: 13px; font-weight: 500; color: var(--text); }
-.about-cta-desc  { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
-
-.about-cta-arrow {
-  font-size: 16px;
-  color: var(--text-dim);
-  flex-shrink: 0;
-  transition: color var(--t);
-}
-.about-cta-card:hover .about-cta-arrow { color: var(--accent); }
 
 /* ── Responsivo ──────────────── */
 @media (max-width: 1024px) {
