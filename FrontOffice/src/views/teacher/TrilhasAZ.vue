@@ -27,142 +27,183 @@
         <span class="bc-item active">{{ book.titulo }}</span>
       </nav>
 
-      <!-- ── Tabs ── -->
+      <!-- ── Tabs (DS: Tab.vue) ── -->
       <div class="tz-tabs-row">
-        <div class="tz-tabs">
-          <button class="tz-tab active" style="--idx:0">Livros</button>
-          <button class="tz-tab" style="--idx:1">Alunos</button>
-          <button class="tz-tab" style="--idx:2">Ranking</button>
+        <div class="tabs-container">
+          <a class="tab-link active" href="#" style="--idx:0" @click.prevent>Livros</a>
+          <a class="tab-link" href="#" style="--idx:1" @click.prevent>Alunos</a>
+          <a class="tab-link" href="#" style="--idx:2" @click.prevent>Ranking</a>
         </div>
-        <span class="missoes-label">MISSÕES DO LIVRO</span>
+        <span class="tab-title">MISSÕES DO LIVRO</span>
       </div>
-      <div class="tz-tab-line"></div>
+      <div class="tab-line"></div>
 
-      <!-- ── Card do livro ── -->
-      <div class="tz-book-card">
-        <!-- Sub-header -->
+      <!-- ── Card Título (DS: missions/Title.vue) ── -->
+      <div class="ds-card title-card">
         <div class="card-body py-1">
           <div class="row align-items-center">
             <div class="col-md-3 col-12">
-              <a href="#" class="text-decoration-none" @click.prevent="$router.back()">
-                <div class="d-flex align-items-center">
-                  <span class="material-symbols-outlined">chevron_left</span>
-                  <span class="text-decoration-underline">Voltar</span>
-                </div>
+              <a href="#" class="voltar-link d-flex align-items-center text-decoration-none" @click.prevent="$router.back()">
+                <span class="material-symbols-outlined">chevron_left</span>
+                <span class="text-decoration-underline">Voltar</span>
               </a>
             </div>
             <div class="col-md-6 col-12">
               <div class="d-flex align-items-center justify-content-center gap-2 my-2 my-md-0">
                 <SubjectIcon :disciplina="book.disciplina" :size="24" />
-                <span class="m-0 fw-bold">{{ book.titulo }}</span>
+                <span class="fw-bold">{{ book.titulo }}</span>
               </div>
             </div>
             <div class="col-md-3 col-12">
               <div class="d-flex align-items-center justify-content-md-end">
-                <button type="button" class="btn py-1 px-1 d-flex align-items-center gap-1 btn-primary">
-                  <span class="material-symbols-outlined" style="font-size:16px">pie_chart</span> Relatório do livro
+                <button type="button" class="btn btn-primary btn-relatorio d-flex align-items-center gap-1">
+                  <span class="material-symbols-outlined" style="font-size:16px">pie_chart</span>
+                  Relatório do livro
                 </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Escolha de unidade -->
-        <div class="unit-selector">
-          <p class="unit-label">Escolha a unidade que deseja exibir:</p>
-          <div class="unit-pills">
-            <button
-              v-for="u in 4"
-              :key="u"
-              class="unit-pill"
-              :class="{ active: selectedUnit === u }"
-              @click="selectedUnit = u"
-            >
-              Unidade {{ u }}
-            </button>
-          </div>
-        </div>
-
-        <!-- ── Toolbar ── -->
-        <div class="tz-toolbar">
-          <div class="toolbar-left">
-            <span class="show-label">Mostrar</span>
-            <select v-model="pageSize" class="show-select">
-              <option :value="5">5</option>
-              <option :value="10">10</option>
-              <option :value="25">25</option>
-              <option :value="50">50</option>
-            </select>
-          </div>
-          <div class="toolbar-right">
-            <div class="search-wrap">
-              <span class="material-symbols-outlined search-icon" style="font-size:16px">search</span>
-              <EInput
-                v-model="searchQuery"
-                placeholder="Pesquisar por missão"
-                size="small"
-                class="search-input"
+      <!-- ── Card Filtros (DS: missions/Filters.vue) ── -->
+      <div class="ds-card filters-card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 col-12 mb-2 mb-md-0">
+              <ESelect
+                v-model="selectedUnit"
+                :options="unitOptions"
+                placeholder="Todas as unidades"
               />
             </div>
-            <EButton variant="outline-secondary" size="small" icon="file_download">
-              Exportar em Excel
-            </EButton>
+            <div class="col-md-6 col-12">
+              <ESelect
+                v-model="selectedStatus"
+                :options="statusOptions"
+                placeholder="Todos os status"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Card Tabela (DS: ListTableLocalSorting + missions/List.vue) ── -->
+      <div class="ds-card table-card">
+        <!-- Toolbar (DS: ListTableLocalSorting toolbar) -->
+        <div class="table-toolbar">
+          <div class="row align-items-center">
+            <!-- Mostrar / Per Page -->
+            <div class="col-12 col-md-auto d-flex align-items-center mb-2 mb-md-0">
+              <label class="show-label">Mostrar</label>
+              <select v-model="pageSize" class="per-page-select">
+                <option :value="5">5</option>
+                <option :value="10">10</option>
+                <option :value="25">25</option>
+                <option :value="50">50</option>
+              </select>
+            </div>
+            <!-- Search + Export -->
+            <div class="col-12 col-md">
+              <div class="row justify-content-end align-items-center">
+                <div class="col" style="max-width: 520px">
+                  <div class="search-input-group">
+                    <span class="search-prepend" @click="$refs.searchRef?.focus()">
+                      <span class="material-symbols-outlined" style="font-size:18px">search</span>
+                    </span>
+                    <input
+                      ref="searchRef"
+                      v-model="searchQuery"
+                      type="text"
+                      class="search-field"
+                      placeholder="Pesquisar por missão"
+                    />
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-outline-primary btn-sm btn-export d-flex align-items-center" style="height: 38px">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                      <span class="material-symbols-outlined" style="font-size:22px">ios_share</span>
+                      <span>Exportar em Excel</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- ── Tabela ── -->
-        <div class="tz-table-wrap">
+        <!-- Tabela (DS: b-table inside ListTableLocalSorting) -->
+        <div class="table-responsive">
           <table class="tz-table">
             <thead>
-              <tr>
-                <th>MISSÃO <span class="material-symbols-outlined th-icon">swap_vert</span></th>
-                <th>INÍCIO <span class="material-symbols-outlined th-icon">swap_vert</span></th>
-                <th>FIM <span class="material-symbols-outlined th-icon">swap_vert</span></th>
+              <tr class="thead-row">
                 <th>
-                  PROGRESSO DA TURMA
-                  <span class="material-symbols-outlined th-icon">info</span>
-                  <span class="material-symbols-outlined th-icon">swap_vert</span>
+                  <div class="th-content">UNIDADE</div>
                 </th>
                 <th>
-                  RENDIMENTO MÉDIO
-                  <span class="material-symbols-outlined th-icon">info</span>
-                  <span class="material-symbols-outlined th-icon">swap_vert</span>
+                  <div class="th-content">MISSÃO</div>
                 </th>
                 <th>
-                  ALUNOS
-                  <span class="material-symbols-outlined th-icon">info</span>
-                  <span class="material-symbols-outlined th-icon">swap_vert</span>
+                  <div class="th-content">INÍCIO</div>
                 </th>
-                <th>AÇÕES</th>
+                <th>
+                  <div class="th-content">FIM</div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    PROGRESSO DA TURMA
+                    <span class="material-symbols-outlined th-info" title="Percentual de turnos/jogos cumpridos dividido pela quantidade de turnos/jogos disponibilizados nas missões.">info</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    RENDIMENTO MÉDIO
+                    <span class="material-symbols-outlined th-info" title="Calcula-se rendimento com base nos erros e acertos dos alunos em seus desafios (jogadas).">info</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">
+                    STATUS
+                    <span class="material-symbols-outlined th-info" title="Status da missão: Não enviada, Pausada, Iniciada, Não iniciada ou Finalizada.">info</span>
+                  </div>
+                </th>
+                <th>
+                  <div class="th-content">AÇÕES</div>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="chapter in paginatedChapters" :key="chapter.id">
-                <!-- Missão -->
-                <td class="td-mission">
-                  <span class="mission-name">{{ chapter.nome }}</span>
-                  <EBadge
-                    v-if="chapter.isMissaoPlus"
-                    backgroundColor="rgba(110,99,232,0.12)"
-                    color="#6e63e8"
-                    pill
-                    class="plus-badge"
-                  >
-                    + Missão Plus
-                  </EBadge>
+                <!-- Unidade -->
+                <td class="fw-bold">Unidade {{ getUnidade(chapter.id) }}</td>
+
+                <!-- Missão (DS: #cell(name) slot) -->
+                <td>
+                  <div style="min-width: 150px">
+                    <span class="fw-bold">{{ chapter.nome }}</span>
+                    <div v-if="chapter.isMissaoPlus" class="d-flex gap-1 mt-1">
+                      <span class="badge-plus">
+                        <span class="plus-icon">+</span>
+                        Missão Plus
+                      </span>
+                    </div>
+                  </div>
                 </td>
 
                 <!-- Início -->
-                <td class="td-date">{{ formatDate(chapter.inicio) }}</td>
+                <td>{{ formatDate(chapter.inicio) }}</td>
 
                 <!-- Fim -->
-                <td class="td-date">{{ formatDate(chapter.fim) }}</td>
+                <td>{{ formatDate(chapter.fim) }}</td>
 
-                <!-- Progresso -->
-                <td class="td-progress">
-                  <div class="progress-wrap">
-                    <span class="progress-pct">{{ chapter.progresso }}%</span>
-                    <div class="progress-bar-bg">
+                <!-- Progresso (DS: ProgressBarHorizontalV2 reverse height="12px") -->
+                <td>
+                  <div class="progress-cell">
+                    <span class="progress-pct fw-bold" :style="{ color: progressColor(chapter.progresso) }">
+                      {{ chapter.progresso }}%
+                    </span>
+                    <div class="progress-bar-track">
                       <div
                         class="progress-bar-fill"
                         :style="{
@@ -174,51 +215,68 @@
                   </div>
                 </td>
 
-                <!-- Rendimento -->
-                <td class="td-rendimento">
-                  <template v-if="chapter.rendimento !== null">
+                <!-- Rendimento (DS: PerformanceCell) -->
+                <td>
+                  <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
+                    <span v-if="chapter.rendimento > 0" class="perf-value">{{ chapter.rendimento }}%</span>
+                    <span class="perf-badge" :class="perfBadgeVariant(chapter.rendimento)">
+                      {{ perfBadgeLabel(chapter.rendimento) }}
+                    </span>
+                  </div>
+                  <span v-else class="text-muted">–</span>
+                </td>
+
+                <!-- Status (DS: b-badge pill light variant) -->
+                <td>
+                  <span class="status-badge" :class="statusBadgeClass(chapter.status.key)">
+                    {{ chapter.status.label }}
+                  </span>
+                </td>
+
+                <!-- Ações (DS: flat material-symbols-outlined icons) -->
+                <td>
+                  <div class="actions-flat">
+                    <!-- Enviar (nao_enviada, finalizada, pausada) -->
                     <span
-                      class="rend-dot"
-                      :style="{ backgroundColor: rendimentoColor(chapter.rendimento) }"
-                    ></span>
-                    {{ chapter.rendimento }}%
-                  </template>
-                  <span v-else class="rend-nodata">–</span>
-                </td>
-
-                <!-- Alunos -->
-                <td class="td-alunos">
-                  {{ chapter.linkedCount }} de {{ getTotalStudents() }}
-                </td>
-
-                <!-- Ações -->
-                <td class="td-actions">
-                  <div class="actions-wrap">
-                    <button
-                      class="act-btn"
-                      :class="actionBtnVariant(chapter)"
-                      :title="actionBtnTitle(chapter)"
+                      v-if="showAction('send', chapter)"
+                      class="material-symbols-outlined action-icon text-success cursor-pointer"
+                      title="Enviar missão"
                       @click="handleActionClick(chapter)"
-                    >
-                      <span class="material-symbols-outlined" style="font-size:16px">{{ actionBtnIcon(chapter) }}</span>
-                    </button>
-                    <button class="act-btn act-settings" title="Configurações">
-                      <span class="material-symbols-outlined" style="font-size:16px">settings</span>
-                    </button>
+                    >send</span>
+                    <!-- Pausar (nao_iniciada, iniciada) -->
+                    <span
+                      v-if="showAction('pause', chapter)"
+                      class="material-symbols-outlined action-icon text-danger cursor-pointer"
+                      title="Pausar missão"
+                    >pause_circle</span>
+                    <!-- Relatório (iniciada, finalizada, pausada) -->
+                    <span
+                      v-if="showAction('report', chapter)"
+                      class="material-symbols-outlined action-icon text-primary cursor-pointer"
+                      title="Relatório da Missão"
+                    >pie_chart</span>
+                    <!-- Detalhes (sempre visível) -->
+                    <span
+                      class="material-symbols-outlined action-icon text-primary cursor-pointer"
+                      title="Detalhes"
+                      @click="openDrawer(chapter, 'enviar')"
+                    >visibility</span>
                   </div>
                 </td>
               </tr>
 
               <!-- Empty state -->
               <tr v-if="filteredChapters.length === 0">
-                <td colspan="7" class="td-empty">Nenhum capítulo encontrado.</td>
+                <td colspan="8" class="td-empty">
+                  Nenhum capítulo encontrado.
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- ── Paginação ── -->
-        <div class="tz-pagination">
+        <!-- Paginação (DS: ListTablePagination) -->
+        <div class="table-pagination">
           <span class="pg-info">
             Exibindo {{ paginationFrom }} a {{ paginationTo }} de {{ filteredChapters.length }} entradas
           </span>
@@ -238,24 +296,29 @@
             </button>
           </div>
         </div>
+      </div>
 
-        <div class="tz-legends">
-          <!-- Linha 1: Progresso -->
-          <div class="legend-row">
-            <span class="legend-title">Progresso:</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#14693a"></span> Finalizado = 100%</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#28c76f"></span> Satisfatório ≥ 80%</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#ff9f43"></span> Moderado ≤ 50%</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#ea5455"></span> Crítico &lt; 50%</span>
+      <!-- ── Card Legendas (DS: LegendEnum.vue + SemaphoreStatus) ── -->
+      <div class="ds-card legends-card">
+        <!-- Progresso -->
+        <div class="legend-body">
+          <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap text-sm">
+            <div>Progresso:</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#14693a"></span> Finalizado = 100%</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#28c76f"></span> Satisfatório ≥ 80%</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ff9f43"></span> Moderado ≤ 50%</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ea5455"></span> Crítico &lt; 50%</div>
           </div>
-          <div class="legend-divider"></div>
-          <!-- Linha 2: Rendimento -->
-          <div class="legend-row">
-            <span class="legend-title">Rendimento:</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#6e63e8"></span> Avançado ≥70% de acertos</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#28c76f"></span> Proficiente ≤50% de acertos</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#ff9f43"></span> Básico ≤25% de acertos</span>
-            <span class="legend-item"><span class="leg-dot" style="background:#ea5455"></span> Abaixo do Básico ≤35% de acertos</span>
+        </div>
+        <hr class="legend-hr" />
+        <!-- Rendimento -->
+        <div class="legend-body">
+          <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap text-sm">
+            <div>Rendimento:</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#6e63e8"></span> Avançado ≥70% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#28c76f"></span> Proficiente ≤50% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ff9f43"></span> Básico ≤25% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ea5455"></span> Abaixo do Básico ≤35% de acertos</div>
           </div>
         </div>
       </div>
@@ -273,12 +336,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import AppNavbar from '../../components/AppNavbar.vue'
-import Sidebar        from '../../components/Sidebar.vue'
-import ClassSelector  from '../../components/calendar/ClassSelector.vue'
+import AppNavbar       from '../../components/AppNavbar.vue'
+import Sidebar         from '../../components/Sidebar.vue'
+import ClassSelector   from '../../components/calendar/ClassSelector.vue'
 import TrilhasAZDrawer from '../../components/TrilhasAZDrawer.vue'
-import SubjectIcon    from '../../components/SubjectIcon.vue'
-import { EButton, EBadge, EInput } from '../../components/base/index.js'
+import SubjectIcon     from '../../components/SubjectIcon.vue'
+import { ESelect }     from '../../components/base/index.js'
 import { useTrilhasAZ } from '../../composables/useTrilhasAZ.js'
 
 const { book, chapters, getTotalStudents, habilitarCapitulo } = useTrilhasAZ()
@@ -287,10 +350,25 @@ const { book, chapters, getTotalStudents, habilitarCapitulo } = useTrilhasAZ()
 const sidebarCollapsed = ref(false)
 
 // ── Estado da view ────────────────────────────────────────────────────────────
-const selectedUnit  = ref(1)
-const searchQuery   = ref('')
-const pageSize      = ref(10)
-const currentPage   = ref(1)
+const selectedUnit   = ref(null)
+const selectedStatus = ref(null)
+const searchQuery    = ref('')
+const pageSize       = ref(10)
+const currentPage    = ref(1)
+
+// ── Opções dos filtros (DS: Filters.vue) ──────────────────────────────────────
+const unitOptions = [
+  { value: 1, label: 'Unidade 1' },
+  { value: 2, label: 'Unidade 2' },
+  { value: 3, label: 'Unidade 3' }
+]
+
+const statusOptions = [
+  { value: 'nao_enviada',  label: 'Não enviada' },
+  { value: 'nao_iniciada', label: 'Não iniciada' },
+  { value: 'iniciada',     label: 'Iniciada' },
+  { value: 'finalizada',   label: 'Finalizada' }
+]
 
 // ── Drawer ────────────────────────────────────────────────────────────────────
 const drawerOpen    = ref(false)
@@ -308,22 +386,20 @@ function handleHabilitar (chapter) {
   openDrawer(chapter, 'enviar')
 }
 
-// ── Helpers de ação da tabela ─────────────────────────────────────────────────
-function actionBtnIcon (chapter) {
-  return chapter.status.key === 'finalizada' ? 'refresh' : 'send'
+// ── Helpers: unidade por capítulo ─────────────────────────────────────────────
+function getUnidade (chapterId) {
+  return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
 }
 
-function actionBtnVariant (chapter) {
-  if (chapter.status.key === 'finalizada') return 'act-secondary'
-  if (chapter.status.key === 'nao_enviada') return 'act-success'
-  return 'act-primary'
-}
-
-function actionBtnTitle (chapter) {
-  if (chapter.status.key === 'finalizada') return 'Reiniciar ciclo do capítulo'
-  if (chapter.status.key === 'nao_enviada') return 'Habilitar capítulo'
-  if (chapter.linkedCount >= getTotalStudents()) return 'Todos os alunos já foram vinculados'
-  return 'Enviar para alunos'
+// ── Helpers: visibilidade de ações (DS: tableActions) ─────────────────────────
+function showAction (type, chapter) {
+  const s = chapter.status.key
+  switch (type) {
+    case 'send':   return s === 'nao_enviada' || s === 'finalizada'
+    case 'pause':  return s === 'nao_iniciada' || s === 'iniciada'
+    case 'report': return s === 'iniciada' || s === 'finalizada'
+    default:       return false
+  }
 }
 
 function handleActionClick (chapter) {
@@ -334,10 +410,27 @@ function handleActionClick (chapter) {
   }
 }
 
+// ── Filtragem composta (busca + unidade + status) ─────────────────────────────
 const filteredChapters = computed(() => {
-  if (!searchQuery.value.trim()) return chapters.value
-  const q = searchQuery.value.toLowerCase()
-  return chapters.value.filter(c => c.nome.toLowerCase().includes(q))
+  let result = chapters.value
+
+  // Filtro por unidade
+  if (selectedUnit.value) {
+    result = result.filter(c => getUnidade(c.id) === selectedUnit.value)
+  }
+
+  // Filtro por status
+  if (selectedStatus.value) {
+    result = result.filter(c => c.status.key === selectedStatus.value)
+  }
+
+  // Filtro por busca
+  if (searchQuery.value.trim()) {
+    const q = searchQuery.value.toLowerCase()
+    result = result.filter(c => c.nome.toLowerCase().includes(q))
+  }
+
+  return result
 })
 
 const totalPages = computed(() =>
@@ -364,19 +457,38 @@ function formatDate (dateStr) {
   return `${d}/${m}/${y}`
 }
 
+// Cores de progresso (DS: getVariantByRule enum="progress")
 function progressColor (pct) {
-  if (pct >= 100) return '#14693a'  // Finalizado — $legend-complete
-  if (pct >= 80)  return '#28c76f'  // Satisfatório — $legend-proficient
-  if (pct >= 50)  return '#ff9f43'  // Moderado — $legend-basic
-  return '#ea5455'                   // Crítico — $legend-below-basic
+  if (pct >= 100) return '#14693a'  // Finalizado
+  if (pct >= 80)  return '#28c76f'  // Satisfatório — $success
+  if (pct >= 50)  return '#ff9f43'  // Moderado — $warning
+  return '#ea5455'                   // Crítico — $danger
 }
 
-function rendimentoColor (rend) {
-  if (rend === null || rend === undefined) return '#b4b7bd'  // $legend-not-completed
-  if (rend >= 70) return '#6e63e8'   // $legend-advanced
-  if (rend >= 50) return '#28c76f'   // $legend-proficient
-  if (rend >= 25) return '#ff9f43'   // $legend-basic
-  return '#ea5455'                    // $legend-below-basic
+// Variante do badge de rendimento (DS: PerformanceCell → getVariantByRule)
+function perfBadgeVariant (rend) {
+  if (rend >= 70) return 'perf-primary'   // Avançado — $primary
+  if (rend >= 50) return 'perf-success'   // Proficiente — $success
+  if (rend >= 25) return 'perf-warning'   // Básico — $warning
+  return 'perf-danger'                     // Abaixo do Básico — $danger
+}
+
+function perfBadgeLabel (rend) {
+  if (rend >= 70) return 'Avançado'
+  if (rend >= 50) return 'Proficiente'
+  if (rend >= 25) return 'Básico'
+  return 'Abaixo do Básico'
+}
+
+// Classe do badge de status (DS: b-badge variant="light-{variant}")
+function statusBadgeClass (statusKey) {
+  const map = {
+    nao_enviada:  'status-light-secondary',
+    nao_iniciada: 'status-light-secondary',
+    iniciada:     'status-light-info',
+    finalizada:   'status-light-primary'
+  }
+  return map[statusKey] || 'status-light-secondary'
 }
 </script>
 
@@ -384,9 +496,9 @@ function rendimentoColor (rend) {
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 .tz-page {
   min-height: 100vh;
-  background: #efefef; /* $theme-background */
+  background: #efefef;
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
-  color: #6e6b7b; /* $color-gray-themeBodyText */
+  color: #6e6b7b;
 }
 
 .tz-main {
@@ -406,8 +518,6 @@ function rendimentoColor (rend) {
   padding: 12px 24px 0;
 }
 
-/* topbar delegado ao ClassSelector */
-
 /* ── Breadcrumb ──────────────────────────────────────────────────────────── */
 .tz-breadcrumb {
   display: flex;
@@ -415,26 +525,13 @@ function rendimentoColor (rend) {
   gap: 6px;
   padding: 10px 24px;
   font-size: 13px;
-  color: var(--gray-500, #6b7280);
-}
-
-.bc-item {
   color: #6e6b7b;
-  text-decoration: none;
 }
 
-a.bc-item {
-  color: var(--primary, #7367F0);
-}
-
-a.bc-item:hover {
-  color: var(--primary-dark, #5E50EE);
-}
-
-.bc-item.active {
-  color: #2c2c2c;
-  font-weight: 500;
-}
+.bc-item { color: #6e6b7b; text-decoration: none; }
+a.bc-item { color: #6e63e8; }
+a.bc-item:hover { color: #5a50d6; }
+.bc-item.active { color: #2c2c2c; font-weight: 500; }
 
 .bc-sep {
   font-size: 11px;
@@ -443,28 +540,28 @@ a.bc-item:hover {
   align-items: center;
 }
 
-/* ── Tabs ────────────────────────────────────────────────────────────────── */
+/* ── Tabs (DS: Tab.vue) ──────────────────────────────────────────────────── */
 .tz-tabs-row {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column-reverse;
   padding: 0 24px;
   margin-bottom: 0;
 }
 
-.tz-tab-line {
-  border: 1px solid var(--primary, #7367F0);
-  height: 1px;
-  width: 100%;
-  margin-bottom: 1rem;
+@media (min-width: 768px) {
+  .tz-tabs-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 }
 
-.tz-tabs {
+.tabs-container {
   display: flex;
   align-items: flex-end;
 }
 
-.tz-tab {
+.tab-link {
   padding: 14px 24px 10px 24px;
   background: #fff;
   border: none;
@@ -477,162 +574,185 @@ a.bc-item:hover {
   position: relative;
   z-index: 0;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.14);
-  transform: translateX(calc(var(--idx, 0) * -8px));
+  transform: translateX(calc(var(--idx, 0) * -10px));
   white-space: nowrap;
   transition: all 0.15s;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.tz-tab.active {
-  background: var(--primary, #6e63e8);
+.tab-link.active {
+  background: #6e63e8;
   color: #fff;
-  z-index: 2;
+  z-index: 1;
 }
 
-.tz-tab:hover:not(.active) {
-  background: var(--primary, #6e63e8);
+.tab-link:hover:not(.active) {
+  background: #6e63e8;
   color: #fff;
 }
 
-.missoes-label {
+.tab-title {
   font-size: 12px;
   font-weight: 700;
-  color: var(--primary, #7367F0);
+  color: #6e63e8;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   padding-bottom: 10px;
 }
 
-/* ── Book card ───────────────────────────────────────────────────────────── */
-.tz-book-card {
-  margin: 16px 24px;
+.tab-line {
+  border: 1px solid #6e63e8;
+  height: 1px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* ── Cards DS ────────────────────────────────────────────────────────────── */
+.ds-card {
+  margin: 0 24px 16px;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(30,30,30,0.09);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
   overflow: hidden;
 }
 
-/* Seletor de unidade */
-.unit-selector {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--gray-100, #f3f4f6);
-  display: flex;
-  align-items: center;
-  gap: 16px;
+/* ── Title Card (DS: missions/Title.vue — b-card body-class="py-1") ────── */
+.title-card .card-body {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
-.unit-label {
-  font-size: 13px;
+.voltar-link {
   color: #6e6b7b;
-  margin: 0;
-  white-space: nowrap;
+  font-size: 14px;
+  transition: color 0.15s;
 }
 
-.unit-pills {
-  display: flex;
-  gap: 8px;
-}
+.voltar-link:hover { color: #6e63e8; }
 
-.unit-pill {
-  padding: 5px 14px;
-  border-radius: 50rem;
-  border: 1px solid #babfc7;
-  background: transparent;
+.btn-relatorio {
+  padding: 0.5rem 1rem; /* DS: py-50 px-1 */
   font-size: 13px;
   font-weight: 500;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
-  color: #5e5873;
-  cursor: pointer;
-  transition: all 0.15s;
 }
 
-.unit-pill.active {
-  background: #6e63e8;
-  border-color: #6e63e8;
-  color: #fff;
+/* ── Filters Card (DS: missions/Filters.vue) ─────────────────────────────── */
+.filters-card .card-body {
+  padding: 1rem 1.5rem;
 }
 
-/* ── Toolbar ─────────────────────────────────────────────────────────────── */
-.tz-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--gray-100, #f3f4f6);
+/* ── Table Card (DS: ListTableLocalSorting) ──────────────────────────────── */
+.table-card {
+  overflow: visible;
 }
 
-.toolbar-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.table-toolbar {
+  padding: 1rem 1.5rem;
 }
 
 .show-label {
-  font-size: 13px;
+  font-size: 14px;
   color: #6e6b7b;
+  white-space: nowrap;
+  margin-right: 0;
 }
 
-.show-select {
-  padding: 5px 10px;
-  border: 1px solid #babfc7;
-  border-radius: 6px;
-  font-size: 13px;
+.per-page-select {
+  width: 90px;
+  min-width: 90px;
+  padding: 6px 10px;
+  border: 1px solid #d8d6de;
+  border-radius: 5px;
+  font-size: 14px;
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
-  color: #5e5873;
+  color: #6e6b7b;
   background: #fff;
   cursor: pointer;
   outline: none;
+  margin-left: 0.5rem;
 }
 
-.show-select:focus {
+.per-page-select:focus {
   border-color: #6e63e8;
 }
 
-.toolbar-right {
+/* Search Input Group (DS: b-input-group com prepend) */
+.search-input-group {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: stretch;
+  border: 1px solid #d8d6de;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s;
 }
 
-.search-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
+.search-input-group:focus-within {
+  border-color: #6e63e8;
 }
 
-.search-icon {
-  position: absolute;
-  left: 10px;
+.search-prepend {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  background: #efefef;
+  border-right: 1px solid #d8d6de;
+  color: #6e6b7b;
+  cursor: pointer;
+}
+
+.search-prepend .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.search-field {
+  border: 0;
+  outline: none;
+  padding: 7px 12px;
   font-size: 14px;
-  color: var(--gray-400, #9ca3af);
-  pointer-events: none;
-  z-index: 1;
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  color: #6e6b7b;
+  width: 100%;
+  background: transparent;
 }
 
-.search-input {
-  padding-left: 32px !important;
-  min-width: 220px;
+.search-field::placeholder {
+  color: #b4b7bd;
 }
 
-/* ── Tabela ──────────────────────────────────────────────────────────────── */
-.tz-table-wrap {
+.btn-export {
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+/* ── Tabela (DS: b-table dentro de ListTableLocalSorting) ─────────────────── */
+.table-responsive {
   overflow-x: auto;
 }
 
 .tz-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
 }
 
-.tz-table thead tr {
-  background: #f8f8f8;
+.tz-table .thead-row {
+  background: transparent;
   border-bottom: 2px solid #ebe9f1;
 }
 
 .tz-table th {
   padding: 10px 16px;
+  vertical-align: middle;
+}
+
+.th-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -640,11 +760,10 @@ a.bc-item:hover {
   white-space: nowrap;
 }
 
-.th-icon {
-  font-size: 13px;
-  cursor: pointer;
+.th-info {
+  font-size: 16px;
+  cursor: help;
   opacity: 0.5;
-  vertical-align: middle;
 }
 
 .tz-table tbody tr {
@@ -660,60 +779,54 @@ a.bc-item:hover {
   padding: 12px 16px;
   vertical-align: middle;
   color: #6e6b7b;
+  font-size: 14px;
 }
 
 .td-empty {
   text-align: center;
-  color: var(--gray-400, #9ca3af);
+  color: #b4b7bd;
   padding: 32px !important;
 }
 
-/* Missão */
-.td-mission {
-  max-width: 260px;
-}
-
-.mission-name {
-  display: block;
-  font-weight: 600;
-  color: #2c2c2c;
-  margin-bottom: 3px;
-}
-
-.plus-badge {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 8px !important;
-  margin-top: 3px;
-  border: 1px solid rgba(110,99,232,0.25);
-}
-
-/* Datas */
-.td-date {
-  color: #6e6b7b;
-  white-space: nowrap;
-  font-size: 13px;
-}
-
-/* Progresso */
-.td-progress { min-width: 160px; }
-
-.progress-wrap {
-  display: flex;
+/* ── Badge Missão Plus (DS: b-badge variant="light-primary" pill) ──────── */
+.badge-plus {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 50rem;
+  background: rgba(110, 99, 232, 0.12);
+  color: #6e63e8;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.plus-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ── Progresso (DS: ProgressBarHorizontalV2 reverse height="12px") ─────── */
+.progress-cell {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+  min-width: 120px;
 }
 
 .progress-pct {
-  font-size: 12px;
-  font-weight: 700;
-  min-width: 34px;
-  color: #2c2c2c;
+  font-size: 13px;
 }
 
-.progress-bar-bg {
-  flex: 1;
-  height: 8px;
+.progress-bar-track {
+  width: 100%;
+  height: 12px;
   background: #ebe9f1;
   border-radius: 50rem;
   overflow: hidden;
@@ -721,87 +834,93 @@ a.bc-item:hover {
 
 .progress-bar-fill {
   height: 100%;
-  border-radius: var(--radius-full, 9999px);
+  border-radius: 50rem;
   transition: width 0.4s ease;
 }
 
-/* Rendimento */
-.td-rendimento {
+/* ── Rendimento (DS: PerformanceCell) ──────────────────────────────────── */
+.performance-cell {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.5rem;
+  width: fit-content;
+}
+
+.perf-value {
   white-space: nowrap;
-  font-size: 13px;
+  width: 50px;
+  font-size: 14px;
 }
 
-.td-rendimento .rend-nodata {
-  color: var(--gray-400, #9ca3af);
-}
-
-.rend-dot {
+.perf-badge {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* Alunos */
-.td-alunos {
-  font-size: 13px;
-  color: #5e5873;
-  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 50rem;
+  font-size: 11px;
   font-weight: 600;
-}
-
-/* Ações */
-.td-actions {
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-.actions-wrap {
+.perf-primary  { background: rgba(110,99,232,0.12);  color: #6e63e8; }
+.perf-success  { background: rgba(40,199,111,0.12);   color: #28c76f; }
+.perf-warning  { background: rgba(255,159,67,0.12);   color: #ff9f43; }
+.perf-danger   { background: rgba(234,84,85,0.12);    color: #ea5455; }
+
+/* ── Status Badge (DS: b-badge pill variant="light-*") ────────────────── */
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 50rem;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.status-light-secondary { background: rgba(180,183,189,0.12); color: #b4b7bd; }
+.status-light-info      { background: rgba(0,207,232,0.12);   color: #00cfe8; }
+.status-light-primary   { background: rgba(110,99,232,0.12);  color: #6e63e8; }
+.status-light-warning   { background: rgba(255,159,67,0.12);  color: #ff9f43; }
+
+/* ── Ações (DS: flat material-symbols-outlined text-primary) ──────────── */
+.actions-flat {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  white-space: nowrap;
 }
 
-.act-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.action-icon {
+  font-size: 20px;
   cursor: pointer;
-  transition: filter 0.15s, transform 0.1s;
-  background: transparent;
-  padding: 0;
+  transition: opacity 0.15s;
 }
 
-.act-btn:hover {
-  filter: brightness(0.85);
-  transform: scale(1.08);
+.action-icon:hover {
+  opacity: 0.7;
 }
 
-.act-btn.act-primary  { color: #6e63e8; background: rgba(110,99,232,0.12); }
-.act-btn.act-success  { color: #28c76f; background: rgba(40,199,111,0.12); }
-.act-btn.act-secondary { color: #b4b7bd; background: rgba(180,183,189,0.12); }
-.act-settings          { color: #b4b7bd; background: rgba(180,183,189,0.12); }
+/* Cores de ação compatíveis com DS */
+.text-success  { color: #28c76f !important; }
+.text-danger   { color: #ea5455 !important; }
+.text-primary  { color: #6e63e8 !important; }
+.text-muted    { color: #b4b7bd !important; }
 
-.ms-1 { margin-left: 6px; }
+.cursor-pointer { cursor: pointer; }
 
-/* ── Paginação ───────────────────────────────────────────────────────────── */
-.tz-pagination {
+/* ── Paginação (DS: ListTablePagination) ──────────────────────────────── */
+.table-pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  border-top: 1px solid var(--gray-100, #f3f4f6);
+  border-top: 1px solid #ebe9f1;
 }
 
 .pg-info {
-  font-size: 12px;
+  font-size: 14px;
   color: #6e6b7b;
 }
 
@@ -812,93 +931,106 @@ a.bc-item:hover {
 }
 
 .pg-btn {
-  width: 28px;
-  height: 28px;
+  width: 33px;
+  height: 33px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1px solid #babfc7;
-  border-radius: 4px;
-  color: #5e5873;
+  border: 1px solid #d8d6de;
+  border-radius: 5px;
+  color: #6e6b7b;
   cursor: pointer;
   transition: all 0.15s;
 }
 
-.pg-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.pg-btn:not(:disabled):hover {
-  border-color: #6e63e8;
-  color: #6e63e8;
-}
+.pg-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pg-btn:not(:disabled):hover { border-color: #6e63e8; color: #6e63e8; }
 
 .pg-num {
-  width: 28px;
-  height: 28px;
+  width: 33px;
+  height: 33px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  font-size: 12px;
+  border-radius: 5px;
+  font-size: 14px;
   font-weight: 600;
-  color: #5e5873;
+  color: #6e6b7b;
   cursor: pointer;
   transition: all 0.15s;
   border: 1px solid transparent;
 }
 
-.pg-num:hover { border-color: #babfc7; }
+.pg-num:hover { border-color: #d8d6de; }
+.pg-num.active { background: #6e63e8; color: #fff; border-color: #6e63e8; }
 
-.pg-num.active {
-  background: #6e63e8;
-  color: #fff;
+/* ── Legendas (DS: LegendEnum.vue + SemaphoreStatus) ──────────────────── */
+.legends-card {
+  border: none;
 }
 
-/* ── Legendas ────────────────────────────────────────────────────────────── */
-.tz-legends {
-  display: flex;
-  flex-direction: column;
-  padding: 8px 20px 16px;
+.legend-body {
+  padding: 0.75rem 1.25rem;
 }
 
-.legend-row {
+.legend-hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid #ebe9f1;
+}
+
+.text-sm { font-size: 13px; }
+
+.semaphore-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding: 8px 0;
-}
-
-.legend-divider {
-  width: 100%;
-  height: 1px;
-  background: #ebe9f1;
-}
-
-.legend-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: #5e5873;
+  gap: 6px;
   white-space: nowrap;
 }
 
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  color: #6e6b7b;
-  white-space: nowrap;
-}
-
-.leg-dot {
+.semaphore-dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
+}
+
+/* ── Responsividade ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .tz-main {
+    margin-left: 0 !important;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .ds-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .tz-tabs-row,
+  .tz-breadcrumb {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .table-toolbar {
+    padding: 0.75rem;
+  }
+
+  .tz-table td,
+  .tz-table th {
+    padding: 8px 10px;
+  }
+
+  .actions-flat {
+    gap: 8px;
+  }
+
+  .action-icon {
+    font-size: 18px;
+  }
 }
 </style>
