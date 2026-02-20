@@ -1,7 +1,20 @@
-<script setup>
+﻿<script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { EBadge } from '@/components/base'
+
+/** Converte hex + alpha (0-1) para rgba */
+const hexAlpha = (hex, a) => {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r},${g},${b},${a})`
+}
+
+const personaIconStyle = (color) => ({
+  background: hexAlpha(color, 0.13),
+  borderColor: hexAlpha(color, 0.22),
+  color
+})
 
 const personas = ref([
   {
@@ -17,7 +30,7 @@ const personas = ref([
     name: 'Aluno',
     icon: 'bi-person',
     color: '#00CFE8',
-    description: 'Acesso a missões, conquistas e acompanhamento de progresso',
+    description: 'Missões, conquistas e progresso individual',
     route: '/student'
   },
   {
@@ -48,7 +61,7 @@ const personas = ref([
     id: 'network-manager',
     name: 'Gestor de Rede',
     icon: 'bi-globe',
-    color: '#8250DF',
+    color: '#9E95F5',
     description: 'Gestão de múltiplas escolas e indicadores de rede',
     route: '/network-manager'
   }
@@ -56,307 +69,486 @@ const personas = ref([
 </script>
 
 <template>
-  <div class="home-container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            <span class="gradient-text">Educacross</span>
-            <br />
-            Protótipos de Jornadas
-          </h1>
-          <p class="hero-subtitle">
-            Explore as jornadas de cada persona da plataforma educacional.
-            <br />
-            Selecione um perfil abaixo para navegar pelo protótipo interativo.
-          </p>
-          <div class="hero-badges">
-            <EBadge variant="primary" pill>
-              <i class="bi bi-lightbulb"></i> Protótipos V1.0
-            </EBadge>
-            <EBadge variant="success" pill>
-              <i class="bi bi-check-circle"></i> 6 Personas
-            </EBadge>
-            <EBadge variant="info" pill>
-              <i class="bi bi-palette"></i> Design System Vuexy
-            </EBadge>
-          </div>
+  <div class="shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo"><i class="bi bi-grid-1x2-fill"></i></div>
+        <span class="brand-name">Educacross</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-label">Navegação</span>
+        <a class="nav-link active" href="#">
+          <i class="bi bi-house-door"></i> Início
+        </a>
+        <a class="nav-link" href="#personas">
+          <i class="bi bi-people"></i> Personas
+        </a>
+        <a class="nav-link" href="http://localhost:3000" target="_blank">
+          <i class="bi bi-journal-text"></i> Wiki
+          <i class="bi bi-arrow-up-right nav-external"></i>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="env-badge">
+          <span class="env-dot"></span>
+          Redesenho-home
         </div>
       </div>
-    </section>
+    </aside>
 
-    <!-- Personas Grid -->
-    <section class="personas-section">
-      <div class="container">
-        <div class="grid grid-cols-3">
+    <!-- Main -->
+    <main class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-breadcrumb">
+          <span class="bc-root">Workspace</span>
+          <i class="bi bi-chevron-right bc-sep"></i>
+          <span class="bc-current">Início</span>
+        </div>
+        <RouterLink to="/teacher" class="topbar-cta">
+          <i class="bi bi-play-fill"></i>
+          Abrir Protótipo
+          <i class="bi bi-arrow-right"></i>
+        </RouterLink>
+      </header>
+
+      <!-- Hero strip -->
+      <section class="hero-strip">
+        <div class="hero-text">
+          <h1 class="hero-title">Ambiente de Prototipação</h1>
+          <p class="hero-desc">Explore e valide fluxos de cada persona antes de migrar para produção.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">6</span>
+            <span class="stat-label">Personas</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">v1.2</span>
+            <span class="stat-label">Baseline</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">3</span>
+            <span class="stat-label">Artefatos</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick links -->
+      <section class="quick-section">
+        <h2 class="section-label">Acesso rápido</h2>
+        <div class="quick-grid">
+          <RouterLink to="/teacher/calendar" class="quick-card quick-card--featured">
+            <div class="quick-card-icon"><i class="bi bi-calendar3"></i></div>
+            <div class="quick-card-body">
+              <p class="quick-card-title">Calendário do Professor</p>
+              <p class="quick-card-desc">Fluxo principal em validação</p>
+            </div>
+            <i class="bi bi-arrow-right quick-card-arrow"></i>
+          </RouterLink>
+
+          <a href="http://localhost:3000" target="_blank" class="quick-card">
+            <div class="quick-card-icon"><i class="bi bi-journal-bookmark"></i></div>
+            <div class="quick-card-body">
+              <p class="quick-card-title">Wiki TO-BE</p>
+              <p class="quick-card-desc">Documentação de produto e engenharia</p>
+            </div>
+            <i class="bi bi-arrow-up-right quick-card-arrow"></i>
+          </a>
+
+          <div class="quick-card quick-card--muted">
+            <div class="quick-card-icon"><i class="bi bi-kanban"></i></div>
+            <div class="quick-card-body">
+              <p class="quick-card-title">Kanban de Demandas</p>
+              <p class="quick-card-desc">Em breve</p>
+            </div>
+            <span class="quick-card-badge">Em breve</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Personas grid -->
+      <section id="personas" class="personas-section">
+        <div class="personas-header">
+          <h2 class="section-label">Personas</h2>
+          <span class="personas-count">{{ personas.length }} disponíveis</span>
+        </div>
+        <div class="personas-grid">
           <RouterLink
             v-for="persona in personas"
             :key="persona.id"
             :to="persona.route"
             class="persona-card"
-            :style="{ '--persona-color': persona.color }"
+            :style="{ '--p-color': persona.color }"
           >
-            <div class="persona-icon">
-              <i :class="persona.icon"></i>
+            <div class="persona-top">
+              <div class="persona-icon" :style="personaIconStyle(persona.color)"><i :class="['bi', persona.icon]"></i></div>
+              <span class="persona-status">Ativo</span>
             </div>
-            <div class="persona-content">
-              <h3 class="persona-name">{{ persona.name }}</h3>
-              <p class="persona-description">{{ persona.description }}</p>
+            <div class="persona-body">
+              <p class="persona-name">{{ persona.name }}</p>
+              <p class="persona-desc">{{ persona.description }}</p>
             </div>
-            <div class="persona-arrow">
-              <i class="bi bi-arrow-right"></i>
+            <div class="persona-footer">
+              <span class="persona-cta">Abrir jornada <i class="bi bi-arrow-right"></i></span>
             </div>
           </RouterLink>
         </div>
-      </div>
-    </section>
-
-    <!-- Info Section -->
-    <section class="info-section">
-      <div class="container">
-        <div class="info-card">
-          <div class="info-header">
-            <i class="bi bi-info-circle"></i>
-            <h3>Sobre  este ambiente</h3>
-          </div>
-          <div class="info-content">
-            <p>
-              Este é o <strong>Ambiente de Prototipação FrontOffice</strong> da plataforma Educacross.
-              Aqui você pode explorar protótipos interativos das jornadas de cada persona, 
-              construídos com <strong>Vue 3 + Vite</strong> usando o <strong>Design System Vuexy</strong>.
-            </p>
-            <ul class="info-list">
-              <li><i class="bi bi-check2"></i> Protótipos navegáveis por persona</li>
-              <li><i class="bi bi-check2"></i> Design system consistente (Vuexy)</li>
-              <li><i class="bi bi-check2"></i> Baseado na documentação oficial</li>
-              <li><i class="bi bi-check2"></i> Desenvolvimento iterativo e incremental</li>
-            </ul>
-            <a 
-              href="http://localhost:3003" 
-              target="_blank" 
-              class="btn btn-outline-primary"
-            >
-              <i class="bi bi-book"></i>
-              Ver Documentação Completa
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
   </div>
 </template>
 
 <style scoped>
-.home-container {
+/* ── Tokens dark ─────────────── */
+.shell {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --text: #ededed;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #7367F0;
+  --accent-glow: rgba(115,103,240,0.18);
+  --r: 8px;
+  --r-lg: 12px;
+  --t: 150ms ease;
+
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-family-base);
+  overflow-x: hidden;
 }
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(135deg, #7367F0 0%, #9E95F5 100%);
-  color: white;
-  padding: 4rem 0 5rem;
-  position: relative;
+/* ── Sidebar ─────────────────── */
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-width: 0;
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="white" opacity="0.05"/></svg>');
-  background-size: 100px 100px;
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.nav-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 8px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--r);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  transition: background var(--t), color var(--t);
+}
+
+.nav-link:hover { background: var(--surface-2); color: var(--text); }
+.nav-link.active { background: var(--accent-glow); color: var(--accent); }
+
+.nav-external { margin-left: auto; font-size: 11px; opacity: 0.4; }
+
+.sidebar-footer {
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.env-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  padding: 4px 8px;
+}
+
+.env-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #28C76F;
+  flex-shrink: 0;
+}
+
+/* ── Main ────────────────────── */
+.main { display: flex; flex-direction: column; min-width: 0; }
+
+/* ── Topbar ──────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,10,0.88);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.topbar-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.bc-root { color: var(--text-muted); }
+.bc-sep { color: var(--text-dim); font-size: 10px; }
+.bc-current { color: var(--text); font-weight: 500; }
+
+.topbar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--r);
+  transition: opacity var(--t);
+}
+.topbar-cta:hover { opacity: 0.82; }
+
+/* ── Hero strip ──────────────── */
+.hero-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 24px 24px;
+  border-bottom: 1px solid var(--border);
 }
 
 .hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
 }
 
-.gradient-text {
-  background: linear-gradient(90deg, #fff 0%, #f0f0ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.hero-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 480px; }
+
+.hero-stats { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+
+.stat { display: flex; flex-direction: column; align-items: center; }
+.stat-value { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1; }
+.stat-label { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
+.stat-divider { width: 1px; height: 30px; background: var(--border); }
+
+/* ── Quick section ───────────── */
+.quick-section { padding: 24px 24px 0; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
 }
 
-.hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-  opacity: 0.95;
-  line-height: 1.6;
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.hero-badges {
+.quick-card {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.hero-badges .badge {
-  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  gap: 12px;
+  padding: 13px 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
 }
 
-/* Personas Section */
-.personas-section {
-  padding: 4rem 0;
-  background: var(--gray-50);
+.quick-card:hover { border-color: var(--border-hover); background: var(--surface-2); }
+
+.quick-card--featured {
+  border-color: rgba(115,103,240,0.3);
+  background: rgba(115,103,240,0.06);
+}
+.quick-card--featured:hover {
+  border-color: rgba(115,103,240,0.55);
+  background: rgba(115,103,240,0.11);
+}
+
+.quick-card--muted { opacity: 0.45; cursor: default; pointer-events: none; }
+
+.quick-card-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 14px; color: var(--text-muted);
+}
+.quick-card--featured .quick-card-icon { background: var(--accent-glow); border-color: rgba(115,103,240,0.28); color: var(--accent); }
+
+.quick-card-body { flex: 1; min-width: 0; }
+.quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
+.quick-card-desc { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+.quick-card-arrow { color: var(--text-dim); font-size: 14px; flex-shrink: 0; }
+.quick-card-badge {
+  font-size: 10.5px; padding: 2px 6px; border-radius: 4px;
+  background: var(--surface-2); border: 1px solid var(--border); color: var(--text-dim); flex-shrink: 0;
+}
+
+/* ── Personas ────────────────── */
+.personas-section { padding: 24px; }
+.personas-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.personas-count { font-size: 11.5px; color: var(--text-dim); }
+
+.personas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .persona-card {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
   text-decoration: none;
-  color: inherit;
-  border-left: 4px solid var(--persona-color);
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-base);
-  position: relative;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
 }
 
-.persona-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+.persona-card:hover { border-color: var(--p-color); background: var(--surface-2); }
+.persona-card:hover .persona-cta { color: var(--p-color); }
+
+.persona-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .persona-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-lg);
-  background: var(--persona-color);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
 }
 
-.persona-content {
-  flex: 1;
+.persona-status {
+  font-size: 10px; padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(40,199,111,0.1);
+  border: 1px solid rgba(40,199,111,0.22);
+  color: #28C76F;
+  font-weight: 500;
 }
 
-.persona-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--gray-900);
-}
+.persona-body { flex: 1; margin-bottom: 12px; }
+.persona-name { font-size: 13.5px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; margin-bottom: 3px; }
+.persona-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
 
-.persona-description {
-  color: var(--gray-600);
-  line-height: 1.6;
-  font-size: 0.9375rem;
-}
+.persona-footer { padding-top: 10px; border-top: 1px solid var(--border); }
+.persona-cta { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--text-dim); transition: color var(--t); }
 
-.persona-arrow {
-  color: var(--persona-color);
-  font-size: 1.5rem;
-  align-self: flex-end;
-  transition: transform var(--transition-fast);
-}
+/* ── Responsivo ──────────────── */
+@media (max-width: 1024px) {
+  .shell { grid-template-columns: 1fr; }
 
-.persona-card:hover .persona-arrow {
-  transform: translateX(4px);
-}
-
-/* Info Section */
-.info-section {
-  padding: 4rem 0;
-  background: white;
-}
-
-.info-card {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--gray-50);
-  border-radius: var(--radius-xl);
-  padding: 2.5rem;
-  border: 1px solid var(--gray-200);
-}
-
-.info-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.info-header i {
-  font-size: 2rem;
-  color: var(--primary);
-}
-
-.info-header h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--gray-900);
-}
-
-.info-content p {
-  margin-bottom: 1.5rem;
-  color: var(--gray-700);
-  line-height: 1.8;
-}
-
-.info-list {
-  list-style: none;
-  margin: 1.5rem 0 2rem;
-}
-
-.info-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 0;
-  color: var(--gray-700);
-}
-
-.info-list i {
-  color: var(--success);
-  font-size: 1.25rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 14px;
+    width: 100%;
+    overflow: visible;
+    gap: 12px;
   }
-  
-  .hero-subtitle {
-    font-size: 1rem;
+
+  .sidebar-nav { flex-direction: row; align-items: center; flex: 1; }
+  .nav-label, .sidebar-footer { display: none; }
+  .personas-grid, .quick-grid { grid-template-columns: 1fr; }
+
+  .hero-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
-  
-  .grid-cols-3 {
-    grid-template-columns: 1fr;
-  }
+
+  .hero-stats { align-self: flex-start; }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .grid-cols-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media (min-width: 1440px) {
+  .shell { grid-template-columns: 240px 1fr; }
+  .personas-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+@media (min-width: 1800px) {
+  .personas-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
 </style>
