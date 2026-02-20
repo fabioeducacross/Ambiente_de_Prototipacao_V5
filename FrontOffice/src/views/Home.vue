@@ -666,6 +666,7 @@ const personas = ref([
 .journeys-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 8px;
   margin-top: 10px;
 }
@@ -731,7 +732,7 @@ const personas = ref([
 }
 
 .journey-card-footer {
-  margin-top: 12px;
+  margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid var(--border);
 }
