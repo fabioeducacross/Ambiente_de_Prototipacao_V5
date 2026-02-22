@@ -1,8 +1,6 @@
-import { IconCheck, IconTarget } from '@site/src/components/StatusIcons';
-
 # PROF-XXX: Calendário de Eventos
 
-<span class="badge badge-danger"><span class="material-symbols-outlined" class="ms-danger">circle</span> Alta Prioridade</span>
+<span class="badge badge-danger">🔴 Alta Prioridade</span>
 <span class="badge badge-warning">Sprint TO-BE</span>
 <span class="badge badge-info">Protótipo V1</span>
 
@@ -11,10 +9,10 @@ import { IconCheck, IconTarget } from '@site/src/components/StatusIcons';
 ## Visão Geral
 
 **Categoria**: Professores → Planejamento e Acompanhamento  
-**Prioridade**: <span class="material-symbols-outlined" class="ms-danger">circle</span> Alta (>1000 acessos/dia esperados)  
+**Prioridade**: 🔴 Alta (>1000 acessos/dia esperados)  
 **Status**: TO-BE (Protótipo Funcional V1)  
 **Duração Estimada**: 6 semanas de desenvolvimento  
-**Complexidade**: <span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span> (4/5 - Alta)
+**Complexidade**: ⭐⭐⭐⭐ (4/5 - Alta)
 
 ### Resumo Executivo
 
@@ -63,7 +61,7 @@ O Calendário de Eventos é uma nova jornada que centraliza a visualização e g
 
 ## Personas
 
-### <span class="material-symbols-outlined">person</span> Persona Primária: **Professor (Isabella Cross)**
+### 👤 Persona Primária: **Professor (Isabella Cross)**
 
 **Comportamento**:
 - Acessa diariamente para planejar aulas e verificar próximos eventos
@@ -84,7 +82,7 @@ Necessidades**:
 - "Quando preciso marcar uma revisão extra, quero criar rapidamente sem burocracia"
 - "Quando foco em uma turma, preciso ver apenas eventos dela"
 
-### <span class="material-symbols-outlined">person</span> Persona Secundária: **Coordenador Pedagógico**
+### 👤 Persona Secundária: **Coordenador Pedagógico**
 
 **Comportamento**:
 - Acessa semanalmente para visualizar calendário de todos os professores
@@ -96,7 +94,7 @@ Necessidades**:
 - Filtro por professor + turma para monitoramento
 - Exportar calendário mensal em PDF
 
-### <span class="material-symbols-outlined">person</span> Persona Terciária: **Diretor de Área**
+### 👤 Persona Terciária: **Diretor de Área**
 
 **Comportamento**:
 - Acessa mensalmente para visão estratégica
@@ -368,10 +366,10 @@ graph TD
 |----------------|-------------------|---------------------|
 | **Objetivo** | Habilitar eventos pré-criados | Visualizar + criar eventos |
 | **Visualização** | Lista de cards | Calendário (4 views) |
-| **Criação** | <span class="material-symbols-outlined">cancel</span> Não permite | <span class="material-symbols-outlined">check_circle</span> Permite (customizado) |
-| **Edição** | <span class="material-symbols-outlined">cancel</span> Apenas habilitar/desabilitar | <span class="material-symbols-outlined">check_circle</span> Edita eventos próprios |
+| **Criação** | ❌ Não permite | ✅ Permite (customizado) |
+| **Edição** | ❌ Apenas habilitar/desabilitar | ✅ Edita eventos próprios |
 | **Filtro** | Status (ativo, encerrado) | Turma + Data |
-| **Multi-view** | <span class="material-symbols-outlined">cancel</span> Apenas lista | <span class="material-symbols-outlined">check_circle</span> Mês/Semana/Dia/Lista |
+| **Multi-view** | ❌ Apenas lista | ✅ Mês/Semana/Dia/Lista |
 
 ---
 
@@ -562,42 +560,42 @@ type EventType = 'missao' | 'olimpiada' | 'avaliacao' | 'trilha' | 'expedicao' |
 
 ## Roadmap e Melhorias Futuras
 
-### V1.0: MVP (6 semanas) <span class="material-symbols-outlined">check_circle</span> Implementado
+### V1.0: MVP (6 semanas) ✅ Implementado
 
-- <span class="material-symbols-outlined">check_circle</span> Calendário com 4 views (Mês/Semana/Dia/Lista)
-- <span class="material-symbols-outlined">check_circle</span> EventDrawer criar/editar eventos customizados
-- <span class="material-symbols-outlined">check_circle</span> Filtro por turma (dropdown)
-- <span class="material-symbols-outlined">check_circle</span> 6 tipos de atividade com color-coding
-- <span class="material-symbols-outlined">check_circle</span> Mock data (30 eventos de teste)
-- <span class="material-symbols-outlined">check_circle</span> Responsivo desktop/mobile
+- ✅ Calendário com 4 views (Mês/Semana/Dia/Lista)
+- ✅ EventDrawer criar/editar eventos customizados
+- ✅ Filtro por turma (dropdown)
+- ✅ 6 tipos de atividade com color-coding
+- ✅ Mock data (30 eventos de teste)
+- ✅ Responsivo desktop/mobile
 
 ### V1.1: Melhorias UX (4 semanas)
 
-- <span class="material-symbols-outlined">crop_square</span> Drag & drop de eventos no calendário (arrastar para mudar data)
-- <span class="material-symbols-outlined">crop_square</span> Quick actions: Click direito em evento → menu contextual (editar/duplicar/deletar)
-- <span class="material-symbols-outlined">crop_square</span> Atalhos de teclado (N = novo evento, ← → = navegar, Esc = fechar drawer)
-- <span class="material-symbols-outlined">crop_square</span> Toast notifications de sucesso/erro estilizadas
-- <span class="material-symbols-outlined">crop_square</span> Tooltip com preview ao hover em event pill (sem click)
-- <span class="material-symbols-outlined">crop_square</span> Badge "Novo" em eventos criados há menos de 24h
+- 🔲 Drag & drop de eventos no calendário (arrastar para mudar data)
+- 🔲 Quick actions: Click direito em evento → menu contextual (editar/duplicar/deletar)
+- 🔲 Atalhos de teclado (N = novo evento, ← → = navegar, Esc = fechar drawer)
+- 🔲 Toast notifications de sucesso/erro estilizadas
+- 🔲 Tooltip com preview ao hover em event pill (sem click)
+- 🔲 Badge "Novo" em eventos criados há menos de 24h
 
 ### V1.2: Features Avançadas (6 semanas)
 
-- <span class="material-symbols-outlined">crop_square</span> Busca/filtro por título de evento (search bar no header)
-- <span class="material-symbols-outlined">crop_square</span> Exportar calendário mensal em PDF
-- <span class="material-symbols-outlined">crop_square</span> Compartilhar calendário com pais (link público)
-- <span class="material-symbols-outlined">crop_square</span> Notificações push: lembrete 1 dia antes do evento
-- <span class="material-symbols-outlined">crop_square</span> Conflitos: warning visual se 2+ avaliações no mesmo dia
-- <span class="material-symbols-outlined">crop_square</span> Templates de eventos recorrentes (ex: "Aula de Reforço - Toda Quinta 16h")
+- 🔲 Busca/filtro por título de evento (search bar no header)
+- 🔲 Exportar calendário mensal em PDF
+- 🔲 Compartilhar calendário com pais (link público)
+- 🔲 Notificações push: lembrete 1 dia antes do evento
+- 🔲 Conflitos: warning visual se 2+ avaliações no mesmo dia
+- 🔲 Templates de eventos recorrentes (ex: "Aula de Reforço - Toda Quinta 16h")
 
 ### V2.0: Integração e Colaboração (8 semanas)
 
-- <span class="material-symbols-outlined">crop_square</span> Auto-save de rascunhos (RN-CAL-004)
-- <span class="material-symbols-outlined">crop_square</span> Comentários em eventos (professores colaboram)
-- <span class="material-symbols-outlined">crop_square</span> Anexos: arquivos/links em eventos (ex: PDF da prova)
-- <span class="material-symbols-outlined">crop_square</span> Integração com Google Calendar / Outlook (two-way sync)
-- <span class="material-symbols-outlined">crop_square</span> Dashboard para coordenador: visão de todos os professores
-- <span class="material-symbols-outlined">crop_square</span> Heatmap: densidade de eventos por período
-- <span class="material-symbols-outlined">crop_square</span> Analytics: eventos mais criados, turmas com mais atividades
+- 🔲 Auto-save de rascunhos (RN-CAL-004)
+- 🔲 Comentários em eventos (professores colaboram)
+- 🔲 Anexos: arquivos/links em eventos (ex: PDF da prova)
+- 🔲 Integração com Google Calendar / Outlook (two-way sync)
+- 🔲 Dashboard para coordenador: visão de todos os professores
+- 🔲 Heatmap: densidade de eventos por período
+- 🔲 Analytics: eventos mais criados, turmas com mais atividades
 
 ---
 
@@ -621,7 +619,7 @@ type EventType = 'missao' | 'olimpiada' | 'avaliacao' | 'trilha' | 'expedicao' |
 | **Taxa de abandono do drawer** | - | &lt;15% | Trimestre 1 |
 | **Tempo médio de criação de evento** | N/A | &lt;3 minutos | Mês 2 |
 | **Taxa de erro de validação** | - | &lt;10% dos submits | Trimestre 1 |
-| **Feedback positivo** | - | >80% | Semestre 1 |
+| **Feedback positivo** | - | &gt;80% | Semestre 1 |
 
 ### Métricas de Negócio
 
@@ -879,6 +877,6 @@ test.describe('Calendário - Fluxo Completo', () => {
 
 ---
 
-**<span class="material-symbols-outlined">check_circle</span> Documentação Completa - PROF-XXX: Calendário de Eventos**
+**✅ Documentação Completa - PROF-XXX: Calendário de Eventos**
 
 Last Updated: 10 de fevereiro de 2026
