@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
-title: PDR 001: Codificação de Eventos no Calendário
-description: Decisão sobre como diferenciar eventos por cores e ícones
+title: "PDR 001: Codificação de Eventos no Calendário"
+description: "Decisão sobre como diferenciar eventos por cores e ícones"
 ---
 
 # PDR 001: Codificação de Eventos no Calendário

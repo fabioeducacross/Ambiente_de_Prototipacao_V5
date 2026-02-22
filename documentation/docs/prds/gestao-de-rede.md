@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
-title: PRD: Gestão de Rede
-description: Especificação da funcionalidade de gestão centralizada de múltiplas instituições
+title: "PRD: Gestão de Rede"
+description: "Especificação da funcionalidade de gestão centralizada de múltiplas instituições"
 ---
 
 import { IconCheck, IconWarning, IconConstruction, PriorityHigh, PriorityMedium, PriorityLow } from '@site/src/components/StatusIcons';
