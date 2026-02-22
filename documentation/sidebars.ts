@@ -13,6 +13,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'produto/index',
+        'produto/design-process',
       ],
     },
     {

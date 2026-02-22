@@ -616,10 +616,10 @@ type EventType = 'missao' | 'olimpiada' | 'avaliacao' | 'trilha' | 'expedicao' |
 | Métrica | Baseline | Meta TO-BE | Período |
 |---------|----------|-------------|---------|
 | **NPS professores (calendar)** | - | 8.5+ | Semestre 1 |
-| **Taxa de abandono do drawer** | - | <15% | Trimestre 1 |
-| **Tempo médio de criação de evento** | N/A | <3 minutos | Mês 2 |
-| **Taxa de erro de validação** | - | <10% dos submits | Trimestre 1 |
-| **Feedback positivo** | - | >80% | Semestre 1 |
+| **Taxa de abandono do drawer** | - | &lt;15% | Trimestre 1 |
+| **Tempo médio de criação de evento** | N/A | &lt;3 minutos | Mês 2 |
+| **Taxa de erro de validação** | - | &lt;10% dos submits | Trimestre 1 |
+| **Feedback positivo** | - | &gt;80% | Semestre 1 |
 
 ### Métricas de Negócio
 
