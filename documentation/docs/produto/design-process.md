@@ -1,20 +1,20 @@
 ---
 sidebar_position: 2
 title: Processo de Design de Produto
-description: Como aplicamos o Double Diamond com prototipação em código
+description: Como aplicamos o Duplo Diamante com prototipação em código
 ---
 
 # Processo de Design de Produto
 
 ## Visão Geral
 
-Este documento descreve nosso **processo de design de produto** adaptado ao contexto da Educacross, onde utilizamos o conceito do **Double Diamond** (Duplo Diamante) integrado com prototipação em código para facilitar o handoff e manter a consistência entre Figma e Design System.
+Este documento descreve nosso **processo de design de produto** adaptado ao contexto da Educacross, onde utilizamos o conceito do **Duplo Diamante** (Double Diamond) integrado com prototipação em código para facilitar a transferência para desenvolvimento e manter a consistência entre Figma e Design System.
 
 ---
 
-## O Double Diamond Adaptado
+## O Duplo Diamante Adaptado
 
-O Double Diamond é um framework de design que divide o processo em 4 fases:
+O Duplo Diamante é um framework de design que divide o processo em 4 fases:
 
 ```mermaid
 graph LR
@@ -31,7 +31,7 @@ graph LR
 ### Nossa Adaptação
 
 No contexto da Educacross, **prototipamos com código** desde o início, permitindo:
-- ✅ Handoff mais eficiente para desenvolvimento
+- ✅ Transferência mais eficiente para desenvolvimento
 - ✅ Validação técnica precoce
 - ✅ Testes interativos com usuários reais
 - ✅ Integração contínua com o Design System
@@ -54,9 +54,9 @@ graph TB
     end
 
     subgraph "Ciclo de Prototipação"
-        B1 --> C1[📝 Documentar Jornada AS-IS]
-        C1 --> C2[💻 Prototipar TO-BE em Código]
-        C2 --> C3[🔄 Review & Iteração]
+        B1 --> C1[📝 Documentar Jornada TAL-QUAL]
+        C1 --> C2[💻 Prototipar COMO-SERÁ em Código]
+        C2 --> C3[🔄 Revisão & Iteração]
         C3 --> C4{Aprovado?}
         C4 -->|Não| C2
         C4 -->|Sim| C5[📐 Atualizar Figma]
@@ -83,10 +83,10 @@ graph TB
 
 | Atividade | Ferramentas | Entregáveis |
 |-----------|-------------|-------------|
-| Pesquisa com usuários | Entrevistas, observação | Insights e pain points |
+| Pesquisa com usuários | Entrevistas, observação | Insights e pontos de dor |
 | Análise de dados | Analytics, heatmaps | Métricas de comportamento |
 | Benchmarking | Análise competitiva | Referências e boas práticas |
-| Mapeamento de jornadas | Miro, Figjam | Jornadas AS-IS documentadas |
+| Mapeamento de jornadas | Miro, Figjam | Jornadas TAL-QUAL documentadas |
 
 ### Documentação
 
@@ -94,17 +94,17 @@ Todas as descobertas são documentadas em:
 - **Docusaurus**: [`docs/discovery/`](/docs/discovery/)
 - **Personas**: [`docs/personas/`](/docs/personas/)
 
-### Exemplo: Discovery Professor
+### Exemplo: Descoberta Professor
 
 ```markdown
-## Pain Points Identificados
+## Pontos de Dor Identificados
 
 1. **Dificuldade em visualizar progresso dos alunos**
    - Falta de dashboards consolidados
    - Dados espalhados em múltiplas telas
 
 2. **Tempo excessivo para configurar missões**
-   - Wizard atual tem 5+ passos
+   - Assistente atual tem 5+ passos
    - Muitos campos obrigatórios
 ```
 
@@ -119,8 +119,8 @@ Todas as descobertas são documentadas em:
 | Atividade | Ferramentas | Entregáveis |
 |-----------|-------------|-------------|
 | Priorização | MoSCoW, RICE score | Backlog priorizado |
-| Definição de hipóteses | How Might We (HMW) | Hipóteses validáveis |
-| Criação de User Stories | Jira, Linear | Stories detalhadas |
+| Definição de hipóteses | Como Podemos (HMW) | Hipóteses validáveis |
+| Criação de Histórias de Usuário | Jira, Linear | Histórias detalhadas |
 | Critérios de sucesso | OKRs, KPIs | Métricas de validação |
 
 ### Documentação
@@ -139,7 +139,7 @@ de 15min para 5min, mantendo a flexibilidade?
 
 ### Hipótese
 
-Se simplificarmos o wizard de 5 para 3 passos e pré-popularmos
+Se simplificarmos o assistente de 5 para 3 passos e pré-popularmos
 campos com sugestões inteligentes, então:
 - ↓ 60% tempo de configuração
 - ↑ 40% missões criadas por professor
@@ -151,26 +151,26 @@ campos com sugestões inteligentes, então:
 
 **Objetivo**: Explorar múltiplas soluções através de prototipação em código.
 
-### Nossa Abordagem: Code-First Prototyping
+### Nossa Abordagem: Prototipação Código-Primeiro
 
 #### Por que prototipar com código?
 
-1. **Handoff eficiente**: Código do protótipo serve de base para produção
+1. **Transferência eficiente**: Código do protótipo serve de base para produção
 2. **Validação técnica**: Detecta limitações técnicas cedo
 3. **Testes reais**: Usuários interagem com protótipo funcional
 4. **Design System integrado**: Usa componentes reais desde o início
 
-#### Workflow de Prototipação
+#### Fluxo de Prototipação
 
 ```mermaid
 graph TD
-    A[📋 Documentar Jornada AS-IS] --> B[🌿 Criar Branch Baseline]
-    B --> C[📸 Criar Branch Feature TO-BE]
+    A[📋 Documentar Jornada TAL-QUAL] --> B[🌿 Criar Branch Base]
+    B --> C[📸 Criar Branch Funcionalidade COMO-SERÁ]
     C --> D[💻 Desenvolver Protótipo em Vue]
-    D --> E[🚀 Deploy Preview Automático]
-    E --> F[👥 Review com Stakeholders]
+    D --> E[🚀 Publicação Prévia Automática]
+    E --> F[👥 Revisão com Partes Interessadas]
     F --> G{Aprovado?}
-    G -->|Não| H[📝 Ajustar baseado em feedback]
+    G -->|Não| H[📝 Ajustar baseado em retorno]
     H --> D
     G -->|Sim| I[✅ Protótipo Validado]
     I --> J[Fase 4: Entregar]
@@ -182,26 +182,26 @@ graph TD
     style I fill:#28C76F,color:#fff
 ```
 
-### Estrutura de Branches Git
+### Estrutura de Ramificações Git
 
-Seguimos o workflow documentado em [`PROTOTYPES-WORKFLOW.md`](/PROTOTYPES-WORKFLOW.md):
+Seguimos o fluxo documentado em [`PROTOTYPES-WORKFLOW.md`](/PROTOTYPES-WORKFLOW.md):
 
 ```bash
 prototypes/
-├── as-is                          # Baseline que replica produção
+├── as-is                          # Base que replica produção
 │   ├── Tag: as-is-v1.0           # Versão inicial
-│   ├── Tag: as-is-v1.1           # Após Education System V2
-│   └── Tag: as-is-v1.2           # Após Missions V3
+│   ├── Tag: as-is-v1.1           # Após Sistema de Educação V2
+│   └── Tag: as-is-v1.2           # Após Missões V3
 │
-└── feature/                       # Protótipos TO-BE
-    ├── education-system-v2        # Wizard de livros
-    ├── missions-v3                # Timeline de missões
-    └── reports-v2                 # Dashboards interativos
+└── feature/                       # Protótipos COMO-SERÁ
+    ├── education-system-v2        # Assistente de livros
+    ├── missions-v3                # Linha do tempo de missões
+    └── reports-v2                 # Painéis interativos
 ```
 
 ### Exemplo Prático
 
-#### 1. Criar Baseline AS-IS
+#### 1. Criar Base TAL-QUAL
 
 ```bash
 # Documentar estado atual em produção
@@ -212,42 +212,42 @@ git checkout -b prototypes/as-is
 npm run dev
 
 git add .
-git commit -m "proto: create as-is baseline v1.0"
-git tag -a as-is-v1.0 -m "AS-IS Baseline v1.0"
+git commit -m "proto: criar base tal-qual v1.0"
+git tag -a as-is-v1.0 -m "Base TAL-QUAL v1.0"
 git push origin prototypes/as-is --tags
 ```
 
-#### 2. Prototipar TO-BE
+#### 2. Prototipar COMO-SERÁ
 
 ```bash
-# Partir do baseline
+# Partir da base
 git checkout prototypes/as-is
 git checkout -b prototypes/feature/missions-v3
 
 # Desenvolver melhorias
 npm run dev
-# Implementar timeline de missões, filtros avançados, etc.
+# Implementar linha do tempo de missões, filtros avançados, etc.
 
 # Commits incrementais
 git add src/views/missions/
-git commit -m "proto: add timeline view for missions"
+git commit -m "proto: adicionar visão de linha do tempo para missões"
 git push origin prototypes/feature/missions-v3
 ```
 
-#### 3. Deploy Preview Automático
+#### 3. Publicação Prévia Automática
 
-GitHub Actions cria URL de preview:
+GitHub Actions cria URL de prévia:
 ```
 https://missions-v3.prototypes.educacross.dev
 ```
 
-#### 4. Coleta de Feedback
+#### 4. Coleta de Retorno
 
 ```markdown
-## Feedback Round 1 - Missions V3
+## Retorno Rodada 1 - Missões V3
 
 ### Positivo ✅
-- Timeline visual muito mais clara
+- Linha do tempo visual muito mais clara
 - Filtros por data funcionando bem
 
 ### Melhorar ⚠️
@@ -265,18 +265,18 @@ https://missions-v3.prototypes.educacross.dev
 
 **Objetivo**: Implementar solução em produção e atualizar documentação de design.
 
-### Workflow de Entrega
+### Fluxo de Entrega
 
 ```mermaid
 graph TD
     A[✅ Protótipo Aprovado] --> B[🔄 Migrar Código para Produção]
     B --> C[🧪 Testes em Homologação]
-    C --> D[📦 Deploy em Produção]
+    C --> D[📦 Publicação em Produção]
     D --> E[📐 Atualizar Figma]
     E --> F[🎨 Atualizar Design System]
-    F --> G[🔄 Sincronizar Baseline AS-IS]
-    G --> H[🏷️ Tag Nova Versão]
-    H --> I[🗑️ Arquivar Feature Branch]
+    F --> G[🔄 Sincronizar Base TAL-QUAL]
+    G --> H[🏷️ Marcar Nova Versão]
+    H --> I[🗑️ Arquivar Ramificação de Funcionalidade]
 
     style A fill:#28C76F,color:#fff
     style B fill:#00CFE8,color:#fff
@@ -296,24 +296,24 @@ git checkout develop
 git checkout -b feature/EC-1234-missions-v3
 
 # Copiar e adaptar código do protótipo
-# - Ajustar imports
+# - Ajustar importações
 # - Integrar APIs reais
 # - Adicionar validações
 # - Escrever testes
 
 git add .
-git commit -m "feat(missions): implement timeline view with filters
+git commit -m "feat(missions): implementar visão de linha do tempo com filtros
 
 JIRA: EC-1234
-Prototype: prototypes/feature/missions-v3
+Protótipo: prototypes/feature/missions-v3
 
-Changes:
-- Add timeline component
-- Add date and subject filters
-- Add pagination for 100+ missions
-- Add unit and E2E tests
+Mudanças:
+- Adicionar componente de linha do tempo
+- Adicionar filtros de data e matéria
+- Adicionar paginação para 100+ missões
+- Adicionar testes unitários e E2E
 
-Closes EC-1234"
+Fecha EC-1234"
 
 git push origin feature/EC-1234-missions-v3
 # Abrir PR → develop → homolog → master
@@ -325,37 +325,37 @@ Após implementação em produção, **atualizamos o Figma** com o design final:
 
 #### Processo
 
-1. **Capturar Screenshots** da implementação real
+1. **Capturar Capturas de Tela** da implementação real
    ```bash
-   # Usar Playwright para screenshots consistentes
+   # Usar Playwright para capturas de tela consistentes
    npm run test:e2e:screenshots
    ```
 
-2. **Atualizar Frames no Figma**
+2. **Atualizar Quadros no Figma**
    - Projeto: [Educacross Design System](https://figma.com/educacross-ds)
-   - Criar nova página: `Missions V3 - Implementation`
-   - Importar screenshots de referência
+   - Criar nova página: `Missões V3 - Implementação`
+   - Importar capturas de tela de referência
    - Redesenhar componentes baseados no código real
 
 3. **Documentar Componentes**
    ```markdown
-   ## Timeline Mission Card
+   ## Card de Missão em Linha do Tempo
 
-   ### Props
+   ### Propriedades
    - `mission`: Object (dados da missão)
    - `onEdit`: Function (callback edição)
    - `onDelete`: Function (callback exclusão)
 
-   ### Variants
-   - Default
+   ### Variantes
+   - Padrão
    - Hover
-   - Selected
-   - Disabled
+   - Selecionado
+   - Desabilitado
 
    ### Tokens Utilizados
-   - Color: `--primary-500`
-   - Spacing: `--space-4`
-   - Border-radius: `--radius-lg`
+   - Cor: `--primary-500`
+   - Espaçamento: `--space-4`
+   - Raio da borda: `--radius-lg`
    ```
 
 #### Integração Figma → Código
@@ -380,7 +380,7 @@ Após Figma atualizado, **sincronizamos o Design System** (Docusaurus):
 ```bash
 cd Ambiente_de_Prototipacao_V5/documentation/
 
-# 1. Adicionar screenshots
+# 1. Adicionar capturas de tela
 cp ../educacross-frontoffice/screenshots/missions-v3-*.png \
    static/img/screenshots/missions/
 
@@ -392,17 +392,17 @@ cp ../educacross-frontoffice/screenshots/missions-v3-*.png \
 
 ```markdown
 ---
-title: Timeline Mission Card
+title: Card de Missão em Linha do Tempo
 sidebar_position: 12
 ---
 
 ## Visão Geral
 
-Componente de card de missão para visualização em timeline.
+Componente de card de missão para visualização em linha do tempo.
 
-## Preview
+## Prévia
 
-![Timeline Mission Card](/img/screenshots/missions/timeline-card.png)
+![Card de Missão em Linha do Tempo](/img/screenshots/missions/timeline-card.png)
 
 ## Uso
 
@@ -416,14 +416,14 @@ Componente de card de missão para visualização em timeline.
 </template>
 \`\`\`
 
-## Props
+## Propriedades
 
-| Prop | Type | Required | Default | Description |
+| Propriedade | Tipo | Obrigatório | Padrão | Descrição |
 |------|------|----------|---------|-------------|
 | `mission` | `Mission` | ✅ | - | Dados da missão |
 | `showActions` | `boolean` | ❌ | `true` | Exibir botões de ação |
 
-## Design Tokens
+## Tokens de Design
 
 \`\`\`css
 .timeline-mission-card {
@@ -440,9 +440,9 @@ Componente de card de missão para visualização em timeline.
 [Ver no Figma →](https://figma.com/file/.../timeline-mission-card)
 ```
 
-### 4. Sincronizar Baseline AS-IS
+### 4. Sincronizar Base TAL-QUAL
 
-Após deploy em produção, **atualizamos o baseline** de protótipos:
+Após publicação em produção, **atualizamos a base** de protótipos:
 
 ```bash
 cd Ambiente_de_Prototipacao_V5/
@@ -455,28 +455,28 @@ cp -r ../educacross-frontoffice/src/views/missions/ \
       src/views/missions/
 
 git add .
-git commit -m "proto: sync as-is with production v1.2
+git commit -m "proto: sincronizar tal-qual com produção v1.2
 
-Migrated from production:
-- Missions V3 with timeline view
-- Component: TimelineMissionCard.vue
-- Integrated: 2026-02-20
+Migrado da produção:
+- Missões V3 com visão de linha do tempo
+- Componente: TimelineMissionCard.vue
+- Integrado: 2026-02-20
 
-Production deploy: master@abc123
-Feature branch: feature/EC-1234-missions-v3"
+Publicação em produção: master@abc123
+Ramificação de funcionalidade: feature/EC-1234-missions-v3"
 
 # Atualizar versão
 npm version minor  # 1.1.0 → 1.2.0
 
-# Tag nova versão
-git tag -a as-is-v1.2 -m "AS-IS Baseline v1.2 - Missions V3"
+# Marcar nova versão
+git tag -a as-is-v1.2 -m "Base TAL-QUAL v1.2 - Missões V3"
 git push origin prototypes/as-is --tags
 ```
 
-### 5. Arquivar Feature Branch
+### 5. Arquivar Ramificação de Funcionalidade
 
 ```bash
-# Deletar branch de protótipo (já migrada)
+# Deletar ramificação de protótipo (já migrada)
 git branch -d prototypes/feature/missions-v3
 git push origin --delete prototypes/feature/missions-v3
 ```
@@ -485,22 +485,22 @@ git push origin --delete prototypes/feature/missions-v3
 
 ## Ferramentas do Processo
 
-### Stack de Design
+### Pilha de Design
 
 | Ferramenta | Uso | Link |
 |------------|-----|------|
 | **Figma** | Documentação visual pós-implementação | [Educacross DS](https://figma.com/educacross-ds) |
 | **Docusaurus** | Design System + Documentação técnica | [`/documentation`](../intro) |
 | **Vue 3 + Vite** | Prototipação em código | [`Ambiente_de_Prototipacao_V5`](../../README.md) |
-| **Playwright** | Screenshots e validação visual | [`/validation`](../../validation) |
+| **Playwright** | Capturas de tela e validação visual | [`/validation`](../../validation) |
 | **MCP Figma** | Sincronização Figma ↔ Código | [`MCP_FIGMA_QUICKSTART.md`](../../MCP_FIGMA_QUICKSTART.md) |
 
-### Stack de Colaboração
+### Pilha de Colaboração
 
 | Ferramenta | Uso |
 |------------|-----|
-| **GitHub** | Versionamento + Deploy preview |
-| **Jira** | Gestão de backlog e user stories |
+| **GitHub** | Versionamento + Prévia de publicação |
+| **Jira** | Gestão de backlog e histórias de usuário |
 | **Miro** | Workshops e mapeamento de jornadas |
 | **Loom** | Vídeos de demonstração de protótipos |
 
@@ -508,14 +508,14 @@ git push origin --delete prototypes/feature/missions-v3
 
 ## Princípios do Processo
 
-### 1. Code is the Source of Truth
+### 1. O Código é a Fonte da Verdade
 
 O código implementado é a fonte da verdade. Figma e Design System são **documentados** após implementação, não antes.
 
 **Por quê?**
 - Evita divergências entre design e código
 - Protótipos validam viabilidade técnica cedo
-- Handoff mais eficiente
+- Transferência mais eficiente
 
 ### 2. Iteração Contínua
 
@@ -523,7 +523,7 @@ Não esperamos "design perfeito" antes de prototipar. Iteramos rapidamente com c
 
 **Ciclo típico**: 3-5 dias
 - Dia 1-2: Protótipo inicial
-- Dia 3: Review + Feedback
+- Dia 3: Revisão + Retorno
 - Dia 4: Ajustes
 - Dia 5: Aprovação
 
@@ -531,10 +531,10 @@ Não esperamos "design perfeito" antes de prototipar. Iteramos rapidamente com c
 
 Documentamos **durante** o processo, não apenas no final.
 
-- Jornadas AS-IS: Durante descoberta
-- Protótipos TO-BE: Durante desenvolvimento
+- Jornadas TAL-QUAL: Durante descoberta
+- Protótipos COMO-SERÁ: Durante desenvolvimento
 - Componentes DS: Após implementação
-- Figma: Após deploy em produção
+- Figma: Após publicação em produção
 
 ### 4. Design System Vivo
 
@@ -543,7 +543,7 @@ O Design System evolui **com** os protótipos, não antes.
 ```mermaid
 graph LR
     A[Protótipo Novo] --> B[Componente Criado]
-    B --> C[Review]
+    B --> C[Revisão]
     C --> D{Reutilizável?}
     D -->|Sim| E[Adicionar ao DS]
     D -->|Não| F[Manter local]
@@ -558,34 +558,34 @@ graph LR
 
 ---
 
-## Checklist do Processo
+## Lista de Verificação do Processo
 
-Use esta checklist para garantir que todas as etapas foram seguidas:
+Use esta lista para garantir que todas as etapas foram seguidas:
 
 ### Fase 1: Descobrir
 
 - [ ] Pesquisa com usuários realizada
 - [ ] Dados de analytics coletados
-- [ ] Jornadas AS-IS mapeadas
+- [ ] Jornadas TAL-QUAL mapeadas
 - [ ] Personas atualizadas
-- [ ] Discovery documentada em `/docs/discovery/`
+- [ ] Descoberta documentada em `/docs/discovery/`
 
 ### Fase 2: Definir
 
 - [ ] Problema prioritário definido
-- [ ] Hipóteses formuladas (HMW)
-- [ ] User stories criadas no Jira
+- [ ] Hipóteses formuladas (Como Podemos)
+- [ ] Histórias de usuário criadas no Jira
 - [ ] Critérios de sucesso definidos (KPIs)
 - [ ] PRD criado em `/docs/prds/`
 
 ### Fase 3: Desenvolver (Prototipar)
 
-- [ ] Baseline AS-IS atualizado (`prototypes/as-is`)
-- [ ] Feature branch criada (`prototypes/feature/nome`)
+- [ ] Base TAL-QUAL atualizada (`prototypes/as-is`)
+- [ ] Ramificação de funcionalidade criada (`prototypes/feature/nome`)
 - [ ] Protótipo desenvolvido em Vue 3
-- [ ] Deploy preview gerado automaticamente
-- [ ] Review com stakeholders realizado
-- [ ] Feedback documentado e iterado
+- [ ] Prévia de publicação gerada automaticamente
+- [ ] Revisão com partes interessadas realizada
+- [ ] Retorno documentado e iterado
 - [ ] Protótipo aprovado
 
 ### Fase 4: Entregar
@@ -595,66 +595,66 @@ Use esta checklist para garantir que todas as etapas foram seguidas:
 - [ ] Testes unitários escritos
 - [ ] Testes E2E escritos
 - [ ] PR aberta e revisada
-- [ ] Deploy em homologação validado
-- [ ] Deploy em produção realizado
+- [ ] Publicação em homologação validada
+- [ ] Publicação em produção realizada
 
 #### Design
-- [ ] Screenshots capturados do código real
+- [ ] Capturas de tela capturadas do código real
 - [ ] Figma atualizado com design implementado
 - [ ] Componentes documentados no Figma
 - [ ] Tokens sincronizados (Figma → Código)
 
 #### Design System
 - [ ] Componente documentado em `/docs/design-system/`
-- [ ] Screenshots adicionados em `/static/img/screenshots/`
-- [ ] Props e variantes documentadas
+- [ ] Capturas de tela adicionadas em `/static/img/screenshots/`
+- [ ] Propriedades e variantes documentadas
 - [ ] Link para Figma adicionado
 
-#### Baseline
-- [ ] Baseline AS-IS atualizado com código de produção
-- [ ] Nova tag criada (ex: `as-is-v1.2`)
-- [ ] Feature branch arquivada/deletada
+#### Base
+- [ ] Base TAL-QUAL atualizada com código de produção
+- [ ] Nova marcação criada (ex: `as-is-v1.2`)
+- [ ] Ramificação de funcionalidade arquivada/deletada
 - [ ] CHANGELOG atualizado
 
 ---
 
 ## Métricas de Sucesso do Processo
 
-### Lead Time
+### Tempo de Entrega
 
 Tempo médio da descoberta até produção:
 
-| Complexidade | Target | Média Atual |
+| Complexidade | Meta | Média Atual |
 |--------------|--------|-------------|
-| Pequena (< 5 dias dev) | 2 semanas | 10 dias ✅ |
+| Pequena (&lt; 5 dias dev) | 2 semanas | 10 dias ✅ |
 | Média (5-10 dias dev) | 4 semanas | 3 semanas ✅ |
-| Grande (> 10 dias dev) | 8 semanas | 6 semanas ✅ |
+| Grande (&gt; 10 dias dev) | 8 semanas | 6 semanas ✅ |
 
 ### Qualidade
 
-| Métrica | Target | Média Atual |
+| Métrica | Meta | Média Atual |
 |---------|--------|-------------|
-| Bugs encontrados pós-deploy | < 3 | 2 ✅ |
-| Divergência design vs código | < 5% | 3% ✅ |
-| Retrabalho após feedback | < 20% | 15% ✅ |
+| Bugs encontrados pós-publicação | &lt; 3 | 2 ✅ |
+| Divergência design vs código | &lt; 5% | 3% ✅ |
+| Retrabalho após retorno | &lt; 20% | 15% ✅ |
 
 ### Eficiência
 
-| Métrica | Target | Média Atual |
+| Métrica | Meta | Média Atual |
 |---------|--------|-------------|
-| Tempo de handoff (design → dev) | < 1 dia | 0.5 dia ✅ |
-| Reuso de componentes DS | > 70% | 75% ✅ |
-| Protótipos que vão para produção | > 80% | 85% ✅ |
+| Tempo de transferência (design → dev) | &lt; 1 dia | 0.5 dia ✅ |
+| Reuso de componentes DS | &gt; 70% | 75% ✅ |
+| Protótipos que vão para produção | &gt; 80% | 85% ✅ |
 
 ---
 
 ## Referências
 
 ### Documentação Interna
-- [Workflow de Protótipos](/PROTOTYPES-WORKFLOW.md)
+- [Fluxo de Protótipos](/PROTOTYPES-WORKFLOW.md)
 - [Design System](../design-system/integration)
 - [Guia de Jornadas](../journeys/)
-- [PRD Template](../prds/template)
+- [Modelo de PRD](../prds/template)
 
 ### Metodologias
 - [Double Diamond (Design Council)](https://www.designcouncil.org.uk/our-resources/the-double-diamond/)
@@ -672,22 +672,22 @@ Tempo médio da descoberta até produção:
 
 ### Por que prototipar com código e não apenas com Figma?
 
-**Resposta**: Código permite validar viabilidade técnica cedo, testar com usuários reais, e facilita handoff. Figma é usado para **documentar** o design final implementado, não para especificar.
+**Resposta**: Código permite validar viabilidade técnica cedo, testar com usuários reais, e facilita a transferência. Figma é usado para **documentar** o design final implementado, não para especificar.
 
 ### Como garantir que Figma não diverge do código?
 
-**Resposta**: Atualizamos Figma **após** deploy em produção, usando screenshots do código real como referência. Também sincronizamos tokens via MCP Figma.
+**Resposta**: Atualizamos Figma **após** publicação em produção, usando capturas de tela do código real como referência. Também sincronizamos tokens via MCP Figma.
 
-### E se stakeholder pedir mudanças no meio do desenvolvimento?
+### E se parte interessada pedir mudanças no meio do desenvolvimento?
 
-**Resposta**: É esperado! Por isso iteramos rapidamente com deploys preview. Cada push gera nova URL para validação.
+**Resposta**: É esperado! Por isso iteramos rapidamente com prévias de publicação. Cada push gera nova URL para validação.
 
 ### Quanto tempo leva um ciclo completo?
 
 **Resposta**: Depende da complexidade:
-- Feature pequena: 2 semanas (descoberta → produção)
-- Feature média: 4 semanas
-- Feature grande: 6-8 semanas
+- Funcionalidade pequena: 2 semanas (descoberta → produção)
+- Funcionalidade média: 4 semanas
+- Funcionalidade grande: 6-8 semanas
 
 ### Como decidimos se um componente vai para o Design System?
 
