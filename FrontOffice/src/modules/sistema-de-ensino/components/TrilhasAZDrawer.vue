@@ -51,6 +51,12 @@
           </label>
           <div v-if="periodEnabled" class="drawer-date-row">
             <EDatepicker
+              v-model="startDateValue"
+              label="Data de início"
+              placeholder="Selecione a data de início"
+              input-id="dataInicio"
+            />
+            <EDatepicker
               v-model="endDateValue"
               label="Data de término"
               placeholder="Selecione a data de término"
@@ -159,6 +165,7 @@ const emit = defineEmits(['update:modelValue'])
 const searchQuery    = ref('')
 const selectedIds    = reactive(new Set())
 const periodEnabled  = ref(false)
+const startDateValue = ref('')
 const endDateValue   = ref('')
 
 // ── Contadores ────────────────────────────────────────────────────────────────
@@ -171,6 +178,7 @@ watch(() => props.modelValue, (open) => {
     searchQuery.value    = ''
     selectedIds.clear()
     periodEnabled.value  = props.chapter?.periodEnabled ?? false
+    startDateValue.value = props.chapter?.inicio ?? ''
     endDateValue.value   = props.chapter?.fim ?? ''
     document.body.style.overflow = 'hidden'
   } else {
@@ -300,7 +308,8 @@ function confirm () {
     vincularAlunos(
       props.chapter.id,
       ids,
-      periodEnabled.value && endDateValue.value ? endDateValue.value : null
+      periodEnabled.value && endDateValue.value ? endDateValue.value : null,
+      periodEnabled.value && startDateValue.value ? startDateValue.value : null
     )
   } else {
     pausarAlunos(props.chapter.id, ids)
@@ -400,12 +409,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 /* ── Seções flat (padrão Vuexy customizer-section) ───────────────────────── */
 .drawer-section {
-  padding-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #ebe9f1;
   display: flex;
   flex-direction: column;
@@ -480,8 +489,13 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 .drawer-date-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+}
+
+.drawer-date-row > * {
+  flex: 1;
+  min-width: 0;
 }
 
 

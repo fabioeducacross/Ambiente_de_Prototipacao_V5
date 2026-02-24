@@ -171,12 +171,14 @@ function habilitarCapitulo(chapterId) {
  * Se periodEnabled + fim + sem inicio → define inicio = hoje automaticamente.
  * Opcionalmente atualiza a data de fim.
  */
-function vincularAlunos(chapterId, studentIds, endDate) {
+function vincularAlunos(chapterId, studentIds, endDate, startDate) {
     const chapter = getChapter(chapterId)
     if (!chapter) return
 
-    // Auto-define inicio no primeiro envio com período configurado
-    if (chapter.periodEnabled && chapter.fim && !chapter.inicio) {
+    // Se forneceu data de início explícita, usa ela; caso contrário auto-define
+    if (startDate) {
+        chapter.inicio = startDate
+    } else if (chapter.periodEnabled && chapter.fim && !chapter.inicio) {
         chapter.inicio = todayISO()
     }
 
