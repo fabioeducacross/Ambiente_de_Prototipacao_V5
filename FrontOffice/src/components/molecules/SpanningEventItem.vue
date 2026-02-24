@@ -177,6 +177,7 @@ const handleClick = (e) => {
 
 .spanning-event-item--clickable {
   cursor: pointer;
+  pointer-events: auto; /* Reativa cliques mesmo com harness pai tendo pointer-events: none */
 }
 
 .spanning-event-item--clickable:hover {
