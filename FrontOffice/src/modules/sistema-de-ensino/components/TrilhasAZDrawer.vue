@@ -50,17 +50,19 @@
             Definir período
           </label>
           <div v-if="periodEnabled" class="drawer-date-row">
-            <EDatepicker
+            <EDatePicker
               v-model="startDateValue"
               label="Data de início"
               placeholder="Selecione a data de início"
               input-id="dataInicio"
+              :clearable="true"
             />
-            <EDatepicker
+            <EDatePicker
               v-model="endDateValue"
               label="Data de término"
               placeholder="Selecione a data de término"
               input-id="dataTermino"
+              :clearable="true"
             />
           </div>
         </div>
@@ -139,7 +141,7 @@
 <script setup>
 import { ref, computed, watch, reactive, onMounted, onUnmounted } from 'vue'
 import { useTrilhasAZ } from '../composables/useTrilhasAZ.js'
-import EDatepicker from '@/components/EDatepicker.vue'
+import EDatePicker from '@/shared/components/base/EDatePicker.vue'
 
 const {
   students,
