@@ -91,10 +91,15 @@ defineEmits(['toggle-sidebar'])
   align-items: center;
 }
 
-/* A coluna central precisa de flex: 1 para que o logo fique
-   verdadeiramente centrado independentemente da largura das colunas laterais */
-.navbar-column:nth-child(2) {
+/* Esquerda e direita com flex:1 garante que o logo central fique
+   exatamente no meio, independente da largura de cada lado */
+.navbar-column:nth-child(1) {
   flex: 1;
+}
+
+.navbar-column:nth-child(3) {
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .cursor-pointer {
