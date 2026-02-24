@@ -26,35 +26,35 @@ import {
 
 Este guia mostra as diferentes formas de editar a documentação do Ambiente de Prototipação.
 
-## 🗺️ Fluxo de Edição
+## <span class="material-symbols-outlined">map</span> Fluxo de Edição
 
 ```mermaid
 graph TD
-    Start([👤 Membro do Time]) --> Decision1{🤔 Tipo de<br/>edição?}
+    Start([<span class="material-symbols-outlined">person</span> Membro do Time]) --> Decision1{<span class="material-symbols-outlined">help</span> Tipo de<br/>edição?}
     
     Decision1 -->|<IconEdit /> Correção<br/>rápida| GitHub[<IconGlobe /> GitHub Web Editor]
     Decision1 -->|<IconSettings /> Mudança<br/>complexa| Local[<IconCode /> Edição Local]
-    Decision1 -->|☁️ Sem setup| Codespaces[☁️ GitHub Codespaces]
+    Decision1 -->|<span class="material-symbols-outlined">cloud</span> Sem setup| Codespaces[<span class="material-symbols-outlined">cloud</span> GitHub Codespaces]
     
     GitHub --> Navigate1[<IconDocument /> Navegar até a página<br/>na wiki]
-    Navigate1 --> ClickEdit[✏️ Clicar em Edit this page]
-    ClickEdit --> EditOnline[🖊️ Editar no navegador]
-    EditOnline --> Commit1[💾 Commit changes]
+    Navigate1 --> ClickEdit[<span class="material-symbols-outlined">edit</span> Clicar em Edit this page]
+    ClickEdit --> EditOnline[<span class="material-symbols-outlined">edit</span> Editar no navegador]
+    EditOnline --> Commit1[<span class="material-symbols-outlined">save</span> Commit changes]
     Commit1 --> Deploy1[<IconRocket /> Deploy automático]
     Deploy1 --> End1([<IconCheck /> Concluído])
     
-    Local --> Clone[📥 git clone repositório]
-    Clone --> Install[📦 npm install]
+    Local --> Clone[<span class="material-symbols-outlined">inbox</span> git clone repositório]
+    Clone --> Install[<span class="material-symbols-outlined">inventory_2</span> npm install]
     Install --> StartServer[<IconCode /> npm start]
-    StartServer --> EditLocal[✏️ Editar arquivos<br/>com preview local]
-    EditLocal --> Commit2[💾 git commit + push]
+    StartServer --> EditLocal[<span class="material-symbols-outlined">edit</span> Editar arquivos<br/>com preview local]
+    EditLocal --> Commit2[<span class="material-symbols-outlined">save</span> git commit + push]
     Commit2 --> Deploy2[<IconRocket /> Deploy automático]
     Deploy2 --> End2([<IconCheck /> Concluído])
     
-    Codespaces --> CreateSpace[☁️ Criar Codespace]
+    Codespaces --> CreateSpace[<span class="material-symbols-outlined">cloud</span> Criar Codespace]
     CreateSpace --> AutoSetup[<IconSettings /> Setup automático]
-    AutoSetup --> EditCloud[✏️ Editar no VS Code Web]
-    EditCloud --> Commit3[💾 Commit pelo UI]
+    AutoSetup --> EditCloud[<span class="material-symbols-outlined">edit</span> Editar no VS Code Web]
+    EditCloud --> Commit3[<span class="material-symbols-outlined">save</span> Commit pelo UI]
     Commit3 --> Deploy3[<IconRocket /> Deploy automático]
     Deploy3 --> End3([<IconCheck /> Concluído])
     
@@ -77,7 +77,7 @@ graph TD
 
 1. **Navegue até a página** que deseja editar na wiki
 2. **Role até o final** da página
-3. **Clique no botão** <kbd>✏️ Edit this page</kbd>
+3. **Clique no botão** <kbd><span class="material-symbols-outlined">edit</span> Edit this page</kbd>
 4. Você será redirecionado para o **GitHub Web Editor**
 5. **Faça as alterações** diretamente no editor online
 6. **Adicione uma mensagem** de commit descritiva:
@@ -86,7 +86,7 @@ graph TD
    ```
 7. **Escolha uma opção:**
    - <IconCheck /> **"Commit directly to main"** - Para mudanças pequenas e diretas
-   - 🔀 **"Create a new branch and start a pull request"** - Para mudanças que precisam revisão
+   - <span class="material-symbols-outlined">shuffle</span> **"Create a new branch and start a pull request"** - Para mudanças que precisam revisão
 
 8. Clique em **"Commit changes"**
 
@@ -307,7 +307,7 @@ docs/
 
 ### Diagramas Mermaid
 
-- Use emojis para contexto visual: <IconHome /> <IconClipboard /> <IconBooks /> 👀 🤔 <IconSettings />
+- Use emojis para contexto visual: <IconHome /> <IconClipboard /> <IconBooks /> <span class="material-symbols-outlined">visibility</span> <span class="material-symbols-outlined">help</span> <IconSettings />
 - Defina cores com `classDef`:
   ```mermaid
   classDef action fill:#e3f2fd,stroke:#2196f3
@@ -317,7 +317,7 @@ docs/
 
 ---
 
-## 🆘 Problemas Comuns
+## <span class="material-symbols-outlined">sos</span> Problemas Comuns
 
 ### O diagrama Mermaid não aparece
 

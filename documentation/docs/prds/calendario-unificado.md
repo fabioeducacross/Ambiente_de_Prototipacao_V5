@@ -12,7 +12,7 @@ Este documento detalha o funcionamento do **Calendário Unificado**, uma peça c
 
 ---
 
-## 📋 Metadados
+## <span class="material-symbols-outlined">assignment</span> Metadados
 
 | Campo | Valor |
 |-------|-------|
@@ -28,7 +28,7 @@ Este documento detalha o funcionamento do **Calendário Unificado**, uma peça c
 
 ---
 
-## 🎯 1. Contexto e Problema
+## <span class="material-symbols-outlined">track_changes</span> 1. Contexto e Problema
 
 ### 1.1 Qual é o Problema?
 
@@ -55,7 +55,7 @@ A centralização da jornada pedagógica em um calendário é o principal pedido
 
 ---
 
-## 🎯 2. Objetivos e Métricas de Sucesso
+## <span class="material-symbols-outlined">track_changes</span> 2. Objetivos e Métricas de Sucesso
 
 ### 2.1 Objetivo da Feature
 
@@ -72,7 +72,7 @@ Criar uma interface única (Calendário Unificado) que permita a visualização 
 
 ---
 
-## 🎨 3. Experiência do Usuário (UX)
+## <span class="material-symbols-outlined">palette</span> 3. Experiência do Usuário (UX)
 
 ### 3.1 Codificação de Cores e Ícones
 
@@ -94,15 +94,15 @@ Para facilitar a escaneabilidade, o calendário utiliza um sistema de cores por 
 
 ---
 
-## 🛠️ 4. Requisitos Funcionais
+## <span class="material-symbols-outlined">handyman</span> 4. Requisitos Funcionais
 
 ### 4.1 Visualizações (Views)
 | Requisito | Descrição | Status |
 |-----------|-----------|--------|
-| **Visão Mensal** | Grade 7x5 padrão para planejamento macro. | ✅ Protótipo |
-| **Visão Semanal** | Timeline vertical de horários para rotina diária. | ✅ Protótipo |
-| **Visão Diária** | Detalhamento de compromissos do dia. | ✅ Protótipo |
-| **Visão Lista** | Agenda corrida, ideal para dispositivos mobile. | ✅ Protótipo |
+| **Visão Mensal** | Grade 7x5 padrão para planejamento macro. | <span class="material-symbols-outlined">check_circle</span> Protótipo |
+| **Visão Semanal** | Timeline vertical de horários para rotina diária. | <span class="material-symbols-outlined">check_circle</span> Protótipo |
+| **Visão Diária** | Detalhamento de compromissos do dia. | <span class="material-symbols-outlined">check_circle</span> Protótipo |
+| **Visão Lista** | Agenda corrida, ideal para dispositivos mobile. | <span class="material-symbols-outlined">check_circle</span> Protótipo |
 
 ### 4.2 Gestão de Eventos
 - [ ] **Criação de Eventos**: Professores e Gestores podem criar eventos manuais.
@@ -112,7 +112,7 @@ Para facilitar a escaneabilidade, o calendário utiliza um sistema de cores por 
 
 ---
 
-## 📂 5. Especificação Técnica (Resumo)
+## <span class="material-symbols-outlined">folder_open</span> 5. Especificação Técnica (Resumo)
 
 ### 5.1 Arquitetura
 O calendário segue o padrão de **Atomic Design**, sendo composto por:
@@ -126,7 +126,7 @@ Os eventos seguem o schema definido no projeto frontoffice, garantindo que a ori
 
 ---
 
-## 📈 6. Roadmap e Próximos Passos
+## <span class="material-symbols-outlined">trending_up</span> 6. Roadmap e Próximos Passos
 
 1. **Fase 1 (Atual)**: Prototipagem de UI e fluxos de navegação.
 2. **Fase 2**: Integração com API real de missões e avaliações.

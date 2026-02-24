@@ -637,10 +637,10 @@ watch([classe, subject], () => {
 - Questões customizadas vs banco (ratio)
 
 ### Metas (TO-BE)
-- ⬆️ +30% missões criadas por professor/mês
-- ⬆️ Taxa de conclusão: de 60% para 85%
-- ⬇️ Tempo médio: de 25min para 15min
-- ⬆️ NPS: de 6.5 para 8.0
+- <span class="material-symbols-outlined">arrow_upward</span> +30% missões criadas por professor/mês
+- <span class="material-symbols-outlined">arrow_upward</span> Taxa de conclusão: de 60% para 85%
+- <span class="material-symbols-outlined">arrow_downward</span> Tempo médio: de 25min para 15min
+- <span class="material-symbols-outlined">arrow_upward</span> NPS: de 6.5 para 8.0
 
 ---
 

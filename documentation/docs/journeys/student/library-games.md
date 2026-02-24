@@ -49,34 +49,34 @@ graph TD
     GameLibrary --> Filters{<IconSearch /> Quer<br/>filtrar?}
     
     Filters -->|<IconCheck /> Sim| ApplyFilters[<IconClipboard /> Seleciona:<br/>Disciplina + Conteúdo + Gênero]
-    Filters -->|<IconX /> Não| Browse[👀 Navega pelo<br/>catálogo completo]
+    Filters -->|<IconX /> Não| Browse[<span class="material-symbols-outlined">visibility</span> Navega pelo<br/>catálogo completo]
     
     ApplyFilters --> FilteredResults[<IconTarget /> Vê jogos filtrados]
-    Browse --> SelectGame[🖱️ Clica em um jogo]
+    Browse --> SelectGame[<span class="material-symbols-outlined">mouse</span> Clica em um jogo]
     FilteredResults --> SelectGame
     
     SelectGame --> GameDetail[<IconBookOpen /> Tela de detalhes do jogo]
     GameDetail --> CheckProgress{<IconChart /> Já jogou<br/>antes?}
     
     CheckProgress -->|<IconCheck /> Sim| ShowProgress[<IconSparkle /> Mostra progresso anterior<br/>Fases completadas + Pontuação]
-    CheckProgress -->|<IconX /> Não| ShowIntro[🎬 Mostra tutorial rápido<br/>do jogo]
+    CheckProgress -->|<IconX /> Não| ShowIntro[<span class="material-symbols-outlined">movie_creation</span> Mostra tutorial rápido<br/>do jogo]
     
-    ShowProgress --> StartGame[▶️ Clica Jogar]
+    ShowProgress --> StartGame[<span class="material-symbols-outlined">play_arrow</span> Clica Jogar]
     ShowIntro --> StartGame
     
     StartGame --> GameIframe[<IconGame /> Jogo carrega<br/>em iframe fullscreen]
-    GameIframe --> Playing[🕹️ Aluno joga]
+    GameIframe --> Playing[<span class="material-symbols-outlined">sports_esports</span> Aluno joga]
     
-    Playing --> GameEnd{🏁 Terminou<br/>sessão?}
+    Playing --> GameEnd{<span class="material-symbols-outlined">flag</span> Terminou<br/>sessão?}
     
-    GameEnd -->|<IconX /> Pausou| SaveProgress[💾 Salva progresso<br/>automaticamente]
+    GameEnd -->|<IconX /> Pausou| SaveProgress[<span class="material-symbols-outlined">save</span> Salva progresso<br/>automaticamente]
     GameEnd -->|<IconCheck /> Completou fase| EarnRewards[<IconTrending /> Ganha XP + Badge<br/>se aplicável]
     
-    SaveProgress --> Decision1{💭 Decisão}
-    EarnRewards --> Decision2{💭 Decisão}
+    SaveProgress --> Decision1{<span class="material-symbols-outlined">chat_bubble</span> Decisão}
+    EarnRewards --> Decision2{<span class="material-symbols-outlined">chat_bubble</span> Decisão}
     
-    Decision1 -->|▶️ Continuar| Playing
-    Decision1 -->|<IconHome /> Sair| End([🏁 Fim])
+    Decision1 -->|<span class="material-symbols-outlined">play_arrow</span> Continuar| Playing
+    Decision1 -->|<IconHome /> Sair| End([<span class="material-symbols-outlined">flag</span> Fim])
     
     Decision2 -->|<IconGame /> Próxima fase| Playing
     Decision2 -->|<IconTrending /> Ver conquistas| ShowAchievements[<IconChart /> Tela de conquistas]
@@ -148,12 +148,12 @@ graph TD
    - Editor visual drag-and-drop
    - Compartilhamento entre escolas
 
-3. **VR/AR Games** 🥽
+3. **VR/AR Games** <span class="material-symbols-outlined">visibility</span>
    - Jogos em realidade virtual (quando dispositivos disponíveis)
    - AR para laboratório virtual de ciências
    - Experiências imersivas
 
-4. **Social Features** 👥
+4. **Social Features** <span class="material-symbols-outlined">group</span>
    - Compartilhar pontuações com amigos
    - Desafiar colegas para duelos
    - Sistema de presentes virtuais

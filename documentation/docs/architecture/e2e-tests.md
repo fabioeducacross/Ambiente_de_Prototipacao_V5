@@ -10,7 +10,7 @@ No **Ambiente de Prototipação V5**, utilizamos o **Playwright** como ferrament
 
 ---
 
-## 🎯 Objetivo dos Testes E2E
+## <span class="material-symbols-outlined">track_changes</span> Objetivo dos Testes E2E
 
 1.  **Validação Visual**: Garantir que as telas implementadas correspondam 1:1 aos mockups do Figma (Pixel Perfect).
 2.  **Fluxos de Persona**: Validar se cada perfil de usuário (Professor, Aluno, etc.) consegue navegar pelo seu fluxo específico.
@@ -19,7 +19,7 @@ No **Ambiente de Prototipação V5**, utilizamos o **Playwright** como ferrament
 
 ---
 
-## 🛠️ Stack e Ferramentas
+## <span class="material-symbols-outlined">handyman</span> Stack e Ferramentas
 
 *   **Framework**: [Playwright](https://playwright.dev/)
 *   **Linguagem**: TypeScript / JavaScript
@@ -28,7 +28,7 @@ No **Ambiente de Prototipação V5**, utilizamos o **Playwright** como ferrament
 
 ---
 
-## 📂 Estrutura de Pastas
+## <span class="material-symbols-outlined">folder_open</span> Estrutura de Pastas
 
 ```bash
 mcp-playwright/
@@ -42,7 +42,7 @@ mcp-playwright/
 
 ---
 
-## 🚀 Como Rodar os Testes
+## <span class="material-symbols-outlined">rocket_launch</span> Como Rodar os Testes
 
 Para rodar os testes localmente, utilize os comandos abaixo na raiz do projeto:
 
@@ -59,7 +59,7 @@ npx playwright test --ui
 
 ---
 
-## 📸 Validação Visual (Snapshots)
+## <span class="material-symbols-outlined">photo_camera</span> Validação Visual (Snapshots)
 
 Um dos pilares deste projeto é o **Pixel Perfect**. Utilizamos o Playwright para tirar screenshots das telas e comparar com imagens de referência.
 
@@ -73,7 +73,7 @@ test('deve validar design do calendário do professor', async ({ page }) => {
 
 ---
 
-## 📈 Roadmap de Testes
+## <span class="material-symbols-outlined">trending_up</span> Roadmap de Testes
 
 - [x] Configuração base do Playwright.
 - [x] Testes de navegação entre personas.

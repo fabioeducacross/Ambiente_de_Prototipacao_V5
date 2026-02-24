@@ -4,7 +4,7 @@ title: Product Decision Records (PDRs)
 description: Registro de decisões importantes de produto
 ---
 
-# 🎯 Product Decision Records (PDRs)
+# <span class="material-symbols-outlined">track_changes</span> Product Decision Records (PDRs)
 
 Registro histórico de decisões importantes de produto e suas justificativas.
 
@@ -20,7 +20,7 @@ Isso evita refazer debates já resolvidos e fornece contexto para novos membros 
 
 ---
 
-## 🚀 Como Usar
+## <span class="material-symbols-outlined">rocket_launch</span> Como Usar
 
 ### Para Product Managers
 1. Use o [Template PDR](./template.md) quando tomar **decisões impactantes**
@@ -31,12 +31,12 @@ Isso evita refazer debates já resolvidos e fornece contexto para novos membros 
 ### Quando Criar um PDR?
 
 Crie PDR para decisões que:
-- ✅ Impactam múltiplas features ou o produto inteiro
-- ✅ São difíceis de reverter (alto custo de mudança)
-- ✅ Têm trade-offs significativos
-- ✅ Afetam experiência do usuário core
-- ✅ Mudam regras de negócio fundamentais
-- ❌ Não crie PDR para decisões triviais (ex: cor de botão, wording de label)
+- <span class="material-symbols-outlined">check_circle</span> Impactam múltiplas features ou o produto inteiro
+- <span class="material-symbols-outlined">check_circle</span> São difíceis de reverter (alto custo de mudança)
+- <span class="material-symbols-outlined">check_circle</span> Têm trade-offs significativos
+- <span class="material-symbols-outlined">check_circle</span> Afetam experiência do usuário core
+- <span class="material-symbols-outlined">check_circle</span> Mudam regras de negócio fundamentais
+- <span class="material-symbols-outlined">cancel</span> Não crie PDR para decisões triviais (ex: cor de botão, wording de label)
 
 ### Para Desenvolvedores
 - PDRs explicam **por quê** certas regras existem
@@ -50,11 +50,11 @@ Crie PDR para decisões que:
 
 ---
 
-## 📚 Template e Exemplos
+## <span class="material-symbols-outlined">library_books</span> Template e Exemplos
 
 <div className="cards-grid">
   <div className="feature-card">
-    <div className="feature-card-icon">📝</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">edit_note</span></div>
     <div className="feature-card-content">
       <h3>Template PDR</h3>
       <p>Use este template para criar novos PDRs</p>
@@ -65,7 +65,7 @@ Crie PDR para decisões que:
   </div>
 
   <div className="feature-card">
-    <div className="feature-card-icon">🏆</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">emoji_events</span></div>
     <div className="feature-card-content">
       <h3>PDR-001: Ranking por Turma</h3>
       <p>Por que ranking é apenas por turma, nunca nacional</p>
@@ -76,7 +76,7 @@ Crie PDR para decisões que:
   </div>
 
   <div className="feature-card">
-    <div className="feature-card-icon">🔒</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">lock</span></div>
     <div className="feature-card-content">
       <h3>PDR-002: Missões Não Desabilitáveis</h3>
       <p>Por que professores não podem desabilitar missões de gestores</p>
@@ -87,7 +87,7 @@ Crie PDR para decisões que:
   </div>
 
   <div className="feature-card">
-    <div className="feature-card-icon">🎖️</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">military_tech</span></div>
     <div className="feature-card-content">
       <h3>PDR-003: Medalhas com Nota Mínima</h3>
       <p>Por que medalhas exigem 70% de acerto mínimo</p>
@@ -100,9 +100,9 @@ Crie PDR para decisões que:
 
 ---
 
-## 📋 Lista de PDRs por Status
+## <span class="material-symbols-outlined">assignment</span> Lista de PDRs por Status
 
-### ✅ Aceitos (Ativos)
+### <span class="material-symbols-outlined">check_circle</span> Aceitos (Ativos)
 
 | ID | Título | Data | Autor | Impacto |
 |----|--------|------|-------|---------|
@@ -112,45 +112,45 @@ Crie PDR para decisões que:
 
 ---
 
-### 🚧 Em Discussão
+### <span class="material-symbols-outlined">construction</span> Em Discussão
 
 _Nenhum PDR em discussão no momento_
 
 ---
 
-### ❌ Rejeitados
+### <span class="material-symbols-outlined">cancel</span> Rejeitados
 
 _Adicione PDRs rejeitados aqui para referência histórica_
 
 ---
 
-### 🔄 Substituídos
+### <span class="material-symbols-outlined">sync</span> Substituídos
 
 _Adicione PDRs que foram substituídos por decisões posteriores_
 
 ---
 
-## 📊 PDRs por Categoria
+## <span class="material-symbols-outlined">bar_chart</span> PDRs por Categoria
 
-### 🎮 Gamificação
+### <span class="material-symbols-outlined">sports_esports</span> Gamificação
 - [PDR-001: Ranking por Turma](./template#exemplo-1-pdr-001---ranking-por-turma)
 - [PDR-003: Medalhas com Nota Mínima](./template#exemplo-3-pdr-003---nota-mínima-para-conquista-de-medalhas)
 
-### 👥 Controle de Acesso
+### <span class="material-symbols-outlined">group</span> Controle de Acesso
 - [PDR-002: Missões Não Desabilitáveis](./template#exemplo-2-pdr-002---missões-não-podem-ser-desabilitadas)
 
-### 📚 Conteúdo Pedagógico
+### <span class="material-symbols-outlined">library_books</span> Conteúdo Pedagógico
 _Adicione PDRs relacionados a conteúdo BNCC aqui_
 
-### 📊 Analytics e Métricas
+### <span class="material-symbols-outlined">bar_chart</span> Analytics e Métricas
 _Adicione PDRs relacionados a métricas e dashboards aqui_
 
-### 🛠️ Arquitetura de Produto
+### <span class="material-symbols-outlined">handyman</span> Arquitetura de Produto
 _Adicione PDRs sobre estrutura do produto aqui_
 
 ---
 
-## 🔗 Recursos Relacionados
+## <span class="material-symbols-outlined">link</span> Recursos Relacionados
 
 - [**Regras de Negócio**](../business-rules/) - Regras implementadas (PDRs explicam o "por quê")
 - [**PRDs**](../prds/) - Especificações de features (PDRs referenciados em PRDs)
@@ -158,13 +158,13 @@ _Adicione PDRs sobre estrutura do produto aqui_
 
 ---
 
-## 🎓 Boas Práticas
+## <span class="material-symbols-outlined">school</span> Boas Práticas
 
 :::tip Dicas para Escrever PDRs Eficazes
 
 ### 1. Use Dados, Não Opiniões
-❌ "Achamos melhor..."  
-✅ "73% dos alunos relataram desmotivação com ranking nacional"
+<span class="material-symbols-outlined">cancel</span> "Achamos melhor..."  
+<span class="material-symbols-outlined">check_circle</span> "73% dos alunos relataram desmotivação com ranking nacional"
 
 ### 2. Liste Pelo Menos 3 Alternativas
 Mostre que considerou múltiplas opções, não apenas 2 (sua favorita vs strawman).
@@ -185,7 +185,7 @@ Se novos dados surgem, crie PDR-XXX-v2 ou marque original como "Substituído".
 
 ---
 
-## 📊 Fluxo de Decisão
+## <span class="material-symbols-outlined">bar_chart</span> Fluxo de Decisão
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#7C3AED','primaryTextColor':'#fff','primaryBorderColor':'#6D28D9','lineColor':'#A78BFA','secondaryColor':'#10B981','tertiaryColor':'#F59E0B'}}}%%
@@ -204,7 +204,7 @@ flowchart TD
     K --> L[Implementa decisão]
     L --> M[Mede consequências]
     M --> N{Hipótese<br/>confirmada?}
-    N -->|Sim| O[✅ PDR permanece ativo]
+    N -->|Sim| O[<span class="material-symbols-outlined">check_circle</span> PDR permanece ativo]
     N -->|Não| P[Cria PDR-XXX-v2<br/>com novos dados]
     P --> D
     
@@ -215,7 +215,7 @@ flowchart TD
 
 ---
 
-## 📈 Métricas de Qualidade dos PDRs
+## <span class="material-symbols-outlined">trending_up</span> Métricas de Qualidade dos PDRs
 
 | Métrica | Meta | Atual |
 |---------|------|-------|
@@ -226,23 +226,23 @@ flowchart TD
 
 ---
 
-## 🧭 Quando NÃO Criar PDR
+## <span class="material-symbols-outlined">explore</span> Quando NÃO Criar PDR
 
 **Não perca tempo documentando:**
-- ✗ Decisões triviais (cor de botão, wording)
-- ✗ Decisões facilmente reversíveis (< 1 dia de work)
-- ✗ Decisões puramente técnicas (escolha de biblioteca)
-- ✗ Experimentos A/B (documente resultado, não a decisão de experimentar)
+- <span class="material-symbols-outlined">close</span> Decisões triviais (cor de botão, wording)
+- <span class="material-symbols-outlined">close</span> Decisões facilmente reversíveis (< 1 dia de work)
+- <span class="material-symbols-outlined">close</span> Decisões puramente técnicas (escolha de biblioteca)
+- <span class="material-symbols-outlined">close</span> Experimentos A/B (documente resultado, não a decisão de experimentar)
 
 **Mas SEMPRE documente:**
-- ✓ Mudanças em regras de negócio core
-- ✓ Decisões que impactam múltiplas squads
-- ✓ Trade-offs entre UX e performance
-- ✓ "Vamos NÃO fazer X" (anti-features)
+- <span class="material-symbols-outlined">check</span> Mudanças em regras de negócio core
+- <span class="material-symbols-outlined">check</span> Decisões que impactam múltiplas squads
+- <span class="material-symbols-outlined">check</span> Trade-offs entre UX e performance
+- <span class="material-symbols-outlined">check</span> "Vamos NÃO fazer X" (anti-features)
 
 ---
 
-## 🔍 Busca de PDRs
+## <span class="material-symbols-outlined">search</span> Busca de PDRs
 
 Use as tags abaixo para filtrar PDRs:
 
@@ -266,7 +266,7 @@ Use as tags abaixo para filtrar PDRs:
 
 ---
 
-## 📞 Contato
+## <span class="material-symbols-outlined">phone</span> Contato
 
 **Dúvidas sobre PDRs?**  
 Entre em contato com o Time de Produto.

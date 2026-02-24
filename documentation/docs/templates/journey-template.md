@@ -41,7 +41,7 @@ Use este template para documentar novas jornadas de usuário no sistema Educacro
 - [Objetivo 2]
 - [Objetivo 3]
 
-## 👤 Persona
+## <span class="material-symbols-outlined">person</span> Persona
 
 **Nome**: [Nome da Persona]  
 **Papel**: [Papel no sistema]  
@@ -53,7 +53,7 @@ Use este template para documentar novas jornadas de usuário no sistema Educacro
 - [Necessidade 2]
 - [Necessidade 3]
 
-## 📍 Contexto de Entrada
+## <span class="material-symbols-outlined">location_on</span> Contexto de Entrada
 
 **Pré-condições:**
 - [Condição necessária antes de iniciar a jornada]
@@ -63,7 +63,7 @@ Use este template para documentar novas jornadas de usuário no sistema Educacro
 - [De onde o usuário acessa esta jornada]
 - [Link, menu, botão, etc.]
 
-## 🗺️ Fluxo AS-IS (Estado Atual)
+## <span class="material-symbols-outlined">map</span> Fluxo AS-IS (Estado Atual)
 
 ### Diagrama de Fluxo
 
@@ -106,7 +106,7 @@ graph TD
 - Rota: `[/route/path]`
 - Screenshot: [Adicionar imagem se disponível]
 
-## 😓 Pontos de Dor (Pain Points)
+## <span class="material-symbols-outlined">sentiment_dissatisfied</span> Pontos de Dor (Pain Points)
 
 ### 1. [Título do Ponto de Dor 1]
 - **Descrição**: [Descreva o problema]
@@ -315,7 +315,7 @@ export default function use[Feature]() {
 **Protótipo**: `src/views/[path]/[Component].vue`  
 **Referência AS-IS**: `educacross-frontoffice/src/views/pages/[context]/[path]`
 
-## 📅 Histórico de Mudanças
+## <span class="material-symbols-outlined">calendar_today</span> Histórico de Mudanças
 
 | Data | Versão | Autor | Mudanças |
 |------|--------|-------|----------|
@@ -324,6 +324,6 @@ export default function use[Feature]() {
 
 ---
 
-## 💬 Comentários e Notas
+## <span class="material-symbols-outlined">chat</span> Comentários e Notas
 
 [Espaço para observações, perguntas pendentes, decisões a serem tomadas, etc.]

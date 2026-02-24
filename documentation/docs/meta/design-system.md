@@ -2,7 +2,7 @@
 
 Esta página documenta o design system implementado para as melhorias de UX inspiradas no GitHub Docs.
 
-## 🔲 Padrões Vercel na Wiki
+## <span class="material-symbols-outlined">crop_square</span> Padrões Vercel na Wiki
 
 A wiki passa a adotar também um padrão visual inspirado na Vercel para conteúdos técnicos e editoriais com foco em minimalismo e alto contraste.
 
@@ -10,7 +10,7 @@ A wiki passa a adotar também um padrão visual inspirado na Vercel para conteú
 - Aplicação: paleta neutra, tipografia Geist (ou fallback equivalente), bordas leves, foco em legibilidade
 - Objetivo: manter consistência visual entre documentação, protótipos e materiais de comunicação
 
-## 🎨 Paleta de Cores
+## <span class="material-symbols-outlined">palette</span> Paleta de Cores
 
 O design system utiliza a paleta de cores **Vuexy** combinada com cores inspiradas no GitHub para categorias de conteúdo.
 
@@ -41,14 +41,14 @@ Cada categoria na homepage possui uma cor específica para facilitar a identific
 
 | Categoria | Cor | Hex | Uso |
 |-----------|-----|-----|-----|
-| 📘 Regras de Negócio | Azul | `#0969DA` | `--color-intro` |
-| 🎯 Documentação de Produto | Roxo | `#8250DF` | `--color-collab` |
-| 🚀 Jornadas Educacionais | Verde | `#1A7F37` | `--color-devops` |
-| ⚙️ Setup & Desenvolvimento | Vermelho | `#D1242F` | `--color-security` |
-| 👥 Personas & Contexto | Laranja | `#BF8700` | `--color-management` |
-| ❓ FAQ & Suporte | Ciano | `#00CFE8` | `--color-support` |
+| <span class="material-symbols-outlined">book</span> Regras de Negócio | Azul | `#0969DA` | `--color-intro` |
+| <span class="material-symbols-outlined">track_changes</span> Documentação de Produto | Roxo | `#8250DF` | `--color-collab` |
+| <span class="material-symbols-outlined">rocket_launch</span> Jornadas Educacionais | Verde | `#1A7F37` | `--color-devops` |
+| <span class="material-symbols-outlined">settings</span> Setup & Desenvolvimento | Vermelho | `#D1242F` | `--color-security` |
+| <span class="material-symbols-outlined">group</span> Personas & Contexto | Laranja | `#BF8700` | `--color-management` |
+| <span class="material-symbols-outlined">help</span> FAQ & Suporte | Ciano | `#00CFE8` | `--color-support` |
 
-## 🧩 Componentes
+## <span class="material-symbols-outlined">extension</span> Componentes
 
 ### CategoryCard
 
@@ -57,7 +57,7 @@ Componente de card para categorias na homepage.
 **Props:**
 ```typescript
 interface CategoryCardProps {
-  icon: string;        // Emoji ou ícone (ex: "📘")
+  icon: string;        // Emoji ou ícone (ex: "<span class="material-symbols-outlined">book</span>")
   title: string;       // Título da categoria
   description: string; // Descrição breve
   color: string;       // Cor da borda esquerda (hex)
@@ -71,7 +71,7 @@ interface CategoryCardProps {
 **Uso:**
 ```jsx
 <CategoryCard
-  icon="📘"
+  icon="<span class="material-symbols-outlined">book</span>"
   title="Regras de Negócio"
   description="Padrões e regras do domínio"
   color="#0969DA"
@@ -109,11 +109,11 @@ Seção de documentos mais acessados.
 Componente de feedback em todas as páginas de documentação.
 
 **Funcionalidades:**
-- Botões 👍 (Sim) e 👎 (Não)
+- Botões <span class="material-symbols-outlined">thumb_up</span> (Sim) e <span class="material-symbols-outlined">thumb_down</span> (Não)
 - Pergunta: "Esta página foi útil?"
 - LocalStorage para persistir voto por página
 - Google Analytics tracking: evento `doc_feedback`
-- Mensagem de agradecimento: "Obrigado pelo feedback! 🎉"
+- Mensagem de agradecimento: "Obrigado pelo feedback! <span class="material-symbols-outlined">celebration</span>"
 
 **Características:**
 - Desabilita botões após voto
@@ -121,7 +121,7 @@ Componente de feedback em todas as páginas de documentação.
 - Hover effect nos botões
 - Animação fadeIn na mensagem de agradecimento
 
-## 📐 Breakpoints Responsivos
+## <span class="material-symbols-outlined">architecture</span> Breakpoints Responsivos
 
 O design system utiliza os seguintes breakpoints:
 
@@ -149,7 +149,7 @@ O design system utiliza os seguintes breakpoints:
 }
 ```
 
-## 🔍 Sistema de Busca
+## <span class="material-symbols-outlined">search</span> Sistema de Busca
 
 Configuração do plugin de busca local:
 
@@ -158,7 +158,7 @@ Configuração do plugin de busca local:
 - **Max resultados:** 8
 - **Indexação:** Apenas docs (não blog)
 
-## ♿ Acessibilidade
+## <span class="material-symbols-outlined">accessible</span> Acessibilidade
 
 O design system segue as diretrizes **WCAG 2.1 AA**:
 
@@ -177,16 +177,16 @@ Todos os componentes interativos possuem labels descritivos:
 
 ```jsx
 <button aria-label="Esta página foi útil">
-  👍 Sim
+  <span class="material-symbols-outlined">thumb_up</span> Sim
 </button>
 ```
 
-## 📊 Google Analytics
+## <span class="material-symbols-outlined">bar_chart</span> Google Analytics
 
 Eventos rastreados:
 
 ### doc_feedback
-Disparado quando usuário clica em 👍 ou 👎:
+Disparado quando usuário clica em <span class="material-symbols-outlined">thumb_up</span> ou <span class="material-symbols-outlined">thumb_down</span>:
 
 ```javascript
 gtag('event', 'doc_feedback', {
@@ -198,7 +198,7 @@ gtag('event', 'doc_feedback', {
 
 **ID de Rastreamento:** `G-XXXXXXXXXX` (configurar em `docusaurus.config.ts`)
 
-## 🎯 Uso nos Componentes
+## <span class="material-symbols-outlined">track_changes</span> Uso nos Componentes
 
 ### Exemplo Completo
 
@@ -208,7 +208,7 @@ import CategoryCard from '@site/src/components/CategoryCard';
 function HomePage() {
   const categories = [
     {
-      icon: '📘',
+      icon: '<span class="material-symbols-outlined">book</span>',
       title: 'Regras de Negócio',
       description: 'Padrões e regras do domínio',
       color: '#0969DA',
@@ -228,7 +228,7 @@ function HomePage() {
 }
 ```
 
-## 📚 Referências
+## <span class="material-symbols-outlined">library_books</span> Referências
 
 - [Vuexy Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - [GitHub Docs](https://docs.github.com/)

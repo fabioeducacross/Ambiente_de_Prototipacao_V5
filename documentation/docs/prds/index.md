@@ -4,7 +4,7 @@ title: PRDs - Product Requirements Documents
 description: Documentação de requisitos de produto
 ---
 
-# 📋 Product Requirements Documents (PRDs)
+# <span class="material-symbols-outlined">assignment</span> Product Requirements Documents (PRDs)
 
 Documentos de especificação de features e funcionalidades do produto.
 
@@ -19,7 +19,7 @@ Um **Product Requirements Document (PRD)** é o blueprint de uma feature. Ele do
 
 ---
 
-## 🚀 Como Usar
+## <span class="material-symbols-outlined">rocket_launch</span> Como Usar
 
 ### Para Product Managers
 1. Use o [Template PRD](./template.md) para documentar novas features
@@ -39,11 +39,11 @@ Um **Product Requirements Document (PRD)** é o blueprint de uma feature. Ele do
 
 ---
 
-## 📚 Template e Exemplos
+## <span class="material-symbols-outlined">library_books</span> Template e Exemplos
 
 <div className="cards-grid">
   <div className="feature-card">
-    <div className="feature-card-icon">📝</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">edit_note</span></div>
     <div className="feature-card-content">
       <h3>Template PRD</h3>
       <p>Use este template para criar novos PRDs</p>
@@ -54,7 +54,7 @@ Um **Product Requirements Document (PRD)** é o blueprint de uma feature. Ele do
   </div>
 
   <div className="feature-card">
-    <div className="feature-card-icon">🎯</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">track_changes</span></div>
     <div className="feature-card-content">
       <h3>Exemplo: Missões Custom</h3>
       <p>PRD de referência para criação de missões personalizadas</p>
@@ -65,7 +65,7 @@ Um **Product Requirements Document (PRD)** é o blueprint de uma feature. Ele do
   </div>
 
   <div className="feature-card">
-    <div className="feature-card-icon">📊</div>
+    <div className="feature-card-icon"><span class="material-symbols-outlined">bar_chart</span></div>
     <div className="feature-card-content">
       <h3>Exemplo: Dashboard de Performance</h3>
       <p>PRD de referência para dashboards de dados</p>
@@ -78,27 +78,27 @@ Um **Product Requirements Document (PRD)** é o blueprint de uma feature. Ele do
 
 ---
 
-## 📋 Lista de PRDs
+## <span class="material-symbols-outlined">assignment</span> Lista de PRDs
 
-### 🚧 Em Desenvolvimento
+### <span class="material-symbols-outlined">construction</span> Em Desenvolvimento
 
 _Nenhum PRD em desenvolvimento no momento_
 
 ---
 
-### ✅ Lançados
+### <span class="material-symbols-outlined">check_circle</span> Lançados
 
 _Adicione PRDs aqui após lançamento das features_
 
 ---
 
-### 📌 Backlog
+### <span class="material-symbols-outlined">push_pin</span> Backlog
 
 _Adicione PRDs planejados aqui_
 
 ---
 
-## 🔗 Recursos Relacionados
+## <span class="material-symbols-outlined">link</span> Recursos Relacionados
 
 - [**Regras de Negócio**](../business-rules/) - Restrições e lógica do produto
 - [**Product Decision Records**](../decisions/) - Decisões de produto documentadas
@@ -107,21 +107,21 @@ _Adicione PRDs planejados aqui_
 
 ---
 
-## 🎓 Boas Práticas
+## <span class="material-symbols-outlined">school</span> Boas Práticas
 
 :::tip Dicas para Escrever PRDs Eficazes
 
 ### 1. Comece pelo Problema, Não pela Solução
-❌ "Vamos adicionar um botão de busca na barra superior"  
-✅ "Professores gastam 5 minutos navegando para encontrar uma missão específica"
+<span class="material-symbols-outlined">cancel</span> "Vamos adicionar um botão de busca na barra superior"  
+<span class="material-symbols-outlined">check_circle</span> "Professores gastam 5 minutos navegando para encontrar uma missão específica"
 
 ### 2. Use Dados, Não Opiniões
-❌ "Usuários vão adorar isso"  
-✅ "78% dos professores entrevistados citaram isso como pain point crítico"
+<span class="material-symbols-outlined">cancel</span> "Usuários vão adorar isso"  
+<span class="material-symbols-outlined">check_circle</span> "78% dos professores entrevistados citaram isso como pain point crítico"
 
 ### 3. Defina Critérios de Sucesso Mensuráveis
-❌ "Melhorar experiência do usuário"  
-✅ "Reduzir tempo de criação de missões de 30min para 10min (p50)"
+<span class="material-symbols-outlined">cancel</span> "Melhorar experiência do usuário"  
+<span class="material-symbols-outlined">check_circle</span> "Reduzir tempo de criação de missões de 30min para 10min (p50)"
 
 ### 4. Seja Claro sobre Fora do Escopo
 Documente explicitamente o que **NÃO** será feito nesta versão.  
@@ -134,7 +134,7 @@ PRD não é "write-once". Atualize conforme aprendemos durante desenvolvimento.
 
 ---
 
-## 📊 Métricas de Qualidade dos PRDs
+## <span class="material-symbols-outlined">bar_chart</span> Métricas de Qualidade dos PRDs
 
 | Métrica | Meta | Atual |
 |---------|------|-------|
@@ -145,7 +145,7 @@ PRD não é "write-once". Atualize conforme aprendemos durante desenvolvimento.
 
 ---
 
-## 🤝 Processo de Revisão
+## <span class="material-symbols-outlined">handshake</span> Processo de Revisão
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#7C3AED','primaryTextColor':'#fff','primaryBorderColor':'#6D28D9','lineColor':'#A78BFA','secondaryColor':'#10B981','tertiaryColor':'#F59E0B'}}}%%
@@ -158,7 +158,7 @@ flowchart LR
     E --> F{Todos aprovaram?}
     F -->|Não| G[PM ajusta]
     G --> B
-    F -->|Sim| H[✅ PRD Aprovado]
+    F -->|Sim| H[<span class="material-symbols-outlined">check_circle</span> PRD Aprovado]
     H --> I[Adiciona à Sprint]
     
     style H fill:#10B981,color:#fff
@@ -175,7 +175,7 @@ flowchart LR
 
 ---
 
-## 📞 Contato
+## <span class="material-symbols-outlined">phone</span> Contato
 
 **Dúvidas sobre PRDs?**  
 Entre em contato com o Time de Produto.

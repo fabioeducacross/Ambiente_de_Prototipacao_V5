@@ -16,7 +16,7 @@ Garantir **integridade dos dados** e **boa experiência de usuário** com mensag
 
 ---
 
-## 👤 Validações de Usuários
+## <span class="material-symbols-outlined">person</span> Validações de Usuários
 
 ### Cadastro de Usuário
 
@@ -42,7 +42,7 @@ sequenceDiagram
     F->>F: Valida formato<br/>regex: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
     
     alt Formato inválido
-        F-->>U: ❌ "Email inválido"
+        F-->>U: <span class="material-symbols-outlined">cancel</span> "Email inválido"
     else Formato válido
         F->>S: Verifica unicidade
         S->>DB: SELECT WHERE email = ?
@@ -50,11 +50,11 @@ sequenceDiagram
         alt Email já existe
             DB-->>S: Registro encontrado
             S-->>F: Email em uso
-            F-->>U: ❌ "Email já cadastrado"
+            F-->>U: <span class="material-symbols-outlined">cancel</span> "Email já cadastrado"
         else Email disponível
             DB-->>S: Não encontrado
             S-->>F: Email OK
-            F-->>U: ✅ Campo válido
+            F-->>U: <span class="material-symbols-outlined">check_circle</span> Campo válido
         end
     end
 ```
@@ -63,14 +63,14 @@ sequenceDiagram
 
 | Regra | Descrição | Exemplo de Erro |
 |-------|-----------|-----------------|
-| **Formato** | Exatamente 11 dígitos numéricos | "123.456" → ❌ Incompleto |
-| **Dígitos Verificadores** | Cálculo correto dos 2 últimos dígitos | "111.111.111-11" → ❌ Inválido |
-| **Unicidade** | Não pode haver 2 usuários com mesmo CPF | Cadastro duplicado → ❌ Bloqueado |
-| **Opcional para Alunos < 10 anos** | CPF não obrigatório | Aluno de 6 anos → ✅ Pode deixar vazio |
+| **Formato** | Exatamente 11 dígitos numéricos | "123.456" → <span class="material-symbols-outlined">cancel</span> Incompleto |
+| **Dígitos Verificadores** | Cálculo correto dos 2 últimos dígitos | "111.111.111-11" → <span class="material-symbols-outlined">cancel</span> Inválido |
+| **Unicidade** | Não pode haver 2 usuários com mesmo CPF | Cadastro duplicado → <span class="material-symbols-outlined">cancel</span> Bloqueado |
+| **Opcional para Alunos < 10 anos** | CPF não obrigatório | Aluno de 6 anos → <span class="material-symbols-outlined">check_circle</span> Pode deixar vazio |
 
 ---
 
-## 🏫 Validações de Instituições e Turmas
+## <span class="material-symbols-outlined">school</span> Validações de Instituições e Turmas
 
 ### Cadastro de Instituição
 
@@ -96,13 +96,13 @@ sequenceDiagram
 
 | ID | Regra | Validação | Exemplo |
 |----|-------|-----------|---------|
-| **VAL-001** | Não pode haver **turmas duplicadas** | Nome + Série + Ano na mesma instituição | "5º Ano A - 2024" na Escola X → ❌ já existe |
+| **VAL-001** | Não pode haver **turmas duplicadas** | Nome + Série + Ano na mesma instituição | "5º Ano A - 2024" na Escola X → <span class="material-symbols-outlined">cancel</span> já existe |
 | **VAL-002** | Turma deve ter **pelo menos 1 aluno** para ativar | Contagem mínima | Turma vazia → <IconWarning /> Alerta |
-| **VAL-003** | Série deve ser **compatível** com idade dos alunos | Validação de faixa etária | Aluno de 6 anos no 9º ano → ❌ Bloqueado |
+| **VAL-003** | Série deve ser **compatível** com idade dos alunos | Validação de faixa etária | Aluno de 6 anos no 9º ano → <span class="material-symbols-outlined">cancel</span> Bloqueado |
 
 ---
 
-## 📚 Validações de Conteúdos
+## <span class="material-symbols-outlined">library_books</span> Validações de Conteúdos
 
 ### Cadastro de Missão Custom
 
@@ -129,17 +129,17 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A[Professor cria missão] --> B{Título válido?}
-    B -->|Não| C[❌ Erro: título inválido]
+    B -->|Não| C[<span class="material-symbols-outlined">cancel</span> Erro: título inválido]
     B -->|Sim| D{Min. 5 questões?}
     
-    D -->|Não| E[❌ Erro: adicione mais questões]
+    D -->|Não| E[<span class="material-symbols-outlined">cancel</span> Erro: adicione mais questões]
     D -->|Sim| F{Cada questão<br/>tem resposta correta?}
     
-    F -->|Não| G[❌ Erro: marque respostas corretas]
+    F -->|Não| G[<span class="material-symbols-outlined">cancel</span> Erro: marque respostas corretas]
     F -->|Sim| H{Série selecionada?}
     
-    H -->|Não| I[❌ Erro: selecione série]
-    H -->|Sim| J[✅ Missão válida]
+    H -->|Não| I[<span class="material-symbols-outlined">cancel</span> Erro: selecione série]
+    H -->|Sim| J[<span class="material-symbols-outlined">check_circle</span> Missão válida]
     
     J --> K[Salvar como rascunho]
     K --> L[Professor pode publicar]
@@ -154,7 +154,7 @@ flowchart TD
 
 ---
 
-## 🎯 Validações de Operações
+## <span class="material-symbols-outlined">track_changes</span> Validações de Operações
 
 ### Habilitação de Missão
 
@@ -188,7 +188,7 @@ sequenceDiagram
     S->>V: Valida formato
     
     alt Formato inválido
-        V-->>A: ❌ "Arquivo deve ser CSV ou XLSX"
+        V-->>A: <span class="material-symbols-outlined">cancel</span> "Arquivo deve ser CSV ou XLSX"
     else Formato OK
         V->>V: Valida cada linha
         V->>V: Verifica duplicatas internas
@@ -197,18 +197,18 @@ sequenceDiagram
         DB-->>V: Lista de conflitos
         V->>V: Gera relatório
         
-        V-->>A: 📊 Relatório:<br/>✅ 450 válidos<br/>❌ 50 erros
+        V-->>A: <span class="material-symbols-outlined">bar_chart</span> Relatório:<br/><span class="material-symbols-outlined">check_circle</span> 450 válidos<br/><span class="material-symbols-outlined">cancel</span> 50 erros
         
         A->>S: Confirma importação<br/>dos válidos?
         S->>DB: Insere apenas válidos
         DB-->>S: Inseridos
-        S-->>A: ✅ Importação concluída
+        S-->>A: <span class="material-symbols-outlined">check_circle</span> Importação concluída
     end
 ```
 
 ---
 
-## 📊 Validações de Relatórios
+## <span class="material-symbols-outlined">bar_chart</span> Validações de Relatórios
 
 ### Filtros de Relatório
 
@@ -229,17 +229,17 @@ sequenceDiagram
 
 ---
 
-## 🔐 Validações de Segurança
+## <span class="material-symbols-outlined">lock</span> Validações de Segurança
 
 ### Senha
 
 | Critério | Regra | Exemplo |
 |----------|-------|---------|
-| **Comprimento** | Mínimo 8 caracteres | "senha123" → ❌ 9 chars OK, mas falta complexidade |
-| **Maiúscula** | Pelo menos 1 letra maiúscula | "senha123" → ❌ |
-| **Número** | Pelo menos 1 número | "SenhaForte" → ❌ |
-| **Caractere especial** | Opcional, mas recomendado | "Senha123!" → ✅ |
-| **Não pode ser igual ao email** | Prevenir senhas óbvias | Email: joao@escola.com, Senha: joao@escola.com → ❌ |
+| **Comprimento** | Mínimo 8 caracteres | "senha123" → <span class="material-symbols-outlined">cancel</span> 9 chars OK, mas falta complexidade |
+| **Maiúscula** | Pelo menos 1 letra maiúscula | "senha123" → <span class="material-symbols-outlined">cancel</span> |
+| **Número** | Pelo menos 1 número | "SenhaForte" → <span class="material-symbols-outlined">cancel</span> |
+| **Caractere especial** | Opcional, mas recomendado | "Senha123!" → <span class="material-symbols-outlined">check_circle</span> |
+| **Não pode ser igual ao email** | Prevenir senhas óbvias | Email: joao@escola.com, Senha: joao@escola.com → <span class="material-symbols-outlined">cancel</span> |
 
 ### Força de Senha (Visual)
 
@@ -268,27 +268,27 @@ graph LR
 
 ---
 
-## 📱 Validações de Campos Específicos
+## <span class="material-symbols-outlined">smartphone</span> Validações de Campos Específicos
 
 ### Telefone
 
 | Formato | Validação | Exemplo |
 |---------|-----------|---------|
-| **Celular** | (XX) 9XXXX-XXXX | (11) 98765-4321 ✅ |
-| **Fixo** | (XX) XXXX-XXXX | (11) 3456-7890 ✅ |
-| **Internacional** | Opcional, formato livre | +55 11 98765-4321 ✅ |
+| **Celular** | (XX) 9XXXX-XXXX | (11) 98765-4321 <span class="material-symbols-outlined">check_circle</span> |
+| **Fixo** | (XX) XXXX-XXXX | (11) 3456-7890 <span class="material-symbols-outlined">check_circle</span> |
+| **Internacional** | Opcional, formato livre | +55 11 98765-4321 <span class="material-symbols-outlined">check_circle</span> |
 
 ### CEP
 
 | Validação | Regra | Exemplo |
 |-----------|-------|---------|
-| **Formato** | XXXXX-XXX | 12345-678 ✅ |
+| **Formato** | XXXXX-XXX | 12345-678 <span class="material-symbols-outlined">check_circle</span> |
 | **Busca automática** | API ViaCEP para autocomplete | CEP válido → preenche endereço |
 | **CEP inválido** | Não encontrado na API | Permitir continuar manualmente |
 
 ---
 
-## 🎨 Padrões de Mensagens de Erro
+## <span class="material-symbols-outlined">palette</span> Padrões de Mensagens de Erro
 
 ### Tipos de Mensagem
 
@@ -297,7 +297,7 @@ graph LR
 | **Erro Crítico** | Vermelho | <IconCircleRed /> | Campo obrigatório vazio, formato inválido |
 | **Aviso** | Amarelo | <IconWarning /> | Valor não recomendado mas aceito |
 | **Sucesso** | Verde | <IconCheck /> | Validação passou |
-| **Info** | Azul | ℹ️ | Dica de preenchimento |
+| **Info** | Azul | ℹ | Dica de preenchimento |
 
 ### Exemplo de Formulário com Validação
 
@@ -322,7 +322,7 @@ flowchart TD
 
 ---
 
-## 🔗 Referências
+## <span class="material-symbols-outlined">link</span> Referências
 
 - [Regras de Domínio](./domain-rules) - Entidades e relacionamentos
 - [Controle de Acesso](./access-control) - Permissões

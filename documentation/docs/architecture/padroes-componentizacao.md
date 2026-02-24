@@ -10,7 +10,7 @@ O Sistema de Calendário foi construído utilizando os princípios de **Atomic D
 
 ---
 
-## 🏗️ Estrutura de Camadas
+## <span class="material-symbols-outlined">construction</span> Estrutura de Camadas
 
 ### 1. Atoms (Átomos)
 Componentes indivisíveis que não possuem lógica de negócio complexa.
@@ -36,7 +36,7 @@ Layouts que organizam os organismos na página.
 
 ---
 
-## 🧠 Gestão de Estado: `useCalendar.js`
+## <span class="material-symbols-outlined">psychology</span> Gestão de Estado: `useCalendar.js`
 
 Em vez de espalhar a lógica de datas por todos os componentes, centralizamos no Composable **`useCalendar`**.
 
@@ -56,7 +56,7 @@ const {
 
 ---
 
-## 🎨 Estilização e Temas
+## <span class="material-symbols-outlined">palette</span> Estilização e Temas
 
 Utilizamos **CSS Custom Properties** (Variáveis) para permitir mudanças rápidas na paleta de cores sem precisar editar componentes individuais.
 

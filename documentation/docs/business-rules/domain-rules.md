@@ -13,27 +13,27 @@ Esta página documenta as **regras fundamentais** que definem como o Educacross 
 
 ---
 
-## 🏗️ Hierarquia Organizacional
+## <span class="material-symbols-outlined">construction</span> Hierarquia Organizacional
 
 ### Estrutura de Rede
 
 ```mermaid
 graph TD
-    R[🌐 Rede de Ensino] --> I1[🏫 Instituição A]
-    R --> I2[🏫 Instituição B]
-    R --> I3[🏫 Instituição C]
+    R[<span class="material-symbols-outlined">language</span> Rede de Ensino] --> I1[<span class="material-symbols-outlined">school</span> Instituição A]
+    R --> I2[<span class="material-symbols-outlined">school</span> Instituição B]
+    R --> I3[<span class="material-symbols-outlined">school</span> Instituição C]
     
-    I1 --> T1[📚 5º Ano A]
-    I1 --> T2[📚 6º Ano B]
+    I1 --> T1[<span class="material-symbols-outlined">library_books</span> 5º Ano A]
+    I1 --> T2[<span class="material-symbols-outlined">library_books</span> 6º Ano B]
     
-    I2 --> T3[📚 7º Ano A]
+    I2 --> T3[<span class="material-symbols-outlined">library_books</span> 7º Ano A]
     
-    T1 --> A1[👨‍🎓 Aluno 1]
-    T1 --> A2[👨‍🎓 Aluno 2]
-    T1 --> A3[👨‍🎓 Aluno 3]
+    T1 --> A1[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno 1]
+    T1 --> A2[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno 2]
+    T1 --> A3[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno 3]
     
-    T2 --> A4[👨‍🎓 Aluno 4]
-    T2 --> A5[👨‍🎓 Aluno 5]
+    T2 --> A4[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno 4]
+    T2 --> A5[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno 5]
     
     style R fill:#7C3AED,color:#fff
     style I1 fill:#F59E0B,color:#fff
@@ -57,7 +57,7 @@ graph TD
 
 ---
 
-## 👥 Perfis de Usuário
+## <span class="material-symbols-outlined">group</span> Perfis de Usuário
 
 ### Tipos de Perfil
 
@@ -94,21 +94,21 @@ graph LR
 
 ---
 
-## 📚 Sistema de Ensino e Conteúdos
+## <span class="material-symbols-outlined">library_books</span> Sistema de Ensino e Conteúdos
 
 ### Estrutura de Conteúdo
 
 ```mermaid
 graph TD
-    SE[Sistema de Ensino<br/>Ex: Pró-BNCC] --> L1[📖 Livro 5º Ano]
-    SE --> L2[📖 Livro 6º Ano]
+    SE[Sistema de Ensino<br/>Ex: Pró-BNCC] --> L1[<span class="material-symbols-outlined">menu_book</span> Livro 5º Ano]
+    SE --> L2[<span class="material-symbols-outlined">menu_book</span> Livro 6º Ano]
     
-    L1 --> M1[🎯 Missão 1:<br/>Frações]
-    L1 --> M2[🎯 Missão 2:<br/>Geometria]
+    L1 --> M1[<span class="material-symbols-outlined">track_changes</span> Missão 1:<br/>Frações]
+    L1 --> M2[<span class="material-symbols-outlined">track_changes</span> Missão 2:<br/>Geometria]
     
-    M1 --> Q1[❓ Questão 1]
-    M1 --> Q2[❓ Questão 2]
-    M1 --> Q3[❓ Questão 3]
+    M1 --> Q1[<span class="material-symbols-outlined">help</span> Questão 1]
+    M1 --> Q2[<span class="material-symbols-outlined">help</span> Questão 2]
+    M1 --> Q3[<span class="material-symbols-outlined">help</span> Questão 3]
     
     style SE fill:#7C3AED,color:#fff
     style L1 fill:#3B82F6,color:#fff
@@ -129,20 +129,20 @@ graph TD
 
 ---
 
-## 🎯 Habilitação e Visibilidade
+## <span class="material-symbols-outlined">track_changes</span> Habilitação e Visibilidade
 
 ### Fluxo de Habilitação
 
 ```mermaid
 sequenceDiagram
-    participant Prof as 👨‍🏫 Professor
+    participant Prof as <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Professor
     participant Sist as Sistema
-    participant Aluno as 👨‍🎓 Alunos
+    participant Aluno as <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Alunos
     
     Prof->>Sist: Habilita Missão<br/>para Turma 5º A
     Sist->>Sist: Valida permissões
-    Sist-->>Prof: ✅ Missão habilitada
-    Sist->>Aluno: 🔔 Missão disponível<br/>no menu
+    Sist-->>Prof: <span class="material-symbols-outlined">check_circle</span> Missão habilitada
+    Sist->>Aluno: <span class="material-symbols-outlined">notifications</span> Missão disponível<br/>no menu
     
     Note over Aluno: Alunos veem<br/>apenas missões<br/>habilitadas
 ```
@@ -159,14 +159,14 @@ sequenceDiagram
 
 :::tip Caso de Uso
 **Cenário**: Professor habilita "Missão de Frações" para Turma 5º A.
-- ✅ Todos os 30 alunos da turma veem a missão
-- ✅ Aluno A pode estar na questão 3, Aluno B na questão 1
-- ❌ Alunos de outras turmas NÃO veem a missão
+- <span class="material-symbols-outlined">check_circle</span> Todos os 30 alunos da turma veem a missão
+- <span class="material-symbols-outlined">check_circle</span> Aluno A pode estar na questão 3, Aluno B na questão 1
+- <span class="material-symbols-outlined">cancel</span> Alunos de outras turmas NÃO veem a missão
 :::
 
 ---
 
-## 🔄 Relacionamentos entre Entidades
+## <span class="material-symbols-outlined">sync</span> Relacionamentos entre Entidades
 
 ### Cardinalidades
 
@@ -243,7 +243,7 @@ erDiagram
 
 ---
 
-## ⚖️ Regras de Consistência
+## <span class="material-symbols-outlined">balance</span> Regras de Consistência
 
 ### Validações de Integridade
 
@@ -261,7 +261,7 @@ As regras **RD-022 a RD-026** são **destrutivas** e devem exibir confirmação 
 
 ---
 
-## 🎓 Séries e Ano Letivo
+## <span class="material-symbols-outlined">school</span> Séries e Ano Letivo
 
 ### Estrutura de Séries
 
@@ -286,7 +286,7 @@ As regras **RD-022 a RD-026** são **destrutivas** e devem exibir confirmação 
 
 ---
 
-## 📊 Métricas e Agregações
+## <span class="material-symbols-outlined">bar_chart</span> Métricas e Agregações
 
 ### Regras de Agregação
 
@@ -299,7 +299,7 @@ As regras **RD-022 a RD-026** são **destrutivas** e devem exibir confirmação 
 
 ---
 
-## 🔗 Referências
+## <span class="material-symbols-outlined">link</span> Referências
 
 - [Controle de Acesso](./access-control) - Quem pode fazer o quê
 - [Validações](./validation-rules) - Regras de preenchimento

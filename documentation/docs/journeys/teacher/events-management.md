@@ -272,7 +272,7 @@ sequenceDiagram
 - <IconCircleGreen /> **Ativo** (verde) - Evento em andamento, dentro do período
 - <IconCircleYellow /> **Em Breve** (amarelo) - Evento futuro, ainda não iniciou
 - <IconCircleRed /> **Encerrado** (vermelho) - Evento finalizado, fora do período
-- ⚫ **Rascunho** (cinza) - Evento não publicado (apenas admin)
+- <span class="material-symbols-outlined" class="ms-muted">circle</span> **Rascunho** (cinza) - Evento não publicado (apenas admin)
 
 ### Estado: Modal de Habilitação
 **Elementos**:

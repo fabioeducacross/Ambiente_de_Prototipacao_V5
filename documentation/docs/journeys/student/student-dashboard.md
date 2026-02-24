@@ -164,7 +164,7 @@ src/views/pages/student-context/dashboard/
           />
         </b-col>
         <b-col cols="12" md="9">
-          <h2 class="mb-2">Olá, {{ studentName }}! 👋</h2>
+          <h2 class="mb-2">Olá, {{ studentName }}! <span class="material-symbols-outlined">waving_hand</span></h2>
           <p class="mb-3">Você está no <strong>Nível {{ currentLevel }}</strong> com <strong>{{ currentXP }} XP</strong></p>
           <b-progress :value="levelProgressPercent" :max="100" height="20px" class="mb-2">
             <b-progress-bar :value="levelProgressPercent" variant="success">
@@ -238,7 +238,7 @@ src/views/pages/student-context/dashboard/
         </b-col>
       </b-row>
       <b-alert v-else show variant="info">
-        Nenhuma missão {{ selectedFilterLabel }} no momento. Continue assim! 🎉
+        Nenhuma missão {{ selectedFilterLabel }} no momento. Continue assim! <span class="material-symbols-outlined">celebration</span>
       </b-alert>
     </b-card>
 
@@ -279,7 +279,7 @@ src/views/pages/student-context/dashboard/
     <b-row class="mb-3">
       <b-col cols="12" md="4">
         <b-card>
-          <h5 class="mb-3">Conquistas 🎖️</h5>
+          <h5 class="mb-3">Conquistas <span class="material-symbols-outlined">military_tech</span></h5>
           <BadgeGallery
             :badges="earnedBadges"
             :total-badges="totalBadges"
@@ -294,7 +294,7 @@ src/views/pages/student-context/dashboard/
             <RecommendationCard :recommendation="recommendation" />
           </div>
           <b-alert v-if="recommendations.length === 0" show variant="success">
-            Você está em dia! Continue assim! 🎉
+            Você está em dia! Continue assim! <span class="material-symbols-outlined">celebration</span>
           </b-alert>
         </b-card>
       </b-col>
@@ -333,7 +333,7 @@ src/views/pages/student-context/dashboard/
 
     <!-- Calendário de Atividades -->
     <b-card class="mb-3">
-      <h5 class="mb-3">Próximas Atividades 📅</h5>
+      <h5 class="mb-3">Próximas Atividades <span class="material-symbols-outlined">calendar_today</span></h5>
       <CalendarWidget :events="upcomingEvents" />
     </b-card>
 

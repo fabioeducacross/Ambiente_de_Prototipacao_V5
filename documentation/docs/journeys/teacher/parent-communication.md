@@ -119,7 +119,7 @@ src/views/pages/teacher-context/communication/
 │   ├── TemplateSelector.vue       # Seletor de templates
 │   ├── AttachmentViewer.vue       # Visualizador de anexos
 │   ├── TranslationToggle.vue      # Toggle de tradução automática
-│   ├── ReadReceipt.vue            # Indicador de leitura (✓✓)
+│   ├── ReadReceipt.vue            # Indicador de leitura (<span class="material-symbols-outlined">check</span><span class="material-symbols-outlined">check</span>)
 │   ├── MeetingCard.vue            # Card de reunião agendada
 │   ├── ScheduleMeetingModal.vue   # Modal para agendar reunião
 │   ├── GroupSelector.vue          # Seletor de múltiplos responsáveis
@@ -963,7 +963,7 @@ sequenceDiagram
     Parent->>Parent: Recebe e abre mensagem
     Parent->>API: Mark as read
     API->>WS: Broadcast read receipt
-    WS-->>Chat: Update message status ✓✓
+    WS-->>Chat: Update message status <span class="material-symbols-outlined">check</span><span class="material-symbols-outlined">check</span>
     Chat-->>Prof: Mostra "Lida às 14:35"
 
     Parent->>API: Envia resposta

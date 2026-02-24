@@ -23,93 +23,93 @@ Este documento mapeia todos os emojis utilizados na documentação para seus equ
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| ✅ | Check/Concluído | `check-circle` | `check_circle` | Status concluído, ativo |
-| ❌ | X/Erro | `x-circle` | `cancel` | Status erro, descontinuado |
-| ⚠️ | Alerta | `alert-triangle` | `warning` | Avisos, atenção |
-| 🚧 | Em construção | `tool` | `construction` | Em desenvolvimento |
-| ⏳ | Pendente | `clock` | `hourglass_empty` | Aguardando, pendente |
-| 🔄 | Refresh/Ciclo | `refresh-cw` | `sync` | Refatoração, atualização |
+| <span class="material-symbols-outlined">check_circle</span> | Check/Concluído | `check-circle` | `check_circle` | Status concluído, ativo |
+| <span class="material-symbols-outlined">cancel</span> | X/Erro | `x-circle` | `cancel` | Status erro, descontinuado |
+| <span class="material-symbols-outlined">warning</span> | Alerta | `alert-triangle` | `warning` | Avisos, atenção |
+| <span class="material-symbols-outlined">construction</span> | Em construção | `tool` | `construction` | Em desenvolvimento |
+| <span class="material-symbols-outlined">hourglass_empty</span> | Pendente | `clock` | `hourglass_empty` | Aguardando, pendente |
+| <span class="material-symbols-outlined">sync</span> | Refresh/Ciclo | `refresh-cw` | `sync` | Refatoração, atualização |
 
 ### Prioridades (Círculos Coloridos)
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 🔴 | Círculo vermelho | `circle` (red) | `circle` (red) | Alta prioridade |
-| 🟡 | Círculo amarelo | `circle` (yellow) | `circle` (yellow) | Média prioridade |
-| 🟢 | Círculo verde | `circle` (green) | `circle` (green) | Baixa prioridade |
+| <span class="material-symbols-outlined" class="ms-danger">circle</span> | Círculo vermelho | `circle` (red) | `circle` (red) | Alta prioridade |
+| <span class="material-symbols-outlined" class="ms-warning">circle</span> | Círculo amarelo | `circle` (yellow) | `circle` (yellow) | Média prioridade |
+| <span class="material-symbols-outlined" class="ms-success">circle</span> | Círculo verde | `circle` (green) | `circle` (green) | Baixa prioridade |
 
 ### Personas e Usuários
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 👨‍🏫 | Professor | `user` | `school` | Contexto professor |
-| 👨‍💼 | Admin/Gestor | `briefcase` | `admin_panel_settings` | Contexto administrativo |
-| 👨‍🎓 | Estudante | `user` | `person` | Contexto estudante |
-| 🎓 | Formatura | `award` | `school` | Educação, graduação |
+| <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> | Professor | `user` | `school` | Contexto professor |
+| <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">work</span> | Admin/Gestor | `briefcase` | `admin_panel_settings` | Contexto administrativo |
+| <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> | Estudante | `user` | `person` | Contexto estudante |
+| <span class="material-symbols-outlined">school</span> | Formatura | `award` | `school` | Educação, graduação |
 
 ### Navegação e UI
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 🏠 | Casa/Home | `home` | `home` | Página inicial |
-| 🔗 | Link | `link` | `link` | Links externos |
-| 🔍 | Busca | `search` | `search` | Pesquisa, auditoria |
-| 👁️ | Olho/Visualizar | `eye` | `visibility` | Ver detalhes |
-| ⚙️ | Engrenagem | `settings` | `settings` | Configurações |
+| <span class="material-symbols-outlined">home</span> | Casa/Home | `home` | `home` | Página inicial |
+| <span class="material-symbols-outlined">link</span> | Link | `link` | `link` | Links externos |
+| <span class="material-symbols-outlined">search</span> | Busca | `search` | `search` | Pesquisa, auditoria |
+| <span class="material-symbols-outlined">visibility</span> | Olho/Visualizar | `eye` | `visibility` | Ver detalhes |
+| <span class="material-symbols-outlined">settings</span> | Engrenagem | `settings` | `settings` | Configurações |
 
 ### Conteúdo e Documentação
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 📚 | Livros | `book` | `menu_book` | Biblioteca, livros |
-| 📖 | Livro aberto | `book-open` | `auto_stories` | Leitura, documentação |
-| 📋 | Prancheta | `clipboard` | `assignment` | Tarefas, lista |
-| 📝 | Nota/Editar | `edit-3` | `edit_note` | Edição, escrita |
-| 📄 | Documento | `file-text` | `description` | Arquivo, documento |
+| <span class="material-symbols-outlined">library_books</span> | Livros | `book` | `menu_book` | Biblioteca, livros |
+| <span class="material-symbols-outlined">menu_book</span> | Livro aberto | `book-open` | `auto_stories` | Leitura, documentação |
+| <span class="material-symbols-outlined">assignment</span> | Prancheta | `clipboard` | `assignment` | Tarefas, lista |
+| <span class="material-symbols-outlined">edit_note</span> | Nota/Editar | `edit-3` | `edit_note` | Edição, escrita |
+| <span class="material-symbols-outlined">description</span> | Documento | `file-text` | `description` | Arquivo, documento |
 
 ### Dados e Análise
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 📊 | Gráfico barras | `bar-chart-2` | `bar_chart` | Relatórios, métricas |
-| 📈 | Gráfico linha | `trending-up` | `trending_up` | Crescimento, tendência |
-| 🎯 | Alvo | `target` | `gps_fixed` | Objetivo, meta |
+| <span class="material-symbols-outlined">bar_chart</span> | Gráfico barras | `bar-chart-2` | `bar_chart` | Relatórios, métricas |
+| <span class="material-symbols-outlined">trending_up</span> | Gráfico linha | `trending-up` | `trending_up` | Crescimento, tendência |
+| <span class="material-symbols-outlined">track_changes</span> | Alvo | `target` | `gps_fixed` | Objetivo, meta |
 
 ### Funcionalidades
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 🎮 | Controle/Game | `play` | `sports_esports` | Jogos, gamificação |
-| 💡 | Lâmpada | `zap` | `lightbulb` | Ideia, dica |
-| ✨ | Brilho | `star` | `auto_awesome` | Destaque, novo |
-| 🚀 | Foguete | `send` | `rocket_launch` | Lançamento, deploy |
-| 🎨 | Paleta | `droplet` | `palette` | Design, cores |
+| <span class="material-symbols-outlined">sports_esports</span> | Controle/Game | `play` | `sports_esports` | Jogos, gamificação |
+| <span class="material-symbols-outlined">lightbulb</span> | Lâmpada | `zap` | `lightbulb` | Ideia, dica |
+| <span class="material-symbols-outlined">auto_awesome</span> | Brilho | `star` | `auto_awesome` | Destaque, novo |
+| <span class="material-symbols-outlined">rocket_launch</span> | Foguete | `send` | `rocket_launch` | Lançamento, deploy |
+| <span class="material-symbols-outlined">palette</span> | Paleta | `droplet` | `palette` | Design, cores |
 
 ### Arquitetura e Técnico
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 📐 | Régua/Arquitetura | `layout` | `architecture` | Padrões, estrutura |
-| 🧩 | Puzzle | `box` | `extension` | Componentes, módulos |
-| 🔌 | Plug/API | `zap` | `electrical_services` | Integração, API |
-| 🛣️ | Estrada | `map` | `route` | Rotas, navegação |
-| 🗄️ | Arquivo/Store | `database` | `storage` | Banco de dados, Vuex |
+| <span class="material-symbols-outlined">architecture</span> | Régua/Arquitetura | `layout` | `architecture` | Padrões, estrutura |
+| <span class="material-symbols-outlined">extension</span> | Puzzle | `box` | `extension` | Componentes, módulos |
+| <span class="material-symbols-outlined">power</span> | Plug/API | `zap` | `electrical_services` | Integração, API |
+| <span class="material-symbols-outlined">route</span> | Estrada | `map` | `route` | Rotas, navegação |
+| <span class="material-symbols-outlined">storage</span> | Arquivo/Store | `database` | `storage` | Banco de dados, Vuex |
 
 ### Comunicação
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 📞 | Telefone | `phone` | `call` | Contato |
-| 📡 | Antena | `wifi` | `cell_tower` | API, conexão |
-| 🌐 | Globo | `globe` | `public` | Web, internacional |
+| <span class="material-symbols-outlined">phone</span> | Telefone | `phone` | `call` | Contato |
+| <span class="material-symbols-outlined">wifi</span> | Antena | `wifi` | `cell_tower` | API, conexão |
+| <span class="material-symbols-outlined">language</span> | Globo | `globe` | `public` | Web, internacional |
 
 ### Colaboração
 
 | Emoji | Descrição | Feather Icon | Material Symbol | Uso |
 |:-----:|-----------|--------------|-----------------|-----|
-| 🤝 | Aperto de mãos | `users` | `handshake` | Parceria, contribuição |
-| 🐙 | GitHub | `github` | `code` | Repositório |
-| 📸 | Câmera | `camera` | `photo_camera` | Screenshot, imagem |
+| <span class="material-symbols-outlined">handshake</span> | Aperto de mãos | `users` | `handshake` | Parceria, contribuição |
+| <span class="material-symbols-outlined">extension</span> | GitHub | `github` | `code` | Repositório |
+| <span class="material-symbols-outlined">photo_camera</span> | Câmera | `camera` | `photo_camera` | Screenshot, imagem |
 
 ---
 

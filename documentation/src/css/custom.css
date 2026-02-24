@@ -839,3 +839,14 @@ table thead th {
   font-weight: 500;
   font-variation-settings: 'wght' 500;
 }
+
+/* ============================================
+   MATERIAL SYMBOLS — Cores utilitárias
+   Usadas em ícones substituídos de emojis
+   ============================================ */
+.ms-success { color: var(--ifm-color-success); }
+.ms-warning { color: var(--ifm-color-warning); }
+.ms-danger  { color: var(--ifm-color-danger); }
+.ms-primary { color: var(--ifm-color-primary); }
+.ms-info    { color: var(--ifm-color-info); }
+.ms-muted   { color: var(--ifm-color-secondary, #b4b7bd); }

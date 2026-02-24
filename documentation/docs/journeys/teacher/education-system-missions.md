@@ -47,7 +47,7 @@ Após selecionar um livro, a professora Maria precisa visualizar todas as missõ
 - Acessar detalhes e link de compartilhamento de missões
 - Filtrar missões por unidade do livro e status
 
-## 👤 Persona
+## <span class="material-symbols-outlined">person</span> Persona
 
 **Nome**: Maria Silva  
 **Papel**: Professora de Matemática - 5º ano  
@@ -61,7 +61,7 @@ Após selecionar um livro, a professora Maria precisa visualizar todas as missõ
 - Filtrar missões por capítulo/unidade do livro
 - Ver quais são "Missões Plus" (premium)
 
-## 📍 Contexto de Entrada
+## <span class="material-symbols-outlined">location_on</span> Contexto de Entrada
 
 **Pré-condições:**
 - Professora navegou de "Livros do Sistema Educacional" ([PROF-001](/docs/journeys/teacher/education-system-books))
@@ -75,43 +75,43 @@ Após selecionar um livro, a professora Maria precisa visualizar todas as missõ
 - Breadcrumb: `[Sistema Educacional] > [Nome do Livro]`
 - Filtro global `book` definido: `{ id: bookId, name: 'Nome do Livro' }`
 
-## 🗺️ Fluxo AS-IS (Estado Atual)
+## <span class="material-symbols-outlined">map</span> Fluxo AS-IS (Estado Atual)
 
 ### Diagrama de Fluxo
 
 ```mermaid
 graph TD
-    Start([<IconBooks /> Origem: Grid de Livros<br/>PROF-001]) --> ClickBook[🖱️ Clica em livro<br/>exemplo: Geometria]
+    Start([<IconBooks /> Origem: Grid de Livros<br/>PROF-001]) --> ClickBook[<span class="material-symbols-outlined">mouse</span> Clica em livro<br/>exemplo: Geometria]
     ClickBook --> LoadMissions[<IconSettings /> Sistema carrega<br/>Missões do Livro]
-    LoadMissions --> ViewFilters[👀 Visualiza Filtros<br/>Unidade + Status]
+    LoadMissions --> ViewFilters[<span class="material-symbols-outlined">visibility</span> Visualiza Filtros<br/>Unidade + Status]
     ViewFilters --> ViewTable[<IconClipboard /> Visualiza Tabela<br/>de Missões]
     
-    ViewTable --> FilterDecision{🤔 Quer<br/>filtrar?}
+    ViewTable --> FilterDecision{<span class="material-symbols-outlined">help</span> Quer<br/>filtrar?}
     
     FilterDecision -->|<IconCheck /> Sim| SelectFilter[<IconSearch /> Seleciona filtro<br/>Unidade ou Status]
     SelectFilter --> UpdateTable[<IconRefresh /> Tabela atualiza<br/>com filtro aplicado]
     FilterDecision -->|<IconX /> Não| ActionDecision
-    UpdateTable --> ActionDecision{💭 Qual<br/>ação?}
+    UpdateTable --> ActionDecision{<span class="material-symbols-outlined">chat_bubble</span> Qual<br/>ação?}
     
-    ActionDecision -->|▶️ Habilitar| ActionEnable[🎬 Clica ícone play]
-    ActionDecision -->|⏸️ Pausar| ActionPause[⏸️ Clica ícone pause]
+    ActionDecision -->|<span class="material-symbols-outlined">play_arrow</span> Habilitar| ActionEnable[<span class="material-symbols-outlined">movie_creation</span> Clica ícone play]
+    ActionDecision -->|<span class="material-symbols-outlined">pause</span> Pausar| ActionPause[<span class="material-symbols-outlined">pause</span> Clica ícone pause]
     ActionDecision -->|<IconEye /> Ver Detalhes| ActionView[<IconSearch /> Clica ícone visibility]
-    ActionDecision -->|<IconLink /> Copiar Link| ActionLink[📎 Clica ícone link]
+    ActionDecision -->|<IconLink /> Copiar Link| ActionLink[<span class="material-symbols-outlined">attach_file</span> Clica ícone link]
     ActionDecision -->|<IconBookOpen /> Abrir| ActionOpen[<IconDocument /> Clica no nome da missão]
     
     ActionEnable --> ModalEnable[<IconEdit /> Modal: Confirmar<br/>habilitação + agendar]
     ModalEnable --> ResultEnable[<IconCheck /> Missão habilitada<br/>status atualizado]
     
     ActionPause --> ModalPause[<IconEdit /> Modal: Confirmar<br/>pausa da missão]
-    ModalPause --> ResultPause[⏸️ Missão pausada<br/>status atualizado]
+    ModalPause --> ResultPause[<span class="material-symbols-outlined">pause</span> Missão pausada<br/>status atualizado]
     
     ActionView --> ModalDetails[<IconDocument /> Modal: Detalhes<br/>conteúdo da missão]
     
     ActionLink --> ResultLink[<IconCheck /> Link copiado<br/>tooltip de feedback]
     
-    ActionOpen --> ResultRedirect[➡️ Redireciona para<br/>tela de exercícios]
+    ActionOpen --> ResultRedirect[<span class="material-symbols-outlined">arrow_forward</span> Redireciona para<br/>tela de exercícios]
     
-    ResultEnable --> End([🏁 Fim])
+    ResultEnable --> End([<span class="material-symbols-outlined">flag</span> Fim])
     ResultPause --> End
     ModalDetails --> End
     ResultLink --> End
@@ -239,7 +239,7 @@ graph TD
 <!-- Mostrar: Modal com descrição, objetivos, preview de questões -->
 ![Screenshot AS-IS: Modal de Detalhes Missão Plus](../../../static/img/screenshots/prof-002-details-modal.png)
 
-## 😓 Pontos de Dor (Pain Points)
+## <span class="material-symbols-outlined">sentiment_dissatisfied</span> Pontos de Dor (Pain Points)
 
 ### 1. Ausência de Visão de Sequência Pedagógica
 - **Descrição**: Missões são listadas em tabela linear sem indicar ordem sugerida ou pré-requisitos
@@ -288,7 +288,7 @@ graph TD
 
 ---
 
-## 🧩 Regras Operacionais TO-BE (Sistema de Ensino)
+## <span class="material-symbols-outlined">extension</span> Regras Operacionais TO-BE (Sistema de Ensino)
 
 ### 1) Lista de Missões por Turma
 
@@ -377,7 +377,7 @@ graph TD
 
 ---
 
-## 📅 Histórico de Mudanças
+## <span class="material-symbols-outlined">calendar_today</span> Histórico de Mudanças
 
 | Data | Versão | Autor | Mudanças |
 |------|--------|-------|----------|

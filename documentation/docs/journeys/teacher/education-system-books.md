@@ -41,7 +41,7 @@ A professora Maria precisa acessar os livros (ou trilhas) do sistema educacional
 - Identificar livros com baixo rendimento para intervenção
 - Acessar as missões de um livro específico com um clique
 
-## 👤 Persona
+## <span class="material-symbols-outlined">person</span> Persona
 
 **Nome**: Maria Silva  
 **Papel**: Professora de Matemática - 5º ano  
@@ -54,7 +54,7 @@ A professora Maria precisa acessar os livros (ou trilhas) do sistema educacional
 - Indicadores visuais de progresso e rendimento
 - Interface responsiva para usar no tablet durante aulas
 
-## 📍 Contexto de Entrada
+## <span class="material-symbols-outlined">location_on</span> Contexto de Entrada
 
 **Pré-condições:**
 - Professora autenticada no sistema
@@ -66,7 +66,7 @@ A professora Maria precisa acessar os livros (ou trilhas) do sistema educacional
 - Rota: `/education-system/books/:educationSystemId`
 - Breadcrumb: `[Nome do Sistema Educacional]`
 
-## 🗺️ Fluxo AS-IS (Estado Atual)
+## <span class="material-symbols-outlined">map</span> Fluxo AS-IS (Estado Atual)
 
 ### Diagrama de Fluxo
 
@@ -75,21 +75,21 @@ graph TD
     Start([<IconHome /> Professora na Home]) --> SelectFilters[<IconClipboard /> Seleciona Turma e Disciplina<br/>nos filtros globais]
     SelectFilters --> ClickMenu[<IconBooks /> Clica em Sistema Educacional<br/>no menu lateral]
     ClickMenu --> LoadBooks[<IconSettings /> Sistema carrega<br/>tela de Livros]
-    LoadBooks --> ViewGrid[👀 Visualiza Cards<br/>de Livros em Grid]
+    LoadBooks --> ViewGrid[<span class="material-symbols-outlined">visibility</span> Visualiza Cards<br/>de Livros em Grid]
     
-    ViewGrid --> Decision1{🤔 Quer ver<br/>missões?}
+    ViewGrid --> Decision1{<span class="material-symbols-outlined">help</span> Quer ver<br/>missões?}
     
-    Decision1 -->|<IconCheck /> Sim| ClickCard[🖱️ Clica no card ou<br/>botão Ver Missões]
+    Decision1 -->|<IconCheck /> Sim| ClickCard[<span class="material-symbols-outlined">mouse</span> Clica no card ou<br/>botão Ver Missões]
     Decision1 -->|<IconX /> Não| AnalyzeMetrics[<IconChart /> Analisa indicadores<br/>de progresso/rendimento]
     
-    ClickCard --> Navigate[➡️ Navega para tela<br/>de Missões do Livro]
+    ClickCard --> Navigate[<span class="material-symbols-outlined">arrow_forward</span> Navega para tela<br/>de Missões do Livro]
     
     AnalyzeMetrics --> Identify[<IconWarning /> Identifica livros<br/>com problemas]
-    Identify --> Decision2{💭 Quer<br/>intervir?}
+    Identify --> Decision2{<span class="material-symbols-outlined">chat_bubble</span> Quer<br/>intervir?}
     
     Decision2 -->|<IconCheck /> Sim| ClickCard
-    Decision2 -->|<IconX /> Não| End1([🏁 Fim])
-    Navigate --> End2([🏁 Fim])
+    Decision2 -->|<IconX /> Não| End1([<span class="material-symbols-outlined">flag</span> Fim])
+    Navigate --> End2([<span class="material-symbols-outlined">flag</span> Fim])
     
     classDef startEnd fill:#e1f5e1,stroke:#4caf50,stroke-width:3px,color:#000
     classDef action fill:#e3f2fd,stroke:#2196f3,stroke-width:2px,color:#000
@@ -175,7 +175,7 @@ graph TD
 <!-- URL: /education-system/missions/:bookId -->
 ![Screenshot AS-IS: Tela de Missões do Livro](../../../static/img/screenshots/prof-001-missions-destination.png)
 
-## 😓 Pontos de Dor (Pain Points)
+## <span class="material-symbols-outlined">sentiment_dissatisfied</span> Pontos de Dor (Pain Points)
 
 ### 1. Tour Modal Intrusivo na Primeira Visita
 - **Descrição**: Sistema exibe modal de tour guiado automaticamente na primeira vez que professor acessa a tela, interrompendo o fluxo natural
@@ -239,7 +239,7 @@ graph TD
 
 ---
 
-## 📅 Histórico de Mudanças
+## <span class="material-symbols-outlined">calendar_today</span> Histórico de Mudanças
 
 | Data | Versão | Autor | Mudanças |
 |------|--------|-------|----------|

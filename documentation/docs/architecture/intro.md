@@ -9,7 +9,7 @@ import {
   IconTarget
 } from '@site/src/components/MaterialIcon';
 
-# Arquitetura Técnica 🏗️
+# Arquitetura Técnica <span class="material-symbols-outlined">construction</span>
 
 Documentação dos padrões arquiteturais e técnicos do projeto Educacross.
 

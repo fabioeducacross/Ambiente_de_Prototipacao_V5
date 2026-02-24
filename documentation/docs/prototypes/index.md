@@ -36,11 +36,11 @@ O **Design System Vuexy** está documentado no Storybook, organizado por context
 
 ### <IconLink /> Acesso Direto
 
-👉 **[Abrir Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/)**
+<span class="material-symbols-outlined">arrow_forward</span> **[Abrir Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/)**
 
 ---
 
-## 🗂️ Componentes por Contexto
+## <span class="material-symbols-outlined">folder_copy</span> Componentes por Contexto
 
 ### Front-Office (Usuário Final)
 
@@ -282,7 +282,7 @@ npm run build
 
 Os arquivos de build ficam em `dist/` prontos para deploy.
 
-## 🤖 Workflow com Claude AI
+## <span class="material-symbols-outlined">smart_toy</span> Workflow com Claude AI
 
 Como designer vibecoder, você trabalha assim com Claude:
 
@@ -371,7 +371,7 @@ Antes de considerar um protótipo completo:
 - Cards de features
 - Call-to-action
 
-## 🆕 Próximos Protótipos
+## <span class="material-symbols-outlined">fiber_new</span> Próximos Protótipos
 
 Baseado nas jornadas prioritárias:
 
@@ -381,7 +381,7 @@ Baseado nas jornadas prioritárias:
 4. **Missões e Exercícios** (ALUNO-001)
 5. **Criar Avaliação** (PROF-004)
 
-## 💬 Suporte
+## <span class="material-symbols-outlined">chat</span> Suporte
 
 Dúvidas sobre protótipos?
 

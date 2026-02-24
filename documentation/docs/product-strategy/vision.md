@@ -16,30 +16,30 @@ Esta é uma **fonte de verdade** da estratégia de produto. Deve ser revisada a 
 
 ---
 
-## 🎯 Nossa Visão (3-5 anos)
+## <span class="material-symbols-outlined">track_changes</span> Nossa Visão (3-5 anos)
 
 > **"Ser a plataforma educacional mais amada por professores e alunos, transformando o aprendizado em uma jornada gamificada, personalizada e alinhada aos objetivos pedagógicos de cada rede de ensino."**
 
 ### O Que Significa na Prática
 
 **Para Professores:**
-- ✅ Economizar **5 horas por semana** em planejamento e correção
-- ✅ Ter **100% de visibilidade** do progresso de cada aluno
-- ✅ Personalizar conteúdos em **menos de 5 minutos**
+- <span class="material-symbols-outlined">check_circle</span> Economizar **5 horas por semana** em planejamento e correção
+- <span class="material-symbols-outlined">check_circle</span> Ter **100% de visibilidade** do progresso de cada aluno
+- <span class="material-symbols-outlined">check_circle</span> Personalizar conteúdos em **menos de 5 minutos**
 
 **Para Alunos:**
-- ✅ Engajamento **diário** com atividades gamificadas
-- ✅ Aprendizado **autônomo** e no próprio ritmo
-- ✅ Feedback **imediato** e reconhecimento por conquistas
+- <span class="material-symbols-outlined">check_circle</span> Engajamento **diário** com atividades gamificadas
+- <span class="material-symbols-outlined">check_circle</span> Aprendizado **autônomo** e no próprio ritmo
+- <span class="material-symbols-outlined">check_circle</span> Feedback **imediato** e reconhecimento por conquistas
 
 **Para Gestores:**
-- ✅ Dados consolidados de **toda a rede** em um só lugar
-- ✅ Identificação precoce de **alunos em risco**
-- ✅ ROI educacional **mensurável**
+- <span class="material-symbols-outlined">check_circle</span> Dados consolidados de **toda a rede** em um só lugar
+- <span class="material-symbols-outlined">check_circle</span> Identificação precoce de **alunos em risco**
+- <span class="material-symbols-outlined">check_circle</span> ROI educacional **mensurável**
 
 ---
 
-## 🚀 Missão
+## <span class="material-symbols-outlined">rocket_launch</span> Missão
 
 **Por que existimos:**
 
@@ -49,15 +49,15 @@ Esta é uma **fonte de verdade** da estratégia de produto. Deve ser revisada a 
 
 | Valor | Significado | Como Aplicamos |
 |-------|-------------|----------------|
-| **🎓 Pedagogia Primeiro** | Tecnologia serve a pedagogia, não o contrário | Alinhamento 100% com BNCC |
-| **🤝 Centrado no Usuário** | Construímos com professores, não para eles | User research contínua |
-| **📊 Data-Driven** | Decisões baseadas em dados, não opiniões | Métricas em tudo |
-| **⚡ Simplicidade** | Interfaces intuitivas que não requerem treinamento | Onboarding < 5 minutos |
-| **🌍 Inclusão** | Acessível mesmo em escolas com baixa conectividade | Offline-first |
+| **<span class="material-symbols-outlined">school</span> Pedagogia Primeiro** | Tecnologia serve a pedagogia, não o contrário | Alinhamento 100% com BNCC |
+| **<span class="material-symbols-outlined">handshake</span> Centrado no Usuário** | Construímos com professores, não para eles | User research contínua |
+| **<span class="material-symbols-outlined">bar_chart</span> Data-Driven** | Decisões baseadas em dados, não opiniões | Métricas em tudo |
+| **<span class="material-symbols-outlined">bolt</span> Simplicidade** | Interfaces intuitivas que não requerem treinamento | Onboarding < 5 minutos |
+| **<span class="material-symbols-outlined">public</span> Inclusão** | Acessível mesmo em escolas com baixa conectividade | Offline-first |
 
 ---
 
-## 🎯 North Star Metric
+## <span class="material-symbols-outlined">track_changes</span> North Star Metric
 
 **Métrica que guia TODAS as decisões de produto:**
 
@@ -90,7 +90,7 @@ graph TD
 
 ---
 
-## 🏆 Posicionamento de Mercado
+## <span class="material-symbols-outlined">emoji_events</span> Posicionamento de Mercado
 
 ### Competitive Landscape
 
@@ -115,12 +115,12 @@ quadrantChart
 
 | Diferencial | Nós | Concorrente A | Concorrente B |
 |-------------|-----|---------------|---------------|
-| **Alinhamento BNCC** | ✅ 100% mapeado | ⚠️ Parcial | ❌ Não |
-| **Gamificação** | ✅ Nativa | ⚠️ Básica | ✅ Avançada |
-| **White-label** | ✅ Total | ❌ Não | ⚠️ Limitado |
-| **Offline-first** | ✅ Sim | ❌ Não | ❌ Não |
-| **Customização** | ✅ Missões custom | ⚠️ Limitado | ❌ Fixo |
-| **Preço** | 💰💰 | 💰💰💰 | 💰 |
+| **Alinhamento BNCC** | <span class="material-symbols-outlined">check_circle</span> 100% mapeado | <span class="material-symbols-outlined">warning</span> Parcial | <span class="material-symbols-outlined">cancel</span> Não |
+| **Gamificação** | <span class="material-symbols-outlined">check_circle</span> Nativa | <span class="material-symbols-outlined">warning</span> Básica | <span class="material-symbols-outlined">check_circle</span> Avançada |
+| **White-label** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">warning</span> Limitado |
+| **Offline-first** | <span class="material-symbols-outlined">check_circle</span> Sim | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não |
+| **Customização** | <span class="material-symbols-outlined">check_circle</span> Missões custom | <span class="material-symbols-outlined">warning</span> Limitado | <span class="material-symbols-outlined">cancel</span> Fixo |
+| **Preço** | <span class="material-symbols-outlined">payments</span><span class="material-symbols-outlined">payments</span> | <span class="material-symbols-outlined">payments</span><span class="material-symbols-outlined">payments</span><span class="material-symbols-outlined">payments</span> | <span class="material-symbols-outlined">payments</span> |
 
 ### Positioning Statement
 
@@ -128,17 +128,17 @@ quadrantChart
 
 ---
 
-## 🎯 Objetivos Estratégicos (2026)
+## <span class="material-symbols-outlined">track_changes</span> Objetivos Estratégicos (2026)
 
 ### 1. Consolidar Liderança em Redes Públicas
 
 **Objetivo:** Ser a plataforma #1 em redes municipais/estaduais
 
 **Iniciativas:**
-- ✅ Offline-first architecture
-- ✅ Suporte a baixa conectividade
-- ✅ Preço competitivo para setor público
-- 🔄 Integrações com sistemas de gestão escolar (SGE)
+- <span class="material-symbols-outlined">check_circle</span> Offline-first architecture
+- <span class="material-symbols-outlined">check_circle</span> Suporte a baixa conectividade
+- <span class="material-symbols-outlined">check_circle</span> Preço competitivo para setor público
+- <span class="material-symbols-outlined">sync</span> Integrações com sistemas de gestão escolar (SGE)
 
 **Métricas de Sucesso:**
 - 20+ redes públicas usando o produto
@@ -152,9 +152,9 @@ quadrantChart
 **Objetivo:** Permitir que redes personalizem totalmente a plataforma
 
 **Iniciativas:**
-- ✅ White-label visual (cores, logos, domínios)
-- 🔄 White-label pedagógico (sistemas de ensino próprios)
-- 🔄 Multi-tenant architecture escalável
+- <span class="material-symbols-outlined">check_circle</span> White-label visual (cores, logos, domínios)
+- <span class="material-symbols-outlined">sync</span> White-label pedagógico (sistemas de ensino próprios)
+- <span class="material-symbols-outlined">sync</span> Multi-tenant architecture escalável
 
 **Métricas de Sucesso:**
 - 5+ redes com white-label ativo
@@ -168,7 +168,7 @@ quadrantChart
 **Objetivo:** Crescer além de ensino fundamental
 
 **Iniciativas:**
-- 📋 **TODO:** Validar com pesquisa de mercado
+- <span class="material-symbols-outlined">assignment</span> **TODO:** Validar com pesquisa de mercado
 - Possíveis segmentos: Ensino Médio, EJA, Educação Infantil
 
 **Métricas de Sucesso:**
@@ -176,7 +176,7 @@ quadrantChart
 
 ---
 
-## 🧭 Pilares Estratégicos
+## <span class="material-symbols-outlined">explore</span> Pilares Estratégicos
 
 ### Pilar 1: Experiência do Professor
 
@@ -188,9 +188,9 @@ quadrantChart
 3. Sugestões de intervenções baseadas em dados
 
 **Anti-padrões:**
-- ❌ Complexidade excessiva
-- ❌ Muitos cliques para ações simples
-- ❌ Relatórios que ninguém entende
+- <span class="material-symbols-outlined">cancel</span> Complexidade excessiva
+- <span class="material-symbols-outlined">cancel</span> Muitos cliques para ações simples
+- <span class="material-symbols-outlined">cancel</span> Relatórios que ninguém entende
 
 ---
 
@@ -204,9 +204,9 @@ quadrantChart
 3. Recompensas alinhadas a conquistas pedagógicas
 
 **Anti-padrões:**
-- ❌ Gamificação vazia (pontos sem contexto)
-- ❌ Competição que exclui alunos com dificuldade
-- ❌ Mecânicas que viciam sem educar
+- <span class="material-symbols-outlined">cancel</span> Gamificação vazia (pontos sem contexto)
+- <span class="material-symbols-outlined">cancel</span> Competição que exclui alunos com dificuldade
+- <span class="material-symbols-outlined">cancel</span> Mecânicas que viciam sem educar
 
 ---
 
@@ -220,22 +220,22 @@ quadrantChart
 3. Comparação contextualizada (turma vs rede)
 
 **Anti-padrões:**
-- ❌ Dashboards genéricos
-- ❌ Métricas de vaidade
-- ❌ Dados sem recomendações
+- <span class="material-symbols-outlined">cancel</span> Dashboards genéricos
+- <span class="material-symbols-outlined">cancel</span> Métricas de vaidade
+- <span class="material-symbols-outlined">cancel</span> Dados sem recomendações
 
 ---
 
-## 📊 Métricas de Sucesso da Estratégia
+## <span class="material-symbols-outlined">bar_chart</span> Métricas de Sucesso da Estratégia
 
 | Categoria | Métrica | Baseline (2025) | Meta 2026 | Status |
 |-----------|---------|-----------------|-----------|--------|
-| **Adoção** | Alunos ativos (MAU) | _TODO_ | 200.000 | 🔄 |
-| **Engajamento** | % alunos ativos semanalmente | _TODO_ | 60% | 🔄 |
-| **Retenção** | Churn mensal de redes | _TODO_ | < 5% | 🔄 |
-| **Satisfação** | NPS de professores | _TODO_ | > 50 | 🔄 |
+| **Adoção** | Alunos ativos (MAU) | _TODO_ | 200.000 | <span class="material-symbols-outlined">sync</span> |
+| **Engajamento** | % alunos ativos semanalmente | _TODO_ | 60% | <span class="material-symbols-outlined">sync</span> |
+| **Retenção** | Churn mensal de redes | _TODO_ | < 5% | <span class="material-symbols-outlined">sync</span> |
+| **Satisfação** | NPS de professores | _TODO_ | > 50 | <span class="material-symbols-outlined">sync</span> |
 | **Eficácia** | % de missões concluídas | 75% | 85% | <IconCheck /> |
-| **Performance** | Tempo médio na plataforma | _TODO_ | 15-25min/sessão | 🔄 |
+| **Performance** | Tempo médio na plataforma | _TODO_ | 15-25min/sessão | <span class="material-symbols-outlined">sync</span> |
 
 :::warning Métricas a Definir
 Seções marcadas com _TODO_ devem ser preenchidas quando implementarmos analytics em produção.
@@ -243,7 +243,7 @@ Seções marcadas com _TODO_ devem ser preenchidas quando implementarmos analyti
 
 ---
 
-## 🚧 O Que NÃO Vamos Fazer (Estratégia de "NO")
+## <span class="material-symbols-outlined">construction</span> O Que NÃO Vamos Fazer (Estratégia de "NO")
 
 | Pedido Comum | Por Que NÃO |
 |--------------|-------------|
@@ -255,7 +255,7 @@ Seções marcadas com _TODO_ devem ser preenchidas quando implementarmos analyti
 
 ---
 
-## 🔄 Ciclo de Revisão
+## <span class="material-symbols-outlined">sync</span> Ciclo de Revisão
 
 Este documento deve ser revisado:
 
@@ -263,11 +263,11 @@ Este documento deve ser revisado:
 - **Anualmente:** Revisão profunda da visão e posicionamento
 - **Eventos especiais:** Pivô estratégico, mudança de mercado, novo concorrente
 
-**Próxima revisão agendada:** 📅 _TODO: Definir data do próximo review_
+**Próxima revisão agendada:** <span class="material-symbols-outlined">calendar_today</span> _TODO: Definir data do próximo review_
 
 ---
 
-## 🔗 Documentos Relacionados
+## <span class="material-symbols-outlined">link</span> Documentos Relacionados
 
 - [Regras de Negócio](../business-rules/) - Como o produto funciona
 - [Personas](../personas/) - Quem são nossos usuários

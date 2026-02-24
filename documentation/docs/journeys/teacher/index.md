@@ -80,11 +80,11 @@ Documentação completa das 11 jornadas do contexto educador.
 - **Em Documentação**: 0
 - **Pendentes**: 0
 
-**Progresso**: 🎉 **100% COMPLETO (11/11)** 🎉
+**Progresso**: <span class="material-symbols-outlined">celebration</span> **100% COMPLETO (11/11)** <span class="material-symbols-outlined">celebration</span>
 
 ---
 
-## 🎉 Sprint 1 Completo!
+## <span class="material-symbols-outlined">celebration</span> Sprint 1 Completo!
 
 <IconCheck /> Todas as 4 jornadas de alta prioridade foram documentadas:
 - PROF-001: Education System Books

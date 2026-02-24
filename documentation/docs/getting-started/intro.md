@@ -26,7 +26,7 @@ Este ambiente foi criado para:
 - **Catalogar** componentes do Design System HTML-based
 - **Integrar** via MCP (Model Context Protocol) para desenvolvimento assistido por IA
 
-## 🏗️ Arquitetura
+## <span class="material-symbols-outlined">construction</span> Arquitetura
 
 ```mermaid
 graph LR

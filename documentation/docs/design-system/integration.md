@@ -18,7 +18,7 @@ import {
 
 Guia completo para usar o Design System Vuexy nos protótipos Vue 3.
 
-## 🔲 Padrão Vercel na wiki
+## <span class="material-symbols-outlined">crop_square</span> Padrão Vercel na wiki
 
 Além do padrão Vuexy, a wiki também adota uma referência visual inspirada na Vercel para páginas de documentação técnica e materiais de comunicação.
 
@@ -87,7 +87,7 @@ const getBadgeClass = (nivel) => {
 </span>
 ```
 
-## 📦 Componentes Disponíveis
+## <span class="material-symbols-outlined">inventory_2</span> Componentes Disponíveis
 
 ### Navegação
 
@@ -601,7 +601,7 @@ const verDS = () => {
 - Não ignore responsividade mobile
 - Não hardcode valores que podem vir de props
 
-## 🆘 Suporte
+## <span class="material-symbols-outlined">sos</span> Suporte
 
 Dúvidas sobre o Design System?
 

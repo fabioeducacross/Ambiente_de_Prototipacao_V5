@@ -68,7 +68,7 @@ mindmap
 | Elemento | O que é |
 |----------|---------|
 | <IconSparkle /> Estrelas | Pontos por atividade completada |
-| 🏅 Medalhas | Conquistas por marcos atingidos |
+| <span class="material-symbols-outlined">military_tech</span> Medalhas | Conquistas por marcos atingidos |
 | <IconChart /> Ranking | Posição na turma |
 | <IconTarget /> Progresso | Barra visual de conclusão |
 

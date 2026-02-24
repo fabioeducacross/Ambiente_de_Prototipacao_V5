@@ -6,13 +6,13 @@ description: Decisão sobre como diferenciar eventos por cores e ícones
 
 # PDR 001: Codificação de Eventos no Calendário
 
-*   **Status**: ✅ Aceito
+*   **Status**: <span class="material-symbols-outlined">check_circle</span> Aceito
 *   **Data**: 2026-02-12
 *   **Autor**: Equipe de Produto / UX
 
 ---
 
-## 📋 Contexto
+## <span class="material-symbols-outlined">assignment</span> Contexto
 
 Com a consolidação de diferentes fontes de dados no Calendário Unificado (Missões Educacross, Atividades de Rede, Eventos do Professor e Atividades Escolares), surgiu o desafio de como tornar essas informações rapidamente escaneáveis para o usuário sem sobrecarregar a interface.
 
@@ -22,7 +22,7 @@ O usuário precisa saber rapidamente:
 
 ---
 
-## ⚖️ Decisão
+## <span class="material-symbols-outlined">balance</span> Decisão
 
 Decidimos utilizar uma **estratégia de codificação dupla**:
 1.  **Cores Sólidas para Categorias**: O "fundo" do card/chip do evento indica a categoria pedagógica.
@@ -33,7 +33,7 @@ UX Research indicou que a **Categoria** é a informação primária para o plane
 
 ---
 
-## 🔄 Alternativas Consideradas
+## <span class="material-symbols-outlined">sync</span> Alternativas Consideradas
 
 ### Alternativa A: Borda colorida para Origem + Cor de fundo para Categoria
 *   **Pró**: Máxima distinção.
@@ -45,7 +45,7 @@ UX Research indicou que a **Categoria** é a informação primária para o plane
 
 ---
 
-## ✅ Justificativa
+## <span class="material-symbols-outlined">check_circle</span> Justificativa
 
 A abordagem escolhida (Ícone + Cor) equilibra densidade de informação com limpeza visual:
 *   Mecanismo de **Pre-attentive processing**: O cérebro capta a cor instantaneamente antes mesmo da leitura.
@@ -54,7 +54,7 @@ A abordagem escolhida (Ícone + Cor) equilibra densidade de informação com lim
 
 ---
 
-## 📈 Consequências
+## <span class="material-symbols-outlined">trending_up</span> Consequências
 
 ### Positivas
 *   Redução no tempo de escaneamento visual do calendário.
@@ -66,6 +66,6 @@ A abordagem escolhida (Ícone + Cor) equilibra densidade de informação com lim
 
 ---
 
-## 🛠️ Implementação
+## <span class="material-symbols-outlined">handyman</span> Implementação
 
 A implementação deve seguir as variáveis de CSS definidas no `SPEC-CALENDARIO-PROTOTIPO.md` e utilizar os `Material Symbols` para os ícones de origem.

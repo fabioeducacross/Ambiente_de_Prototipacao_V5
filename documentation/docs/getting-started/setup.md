@@ -119,7 +119,7 @@ O Design System Vuexy está catalogado em Storybook separado:
 3. **Integrar** no template Vue 3
 4. **Estilizar** usando classes CSS do Vuexy
 
-## 🤖 Configuração do Claude AI
+## <span class="material-symbols-outlined">smart_toy</span> Configuração do Claude AI
 
 Este projeto é otimizado para desenvolvimento com Claude AI:
 
@@ -147,7 +147,7 @@ Como designer usando Claude:
 
 Não é necessário conhecimento profundo de Vue ou JavaScript!
 
-## 🧪 Testes
+## <span class="material-symbols-outlined">science</span> Testes
 
 Execute os testes (quando disponíveis):
 
@@ -210,7 +210,7 @@ Agora que o ambiente está configurado:
 3. Consulte o [template de jornada](/docs/templates/journey-template)
 4. Acesse o [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy)
 
-## 🆘 Suporte
+## <span class="material-symbols-outlined">sos</span> Suporte
 
 Em caso de problemas:
 

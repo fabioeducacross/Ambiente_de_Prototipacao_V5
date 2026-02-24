@@ -66,7 +66,7 @@ stateDiagram-v2
 | Início | Animação de entrada | "Vamos lá!" |
 | Acerto | Som + visual | <IconSparkle /> +10 pontos |
 | Erro | Feedback gentil | "Tente de novo!" |
-| Conclusão | Celebração | 🎉 Confetti + medalha |
+| Conclusão | Celebração | <span class="material-symbols-outlined">celebration</span> Confetti + medalha |
 
 ---
 

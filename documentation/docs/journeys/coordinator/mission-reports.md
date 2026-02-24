@@ -458,7 +458,7 @@ sequenceDiagram
   - <IconDocument /> PDF (visual completo)
   - <IconChart /> Excel (.xlsx) - dados tabulares
   - <IconClipboard /> CSV - dados brutos
-  - 📷 PNG - gráficos como imagens
+  - <span class="material-symbols-outlined">photo_camera</span> PNG - gráficos como imagens
 - Opções de conteúdo:
   - [ ] Dashboard completo
   - [ ] Lista de missões
@@ -931,10 +931,10 @@ watch([networkGroup, institution], () => {
 - Satisfação dos gestores (NPS)
 
 ### Metas (TO-BE)
-- ⬆️ Frequência de acesso: de 2x/semana para 4x/semana
-- ⬇️ Tempo para identificar problema: de 5 dias para 1 dia
-- ⬆️ Taxa de intervenção: de 40% para 75%
-- ⬆️ NPS de gestores: de 7.0 para 8.5
+- <span class="material-symbols-outlined">arrow_upward</span> Frequência de acesso: de 2x/semana para 4x/semana
+- <span class="material-symbols-outlined">arrow_downward</span> Tempo para identificar problema: de 5 dias para 1 dia
+- <span class="material-symbols-outlined">arrow_upward</span> Taxa de intervenção: de 40% para 75%
+- <span class="material-symbols-outlined">arrow_upward</span> NPS de gestores: de 7.0 para 8.5
 
 ---
 

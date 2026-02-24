@@ -16,7 +16,7 @@ PRDs garantem que **produto, design e engenharia** estão alinhados sobre o "o q
 
 ---
 
-## 📋 Metadados
+## <span class="material-symbols-outlined">assignment</span> Metadados
 
 | Campo | Valor |
 |-------|-------|
@@ -32,7 +32,7 @@ PRDs garantem que **produto, design e engenharia** estão alinhados sobre o "o q
 
 ---
 
-## 🎯 1. Contexto e Problema
+## <span class="material-symbols-outlined">track_changes</span> 1. Contexto e Problema
 
 ### 1.1 Qual é o Problema?
 
@@ -91,7 +91,7 @@ Evidências:
 
 ---
 
-## 🎯 2. Objetivos e Métricas de Sucesso
+## <span class="material-symbols-outlined">track_changes</span> 2. Objetivos e Métricas de Sucesso
 
 ### 2.1 Objetivo da Feature
 
@@ -126,7 +126,7 @@ _"Reduzir o tempo de criação de missões custom de 30min para 10min, aumentand
 
 ---
 
-## 👤 3. Personas e User Stories
+## <span class="material-symbols-outlined">person</span> 3. Personas e User Stories
 
 ### 3.1 Personas Impactadas
 
@@ -151,7 +151,7 @@ _"Quando [situação], eu quero [motivação], para que eu possa [resultado espe
 
 ---
 
-## 🎨 4. Solução Proposta
+## <span class="material-symbols-outlined">palette</span> 4. Solução Proposta
 
 ### 4.1 Descrição da Solução
 
@@ -173,7 +173,7 @@ flowchart TD
     G --> H{Tudo OK?}
     H -->|Não| C
     H -->|Sim| I[Salva como rascunho<br/>ou publica]
-    I --> J[✅ Missão criada]
+    I --> J[<span class="material-symbols-outlined">check_circle</span> Missão criada]
     
     style J fill:#10B981,color:#fff
 ```
@@ -222,7 +222,7 @@ flowchart TD
 
 ---
 
-## 🚫 5. Fora do Escopo (Não Vamos Fazer)
+## <span class="material-symbols-outlined">block</span> 5. Fora do Escopo (Não Vamos Fazer)
 
 **O que explicitamente NÃO está incluído nesta versão:**
 
@@ -236,7 +236,7 @@ _"Criação colaborativa requer infraestrutura de real-time que não temos hoje.
 
 ---
 
-## 🔍 6. Considerações de Design
+## <span class="material-symbols-outlined">search</span> 6. Considerações de Design
 
 ### 6.1 Princípios de UX
 
@@ -258,7 +258,7 @@ _"Criação colaborativa requer infraestrutura de real-time que não temos hoje.
 
 ---
 
-## 🛠️ 7. Considerações Técnicas
+## <span class="material-symbols-outlined">handyman</span> 7. Considerações Técnicas
 
 ### 7.1 Dependências
 
@@ -282,7 +282,7 @@ _"Criação colaborativa requer infraestrutura de real-time que não temos hoje.
 
 ---
 
-## 🚀 8. Plano de Lançamento
+## <span class="material-symbols-outlined">rocket_launch</span> 8. Plano de Lançamento
 
 ### 8.1 Estratégia de Rollout
 
@@ -308,11 +308,11 @@ _"Criação colaborativa requer infraestrutura de real-time que não temos hoje.
 - [ ] Artigo na base de conhecimento
 
 **Mensagem-chave:**
-_"Agora você cria missões personalizadas em menos de 10 minutos! 🎉"_
+_"Agora você cria missões personalizadas em menos de 10 minutos! <span class="material-symbols-outlined">celebration</span>"_
 
 ---
 
-## ✅ 9. Critérios de Aceitação
+## <span class="material-symbols-outlined">check_circle</span> 9. Critérios de Aceitação
 
 **A feature está pronta quando:**
 
@@ -327,7 +327,7 @@ _"Agora você cria missões personalizadas em menos de 10 minutos! 🎉"_
 
 ---
 
-## 📚 10. Anexos e Referências
+## <span class="material-symbols-outlined">library_books</span> 10. Anexos e Referências
 
 **Links úteis:**
 - [Pesquisa de Usuários](link-para-research)
@@ -342,14 +342,14 @@ _"Agora você cria missões personalizadas em menos de 10 minutos! 🎉"_
 
 ---
 
-## 🔄 11. Revisões e Aprovações
+## <span class="material-symbols-outlined">sync</span> 11. Revisões e Aprovações
 
 | Stakeholder | Data | Status | Comentários |
 |-------------|------|--------|-------------|
-| Product Manager | YYYY-MM-DD | ✅ Aprovado | - |
-| Design Lead | YYYY-MM-DD | ⏳ Pendente | - |
-| Tech Lead | YYYY-MM-DD | ⏳ Pendente | - |
-| QA Lead | YYYY-MM-DD | ⏳ Pendente | - |
+| Product Manager | YYYY-MM-DD | <span class="material-symbols-outlined">check_circle</span> Aprovado | - |
+| Design Lead | YYYY-MM-DD | <span class="material-symbols-outlined">hourglass_empty</span> Pendente | - |
+| Tech Lead | YYYY-MM-DD | <span class="material-symbols-outlined">hourglass_empty</span> Pendente | - |
+| QA Lead | YYYY-MM-DD | <span class="material-symbols-outlined">hourglass_empty</span> Pendente | - |
 
 ---
 

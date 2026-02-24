@@ -16,7 +16,7 @@ PDRs capturam o **"por quê"** de decisões críticas, evitando que o time refa�
 
 ---
 
-## 📋 Metadados
+## <span class="material-symbols-outlined">assignment</span> Metadados
 
 | Campo | Valor |
 |-------|-------|
@@ -31,7 +31,7 @@ PDRs capturam o **"por quê"** de decisões críticas, evitando que o time refa�
 
 ---
 
-## 🎯 1. Contexto e Problema
+## <span class="material-symbols-outlined">track_changes</span> 1. Contexto e Problema
 
 ### 1.1 Qual é a Decisão?
 
@@ -77,13 +77,13 @@ Observamos que o ranking nacional desmotivava alunos de escolas públicas perif�
 
 **Exemplo:**
 ```
-✓ Impacto em experiência do usuário ativo
-✓ Risco de churn de clientes (5 escolas ameaçaram cancelar)
+<span class="material-symbols-outlined">check</span> Impacto em experiência do usuário ativo
+<span class="material-symbols-outlined">check</span> Risco de churn de clientes (5 escolas ameaçaram cancelar)
 ```
 
 ---
 
-## 🤔 2. Alternativas Consideradas
+## <span class="material-symbols-outlined">help</span> 2. Alternativas Consideradas
 
 ### Alternativa 1: [Nome da Alternativa]
 
@@ -92,17 +92,17 @@ Observamos que o ranking nacional desmotivava alunos de escolas públicas perif�
 _Como essa alternativa funciona?_
 
 **Prós:**
-- ✅ Vantagem 1
-- ✅ Vantagem 2
-- ✅ Vantagem 3
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 1
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 2
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 3
 
 **Contras:**
-- ❌ Desvantagem 1
-- ❌ Desvantagem 2
-- ❌ Desvantagem 3
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 1
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 2
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 3
 
 **Esforço de implementação:**  
-🟢 Baixo / 🟡 Médio / 🔴 Alto
+<span class="material-symbols-outlined" class="ms-success">circle</span> Baixo / <span class="material-symbols-outlined" class="ms-warning">circle</span> Médio / <span class="material-symbols-outlined" class="ms-danger">circle</span> Alto
 
 ---
 
@@ -113,15 +113,15 @@ _Como essa alternativa funciona?_
 _Como essa alternativa funciona?_
 
 **Prós:**
-- ✅ Vantagem 1
-- ✅ Vantagem 2
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 1
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 2
 
 **Contras:**
-- ❌ Desvantagem 1
-- ❌ Desvantagem 2
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 1
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 2
 
 **Esforço de implementação:**  
-🟢 Baixo / 🟡 Médio / 🔴 Alto
+<span class="material-symbols-outlined" class="ms-success">circle</span> Baixo / <span class="material-symbols-outlined" class="ms-warning">circle</span> Médio / <span class="material-symbols-outlined" class="ms-danger">circle</span> Alto
 
 ---
 
@@ -132,17 +132,17 @@ _Como essa alternativa funciona?_
 _Como essa alternativa funciona?_
 
 **Prós:**
-- ✅ Vantagem 1
+- <span class="material-symbols-outlined">check_circle</span> Vantagem 1
 
 **Contras:**
-- ❌ Desvantagem 1
+- <span class="material-symbols-outlined">cancel</span> Desvantagem 1
 
 **Esforço de implementação:**  
-🟢 Baixo / 🟡 Médio / 🔴 Alto
+<span class="material-symbols-outlined" class="ms-success">circle</span> Baixo / <span class="material-symbols-outlined" class="ms-warning">circle</span> Médio / <span class="material-symbols-outlined" class="ms-danger">circle</span> Alto
 
 ---
 
-## 📊 3. Análise Comparativa
+## <span class="material-symbols-outlined">bar_chart</span> 3. Análise Comparativa
 
 ### Matriz de Decisão
 
@@ -166,9 +166,9 @@ graph LR
     A --> C[Alt 2: Nacional + filtro por região]
     A --> D[Alt 3: Desabilitar ranking]
     
-    B --> B1[✅ Preserva motivação<br/>✅ Fácil implementar<br/>❌ Menos competitivo]
-    C --> C1[✅ Mantém competição<br/>❌ Complexo de implementar<br/>❌ Parcialmente resolve]
-    D --> D1[✅ Zero manutenção<br/>❌ Perde gamificação<br/>❌ Não é diferencial]
+    B --> B1[<span class="material-symbols-outlined">check_circle</span> Preserva motivação<br/><span class="material-symbols-outlined">check_circle</span> Fácil implementar<br/><span class="material-symbols-outlined">cancel</span> Menos competitivo]
+    C --> C1[<span class="material-symbols-outlined">check_circle</span> Mantém competição<br/><span class="material-symbols-outlined">cancel</span> Complexo de implementar<br/><span class="material-symbols-outlined">cancel</span> Parcialmente resolve]
+    D --> D1[<span class="material-symbols-outlined">check_circle</span> Zero manutenção<br/><span class="material-symbols-outlined">cancel</span> Perde gamificação<br/><span class="material-symbols-outlined">cancel</span> Não é diferencial]
     
     B -.Escolhida.-> E[PDR-XXX: Ranking por turma]
     
@@ -178,7 +178,7 @@ graph LR
 
 ---
 
-## ✅ 4. Decisão Tomada
+## <span class="material-symbols-outlined">check_circle</span> 4. Decisão Tomada
 
 ### 4.1 Qual Alternativa Escolhemos?
 
@@ -206,8 +206,8 @@ para nossa persona principal (aluno de escola pública).
 
 **O que estamos sacrificando:**
 
-- ⚠️ Trade-off 1: [Descrição]
-- ⚠️ Trade-off 2: [Descrição]
+- <span class="material-symbols-outlined">warning</span> Trade-off 1: [Descrição]
+- <span class="material-symbols-outlined">warning</span> Trade-off 2: [Descrição]
 
 **Por que vale a pena:**
 
@@ -215,7 +215,7 @@ _"Aceitamos esses trade-offs porque [justificativa]."_
 
 ---
 
-## 📈 5. Consequências Esperadas
+## <span class="material-symbols-outlined">trending_up</span> 5. Consequências Esperadas
 
 ### 5.1 Impacto Positivo
 
@@ -269,11 +269,11 @@ Então vamos:
 ```
 
 **Custo de reversão:**  
-🟢 Baixo / 🟡 Médio / 🔴 Alto
+<span class="material-symbols-outlined" class="ms-success">circle</span> Baixo / <span class="material-symbols-outlined" class="ms-warning">circle</span> Médio / <span class="material-symbols-outlined" class="ms-danger">circle</span> Alto
 
 ---
 
-## 🔗 6. Impacto em Outras Partes do Produto
+## <span class="material-symbols-outlined">link</span> 6. Impacto em Outras Partes do Produto
 
 ### 6.1 Funcionalidades Afetadas
 
@@ -300,16 +300,16 @@ Então vamos:
 
 ---
 
-## 👥 7. Stakeholders e Discussão
+## <span class="material-symbols-outlined">group</span> 7. Stakeholders e Discussão
 
 ### 7.1 Quem Participou da Decisão?
 
 | Nome | Papel | Posição |
 |------|-------|---------|
-| [Nome 1] | PM Lead | ✅ A favor |
-| [Nome 2] | Tech Lead | ✅ A favor |
-| [Nome 3] | Designer | ⚠️ Neutro |
-| [Nome 4] | Customer Success | ✅ A favor |
+| [Nome 1] | PM Lead | <span class="material-symbols-outlined">check_circle</span> A favor |
+| [Nome 2] | Tech Lead | <span class="material-symbols-outlined">check_circle</span> A favor |
+| [Nome 3] | Designer | <span class="material-symbols-outlined">warning</span> Neutro |
+| [Nome 4] | Customer Success | <span class="material-symbols-outlined">check_circle</span> A favor |
 
 ---
 
@@ -319,7 +319,7 @@ Então vamos:
 
 **Resposta:** _"Concordamos parcialmente, mas [contra-argumento Z com dados]"_
 
-**Resolução:** ✅ Resolvida / ⏳ Pendente / ❌ Não resolvida
+**Resolução:** <span class="material-symbols-outlined">check_circle</span> Resolvida / <span class="material-symbols-outlined">hourglass_empty</span> Pendente / <span class="material-symbols-outlined">cancel</span> Não resolvida
 
 ---
 
@@ -327,11 +327,11 @@ Então vamos:
 
 **Resposta:** _"[...]"_
 
-**Resolução:** ✅ Resolvida / ⏳ Pendente / ❌ Não resolvida
+**Resolução:** <span class="material-symbols-outlined">check_circle</span> Resolvida / <span class="material-symbols-outlined">hourglass_empty</span> Pendente / <span class="material-symbols-outlined">cancel</span> Não resolvida
 
 ---
 
-## 📚 8. Referências e Fontes
+## <span class="material-symbols-outlined">library_books</span> 8. Referências e Fontes
 
 **Dados que embasaram a decisão:**
 
@@ -348,7 +348,7 @@ Então vamos:
 
 ---
 
-## 🔄 9. Histórico de Alterações
+## <span class="material-symbols-outlined">sync</span> 9. Histórico de Alterações
 
 | Data | Autor | Mudança | Motivo |
 |------|-------|---------|--------|
@@ -358,7 +358,7 @@ Então vamos:
 
 ---
 
-## 📋 10. Checklist de Qualidade
+## <span class="material-symbols-outlined">assignment</span> 10. Checklist de Qualidade
 
 **Este PDR está completo quando:**
 
@@ -392,7 +392,7 @@ Então vamos:
 
 ---
 
-## 📌 Exemplos de PDRs Reais
+## <span class="material-symbols-outlined">push_pin</span> Exemplos de PDRs Reais
 
 <details>
 <summary><strong>Exemplo 1: PDR-001 - Ranking por Turma</strong></summary>
@@ -446,7 +446,7 @@ Se professores puderem desabilitar, perde-se rastreabilidade de cobertura curric
 87% dos gestores consultados consideram isso "crítico".
 
 ### Trade-offs Aceitos
-- ⚠️ Professores com turmas atípicas (inclusão, reforço) ficam sem flexibilidade
+- <span class="material-symbols-outlined">warning</span> Professores com turmas atípicas (inclusão, reforço) ficam sem flexibilidade
 - **Mitigação:** Permitir criar missões custom como complemento
 
 ### Referência

@@ -26,7 +26,7 @@ Metodologia completa para criar protótipos validados com Git branches e deploy 
 4. **Validar** - Deploy preview em Vercel para testes
 5. **Migrar** - Código aprovado volta para educacross-frontoffice
 
-## 🏗️ Estratégia de Git Branches
+## <span class="material-symbols-outlined">construction</span> Estratégia de Git Branches
 
 ```mermaid
 graph TB
@@ -257,7 +257,7 @@ Tested with 10 teachers, 95% approval rate.
 Closes #42"
 ```
 
-## 🧪 Testando Protótipos
+## <span class="material-symbols-outlined">science</span> Testando Protótipos
 
 ### Testes Locais
 
@@ -386,7 +386,7 @@ Antes de considerar um protótipo pronto para validação:
 - [ ] NPS > 7
 - [ ] Feedback positivo majoritário
 
-## 🆘 Troubleshooting
+## <span class="material-symbols-outlined">sos</span> Troubleshooting
 
 ### Branch não aparece no Vercel
 

@@ -10,7 +10,7 @@ O Educacross tem como compromisso ser uma plataforma inclusiva. No **Ambiente de
 
 ---
 
-## 🏗️ Pilares da Inclusão
+## <span class="material-symbols-outlined">construction</span> Pilares da Inclusão
 
 ### 1. Percepção (Perceivable)
 *   **Contraste de Cores**: Garantimos um contraste mínimo de **4.5:1** para texto normal e **3:1** para texto grande.
@@ -28,7 +28,7 @@ O Educacross tem como compromisso ser uma plataforma inclusiva. No **Ambiente de
 
 ---
 
-## 🛠️ Ferramentas de Validação
+## <span class="material-symbols-outlined">handyman</span> Ferramentas de Validação
 
 Para garantir a qualidade, utilizamos:
 *   **Lighthouse**: Auditoria constante de acessibilidade no build do Docusaurus.
@@ -37,7 +37,7 @@ Para garantir a qualidade, utilizamos:
 
 ---
 
-## 🎨 Cores e Acessibilidade no Calendário
+## <span class="material-symbols-outlined">palette</span> Cores e Acessibilidade no Calendário
 
 Conforme definido na [PDR 001](../decisions/PDR001-codificacao-eventos.md), a acessibilidade foi um fator chave na escolha da codificação dupla (Cor + Ícone):
 
@@ -48,7 +48,7 @@ Conforme definido na [PDR 001](../decisions/PDR001-codificacao-eventos.md), a ac
 
 ---
 
-## 📝 Checklist de Acessibilidade para Novos Componentes
+## <span class="material-symbols-outlined">edit_note</span> Checklist de Acessibilidade para Novos Componentes
 
 - [ ] Possui contraste adequado (4.5:1)?
 - [ ] É navegável via teclado?

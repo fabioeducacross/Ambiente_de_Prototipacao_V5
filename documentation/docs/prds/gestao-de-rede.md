@@ -12,7 +12,7 @@ Este documento detalha o funcionamento da **Gestão de Rede**, permitindo que ge
 
 ---
 
-## 📋 Metadados
+## <span class="material-symbols-outlined">assignment</span> Metadados
 
 | Campo | Valor |
 |-------|-------|
@@ -28,7 +28,7 @@ Este documento detalha o funcionamento da **Gestão de Rede**, permitindo que ge
 
 ---
 
-## 🎯 1. Contexto e Problema
+## <span class="material-symbols-outlined">track_changes</span> 1. Contexto e Problema
 
 ### 1.1 Qual é o Problema?
 
@@ -49,7 +49,7 @@ Gestores de grandes redes (secretarias de educação ou grupos escolares) operam
 
 ---
 
-## 🎯 2. Objetivos e Métricas de Sucesso
+## <span class="material-symbols-outlined">track_changes</span> 2. Objetivos e Métricas de Sucesso
 
 ### 2.1 Objetivo da Feature
 
@@ -65,7 +65,7 @@ Implementar um Dashboard Executivo e ferramentas de configuração global que pe
 
 ---
 
-## 🛠️ 3. Requisitos Funcionais
+## <span class="material-symbols-outlined">handyman</span> 3. Requisitos Funcionais
 
 ### 3.1 Painel do Gestor de Rede (Dashboard)
 - [ ] **Visão de Mapa**: Localização geográfica das escolas com indicadores de status (Verde/Amarelo/Vermelho).
@@ -79,14 +79,14 @@ Implementar um Dashboard Executivo e ferramentas de configuração global que pe
 
 ---
 
-## 🛠️ 4. Requisitos Não Funcionais
+## <span class="material-symbols-outlined">handyman</span> 4. Requisitos Não Funcionais
 
 - **Escalabilidade**: Suportar até 5.000 escolas em uma única rede sem perda de performance no dashboard.
 - **Segurança**: Permissões granulares - o gestor de uma escola não pode ver os dados detalhados de outra escola vizinha sem autorização da Rede.
 
 ---
 
-## 📈 5. Roadmap
+## <span class="material-symbols-outlined">trending_up</span> 5. Roadmap
 
 1. **MVP**: Dashboard consolidado com métricas de MAU e Conclusão de Missões.
 2. **Fase 2**: Ferramenta de configuração de Calendário Global.

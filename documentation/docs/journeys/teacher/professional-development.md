@@ -151,7 +151,7 @@ src/views/pages/teacher-context/development/
     <b-card class="mb-3 bg-gradient-primary text-white">
       <div class="d-flex align-items-center justify-content-between">
         <div>
-          <h3 class="text-white mb-2">Olá, {{ teacherName }}! 👋</h3>
+          <h3 class="text-white mb-2">Olá, {{ teacherName }}! <span class="material-symbols-outlined">waving_hand</span></h3>
           <p class="mb-0">Você completou <strong>{{ completedCoursesCount }} cursos</strong> este ano.</p>
           <p class="mb-0">Continue investindo no seu desenvolvimento!</p>
         </div>

@@ -143,7 +143,7 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: '📚 Documentação',
+          title: 'Documentação',
           items: [
             {
               label: 'Começar',
@@ -164,7 +164,7 @@ const config: Config = {
           ],
         },
         {
-          title: '🤝 Ajuda e Suporte',
+          title: 'Ajuda e Suporte',
           items: [
             {
               label: 'GitHub Discussions',
@@ -181,7 +181,7 @@ const config: Config = {
           ],
         },
         {
-          title: '🔗 Recursos',
+          title: 'Recursos',
           items: [
             {
               label: 'Design System Vuexy',
@@ -198,7 +198,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Educacross. Construído com ❤️ e Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Educacross. Construído com ♥ e Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

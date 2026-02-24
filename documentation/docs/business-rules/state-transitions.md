@@ -17,7 +17,7 @@ Garantir que **estados sejam consistentes** e que transições inválidas sejam 
 
 ---
 
-## 👤 Estados de Usuário
+## <span class="material-symbols-outlined">person</span> Estados de Usuário
 
 ### Diagrama de Estados
 
@@ -48,9 +48,9 @@ stateDiagram-v2
 | Estado Atual | Próximo Estado | Quem Pode Executar | Regra | Reversível? |
 |--------------|----------------|--------------------| ------|-------------|
 | **Pendente** | Ativo | <IconAdmin /> Admin | Aprovação manual | Sim → Inativo |
-| **Pendente** | Recusado | <IconAdmin /> Admin | Rejeição com motivo | ❌ Não |
-| **Ativo** | Inativo | <IconAdmin /> Admin | Desativação temporária | ✅ Sim |
-| **Inativo** | Ativo | <IconAdmin /> Admin | Reativação | ✅ Sim |
+| **Pendente** | Recusado | <IconAdmin /> Admin | Rejeição com motivo | <span class="material-symbols-outlined">cancel</span> Não |
+| **Ativo** | Inativo | <IconAdmin /> Admin | Desativação temporária | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Inativo** | Ativo | <IconAdmin /> Admin | Reativação | <span class="material-symbols-outlined">check_circle</span> Sim |
 
 ### Regras de Estado
 
@@ -63,7 +63,7 @@ stateDiagram-v2
 
 ---
 
-## 📚 Estados de Missão
+## <span class="material-symbols-outlined">library_books</span> Estados de Missão
 
 ### Diagrama de Ciclo de Vida
 
@@ -99,12 +99,12 @@ stateDiagram-v2
 
 | Estado Atual | Próximo Estado | Quem Pode | Condições | Reversível? |
 |--------------|----------------|-----------|-----------|-------------|
-| **Rascunho** | Publicada | <IconTeacher /> Professor | Mín. 5 questões | ✅ Sim |
-| **Publicada** | Habilitada | <IconTeacher /> Professor | Turma ativa | ❌ Não pode desabilitar |
-| **Habilitada** | Em Andamento | <IconStudent /> Aluno | Clicar em "Iniciar" | ✅ Pode pausar |
-| **Em Andamento** | Pausada | Sistema/Aluno | Timeout ou pausa manual | ✅ Pode retomar |
-| **Em Andamento** | Concluída | Sistema | Última questão respondida | ❌ Não |
-| **Rascunho/Publicada** | Arquivada | <IconTeacher /> Professor | Confirmação | ⚠️ Difícil reverter |
+| **Rascunho** | Publicada | <IconTeacher /> Professor | Mín. 5 questões | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Publicada** | Habilitada | <IconTeacher /> Professor | Turma ativa | <span class="material-symbols-outlined">cancel</span> Não pode desabilitar |
+| **Habilitada** | Em Andamento | <IconStudent /> Aluno | Clicar em "Iniciar" | <span class="material-symbols-outlined">check_circle</span> Pode pausar |
+| **Em Andamento** | Pausada | Sistema/Aluno | Timeout ou pausa manual | <span class="material-symbols-outlined">check_circle</span> Pode retomar |
+| **Em Andamento** | Concluída | Sistema | Última questão respondida | <span class="material-symbols-outlined">cancel</span> Não |
+| **Rascunho/Publicada** | Arquivada | <IconTeacher /> Professor | Confirmação | <span class="material-symbols-outlined">warning</span> Difícil reverter |
 
 ### Regras de Estado de Missão
 
@@ -118,7 +118,7 @@ stateDiagram-v2
 
 ---
 
-## 🏫 Estados de Turma
+## <span class="material-symbols-outlined">school</span> Estados de Turma
 
 ### Diagrama de Estados
 
@@ -168,7 +168,7 @@ stateDiagram-v2
 
 ---
 
-## 🎯 Estados de Progresso do Aluno
+## <span class="material-symbols-outlined">track_changes</span> Estados de Progresso do Aluno
 
 ### Diagrama de Progresso em Missão
 
@@ -201,11 +201,11 @@ stateDiagram-v2
 
 | Estado Atual | Próximo Estado | Gatilho | Dados Salvos | Reversível? |
 |--------------|----------------|---------|--------------|-------------|
-| **Não Iniciada** | Em Andamento | Clicar "Iniciar Missão" | Timestamp início | ✅ Sim |
-| **Em Andamento** | Em Andamento | Responder questão | Respostas + pontos | ✅ Sim |
-| **Em Andamento** | Pausada | 30 min inativo | Progresso preservado | ✅ Sim |
-| **Pausada** | Em Andamento | Clicar "Continuar" | Carrega progresso salvo | ✅ Sim |
-| **Em Andamento** | Concluída | Responder última questão | Pontuação final | ❌ Não |
+| **Não Iniciada** | Em Andamento | Clicar "Iniciar Missão" | Timestamp início | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Em Andamento** | Em Andamento | Responder questão | Respostas + pontos | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Em Andamento** | Pausada | 30 min inativo | Progresso preservado | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Pausada** | Em Andamento | Clicar "Continuar" | Carrega progresso salvo | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Em Andamento** | Concluída | Responder última questão | Pontuação final | <span class="material-symbols-outlined">cancel</span> Não |
 
 ### Regras de Progresso
 
@@ -218,7 +218,7 @@ stateDiagram-v2
 
 ---
 
-## 🔔 Estados de Notificação
+## <span class="material-symbols-outlined">notifications</span> Estados de Notificação
 
 ### Ciclo de Vida de Notificação
 
@@ -250,7 +250,7 @@ stateDiagram-v2
 
 ---
 
-## 🎓 Estados de Perfil
+## <span class="material-symbols-outlined">school</span> Estados de Perfil
 
 ### Diagrama de Aprovação de Perfil
 
@@ -286,7 +286,7 @@ sequenceDiagram
     participant U as Usuário
     
     A->>S: Atribui perfil "Professor"<br/>ao Usuário João
-    S->>U: 📧 Email: "Você foi atribuído<br/>como Professor"
+    S->>U: <span class="material-symbols-outlined">email</span> Email: "Você foi atribuído<br/>como Professor"
     
     U->>S: Acessa link no email
     S-->>U: Exibe tela:<br/>"Aceitar perfil Professor?"
@@ -294,13 +294,13 @@ sequenceDiagram
     alt Usuário aceita
         U->>S: Clica "Aceitar"
         S->>S: Muda estado → Ativo
-        S-->>U: ✅ "Perfil ativado"
-        S->>A: 📧 "João aceitou perfil"
+        S-->>U: <span class="material-symbols-outlined">check_circle</span> "Perfil ativado"
+        S->>A: <span class="material-symbols-outlined">email</span> "João aceitou perfil"
     else Usuário recusa
         U->>S: Clica "Recusar"
         S->>S: Muda estado → Recusado
         S-->>U: "Perfil removido"
-        S->>A: 📧 "João recusou perfil"
+        S->>A: <span class="material-symbols-outlined">email</span> "João recusou perfil"
     end
 ```
 
@@ -315,7 +315,7 @@ sequenceDiagram
 
 ---
 
-## 📊 Estados de Relatório
+## <span class="material-symbols-outlined">bar_chart</span> Estados de Relatório
 
 ### Ciclo de Geração de Relatório
 
@@ -353,7 +353,7 @@ stateDiagram-v2
 
 ---
 
-## 🔗 Referências
+## <span class="material-symbols-outlined">link</span> Referências
 
 - [Regras de Domínio](./domain-rules) - Entidades base
 - [Controle de Acesso](./access-control) - Quem pode mudar estados

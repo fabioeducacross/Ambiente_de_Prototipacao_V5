@@ -17,20 +17,20 @@ Cada perfil tem **apenas as permissões necessárias** para realizar suas funç�
 
 ---
 
-## 🎭 Matriz de Permissões Global
+## <span class="material-symbols-outlined">theater_comedy</span> Matriz de Permissões Global
 
 ### Visão Geral por Contexto
 
 | Funcionalidade | <IconAdmin /> Admin | <IconNetworkManager /> Gestor Rede | <IconDirector /> Diretor | <IconCoordinator /> Coordenador | <IconTeacher /> Professor | <IconStudent /> Aluno |
 |----------------|-----|------------|---------|--------------|-----------|-------|
-| **Gestão de Usuários** | ✅ Total | ✅ Sua rede | ✅ Sua instituição | ❌ Não | ❌ Não | ❌ Não |
-| **Gestão de Turmas** | ✅ Total | ✅ Sua rede | ✅ Sua instituição | ✅ Sua instituição | ❌ Não | ❌ Não |
-| **Habilitar Missões** | ✅ Total | ❌ Não | ❌ Não | ✅ Todas turmas | ✅ Suas turmas | ❌ Não |
-| **Realizar Missões** | ❌ Não | ❌ Não | ❌ Não | ❌ Não | ❌ Não | ✅ Sim |
-| **Ver Relatórios** | ✅ Total | ✅ Sua rede | ✅ Sua instituição | ✅ Sua instituição | ✅ Suas turmas | ❌ Não |
-| **Exportar Dados** | ✅ Total | ✅ Sua rede | ✅ Sua instituição | ✅ Sua instituição | ✅ Suas turmas | ❌ Não |
-| **Criar Missões Custom** | ❌ Não | ❌ Não | ❌ Não | ✅ Sim | ✅ Sim | ❌ Não |
-| **Configurar Sistema** | ✅ Total | ❌ Não | ❌ Não | ❌ Não | ❌ Não | ❌ Não |
+| **Gestão de Usuários** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">check_circle</span> Sua rede | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não |
+| **Gestão de Turmas** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">check_circle</span> Sua rede | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não |
+| **Habilitar Missões** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">check_circle</span> Todas turmas | <span class="material-symbols-outlined">check_circle</span> Suas turmas | <span class="material-symbols-outlined">cancel</span> Não |
+| **Realizar Missões** | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">check_circle</span> Sim |
+| **Ver Relatórios** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">check_circle</span> Sua rede | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">check_circle</span> Suas turmas | <span class="material-symbols-outlined">cancel</span> Não |
+| **Exportar Dados** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">check_circle</span> Sua rede | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">check_circle</span> Sua instituição | <span class="material-symbols-outlined">check_circle</span> Suas turmas | <span class="material-symbols-outlined">cancel</span> Não |
+| **Criar Missões Custom** | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">check_circle</span> Sim | <span class="material-symbols-outlined">check_circle</span> Sim | <span class="material-symbols-outlined">cancel</span> Não |
+| **Configurar Sistema** | <span class="material-symbols-outlined">check_circle</span> Total | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não | <span class="material-symbols-outlined">cancel</span> Não |
 
 ---
 
@@ -92,17 +92,17 @@ Ações de **Admin** devem ser registradas em **log de auditoria** para complian
 
 ```mermaid
 graph TD
-    GR[<IconNetworkManager /> Gestor de Rede] --> R[🌐 SUA Rede]
-    R --> I1[🏫 Instituição A]
-    R --> I2[🏫 Instituição B]
+    GR[<IconNetworkManager /> Gestor de Rede] --> R[<span class="material-symbols-outlined">language</span> SUA Rede]
+    R --> I1[<span class="material-symbols-outlined">school</span> Instituição A]
+    R --> I2[<span class="material-symbols-outlined">school</span> Instituição B]
     
-    I1 --> T1[📚 Todas turmas]
-    I2 --> T2[📚 Todas turmas]
+    I1 --> T1[<span class="material-symbols-outlined">library_books</span> Todas turmas]
+    I2 --> T2[<span class="material-symbols-outlined">library_books</span> Todas turmas]
     
-    T1 --> A1[👨‍🎓 Todos alunos]
-    T2 --> A2[👨‍🎓 Todos alunos]
+    T1 --> A1[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Todos alunos]
+    T2 --> A2[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Todos alunos]
     
-    OR[🌐 Outra Rede] -.->|Não vê| GR
+    OR[<span class="material-symbols-outlined">language</span> Outra Rede] -.->|Não vê| GR
     
     style GR fill:#7C3AED,color:#fff
     style R fill:#10B981,color:#fff
@@ -133,7 +133,7 @@ graph TD
 
 ```mermaid
 sequenceDiagram
-    participant D as 👔 Diretor
+    participant D as <span class="material-symbols-outlined">business_center</span> Diretor
     participant S as Sistema
     participant DB as Banco de Dados
     
@@ -170,11 +170,11 @@ sequenceDiagram
 | Aspecto | <IconDirector /> Diretor | <IconCoordinator /> Coordenador |
 |---------|----------|--------------|
 | **Foco** | Administrativo | Pedagógico |
-| **Gestão de Usuários** | ✅ Pode criar/editar | ❌ Não pode |
-| **Gestão de Turmas** | ✅ Pode criar/editar | ❌ Só visualiza |
-| **Habilitar Missões** | ❌ Não habilita | ✅ Habilita |
-| **Criar Missões Custom** | ❌ Não cria | ✅ Cria |
-| **Relatórios** | ✅ Administrativos + Pedagógicos | ✅ Só pedagógicos |
+| **Gestão de Usuários** | <span class="material-symbols-outlined">check_circle</span> Pode criar/editar | <span class="material-symbols-outlined">cancel</span> Não pode |
+| **Gestão de Turmas** | <span class="material-symbols-outlined">check_circle</span> Pode criar/editar | <span class="material-symbols-outlined">cancel</span> Só visualiza |
+| **Habilitar Missões** | <span class="material-symbols-outlined">cancel</span> Não habilita | <span class="material-symbols-outlined">check_circle</span> Habilita |
+| **Criar Missões Custom** | <span class="material-symbols-outlined">cancel</span> Não cria | <span class="material-symbols-outlined">check_circle</span> Cria |
+| **Relatórios** | <span class="material-symbols-outlined">check_circle</span> Administrativos + Pedagógicos | <span class="material-symbols-outlined">check_circle</span> Só pedagógicos |
 
 ---
 
@@ -201,20 +201,20 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant P as 👨‍🏫 Professor
+    participant P as <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Professor
     participant S as Sistema
     participant T as Turma 5º A
-    participant A as 👨‍🎓 Alunos
+    participant A as <span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Alunos
     
     P->>S: Tentar habilitar Missão X<br/>para Turma 5º A
     S->>S: Valida: Professor leciona<br/>na Turma 5º A?
     
     alt Professor leciona nesta turma
         S->>T: Habilita Missão X
-        S-->>P: ✅ Missão habilitada
+        S-->>P: <span class="material-symbols-outlined">check_circle</span> Missão habilitada
         S->>A: Notifica alunos
     else Professor NÃO leciona
-        S-->>P: ❌ Sem permissão
+        S-->>P: <span class="material-symbols-outlined">cancel</span> Sem permissão
     end
 ```
 
@@ -261,7 +261,7 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    A[👨‍🎓 Aluno faz login] --> B{Tem missões<br/>habilitadas?}
+    A[<span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Aluno faz login] --> B{Tem missões<br/>habilitadas?}
     B -->|Sim| C[Exibe menu de missões]
     B -->|Não| D[Exibe mensagem:<br/>"Aguarde seu professor<br/>liberar missões"]
     
@@ -278,7 +278,7 @@ graph TD
     
     K --> L{Última questão?}
     L -->|Não| G
-    L -->|Sim| M[✅ Missão concluída]
+    L -->|Sim| M[<span class="material-symbols-outlined">check_circle</span> Missão concluída]
     
     style A fill:#EC4899,color:#fff
     style I fill:#10B981,color:#fff
@@ -288,7 +288,7 @@ graph TD
 
 ---
 
-## 🔐 Regras de Segurança Adicionais
+## <span class="material-symbols-outlined">lock</span> Regras de Segurança Adicionais
 
 ### Troca de Contexto
 
@@ -308,7 +308,7 @@ graph TD
 
 ---
 
-## 🔗 Referências
+## <span class="material-symbols-outlined">link</span> Referências
 
 - [Regras de Domínio](./domain-rules) - Hierarquia organizacional
 - [Validações](./validation-rules) - Regras de dados

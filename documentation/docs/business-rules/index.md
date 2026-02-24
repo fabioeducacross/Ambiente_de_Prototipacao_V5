@@ -17,7 +17,7 @@ Garantir que todos entendam **o que o sistema deve fazer**, **quem pode fazer o 
 
 ---
 
-## 📋 Índice de Documentação
+## <span class="material-symbols-outlined">assignment</span> Índice de Documentação
 
 | Categoria | Descrição | Status |
 |-----------|-----------|--------|
@@ -29,7 +29,7 @@ Garantir que todos entendam **o que o sistema deve fazer**, **quem pode fazer o 
 
 ---
 
-## 🎯 Como Usar Esta Documentação
+## <span class="material-symbols-outlined">track_changes</span> Como Usar Esta Documentação
 
 ### Para Product Managers
 - Use as **tabelas de regras** para validar requisitos e escrever user stories
@@ -48,7 +48,7 @@ Garantir que todos entendam **o que o sistema deve fazer**, **quem pode fazer o 
 
 ---
 
-## 🔑 Conceitos Fundamentais
+## <span class="material-symbols-outlined">key</span> Conceitos Fundamentais
 
 ### Hierarquia de Usuários
 
@@ -79,7 +79,7 @@ graph TD
 
 ---
 
-## 🚦 Matriz de Prioridade
+## <span class="material-symbols-outlined">traffic</span> Matriz de Prioridade
 
 ### Criticidade das Regras
 
@@ -109,7 +109,7 @@ quadrantChart
 
 ---
 
-## 📊 Status da Documentação
+## <span class="material-symbols-outlined">bar_chart</span> Status da Documentação
 
 ### Cobertura por Categoria
 
@@ -123,13 +123,13 @@ quadrantChart
 
 ---
 
-## 🔗 Navegação Rápida
+## <span class="material-symbols-outlined">link</span> Navegação Rápida
 
 <div className="row">
   <div className="col col--6">
     <div className="card">
       <div className="card__header">
-        <h3>🎓 Contexto Professor</h3>
+        <h3><span class="material-symbols-outlined">school</span> Contexto Professor</h3>
       </div>
       <div className="card__body">
         <ul>
@@ -144,7 +144,7 @@ quadrantChart
   <div className="col col--6">
     <div className="card">
       <div className="card__header">
-        <h3>👨‍🎓 Contexto Aluno</h3>
+        <h3><span class="material-symbols-outlined">person</span>‍<span class="material-symbols-outlined">school</span> Contexto Aluno</h3>
       </div>
       <div className="card__body">
         <ul>
@@ -159,7 +159,7 @@ quadrantChart
   <div className="col col--6">
     <div className="card">
       <div className="card__header">
-        <h3>👔 Contexto Gestor</h3>
+        <h3><span class="material-symbols-outlined">business_center</span> Contexto Gestor</h3>
       </div>
       <div className="card__body">
         <ul>
@@ -174,7 +174,7 @@ quadrantChart
   <div className="col col--6">
     <div className="card">
       <div className="card__header">
-        <h3>⚙️ Contexto Admin</h3>
+        <h3><span class="material-symbols-outlined">settings</span> Contexto Admin</h3>
       </div>
       <div className="card__body">
         <ul>
@@ -189,7 +189,7 @@ quadrantChart
 
 ---
 
-## 🎯 Próximos Passos
+## <span class="material-symbols-outlined">track_changes</span> Próximos Passos
 
 - <IconCheck /> Todas as categorias principais documentadas
 - <IconClipboard /> Validar regras com stakeholders de produto

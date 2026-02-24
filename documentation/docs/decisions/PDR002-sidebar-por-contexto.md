@@ -6,14 +6,14 @@ description: Decisão sobre organização modular do FrontOffice (Calendário, S
 
 # PDR 002: Arquitetura Modular por Jornada
 
-*   **Status**: ✅ Aceito (atualizado)
+*   **Status**: <span class="material-symbols-outlined">check_circle</span> Aceito (atualizado)
 *   **Data**: 2026-02-23
 *   **Atualizado**: 2026-02-23
 *   **Autor**: Equipe de Produto / Frontend
 
 ---
 
-## 📋 Contexto
+## <span class="material-symbols-outlined">assignment</span> Contexto
 
 ### Problema original (v1 desta PDR)
 
@@ -25,7 +25,7 @@ Ao investigar o problema da Sidebar, foi identificado que **protótipos existiam
 
 ---
 
-## ⚖️ Decisão
+## <span class="material-symbols-outlined">balance</span> Decisão
 
 Decidimos **reorganizar o FrontOffice em módulos por jornada**, com pastas isoladas para cada domínio funcional:
 
@@ -38,12 +38,12 @@ Decidimos **reorganizar o FrontOffice em módulos por jornada**, com pastas isol
 
 ---
 
-## 📁 Nova Estrutura de Arquivos
+## <span class="material-symbols-outlined">folder</span> Nova Estrutura de Arquivos
 
 ```
 FrontOffice/src/
 ├── modules/
-│   ├── calendario/                          # 🗓️ Módulo Calendário
+│   ├── calendario/                          # <span class="material-symbols-outlined">calendar_month</span> Módulo Calendário
 │   │   ├── components/
 │   │   │   ├── atoms/                       # DayCell, Checkbox, DateCellLarge, etc
 │   │   │   ├── molecules/                   # CalendarHeader, CheckboxGroup, FilterSection, etc
@@ -74,7 +74,7 @@ FrontOffice/src/
 │   │           ├── MonthView.vue
 │   │           └── ListView.vue
 │   │
-│   └── sistema-de-ensino/                   # 📚 Módulo Sistema de Ensino
+│   └── sistema-de-ensino/                   # <span class="material-symbols-outlined">library_books</span> Módulo Sistema de Ensino
 │       ├── components/
 │       │   ├── TrilhasAZDrawer.vue
 │       │   ├── SubjectIcon.vue
@@ -86,7 +86,7 @@ FrontOffice/src/
 │       └── views/
 │           └── TrilhasAZ.vue                # Rota: /teacher/trilhas-az
 │
-├── shared/                                  # 🔗 Compartilhados entre módulos
+├── shared/                                  # <span class="material-symbols-outlined">link</span> Compartilhados entre módulos
 │   ├── components/
 │   │   ├── base/                            # Design System (EButton, EInput, ESelect, etc)
 │   │   │   └── index.js
@@ -119,7 +119,7 @@ FrontOffice/src/
 
 ---
 
-## 🔗 Mapeamento de Imports (Router)
+## <span class="material-symbols-outlined">link</span> Mapeamento de Imports (Router)
 
 ```javascript
 // Módulo Calendário
@@ -135,7 +135,7 @@ const TeacherDashboard    = () => import('../views/teacher/Dashboard.vue')
 
 ---
 
-## 🔀 Padrão de Imports nos Módulos
+## <span class="material-symbols-outlined">shuffle</span> Padrão de Imports nos Módulos
 
 | Tipo de dependência | Padrão de import |
 |---------------------|------------------|
@@ -146,12 +146,12 @@ const TeacherDashboard    = () => import('../views/teacher/Dashboard.vue')
 
 ---
 
-## 🔄 Alternativas Consideradas
+## <span class="material-symbols-outlined">sync</span> Alternativas Consideradas
 
 ### Alternativa A: Manter tudo flat em `components/` (status quo)
 *   **Contra**: Mistura de domínios, difícil saber o que pertence a cada módulo, alto risco de regressão cruzada.
 
-### Alternativa B: Módulos por jornada com shared (escolhida ✅)
+### Alternativa B: Módulos por jornada com shared (escolhida <span class="material-symbols-outlined">check_circle</span>)
 *   **Pró**: Isolamento por domínio, cada módulo é auto-contido, fácil onboarding, menor risco de regressão cruzada.
 *   **Contra**: Mais pastas, imports mais longos (mitigado por barrel exports e alias `@`).
 
@@ -160,7 +160,7 @@ const TeacherDashboard    = () => import('../views/teacher/Dashboard.vue')
 
 ---
 
-## ⚠️ Riscos e Mitigações
+## <span class="material-symbols-outlined">warning</span> Riscos e Mitigações
 
 | Risco | Mitigação |
 |-------|-----------|
@@ -171,7 +171,7 @@ const TeacherDashboard    = () => import('../views/teacher/Dashboard.vue')
 
 ---
 
-## 📝 Notas de Migração (23/02/2026)
+## <span class="material-symbols-outlined">edit_note</span> Notas de Migração (23/02/2026)
 
 - **40 arquivos** movidos para `modules/calendario/`
 - **5 arquivos** movidos para `modules/sistema-de-ensino/`
