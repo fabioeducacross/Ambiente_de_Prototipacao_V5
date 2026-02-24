@@ -17,6 +17,21 @@
   <!-- Material Symbols Outlined -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- SPA redirect restore (spa-github-pages) -->
+  <!-- Converte query string /?/rota de volta para history.replaceState -->
+  <script>
+    ;(function(l) {
+      if (l.search[1] === '/') {
+        var decoded = l.search.slice(1).split('&').map(function(s) {
+          return s.replace(/~and~/g, '&')
+        }).join('?')
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        )
+      }
+    }(window.location))
+  </script>
 </head>
 
 <body>

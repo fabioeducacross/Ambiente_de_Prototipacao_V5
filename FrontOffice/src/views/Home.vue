@@ -2,6 +2,9 @@
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
+// URL da wiki: localhost:3000 em dev, GitHub Pages /wiki/ em build
+const wikiUrl = __WIKI_URL__
+
 /** Converte hex + alpha (0-1) para rgba */
 const hexAlpha = (hex, a) => {
   const r = parseInt(hex.slice(1, 3), 16)
@@ -167,7 +170,7 @@ const personas = ref([
         <RouterLink class="nav-link" to="/sobre">
           <span class="material-symbols-outlined">info</span> Sobre
         </RouterLink>
-        <a class="nav-link" href="http://localhost:3000" target="_blank">
+        <a class="nav-link" :href="wikiUrl" target="_blank" rel="noopener">
           <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
           <span class="material-symbols-outlined nav-external">open_in_new</span>
         </a>
