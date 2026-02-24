@@ -23,36 +23,36 @@
       <!-- ── Content (scrollable) ── -->
       <div class="drawer-body">
 
-        <!-- Card: info da missão, contadores e período -->
-        <div class="drawer-card">
+        <!-- Seção: info da missão -->
+        <div class="drawer-section">
           <div class="drawer-label">Missão selecionada</div>
           <div class="drawer-mission">{{ chapter?.nome || '—' }}</div>
-
           <div class="drawer-meta">
             <div>Total de alunos: <strong>{{ totalStudents }}</strong></div>
             <div>Alunos na missão: <strong>{{ linkedCount }}</strong> de <strong>{{ totalStudents }}</strong></div>
           </div>
+        </div>
 
-          <div v-if="isFirstEnable && mode === 'enviar'" class="drawer-hint">
+        <!-- Seção: hint -->
+        <div v-if="mode === 'enviar'" class="drawer-section drawer-section--hint">
+          <div v-if="isFirstEnable" class="drawer-hint">
             Primeiro envio desta missão: selecione os alunos para habilitar e enviar.
           </div>
-
-          <div v-else-if="mode === 'enviar'" class="drawer-hint drawer-hint--neutral">
+          <div v-else class="drawer-hint drawer-hint--neutral">
             Reenvio da missão: selecione os alunos para enviar novamente.
           </div>
+        </div>
 
-          <!-- Período -->
-          <div class="drawer-periodo">
-            <label class="check-row">
-              <input type="checkbox" v-model="periodEnabled" />
-              Definir período
-            </label>
-
-            <div v-if="periodEnabled" class="drawer-date-row">
-              <div class="date-field">
-                <span class="field-label">Data de fim</span>
-                <input type="date" v-model="endDateValue" class="date-input" />
-              </div>
+        <!-- Seção: período -->
+        <div class="drawer-section">
+          <label class="check-row">
+            <input type="checkbox" v-model="periodEnabled" />
+            Definir período
+          </label>
+          <div v-if="periodEnabled" class="drawer-date-row">
+            <div class="date-field">
+              <span class="field-label">Data de fim</span>
+              <input type="date" v-model="endDateValue" class="date-input" />
             </div>
           </div>
         </div>
@@ -400,14 +400,19 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   gap: 16px;
 }
 
-/* ── Card info missão ─────────────────────────────────────────────────────── */
-.drawer-card {
-  background: #f9f9fb;
-  border-radius: 8px;
-  padding: 18px 20px;
+/* ── Seções flat (padrão Vuexy customizer-section) ───────────────────────── */
+.drawer-section {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ebe9f1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+
+.drawer-section--hint {
+  padding-top: 0;
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .drawer-label {
@@ -452,15 +457,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 }
 
 /* ── Período ──────────────────────────────────────────────────────────────── */
-.drawer-periodo {
-  border-top: 1px solid #ebe9f1;
-  padding-top: 12px;
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .check-row {
   display: flex;
   align-items: center;
