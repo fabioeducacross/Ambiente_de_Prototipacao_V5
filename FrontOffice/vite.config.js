@@ -1,6 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
+import { execSync } from 'node:child_process'
+
+// Lê o branch e o short SHA do git em tempo de build/dev
+function gitInfo() {
+  try {
+    const branch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim()
+    const sha    = execSync('git rev-parse --short HEAD',         { encoding: 'utf8' }).trim()
+    return { branch, sha }
+  } catch {
+    return { branch: 'unknown', sha: '0000000' }
+  }
+}
+
+const { branch, sha } = gitInfo()
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
@@ -15,6 +29,10 @@ export default defineConfig(({ command }) => ({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  define: {
+    __GIT_BRANCH__: JSON.stringify(branch),
+    __GIT_SHA__:    JSON.stringify(sha)
   },
   server: {
     port: 5174,

@@ -211,7 +211,7 @@
     </nav>
 
     <footer class="sidebar-footer">
-      <span class="version-note">Calendário v1.2</span>
+      <span class="version-note" :title="gitSha">{{ gitBranch }}</span>
     </footer>
   </aside>
 </template>
@@ -219,6 +219,10 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
+
+// Injetado pelo vite.config.js via define
+const gitBranch = __GIT_BRANCH__
+const gitSha    = __GIT_SHA__
 
 const route = useRoute()
 
