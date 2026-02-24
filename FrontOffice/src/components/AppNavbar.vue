@@ -70,11 +70,11 @@ defineEmits(['toggle-sidebar'])
 
 <style scoped>
 .app-navbar {
-  height: 3.875rem;
+  height: 70px;
   background: #ffffff;
   display: flex;
   align-items: center;
-  padding: 0.8rem 1.4rem;
+  padding: 0 1.25rem;
   justify-content: space-between;
   position: fixed;
   top: 0;
