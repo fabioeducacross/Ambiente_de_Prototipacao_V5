@@ -8,7 +8,7 @@
 
     <div class="nav-center">
       <RouterLink to="/" class="brand">
-        <img src="https://fabioeducacross.github.io/educacross-assets/logo-educacross.svg" alt="Educacross" class="logo" />
+        <img :src="logoUrl" alt="Educacross" class="logo" />
       </RouterLink>
     </div>
 
@@ -22,7 +22,7 @@
         <div class="user-name">Isabela Cross</div>
         <div class="user-role">Professor</div>
         <div class="user-avatar">
-          <img src="https://fabioeducacross.github.io/educacross-assets/avatar-owl.png" alt="Avatar" />
+          <img :src="avatarUrl" alt="Avatar" />
         </div>
       </div>
     </div>
@@ -32,6 +32,8 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
+import logoUrl from '../assets/images/MainLogo.svg'
+import avatarUrl from '../assets/images/avatar-default.png'
 
 defineEmits(['toggle-sidebar'])
 </script>
