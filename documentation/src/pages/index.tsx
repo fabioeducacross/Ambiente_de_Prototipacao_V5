@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -10,7 +10,7 @@ import PopularDocs from '@site/src/components/PopularDocs';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -106,11 +106,11 @@ const categories = [
 ];
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={`Início`}
-      description="Documentação completa da plataforma Educacross - Regras de negócio, PRDs, jornadas e guias técnicos">
+      description="Guia de Produto e Engenharia da plataforma Educacross — Regras de negócio, PRDs, jornadas e decisões técnicas">
       <HomepageHeader />
       <main>
         <PopularDocs />

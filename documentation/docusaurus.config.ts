@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Ambiente de Prototipação V5',
-  tagline: 'Documentação de Jornadas Educacionais e Design System Vuexy',
+  title: 'Educacross Handbook',
+  tagline: 'Guia de Produto e Engenharia da plataforma Educacross',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -101,7 +101,7 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Educacross Prototipação',
+      title: 'Educacross Handbook',
       logo: {
         alt: 'Educacross Logo',
         src: 'img/logo.svg',
