@@ -112,7 +112,7 @@ html {
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+html[data-theme='dark'] {
   /* Primary - Roxo claro para dark mode */
   --ifm-color-primary: #9E95F5;
   --ifm-color-primary-dark: #8A7FF3;
@@ -336,7 +336,7 @@ td .priority-circle {
   border-color: var(--ifm-color-primary);
 }
 
-[data-theme='dark'] .feature-card:hover {
+html[data-theme='dark'] .feature-card:hover {
   box-shadow: 0 8px 30px 0 rgba(158, 149, 245, 0.4);
 }
 
@@ -577,7 +577,7 @@ div[class^='codeBlockContainer'] {
 }
 
 /* ---- Dark mode — espelha o FrontOffice Home exato ---- */
-[data-theme='dark'] {
+html[data-theme='dark'] {
   /* Primary igual — roxo Vuexy no dark */
   --ifm-color-primary: #9E95F5;
   --ifm-color-primary-dark: #8A7FF3;
@@ -626,7 +626,7 @@ article h2 {
   box-shadow: none;
 }
 
-[data-theme='dark'] .navbar {
+html[data-theme='dark'] .navbar {
   background: #111111;
 }
 
@@ -636,7 +636,7 @@ article h2 {
   background: var(--ifm-background-surface-color);
 }
 
-[data-theme='dark'] .theme-doc-sidebar-container {
+html[data-theme='dark'] .theme-doc-sidebar-container {
   background: #111111;
 }
 
@@ -653,7 +653,7 @@ article h2 {
   color: var(--ifm-color-primary);
 }
 
-[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
+html[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
   background: #1a1a1a;
 }
 
@@ -668,13 +668,13 @@ table {
 }
 
 table thead tr {
-  background: #111111;
+  background: var(--ifm-color-primary);
   color: #FFFFFF;
 }
 
-[data-theme='dark'] table thead tr {
-  background: #1a1a1a;
-  color: #ededed;
+html[data-theme='dark'] table thead tr {
+  background: var(--ifm-color-primary);
+  color: #FFFFFF;
 }
 
 table thead th {
@@ -706,11 +706,11 @@ div[class^='codeBlockContainer'] {
   box-shadow: none;
 }
 
-[data-theme='dark'] .feature-card {
+html[data-theme='dark'] .feature-card {
   background: #111111;
 }
 
-[data-theme='dark'] .feature-card:hover {
+html[data-theme='dark'] .feature-card:hover {
   background: #1a1a1a;
 }
 
@@ -721,9 +721,10 @@ div[class^='codeBlockContainer'] {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-[data-theme='light'] .hero--primary {
-  background: #111111;
+html[data-theme='light'] .hero--primary {
+  background: linear-gradient(135deg, #7367F0 0%, #9E95F5 100%);
   color: #FFFFFF;
+  border-bottom: none;
 }
 
 /* ---- Badges ---- */

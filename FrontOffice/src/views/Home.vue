@@ -134,8 +134,7 @@ const personas = ref([
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-logo"><span class="material-symbols-outlined">grid_view</span></div>
-        <span class="brand-name">Educacross</span>
+        <img src="@/assets/images/MainLogo-white.svg" alt="Educacross" class="brand-logo-img" />
       </div>
 
       <nav class="sidebar-nav">
@@ -396,30 +395,16 @@ const personas = ref([
 .sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
   padding: 4px 8px 18px;
   border-bottom: 1px solid var(--border);
   margin-bottom: 14px;
 }
 
-.brand-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--accent);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  flex-shrink: 0;
-}
-
-.brand-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
+.brand-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
 }
 
 .sidebar-nav {
