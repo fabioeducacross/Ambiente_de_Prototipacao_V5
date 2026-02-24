@@ -198,7 +198,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Educacross. Construído com ♥ e Docusaurus.`,
+      copyright: `© ${new Date().getFullYear()} Educacross. Construído com ♥ Docusaurus e IA.`,
     },
     prism: {
       theme: prismThemes.github,
