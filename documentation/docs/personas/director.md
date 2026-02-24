@@ -1,13 +1,15 @@
 ---
 sidebar_position: 3
 title: Diretor
-description: Perfil com visão estratégica de uso e resultados da escola
+description: Tipo de usuário gerenciado pelo Administrador com visão estratégica
 ---
 import { IconDirector } from '@site/src/components/MaterialIcon';
 
 # <IconDirector size={28} /> Diretor Escolar
 
-O Diretor utiliza a plataforma para ter uma visão macro do investimento em tecnologia. Ele está menos preocupado com "qual jogo foi jogado" e mais com "a escola está usando a ferramenta pela qual pagamos?".
+:::caution Nota sobre implementação
+O Diretor **não possui uma role de navegação independente** no sistema atual. Ele é um **tipo de usuário cadastrado pelo Administrador** (menu Cadastros → Diretores) e acessa a plataforma com permissões do escopo `Admin`, restritas conforme configuração.
+:::
 
 ---
 
@@ -15,37 +17,16 @@ O Diretor utiliza a plataforma para ter uma visão macro do investimento em tecn
 
 | | |
 |---|---|
-| **Perfil** | Diretor(a) Geral ou Mantenedor |
-| **Onde atua** | Diretoria |
-| **Experiência digital** | Básica |
-| **Frequência de uso** | Mensal / Sob demanda |
-
-> *"Quero saber se o investimento no Educacross está sendo justificado pelo uso dos alunos e professores."*
+| **Perfil** | Diretor(a) Escolar / Mantenedor |
+| **Onde atua** | Diretoria da escola |
+| **Como é cadastrado** | Admin → Cadastros → Diretores |
+| **Permissão no sistema** | `ManageManagers` (quem cadastra) |
 
 ---
 
-## O que faz no Educacross
+## Contexto de uso
 
-```mermaid
-mindmap
-  root((Diretor))
-    Visão Estratégica
-      Taxa de Adoção
-      Tempo de Uso Total
-      Ranking de Engajamento
-    Tomada de Decisão
-      Renovação de Licenças
-      Cobrança de Resultados
-```
-
----
-
-## Principais ações
-
-| Ação | Descrição | Frequência |
-|------|-----------|------------|
-| **Relatório de Acessos** | Verifica quantos alunos únicos acessaram a plataforma | Mensal |
-| **Visão Geral da Escola** | Dashboard macro de tempo jogado e questões resolvidas | Mensal |
+O Diretor tem visão macro da escola. Por estar sob o guarda-chuva do Admin, acessa os relatórios consolidados — porém o escopo exato de acesso depende da configuração de cada instalação.
 
 ---
 

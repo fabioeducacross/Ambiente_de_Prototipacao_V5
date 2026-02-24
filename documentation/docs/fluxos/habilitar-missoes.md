@@ -105,12 +105,52 @@ Você está prestes a habilitar 5 missões para a turma 4º Ano A.
 
 ## Regras de Negócio
 
+### Regras de acesso e visibilidade
+
 | Regra | Descrição |
 |-------|-----------|
 | RN-001 | Professor só pode habilitar missões de turmas que leciona |
-| RN-002 | Missão já habilitada não pode ser "desabilitada" |
-| RN-003 | Alunos só veem missões habilitadas |
-| RN-004 | Progresso é zerado se missão for habilitada novamente (futuro) |
+| RN-002 | Alunos só veem missões habilitadas/enviadas para sua turma |
+| RN-003 | Livro e missão precisam pertencer ao sistema de ensino ativo da escola/turma |
+| RN-004 | `N` da coluna Alunos representa o total real da turma no momento da consulta |
+
+### Regras de status da missão (lista por turma)
+
+| Regra | Descrição |
+|-------|-----------|
+| RN-005 | Estado inicial da missão é **Não enviada** (`#FFB443`) |
+| RN-006 | Após primeiro clique de habilitar, missão evolui para **Iniciada** (`#8BC728`) ou **Não iniciada** (`#FFB443`) conforme período |
+| RN-007 | Missão em **Finalizada** (`#7F6CC3`) pode iniciar novo ciclo de envio |
+| RN-008 | Colunas Início/Fim exibem `-` quando não houver período definido |
+
+### Regras de ações (Enviar/Pausar)
+
+| Regra | Descrição |
+|-------|-----------|
+| RN-009 | Após habilitar, ações disponíveis são **Enviar** (vincular) e **Pausar** (desvincular) |
+| RN-010 | Botão **Enviar** só habilita quando existir ao menos 1 aluno elegível para envio |
+| RN-011 | Botão **Pausar** só habilita quando existir ao menos 1 aluno elegível para pausa |
+| RN-012 | Botões desabilitados exibem tooltip: "Não há alunos para enviar" / "Não há alunos para pausar" |
+
+### Regras do drawer lateral (operação em lote)
+
+| Regra | Descrição |
+|-------|-----------|
+| RN-013 | Drawer abre em modo único por ação: `send` (Enviar) ou `pause` (Pausar) |
+| RN-014 | Modo `send` lista apenas alunos não vinculados; modo `pause` lista apenas vinculados |
+| RN-015 | Filtro por nome atua em tempo real sobre a lista elegível do modo atual |
+| RN-016 | Checkbox de cabeçalho seleciona todos os alunos elegíveis atualmente visíveis (respeita filtro) |
+| RN-017 | Botão de confirmação do drawer habilita somente com ao menos 1 aluno selecionado e elegível |
+| RN-018 | Alterações em lote atualizam imediatamente `X de N`, status e ações na linha da missão |
+
+### Regras de período
+
+| Regra | Descrição |
+|-------|-----------|
+| RN-019 | Opção **Definir período** exibe campo de data fim no drawer |
+| RN-020 | Data fim é obrigatória quando Definir período estiver marcado |
+| RN-021 | Data início pode ser definida como data de envio/habilitação (regra default) |
+| RN-022 | Se período ainda não iniciou, status visual esperado é **Não iniciada** |
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: PRD: Gestão de Rede
+title: "PRD: Gestão de Rede"
 description: Especificação da funcionalidade de gestão centralizada de múltiplas instituições
 ---
 

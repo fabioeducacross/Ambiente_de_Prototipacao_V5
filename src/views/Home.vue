@@ -55,12 +55,30 @@
             </div>
           </div>
         </div>
+
+        <div class="col-md-4">
+          <div class="card card-clickable" @click="router.push('/teacher/trilhas-az')">
+            <div class="card-body text-center">
+              <div class="feature-icon feature-icon--primary">
+                <i class="bi bi-journals"></i>
+              </div>
+              <h3 class="card-title">Trilhas AZ</h3>
+              <p class="card-text">
+                Gerencie capítulos do livro e vincule alunos por turma com controle de status
+              </p>
+              <span class="card-cta">Acessar <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
 </script>
 
 <style scoped>
@@ -95,6 +113,41 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* Card clicável Trilhas AZ */
+.card-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(115, 103, 240, 0.18);
+  border-color: #7367F0;
+}
+
+.feature-icon--primary {
+  background: linear-gradient(135deg, #7367F0, #9E95F5);
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #7367F0;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 8px;
 }
 
 .row {

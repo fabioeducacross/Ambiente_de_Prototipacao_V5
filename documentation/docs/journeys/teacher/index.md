@@ -18,6 +18,10 @@ Documentação completa das 11 jornadas do contexto educador.
    - Gestão em lote de missões
    - Status: <IconCheck /> Documentado
 
+3. **[Fonte: Funcionalidades Sistema de Ensino](./education-system-functionalities-source.md)**
+   - Documento base importado para exploração de regras de negócio
+   - Origem: `Doc_Funcionalidades_SistemaEnsino.docx.md`
+
 ### Missões Customizadas
 
 3. **[PROF-003: Custom Missions](./custom-missions.md)** <IconCheck />

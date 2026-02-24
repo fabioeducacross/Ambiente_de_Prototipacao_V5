@@ -288,6 +288,69 @@ graph TD
 
 ---
 
+## 🧩 Regras Operacionais TO-BE (Sistema de Ensino)
+
+### 1) Lista de Missões por Turma
+
+- A lista é sempre contextualizada pela turma selecionada no topo da jornada.
+- Coluna **Alunos** segue padrão `X de N`:
+  - `N`: total de alunos da turma.
+  - `X`: alunos vinculados/enviados para aquela missão.
+- Colunas **Início/Fim** mostram data apenas quando período estiver definido; caso contrário exibem `-`.
+- **Rendimento médio** mostra `NÃO HÁ DADOS` quando não houver dados de jogo para a turma/missão.
+
+### 2) Máquina de estados da missão
+
+| Estado | Cor | Regra de entrada | Regra de saída |
+|---|---|---|---|
+| Não enviada | `#FFB443` | Estado inicial | Primeiro habilitar/envio |
+| Iniciada | `#8BC728` | Missão habilitada com início vigente | Pausar total, finalizar, ou novo ciclo |
+| Não iniciada | `#FFB443` | Missão habilitada com período futuro | Início do período |
+| Finalizada | `#7F6CC3` | Critério de conclusão atingido | Novo ciclo de envio |
+
+### 3) Regras das ações na coluna Ações
+
+- **Enviar** abre drawer em modo `send` com alunos elegíveis para vinculação.
+- **Pausar** abre drawer em modo `pause` com alunos elegíveis para desvinculação.
+- Quando sem elegíveis:
+  - Enviar desabilitado + tooltip: `Não há alunos para enviar`.
+  - Pausar desabilitado + tooltip: `Não há alunos para pausar`.
+
+### 4) Drawer lateral para operação em lote
+
+- Único componente com dois modos (`send` e `pause`).
+- Estrutura mínima:
+  - Header fixo (título + fechar)
+  - Resumo (`Total de alunos` e `Alunos na missão`)
+  - Opção **Definir período**
+  - Filtro por nome em tempo real
+  - Tabela de alunos com seleção individual e seleção em massa
+  - Footer fixo com botão contextual (**ENVIAR** ou **PAUSAR**)
+- Regra de seleção em massa: aplica somente aos alunos elegíveis e visíveis após filtro.
+- Regra de confirmação: botão só habilita com ao menos 1 aluno elegível selecionado.
+
+### 5) Regras de atualização após operação em lote
+
+- Atualizar imediatamente na linha da missão:
+  - `X de N` (alunos)
+  - Status visual
+  - Habilitação/desabilitação dos botões Enviar/Pausar
+- Persistir histórico mínimo do lote:
+  - Data/hora
+  - Turma
+  - Missão
+  - Quantidade de alunos afetados
+  - Ação executada (`send`/`pause`)
+
+### 6) Critérios de aceite (foco MVP)
+
+- Professor consegue enviar missão para múltiplos alunos da turma em uma única operação.
+- Professor consegue pausar missão para múltiplos alunos da turma em uma única operação.
+- Interface impede ação inválida (sem elegíveis) com feedback claro via estado desabilitado e tooltip.
+- Indicadores da tabela refletem o resultado do lote sem necessidade de recarregar a página.
+
+---
+
 ## <IconLink /> Referências
 
 ### Documentação Relacionada
@@ -318,4 +381,5 @@ graph TD
 
 | Data | Versão | Autor | Mudanças |
 |------|--------|-------|----------|
+| 2026-02-23 | 1.1 | GitHub Copilot | Consolidação das regras TO-BE: lista por turma, estados da missão, drawer lateral e operação em lote |
 | 2026-02-03 | 1.0 | Fábio Educacross | Criação inicial da documentação AS-IS |

@@ -7,7 +7,9 @@ import { IconTeacher } from '@site/src/components/MaterialIcon';
 
 # <IconTeacher size={28} /> Professor
 
-O professor é o principal usuário ativo do Educacross. Ele utiliza a plataforma para **engajar seus alunos** em atividades educacionais gamificadas e **acompanhar o progresso** da turma.
+O professor é o principal usuário ativo do Educacross. Ele utiliza a plataforma para **criar missões, acompanhar turmas** e **avaliar o desempenho dos alunos** com relatórios detalhados.
+
+> Role no sistema: `Teacher`
 
 ---
 
@@ -15,61 +17,34 @@ O professor é o principal usuário ativo do Educacross. Ele utiliza a plataform
 
 | | |
 |---|---|
-| **Perfil** | Educador de ensino fundamental (1º ao 9º ano) |
+| **Perfil** | Educador de ensino fundamental |
 | **Onde atua** | Escolas públicas e particulares |
-| **Experiência digital** | Intermediária — usa WhatsApp, Google Classroom |
 | **Frequência de uso** | Diária |
 
-> *"Preciso de ferramentas que me ajudem a engajar os alunos sem criar mais trabalho para mim."*
-
 ---
 
-## O que faz no Educacross
+## Menu de navegação (real)
 
-```mermaid
-mindmap
-  root((Professor))
-    Preparar aula
-      Ver livros disponíveis
-      Escolher missões
-    Liberar conteúdo
-      Habilitar missões
-      Definir prazos
-    Acompanhar turma
-      Ver progresso
-      Identificar dificuldades
-    Reportar
-      Gerar relatórios
-      Exportar dados
-```
-
----
-
-## Principais ações
-
-| Ação | Descrição | Frequência |
-|------|-----------|------------|
-| **Visualizar Livros** | Navega pelos livros do sistema de ensino | Diária |
-| **Habilitar Missões** | Libera atividades para os alunos realizarem | Diária |
-| **Ver Dashboard** | Acompanha o progresso geral da turma | Diária |
-| **Gerar Relatórios** | Cria relatórios de desempenho para coordenação | Semanal/Mensal |
+| Item | Sub-itens | Permissão |
+|------|-----------|----------|
+| **Painel Inicial** | — | `Teacher` |
+| **Missões da Escola** | Criar Missão, Missões | `SchoolMissions` |
+| **Relatórios** | Evidências, Habilidades, Acesso dos Alunos | `Reports` |
+| **Explorar Jogos** | Config. da Ilha, Ranking de Conquistas | `Islands` |
+| **Turmas** | — | `Teacher` |
+| **Grupos** | — | `ClassGroup` |
+| **Alunos** | — | `Teacher` |
+| **Avaliações** | Complexidade Narrativa, Fases da Escrita, Fluência Leitora, Avaliação Digital, Simulados | por módulo |
+| **Expedição Leitura** | — | `ReadingExpedition` |
+| **Eventos** | — | `Events` |
+| **High Five** | — | `HighFive` |
+| **Ajudas e Materiais** | — | `SupportMaterials` |
+| **Educateca** | — | `Teacher` |
 
 ---
 
 ## Jornadas relacionadas
 
-- [Visualizar Livros do Sistema](../journeys/teacher/education-system-books)
 - [Habilitar Missões](../fluxos/habilitar-missoes)
 - [Jornadas do Professor](../journeys/teacher/)
-
----
-
-## Telas principais
-
-| Tela | Função |
-|------|--------|
-| Dashboard da Turma | Visão geral do progresso |
-| Livros do Sistema | Catálogo de conteúdos |
-| Lista de Missões | Gerenciar habilitações |
-| Relatórios | Exportar dados de desempenho |
 

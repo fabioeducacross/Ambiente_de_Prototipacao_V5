@@ -4,15 +4,16 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 5rem 0 4.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 3rem 1rem;
   }
 }
 
@@ -22,25 +23,60 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.buttons :global(.button) {
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.buttons :global(.button.button--secondary) {
+  background: #111111;
+  border-color: #111111;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.buttons :global(.button.button--secondary:hover) {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+[data-theme='dark'] .buttons :global(.button.button--secondary) {
+  background: #ededed;
+  border-color: #ededed;
+  color: #111111;
+}
+
+[data-theme='dark'] .buttons :global(.button.button--secondary:hover) {
+  background: #d4d4d4;
+  border-color: #d4d4d4;
+}
+
+.buttons :global(.button.button--outline) {
+  border-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-font-color-base);
 }
 
 /* Category Section - GitHub Inspired Grid */
 .categories {
-  padding: 3rem 0;
+  padding: 4rem 0;
 }
 
 .categoryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 }
 
 /* Responsive Grid: 3 → 2 → 1 columns */
 @media screen and (max-width: 996px) {
   .categoryGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
   }
 }
 
@@ -49,8 +85,8 @@
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .categories {
-    padding: 2rem 0;
+    padding: 2.5rem 0;
   }
 }

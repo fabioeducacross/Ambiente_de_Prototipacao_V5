@@ -30,7 +30,7 @@
         ]"
         role="document"
       >
-        <div class="modal-content">
+        <div class="modal-content" :class="contentClass">
           <!-- Header -->
           <div v-if="showHeader" class="modal-header">
             <slot name="header">
@@ -104,6 +104,10 @@ const props = defineProps({
   showFooter: {
     type: Boolean,
     default: false
+  },
+  contentClass: {
+    type: String,
+    default: ''
   }
 })
 

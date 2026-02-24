@@ -231,18 +231,39 @@ const isSelectedDate = (date) => {
   color: var(--Theme-text-disabled, rgba(47, 43, 61, 0.40));
 }
 
+/* Dia selecionado (clicado pelo usuário): círculo sólido roxo */
 .day-cell.selected {
-  background: var(--Color-Palette-primary-opacity-main, rgba(115, 103, 240, 0.24));
-  color: var(--Color-Primary-primary-500, #7367F0);
+  background: var(--Color-Palette-primary-main, #7367F0);
+  color: white;
+  font-weight: 600;
 }
 
+.day-cell.selected:hover {
+  background: #6558d3;
+}
+
+/* Hoje (não selecionado): anel/borda roxa para indicar "hoje" */
 .day-cell.today {
-  background: var(--Color-Palette-primary-main, #7367F0);
-  box-shadow: 0px 2px 6px rgba(115, 103, 240, 0.30);
-  color: var(--Misc-bg-white, white);
+  background: transparent;
+  border: 2px solid var(--Color-Palette-primary-main, #7367F0);
+  color: var(--Color-Primary-primary-500, #7367F0);
+  font-weight: 700;
 }
 
 .day-cell.today:hover {
+  background: rgba(115, 103, 240, 0.08);
+}
+
+/* Hoje E selecionado: círculo sólido com anel externo */
+.day-cell.today.selected {
+  background: var(--Color-Palette-primary-main, #7367F0);
+  color: white;
+  font-weight: 700;
+  border: 2px solid var(--Color-Palette-primary-main, #7367F0);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #7367F0;
+}
+
+.day-cell.today.selected:hover {
   background: #6558d3;
 }
 

@@ -25,6 +25,22 @@
       </div>
     </div>
     
+    <!-- Seção de eventos all-day (multi-dia, lembretes e eventos sem horário) -->
+    <div v-if="allDayEvents.length > 0" class="all-day-section">
+      <div class="all-day-header">
+        <span class="all-day-label">Dia inteiro</span>
+        <span class="all-day-count">{{ allDayEvents.length }}</span>
+      </div>
+      <div class="all-day-events">
+        <AllDayEventItem
+          v-for="event in allDayEvents"
+          :key="`allday-${event.id}`"
+          :event="event"
+          @click="handleEventClick(event)"
+        />
+      </div>
+    </div>
+
     <!-- Grid de horários detalhado -->
     <div class="time-grid-container">
       <div class="time-grid">
@@ -59,26 +75,26 @@
           <!-- Eventos posicionados -->
           <div class="events-layer">
             <div
-              v-for="event in events"
+              v-for="event in timedEvents"
               :key="event.id"
               class="timed-event"
               :style="getEventStyle(event)"
               @click.stop="handleEventClick(event)"
             >
               <div class="event-header">
+                <div class="event-origin">
+                  <EventOriginIcon 
+                    :origin="event.origin_level || event.origin || event.origem"
+                    :color="getActivityColor(event.tipo)"
+                    class="event-icon"
+                  />
+                </div>
                 <div v-if="showEventTime" class="event-time">
                   {{ formatEventTime(event.horaInicio) }} - {{ formatEventTime(event.horaTermino) }}
                 </div>
                 <div class="event-duration">{{ calculateDuration(event) }}</div>
               </div>
-              <div class="event-title">{{ event.titulo }}</div>
-              <div class="event-activity" :style="{ color: getActivityColor(event.tipoAtividade) }">
-                <i :class="getActivityIcon(event.tipoAtividade)"></i>
-                {{ getActivityLabel(event.tipoAtividade) }}
-              </div>
-              <div v-if="event.descricao" class="event-description">
-                {{ event.descricao }}
-              </div>
+              <div class="event-title">{{ event.titulo || event.title }}</div>
               <div v-if="event.turmas && event.turmas.length" class="event-turmas">
                 <i class="bi bi-people-fill"></i>
                 {{ event.turmas.join(', ') }}
@@ -100,10 +116,14 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
+import AllDayEventItem from '../molecules/AllDayEventItem.vue'
+import EventOriginIcon from '../atoms/EventOriginIcon.vue'
 import { useCalendar } from '../../composables/useCalendar'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
+import { useEventRendering } from '@/composables/useEventRendering'
 
 const { showEventTime } = useFeatureFlags()
+const { hexToRgba } = useEventRendering()
 
 const props = defineProps({
   currentView: {
@@ -143,7 +163,7 @@ const props = defineProps({
 const emit = defineEmits(['event-click', 'day-change', 'view-change', 'slot-click'])
 
 // Composable
-const { getActivityColor, getActivityIcon, getActivityLabel } = useCalendar()
+const { getActivityColor, getActivityIcon, getActivityLabel, getActivityMaterialIcon } = useCalendar()
 
 // Estado
 const currentDate = ref(new Date(props.initialDate))
@@ -151,6 +171,31 @@ const currentTime = ref(new Date())
 let timeInterval = null
 
 // Computed
+// Separar eventos all-day (multi-dia) dos eventos com horário em um único dia
+const allDayEvents = computed(() => {
+  return props.events.filter(event => {
+    // Verificar se é evento multi-dia (mais de 1 dia)
+    const startDate = new Date(event.dataInicio)
+    const endDate = new Date(event.dataTermino || event.dataInicio)
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+    const totalDays = Math.round((endDay - startDay) / (1000 * 60 * 60 * 24)) + 1
+    return totalDays > 1
+  })
+})
+
+const timedEvents = computed(() => {
+  return props.events.filter(event => {
+    // Evento de um único dia (eventos com horário)
+    const startDate = new Date(event.dataInicio)
+    const endDate = new Date(event.dataTermino || event.dataInicio)
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+    const totalDays = Math.round((endDay - startDay) / (1000 * 60 * 60 * 24)) + 1
+    return totalDays === 1
+  })
+})
+
 const hours = computed(() => {
   const hoursList = []
   for (let i = props.startHour; i <= props.endHour; i++) {
@@ -231,6 +276,71 @@ const calculateDuration = (event) => {
   }
 }
 
+// Detecta sobreposição entre dois eventos
+const eventsOverlap = (event1, event2) => {
+  if (!event1.horaInicio || !event1.horaTermino || !event2.horaInicio || !event2.horaTermino) {
+    return false
+  }
+  
+  const [start1Hour, start1Minute] = event1.horaInicio.split(':').map(Number)
+  const [end1Hour, end1Minute] = event1.horaTermino.split(':').map(Number)
+  const [start2Hour, start2Minute] = event2.horaInicio.split(':').map(Number)
+  const [end2Hour, end2Minute] = event2.horaTermino.split(':').map(Number)
+  
+  const start1 = start1Hour * 60 + start1Minute
+  const end1 = end1Hour * 60 + end1Minute
+  const start2 = start2Hour * 60 + start2Minute
+  const end2 = end2Hour * 60 + end2Minute
+  
+  return start1 < end2 && start2 < end1
+}
+
+// Calcula layout de colunas para eventos sobrepostos
+const calculateEventColumns = () => {
+  const sortedEvents = [...props.events].sort((a, b) => {
+    if (!a.horaInicio || !b.horaInicio) return 0
+    const [aHour, aMinute] = a.horaInicio.split(':').map(Number)
+    const [bHour, bMinute] = b.horaInicio.split(':').map(Number)
+    return (aHour * 60 + aMinute) - (bHour * 60 + bMinute)
+  })
+  
+  const columns = []
+  
+  sortedEvents.forEach(event => {
+    // Encontra a primeira coluna disponível
+    let placed = false
+    for (let i = 0; i < columns.length; i++) {
+      const overlaps = columns[i].some(existingEvent => eventsOverlap(event, existingEvent))
+      if (!overlaps) {
+        columns[i].push(event)
+        event._column = i
+        placed = true
+        break
+      }
+    }
+    
+    // Se não encontrou coluna disponível, cria nova
+    if (!placed) {
+      event._column = columns.length
+      columns.push([event])
+    }
+  })
+  
+  // Calcula total de colunas para cada evento (eventos que se sobrepõem)
+  sortedEvents.forEach(event => {
+    const overlappingEvents = sortedEvents.filter(e => 
+      e !== event && eventsOverlap(event, e)
+    )
+    const maxColumn = Math.max(
+      event._column,
+      ...overlappingEvents.map(e => e._column || 0)
+    )
+    event._totalColumns = maxColumn + 1
+  })
+  
+  return sortedEvents
+}
+
 const getEventStyle = (event) => {
   if (!event.horaInicio || !event.horaTermino) return {}
   
@@ -244,11 +354,23 @@ const getEventStyle = (event) => {
   const top = (startMinutes / 60) * slotHeight
   const height = Math.max((duration / 60) * slotHeight, 45) // Mínimo 45px
   
+  // Calcula posição horizontal para eventos sobrepostos
+  calculateEventColumns()
+  
+  const column = event._column || 0
+  const totalColumns = event._totalColumns || 1
+  const widthPercent = 100 / totalColumns
+  const leftPercent = widthPercent * column
+  
+  const eventColor = event.color || getActivityColor(event.tipo || event.category)
   return {
     top: `${top}px`,
     height: `${height}px`,
-    backgroundColor: `${getActivityColor(event.tipoAtividade)}20`,
-    borderLeft: `4px solid ${getActivityColor(event.tipoAtividade)}`
+    width: `calc(${widthPercent}% - 4px)`,
+    left: `${leftPercent}%`,
+    backgroundColor: `${eventColor}1F`,
+    borderLeftColor: eventColor,
+    '--event-color': eventColor
   }
 }
 
@@ -317,6 +439,46 @@ onUnmounted(() => {
   padding: 24px;
   border-bottom: 1px solid rgba(47, 43, 61, 0.12);
   background-color: white;
+}
+
+/* Seção de eventos all-day */
+.all-day-section {
+  border-bottom: 1px solid rgba(47, 43, 61, 0.12);
+  background-color: #fafafa;
+}
+
+.all-day-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  font-size: 12px;
+  color: rgba(47, 43, 61, 0.68);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(47, 43, 61, 0.08);
+}
+
+.all-day-label {
+  font-weight: 500;
+}
+
+.all-day-count {
+  background-color: rgba(115, 103, 240, 0.16);
+  color: #7367F0;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.all-day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 24px;
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 .day-info {
@@ -450,20 +612,18 @@ onUnmounted(() => {
 
 .timed-event {
   position: absolute;
-  left: 0;
-  right: 0;
-  padding: 12px;
-  border-radius: 6px;
+  padding: 8px;
+  border-radius: 4px;
+  border-left: 3px solid;
   cursor: pointer;
   pointer-events: auto;
   overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: filter 0.2s ease, transform 0.15s ease;
 }
 
 .timed-event:hover {
-  transform: translateX(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  filter: brightness(0.95);
+  transform: translateX(-2px);
   z-index: 5;
 }
 
@@ -472,16 +632,33 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
+  gap: 8px;
+}
+
+.event-origin {
+  flex-shrink: 0;
+}
+
+.event-icon {
+  font-size: 16px;
+  line-height: 1;
+  color: var(--event-color, inherit);
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .event-time {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(47, 43, 61, 0.8);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--event-color, rgba(47, 43, 61, 0.8));
+  flex: 1;
 }
 
 .event-duration {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: rgba(47, 43, 61, 0.6);
   background-color: rgba(255, 255, 255, 0.7);
@@ -490,35 +667,12 @@ onUnmounted(() => {
 }
 
 .event-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(47, 43, 61, 0.95);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(47, 43, 61, 0.9);
+  margin-top: 4px;
   margin-bottom: 6px;
-  line-height: 1.3;
-}
-
-.event-activity {
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.event-activity i {
-  font-size: 11px;
-}
-
-.event-description {
-  font-size: 12px;
-  color: rgba(47, 43, 61, 0.7);
-  line-height: 1.4;
-  margin-bottom: 6px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.2;
 }
 
 .event-turmas {

@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
-// Lazy load journey pages
-const TeacherDashboard = () => import('../views/teacher/Dashboard.vue')
+// Lazy load - Módulo Calendário
 const TeacherCalendar = () => import('../views/teacher/Calendar.vue')
 const TeacherCalendarFigma = () => import('../views/teacher/CalendarFigma.vue')
+
+// Lazy load - Módulo Sistema de Ensino
+const TeacherSistemaEnsino = () => import('../modules/sistema-de-ensino/views/SistemaEnsino.vue')
+
+// Lazy load - Views globais
+const TeacherDashboard = () => import('../views/teacher/Dashboard.vue')
 const StudentDashboard = () => import('../views/student/Dashboard.vue')
 const AdministratorDashboard = () => import('../views/administrator/Dashboard.vue')
 const CoordinatorDashboard = () => import('../views/coordinator/Dashboard.vue')
@@ -36,6 +41,12 @@ const routes = [
     name: 'TeacherCalendarFigma',
     component: TeacherCalendarFigma,
     meta: { title: 'Calendário Unificado | Educacross', persona: 'Professor', breadcrumb: 'Calendário' }
+  },
+  {
+    path: '/teacher/trilhas-az',
+    name: 'TeacherSistemaEnsino',
+    component: TeacherSistemaEnsino,
+    meta: { title: 'Sistema de ensino | Educacross', persona: 'Professor', breadcrumb: 'Sistema de ensino' }
   },
   {
     path: '/student',
@@ -87,3 +98,4 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+

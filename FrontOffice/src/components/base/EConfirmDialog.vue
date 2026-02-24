@@ -3,6 +3,7 @@
     v-model="isOpen"
     :title="title"
     size="sm"
+    content-class="e-confirm-dialog"
     :closable="!loading"
     :close-on-overlay="!loading"
     :close-on-esc="!loading"

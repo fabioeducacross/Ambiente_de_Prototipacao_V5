@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -55,6 +55,7 @@ const personas = ref([
     route: '/teacher',
     journeys: [
       { id: 'CAL', label: 'Calendário de Eventos', icon: 'calendar_month', route: '/teacher/calendar', status: 'Ativo' },
+      { id: 'TRILHAS-AZ', label: 'Sistema de ensino', icon: 'menu_book', route: '/teacher/trilhas-az', status: 'Ativo' },
       { id: 'PROF-001', label: 'Criar Turma', icon: 'group_add', route: null, status: 'Planejado' },
       { id: 'PROF-002', label: 'Criar Missão', icon: 'flag', route: null, status: 'Planejado' },
       { id: 'PROF-003', label: 'Acompanhar Progresso', icon: 'trending_up', route: null, status: 'Planejado' },

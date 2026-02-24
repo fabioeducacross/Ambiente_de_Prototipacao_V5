@@ -28,6 +28,24 @@
       </div>
     </div>
     
+    <!-- Seção de eventos all-day (multi-dia e eventos sem horário) -->
+    <div v-if="allDayEvents.length > 0" class="all-day-section">
+      <div class="all-day-grid">
+        <div class="all-day-label-column">
+          <span class="all-day-label">Dia inteiro</span>
+          <span class="all-day-count">{{ allDayEvents.length }}</span>
+        </div>
+        <div class="all-day-events-row">
+          <AllDayEventItem
+            v-for="event in allDayEvents"
+            :key="`allday-${event.id}`"
+            :event="event"
+            @click="handleEventClick(event)"
+          />
+        </div>
+      </div>
+    </div>
+    
     <!-- Grid de horários -->
     <div class="time-grid-container">
       <div class="time-grid">
@@ -71,15 +89,19 @@
                 v-for="event in day.events"
                 :key="event.id"
                 class="timed-event"
-                :style="getEventStyle(event)"
+                :style="getEventStyle(event, day.events)"
                 @click.stop="handleEventClick(event)"
               >
-                <div v-if="showEventTime" class="event-time">{{ formatEventTime(event.horaInicio) }}</div>
-                <div class="event-title">{{ event.titulo }}</div>
-                <div class="event-activity" :style="{ color: getActivityColor(event.tipoAtividade) }">
-                  <i :class="getActivityIcon(event.tipoAtividade)"></i>
-                  {{ getActivityLabel(event.tipoAtividade) }}
+                <div class="event-header">
+                  <EventOriginIcon 
+                    :origin="event.origin_level || event.origin || event.origem"
+                    :color="getActivityColor(event.tipo)"
+                    class="event-icon"
+                  />
+                  <div v-if="showEventTime" class="event-time">{{ formatEventTime(event.horaInicio) }} - {{ formatEventTime(event.horaTermino) }}</div>
+                  <div class="event-duration">{{ calculateDuration(event) }}</div>
                 </div>
+                <div class="event-title">{{ event.titulo || event.title }}</div>
               </div>
             </div>
           </div>
@@ -92,10 +114,14 @@
 <script setup>
 import { ref, computed } from 'vue'
 import CalendarMonthHeader from '../molecules/CalendarMonthHeader.vue'
+import AllDayEventItem from '../molecules/AllDayEventItem.vue'
+import EventOriginIcon from '../atoms/EventOriginIcon.vue'
 import { useCalendar } from '../../composables/useCalendar'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
+import { useEventRendering } from '@/composables/useEventRendering'
 
 const { showEventTime } = useFeatureFlags()
+const { hexToRgba } = useEventRendering()
 
 const props = defineProps({
   currentView: {
@@ -135,7 +161,7 @@ const props = defineProps({
 const emit = defineEmits(['day-click', 'event-click', 'week-change', 'view-change', 'slot-click'])
 
 // Composable
-const { getActivityColor, getActivityIcon, getActivityLabel } = useCalendar()
+const { getActivityColor, getActivityIcon, getActivityLabel, getActivityMaterialIcon } = useCalendar()
 
 // Estado
 const currentDate = ref(new Date(props.initialDate))
@@ -147,6 +173,31 @@ const hours = computed(() => {
     hoursList.push(i)
   }
   return hoursList
+})
+
+// Eventos all-day: multi-dia (mais de 1 dia de duração)
+const allDayEvents = computed(() => {
+  return props.events.filter(event => {
+    // Verificar se é evento multi-dia
+    const startDate = new Date(event.dataInicio)
+    const endDate = new Date(event.dataTermino || event.dataInicio)
+    const startDay = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+    const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
+    const totalDays = Math.round((endDay - startDay) / (1000 * 60 * 60 * 24)) + 1
+    return totalDays > 1
+  }).filter(event => {
+    // Filtrar apenas eventos que aparecem na semana atual
+    const weekStart = weekDays.value[0]?.fullDate
+    const weekEnd = weekDays.value[6]?.fullDate
+    if (!weekStart || !weekEnd) return false
+    
+    const eventStart = new Date(event.dataInicio)
+    const eventEnd = new Date(event.dataTermino || event.dataInicio)
+    const weekStartNorm = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate())
+    const weekEndNorm = new Date(weekEnd.getFullYear(), weekEnd.getMonth(), weekEnd.getDate(), 23, 59, 59, 999)
+    
+    return eventStart <= weekEndNorm && eventEnd >= weekStartNorm
+  })
 })
 
 const weekDays = computed(() => {
@@ -220,7 +271,89 @@ const formatEventTime = (time) => {
   return time.substring(0, 5) // HH:MM
 }
 
-const getEventStyle = (event) => {
+const calculateDuration = (event) => {
+  if (!event.horaInicio || !event.horaTermino) return ''
+  const [startHour, startMinute] = event.horaInicio.split(':').map(Number)
+  const [endHour, endMinute] = event.horaTermino.split(':').map(Number)
+  const totalMinutes = (endHour * 60 + endMinute) - (startHour * 60 + startMinute)
+  if (totalMinutes <= 0) return ''
+
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+
+  if (hours > 0 && minutes > 0) {
+    return `${hours}h ${minutes}min`
+  }
+  if (hours > 0) {
+    return `${hours}h`
+  }
+  return `${minutes}min`
+}
+
+// Detecta sobreposição entre dois eventos
+const eventsOverlap = (event1, event2) => {
+  if (!event1.horaInicio || !event1.horaTermino || !event2.horaInicio || !event2.horaTermino) {
+    return false
+  }
+  
+  const [start1Hour, start1Minute] = event1.horaInicio.split(':').map(Number)
+  const [end1Hour, end1Minute] = event1.horaTermino.split(':').map(Number)
+  const [start2Hour, start2Minute] = event2.horaInicio.split(':').map(Number)
+  const [end2Hour, end2Minute] = event2.horaTermino.split(':').map(Number)
+  
+  const start1 = start1Hour * 60 + start1Minute
+  const end1 = end1Hour * 60 + end1Minute
+  const start2 = start2Hour * 60 + start2Minute
+  const end2 = end2Hour * 60 + end2Minute
+  
+  return start1 < end2 && start2 < end1
+}
+
+// Calcula layout de colunas para eventos sobrepostos do dia
+const calculateEventColumnsForDay = (dayEvents) => {
+  const sortedEvents = [...dayEvents].sort((a, b) => {
+    if (!a.horaInicio || !b.horaInicio) return 0
+    const [aHour, aMinute] = a.horaInicio.split(':').map(Number)
+    const [bHour, bMinute] = b.horaInicio.split(':').map(Number)
+    return (aHour * 60 + aMinute) - (bHour * 60 + bMinute)
+  })
+  
+  const columns = []
+  
+  sortedEvents.forEach(event => {
+    // Encontra a primeira coluna disponível
+    let placed = false
+    for (let i = 0; i < columns.length; i++) {
+      const overlaps = columns[i].some(existingEvent => eventsOverlap(event, existingEvent))
+      if (!overlaps) {
+        columns[i].push(event)
+        event._column = i
+        placed = true
+        break
+      }
+    }
+    
+    // Se não encontrou coluna disponível, cria nova
+    if (!placed) {
+      event._column = columns.length
+      columns.push([event])
+    }
+  })
+  
+  // Calcula total de colunas para cada evento (eventos que se sobrepõem)
+  sortedEvents.forEach(event => {
+    const overlappingEvents = sortedEvents.filter(e => 
+      e !== event && eventsOverlap(event, e)
+    )
+    const maxColumn = Math.max(
+      event._column,
+      ...overlappingEvents.map(e => e._column || 0)
+    )
+    event._totalColumns = maxColumn + 1
+  })
+}
+
+const getEventStyle = (event, dayEvents) => {
   if (!event.horaInicio || !event.horaTermino) return {}
   
   const [startHour, startMinute] = event.horaInicio.split(':').map(Number)
@@ -233,11 +366,23 @@ const getEventStyle = (event) => {
   const top = (startMinutes / 60) * slotHeight
   const height = (duration / 60) * slotHeight
   
+  // Calcula posição horizontal para eventos sobrepostos
+  calculateEventColumnsForDay(dayEvents)
+  
+  const column = event._column || 0
+  const totalColumns = event._totalColumns || 1
+  const widthPercent = 100 / totalColumns
+  const leftPercent = widthPercent * column
+  
+  const eventColor = event.color || getActivityColor(event.tipo || event.category)
   return {
     top: `${top}px`,
     height: `${height}px`,
-    backgroundColor: `${getActivityColor(event.tipoAtividade)}20`,
-    borderLeft: `3px solid ${getActivityColor(event.tipoAtividade)}`
+    width: `calc(${widthPercent}% - 3px)`,
+    left: `${leftPercent}%`,
+    backgroundColor: `${eventColor}1F`,
+    borderLeftColor: eventColor,
+    '--event-color': eventColor
   }
 }
 
@@ -303,6 +448,55 @@ const handleViewChange = (newView) => {
   color: rgba(47, 43, 61, 0.6);
   text-align: center;
   border-right: 1px solid rgba(47, 43, 61, 0.12);
+}
+
+/* Seção de eventos all-day */
+.all-day-section {
+  border-bottom: 1px solid rgba(47, 43, 61, 0.12);
+  background-color: #fafafa;
+}
+
+.all-day-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+}
+
+.all-day-label-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-right: 1px solid rgba(47, 43, 61, 0.12);
+  background-color: #f5f5f5;
+}
+
+.all-day-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(47, 43, 61, 0.68);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.all-day-count {
+  background-color: rgba(115, 103, 240, 0.16);
+  color: #7367F0;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.all-day-events-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  max-height: 100px;
+  overflow-y: auto;
 }
 
 .day-header {
@@ -450,49 +644,68 @@ const handleViewChange = (newView) => {
 
 .timed-event {
   position: absolute;
-  left: 0;
-  right: 0;
-  padding: 4px 8px;
+  padding: 8px;
   border-radius: 4px;
+  border-left: 3px solid;
   cursor: pointer;
   pointer-events: auto;
   overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.event-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--event-color, inherit);
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .timed-event:hover {
-  transform: scale(1.02);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  filter: brightness(0.95);
+  transform: translateX(-2px);
   z-index: 5;
 }
 
 .event-time {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(47, 43, 61, 0.7);
-  margin-bottom: 2px;
-}
-
-.event-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(47, 43, 61, 0.9);
-  margin-bottom: 2px;
+  color: var(--event-color, rgba(47, 43, 61, 0.7));
+  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.event-activity {
-  font-size: 11px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.event-duration {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(47, 43, 61, 0.6);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
-.event-activity i {
-  font-size: 10px;
+.event-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(47, 43, 61, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
 }
 
 /* Responsive */

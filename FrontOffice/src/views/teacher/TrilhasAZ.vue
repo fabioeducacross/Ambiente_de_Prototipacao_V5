@@ -163,9 +163,12 @@
                   </div>
                 </th>
                 <th>
+                  <div class="th-content">ALUNOS</div>
+                </th>
+                <th>
                   <div class="th-content">
                     STATUS
-                    <span class="material-symbols-outlined th-info" title="Status da missão: Não enviada, Pausada, Iniciada, Não iniciada ou Finalizada.">info</span>
+                    <span class="material-symbols-outlined th-info" title="Status da missão: Não enviada, Não iniciada ou Iniciada.">info</span>
                   </div>
                 </th>
                 <th>
@@ -191,11 +194,11 @@
                   </div>
                 </td>
 
-                <!-- Início -->
-                <td>{{ formatDate(chapter.inicio) }}</td>
+                <!-- Início (só exibe se período ativo + início definido) -->
+                <td>{{ chapter.periodEnabled && chapter.inicio ? formatDate(chapter.inicio) : '' }}</td>
 
-                <!-- Fim -->
-                <td>{{ formatDate(chapter.fim) }}</td>
+                <!-- Fim (só exibe se período ativo + fim definido) -->
+                <td>{{ chapter.periodEnabled && chapter.fim ? formatDate(chapter.fim) : '' }}</td>
 
                 <!-- Progresso (DS: ProgressBarHorizontalV2 reverse height="12px") -->
                 <td>
@@ -223,7 +226,12 @@
                       {{ perfBadgeLabel(chapter.rendimento) }}
                     </span>
                   </div>
-                  <span v-else class="text-muted">–</span>
+                  <span v-else class="text-muted">NÃO HÁ DADOS</span>
+                </td>
+
+                <!-- Alunos -->
+                <td class="text-muted">
+                  <span>{{ chapter.linkedCount }} de {{ totalStudents }}</span>
                 </td>
 
                 <!-- Status (DS: b-badge pill light variant) -->
@@ -233,41 +241,46 @@
                   </span>
                 </td>
 
-                <!-- Ações (DS: flat material-symbols-outlined icons) -->
+                <!-- Ações (regras de negócio: Enviar + Pausar) -->
                 <td>
                   <div class="actions-flat">
-                    <!-- Enviar (nao_enviada, finalizada, pausada) -->
-                    <span
-                      v-if="showAction('send', chapter)"
-                      class="material-symbols-outlined action-icon text-success cursor-pointer"
-                      title="Enviar missão"
-                      @click="handleActionClick(chapter)"
-                    >send</span>
-                    <!-- Pausar (nao_iniciada, iniciada) -->
-                    <span
-                      v-if="showAction('pause', chapter)"
-                      class="material-symbols-outlined action-icon text-danger cursor-pointer"
-                      title="Pausar missão"
-                    >pause_circle</span>
-                    <!-- Relatório (iniciada, finalizada, pausada) -->
-                    <span
-                      v-if="showAction('report', chapter)"
-                      class="material-symbols-outlined action-icon text-primary cursor-pointer"
-                      title="Relatório da Missão"
-                    >pie_chart</span>
-                    <!-- Detalhes (sempre visível) -->
-                    <span
-                      class="material-symbols-outlined action-icon text-primary cursor-pointer"
-                      title="Detalhes"
-                      @click="openDrawer(chapter, 'enviar')"
-                    >visibility</span>
+                    <!-- Botão Enviar / Habilitar -->
+                    <button
+                      class="action-btn"
+                      :class="{
+                        'action-btn--send': true,
+                        'is-disabled': isSendDisabled(chapter)
+                      }"
+                      :title="sendTooltip(chapter)"
+                      :aria-disabled="isSendDisabled(chapter)"
+                      :aria-label="chapter.enabled ? 'Enviar' : 'Habilitar'"
+                      @click="handleSendClick(chapter)"
+                    >
+                      <span class="material-symbols-outlined" style="font-size:20px">{{ sendIconName(chapter) }}</span>
+                    </button>
+
+                    <!-- Botão Pausar (só visível quando enabled) -->
+                    <button
+                      v-if="isPauseVisible(chapter)"
+                      class="action-btn"
+                      :class="{
+                        'action-btn--pause': true,
+                        'is-disabled': isPauseDisabled(chapter)
+                      }"
+                      :title="pauseTooltip(chapter)"
+                      :aria-disabled="isPauseDisabled(chapter)"
+                      aria-label="Pausar"
+                      @click="handlePauseClick(chapter)"
+                    >
+                      <span class="material-symbols-outlined" style="font-size:20px">pause_circle</span>
+                    </button>
                   </div>
                 </td>
               </tr>
 
               <!-- Empty state -->
               <tr v-if="filteredChapters.length === 0">
-                <td colspan="8" class="td-empty">
+                <td colspan="9" class="td-empty">
                   Nenhum capítulo encontrado.
                 </td>
               </tr>
@@ -344,10 +357,11 @@ import SubjectIcon     from '../../components/SubjectIcon.vue'
 import { ESelect }     from '../../components/base/index.js'
 import { useTrilhasAZ } from '../../composables/useTrilhasAZ.js'
 
-const { book, chapters, getTotalStudents, habilitarCapitulo } = useTrilhasAZ()
+const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount } = useTrilhasAZ()
 
 // ── Layout ────────────────────────────────────────────────────────────────────
 const sidebarCollapsed = ref(false)
+const totalStudents = getTotalStudents()
 
 // ── Estado da view ────────────────────────────────────────────────────────────
 const selectedUnit   = ref(null)
@@ -366,8 +380,7 @@ const unitOptions = [
 const statusOptions = [
   { value: 'nao_enviada',  label: 'Não enviada' },
   { value: 'nao_iniciada', label: 'Não iniciada' },
-  { value: 'iniciada',     label: 'Iniciada' },
-  { value: 'finalizada',   label: 'Finalizada' }
+  { value: 'iniciada',     label: 'Iniciada' }
 ]
 
 // ── Drawer ────────────────────────────────────────────────────────────────────
@@ -381,33 +394,64 @@ function openDrawer (chapter, mode) {
   drawerOpen.value    = true
 }
 
-function handleHabilitar (chapter) {
-  habilitarCapitulo(chapter.id)
-  openDrawer(chapter, 'enviar')
-}
-
 // ── Helpers: unidade por capítulo ─────────────────────────────────────────────
 function getUnidade (chapterId) {
   return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
 }
 
-// ── Helpers: visibilidade de ações (DS: tableActions) ─────────────────────────
-function showAction (type, chapter) {
-  const s = chapter.status.key
-  switch (type) {
-    case 'send':   return s === 'nao_enviada' || s === 'finalizada'
-    case 'pause':  return s === 'nao_iniciada' || s === 'iniciada'
-    case 'report': return s === 'iniciada' || s === 'finalizada'
-    default:       return false
-  }
+// ── Helpers: contadores de alunos por capítulo ───────────────────────────────
+function toSend (chapter) {
+  return totalStudents - chapter.linkedCount
 }
 
-function handleActionClick (chapter) {
-  if (chapter.status.key === 'nao_enviada' || chapter.status.key === 'finalizada') {
-    handleHabilitar(chapter)
-  } else {
-    openDrawer(chapter, 'enviar')
+function toPause (chapter) {
+  return chapter.linkedCount
+}
+
+// ── Helpers: estado dos botões de ação (regras de negócio) ────────────────────
+function isSendDisabled (chapter) {
+  return chapter.enabled && toSend(chapter) === 0
+}
+
+function isPauseVisible (chapter) {
+  return chapter.enabled
+}
+
+function isPauseDisabled (chapter) {
+  return chapter.enabled && toPause(chapter) === 0
+}
+
+function sendTooltip (chapter) {
+  if (isSendDisabled(chapter)) return 'Não há alunos para enviar'
+  return chapter.enabled ? 'Enviar' : 'Habilitar'
+}
+
+function pauseTooltip (chapter) {
+  if (isPauseDisabled(chapter)) return 'Não há alunos para pausar'
+  return 'Pausar'
+}
+
+// ── Ícone do botão enviar muda conforme estado ───────────────────────────────
+function sendIconName (chapter) {
+  return chapter.enabled ? 'send' : 'play_circle'
+}
+
+// ── Ação ao clicar em Enviar ──────────────────────────────────────────────────
+function handleSendClick (chapter) {
+  if (isSendDisabled(chapter)) return
+
+  // Primeiro clique para capítulo não habilitado → habilita imediatamente
+  if (!chapter.enabled) {
+    habilitarCapitulo(chapter.id)
   }
+
+  openDrawer(chapter, 'enviar')
+}
+
+// ── Ação ao clicar em Pausar ──────────────────────────────────────────────────
+function handlePauseClick (chapter) {
+  if (isPauseDisabled(chapter)) return
+  openDrawer(chapter, 'pausar')
 }
 
 // ── Filtragem composta (busca + unidade + status) ─────────────────────────────
@@ -480,13 +524,12 @@ function perfBadgeLabel (rend) {
   return 'Abaixo do Básico'
 }
 
-// Classe do badge de status (DS: b-badge variant="light-{variant}")
+// Classe do badge de status (regras de negócio: iniciada = verde, demais = cinza)
 function statusBadgeClass (statusKey) {
   const map = {
     nao_enviada:  'status-light-secondary',
     nao_iniciada: 'status-light-secondary',
-    iniciada:     'status-light-info',
-    finalizada:   'status-light-primary'
+    iniciada:     'status-light-success'
   }
   return map[statusKey] || 'status-light-secondary'
 }
@@ -883,32 +926,50 @@ a.bc-item:hover { color: #5a50d6; }
 .status-light-info      { background: rgba(0,207,232,0.12);   color: #00cfe8; }
 .status-light-primary   { background: rgba(110,99,232,0.12);  color: #6e63e8; }
 .status-light-warning   { background: rgba(255,159,67,0.12);  color: #ff9f43; }
+.status-light-success   { background: rgba(40,199,111,0.12);  color: #28c76f; }
 
-/* ── Ações (DS: flat material-symbols-outlined text-primary) ──────────── */
+/* ── Ações (botões de ação por linha) ──────────────────────────────────── */
 .actions-flat {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   white-space: nowrap;
 }
 
-.action-icon {
-  font-size: 20px;
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: none;
+  border-radius: 50%;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: all 0.15s;
+  padding: 0;
 }
 
-.action-icon:hover {
-  opacity: 0.7;
+.action-btn:hover:not(.is-disabled) {
+  background: rgba(0, 0, 0, 0.06);
 }
 
-/* Cores de ação compatíveis com DS */
-.text-success  { color: #28c76f !important; }
-.text-danger   { color: #ea5455 !important; }
-.text-primary  { color: #6e63e8 !important; }
-.text-muted    { color: #b4b7bd !important; }
+.action-btn--send .material-symbols-outlined {
+  color: #28c76f;
+}
 
-.cursor-pointer { cursor: pointer; }
+.action-btn--pause .material-symbols-outlined {
+  color: #ea5455;
+}
+
+.action-btn.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.action-btn.is-disabled .material-symbols-outlined {
+  color: #b4b7bd;
+}
 
 /* ── Paginação (DS: ListTablePagination) ──────────────────────────────── */
 .table-pagination {

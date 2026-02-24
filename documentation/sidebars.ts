@@ -27,6 +27,7 @@ const sidebars: SidebarsConfig = {
         'personas/coordinator',
         'personas/director',
         'personas/network-manager',
+        'personas/auditor',
       ],
     },
     {

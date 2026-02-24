@@ -2,6 +2,14 @@
 
 Esta página documenta o design system implementado para as melhorias de UX inspiradas no GitHub Docs.
 
+## 🔲 Padrões Vercel na Wiki
+
+A wiki passa a adotar também um padrão visual inspirado na Vercel para conteúdos técnicos e editoriais com foco em minimalismo e alto contraste.
+
+- Documento oficial: [Padrões Vercel (Brand)](../design-system/vercel-brand-standards)
+- Aplicação: paleta neutra, tipografia Geist (ou fallback equivalente), bordas leves, foco em legibilidade
+- Objetivo: manter consistência visual entre documentação, protótipos e materiais de comunicação
+
 ## 🎨 Paleta de Cores
 
 O design system utiliza a paleta de cores **Vuexy** combinada com cores inspiradas no GitHub para categorias de conteúdo.

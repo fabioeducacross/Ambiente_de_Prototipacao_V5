@@ -4,6 +4,20 @@
     "figma": {
       "url": "https://mcp.figma.com/mcp",
       "type": "http"
+    },
+    "ClaudeTalkToFigma": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "./claude-talk-to-figma-mcp/dist/talk_to_figma_mcp/server.js"
+      ]
+    },
+    "design-system": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "./mcp-design-system/server.cjs"
+      ]
     }
   }
 }

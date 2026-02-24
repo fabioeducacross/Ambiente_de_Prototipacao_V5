@@ -1,13 +1,15 @@
 ---
 sidebar_position: 2
 title: Coordenador
-description: Perfil responsável pelo acompanhamento pedagógico e apoio aos professores
+description: Tipo de usuário gerenciado pelo Administrador com foco pedagógico
 ---
 import { IconCoordinator } from '@site/src/components/MaterialIcon';
 
 # <IconCoordinator size={28} /> Coordenador Pedagógico
 
-O Coordenador é o elo entre a direção e os professores. Seu foco no Educacross é garantir a qualidade do uso pedagógico, verificando se as missões estão sendo enviadas e se os alunos estão desenvolvendo as habilidades esperadas.
+:::caution Nota sobre implementação
+O Coordenador **não possui uma role de navegação independente** no sistema atual. Ele é um **tipo de usuário cadastrado pelo Administrador** (menu Cadastros → Coordenadores) e acessa a plataforma com permissões do escopo `Admin`, restritas conforme configuração.
+:::
 
 ---
 
@@ -15,38 +17,16 @@ O Coordenador é o elo entre a direção e os professores. Seu foco no Educacros
 
 | | |
 |---|---|
-| **Perfil** | Coordenador Pedagógico / Orientador |
-| **Onde atua** | Coordenação Pedagógica |
-| **Experiência digital** | Básica a Intermediária |
-| **Frequência de uso** | Semanal / Quinzenal |
-
-> *"Preciso identificar quais turmas estão com dificuldade em matemática para intervir junto aos professores."*
+| **Perfil** | Coordenador Pedagógico |
+| **Onde atua** | Coordenação da escola |
+| **Como é cadastrado** | Admin → Cadastros → Coordenadores |
+| **Permissão no sistema** | `ManageCoordinators` (quem cadastra) |
 
 ---
 
-## O que faz no Educacross
+## Contexto de uso
 
-```mermaid
-mindmap
-  root((Coordenador))
-    Acompanhamento Pedagógico
-      Desempenho por Habilidade
-      Acompanhar Missões
-      Ver Evidências de Aprendizagem
-    Apoio ao Professor
-      Sugerir Jogos
-      Monitorar Engajamento
-```
-
----
-
-## Principais ações
-
-| Ação | Descrição | Frequência |
-|------|-----------|------------|
-| **Relatórios de Habilidade** | Analisa quais BNCCs estão sendo trabalhadas | Mensal |
-| **Monitorar Missões** | Verifica se professores estão criando roteiros de estudo | Semanal |
-| **Relatório de Evidências** | Acompanha o progresso detalhado de aprendizado | Quinzenal |
+O Coordenador acompanha a aplicação pedagógica da plataforma. Por estar sob o guarda-chuva do Admin, tem acesso a relatórios e dados de turmas — porém o escopo exato depende da configuração de cada instalação.
 
 ---
 

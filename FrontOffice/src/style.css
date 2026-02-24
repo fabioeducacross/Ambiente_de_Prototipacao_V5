@@ -606,6 +606,24 @@ body {
   gap: var(--modal-footer-gap);
 }
 
+/* ─── Delete Confirm Modal (estilo ModalConfirm produção) ─────────────────── */
+.delete-confirm-modal.modal-content {
+  border-radius: 0.358rem;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 5px 20px 0 rgba(34, 41, 47, 0.1);
+}
+
+.delete-confirm-modal .modal-body {
+  padding: 0.8rem 1.4rem;
+}
+
+.modal-icon {
+  font-size: 80px;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 80;
+  line-height: 1;
+}
+
 /* Modal Backdrop */
 .modal-backdrop {
   position: fixed;

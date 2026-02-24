@@ -28,11 +28,21 @@ const routes = [
       persona: 'Professor',
       breadcrumb: 'Calendário'
     }
+  },
+  {
+    path: '/teacher/trilhas-az',
+    name: 'TrilhasAZ',
+    component: () => import('../views/teacher/TrilhasAZ.vue'),
+    meta: {
+      title: 'Trilhas AZ | Educacross',
+      persona: 'Professor',
+      breadcrumb: 'Trilhas AZ'
+    }
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/Ambiente_de_Prototipacao_V5/'),
   routes
 })
 

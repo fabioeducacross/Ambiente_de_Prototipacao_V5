@@ -14,30 +14,17 @@
     
     <!-- Área de eventos (apenas eventos de 1 dia) -->
     <div class="events-container" :style="eventsContainerStyle">
-      <div
+      <EventItem
         v-for="event in visibleEvents"
         :key="event.id"
-        class="event-item"
-        :style="getEventStyle(event)"
-        :title="event.title"
-        @click.stop="handleEventClick(event)"
-      >
-        <span v-if="showEventTime && event.horaInicio" class="event-time">{{ formatTime(event.horaInicio) }}</span>
-        <span
-          v-if="isEducacrossOrigin(event.origin_level || event.origin || event.origem)"
-          :style="belinhaMaskStyle"
-          class="event-icon-coruja"
-          role="img"
-          aria-label="Educacross"
-        />
-        <span v-else class="material-symbols-outlined event-icon" aria-hidden="true">
-          {{ getOriginIcon(event.origin_level || event.origin || event.origem) }}
-        </span>
-        <span class="event-title">{{ event.title }}</span>
-      </div>
+        :event="event"
+        :show-time="showEventTime"
+        variant="compact"
+        @click="handleEventClick(event)"
+      />
       
       <!-- Indicador de mais eventos -->
-      <div v-if="hasMoreEvents" class="more-events" @click.stop="handleMoreClick">
+      <div v-if="hasMoreEvents" class="more-events" @click.stop="handleMoreClick($event)">
         +{{ moreEventsCount }} mais
       </div>
     </div>
@@ -46,9 +33,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import { getOriginIcon, normalizeOriginLevel, ORIGIN_LEVELS } from '@/data/calendar-enums'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
-import iconeBelinha from '@/assets/icons/icone_belinha.svg'
+import EventItem from '@/components/molecules/EventItem.vue'
 
 const { showEventTime } = useFeatureFlags()
 
@@ -111,49 +97,6 @@ const eventsContainerStyle = computed(() => {
   return {}
 })
 
-// Converte cor hex para rgba com opacidade especificada
-const hexToRgba = (hex, opacity = 0.16) => {
-  if (!hex) return `rgba(115, 103, 240, ${opacity})` // fallback para primary
-  const cleanHex = hex.replace('#', '')
-  const r = parseInt(cleanHex.substring(0, 2), 16)
-  const g = parseInt(cleanHex.substring(2, 4), 16)
-  const b = parseInt(cleanHex.substring(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
-
-// Estilo do evento com cores claras
-const getEventStyle = (event) => {
-  return {
-    backgroundColor: hexToRgba(event.color, 0.16),
-    color: event.color
-  }
-}
-
-// Formatar horário para exibição (ex: "2:30p", "9:00a")
-const formatTime = (time) => {
-  if (!time) return ''
-  const [hours, minutes] = time.split(':')
-  const h = parseInt(hours)
-  const ampm = h >= 12 ? 'p' : 'a'
-  const hour12 = h % 12 || 12
-  return `${hour12}:${minutes}${ampm}`
-}
-
-const resolveOrigin = (originValue) => normalizeOriginLevel(originValue)
-const isEducacrossOrigin = (originValue) => resolveOrigin(originValue) === ORIGIN_LEVELS.EDUCACROSS.value
-
-const belinhaMaskStyle = {
-  WebkitMaskImage: `url(${iconeBelinha})`,
-  maskImage: `url(${iconeBelinha})`,
-  WebkitMaskRepeat: 'no-repeat',
-  maskRepeat: 'no-repeat',
-  WebkitMaskSize: 'contain',
-  maskSize: 'contain',
-  WebkitMaskPosition: 'center',
-  maskPosition: 'center',
-  backgroundColor: 'currentColor'
-}
-
 const handleClick = () => {
   if (!props.disabled) {
     emit('click', props.day)
@@ -164,8 +107,8 @@ const handleEventClick = (event) => {
   emit('event-click', event)
 }
 
-const handleMoreClick = () => {
-  emit('more-click', { day: props.day, allEvents: props.events })
+const handleMoreClick = (nativeEvent) => {
+  emit('more-click', { day: props.day, allEvents: props.events }, nativeEvent)
 }
 </script>
 
@@ -207,59 +150,6 @@ const handleMoreClick = () => {
   gap: 4px;
   flex: 1;
   position: relative;
-}
-
-/* Item de evento (apenas eventos de 1 dia) */
-.event-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 16px;
-  cursor: pointer;
-  transition: filter 0.2s ease, transform 0.15s ease;
-  min-height: 24px;
-}
-
-.event-item:hover {
-  filter: brightness(0.95);
-  transform: translateY(-1px);
-}
-
-.event-time {
-  font-size: 12px;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.event-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-}
-
-.event-icon {
-  font-size: 16px;
-  line-height: 1;
-  flex-shrink: 0;
-  color: inherit;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-}
-
-.event-icon-coruja {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  flex-shrink: 0;
 }
 
 /* Indicador "mais eventos" */

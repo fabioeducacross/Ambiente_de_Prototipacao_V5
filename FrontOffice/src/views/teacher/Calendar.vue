@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 
 // Components
 import AppNavbar from '../../components/AppNavbar.vue'
@@ -63,6 +63,9 @@ import { ORIGIN_LEVELS, normalizeOriginLevel } from '../../data/calendar-enums'
 // Mock Data
 import calendarMockData from '../../data/calendar-mock-teacher.json'
 
+// Constante para localStorage
+const STORAGE_KEY = 'educacross_calendar_events'
+
 // State - usando composable compartilhado
 const { sidebarCollapsed, toggleSidebar, initSidebar } = useSidebarState()
 const currentDate = ref(new Date(2026, 1, 15)) // Fevereiro 15, 2026 (matching events data)
@@ -71,6 +74,62 @@ const events = ref([])
 const isDrawerOpen = ref(false)
 const editingEvent = ref(null)
 const drawerMode = ref('create') // 'view', 'edit', 'create'
+
+// Funções de persistência
+const saveToLocalStorage = () => {
+  try {
+    const data = JSON.stringify(events.value)
+    localStorage.setItem(STORAGE_KEY, data)
+    console.log('✅ Salvou no localStorage:', events.value.length, 'eventos')
+  } catch (error) {
+    console.error('❌ Erro ao salvar eventos no localStorage:', error)
+  }
+}
+
+/**
+ * Converte data no formato legado "dd/mm/yyyyThh:mm:ss" para ISO "yyyy-mm-ddThh:mm:ss".
+ * Necessário para migrar eventos salvos antes da correção do dateFormat.
+ */
+const migrateDateField = (value) => {
+  if (!value || typeof value !== 'string') return value
+  // Detecta padrão 24/02/2026T08:00:00
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})(T.+)?$/)
+  if (match) {
+    const [, day, month, year, time = 'T00:00:00'] = match
+    return `${year}-${month}-${day}${time}`
+  }
+  return value
+}
+
+const migrateEvent = (event) => ({
+  ...event,
+  dataInicio:  migrateDateField(event.dataInicio),
+  dataTermino: migrateDateField(event.dataTermino),
+  start_at:    migrateDateField(event.start_at),
+  end_at:      migrateDateField(event.end_at),
+  // 'outro' foi substituído por 'lembrete' — migra eventos antigos
+  tipo: event.tipo === 'outro' ? 'lembrete' : event.tipo,
+  type: event.type === 'outro' ? 'lembrete' : event.type,
+})
+
+const loadFromLocalStorage = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored) {
+      const parsed = JSON.parse(stored)
+      return parsed.map(migrateEvent)
+    }
+  } catch (error) {
+    console.error('Erro ao carregar eventos do localStorage:', error)
+  }
+  return null
+}
+
+// Watch para sincronizar com localStorage automaticamente
+watch(events, (newEvents) => {
+  console.log('🔄 Watch detectou mudança nos eventos:', newEvents.length, 'eventos')
+  saveToLocalStorage()
+}, { deep: true })
 
 // Activity options para o CalendarLayoutTemplate
 // Cores conforme Especificacao_Calendario_Educacross_v1_1.docx
@@ -90,16 +149,26 @@ const typeColorMap = {
   avaliacao: '#FE5153',
   trilha: '#00A5A0',
   expedicao: '#FFB443',
-  lembrete: '#7CD7D3',
-  outro: '#888888'
+  lembrete: '#7CD7D3'
 }
 
 // Função para transformar eventos do JSON para o formato dos componentes
 const transformEvent = (event) => {
   // calendar-mock-teacher.json usa start_at e end_at (novo schema)
   const startDate = new Date(event.start_at || event.dataInicio)
-  const hours = startDate.getHours().toString().padStart(2, '0')
-  const minutes = startDate.getMinutes().toString().padStart(2, '0')
+  const endDate = new Date(event.end_at || event.dataTermino || startDate)
+
+  // Guard: ignora eventos com datas inválidas (ex: salvos com formato d/m/Y antes da correção)
+  if (isNaN(startDate.getTime())) {
+    console.warn('⚠️ Evento ignorado por data inválida:', event.titulo || event.title, event.dataInicio || event.start_at)
+    return null
+  }
+  
+  const startHours = startDate.getHours().toString().padStart(2, '0')
+  const startMinutes = startDate.getMinutes().toString().padStart(2, '0')
+  const endHours = endDate.getHours().toString().padStart(2, '0')
+  const endMinutes = endDate.getMinutes().toString().padStart(2, '0')
+  
   const originLevel = normalizeOriginLevel(event.origin_level || event.origin || event.origem) || ORIGIN_LEVELS.EDUCACROSS.value
   
   // Mapear category (enum) para tipo (legacy) para compatibilidade
@@ -118,13 +187,15 @@ const transformEvent = (event) => {
     ...event,
     // Campos para compatibilidade com componentes
     title: event.title || event.titulo,
+    titulo: event.titulo || event.title,
     tipo: tipo,
     type: tipo,
     date: event.start_at || event.dataInicio,
     dataInicio: event.start_at || event.dataInicio,
     dataTermino: event.end_at || event.dataTermino,
     color: typeColorMap[tipo] || typeColorMap.outro,
-    horaInicio: `${hours}:${minutes}`,
+    horaInicio: `${startHours}:${startMinutes}`,
+    horaTermino: `${endHours}:${endMinutes}`,
     origin_level: originLevel
   }
   
@@ -133,7 +204,8 @@ const transformEvent = (event) => {
 
 // Computed - eventos transformados e filtrados
 const calendarEvents = computed(() => {
-  const transformed = events.value.map(transformEvent)
+  // .filter(Boolean) descarta nulls retornados por transformEvent (datas inválidas)
+  const transformed = events.value.map(transformEvent).filter(Boolean)
   
   const filtered = transformed.filter(event => {
     // Filtrar por turma se necessário
@@ -188,12 +260,16 @@ const closeDrawer = () => {
 }
 
 const saveEvent = (eventData) => {
+  console.log('💾 saveEvent chamado com:', eventData)
+  console.log('📊 Eventos antes:', events.value.length)
+  
   // Verificar se é atualização de evento existente
   const existingIndex = events.value.findIndex(e => e.id === eventData.id)
   const normalizedOrigin = normalizeOriginLevel(eventData.origin_level || eventData.origin || eventData.origem || 'professor') || ORIGIN_LEVELS.TEACHER.value
   
   if (existingIndex !== -1) {
     // Atualizar evento existente
+    console.log('✏️ Atualizando evento existente no índice:', existingIndex)
     events.value[existingIndex] = { ...eventData, origin_level: normalizedOrigin }
   } else {
     // Criar novo evento
@@ -202,28 +278,57 @@ const saveEvent = (eventData) => {
       id: eventData.id || Date.now(),
       status: 'ativo',
       origem: eventData.origem || 'professor',
-      origin_level: normalizedOrigin
+      origin_level: normalizedOrigin,
+      // Garantir campos de data no formato correto
+      start_at: eventData.start_at || eventData.dataInicio,
+      end_at: eventData.end_at || eventData.dataTermino
     }
+    console.log('➕ Criando novo evento:', newEvent)
     events.value.push(newEvent)
   }
+  
+  console.log('📊 Eventos depois:', events.value.length)
+  // saveToLocalStorage() será chamado automaticamente pelo watch
   closeDrawer()
 }
 
 const deleteEvent = (eventId) => {
-  const index = events.value.findIndex(e => e.id === eventId)
-  if (index !== -1) {
-    events.value.splice(index, 1)
-  }
+  console.log('🗑️ deleteEvent chamado com id:', eventId, typeof eventId)
+  console.log('📊 IDs existentes:', events.value.map(e => e.id))
+  const antes = events.value.length
+  events.value = events.value.filter(e => String(e.id) !== String(eventId))
+  console.log(`📊 Deletados: ${antes} → ${events.value.length} eventos`)
+  saveToLocalStorage()
 }
 
-// Load events from JSON
+// Load events from JSON or localStorage
 onMounted(() => {
   // Inicializar sidebar com listener de resize
   const cleanupSidebar = initSidebar()
   onUnmounted(cleanupSidebar)
   
-  // Carregar eventos do mock atualizado (schema com category e origin_level)
-  events.value = calendarMockData
+  // Tentar carregar eventos salvos do localStorage primeiro
+  const savedEvents = loadFromLocalStorage()
+  
+  if (savedEvents && savedEvents.length > 0) {
+    // Se houver eventos salvos, usar eles
+    events.value = savedEvents
+  } else {
+    // Caso contrário, carregar dados mockados iniciais
+    events.value = calendarMockData
+    // Salvar os dados mockados no localStorage para futuras edições
+    saveToLocalStorage()
+  }
+  
+  // Debug: Adicionar função global para resetar dados (útil para desenvolvimento)
+  if (typeof window !== 'undefined') {
+    window.__resetCalendarData__ = () => {
+      localStorage.removeItem(STORAGE_KEY)
+      events.value = calendarMockData
+      saveToLocalStorage()
+      console.log('✅ Dados do calendário resetados para o mock original')
+    }
+  }
 })
 </script>
 
@@ -257,6 +362,17 @@ onMounted(() => {
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
+}
+
+@media (min-width: 1440px) {
+  .calendar-main {
+    padding: 1.25rem;
+  }
+
+  .calendar-container {
+    max-width: none;
+    margin: 0;
+  }
 }
 
 /* Responsive */

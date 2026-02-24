@@ -1,0 +1,13 @@
+{
+  "name": "mcp-design-system",
+  "version": "1.0.0",
+  "description": "MCP Server para lookup on-demand de componentes do educacross-frontoffice",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "dev": "node --watch server.cjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

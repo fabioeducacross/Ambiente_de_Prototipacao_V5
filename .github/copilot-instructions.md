@@ -153,9 +153,26 @@ cd documentation && npm run build # Build documentação
 5. Atualizar `prototypes/as-is` com tag (ex: `as-is-v1.1`)
 6. Deletar feature branch
 
+## Skills Locais
+
+| Skill | Arquivo | Quando usar |
+|-------|---------|-------------|
+| `educacross-design-system` | `.agents/skills/educacross-design-system/SKILL.md` | **SEMPRE** ao construir ou revisar telas, componentes, protótipos ou qualquer UI do Educacross. Contém: paleta de cores completa (tokens SCSS), tipografia, ícones (Material Symbols), componentes (`ESelect`, `ListTable`, `MediaCard`, `EFormCheck`, gráficos), padrões de layout, roles e assets. |
+| `web-design-guidelines` | `.agents/skills/web-design-guidelines/SKILL.md` | Ao revisar UI para conformidade com boas práticas web |
+
+## Servidores MCP Locais
+
+| Servidor | Tipo | Descrição | Ferramentas |
+|----------|------|-----------|-------------|
+| `figma` | HTTP | Integração com Figma (design, diagramas) | `get_design_context`, `generate_diagram` |
+| `design-system` | stdio | Lookup on-demand de componentes do `educacross-frontoffice` | `list_components`, `get_component`, `search_component`, `get_consts`, `get_scss` |
+
+> Para consultar componentes secundários não cobertos pela SKILL, use as ferramentas do servidor `design-system`. Ver seção 11 da SKILL `educacross-design-system` para o fluxo detalhado.
+
 ## Referências
 
 - Design System completo: https://fabioeducacross.github.io/DesignSystem-Vuexy/
+- Design System local (SOMENTE LEITURA): `C:\Users\Educacross\Documents\Educacross\educacross-frontoffice\`
 - Organização: https://educacross.com.br/
 - Status do projeto: `PROJECT_STATUS.md`
 - Workflow completo: `PROTOTYPES-WORKFLOW.md`

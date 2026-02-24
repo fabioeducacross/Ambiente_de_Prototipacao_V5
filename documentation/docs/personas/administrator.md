@@ -7,7 +7,9 @@ import { IconAdmin } from '@site/src/components/MaterialIcon';
 
 # <IconAdmin size={28} /> Administrador
 
-O Administrador Escolar é a peça chave operacional. Ele garante que todos (professores e alunos) tenham acesso à plataforma e que a estrutura de turmas reflita a realidade da escola.
+O Administrador gerencia a escola no Educacross: cadastros, turmas, relatórios consolidados, módulos de avaliação e eventos. É o perfil mais completo dentro de uma unidade escolar.
+
+> Role no sistema: `Admin`
 
 ---
 
@@ -15,41 +17,30 @@ O Administrador Escolar é a peça chave operacional. Ele garante que todos (pro
 
 | | |
 |---|---|
-| **Perfil** | Secretário escolar / TI da escola |
-| **Onde atua** | Secretaria |
-| **Experiência digital** | Intermediária a Avançada |
+| **Perfil** | Secretário escolar / Coordenador TI |
+| **Onde atua** | Secretaria / Coordenação |
 | **Frequência de uso** | Diária (início do ano) / Semanal (manutenção) |
 
-> *"Preciso garantir que ninguém esteja bloqueado e que as transferências de turma sejam rápidas."*
-
 ---
 
-## O que faz no Educacross
+## Menu de navegação (real)
 
-```mermaid
-mindmap
-  root((Administrador))
-    Gestão de Acessos
-      Aprovar Professores
-      Cadastrar Usuários
-      Recriar Senhas
-    Gestão Estrutural
-      Criar/Editar Turmas
-      Vincular Professores
-      Migrar Alunos
-    Suporte Nível 1
-      Dúvidas de acesso
-```
+| Item | Sub-itens | Permissão |
+|------|-----------|----------|
+| **Painel Inicial** | — | `Admin` |
+| **Relatórios** | Visão Geral, Volume de Acessos, Acessos Mensais Alunos, Acessos Professores, Evidências Escolas, Evidências Alunos, Habilidades, Ranking de Conquistas | `Reports` / por permissão |
+| **Missões da Escola** | Missões, Missões Plus | `SchoolMissions` |
+| **Sistema de Ensino** | — | `EducationSystems` |
+| **Cadastros** | Alunos, Turmas, Grupos, Professores, Coordenadores, Diretores | por permissão |
+| **Gerenciador** | — | `ModuleManagement` |
+| **Eventos** | — | `Events` |
+| **Avaliações** | Complexidade Narrativa, Fases da Escrita, Fluência Leitora, Avaliação Digital, Simulados | por módulo |
+| **Expedição Leitura** | — | `ReadingExpedition` |
+| **Ajudas e Materiais** | — | `SupportMaterials` |
 
----
-
-## Principais ações
-
-| Ação | Descrição | Criticidade |
-|------|-----------|------------|
-| **Gerenciar Usuários** | Cria, edita e bloqueia acessos de professores e alunos | Alta |
-| **Configuração de Turmas** | Define quais turmas existem e quais alunos pertencem a elas | Alta |
-| **Aprovações Pendentes** | Libera solicitações de cadastro automático | Média |
+:::info Coordenadores e Diretores
+Coordenadores e Diretores são **tipos de usuário cadastrados pelo Admin** (via menu Cadastros). Eles não possuem navegação própria independente — acessam o sistema com as permissões do papel `Admin`, porém com escopos restritos conforme configuração.
+:::
 
 ---
 

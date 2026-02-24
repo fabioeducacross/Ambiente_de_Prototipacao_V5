@@ -99,11 +99,14 @@
 
         <!-- Ações -->
         <div class="view-actions">
-          <EButton variant="primary" icon="pencil" @click="switchToEdit">
-            Editar
+          <EButton variant="danger" @click="handleDelete">
+            Deletar
           </EButton>
           <EButton variant="outline-primary" @click="closeDrawer">
             Fechar
+          </EButton>
+          <EButton variant="primary" @click="switchToEdit">
+            Editar
           </EButton>
         </div>
       </div>
@@ -176,6 +179,7 @@
           v-model="formData.dataInicio"
           label="Data de início"
           placeholder="Selecione a data de início"
+          date-format="Y-m-d"
           :invalid="!!errors.dataInicio"
           :error-message="errors.dataInicio"
           :required="true"
@@ -187,6 +191,7 @@
           v-model="formData.dataTermino"
           label="Data de término"
           placeholder="Selecione a data de término"
+          date-format="Y-m-d"
           :invalid="!!errors.dataTermino"
           :error-message="errors.dataTermino"
         />
@@ -236,24 +241,35 @@
     </aside>
   </Transition>
 
-  <!-- Modal de Confirmação de Deleção -->
-  <EConfirmDialog
+  <!-- Modal de Confirmação de Deleção (estilo ModalConfirm produção) -->
+  <EModal
     v-model="showDeleteConfirm"
-    title="Deletar Evento"
-    message="Tem certeza que deseja deletar este evento?"
-    description="Esta ação não pode ser desfeita."
-    variant="danger"
-    icon="delete"
-    confirm-text="Sim, deletar"
-    cancel-text="Cancelar"
-    @confirm="confirmDelete"
-    @cancel="showDeleteConfirm = false"
-  />
+    :show-header="false"
+    content-class="delete-confirm-modal"
+    @close="showDeleteConfirm = false"
+  >
+    <div class="d-flex flex-column align-items-center text-center gap-2 p-2">
+      <span class="material-symbols-outlined modal-icon text-danger">delete</span>
+      <h4 class="text-body fw-semibold">Tem certeza que deseja excluir este evento?</h4>
+      <p>
+        <span class="text-primary fw-bold">{{ eventData?.titulo || eventData?.title }}</span>
+        será removido do seu calendário permanentemente.
+      </p>
+      <div class="d-flex gap-3 justify-content-center flex-row mt-2">
+        <EButton variant="outline-primary" @click="showDeleteConfirm = false">
+          Cancelar
+        </EButton>
+        <EButton variant="danger" @click="confirmDelete">
+          Excluir
+        </EButton>
+      </div>
+    </div>
+  </EModal>
 </template>
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue'
-import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker, EConfirmDialog } from './base'
+import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker, EModal } from './base'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
 import { useToast } from '@/composables/useToast'
 import { 
@@ -448,7 +464,7 @@ const atividadeOptions = [
   { id: 'avaliacao', name: 'Avaliação' },
   { id: 'trilha', name: 'Trilha' },
   { id: 'expedicao', name: 'Expedição' },
-  { id: 'outro', name: 'Outro' }
+  { id: 'lembrete', name: 'Lembrete' }
 ]
 
 const turmaOptions = [
@@ -723,25 +739,22 @@ watch(() => props.isOpen, (isOpen) => {
   gap: 16px;
 }
 
-/* Form actions - Footer fixo */
+/* Form actions - Footer fixo (seguindo Design System - padrão view-actions) */
 .form-actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
-  background-color: var(--white);
-  border-top: 1px solid var(--gray-300);
-  flex-shrink: 0;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-lg) 24px 24px 24px;
+  border-top: 1px solid var(--gray-200);
 }
 
 .form-actions-left {
   display: flex;
-  gap: 12px;
   flex: 1;
+  gap: var(--spacing-md);
 }
 
-.form-actions-left .e-button {
+.form-actions .e-button {
   flex: 1;
 }
 
@@ -881,6 +894,11 @@ watch(() => props.isOpen, (isOpen) => {
   gap: 2px;
 }
 
+/* Evitar que badges se expandam no container flex */
+.info-content .e-badge {
+  align-self: flex-start;
+}
+
 .info-label {
   font-size: var(--font-size-xs);
   font-weight: 500;
@@ -922,9 +940,14 @@ watch(() => props.isOpen, (isOpen) => {
 
 .view-actions {
   display: flex;
+  width: calc(100% + 48px);
   gap: var(--spacing-md);
   margin-top: var(--spacing-lg);
+  margin-left: -24px;
+  margin-right: -24px;
   padding-top: var(--spacing-lg);
+  padding-left: 24px;
+  padding-right: 24px;
   border-top: 1px solid var(--gray-200);
 }
 

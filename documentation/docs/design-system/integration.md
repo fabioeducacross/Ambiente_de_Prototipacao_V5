@@ -18,6 +18,14 @@ import {
 
 Guia completo para usar o Design System Vuexy nos protótipos Vue 3.
 
+## 🔲 Padrão Vercel na wiki
+
+Além do padrão Vuexy, a wiki também adota uma referência visual inspirada na Vercel para páginas de documentação técnica e materiais de comunicação.
+
+- Guia oficial: [Padrões Vercel (Brand)](./vercel-brand-standards)
+- Escopo: paleta, tipografia, componentes e checklist de consistência
+- Uso recomendado: conteúdos editoriais, páginas de guideline e documentos com linguagem visual minimalista
+
 ## <IconPalette /> Sobre o Design System
 
 O **Design System Vuexy** é um sistema de componentes **HTML-based e framework-agnostic**:

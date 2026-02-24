@@ -44,14 +44,15 @@ mindmap
 
 ---
 
-## Principais ações
+## Menu de navegação (real)
 
-| Ação | Descrição | Frequência |
-|------|-----------|------------|
-| **Ver Missões** | Lista missões liberadas pelo professor | Diária |
-| **Completar Atividades** | Realiza jogos e exercícios | Diária |
-| **Ver Progresso** | Acompanha seu desempenho | Diária |
-| **Ver Ranking** | Compara posição com colegas | Semanal |
+| Item | Permissão |
+|------|----------|
+| **Painel Inicial** | `Student` |
+| **Missões da Escola** | `SchoolMissions` |
+| **Sistema de Ensino** | `EducationSystems` (dinâmico, por escola) |
+| **Treinos da Família** | `SpecialMissions` |
+| **High Five** | `HighFive` |
 
 ---
 

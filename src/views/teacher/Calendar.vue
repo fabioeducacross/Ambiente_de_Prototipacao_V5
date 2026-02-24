@@ -138,6 +138,7 @@
       :event-data="editingEvent"
       @close="closeDrawer"
       @save="saveEvent"
+      @delete="deleteEvent"
     />
   </div>
 </template>
@@ -287,6 +288,11 @@ const saveEvent = (eventPayload) => {
   }
   
   console.log('Evento salvo:', eventPayload)
+}
+
+const deleteEvent = (eventId) => {
+  events.value = events.value.filter(e => e.id !== eventId)
+  console.log('Evento deletado:', eventId)
 }
 
 // Load events on mount

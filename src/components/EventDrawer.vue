@@ -143,9 +143,44 @@
           >
             Cancelar
           </button>
+          <button
+            v-if="eventData?.id"
+            type="button"
+            class="btn btn-delete"
+            @click="handleDelete"
+          >
+            <i class="bi bi-trash2"></i>
+            Deletar
+          </button>
         </div>
       </form>
     </aside>
+  </Transition>
+
+  <!-- Modal de Confirmação de Deleção -->
+  <Transition name="fade">
+    <div v-if="showDeleteConfirm" class="delete-modal-overlay" @click.self="showDeleteConfirm = false">
+      <div class="delete-modal">
+        <button class="delete-modal-close" @click="showDeleteConfirm = false" aria-label="Fechar">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="delete-modal-icon">
+          <i class="bi bi-trash2"></i>
+        </div>
+        <div class="delete-modal-message">
+          <p class="delete-message-text">Tem certeza que deseja deletar este evento?</p>
+          <p class="delete-message-description">Esta ação não pode ser desfeita.</p>
+        </div>
+        <div class="delete-modal-actions">
+          <button type="button" class="btn btn-cancel-modal" @click="showDeleteConfirm = false">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-confirm-delete" @click="confirmDelete">
+            Sim, deletar
+          </button>
+        </div>
+      </div>
+    </div>
   </Transition>
 </template>
 
@@ -163,7 +198,22 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close', 'save'])
+const emit = defineEmits(['close', 'save', 'delete'])
+
+// Delete Confirmation State
+const showDeleteConfirm = ref(false)
+
+const handleDelete = () => {
+  showDeleteConfirm.value = true
+}
+
+const confirmDelete = () => {
+  if (props.eventData) {
+    emit('delete', props.eventData.id)
+    showDeleteConfirm.value = false
+    closeDrawer()
+  }
+}
 
 // Form data
 const formData = reactive({
@@ -457,6 +507,145 @@ watch(() => props.isOpen, (isOpen) => {
   padding-top: 8px;
   margin-top: 24px;
   border-top: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: #EA5455;
+  border: 1px solid #EA5455;
+  margin-left: auto;
+}
+
+.btn-delete:hover {
+  background-color: rgba(234, 84, 85, 0.08);
+}
+
+.btn-delete i {
+  margin-right: 6px;
+}
+
+/* Delete Confirmation Modal */
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.delete-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px 28px;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.delete-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: #6c757d;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.delete-modal-close:hover {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+}
+
+.delete-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: rgba(234, 84, 85, 0.12);
+  color: #EA5455;
+}
+
+.delete-modal-icon i {
+  font-size: 28px;
+}
+
+.delete-modal-message {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delete-message-text {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2f2b3d;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.delete-message-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6e6b7b;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-cancel-modal {
+  background-color: transparent;
+  color: #6c757d;
+  border: none;
+  flex: 1;
+}
+
+.btn-cancel-modal:hover {
+  color: #2c3e50;
+}
+
+.btn-confirm-delete {
+  background-color: #EA5455;
+  color: #fff;
+  border: none;
+  flex: 1;
+  font-weight: 500;
+}
+
+.btn-confirm-delete:hover {
+  background-color: #d63b3c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 84, 85, 0.3);
+}
+
+.btn-confirm-delete:active {
+  transform: translateY(0);
 }
 
 .btn {
