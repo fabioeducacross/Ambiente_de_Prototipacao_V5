@@ -123,15 +123,19 @@
 
       <!-- ── Footer fixo ── -->
       <footer class="drawer-footer">
-        <button
-          class="drawer-action-btn"
-          :class="{ 'is-disabled': isActionDisabled }"
-          :title="actionTooltip"
-          :aria-disabled="isActionDisabled"
-          @click="confirm"
-        >
-          {{ actionLabel }}
-        </button>
+        <div class="drawer-footer-actions">
+          <EButton variant="danger" @click="close">
+            Fechar
+          </EButton>
+          <EButton
+            variant="primary"
+            :disabled="isActionDisabled"
+            :title="actionTooltip"
+            @click="confirm"
+          >
+            {{ actionLabel }}
+          </EButton>
+        </div>
       </footer>
 
     </aside>
@@ -142,6 +146,7 @@
 import { ref, computed, watch, reactive, onMounted, onUnmounted } from 'vue'
 import { useTrilhasAZ } from '../composables/useTrilhasAZ.js'
 import EDatePicker from '@/shared/components/base/EDatePicker.vue'
+import EButton from '@/shared/components/base/EButton.vue'
 
 const {
   students,
@@ -615,38 +620,19 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 /* ── Footer ───────────────────────────────────────────────────────────────── */
 .drawer-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   padding: 16px 24px;
   border-top: 1px solid #e0e0e0;
   background: #fff;
   flex-shrink: 0;
 }
 
-.drawer-action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 24px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  background: #7367f0;
-  cursor: pointer;
-  transition: background 0.2s ease, opacity 0.2s ease;
-  letter-spacing: 0.3px;
+.drawer-footer-actions {
+  display: flex;
+  gap: 12px;
 }
 
-.drawer-action-btn:hover:not(.is-disabled) {
-  background: #6457e0;
-}
-
-.drawer-action-btn.is-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.drawer-footer-actions .e-button {
+  flex: 1;
 }
 
 /* ── Transitions ──────────────────────────────────────────────────────────── */
