@@ -32,7 +32,7 @@ export default defineConfig(({ command }) => ({
   },
   define: {
     __GIT_BRANCH__: JSON.stringify(branch),
-    __GIT_SHA__:    JSON.stringify(sha),
+    __GIT_SHA__: JSON.stringify(sha),
     // Em build aponta para GitHub Pages; em dev aponta para Docusaurus local
     __WIKI_URL__: command === 'build'
       ? JSON.stringify('https://fabioeducacross.github.io/Ambiente_de_Prototipacao_V5/wiki/')

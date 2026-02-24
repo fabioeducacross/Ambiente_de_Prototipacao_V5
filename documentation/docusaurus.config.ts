@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -40,7 +40,7 @@ const config: Config = {
   markdown: {
     mermaid: true,
     // Migração para Docusaurus v4: tratamento de links markdown quebrados
-    preprocessor: ({filePath, fileContent}) => fileContent,
+    preprocessor: ({ filePath, fileContent }) => fileContent,
   },
   themes: ['@docusaurus/theme-mermaid'],
 
