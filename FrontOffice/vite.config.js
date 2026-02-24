@@ -2,6 +2,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
+
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
 
 // Lê o branch e o short SHA do git em tempo de build/dev
 function gitInfo() {
@@ -32,8 +35,8 @@ export default defineConfig(({ command }) => ({
   },
   define: {
     __GIT_BRANCH__: JSON.stringify(branch),
-    __GIT_SHA__: JSON.stringify(sha),
-    // Em build aponta para GitHub Pages; em dev aponta para Docusaurus local
+    __GIT_SHA__: JSON.stringify(sha),    // Versão estável do package.json — não muda com merge de branches
+    __APP_VERSION__: JSON.stringify(pkg.version),    // Em build aponta para GitHub Pages; em dev aponta para Docusaurus local
     __WIKI_URL__: command === 'build'
       ? JSON.stringify('https://fabioeducacross.github.io/Ambiente_de_Prototipacao_V5/wiki/')
       : JSON.stringify('http://localhost:3000')

@@ -211,7 +211,7 @@
     </nav>
 
     <footer class="sidebar-footer">
-      <span class="version-note" :title="gitSha">{{ gitBranch }}</span>
+      <span class="version-note" :title="`commit: ${gitSha}`">v{{ appVersion }} · {{ gitSha }}</span>
     </footer>
   </aside>
 </template>
@@ -221,8 +221,9 @@ import { RouterLink, useRoute } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
 
 // Injetado pelo vite.config.js via define
-const gitBranch = __GIT_BRANCH__
-const gitSha    = __GIT_SHA__
+// Usa versão do package.json (estável) + SHA (imutável)
+const appVersion = __APP_VERSION__
+const gitSha     = __GIT_SHA__
 
 const route = useRoute()
 
