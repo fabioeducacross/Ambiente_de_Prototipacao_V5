@@ -413,11 +413,20 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 .drawer-body {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  /* Gradiente no final para indicar que há mais conteúdo */
+  background:
+    linear-gradient(white 30%, transparent) center top,
+    linear-gradient(transparent, white 70%) center bottom,
+    radial-gradient(farthest-side at 50% 0, rgba(0,0,0,.08), transparent) center top,
+    radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,.08), transparent) center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 12px, 100% 12px;
+  background-attachment: local, local, scroll, scroll;
 }
 
 /* ── Seções flat (padrão Vuexy customizer-section) ───────────────────────── */
@@ -549,9 +558,11 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 /* ── Tabela de alunos ─────────────────────────────────────────────────────── */
 .drawer-table-wrap {
+  min-height: 160px;
+  max-height: min(300px, 38vh);
+  overflow-y: auto;
   border: 1px solid #ebe9f1;
   border-radius: 6px;
-  overflow: hidden;
 }
 
 .drawer-table {
