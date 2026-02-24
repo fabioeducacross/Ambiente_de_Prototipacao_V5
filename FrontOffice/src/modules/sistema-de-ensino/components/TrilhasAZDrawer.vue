@@ -50,10 +50,12 @@
             Definir período
           </label>
           <div v-if="periodEnabled" class="drawer-date-row">
-            <div class="date-field">
-              <span class="field-label">Data de fim</span>
-              <input type="date" v-model="endDateValue" class="date-input" />
-            </div>
+            <EDatepicker
+              v-model="endDateValue"
+              label="Data de término"
+              placeholder="Selecione a data de término"
+              input-id="dataTermino"
+            />
           </div>
         </div>
 
@@ -131,6 +133,7 @@
 <script setup>
 import { ref, computed, watch, reactive, onMounted, onUnmounted } from 'vue'
 import { useTrilhasAZ } from '../composables/useTrilhasAZ.js'
+import EDatepicker from '@/components/EDatepicker.vue'
 
 const {
   students,
@@ -481,34 +484,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   gap: 12px;
 }
 
-.date-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-
-.field-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #5e5873;
-}
-
-.date-input {
-  width: 100%;
-  padding: 7px 12px;
-  border: 1px solid #d8d6de;
-  border-radius: 5px;
-  font-size: 13px;
-  color: #6e6b7b;
-  background: #fff;
-  outline: none;
-  transition: border-color 0.15s;
-}
-
-.date-input:focus {
-  border-color: #6e63e8;
-}
 
 /* ── Filtro ────────────────────────────────────────────────────────────────── */
 .drawer-filters {
