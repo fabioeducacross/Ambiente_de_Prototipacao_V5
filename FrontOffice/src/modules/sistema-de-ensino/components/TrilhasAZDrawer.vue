@@ -491,13 +491,8 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 .drawer-date-row {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 12px;
-}
-
-.drawer-date-row > * {
-  flex: 1;
-  min-width: 0;
 }
 
 
