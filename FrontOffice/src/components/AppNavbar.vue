@@ -144,7 +144,7 @@ defineEmits(['toggle-sidebar'])
 
 .permissionUser {
   font-size: 0.75rem;
-  color: #b9b9c3;
+  color: var(--primary);
 }
 
 /* Avatar — replica b-avatar badge-light-primary do BootstrapVue */
