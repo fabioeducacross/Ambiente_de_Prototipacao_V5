@@ -1,37 +1,68 @@
 <template>
   <header class="app-navbar">
-    <div class="nav-left">
-      <button class="menu-btn" aria-label="Abrir menu" @click="$emit('toggle-sidebar')">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
+    <!-- Coluna esquerda: menu -->
+    <div class="navbar-column">
+      <span
+        class="material-symbols-outlined text-primary cursor-pointer"
+        style="vertical-align: middle;"
+        @click="$emit('toggle-sidebar')"
+      >menu</span>
     </div>
 
-    <div class="nav-center">
-      <RouterLink to="/" class="brand">
-        <img src="https://fabioeducacross.github.io/educacross-assets/logo-educacross.svg" alt="Educacross" class="logo" />
+    <!-- Coluna central: logo -->
+    <div class="navbar-column d-flex justify-content-center">
+      <RouterLink to="/" class="logo-container">
+        <img :src="logoUrl" alt="logo" class="d-sm-inline d-none" />
+        <img :src="logoUrlSmall" alt="logo" class="d-sm-none" />
       </RouterLink>
     </div>
 
-    <div class="nav-right">
-      <button class="student-view" aria-label="Visão aluno">
-        <MaterialIcon name="person" :size="18" />
-        <span>Visão aluno</span>
-      </button>
+    <!-- Coluna direita: ações + usuário -->
+    <div class="navbar-column d-flex justify-content-end">
+      <ul class="navbar-nav nav align-items-center flex-nowrap gap-2">
 
-      <div class="user">
-        <div class="user-name">Isabela Cross</div>
-        <div class="user-role">Professor</div>
-        <div class="user-avatar">
-          <img src="https://fabioeducacross.github.io/educacross-assets/avatar-owl.png" alt="Avatar" />
-        </div>
-      </div>
+        <!-- Botão Visão aluno -->
+        <button
+          type="button"
+          class="btn d-flex align-items-center gap-2 btn-outline-primary rounded-pill"
+        >
+          <span class="material-symbols-outlined text-primary" style="font-size: 14px; vertical-align: middle;">joystick</span>
+          <span class="d-xl-inline d-none">Visão aluno</span>
+        </button>
+
+        <!-- Usuário -->
+        <li class="nav-item dropdown dropdown-user">
+          <a
+            role="button"
+            class="nav-link d-flex align-items-center gap-2 dropdown-user-link"
+            href="#"
+            @click.prevent
+          >
+            <!-- Nome + perfil (oculto em telas pequenas) -->
+            <div class="d-xl-flex d-none user-nav">
+              <p class="user-name d-flex flex-column justify-content-center align-items-end mb-0" style="line-height: 1.5rem;">
+                <span class="profileName d-inline-block text-truncate" style="font-weight: 500;">Isabela Cross</span>
+                <span class="permissionUser" style="font-weight: bold;">Professor</span>
+              </p>
+            </div>
+
+            <!-- Avatar -->
+            <span class="user-avatar-wrapper rounded-circle">
+              <img :src="avatarUrl" alt="avatar" class="user-avatar-img" />
+            </span>
+          </a>
+        </li>
+
+      </ul>
     </div>
   </header>
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router'
-import MaterialIcon from './MaterialIcon.vue'
+import logoUrl from '../assets/images/MainLogo.svg'
+import avatarUrl from '../assets/images/avatar-default.png'
+const logoUrlSmall = logoUrl
 
 defineEmits(['toggle-sidebar'])
 </script>
@@ -40,11 +71,9 @@ defineEmits(['toggle-sidebar'])
 .app-navbar {
   height: 70px;
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
-  padding: 16px 24px;
-  gap: 1rem;
+  padding: 0 1.25rem;
   justify-content: space-between;
   position: fixed;
   top: 0;
@@ -52,66 +81,86 @@ defineEmits(['toggle-sidebar'])
   right: 0;
   width: 100%;
   z-index: 110;
+  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
 }
 
-.nav-left, .nav-center, .nav-right {
+.navbar-column {
   display: flex;
   align-items: center;
 }
 
-.nav-center {
+.navbar-column:nth-child(1) {
   flex: 1;
-  justify-content: center;
 }
 
-.menu-btn {
-  background: transparent;
-  border: none;
+.navbar-column:nth-child(3) {
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.cursor-pointer {
   cursor: pointer;
-  padding: 8px;
-  color: #7367F0;
 }
 
-.brand .logo {
+.logo-container {
+  text-decoration: none;
+}
+
+.logo-container img {
   height: 34px;
   width: auto;
 }
 
-.nav-right {
-  gap: 12px;
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.student-view {
+.dropdown-user-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-nav {
+  align-items: center;
+  margin-right: 0.5rem;
+}
+
+.profileName {
+  font-size: 0.875rem;
+  color: #5e5873;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.permissionUser {
+  font-size: 0.75rem;
+  color: var(--primary);
+}
+
+.user-avatar-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 24px;
-  border: 1px solid #7367F0;
-  background: transparent;
-  color: #7367F0;
-  cursor: pointer;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  background-color: #eeedfd;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-name {
-  font-weight: 600;
-  color: #222;
-}
-
-.user-role {
-  font-size: 12px;
-  color: #666;
-}
-
-.user-avatar img {
-  height: 36px;
-  width: 36px;
+.user-avatar-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 50%;
 }
 </style>
