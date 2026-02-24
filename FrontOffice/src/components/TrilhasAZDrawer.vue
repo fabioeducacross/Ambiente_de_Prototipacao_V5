@@ -321,7 +321,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: var(--font-family-base);
+  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
