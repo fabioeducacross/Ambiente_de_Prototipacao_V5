@@ -124,7 +124,7 @@
       <!-- ── Footer fixo ── -->
       <footer class="drawer-footer">
         <div class="drawer-footer-actions">
-          <EButton variant="danger" @click="close">
+          <EButton variant="outline-primary" @click="close">
             Fechar
           </EButton>
           <EButton
