@@ -10,6 +10,11 @@
   --primary-light: #9E95F5;
   --primary-dark: #5E50EE;
 
+  /* Bootstrap 5 native vars override → força roxo em todos os btn-primary */
+  --bs-primary: #7367F0;
+  --bs-primary-rgb: 115, 103, 240;
+  --bs-btn-bg: #7367F0;
+
   /* Secondary Colors */
   --secondary: #82868B;
   --secondary-light: #A8AAAE;
@@ -347,13 +352,17 @@ body {
   transform: translateY(0);
 }
 
-.btn-primary {
-  --bs-btn-bg: var(--primary);
-  --bs-btn-border-color: var(--primary);
-  --bs-btn-hover-bg: var(--primary-dark);
-  --bs-btn-hover-border-color: var(--primary-dark);
-  --bs-btn-active-bg: var(--primary-dark);
-  --bs-btn-active-border-color: var(--primary-dark);
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled {
+  --bs-btn-bg: var(--primary) !important;
+  --bs-btn-border-color: var(--primary) !important;
+  --bs-btn-hover-bg: var(--primary-dark) !important;
+  --bs-btn-hover-border-color: var(--primary-dark) !important;
+  --bs-btn-active-bg: var(--primary-dark) !important;
+  --bs-btn-active-border-color: var(--primary-dark) !important;
+  --bs-btn-disabled-bg: var(--primary) !important;
+  --bs-btn-disabled-border-color: var(--primary) !important;
   color: white;
   background-color: var(--primary);
   border-color: var(--primary);
