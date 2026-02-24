@@ -13,42 +13,42 @@ interface PopularDoc {
 
 const popularDocs: PopularDoc[] = [
   {
-    icon: '📋',
+    icon: 'description',
     title: 'Template PRD',
     description: 'Modelo completo para Product Requirements Documents',
     href: '/docs/produto/template-prd',
     badge: 'Template'
   },
   {
-    icon: '🎯',
+    icon: 'track_changes',
     title: 'Visão de Produto 2024',
     description: 'Estratégia e roadmap da plataforma Educacross',
     href: '/docs/product-strategy/vision',
     badge: 'Estratégia'
   },
   {
-    icon: '📘',
+    icon: 'menu_book',
     title: 'Regras de Negócio',
     description: 'Regras de negócio para gestão de turmas e matrículas',
     href: '/docs/business-rules',
     badge: 'Regras'
   },
   {
-    icon: '🚀',
+    icon: 'rocket_launch',
     title: 'Guia de Início Rápido',
     description: 'Setup do ambiente de desenvolvimento em 10 minutos',
     href: '/docs/getting-started/intro',
     badge: 'Setup'
   },
   {
-    icon: '⚙️',
+    icon: 'settings',
     title: 'Decisões Arquiteturais',
     description: 'Decisão técnica sobre arquitetura do sistema',
     href: '/docs/decisions',
     badge: 'Arquitetura'
   },
   {
-    icon: '👨‍🏫',
+    icon: 'school',
     title: 'Persona: Professor',
     description: 'Perfil detalhado do usuário professor na plataforma',
     href: '/docs/personas/professor',
@@ -62,7 +62,7 @@ export default function PopularDocs(): JSX.Element {
       <div className="container">
         <div className={styles.header}>
           <h2 className={styles.title}>
-            <span className={styles.icon}>📈</span>
+            <span className={`${styles.icon} material-symbols-outlined`}>trending_up</span>
             Documentos Mais Acessados
           </h2>
           <p className={styles.subtitle}>
@@ -77,7 +77,7 @@ export default function PopularDocs(): JSX.Element {
               to={doc.href} 
               className={styles.docCard}
             >
-              <div className={styles.docIcon}>{doc.icon}</div>
+              <div className={styles.docIcon}><span className="material-symbols-outlined">{doc.icon}</span></div>
               <div className={styles.docContent}>
                 <h3 className={styles.docTitle}>{doc.title}</h3>
                 <p className={styles.docDescription}>{doc.description}</p>

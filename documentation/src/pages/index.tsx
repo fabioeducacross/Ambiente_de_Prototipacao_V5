@@ -38,7 +38,7 @@ function HomepageHeader() {
 // Category data based on IMPL-001 specification
 const categories = [
   {
-    icon: '📘',
+    icon: 'menu_book',
     title: 'Regras de Negócio',
     description: 'Especificações técnicas e regras de sistema (RN001-RN999)',
     color: '#0969DA',
@@ -49,7 +49,7 @@ const categories = [
     ]
   },
   {
-    icon: '🎯',
+    icon: 'track_changes',
     title: 'Documentação de Produto',
     description: 'PRDs, visão de produto e especificações de funcionalidades',
     color: '#8250DF',
@@ -60,7 +60,7 @@ const categories = [
     ]
   },
   {
-    icon: '🚀',
+    icon: 'rocket_launch',
     title: 'Jornadas Educacionais',
     description: 'Fluxos de alunos, professores e gestores na plataforma',
     color: '#1A7F37',
@@ -71,7 +71,7 @@ const categories = [
     ]
   },
   {
-    icon: '⚙️',
+    icon: 'settings',
     title: 'Setup & Desenvolvimento',
     description: 'Guias de instalação, arquitetura e padrões de código',
     color: '#D1242F',
@@ -82,7 +82,7 @@ const categories = [
     ]
   },
   {
-    icon: '👥',
+    icon: 'group',
     title: 'Personas & Contexto',
     description: 'Perfis de usuários e casos de uso',
     color: '#BF8700',
@@ -93,7 +93,7 @@ const categories = [
     ]
   },
   {
-    icon: '❓',
+    icon: 'help',
     title: 'FAQ & Suporte',
     description: 'Perguntas frequentes e resolução de problemas',
     color: '#00CFE8',

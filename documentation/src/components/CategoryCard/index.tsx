@@ -46,7 +46,7 @@ export default function CategoryCard({
       style={{ borderLeftColor: color }}
     >
       <div className={styles.header}>
-        <span className={styles.icon}>{icon}</span>
+        <span className={`${styles.icon} material-symbols-outlined`}>{icon}</span>
         <h3 className={styles.title}>{title}</h3>
       </div>
       
