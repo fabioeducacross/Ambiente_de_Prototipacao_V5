@@ -412,6 +412,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 /* ── Body ─────────────────────────────────────────────────────────────────── */
 .drawer-body {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 24px;
   display: flex;
@@ -548,10 +549,9 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 /* ── Tabela de alunos ─────────────────────────────────────────────────────── */
 .drawer-table-wrap {
-  flex: 1;
-  overflow-y: auto;
   border: 1px solid #ebe9f1;
   border-radius: 6px;
+  overflow: hidden;
 }
 
 .drawer-table {
