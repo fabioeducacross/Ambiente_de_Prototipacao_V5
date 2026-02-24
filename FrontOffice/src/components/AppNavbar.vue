@@ -91,11 +91,21 @@ defineEmits(['toggle-sidebar'])
   align-items: center;
 }
 
+/* A coluna central precisa de flex: 1 para que o logo fique
+   verdadeiramente centrado independentemente da largura das colunas laterais */
+.navbar-column:nth-child(2) {
+  flex: 1;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
 
 /* Logo */
+.logo-container {
+  text-decoration: none;
+}
+
 .logo-container img {
   height: 34px;
   width: auto;
@@ -136,7 +146,7 @@ defineEmits(['toggle-sidebar'])
   color: #b9b9c3;
 }
 
-/* Avatar */
+/* Avatar — replica b-avatar badge-light-primary do BootstrapVue */
 .user-avatar-wrapper {
   display: inline-flex;
   align-items: center;
@@ -144,7 +154,9 @@ defineEmits(['toggle-sidebar'])
   width: 40px;
   height: 40px;
   overflow: hidden;
-  background-color: #eeedfd;
+  background-color: #eeedfd; /* badge-light-primary */
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .user-avatar-img {
@@ -152,19 +164,5 @@ defineEmits(['toggle-sidebar'])
   height: 40px;
   object-fit: cover;
   border-radius: 50%;
-}
-
-/* Responsivo: d-sm-none / d-sm-inline / d-xl-flex / d-xl-inline / d-none */
-.d-none { display: none !important; }
-.d-flex { display: flex !important; }
-
-@media (min-width: 576px) {
-  .d-sm-none { display: none !important; }
-  .d-sm-inline { display: inline !important; }
-}
-
-@media (min-width: 1200px) {
-  .d-xl-inline { display: inline !important; }
-  .d-xl-flex { display: flex !important; }
 }
 </style>
