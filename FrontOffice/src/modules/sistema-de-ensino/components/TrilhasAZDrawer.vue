@@ -14,11 +14,9 @@
 
       <!-- ── Header ── -->
       <header class="drawer-header">
-        <div class="drawer-title" id="drawerTitle">
-          {{ drawerTitle }}
-        </div>
+        <h2 class="drawer-title" id="drawerTitle">{{ drawerTitle }}</h2>
         <button class="drawer-close" @click="close" type="button" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
+          <i class="bi bi-x-lg"></i>
         </button>
       </header>
 
@@ -328,7 +326,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 .drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   backdrop-filter: blur(2px);
 }
@@ -339,15 +337,15 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   top: 0;
   right: 0;
   bottom: 0;
-  width: 460px;
-  max-width: 92vw;
+  width: 420px;
+  max-width: 90vw;
   background: #fff;
-  box-shadow: -4px 0 32px rgba(0, 0, 0, 0.14);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-base);
 }
 
 /* ── Header ───────────────────────────────────────────────────────────────── */
@@ -355,16 +353,17 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px;
-  border-bottom: 1px solid #ebe9f1;
+  padding: 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
   flex-shrink: 0;
 }
 
 .drawer-title {
   margin: 0;
-  font-size: 17px;
-  font-weight: 700;
-  color: #2c2c2c;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .drawer-close {
@@ -375,25 +374,27 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   height: 32px;
   border: none;
   background: none;
-  font-size: 24px;
-  color: #6e6b7b;
+  color: #6c757d;
   cursor: pointer;
   border-radius: 4px;
-  transition: all 0.15s;
+  transition: all 0.2s ease;
   padding: 0;
-  line-height: 1;
+}
+
+.drawer-close i {
+  font-size: 16px;
 }
 
 .drawer-close:hover {
-  background: #f8f7ff;
-  color: #2c2c2c;
+  background-color: #f8f9fa;
+  color: #2c3e50;
 }
 
 /* ── Body ─────────────────────────────────────────────────────────────────── */
 .drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 24px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -419,8 +420,8 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 .drawer-mission {
   font-size: 15px;
-  font-weight: 700;
-  color: #2c2c2c;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .drawer-meta {
@@ -503,7 +504,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   border: 1px solid #d8d6de;
   border-radius: 5px;
   font-size: 13px;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   color: #6e6b7b;
   background: #fff;
   outline: none;
@@ -551,7 +551,6 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   width: 100%;
   padding: 8px 0;
   font-size: 13px;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   color: #6e6b7b;
   background: transparent;
 }
@@ -638,26 +637,29 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   justify-content: flex-end;
   align-items: center;
   padding: 16px 24px;
-  border-top: 1px solid #ebe9f1;
+  border-top: 1px solid #e0e0e0;
   background: #fff;
   flex-shrink: 0;
 }
 
 .drawer-action-btn {
-  padding: 10px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 14px;
-  font-weight: 600;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   color: #fff;
-  background: #6e63e8;
+  background: #7367f0;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  letter-spacing: 0.3px;
 }
 
 .drawer-action-btn:hover:not(.is-disabled) {
-  background: #5a50d6;
+  background: #6457e0;
 }
 
 .drawer-action-btn.is-disabled {
@@ -667,12 +669,50 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 
 /* ── Transitions ──────────────────────────────────────────────────────────── */
 .fade-enter-active,
-.fade-leave-active { transition: opacity 0.25s; }
+.fade-leave-active { transition: opacity 0.3s ease; }
 .fade-enter-from,
 .fade-leave-to     { opacity: 0; }
 
 .slide-enter-active,
-.slide-leave-active { transition: transform 0.25s ease; }
+.slide-leave-active { transition: transform 0.3s ease; }
 .slide-enter-from,
 .slide-leave-to     { transform: translateX(100%); }
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+.drawer-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.drawer-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.drawer-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.drawer-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .tz-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .drawer-header {
+    padding: 16px;
+  }
+
+  .drawer-body {
+    padding: 16px;
+  }
+
+  .drawer-footer {
+    padding: 12px 16px;
+  }
+}
 </style>
