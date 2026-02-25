@@ -923,6 +923,11 @@ a.bc-item:hover { color: #5a50d6; }
   border-bottom: 1px solid #ebe9f1;
 }
 
+/* Coluna AÇÕES: padding compacto para não inflar as linhas */
+.tz-table td.col-sticky-right {
+  padding: 0.5rem 1rem;
+}
+
 /* ── Sticky column (ações) — apenas em viewports menores ─────────────────── */
 /* border-collapse:separate + border-spacing:0 permite box-shadow normal nas células */
 @media (max-width: 1400px) {
