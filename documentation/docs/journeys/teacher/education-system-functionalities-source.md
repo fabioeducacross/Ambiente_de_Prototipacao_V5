@@ -1,7 +1,9 @@
 **Documento de Funcionalidades**  
 **Sistema Ensino — Lista \+ Drawer**
 
-Versão: 1.0 • Data: 18/02/2026
+Versão: 1.1 • Data: 25/02/2026
+
+> **Fonte de verdade**: todo o conteúdo marcado com ✅ foi lido diretamente do código-fonte de produção em `educacross-frontoffice`. O que for inferência ou suposição está marcado com ⚠️.
 
 Escopo: regras de negócio \+ comportamento de UI/UX para habilitar, enviar (vincular) e pausar (desvincular) missões por turma.
 
@@ -47,79 +49,129 @@ A tela exibe uma tabela de missões da turma, com colunas e regras abaixo.
 | Status | Tag colorida | Posicionada ao lado de Ações. Cores e regras na seção 5\. |
 | Ações | Botões/ícones | Habilitar no estado inicial; após habilitar, exibe Enviar e Pausar (seção 6). |
 
-## **4.2 Regras de Rendimento Médio por Status (levantado da produção)**
+## **4.2 Regras confirmadas de produção — Comportamento da tabela por Status** ✅
 
-> **Fonte**: `educacross-frontoffice/src/views/pages/teacher-context/educationSystem/missions/List.vue` + `src/components/cells/PerformanceCell.vue` + `src/consts/legends/performanceEnum.js`
+> **Fontes lidas**: `EEducationSystemGuideStatus.js` · `guideStatusEnum.js` · `List.vue` · `PerformanceCell.vue` · `ConditionalValueDisplay.vue` · `performanceEnum.js` · `progressEnum.js` · `EducationSystemMissionsEnableModal.vue`
 
-### Enum de status da produção (`EEducationSystemGuideStatus`)
+---
 
-| Valor | Chave | Label |
+### Enum de status da produção ✅
+
+| Valor numérico | Chave | Label exibida |
 | :---- | :---- | :---- |
-| 0 | NotSent | Não enviada |
-| 1 | Paused | Pausada |
-| 2 | Finished | Finalizada |
-| 3 | Started | Iniciada |
-| 4 | NotStarted | Não iniciada |
+| 0 | `NotSent` | Não enviada |
+| 1 | `Paused` | Pausada |
+| 2 | `Finished` | Finalizada |
+| 3 | `Started` | Iniciada |
+| 4 | `NotStarted` | Não iniciada |
 
-### Lógica de exibição da célula (produção)
+---
+
+### Badge de Status — variante e cor ✅
+
+| Status | Variant DS | Cor visual |
+| :---- | :---- | :---- |
+| Não enviada | `legend-basic` | Laranja |
+| Pausada | `legend-below-basic` | Vermelho |
+| Finalizada | `legend-advanced` | Roxo/verde-escuro |
+| Iniciada | `legend-proficient` | Verde |
+| Não iniciada | `legend-in-progress` | Laranja |
+
+---
+
+### Coluna Rendimento Médio — regra de exibição ✅
 
 ```javascript
-// List.vue — template #cell(performance)
+// Confirmado diretamente de List.vue
 if (status === NotSent || status === NotStarted || performance === undefined) {
-  // exibe traço "-"
+  // → exibe traço "-"  (sem componente)
 } else {
-  PerformanceCell({ performance })
-  // PerformanceCell internamente:
-  //   performance === null  → badge pill light-primary "Não há dados para exibir"
-  //   performance > 0       → "XX%" + badge classificatório
-  //   performance === 0     → apenas badge classificatório (sem número)
+  <PerformanceCell :performance="item.performance" />
+  // PerformanceCell:
+  //   performance === null/undefined  → pill roxo "Não há dados para exibir"
+  //   performance > 0                 → "XX%" + badge classificatório
+  //   performance === 0               → apenas badge classificatório (sem número)
 }
 ```
 
-### Regra por status
-
-| Status | Exibição no protótipo | Razão |
+| Status | O que exibe | Confirmado |
 | :---- | :---- | :---- |
-| **Não enviada** | Traço " - " | Missão nunca chegou ao aluno; sem dados de jogo. |
-| **Não iniciada** | Traço " - " | Missão enviada mas período ainda não começou; nenhum jogo ocorreu. |
-| **Iniciada** | `PerformanceCell` com valor parcial ou `null` | Alunos jogando — pode haver dados parciais ou ainda `null` no início. |
-| **Pausada** | `PerformanceCell` com último valor conhecido ou `null` | Dados existentes são preservados; não há novos jogos enquanto pausada. |
-| **Finalizada** | `PerformanceCell` com valor final | Missão concluída — valor consolidado (ex: 95%, 45%). |
+| Não enviada (0) | Traço `–` | ✅ |
+| Não iniciada (4) | Traço `–` | ✅ |
+| Iniciada (3) | `PerformanceCell` | ✅ — valor depende do backend |
+| Pausada (1) | `PerformanceCell` | ✅ — valor depende do backend |
+| Finalizada (2) | `PerformanceCell` | ✅ — valor depende do backend |
 
-### Classificação do badge (enum `accuracyPerformance`)
+> ⚠️ O valor que a API retorna em `performance` para os status Iniciada, Pausada e Finalizada depende do backend — não mapeado neste repositório.
 
-| Condição | Variant | Label do badge |
+### Classificação do badge de rendimento ✅
+
+| Condição | Variant DS | Label |
 | :---- | :---- | :---- |
-| `value >= 70` | `legend-advanced` (roxo) | **Avançado** |
-| `value >= 50` | `legend-proficient` (verde) | **Proficiente** |
-| `value >= 25` | `legend-basic` (laranja) | **Básico** |
-| `value < 25` | `legend-below-basic` (vermelho) | **Abaixo do Básico** |
+| `value >= 70` | `legend-advanced` | Avançado |
+| `value >= 50` | `legend-proficient` | Proficiente |
+| `value >= 25` | `legend-basic` | Básico |
+| `value < 25` | `legend-below-basic` | Abaixo do Básico |
 
-### Tooltip da coluna (produção)
+---
 
-> "Calcula-se rendimento com base nos erros e acertos dos alunos em seus desafios (jogadas)."
+### Coluna Progresso da Turma — classificação de cor ✅
 
-### Simulação no protótipo (comportamento esperado)
+Usa o componente `ProgressBarHorizontalV2` com `enum="progress"` e `reverse`.
 
-> ⚠️ **Atenção**: o que a API retorna em `performance` durante cada status depende do **backend** — não mapeado neste repositório. O comportamento abaixo é uma **suposição razoável** para fins de simulação no protótipo, baseada nos estados disponíveis.
-
-| Transição | Valor de `rendimento` | Justificativa |
+| Condição | Variant DS | Cor visual |
 | :---- | :---- | :---- |
-| Missão não enviada / não iniciada | `undefined` → exibe traço `-` | Confirmado 100% no código de produção (`List.vue`) |
-| Missão **iniciada** (em andamento) | `null` → "Não há dados para exibir" até haver dados reais | Suposição: backend retorna `null` enquanto não há jogadas suficientes |
-| Míssão **pausada** | Congela no último valor existente | Suposição: API retorna o último valor calculado |
-| Missão **finalizada** | Valor consolidado (ex: 95%, 45%) | Suposição: API retorna o valor final após todos os jogos |
+| `value === 100` | `legend-complete` | Verde-escuro |
+| `value >= 80` | `legend-proficient` | Verde |
+| `value >= 50` | `legend-basic` | Laranja |
+| `value < 50` | `legend-below-basic` | Vermelho |
 
-# **5\. Status de missão**
+---
 
-Status é uma tag visual na tabela principal (coluna Status, ao lado de Ações).
+### Ações disponíveis por Status ✅
 
-| Status | Cor | Quando aparece | Comportamento de ações |
+| Status | Ícones na coluna Ações |
+| :---- | :---- |
+| Não enviada (0) | `send` (verde) · `visibility` |
+| Pausada (1) | `send` (verde) · `pie_chart` · `visibility` |
+| Finalizada (2) | `send` (verde) · `pie_chart` · `visibility` |
+| Iniciada (3) | `pause_circle` (vermelho) · `pie_chart` · `link` (se guideLinkUrl) · `visibility` |
+| Não iniciada (4) | `pause_circle` (vermelho) · `visibility` |
+
+---
+
+### Modal de Habilitar — comportamento ✅
+
+Fonte: `EducationSystemMissionsEnableModal.vue`
+
+- Radio **"Não"** (padrão) → envia sem período: `emit('close-modal-success', {})`
+- Radio **"Sim"** → exibe flat-pickr em modo range (início + fim)
+  - Data mínima: hoje (não aceita datas passadas)
+  - Default: hoje até +7 dias
+  - Envia: `emit('close-modal-success', { startDate, endDate })`
+- O componente **não chama a API** — apenas emite os dados; quem chama é o `List.vue` via `enableAndDisableMission(startDate, finishDate)`
+
+---
+
+### Filtros da página ✅
+
+Fonte: `Filters.vue`
+
+- **Unidades do livro**: dropdown com todas as unidades + opção "Todas as unidades do livro"
+- **Status**: dropdown com todos os 5 status do `guideStatusEnum` + opção "Todos os status"
+- Ao mudar qualquer filtro: dispara `resetAndfetch()` que reinicia paginação e re-busca a API
+
+# **5\. Status de missão** ✅
+
+Status é uma tag visual na tabela principal (coluna Status). Valores confirmados do `guideStatusEnum.js` de produção.
+
+| Status | Variant DS | Cor visual | Quando aparece |
 | :---- | :---- | :---- | :---- |
-| Não enviada | **\#FFB443 (laranja)** | Estado padrão inicial antes do primeiro clique/habilitação. | Permite habilitar/iniciar processo. |
-| Iniciada | **\#8BC728 (verde)** | Após o primeiro clique/habilitação, com ou sem alunos selecionados. | Ações de Enviar/Pausar ficam disponíveis conforme elegibilidade. |
-| Não iniciada | **\#FFB443 (laranja)** | Após o primeiro clique/habilitação com período definido para data futura. | Ações disponíveis; missão ainda não começou pelo período. |
-| Finalizada | **\#7F6CC3 (roxo)** | Quando a missão é considerada concluída (regra de finalização a definir). | Comportamento igual a Não enviada: professor pode iniciar novamente o processo. |
+| Não enviada | `legend-basic` (laranja) | Laranja | Estado padrão inicial antes da habilitação. |
+| Iniciada | `legend-proficient` (verde) | Verde | Após habilitação, missão em andamento. |
+| Não iniciada | `legend-in-progress` (laranja) | Laranja | Habilitada com período ainda não comenzado. |
+| Pausada | `legend-below-basic` (vermelho) | Vermelho | Missão suspensa temporariamente. |
+| Finalizada | `legend-advanced` (roxo/verde-escuro) | Roxo | Missão concluída. Professor pode reenviar. |
 
 # **6\. Ações (coluna Ações) e regras**
 
@@ -207,6 +259,6 @@ Regras sugeridas/implementadas em protótipo:
 # **10\. Pontos em aberto / decisões necessárias**
 
 * ~~Definição exata de 'Rendimento médio': cálculo, unidade e se 'NÃO HÁ DADOS' depende de turma sem dados ou aluno sem dados.~~ **RESOLVIDO** — ver Seção 4.2. O cálculo é baseado em erros/acertos dos alunos nas jogadas. A célula exibe traço nos status Não enviada e Não iniciada; `PerformanceCell` nos demais (com `null` → "Não há dados para exibir" se ainda sem dados reais).  
-* Critério de 'Finalizada': por data? por conclusão? por ação do professor?  
-* Modelagem da ação 'Pausar' no nível da missão: existe um 'desabilitar' global que volta para Não habilitada? ou apenas pausar/desvincular alunos? (evitar ambiguidade de termos).  
-* Regras definitivas de Início/Fim: data de início é sempre 'hoje'? pode ser configurável?
+* ~~Critério de 'Finalizada': por data? por conclusão? por ação do professor?~~ **RESOLVIDO** — em produção é um status retornado pela API (valor `2`). A ação "Habilitar" (`send`) está disponível nos status NotSent, Paused e Finished — ou seja, Finalizada pode ser reenviada sem perda de histórico.
+* ~~Modelagem da ação 'Pausar' no nível da missão: existe um 'desabilitar' global que volta para Não habilitada? ou apenas pausar/desvincular alunos?~~ **RESOLVIDO** — em produção existe apenas toggle via `enableDisableEducationSystemBooks`. Pausar muda o status para `Paused (1)`; Habilitar/Enviar muda para `Started (3)` ou `NotStarted (4)`. Não existe reset para "Não habilitada" — pelo menos não neste fluxo.
+* ~~Regras definitivas de Início/Fim: data de início é sempre 'hoje'? pode ser configurável?~~ **RESOLVIDO** — o modal de habilitar (`EducationSystemMissionsEnableModal.vue`) oferece flat-pickr em modo range (startDate + endDate). A data mínima possível é hoje. Se o professor não quiser definir período, seleciona "Não" e o start/endDate ficam nulos.
