@@ -879,20 +879,20 @@ a.bc-item:hover { color: #5a50d6; }
 }
 
 .tz-table .thead-row {
-  background: transparent;
-  border-bottom: 2px solid #ebe9f1;
+  background-color: #f3f2f7; /* $table-head-bg Vuexy */
 }
 
 .tz-table th {
-  padding: 10px 16px;
+  padding: 1.175rem;
   vertical-align: middle;
+  border-bottom: 1px solid #ebe9f1;
 }
 
 .th-content {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
+  font-size: 0.857rem; /* $table-th-font-size Vuexy */
   font-weight: 600;
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
@@ -908,19 +908,19 @@ a.bc-item:hover { color: #5a50d6; }
 }
 
 .tz-table tbody tr {
-  border-bottom: 1px solid #ebe9f1;
   transition: background 0.15s;
 }
 
 .tz-table tbody tr:hover {
-  background: #f8f7ff;
+  background: #f6f6f9; /* $table-hover-bg Vuexy */
 }
 
 .tz-table td {
-  padding: 12px 16px;
+  padding: 1.175rem;
   vertical-align: middle;
   color: #6e6b7b;
   font-size: 14px;
+  border-bottom: 1px solid #ebe9f1;
 }
 
 /* ── Sticky column (ações) — apenas em viewports menores ─────────────────── */
@@ -939,9 +939,9 @@ a.bc-item:hover { color: #5a50d6; }
     background-color: #fff;
   }
 
-  /* hover: mantém o fundo ligeiramente roxo como as demais células */
+  /* hover: mantém o fundo igual ao hover geral */
   .tz-table tbody tr:hover .col-sticky-right {
-    background-color: #f8f7ff;
+    background-color: #f6f6f9;
   }
 }
 
