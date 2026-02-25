@@ -59,11 +59,16 @@ function startSimulation(chapterId) {
     const chapter = getChapter(chapterId)
     if (!chapter) return
 
-    // Reinicia progresso para demonstração limpa
+    // Rendimento-alvo: usa valor do JSON se definido; senão gera aleatório (30–95%)
+    const targetRendimento = chapter.rendimento ?? (30 + Math.floor(Math.random() * 66))
+
+    // Reinicia para demonstração limpa
     chapter.progresso = 0
     chapter.finalizada = false
+    chapter.rendimento = null  // "Não há dados" enquanto progresso < 20% (status INICIADA)
 
-    // Timer 1: anima barra de progresso de 0 → 100% em PROGRESS_DURATION_MS
+    // Timer 1: progresso 0→100% + rendimento parcial proporcional quando progresso ≥ 20%
+    // Simula comportamento de produção: dados parciais aparecem conforme alunos jogam
     const intervalId = setInterval(() => {
         const c = getChapter(chapterId)
         if (!c || c.paused || c.finalizada) {
@@ -71,18 +76,23 @@ function startSimulation(chapterId) {
             return
         }
         c.progresso = Math.min(100, Math.round((c.progresso + INCREMENT) * 10) / 10)
+
+        // Rendimento parcial: aparece a partir de 20% de progresso, cresce proporcionalmente
+        // Ex: progresso=50% → rendimento ≈ 50% do target; progresso=100% → target
+        if (c.progresso >= 20) {
+            c.rendimento = Math.round(targetRendimento * c.progresso / 100)
+        }
+
         if (c.progresso >= 100) clearInterval(intervalId)
     }, TICK_MS)
 
-    // Timer 2: transiciona para FINALIZADA em FINISH_DELAY_MS
-    // Gera rendimento simulado (30-95%) caso não haja valor pré-definido no JSON
-    const simulatedRendimento = chapter.rendimento ?? (30 + Math.floor(Math.random() * 66))
+    // Timer 2: consolida para FINALIZADA com valor final exato
     const timeoutId = setTimeout(() => {
         const c = getChapter(chapterId)
         if (!c || c.paused) return
         c.progresso = 100
         c.finalizada = true
-        c.rendimento = simulatedRendimento
+        c.rendimento = targetRendimento
         delete simulationTimers[chapterId]
     }, FINISH_DELAY_MS)
 

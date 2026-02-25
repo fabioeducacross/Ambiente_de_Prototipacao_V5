@@ -219,14 +219,20 @@
                 </td>
 
                 <!-- Rendimento (DS: PerformanceCell) -->
+                <!-- Produção: traço em NotSent/NotStarted; PerformanceCell nos demais -->
                 <td>
-                  <div v-if="chapter.enabled && chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
-                    <span v-if="chapter.rendimento > 0" class="perf-value">{{ chapter.rendimento }}%</span>
-                    <span class="perf-badge" :class="perfBadgeVariant(chapter.rendimento)">
-                      {{ perfBadgeLabel(chapter.rendimento) }}
-                    </span>
-                  </div>
-                  <span v-else class="perf-badge perf-nodata">Não há dados para exibir</span>
+                  <template v-if="chapter.status.key === 'nao_enviada' || chapter.status.key === 'nao_iniciada'">
+                    <span class="text-muted">–</span>
+                  </template>
+                  <template v-else>
+                    <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
+                      <span v-if="chapter.rendimento > 0" class="perf-value">{{ chapter.rendimento }}%</span>
+                      <span class="perf-badge" :class="perfBadgeVariant(chapter.rendimento)">
+                        {{ perfBadgeLabel(chapter.rendimento) }}
+                      </span>
+                    </div>
+                    <span v-else class="perf-badge perf-nodata">Não há dados para exibir</span>
+                  </template>
                 </td>
 
                 <!-- Alunos -->
