@@ -457,13 +457,13 @@ const statusColTooltip = [
 /** Ícone e título do botão de envio variam pelo estado do capítulo */
 function sendBtnIcon (chapter) {
   const s = chapter?.status?.key
-  // Missão habilitada (com ou sem alunos) → adicionar/incluir alunos
-  return (s === 'nao_iniciada' || s === 'iniciada') ? 'group_add' : 'send'
+  // Missão habilitada (com ou sem alunos, inclusive pausada) → adicionar/incluir alunos
+  return (s === 'nao_iniciada' || s === 'iniciada' || s === 'pausada') ? 'group_add' : 'send'
 }
 
 function sendBtnTitle (chapter) {
   const s = chapter?.status?.key
-  return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
+  return (s === 'nao_iniciada' || s === 'iniciada' || s === 'pausada') ? 'Adicionar alunos à missão' : 'Enviar missão'
 }
 
 function isSendVisible (chapter) {
