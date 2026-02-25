@@ -226,7 +226,7 @@
                       {{ perfBadgeLabel(chapter.rendimento) }}
                     </span>
                   </div>
-                  <span v-else class="text-muted">NÃO HÁ DADOS</span>
+                  <span v-else class="perf-badge perf-nodata">Não há dados para exibir</span>
                 </td>
 
                 <!-- Alunos -->
@@ -352,9 +352,9 @@
           <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap text-sm">
             <div>Rendimento:</div>
             <div class="semaphore-item"><span class="semaphore-dot" style="background:#6e63e8"></span> Avançado ≥70% de acertos</div>
-            <div class="semaphore-item"><span class="semaphore-dot" style="background:#28c76f"></span> Proficiente ≤50% de acertos</div>
-            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ff9f43"></span> Básico ≤25% de acertos</div>
-            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ea5455"></span> Abaixo do Básico ≤35% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#28c76f"></span> Proficiente ≥50% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ff9f43"></span> Básico ≥25% de acertos</div>
+            <div class="semaphore-item"><span class="semaphore-dot" style="background:#ea5455"></span> Abaixo do Básico &lt;25% de acertos</div>
           </div>
         </div>
       </div>
@@ -957,6 +957,7 @@ a.bc-item:hover { color: #5a50d6; }
 .perf-success  { background: rgba(40,199,111,0.12);   color: #28c76f; }
 .perf-warning  { background: rgba(255,159,67,0.12);   color: #ff9f43; }
 .perf-danger   { background: rgba(234,84,85,0.12);    color: #ea5455; }
+.perf-nodata   { background: rgba(110,99,232,0.12);   color: #7367f0; }
 
 /* ── Status Badge (DS: b-badge pill variant="light-*") ────────────────── */
 .status-badge {
