@@ -42,10 +42,71 @@ A tela exibe uma tabela de missões da turma, com colunas e regras abaixo.
 | Início | Data (dd/mm/aaaa) ou '-'  | Exibida quando houver período definido (ver seção 8). |
 | Fim | Data (dd/mm/aaaa) ou '-'  | Exibida quando houver período definido (ver seção 8). |
 | Progresso da turma | Percentual | No protótipo foi usado 0% apenas como exemplo; regra real depende do motor de jogo/atividade. |
-| Rendimento médio | Métrica/indicador | Exibe 'NÃO HÁ DADOS' quando não existem dados de jogo (ex.: aluno/turma ainda não jogou). |
+| Rendimento médio | Métrica/indicador | Varia por status da missão — ver Seção 4.2 (Regras de Rendimento Médio por Status). |
 | Alunos | X de N | N \= tamanho real da turma; X \= quantidade atualmente vinculada/enviada (ou conforme regra definida). |
 | Status | Tag colorida | Posicionada ao lado de Ações. Cores e regras na seção 5\. |
 | Ações | Botões/ícones | Habilitar no estado inicial; após habilitar, exibe Enviar e Pausar (seção 6). |
+
+## **4.2 Regras de Rendimento Médio por Status (levantado da produção)**
+
+> **Fonte**: `educacross-frontoffice/src/views/pages/teacher-context/educationSystem/missions/List.vue` + `src/components/cells/PerformanceCell.vue` + `src/consts/legends/performanceEnum.js`
+
+### Enum de status da produção (`EEducationSystemGuideStatus`)
+
+| Valor | Chave | Label |
+| :---- | :---- | :---- |
+| 0 | NotSent | Não enviada |
+| 1 | Paused | Pausada |
+| 2 | Finished | Finalizada |
+| 3 | Started | Iniciada |
+| 4 | NotStarted | Não iniciada |
+
+### Lógica de exibição da célula (produção)
+
+```javascript
+// List.vue — template #cell(performance)
+if (status === NotSent || status === NotStarted || performance === undefined) {
+  // exibe traço "-"
+} else {
+  PerformanceCell({ performance })
+  // PerformanceCell internamente:
+  //   performance === null  → badge pill light-primary "Não há dados para exibir"
+  //   performance > 0       → "XX%" + badge classificatório
+  //   performance === 0     → apenas badge classificatório (sem número)
+}
+```
+
+### Regra por status
+
+| Status | Exibição no protótipo | Razão |
+| :---- | :---- | :---- |
+| **Não enviada** | Traço " - " | Missão nunca chegou ao aluno; sem dados de jogo. |
+| **Não iniciada** | Traço " - " | Missão enviada mas período ainda não começou; nenhum jogo ocorreu. |
+| **Iniciada** | `PerformanceCell` com valor parcial ou `null` | Alunos jogando — pode haver dados parciais ou ainda `null` no início. |
+| **Pausada** | `PerformanceCell` com último valor conhecido ou `null` | Dados existentes são preservados; não há novos jogos enquanto pausada. |
+| **Finalizada** | `PerformanceCell` com valor final | Missão concluída — valor consolidado (ex: 95%, 45%). |
+
+### Classificação do badge (enum `accuracyPerformance`)
+
+| Condição | Variant | Label do badge |
+| :---- | :---- | :---- |
+| `value >= 70` | `legend-advanced` (roxo) | **Avançado** |
+| `value >= 50` | `legend-proficient` (verde) | **Proficiente** |
+| `value >= 25` | `legend-basic` (laranja) | **Básico** |
+| `value < 25` | `legend-below-basic` (vermelho) | **Abaixo do Básico** |
+
+### Tooltip da coluna (produção)
+
+> "Calcula-se rendimento com base nos erros e acertos dos alunos em seus desafios (jogadas)."
+
+### Simulação no protótipo (comportamento esperado)
+
+| Transição | Valor de `rendimento` |
+| :---- | :---- |
+| Missão habilitada (nao\_enviada → nao\_iniciada) | `undefined` → exibe traço |
+| Missão enviada → **iniciada** | Começa em `null` ("Não há dados"); cresce gradualmente junto com o progresso |
+| Missão **pausada** | Congela no último valor existente |
+| Missão **finalizada** | Assume o valor pré-definido no JSON de mock (95, 45…) ou simulado aleatório (30–95%) |
 
 # **5\. Status de missão**
 
@@ -143,7 +204,7 @@ Regras sugeridas/implementadas em protótipo:
 
 # **10\. Pontos em aberto / decisões necessárias**
 
-* Definição exata de 'Rendimento médio': cálculo, unidade e se 'NÃO HÁ DADOS' depende de turma sem dados ou aluno sem dados.  
+* ~~Definição exata de 'Rendimento médio': cálculo, unidade e se 'NÃO HÁ DADOS' depende de turma sem dados ou aluno sem dados.~~ **RESOLVIDO** — ver Seção 4.2. O cálculo é baseado em erros/acertos dos alunos nas jogadas. A célula exibe traço nos status Não enviada e Não iniciada; `PerformanceCell` nos demais (com `null` → "Não há dados para exibir" se ainda sem dados reais).  
 * Critério de 'Finalizada': por data? por conclusão? por ação do professor?  
 * Modelagem da ação 'Pausar' no nível da missão: existe um 'desabilitar' global que volta para Não habilitada? ou apenas pausar/desvincular alunos? (evitar ambiguidade de termos).  
 * Regras definitivas de Início/Fim: data de início é sempre 'hoje'? pode ser configurável?
