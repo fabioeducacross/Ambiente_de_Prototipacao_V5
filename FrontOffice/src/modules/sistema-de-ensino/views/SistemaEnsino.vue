@@ -491,14 +491,8 @@ function sendBtnTitle (chapter) {
 
 function isSendVisible (chapter) {
   const s = chapter?.status?.key
-  // Casos base AS-IS: não enviada, pausada total (0 vinculados) ou finalizada
-  if (s === 'nao_enviada' || s === 'pausada' || s === 'finalizada') return true
-  // Estado parcial: missão ativa mas ainda há alunos sem receber a missão.
-  // O drawer abrirá em modo 'enviar' e mostrará apenas os alunos sem isLinked.
-  if (s === 'iniciada' || s === 'nao_iniciada') {
-    return chapter.studentsData?.some(sd => !sd.isLinked) ?? false
-  }
-  return false
+  // Botão de envio/add alunos sempre disponível para qualquer missão habilitada
+  return s === 'nao_enviada' || s === 'pausada' || s === 'finalizada' || s === 'iniciada' || s === 'nao_iniciada'
 }
 
 function isPauseVisible (chapter) {
