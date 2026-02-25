@@ -852,7 +852,8 @@ a.bc-item:hover { color: #5a50d6; }
 
 .tz-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 14px;
 }
 
@@ -901,15 +902,14 @@ a.bc-item:hover { color: #5a50d6; }
   font-size: 14px;
 }
 
-/* ── Sticky column (ações) — padrão TanStack Table ────────────────────── */
-/* inset box-shadow funciona com border-collapse:collapse porque renderiza
-   dentro da célula, sem ser recortado pelo collapse */
+/* ── Sticky column (ações) ─────────────────────────────────────────────── */
+/* border-collapse:separate + border-spacing:0 permite box-shadow normal nas células */
 .tz-table .col-sticky-right {
   position: sticky;
   right: 0;
   z-index: 2;
   background-color: #fff;
-  box-shadow: inset 4px 0 8px -4px rgba(34, 41, 47, 0.18);
+  box-shadow: -4px 0 8px rgba(34, 41, 47, 0.15);
 }
 
 /* thead sticky: fundo do cabeçalho */
