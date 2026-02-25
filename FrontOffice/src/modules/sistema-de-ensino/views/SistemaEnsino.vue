@@ -908,7 +908,7 @@ a.bc-item:hover { color: #5a50d6; }
   z-index: 2;
   background-color: #fff;
   /* sombra à esquerda indica que há conteúdo sob a coluna */
-  box-shadow: -4px 0 8px -2px rgba(34, 41, 47, 0.08);
+  box-shadow: -6px 0 12px rgba(34, 41, 47, 0.14);
 }
 
 /* thead sticky: fundo do cabeçalho */
