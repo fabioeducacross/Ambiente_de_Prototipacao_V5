@@ -83,18 +83,25 @@ function startSimulation(chapterId) {
             c.rendimento = Math.round(targetRendimento * c.progresso / 100)
         }
 
-        if (c.progresso >= 100) clearInterval(intervalId)
+        // Ao atingir 100%: finaliza imediatamente (status muda no mesmo tick)
+        if (c.progresso >= 100) {
+            clearInterval(intervalId)
+            clearTimeout(simulationTimers[chapterId]?.timeoutId)
+            c.finalizada = true
+            c.rendimento = targetRendimento
+            delete simulationTimers[chapterId]
+        }
     }, TICK_MS)
 
-    // Timer 2: consolida para FINALIZADA com valor final exato
+    // Timer de segurança: garante finalização mesmo se o interval falhar
     const timeoutId = setTimeout(() => {
         const c = getChapter(chapterId)
-        if (!c || c.paused) return
+        if (!c || c.paused || c.finalizada) return
         c.progresso = 100
         c.finalizada = true
         c.rendimento = targetRendimento
         delete simulationTimers[chapterId]
-    }, FINISH_DELAY_MS)
+    }, PROGRESS_DURATION_MS + TICK_MS * 2)
 
     simulationTimers[chapterId] = { intervalId, timeoutId }
 }
