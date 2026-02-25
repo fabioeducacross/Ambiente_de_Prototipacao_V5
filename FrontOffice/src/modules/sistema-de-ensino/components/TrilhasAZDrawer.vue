@@ -130,7 +130,7 @@
             Fechar
           </EButton>
           <EButton
-            variant="primary"
+            :variant="mode === 'desvincular' ? 'danger' : 'primary'"
             :disabled="isActionDisabled"
             :title="actionTooltip"
             @click="confirm"
@@ -164,7 +164,7 @@ const {
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
   chapter:    { type: Object, default: null },
-  mode:       { type: String, default: 'enviar' }, // 'enviar' | 'pausar'
+  mode:       { type: String, default: 'enviar' }, // 'enviar' | 'desvincular'
   isFirstEnable: { type: Boolean, default: false }
 })
 
@@ -241,7 +241,7 @@ const allStudentsWithStatus = computed(() => {
 /**
  * Alunos elegíveis para a ação:
  *   - Enviar: mostra os NÃO enviados (não vinculados)
- *   - Pausar: mostra os ENVIADOS (vinculados)
+ *   - Desvincular: mostra os ENVIADOS (vinculados)
  */
 const eligibleStudents = computed(() => {
   if (props.mode === 'enviar') {
@@ -280,18 +280,18 @@ const actionTooltip = computed(() => {
   if (eligibleStudents.value.length === 0) {
     return props.mode === 'enviar'
       ? 'Não há alunos para enviar'
-      : 'Não há alunos para pausar'
+      : 'Não há alunos para desvincular'
   }
   return ''
 })
 
 const drawerTitle = computed(() => {
-  if (props.mode === 'pausar') return 'Pausar missão em lote'
+  if (props.mode === 'desvincular') return 'Desvincular alunos da missão'
   return props.isFirstEnable ? 'Habilitar e enviar missão em lote' : 'Enviar missão em lote'
 })
 
 const actionLabel = computed(() => {
-  if (props.mode === 'pausar') return 'Pausar'
+  if (props.mode === 'desvincular') return 'Desvincular'
   return 'Enviar'
 })
 
@@ -335,7 +335,7 @@ function confirm () {
     }
     // Sem seleção → capítulo habilitado, ninguém vinculado → NÃO INICIADA
   } else {
-    // Modo pausar: selecionados ou todos os elegíveis se nenhum marcado
+    // Modo desvincular: selecionados ou todos os elegíveis se nenhum marcado
     const ids = hasSelection
       ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
       : eligibleStudents.value.map(s => s.id)

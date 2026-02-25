@@ -247,7 +247,7 @@
                   </span>
                 </td>
 
-                <!-- Ações (AS-IS: send | pause_circle | pie_chart por status) -->
+                <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td>
                   <div class="actions-flat">
                     <!-- Botão Enviar / Adicionar alunos -->
@@ -261,15 +261,15 @@
                       <span class="material-symbols-outlined" style="font-size:20px">{{ sendBtnIcon(chapter) }}</span>
                     </button>
 
-                    <!-- Botão Pausar: nao_iniciada, iniciada (AS-IS: sempre clicável) -->
+                    <!-- Botão Desvincular: nao_iniciada, iniciada -->
                     <button
                       v-if="isPauseVisible(chapter)"
                       class="action-btn action-btn--pause"
-                      title="Pausar missão"
-                      aria-label="Pausar missão"
+                      title="Desvincular alunos da missão"
+                      aria-label="Desvincular alunos da missão"
                       @click="handlePauseClick(chapter)"
                     >
-                      <span class="material-symbols-outlined" style="font-size:20px">pause_circle</span>
+                      <span class="material-symbols-outlined" style="font-size:20px">group_remove</span>
                     </button>
 
                     <!-- Botão Relatório: iniciada, pausada, finalizada -->
@@ -440,7 +440,7 @@ function getUnidade (chapterId) {
 
 // ── Visibilidade AS-IS (igual a produção teacher-context/educationSystem/missions/List.vue) ─
 // send         → nao_enviada | pausada | finalizada
-// pause_circle → nao_iniciada | iniciada
+// group_remove → nao_iniciada | iniciada
 // pie_chart    → iniciada | pausada | finalizada
 // visibility   → sempre visível
 // link         → apenas iniciada (+ guideLinkUrl na produção)
@@ -493,7 +493,7 @@ function handleSendClick (chapter) {
 }
 
 function handlePauseClick (chapter) {
-  openDrawer(chapter, 'pausar')
+  openDrawer(chapter, 'desvincular')
 }
 
 function handleReportClick (chapter) {
