@@ -901,25 +901,15 @@ a.bc-item:hover { color: #5a50d6; }
   font-size: 14px;
 }
 
-/* ── Sticky column (ações) — padrão Ant Design / MUI / Vuexy ──────────── */
+/* ── Sticky column (ações) — padrão TanStack Table ────────────────────── */
+/* inset box-shadow funciona com border-collapse:collapse porque renderiza
+   dentro da célula, sem ser recortado pelo collapse */
 .tz-table .col-sticky-right {
   position: sticky;
   right: 0;
   z-index: 2;
   background-color: #fff;
-}
-
-/* Sombra via pseudo-elemento — necessário porque border-collapse:collapse
-   recorta box-shadow diretamente na célula (comportamento padrão de browsers) */
-.tz-table .col-sticky-right::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -12px;
-  width: 12px;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(34, 41, 47, 0.12));
-  pointer-events: none;
+  box-shadow: inset 4px 0 8px -4px rgba(34, 41, 47, 0.18);
 }
 
 /* thead sticky: fundo do cabeçalho */
