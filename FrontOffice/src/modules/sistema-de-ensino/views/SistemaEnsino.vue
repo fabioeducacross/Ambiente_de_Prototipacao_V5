@@ -447,11 +447,14 @@ function getUnidade (chapterId) {
 
 /** Ícone e título do botão de envio variam pelo estado do capítulo */
 function sendBtnIcon (chapter) {
-  return chapter?.status?.key === 'nao_iniciada' ? 'group_add' : 'send'
+  const s = chapter?.status?.key
+  // Missão habilitada (com ou sem alunos) → adicionar/incluir alunos
+  return (s === 'nao_iniciada' || s === 'iniciada') ? 'group_add' : 'send'
 }
 
 function sendBtnTitle (chapter) {
-  return chapter?.status?.key === 'nao_iniciada' ? 'Adicionar alunos à missão' : 'Enviar missão'
+  const s = chapter?.status?.key
+  return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
 }
 
 function isSendVisible (chapter) {
