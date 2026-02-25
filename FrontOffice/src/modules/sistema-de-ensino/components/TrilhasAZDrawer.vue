@@ -36,9 +36,11 @@
         <!-- Seção: hint -->
         <div v-if="mode === 'enviar'" class="drawer-section drawer-section--hint">
           <div v-if="isFirstEnable" class="drawer-hint">
+            <span class="material-symbols-outlined drawer-hint-icon">info</span>
             Primeiro envio desta missão: selecione os alunos para habilitar e enviar.
           </div>
           <div v-else class="drawer-hint drawer-hint--neutral">
+            <span class="material-symbols-outlined drawer-hint-icon">info</span>
             Reenvio da missão: selecione os alunos para enviar novamente.
           </div>
         </div>
@@ -468,12 +470,21 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 }
 
 .drawer-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
   padding: 10px 12px;
   border-radius: 6px;
   background: rgba(110, 99, 232, 0.08);
   color: #6e63e8;
   font-size: 12px;
   font-weight: 600;
+}
+
+.drawer-hint-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .drawer-hint--neutral {
