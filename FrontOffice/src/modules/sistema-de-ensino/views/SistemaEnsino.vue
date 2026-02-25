@@ -444,6 +444,18 @@ function openDrawer (chapter, mode, options = {}) {
   drawerOpen.value    = true
 }
 
+// Quando o drawer desvincular fecha: se a missão ficou PAUSADA e há filtro ativo,
+// limpar filtro para o usuário ver a linha com o botão Reativar
+watch(drawerOpen, (isOpen) => {
+  if (!isOpen && drawerMode.value === 'desvincular' && drawerChapter.value) {
+    const chapId = drawerChapter.value.id
+    const updated = chapters.value.find(c => c.id === chapId)
+    if (updated?.status?.key === 'pausada' && selectedStatus.value != null) {
+      selectedStatus.value = null
+    }
+  }
+})
+
 // ── Helpers: unidade por capítulo ─────────────────────────────────────────────
 function getUnidade (chapterId) {
   return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
