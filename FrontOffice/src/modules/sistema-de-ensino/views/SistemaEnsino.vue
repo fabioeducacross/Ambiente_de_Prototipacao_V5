@@ -902,24 +902,26 @@ a.bc-item:hover { color: #5a50d6; }
   font-size: 14px;
 }
 
-/* ── Sticky column (ações) ─────────────────────────────────────────────── */
+/* ── Sticky column (ações) — apenas em viewports menores ─────────────────── */
 /* border-collapse:separate + border-spacing:0 permite box-shadow normal nas células */
-.tz-table .col-sticky-right {
-  position: sticky;
-  right: 0;
-  z-index: 2;
-  background-color: #fff;
-  box-shadow: -2px 0 6px rgba(34, 41, 47, 0.08);
-}
+@media (max-width: 1400px) {
+  .tz-table .col-sticky-right {
+    position: sticky;
+    right: 0;
+    z-index: 2;
+    background-color: #fff;
+    box-shadow: -2px 0 6px rgba(34, 41, 47, 0.08);
+  }
 
-/* thead sticky: fundo do cabeçalho */
-.tz-table .thead-row .col-sticky-right {
-  background-color: #fff;
-}
+  /* thead sticky: fundo do cabeçalho */
+  .tz-table .thead-row .col-sticky-right {
+    background-color: #fff;
+  }
 
-/* hover: mantém o fundo ligeiramente roxo como as demais células */
-.tz-table tbody tr:hover .col-sticky-right {
-  background-color: #f8f7ff;
+  /* hover: mantém o fundo ligeiramente roxo como as demais células */
+  .tz-table tbody tr:hover .col-sticky-right {
+    background-color: #f8f7ff;
+  }
 }
 
 .td-empty {
