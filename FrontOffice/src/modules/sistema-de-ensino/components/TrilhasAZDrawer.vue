@@ -307,6 +307,9 @@ function confirm () {
     ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
     : eligibleStudents.value.map(s => s.id)
 
+  // Missão vazia: não há alunos para operar — não envia nem habilita
+  if (ids.length === 0) return
+
   if (props.mode === 'enviar') {
     // Habilita o capítulo na primeira vez, apenas ao confirmar o envio
     if (props.isFirstEnable) habilitarCapitulo(props.chapter.id)
