@@ -250,15 +250,15 @@
                 <!-- Ações (AS-IS: send | pause_circle | pie_chart por status) -->
                 <td>
                   <div class="actions-flat">
-                    <!-- Botão Enviar: nao_enviada, pausada, finalizada (AS-IS: sempre clicável) -->
+                    <!-- Botão Enviar / Adicionar alunos -->
                     <button
                       v-if="isSendVisible(chapter)"
                       class="action-btn action-btn--send"
-                      title="Enviar missão"
-                      aria-label="Enviar missão"
+                      :title="sendBtnTitle(chapter)"
+                      :aria-label="sendBtnTitle(chapter)"
                       @click="handleSendClick(chapter)"
                     >
-                      <span class="material-symbols-outlined" style="font-size:20px">send</span>
+                      <span class="material-symbols-outlined" style="font-size:20px">{{ sendBtnIcon(chapter) }}</span>
                     </button>
 
                     <!-- Botão Pausar: nao_iniciada, iniciada (AS-IS: sempre clicável) -->
@@ -444,6 +444,15 @@ function getUnidade (chapterId) {
 // pie_chart    → iniciada | pausada | finalizada
 // visibility   → sempre visível
 // link         → apenas iniciada (+ guideLinkUrl na produção)
+
+/** Ícone e título do botão de envio variam pelo estado do capítulo */
+function sendBtnIcon (chapter) {
+  return chapter?.status?.key === 'nao_iniciada' ? 'group_add' : 'send'
+}
+
+function sendBtnTitle (chapter) {
+  return chapter?.status?.key === 'nao_iniciada' ? 'Adicionar alunos à missão' : 'Enviar missão'
+}
 
 function isSendVisible (chapter) {
   const s = chapter?.status?.key
