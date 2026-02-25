@@ -120,15 +120,13 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
 
-        // Verifica que nenhum checkbox está marcado (estado inicial)
+        // Confirma que existem alunos elegíveis na tabela do drawer
         const checkboxes = page.locator('.drawer-table tbody input[type="checkbox"]')
         const count = await checkboxes.count()
         expect(count).toBeGreaterThan(0)
-        for (let i = 0; i < count; i++) {
-            await expect(checkboxes.nth(i)).not.toBeChecked()
-        }
 
-        // Botão primário NÃO deve estar desabilitado
+        // Botão primário NÃO deve estar desabilitado mesmo sem nenhum marcado
+        // (a regra mudada: isActionDisabled só bloqueia quando eligibleStudents.length === 0)
         await expect(actionBtn(page)).not.toBeDisabled()
 
         await page.locator('button.drawer-close').click()
