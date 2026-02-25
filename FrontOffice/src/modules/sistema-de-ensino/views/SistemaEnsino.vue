@@ -581,7 +581,7 @@ function statusBadgeClass (statusKey) {
   const map = {
     nao_enviada:  'status-light-warning',
     pausada:      'status-light-danger',
-    nao_iniciada: 'status-light-warning',
+    nao_iniciada: 'status-light-info',
     iniciada:     'status-light-success',
     finalizada:   'status-light-primary'
   }

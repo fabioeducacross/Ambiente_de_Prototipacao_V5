@@ -141,11 +141,11 @@ const state = reactive({
  */
 function calculateStatus(chapter) {
     if (!chapter.enabled) {
-        return { key: 'nao_enviada', label: 'NÃO ENVIADA', hexColor: '#FFB443' }
+        return { key: 'nao_enviada', label: 'NÃO ENVIADA', hexColor: '#ff9f43' }
     }
 
     if (chapter.finalizada === true) {
-        return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#7F6CC3' }
+        return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#6e63e8' }
     }
 
     if (chapter.paused === true) {
@@ -155,11 +155,11 @@ function calculateStatus(chapter) {
     // Sem alunos vinculados: missão enviada mas ninguém iniciou ainda
     const hasLinkedStudents = chapter.studentsData?.some(sd => sd.isLinked) ?? false
     if (!hasLinkedStudents) {
-        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#FFB443' }
+        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
     }
 
     if (chapter.periodEnabled && chapter.fim && isFutureISO(chapter.fim)) {
-        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#FFB443' }
+        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
     }
 
     return { key: 'iniciada', label: 'INICIADA', hexColor: '#28c76f' }
