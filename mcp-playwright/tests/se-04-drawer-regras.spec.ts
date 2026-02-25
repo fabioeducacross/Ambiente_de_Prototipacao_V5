@@ -51,17 +51,6 @@ function actionBtn(page: any) {
     return page.locator('.drawer-footer button.btn-primary')
 }
 
-// ─── Helper de data futura (ISO) ───────────────────────────────────────────
-
-function futureDateISO(offsetYears = 2): string {
-    const d = new Date()
-    d.setFullYear(d.getFullYear() + offsetYears)
-    const yyyy  = d.getFullYear()
-    const mm    = String(d.getMonth() + 1).padStart(2, '0')
-    const dd    = String(d.getDate()).padStart(2, '0')
-    return `${yyyy}-${mm}-${dd}`
-}
-
 // ─── Testes ──────────────────────────────────────────────────────────────────
 
 test.describe('Drawer — Regras da sessão 25/02/2026', () => {
@@ -174,44 +163,29 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         await expect(row.locator('.performance-cell')).not.toBeVisible()
     })
 
-    // ── DW-06 · Rendimento "–" em NÃO INICIADA (período futuro) ─────────────
-    test('DW-06 | Rendimento médio exibe "–" quando status é NÃO INICIADA (período futuro)', async ({ page }) => {
+    // ── DW-06 · INICIADA mostra "Não há dados" (nunca "–") ──────────────────
+    // Valida a distinção de template: nao_enviada/nao_iniciada → "–";
+    // iniciada/pausada sem dados → "Não há dados para exibir"
+    test('DW-06 | INICIADA exibe "Não há dados" de rendimento (não o traço "–")', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 
         const row = rowFor(page, CAP_DW06)
-        // Abre drawer de envio
+        // Envia sem seleção → INICIADA (simulação começa, rendimento ainda null)
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
-
-        // Ativa o período — seletor correto: .check-row input[type="checkbox"] (no módulo ativo)
-        const periodoCheck = page.locator('.check-row input[type="checkbox"]').first()
-        await periodoCheck.check()
-        await expect(page.locator('.drawer-date-row')).toBeVisible()
-
-        // Preenche data de término usando flatpickr setDate (via evaluate)
-        // O Vue EDatePicker usa flatpickr → valor e watch propagam via reatividade
-        const dataFim = futureDateISO(2)
-        await page.evaluate((date) => {
-            const el = document.querySelector('#dataTermino') as any
-            if (el?._flatpickr) {
-                el._flatpickr.setDate(date, true)
-            }
-        }, dataFim)
-
-        // Aguarda Vue processar o ciclo reativo (watch(endDateValue) → setEndDate)
-        await page.waitForTimeout(300)
-
-        // Envia sem selecionar alunos
         await actionBtn(page).click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
-        // Status deve ser NÃO INICIADA (período futuro, fim > hoje)
-        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
+        await expect(row.locator('.status-badge')).toHaveText('INICIADA')
 
-        // Rendimento exibe "–" (regra: nao_iniciada → sem dados de rendimento)
-        const rendTraco = row.locator('span.text-muted')
-        await expect(rendTraco).toBeVisible()
-        await expect(rendTraco).toHaveText('–')
+        // Rendimento NÃO deve mostrar "–" (traço é exclusivo de nao_enviada/nao_iniciada)
+        await expect(row.locator('span.text-muted')).not.toBeVisible()
+
+        // Em estado INICIADA, se rendimento ainda for null, deve aparecer "Não há dados"
+        // (v-else branch do template de rendimento)
+        const nodata = row.locator('.perf-nodata')
+        await expect(nodata).toBeVisible()
+        await expect(nodata).toContainText('Não há dados')
     })
 
     // ── DW-07 · FINALIZADA imediatamente após progresso 100% ─────────────────
