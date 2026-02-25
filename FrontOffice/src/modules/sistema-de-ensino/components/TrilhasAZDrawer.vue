@@ -256,11 +256,9 @@ const someSelected = computed(() =>
 )
 
 // ── Estado do botão de ação ───────────────────────────────────────────────────
-const isActionDisabled = computed(() => {
-  if (eligibleStudents.value.length === 0) return true
-  const selectedCount = eligibleStudents.value.filter(s => selectedIds.has(s.id)).length
-  return selectedCount === 0
-})
+// Bloqueio apenas quando não há alunos elegíveis — seleção não é obrigatória.
+// Sem seleção explícita, a ação é aplicada a todos os elegíveis.
+const isActionDisabled = computed(() => eligibleStudents.value.length === 0)
 
 const actionTooltip = computed(() => {
   if (eligibleStudents.value.length === 0) {
@@ -268,8 +266,6 @@ const actionTooltip = computed(() => {
       ? 'Não há alunos para enviar'
       : 'Não há alunos para pausar'
   }
-  const selectedCount = eligibleStudents.value.filter(s => selectedIds.has(s.id)).length
-  if (selectedCount === 0) return 'Selecione alunos'
   return ''
 })
 
@@ -303,11 +299,11 @@ function toggleAll () {
 function confirm () {
   if (isActionDisabled.value) return
 
-  const ids = eligibleStudents.value
-    .filter(s => selectedIds.has(s.id))
-    .map(s => s.id)
-
-  if (ids.length === 0) return
+  // Se nenhum aluno foi selecionado individualmente, aplica a todos os elegíveis
+  const hasSelection = eligibleStudents.value.some(s => selectedIds.has(s.id))
+  const ids = hasSelection
+    ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
+    : eligibleStudents.value.map(s => s.id)
 
   if (props.mode === 'enviar') {
     // Habilita o capítulo na primeira vez, apenas ao confirmar o envio
