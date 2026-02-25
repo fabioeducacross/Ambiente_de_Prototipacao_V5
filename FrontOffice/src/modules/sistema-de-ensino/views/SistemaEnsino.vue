@@ -250,6 +250,17 @@
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td class="col-sticky-right">
                   <div class="actions-flat">
+                    <!-- Botão Reativar: ação rápida para PAUSADA (vincula todos, sem drawer) -->
+                    <button
+                      v-if="isReativarVisible(chapter)"
+                      class="action-btn action-btn--reativar"
+                      title="Reativar missão"
+                      aria-label="Reativar missão"
+                      @click="handleReativarClick(chapter)"
+                    >
+                      <span class="material-symbols-outlined" style="font-size:20px">play_circle</span>
+                    </button>
+
                     <!-- Botão Enviar / Adicionar alunos -->
                     <button
                       v-if="isSendVisible(chapter)"
@@ -387,7 +398,7 @@ import SubjectIcon     from '../components/SubjectIcon.vue'
 import { ESelect }     from '@/shared/components/base/index.js'
 import { useTrilhasAZ } from '../composables/useTrilhasAZ.js'
 
-const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount } = useTrilhasAZ()
+const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount, vincularAlunos } = useTrilhasAZ()
 
 // ── Layout ────────────────────────────────────────────────────────────────────
 const sidebarCollapsed = ref(false)
@@ -483,6 +494,16 @@ function isPauseVisible (chapter) {
   if (s !== 'nao_iniciada' && s !== 'iniciada') return false
   // Só mostra desvincular se há alunos vinculados (sem alunos não há o que desvincular)
   return chapter.studentsData?.some(sd => sd.isLinked) ?? false
+}
+
+// Reativar: ação rápida para missão PAUSADA — vincula todos os alunos sem abrir drawer
+function isReativarVisible (chapter) {
+  return chapter?.status?.key === 'pausada'
+}
+
+function handleReativarClick (chapter) {
+  const allStudentIds = chapter.studentsData.map(sd => sd.studentId)
+  vincularAlunos(chapter.id, allStudentIds, chapter.fim, chapter.inicio)
 }
 
 function isReportVisible (chapter) {
@@ -1055,6 +1076,10 @@ a.bc-item:hover { color: #5a50d6; }
 }
 
 .action-btn--send .material-symbols-outlined {
+  color: #28c76f;
+}
+
+.action-btn--reativar .material-symbols-outlined {
   color: #28c76f;
 }
 
