@@ -907,8 +907,19 @@ a.bc-item:hover { color: #5a50d6; }
   right: 0;
   z-index: 2;
   background-color: #fff;
-  /* sombra à esquerda indica que há conteúdo sob a coluna */
-  box-shadow: -6px 0 12px rgba(34, 41, 47, 0.14);
+}
+
+/* Sombra via pseudo-elemento — necessário porque border-collapse:collapse
+   recorta box-shadow diretamente na célula (comportamento padrão de browsers) */
+.tz-table .col-sticky-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 12px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(34, 41, 47, 0.12));
+  pointer-events: none;
 }
 
 /* thead sticky: fundo do cabeçalho */
