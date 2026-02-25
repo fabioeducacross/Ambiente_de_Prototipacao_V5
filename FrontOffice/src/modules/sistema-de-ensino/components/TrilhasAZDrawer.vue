@@ -276,7 +276,7 @@ const drawerTitle = computed(() => {
 
 const actionLabel = computed(() => {
   if (props.mode === 'pausar') return 'Pausar'
-  return props.isFirstEnable ? 'Habilitar e enviar' : 'Enviar'
+  return 'Enviar'
 })
 
 // ── Métodos ───────────────────────────────────────────────────────────────────
