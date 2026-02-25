@@ -31,15 +31,15 @@ Jornadas focadas na gestão de sala de aula e ensino.
 | ID | Jornada | Categoria | Link |
 |----|---------|-----------|------|
 | PROF-001 | Acesso e Login | Acesso | [Ver Detalhe](./teacher/login-flow) |
-| PROF-002 | Gestão de Missões | Ensino | [Ver Detalhe](./teacher/mission-management) |
-| PROF-003 | Relatórios de Turma | Acompanhamento | [Ver Detalhe](./teacher/class-reports) |
+| PROF-002 | Gestão de Missões | Ensino | [Ver Detalhe](./teacher/education-system-missions) |
+| PROF-003 | Relatórios de Turma | Acompanhamento | [Ver Detalhe](./teacher/classes-records) |
 | PROF-004 | Gestão de Eventos | Ensino | [Ver Detalhe](./teacher/events-management) |
-| PROF-005 | Criar Missão do Zero | Ensino | [Ver Detalhe](./teacher/create-mission-scratch) |
-| PROF-006 | Consultar Livros | Conteúdo | [Ver Detalhe](./teacher/book-consultation) |
+| PROF-005 | Criar Missão do Zero | Ensino | [Ver Detalhe](./teacher/custom-missions) |
+| PROF-006 | Consultar Livros | Conteúdo | [Ver Detalhe](./teacher/education-system-books) |
 | PROF-007 | Meus Jogos (Avaliar/Jogar) | Conteúdo | [Ver Detalhe](./teacher/my-games) |
-| PROF-008 | Relatório de Desempenho | Acompanhamento | [Ver Detalhe](./teacher/performance-report) |
-| PROF-009 | Relatório de Alunos | Acompanhamento | [Ver Detalhe](./teacher/student-report) |
-| PROF-010 | Relatório de Habilidades | Acompanhamento | [Ver Detalhe](./teacher/skills-report) |
+| PROF-008 | Relatório de Desempenho | Acompanhamento | [Ver Detalhe](./teacher/mission-analytics) |
+| PROF-009 | Relatório de Alunos | Acompanhamento | [Ver Detalhe](./teacher/student-records) |
+| PROF-010 | Relatório de Habilidades | Acompanhamento | [Ver Detalhe](./teacher/student-progress-tracking) |
 | PROF-011 | Lista de Alunos | Gestão | [Ver Detalhe](./teacher/students-list) |
 
 ---

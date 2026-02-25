@@ -69,12 +69,12 @@ export default function PopularDocs(): JSX.Element {
             Comece pelos documentos essenciais para entender a plataforma
           </p>
         </div>
-        
+
         <div className={styles.grid}>
           {popularDocs.map((doc, idx) => (
-            <Link 
-              key={idx} 
-              to={doc.href} 
+            <Link
+              key={idx}
+              to={doc.href}
               className={styles.docCard}
             >
               <div className={styles.docIcon}><span className="material-symbols-outlined">{doc.icon}</span></div>

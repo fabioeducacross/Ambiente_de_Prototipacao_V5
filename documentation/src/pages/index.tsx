@@ -13,7 +13,13 @@ function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
+      <div className="container" style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '200px', height: '200px', opacity: 0.05 }}>
+          <img src="/Ambiente_de_Prototipacao_V5/wiki/img/five-icon.svg" alt="Five Icon" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '40px' }}>
+          <img src="/Ambiente_de_Prototipacao_V5/wiki/img/logo-white.svg" alt="Educacross Logo" style={{ height: '80px' }} />
+        </div>
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>

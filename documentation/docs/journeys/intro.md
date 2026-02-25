@@ -9,7 +9,7 @@ Bem-vindo à documentação completa das jornadas de usuário da plataforma Educ
 Esta seção documenta **50+ jornadas** organizadas por contexto de usuário:
 
 - <IconTeacher size={18} /> **[Professor](./teacher/)** - 11 jornadas do contexto educador
-- <IconAdmin size={18} /> **[Admin](./admin/)** - 6 jornadas administrativas
+- <IconAdmin size={18} /> **[Administrador](./administrator/)** - 6 jornadas administrativas
 - <IconStudent size={18} /> **[Estudante](./student/)** - 3 jornadas de aprendizado
 - <IconChart size={18} /> **Network Manager** - Jornadas de gestão de rede
 - <IconSearch size={18} /> **Auditor** - Jornadas de auditoria
@@ -51,8 +51,8 @@ Jornadas mais acessadas (>1000 acessos/dia):
 
 1. [Education System Books](./teacher/education-system-books) - Visualização de livros
 2. [Custom Missions](./teacher/custom-missions) - Criação de missões personalizadas
-3. [Events Management](./teacher/events) - Gestão de eventos educacionais
-4. [Mission Reports](./admin/mission-reports) - Relatórios de missões
+3. [Events Management](./teacher/events-management) - Gestão de eventos educacionais
+4. [Mission Reports](./coordinator/mission-reports) - Relatórios de missões
 
 ### <IconCircleYellow size={16} /> Média Prioridade
 
@@ -115,7 +115,7 @@ Jornadas esporádicas (menos de 100 acessos/dia):
 ### Por Contexto
 
 - [<IconTeacher size={16} /> Jornadas do Professor](./teacher/)
-- [<IconAdmin size={16} /> Jornadas Administrativas](./admin/)
+- [<IconAdmin size={16} /> Jornadas Administrativas](./administrator/)
 - [<IconStudent size={16} /> Jornadas do Estudante](./student/)
 
 ### Por Funcionalidade
