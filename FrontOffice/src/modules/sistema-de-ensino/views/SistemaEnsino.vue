@@ -168,7 +168,7 @@
                 <th>
                   <div class="th-content">
                     STATUS
-                    <span class="material-symbols-outlined th-info" title="Status da missão: Não enviada, Pausada, Não iniciada, Iniciada ou Finalizada.">info</span>
+                    <span class="material-symbols-outlined th-info" :title="statusColTooltip">info</span>
                   </div>
                 </th>
                 <th>
@@ -444,6 +444,15 @@ function getUnidade (chapterId) {
 // pie_chart    → iniciada | pausada | finalizada
 // visibility   → sempre visível
 // link         → apenas iniciada (+ guideLinkUrl na produção)
+
+// Tooltip do cabeçalho de STATUS (texto de produção)
+const statusColTooltip = [
+  '• Não enviada: A missão nunca foi enviada aos alunos. Você poderá enviá-la a qualquer momento.',
+  '• Não iniciada: A missão foi habilitada mas ainda não tem alunos vinculados, ou a data de início ainda não chegou.',
+  '• Iniciada: A missão está sendo exibida e realizada pelos alunos e você poderá ver o relatório.',
+  '• Pausada: A missão já foi enviada pelo menos 1 vez, mas está indisponível temporariamente. Você poderá enviá-la novamente a qualquer momento.',
+  '• Finalizada: A missão foi finalizada e você poderá ver o relatório. Missões finalizadas podem ser reenviadas sem perda do histórico.',
+].join('\n\n')
 
 /** Ícone e título do botão de envio variam pelo estado do capítulo */
 function sendBtnIcon (chapter) {
