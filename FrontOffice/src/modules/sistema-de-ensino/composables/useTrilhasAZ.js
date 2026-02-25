@@ -75,11 +75,14 @@ function startSimulation(chapterId) {
     }, TICK_MS)
 
     // Timer 2: transiciona para FINALIZADA em FINISH_DELAY_MS
+    // Gera rendimento simulado (30-95%) caso não haja valor pré-definido no JSON
+    const simulatedRendimento = chapter.rendimento ?? (30 + Math.floor(Math.random() * 66))
     const timeoutId = setTimeout(() => {
         const c = getChapter(chapterId)
         if (!c || c.paused) return
         c.progresso = 100
         c.finalizada = true
+        c.rendimento = simulatedRendimento
         delete simulationTimers[chapterId]
     }, FINISH_DELAY_MS)
 
@@ -97,7 +100,7 @@ const state = reactive({
         inicio: null,
         fim: null,
         progresso: 0,
-        rendimento: null,
+        rendimento: c.rendimento ?? null,
         finalizada: false,
         paused: false,
         studentsData: c.studentsData.map(sd => ({
