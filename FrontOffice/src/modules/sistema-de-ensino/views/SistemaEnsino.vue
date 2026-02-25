@@ -171,7 +171,7 @@
                     <span class="material-symbols-outlined th-info" :title="statusColTooltip">info</span>
                   </div>
                 </th>
-                <th>
+                <th class="col-sticky-right">
                   <div class="th-content">AÇÕES</div>
                 </th>
               </tr>
@@ -248,7 +248,7 @@
                 </td>
 
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
-                <td>
+                <td class="col-sticky-right">
                   <div class="actions-flat">
                     <!-- Botão Enviar / Adicionar alunos -->
                     <button
@@ -899,6 +899,26 @@ a.bc-item:hover { color: #5a50d6; }
   vertical-align: middle;
   color: #6e6b7b;
   font-size: 14px;
+}
+
+/* ── Sticky column (ações) — padrão Ant Design / MUI / Vuexy ──────────── */
+.tz-table .col-sticky-right {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+  /* sombra à esquerda indica que há conteúdo sob a coluna */
+  box-shadow: -4px 0 8px -2px rgba(34, 41, 47, 0.08);
+}
+
+/* thead sticky: fundo do cabeçalho */
+.tz-table .thead-row .col-sticky-right {
+  background-color: #fff;
+}
+
+/* hover: mantém o fundo ligeiramente roxo como as demais células */
+.tz-table tbody tr:hover .col-sticky-right {
+  background-color: #f8f7ff;
 }
 
 .td-empty {
