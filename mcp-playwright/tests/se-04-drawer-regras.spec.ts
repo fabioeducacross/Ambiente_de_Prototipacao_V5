@@ -7,7 +7,7 @@
  *   DW-01  Label do botão é sempre "Enviar" (não "Habilitar e enviar")
  *   DW-02  Hint do drawer exibe ícone "info" (Material Symbols)
  *   DW-03  Botão Enviar habilitado sem nenhum aluno selecionado
- *   DW-04  Clicar Enviar sem selecionar → envia TODOS os elegíveis → INICIADA
+ *   DW-04  Clicar Enviar sem selecionar → apenas habilita o capítulo → NÃO INICIADA
  *   DW-05  Rendimento médio exibe "–" em NÃO ENVIADA
  *   DW-06  Rendimento médio exibe "–" em NÃO INICIADA (status da máquina, período futuro)
  *   DW-07  Status muda para FINALIZADA em ≤ 35 s (fix do timer, sem gap de 30 s extra)
@@ -121,29 +121,20 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         await page.locator('button.drawer-close').click()
     })
 
-    // ── DW-04 · Enviar sem seleção = envia todos ──────────────────────────────
-    test('DW-04 | Enviar sem selecionar → todos elegíveis são enviados → INICIADA', async ({ page }) => {
+    // ── DW-04 · Enviar sem seleção = apenas habilita (não inicia missão) ──────
+    test('DW-04 | Enviar sem selecionar → apenas habilita o capítulo → NÃO INICIADA', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 
         const row = rowFor(page, CAP_DW04)
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
 
-        // Captura o total de alunos mostrado no drawer
-        const total = await drawerTotalAlunos(page)
-        expect(total).toBeGreaterThan(0)
-
         // Clica Enviar SEM marcar nenhum aluno
         await actionBtn(page).click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
-        // Todos os elegíveis (= todos os alunos em primeiro envio) devem estar vinculados
-        await expect(row.locator('.status-badge')).toHaveText('INICIADA')
-
-        // Contagem de alunos vinculados: "total de total"
-        await expect(
-            row.locator('td').filter({ hasText: new RegExp(`${total} de ${total}`) })
-        ).toBeVisible()
+        // Sem seleção → capítulo habilitado mas nenhum aluno vinculado → NÃO INICIADA
+        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
     })
 
     // ── DW-05 · Rendimento "–" em NÃO ENVIADA ────────────────────────────────
@@ -170,9 +161,10 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 
         const row = rowFor(page, CAP_DW06)
-        // Envia sem seleção → INICIADA (simulação começa, rendimento ainda null)
+        // Seleciona ao menos um aluno → INICIADA (simulação começa, rendimento ainda null)
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
+        await page.locator('.drawer-table tbody input[type="checkbox"]').first().check()
         await actionBtn(page).click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
@@ -193,10 +185,14 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         test.setTimeout(50_000)
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 
-        // Envia CAP_DW07 sem seleção → inicia simulação para todos
+        // Seleciona todos os alunos → inicia simulação
         const row = rowFor(page, CAP_DW07)
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
+        // Marca todos os elegíveis para garantir que INICIADA seja atingida
+        const checkboxes = page.locator('.drawer-table tbody input[type="checkbox"]')
+        const count = await checkboxes.count()
+        for (let i = 0; i < count; i++) await checkboxes.nth(i).check()
         await actionBtn(page).click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
         await expect(row.locator('.status-badge')).toHaveText('INICIADA')

@@ -315,29 +315,34 @@ function toggleAll () {
 function confirm () {
   if (isActionDisabled.value) return
 
-  // Se nenhum aluno foi selecionado individualmente, aplica a todos os elegíveis
   const hasSelection = eligibleStudents.value.some(s => selectedIds.has(s.id))
-  const ids = hasSelection
-    ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
-    : eligibleStudents.value.map(s => s.id)
-
-  // Missão vazia: não há alunos para operar — não envia nem habilita
-  if (ids.length === 0) return
 
   if (props.mode === 'enviar') {
-    // Habilita o capítulo na primeira vez, apenas ao confirmar o envio
+    // Habilita o capítulo na primeira vez (ou reenvio)
     if (props.isFirstEnable) habilitarCapitulo(props.chapter.id)
-    vincularAlunos(
-      props.chapter.id,
-      ids,
-      periodEnabled.value && endDateValue.value ? toISO(endDateValue.value) : null,
-      periodEnabled.value && startDateValue.value ? toISO(startDateValue.value) : null
-    )
+
+    if (hasSelection) {
+      // Alunos explicitamente selecionados → vincula e inicia simulação
+      const ids = eligibleStudents.value
+        .filter(s => selectedIds.has(s.id))
+        .map(s => s.id)
+      vincularAlunos(
+        props.chapter.id,
+        ids,
+        periodEnabled.value && endDateValue.value ? toISO(endDateValue.value) : null,
+        periodEnabled.value && startDateValue.value ? toISO(startDateValue.value) : null
+      )
+    }
+    // Sem seleção → capítulo habilitado, ninguém vinculado → NÃO INICIADA
   } else {
+    // Modo pausar: selecionados ou todos os elegíveis se nenhum marcado
+    const ids = hasSelection
+      ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
+      : eligibleStudents.value.map(s => s.id)
+    if (ids.length === 0) return
     pausarAlunos(props.chapter.id, ids)
   }
 
-  // Limpar seleção (state é reativo — lista se atualiza automaticamente)
   selectedIds.clear()
   close()
 }
