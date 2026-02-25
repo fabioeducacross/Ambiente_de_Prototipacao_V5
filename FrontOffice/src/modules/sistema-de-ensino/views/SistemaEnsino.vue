@@ -220,7 +220,7 @@
 
                 <!-- Rendimento (DS: PerformanceCell) -->
                 <td>
-                  <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
+                  <div v-if="chapter.enabled && chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
                     <span v-if="chapter.rendimento > 0" class="perf-value">{{ chapter.rendimento }}%</span>
                     <span class="perf-badge" :class="perfBadgeVariant(chapter.rendimento)">
                       {{ perfBadgeLabel(chapter.rendimento) }}
