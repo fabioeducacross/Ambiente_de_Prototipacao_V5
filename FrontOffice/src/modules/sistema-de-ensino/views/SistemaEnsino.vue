@@ -909,7 +909,7 @@ a.bc-item:hover { color: #5a50d6; }
   right: 0;
   z-index: 2;
   background-color: #fff;
-  box-shadow: -4px 0 8px rgba(34, 41, 47, 0.15);
+  box-shadow: -2px 0 6px rgba(34, 41, 47, 0.08);
 }
 
 /* thead sticky: fundo do cabeçalho */
