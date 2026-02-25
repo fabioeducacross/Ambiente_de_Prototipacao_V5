@@ -101,12 +101,14 @@ if (status === NotSent || status === NotStarted || performance === undefined) {
 
 ### Simulação no protótipo (comportamento esperado)
 
-| Transição | Valor de `rendimento` |
-| :---- | :---- |
-| Missão habilitada (nao\_enviada → nao\_iniciada) | `undefined` → exibe traço |
-| Missão enviada → **iniciada** | Começa em `null` ("Não há dados"); cresce gradualmente junto com o progresso |
-| Missão **pausada** | Congela no último valor existente |
-| Missão **finalizada** | Assume o valor pré-definido no JSON de mock (95, 45…) ou simulado aleatório (30–95%) |
+> ⚠️ **Atenção**: o que a API retorna em `performance` durante cada status depende do **backend** — não mapeado neste repositório. O comportamento abaixo é uma **suposição razoável** para fins de simulação no protótipo, baseada nos estados disponíveis.
+
+| Transição | Valor de `rendimento` | Justificativa |
+| :---- | :---- | :---- |
+| Missão não enviada / não iniciada | `undefined` → exibe traço `-` | Confirmado 100% no código de produção (`List.vue`) |
+| Missão **iniciada** (em andamento) | `null` → "Não há dados para exibir" até haver dados reais | Suposição: backend retorna `null` enquanto não há jogadas suficientes |
+| Míssão **pausada** | Congela no último valor existente | Suposição: API retorna o último valor calculado |
+| Missão **finalizada** | Valor consolidado (ex: 95%, 45%) | Suposição: API retorna o valor final após todos os jogos |
 
 # **5\. Status de missão**
 
