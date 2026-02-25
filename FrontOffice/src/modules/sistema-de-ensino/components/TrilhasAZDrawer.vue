@@ -202,9 +202,23 @@ watch(periodEnabled, (val) => {
   }
 })
 
+/**
+ * Converte data de d/m/Y (formato flatpickr) para ISO YYYY-MM-DD
+ * que é o formato esperado por isFutureISO no composable.
+ */
+function toISO(val) {
+  if (!val) return null
+  // Já está em ISO
+  if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val
+  // Converte d/m/Y → Y-m-d
+  const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(val)
+  if (match) return `${match[3]}-${match[2]}-${match[1]}`
+  return val
+}
+
 watch(endDateValue, (val) => {
   if (props.chapter) {
-    setEndDate(props.chapter.id, val)
+    setEndDate(props.chapter.id, toISO(val))
   }
 })
 
@@ -316,8 +330,8 @@ function confirm () {
     vincularAlunos(
       props.chapter.id,
       ids,
-      periodEnabled.value && endDateValue.value ? endDateValue.value : null,
-      periodEnabled.value && startDateValue.value ? startDateValue.value : null
+      periodEnabled.value && endDateValue.value ? toISO(endDateValue.value) : null,
+      periodEnabled.value && startDateValue.value ? toISO(startDateValue.value) : null
     )
   } else {
     pausarAlunos(props.chapter.id, ids)

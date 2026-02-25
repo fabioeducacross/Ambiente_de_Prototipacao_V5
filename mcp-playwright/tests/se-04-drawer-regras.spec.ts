@@ -179,28 +179,36 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 
         const row = rowFor(page, CAP_DW06)
-        // Abre drawer e habilita período com data futura
+        // Abre drawer de envio
         await row.locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
 
-        // Ativa período
-        await page.locator('.drawer-periodo input[type="checkbox"]').check()
+        // Ativa o período — seletor correto: .check-row input[type="checkbox"] (no módulo ativo)
+        const periodoCheck = page.locator('.check-row input[type="checkbox"]').first()
+        await periodoCheck.check()
+        await expect(page.locator('.drawer-date-row')).toBeVisible()
 
-        // Preenche data de término no futuro (EDatePicker — input ISO)
+        // Preenche data de término usando flatpickr setDate (via evaluate)
+        // O Vue EDatePicker usa flatpickr → valor e watch propagam via reatividade
         const dataFim = futureDateISO(2)
-        const dateInputs = page.locator('.date-input')
-        // Segundo input = data de término; fill + Enter confirma a seleção
-        await dateInputs.nth(1).fill(dataFim)
-        await page.keyboard.press('Enter')
+        await page.evaluate((date) => {
+            const el = document.querySelector('#dataTermino') as any
+            if (el?._flatpickr) {
+                el._flatpickr.setDate(date, true)
+            }
+        }, dataFim)
+
+        // Aguarda Vue processar o ciclo reativo (watch(endDateValue) → setEndDate)
+        await page.waitForTimeout(300)
 
         // Envia sem selecionar alunos
         await actionBtn(page).click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
-        // Status deve ser NÃO INICIADA (período não começou ainda)
+        // Status deve ser NÃO INICIADA (período futuro, fim > hoje)
         await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
 
-        // Rendimento deve exibir "–" (regra: nao_iniciada → sem dados de rendimento)
+        // Rendimento exibe "–" (regra: nao_iniciada → sem dados de rendimento)
         const rendTraco = row.locator('span.text-muted')
         await expect(rendTraco).toBeVisible()
         await expect(rendTraco).toHaveText('–')
