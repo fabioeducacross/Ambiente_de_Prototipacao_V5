@@ -480,8 +480,9 @@ function isSendVisible (chapter) {
 
 function isPauseVisible (chapter) {
   const s = chapter?.status?.key
-  // NÃO INICIADA e INICIADA: sempre mostra pause (drawer filtra só os vinculados)
-  return s === 'nao_iniciada' || s === 'iniciada'
+  if (s !== 'nao_iniciada' && s !== 'iniciada') return false
+  // Só mostra desvincular se há alunos vinculados (sem alunos não há o que desvincular)
+  return chapter.studentsData?.some(sd => sd.isLinked) ?? false
 }
 
 function isReportVisible (chapter) {
