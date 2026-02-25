@@ -152,6 +152,12 @@ function calculateStatus(chapter) {
         return { key: 'pausada', label: 'PAUSADA', hexColor: '#EA5455' }
     }
 
+    // Sem alunos vinculados: missão enviada mas ninguém iniciou ainda
+    const hasLinkedStudents = chapter.studentsData?.some(sd => sd.isLinked) ?? false
+    if (!hasLinkedStudents) {
+        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#FFB443' }
+    }
+
     if (chapter.periodEnabled && chapter.fim && isFutureISO(chapter.fim)) {
         return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#FFB443' }
     }
