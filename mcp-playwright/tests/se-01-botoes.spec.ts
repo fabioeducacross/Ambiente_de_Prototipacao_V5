@@ -69,7 +69,7 @@ async function enviarMissao(page: any, nomeCapitulo: string, withFutureDate = fa
     }
 
     await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-    await page.locator('.drawer-action-btn').click()
+    await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 }
 
@@ -86,7 +86,7 @@ async function pausarMissao(page: any, nomeCapitulo: string, selectAll = true) {
         await page.locator('.drawer-table tbody input[type="checkbox"]').first().check()
     }
 
-    await page.locator('.drawer-action-btn').click()
+    await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 }
 
@@ -146,7 +146,7 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
 
         // Confirmar envio
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-        await page.locator('.drawer-action-btn').click()
+        await page.locator('.drawer-footer-actions button').last().click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
         // Status INICIADA
@@ -269,7 +269,7 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await rowFor(page, cap).locator('button.action-btn--send').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-        await page.locator('.drawer-action-btn').click()
+        await page.locator('.drawer-footer-actions button').last().click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
         // Status INICIADA com progresso 0% logo após o envio
@@ -321,7 +321,7 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         // Reenvio
         await rowFor(page, cap).locator('button.action-btn--send').click()
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-        await page.locator('.drawer-action-btn').click()
+        await page.locator('.drawer-footer-actions button').last().click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
         // Progresso reseta — deve ser < valor congelado (começa do zero)

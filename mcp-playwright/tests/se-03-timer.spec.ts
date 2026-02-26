@@ -35,7 +35,7 @@ async function enviarMissao(page: any, nomeCapitulo: string) {
     await row.locator('button.action-btn--send').click()
     await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
     await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-    await page.locator('.drawer-action-btn').click()
+    await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 }
 
@@ -46,7 +46,7 @@ async function pausarMissao(page: any, nomeCapitulo: string, selectAll = true) {
     if (selectAll) {
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
     }
-    await page.locator('.drawer-action-btn').click()
+    await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 }
 
@@ -103,7 +103,7 @@ test.describe('Sistema de Ensino — Timers', () => {
         // O drawer deve indicar reenvio (não "Habilitar")
         await expect(page.locator('.drawer-title')).not.toContainText('Habilitar')
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
-        await page.locator('.drawer-action-btn').click()
+        await page.locator('.drawer-footer-actions button').last().click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
         // Badge volta para INICIADA
