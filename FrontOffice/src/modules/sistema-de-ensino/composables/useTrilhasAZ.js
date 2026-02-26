@@ -6,9 +6,10 @@
  * Máquina de status alinhada ao protótipo de regras de negócio:
  *   - !enabled                              → "NÃO ENVIADA"  (laranja)
  *   - enabled + sem alunos vinculados       → "NÃO INICIADA" (info)
- *   - enabled + periodEnabled + fim futuro  → "NÃO INICIADA" (info)
- *   - enabled + finalizada                  → "FINALIZADA"   (roxo)
- *   - enabled + (qualquer outro caso)       → "INICIADA"     (verde)
+ *   - enabled + finalizada                    → "FINALIZADA"   (roxo)
+ *   - enabled + periodEnabled + fim passado    → "FINALIZADA"   (roxo)
+ *   - enabled + periodEnabled + inicio futuro  → "NÃO INICIADA" (info)
+ *   - enabled + (qualquer outro caso)          → "INICIADA"     (verde)
  *
  * Simulação de conclusão (protótipo):
  *   - PROGRESS_DURATION_MS : 30 000 ms — barra de progresso vai de 0→100%
@@ -128,35 +129,48 @@ const state = reactive({
 
 // ─── Máquina de estados (alinhada ao protótipo de regras de negócio) ──────────
 /**
- * Calcula o status de um capítulo.
+ * Calcula o status de um capítulo (analogia do ônibus).
  * Regras:
- *   1. Não habilitado → NÃO ENVIADA
- *   2. Habilitado + finalizada=true → FINALIZADA
- *   3. Habilitado + sem alunos vinculados → NÃO INICIADA
- *   4. Habilitado + período ativo + data fim no futuro → NÃO INICIADA
- *   5. Habilitado + qualquer outro caso → INICIADA
+ *   1. Não habilitado → NÃO ENVIADA  (ônibus no pátio)
+ *   2. Habilitado + finalizada=true → FINALIZADA  (ônibus chegou ao destino)
+ *   3. Habilitado + data final passou → FINALIZADA  (itinerário encerrou)
+ *   4. Habilitado + sem alunos vinculados → NÃO INICIADA  (ônibus vazio)
+ *   5. Habilitado + data início no futuro → NÃO INICIADA  (ônibus esperando no ponto)
+ *   6. Habilitado + qualquer outro caso → INICIADA  (ônibus em rota com passageiros)
+ *
+ * O ônibus nunca volta ao pátio: uma vez enviada, a missão circula
+ * entre NÃO INICIADA ↔ INICIADA até FINALIZADA.
  *
  * @returns {{ label: string, hexColor: string, key: string }}
  */
 function calculateStatus(chapter) {
+    // 1. Ônibus no pátio — nunca foi enviado
     if (!chapter.enabled) {
         return { key: 'nao_enviada', label: 'NÃO ENVIADA', hexColor: '#ff9f43' }
     }
 
+    // 2. Ônibus chegou ao destino — todos completaram
     if (chapter.finalizada === true) {
         return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#6e63e8' }
     }
 
-    // Sem alunos vinculados: missão enviada mas ninguém iniciou ainda
+    // 3. Data final passou → itinerário encerrou
+    if (chapter.periodEnabled && chapter.fim && !isFutureISO(chapter.fim)) {
+        return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#6e63e8' }
+    }
+
+    // 4. Sem passageiros — ônibus partiu mas ninguém embarcou
     const hasLinkedStudents = chapter.studentsData?.some(sd => sd.isLinked) ?? false
     if (!hasLinkedStudents) {
         return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
     }
 
-    if (chapter.periodEnabled && chapter.fim && isFutureISO(chapter.fim)) {
+    // 5. Data de início no futuro → ônibus esperando no ponto
+    if (chapter.periodEnabled && chapter.inicio && isFutureISO(chapter.inicio)) {
         return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
     }
 
+    // 6. Em rota com passageiros
     return { key: 'iniciada', label: 'INICIADA', hexColor: '#28c76f' }
 }
 

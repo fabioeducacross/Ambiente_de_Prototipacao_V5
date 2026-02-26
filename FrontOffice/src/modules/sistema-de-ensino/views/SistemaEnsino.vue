@@ -437,19 +437,18 @@ function getUnidade (chapterId) {
   return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
 }
 
-// ── Botões de ação (lógica simplificada — sem estado PAUSADA) ─────────────────
-// send         → sempre visível; disabled quando todos já vinculados (nao_iniciada/iniciada)
-// group_remove → sempre visível; disabled quando nenhum aluno vinculado
-// pie_chart    → iniciada | finalizada
-// visibility   → sempre visível
-// link         → apenas iniciada (+ guideLinkUrl na produção)
+// ── Botões de ação (v-if por status — tabela definitiva) ──────────────────────
+// NÃO ENVIADA:  send + visibility (2)
+// NÃO INICIADA: group_add + group_remove + visibility (3)
+// INICIADA:     group_add + group_remove + visibility + pie_chart + link (5)
+// FINALIZADA:   send + visibility + pie_chart (3)
 
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
   '• Não enviada: A missão nunca foi enviada aos alunos. Você poderá enviá-la a qualquer momento.',
   '• Não iniciada: A missão foi habilitada mas nenhum aluno está vinculado, ou a data de início ainda não chegou.',
   '• Iniciada: A missão está sendo exibida e realizada pelos alunos e você poderá ver o relatório.',
-  '• Finalizada: A missão foi finalizada e você poderá ver o relatório. Missões finalizadas podem ser reenviadas sem perda do histórico.',
+  '• Finalizada: Todos os alunos completaram a missão ou a data final foi atingida. Missões finalizadas podem ser reenviadas sem perda do histórico.',
 ].join('\n\n')
 
 /** Ícone do botão de envio varia pelo estado do capítulo */
