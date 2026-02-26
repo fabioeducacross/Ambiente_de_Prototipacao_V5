@@ -253,9 +253,7 @@
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td class="col-sticky-right">
                   <div class="actions-flat">
-                    <!-- Botão Enviar / Adicionar alunos
-                         nao_enviada/finalizada: sempre visível (send/reenvio)
-                         nao_iniciada/iniciada: visível só se há alunos não vinculados -->
+                    <!-- Botão Enviar: apenas nao_enviada / finalizada -->
                     <button
                       v-if="isSendVisible(chapter)"
                       class="action-btn action-btn--send"
@@ -263,16 +261,31 @@
                       :aria-label="sendBtnTitle(chapter)"
                       @click="handleSendClick(chapter)"
                     >
-                      <span class="material-symbols-outlined" style="font-size:20px">{{ sendBtnIcon(chapter) }}</span>
+                      <span class="material-symbols-outlined" style="font-size:20px">send</span>
                     </button>
 
-                    <!-- Botão Desvincular — visível apenas em nao_iniciada / iniciada -->
+                    <!-- Botão Add aluno: nao_iniciada / iniciada — sempre visível,
+                         desabilitado quando todos os alunos já estão vinculados -->
+                    <button
+                      v-if="isAddVisible(chapter)"
+                      class="action-btn action-btn--add"
+                      :disabled="isAddDisabled(chapter)"
+                      :title="isAddDisabled(chapter) ? 'Todos os alunos já estão vinculados' : 'Adicionar alunos à missão'"
+                      :aria-label="isAddDisabled(chapter) ? 'Todos os alunos já estão vinculados' : 'Adicionar alunos à missão'"
+                      @click="!isAddDisabled(chapter) && handleSendClick(chapter)"
+                    >
+                      <span class="material-symbols-outlined" style="font-size:20px">group_add</span>
+                    </button>
+
+                    <!-- Botão Remove aluno: nao_iniciada / iniciada — sempre visível,
+                         desabilitado quando não há alunos vinculados -->
                     <button
                       v-if="isPauseVisible(chapter)"
                       class="action-btn action-btn--pause"
-                      title="Desvincular alunos da missão"
-                      aria-label="Desvincular alunos da missão"
-                      @click="handlePauseClick(chapter)"
+                      :disabled="isRemoveDisabled(chapter)"
+                      :title="isRemoveDisabled(chapter) ? 'Nenhum aluno vinculado para remover' : 'Desvincular alunos da missão'"
+                      :aria-label="isRemoveDisabled(chapter) ? 'Nenhum aluno vinculado para remover' : 'Desvincular alunos da missão'"
+                      @click="!isRemoveDisabled(chapter) && handlePauseClick(chapter)"
                     >
                       <span class="material-symbols-outlined" style="font-size:20px">group_remove</span>
                     </button>
@@ -443,13 +456,13 @@ function getUnidade (chapterId) {
   return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
 }
 
-// ── Botões de ação (v-if por status — tabela definitiva) ──────────────────────
+// ── Botões de ação (v-if por status — tabela regras de negócio v2) ────────────
 // NÃO ENVIADA:  send + visibility (2)
-// NÃO INICIADA: group_add* + group_remove** + visibility (1–3)
-// INICIADA:     group_add* + group_remove** + visibility + pie_chart + link (3–5)
+// NÃO INICIADA: group_add* + group_remove** + visibility (3, com disabled condicional)
+// INICIADA:     group_add* + group_remove** + visibility + pie_chart + link (5, com disabled condicional)
 // FINALIZADA:   send + visibility + pie_chart (3)
-// * group_add oculto se todos os alunos já estão vinculados
-// ** group_remove oculto se nenhum aluno está vinculado
+// * group_add: sempre visível; disabled quando todos alunos já vinculados
+// ** group_remove: sempre visível; disabled quando nenhum aluno está vinculado
 
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
@@ -459,35 +472,37 @@ const statusColTooltip = [
   '• Finalizada: Todos os alunos completaram a missão ou a data final foi atingida. Missões finalizadas podem ser reenviadas sem perda do histórico.',
 ].join('\n\n')
 
-/** Botão send/group_add visível?
- *  - nao_enviada / finalizada: sempre (enviar / reenviar)
- *  - nao_iniciada / iniciada: só se há alunos NÃO vinculados
- */
+/** Botão ENVIAR: apenas nao_enviada e finalizada */
 function isSendVisible (chapter) {
   const s = chapter?.status?.key
-  if (s === 'nao_iniciada' || s === 'iniciada') {
-    return chapter.linkedCount < totalStudents
-  }
-  return true // nao_enviada, finalizada → sempre visível
-}
-
-/** Ícone do botão de envio varia pelo estado do capítulo */
-function sendBtnIcon (chapter) {
-  const s = chapter?.status?.key
-  // Missão habilitada → adicionar alunos; não habilitada → enviar
-  return (s === 'nao_iniciada' || s === 'iniciada') ? 'group_add' : 'send'
+  return s === 'nao_enviada' || s === 'finalizada'
 }
 
 function sendBtnTitle (chapter) {
   const s = chapter?.status?.key
-  return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
+  return s === 'finalizada' ? 'Reenviar missão' : 'Enviar missão'
 }
 
-/** Botão desvincular visível só se há alunos vinculados para remover */
+/** Botão ADD ALUNO (group_add): visível em nao_iniciada e iniciada */
+function isAddVisible (chapter) {
+  const s = chapter?.status?.key
+  return s === 'nao_iniciada' || s === 'iniciada'
+}
+
+/** Add aluno desabilitado quando todos os alunos já estão vinculados */
+function isAddDisabled (chapter) {
+  return chapter.linkedCount >= totalStudents
+}
+
+/** Botão REMOVE ALUNO (group_remove): visível em nao_iniciada e iniciada */
 function isPauseVisible (chapter) {
   const s = chapter?.status?.key
-  if (s !== 'nao_iniciada' && s !== 'iniciada') return false
-  return chapter.linkedCount > 0
+  return s === 'nao_iniciada' || s === 'iniciada'
+}
+
+/** Remove aluno desabilitado quando não há alunos vinculados */
+function isRemoveDisabled (chapter) {
+  return chapter.linkedCount <= 0
 }
 
 function isReportVisible (chapter) {
@@ -1059,11 +1074,20 @@ a.bc-item:hover { color: #5a50d6; }
   padding: 0;
 }
 
-.action-btn:hover:not(.is-disabled) {
+.action-btn:hover:not(.is-disabled):not(:disabled) {
   background: rgba(0, 0, 0, 0.06);
 }
 
+.action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
 .action-btn--send .material-symbols-outlined {
+  color: #28c76f;
+}
+
+.action-btn--add .material-symbols-outlined {
   color: #28c76f;
 }
 

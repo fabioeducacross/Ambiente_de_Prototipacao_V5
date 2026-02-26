@@ -74,10 +74,12 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.getByRole('dialog')).toBeHidden()
 
-    // Etapa 4: Verificar botões no estado INICIADA (todos vinculados → group_add oculto)
+    // Etapa 4: Verificar botões no estado INICIADA (todos vinculados → group_add disabled)
     const iniciada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(iniciada.getByText('INICIADA')).toBeVisible()
-    await expect(iniciada.locator('button.action-btn--send')).not.toBeVisible()  // todos vinculados → group_add oculto
+    await expect(iniciada.locator('button.action-btn--send')).not.toBeVisible()   // send oculto em INICIADA
+    await expect(iniciada.locator('button.action-btn--add')).toBeVisible()        // add visível mas disabled
+    await expect(iniciada.locator('button.action-btn--add')).toBeDisabled()       // todos já vinculados
     await expect(iniciada.locator('button.action-btn--pause')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--report')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--details')).toBeVisible()
@@ -110,8 +112,11 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     const naoIniciada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(naoIniciada).toBeVisible({ timeout: 5000 })
     await expect(naoIniciada.getByText('NÃO INICIADA')).toBeVisible()
-    await expect(naoIniciada.locator('button.action-btn--send')).toBeVisible()
-    await expect(naoIniciada.locator('button.action-btn--pause')).not.toBeVisible()    // ninguém vinculado → oculto
+    await expect(naoIniciada.locator('button.action-btn--send')).not.toBeVisible()  // send oculto em NÃO INICIADA
+    await expect(naoIniciada.locator('button.action-btn--add')).toBeVisible()       // add visível, enabled (há alunos)
+    await expect(naoIniciada.locator('button.action-btn--add')).toBeEnabled()
+    await expect(naoIniciada.locator('button.action-btn--pause')).toBeVisible()    // remove visível, disabled (0 vinculados)
+    await expect(naoIniciada.locator('button.action-btn--pause')).toBeDisabled()
     await expect(naoIniciada.locator('button.action-btn--report')).not.toBeVisible()  // sem pie_chart
     await expect(naoIniciada.locator('button.action-btn--details')).toBeVisible()
     await testInfo.attach('06-NAO-INICIADA-botoes-corretos', {
@@ -119,8 +124,8 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
         contentType: 'image/png'
     })
 
-    // Etapa 8: Reenviar via send (group_add)
-    await naoIniciada.locator('button.action-btn--send').first().click()
+    // Etapa 8: Reenviar via group_add (send oculto em NÃO INICIADA)
+    await naoIniciada.locator('button.action-btn--add').first().click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await testInfo.attach('07-drawer-reenviar-aberto', {
         body: await page.screenshot({ fullPage: false }),
@@ -134,11 +139,13 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await expect(page.getByRole('dialog')).toBeHidden()
     await page.waitForTimeout(400)
 
-    // Etapa 10: Verificar estado INICIADA após reenvio (todos vinculados → group_add oculto)
+    // Etapa 10: Verificar estado INICIADA após reenvio (todos vinculados → add disabled)
     const reativada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(reativada).toBeVisible()
     await expect(reativada.getByText('INICIADA')).toBeVisible()
-    await expect(reativada.locator('button.action-btn--send')).not.toBeVisible()  // todos vinculados
+    await expect(reativada.locator('button.action-btn--send')).not.toBeVisible()  // send oculto em INICIADA
+    await expect(reativada.locator('button.action-btn--add')).toBeVisible()       // add visível mas disabled
+    await expect(reativada.locator('button.action-btn--add')).toBeDisabled()      // todos vinculados
     await expect(reativada.locator('button.action-btn--pause')).toBeVisible()
     await expect(reativada.locator('button.action-btn--report')).toBeVisible()
     await testInfo.attach('08-INICIADA-apos-reenvio', {
@@ -174,7 +181,7 @@ test('SE-05-T2: NÃO INICIADA reiniciar via drawer group_add com 1 aluno → INI
     })
 
     // Clicar em group_add → abre drawer para adicionar alunos
-    await naoIniciada.locator('button.action-btn--send').first().click()
+    await naoIniciada.locator('button.action-btn--add').first().click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await testInfo.attach('10-drawer-add-alunos-aberto-em-NAO-INICIADA', {
         body: await page.screenshot({ fullPage: false }),
@@ -197,9 +204,9 @@ test('SE-05-T2: NÃO INICIADA reiniciar via drawer group_add com 1 aluno → INI
     // Missão deve ter voltado para INICIADA
     const reativada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(reativada.getByText('INICIADA')).toBeVisible()
-    // Com 1 aluno: send não-disabled (restantes ainda podem ser adicionados)
-    await expect(reativada.locator('button.action-btn--send')).not.toBeDisabled()
-    await expect(reativada.locator('button.action-btn--pause')).not.toBeDisabled() // tem 1 vinculado
+    // Com 1 aluno: add habilitado (restantes ainda podem ser adicionados), pause habilitado (tem 1 vinculado)
+    await expect(reativada.locator('button.action-btn--add')).toBeEnabled()
+    await expect(reativada.locator('button.action-btn--pause')).toBeEnabled()
     await testInfo.attach('12-INICIADA-apos-restart-via-drawer', {
         body: await page.screenshot({ fullPage: true }),
         contentType: 'image/png'
