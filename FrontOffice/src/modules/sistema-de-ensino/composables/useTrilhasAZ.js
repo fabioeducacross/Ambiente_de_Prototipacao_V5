@@ -120,7 +120,7 @@ const state = reactive({
         inicio: null,
         fim: null,
         progresso: 0,
-        rendimento: c.rendimento ?? null,
+        rendimento: null,   // sempre null no estado inicial — só populado pela simulação após progresso ≥ 20%
         finalizada: false,
         studentsData: c.studentsData.map(sd => ({
             ...sd,

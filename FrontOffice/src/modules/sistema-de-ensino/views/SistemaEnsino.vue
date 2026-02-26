@@ -228,7 +228,7 @@
                     <span class="perf-badge perf-nodata">Não há dados para exibir</span>
                   </template>
                   <template v-else>
-                    <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
+                    <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined && chapter.progresso > 0" class="performance-cell">
                       <span v-if="chapter.rendimento > 0" class="perf-value">{{ chapter.rendimento }}%</span>
                       <span class="perf-badge" :class="perfBadgeVariant(chapter.rendimento)">
                         {{ perfBadgeLabel(chapter.rendimento) }}
