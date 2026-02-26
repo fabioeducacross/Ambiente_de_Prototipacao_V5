@@ -126,6 +126,24 @@ const emit = defineEmits(['update:modelValue', 'change', 'open', 'close', 'clear
 // Internal state
 const internalValue = ref(props.modelValue)
 
+/**
+ * Converte string de data (ISO 'YYYY-MM-DD' ou 'd/m/Y') para objeto Date local.
+ * Evita que flatpickr interprete o string com o dateFormat errado
+ * (ex: "2026-02-26" com formato d/m/Y gera data incorreta).
+ */
+function parseToLocalDate(val) {
+  if (!val) return undefined
+  if (val instanceof Date) return val
+  // ISO: YYYY-MM-DD
+  const isoMatch = /^(\d{4})-(\d{2})-(\d{2})/.exec(val)
+  if (isoMatch) return new Date(+isoMatch[1], +isoMatch[2] - 1, +isoMatch[3])
+  // d/m/Y: DD/MM/YYYY
+  const dmyMatch = /^(\d{2})\/(\d{2})\/(\d{4})/.exec(val)
+  if (dmyMatch) return new Date(+dmyMatch[3], +dmyMatch[2] - 1, +dmyMatch[1])
+  // Fallback (pode gerar timezone issues, mas é melhor que nada)
+  return new Date(val)
+}
+
 // Computed
 const inputId = computed(() => props.id || `datepicker-${Math.random().toString(36).substr(2, 9)}`)
 
@@ -142,8 +160,8 @@ const flatpickrConfig = computed(() => ({
   dateFormat: props.dateFormat,
   enableTime: props.enableTime,
   noCalendar: props.noCalendar,
-  minDate: props.minDate,
-  maxDate: props.maxDate,
+  minDate: parseToLocalDate(props.minDate),
+  maxDate: parseToLocalDate(props.maxDate),
   mode: props.mode,
   inline: props.inline,
   time_24hr: true,
@@ -209,15 +227,6 @@ const flatpickrConfig = computed(() => ({
       nextButton.style.display = 'flex'
       nextButton.style.alignItems = 'center'
       nextButton.style.justifyContent = 'center'
-    }
-
-    // Se não há data selecionada, posiciona o calendário no mês de referência
-    // (minDate se informado, caso contrário hoje) — evita abrir num mês futuro com campo vazio
-    if (!selectedDates.length) {
-      const ref = props.minDate
-        ? (() => { const [y, m, d] = String(props.minDate).split('-'); return new Date(+y, +m - 1, +d) })()
-        : new Date()
-      instance.jumpToDate(ref, false)
     }
   }
 }))
