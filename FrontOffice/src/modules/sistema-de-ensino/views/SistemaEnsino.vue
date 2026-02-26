@@ -250,8 +250,11 @@
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td class="col-sticky-right">
                   <div class="actions-flat">
-                    <!-- Botão Enviar / Adicionar alunos — sempre visível, sempre clicável -->
+                    <!-- Botão Enviar / Adicionar alunos
+                         nao_enviada/finalizada: sempre visível (send/reenvio)
+                         nao_iniciada/iniciada: visível só se há alunos não vinculados -->
                     <button
+                      v-if="isSendVisible(chapter)"
                       class="action-btn action-btn--send"
                       :title="sendBtnTitle(chapter)"
                       :aria-label="sendBtnTitle(chapter)"
@@ -439,9 +442,10 @@ function getUnidade (chapterId) {
 
 // ── Botões de ação (v-if por status — tabela definitiva) ──────────────────────
 // NÃO ENVIADA:  send + visibility (2)
-// NÃO INICIADA: group_add + group_remove + visibility (3)
-// INICIADA:     group_add + group_remove + visibility + pie_chart + link (5)
+// NÃO INICIADA: group_add* + group_remove + visibility (2–3)
+// INICIADA:     group_add* + group_remove + visibility + pie_chart + link (4–5)
 // FINALIZADA:   send + visibility + pie_chart (3)
+// * group_add oculto se todos os alunos já estão vinculados
 
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
@@ -450,6 +454,18 @@ const statusColTooltip = [
   '• Iniciada: A missão está sendo exibida e realizada pelos alunos e você poderá ver o relatório.',
   '• Finalizada: Todos os alunos completaram a missão ou a data final foi atingida. Missões finalizadas podem ser reenviadas sem perda do histórico.',
 ].join('\n\n')
+
+/** Botão send/group_add visível?
+ *  - nao_enviada / finalizada: sempre (enviar / reenviar)
+ *  - nao_iniciada / iniciada: só se há alunos NÃO vinculados
+ */
+function isSendVisible (chapter) {
+  const s = chapter?.status?.key
+  if (s === 'nao_iniciada' || s === 'iniciada') {
+    return chapter.linkedCount < totalStudents
+  }
+  return true // nao_enviada, finalizada → sempre visível
+}
 
 /** Ícone do botão de envio varia pelo estado do capítulo */
 function sendBtnIcon (chapter) {

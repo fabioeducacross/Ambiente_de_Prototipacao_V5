@@ -159,19 +159,20 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         expect(value).toBeGreaterThan(0)
     })
 
-    // ── TC-03 · INICIADA → 5 botões ────────────────────────────────────────────
-    test('TC-03 | INICIADA → send + pause + pie + visibility + link (5 botões)', async ({ page }) => {
+    // ── TC-03 · INICIADA (todos vinculados) → 4 botões (group_add oculto) ────────
+    test('TC-03 | INICIADA (todos vinculados) → pause + pie + visibility + link (4 botões)', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
-        await enviarMissao(page, CAP2)  // CAP2 ainda é NÃO ENVIADA
+        await enviarMissao(page, CAP2)  // CAP2 ainda é NÃO ENVIADA → envia para TODOS
 
         const row = rowFor(page, CAP2)
         await expect(row.locator('.status-badge')).toHaveText('INICIADA')
-        await expect(row.locator('button.action-btn--send')).toBeVisible()
+        // group_add oculto — todos já vinculados, não há quem adicionar
+        await expect(row.locator('button.action-btn--send')).not.toBeVisible()
         await expect(row.locator('button.action-btn--pause')).toBeVisible()
         await expect(row.locator('button.action-btn--report')).toBeVisible()
         await expect(row.locator('button.action-btn--details')).toBeVisible()
         await expect(row.locator('button.action-btn--link')).toBeVisible()
-        expect(await countActionBtns(row)).toBe(5)
+        expect(await countActionBtns(row)).toBe(4)
     })
 
     // ── TC-09 · Relatório placeholder em INICIADA ───────────────────────────────

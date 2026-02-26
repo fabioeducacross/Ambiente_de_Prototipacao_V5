@@ -74,10 +74,10 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await page.locator('.drawer-footer-actions button').last().click()
     await expect(page.getByRole('dialog')).toBeHidden()
 
-    // Etapa 4: Verificar botões no estado INICIADA (todos vinculados)
+    // Etapa 4: Verificar botões no estado INICIADA (todos vinculados → group_add oculto)
     const iniciada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(iniciada.getByText('INICIADA')).toBeVisible()
-    await expect(iniciada.locator('button.action-btn--send')).toBeVisible()
+    await expect(iniciada.locator('button.action-btn--send')).not.toBeVisible()  // todos vinculados → group_add oculto
     await expect(iniciada.locator('button.action-btn--pause')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--report')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--details')).toBeVisible()
@@ -134,11 +134,11 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await expect(page.getByRole('dialog')).toBeHidden()
     await page.waitForTimeout(400)
 
-    // Etapa 10: Verificar estado INICIADA após reenvio
+    // Etapa 10: Verificar estado INICIADA após reenvio (todos vinculados → group_add oculto)
     const reativada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(reativada).toBeVisible()
     await expect(reativada.getByText('INICIADA')).toBeVisible()
-    await expect(reativada.locator('button.action-btn--send')).toBeVisible()
+    await expect(reativada.locator('button.action-btn--send')).not.toBeVisible()  // todos vinculados
     await expect(reativada.locator('button.action-btn--pause')).toBeVisible()
     await expect(reativada.locator('button.action-btn--report')).toBeVisible()
     await testInfo.attach('08-INICIADA-apos-reenvio', {
