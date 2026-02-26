@@ -213,26 +213,28 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await row.locator('button.action-btn--link').click()
     })
 
-    // ── TC-13 · Desvincular total → NÃO INICIADA → 3 botões (remove disabled) ───
-    test('TC-13 | Desvincular total → NÃO INICIADA + add(enabled) + remove(disabled) + visibility (3 botões)', async ({ page }) => {
+    // ── TC-13 · Desvincular total → INICIADA (sem alunos) → 5 botões (remove disabled) ───
+    test('TC-13 | Desvincular total → INICIADA (sem alunos) + add(enabled) + remove(disabled) + pie + link + visibility (5 botões)', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)  // CAP2 começa NÃO ENVIADA neste contexto
         await pausarMissao(page, CAP2, true)
 
         const row = rowFor(page, CAP2)
-        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
-        // send oculto em NÃO INICIADA
+        // Desvincular todos → missão permanece INICIADA (ônibus nunca volta ao pátio)
+        await expect(row.locator('.status-badge')).toHaveText('INICIADA')
+        // send oculto em INICIADA
         await expect(row.locator('button.action-btn--send')).not.toBeVisible()
-        // group_add visível e habilitado — há alunos para vinc
+        // group_add visível e habilitado — há alunos para vincular
         await expect(row.locator('button.action-btn--add')).toBeVisible()
         await expect(row.locator('button.action-btn--add')).toBeEnabled()
         // group_remove visível mas desabilitado — nenhum aluno vinculado
         await expect(row.locator('button.action-btn--pause')).toBeVisible()
         await expect(row.locator('button.action-btn--pause')).toBeDisabled()
+        // pie_chart e link visíveis (INICIADA)
+        await expect(row.locator('button.action-btn--report')).toBeVisible()
         await expect(row.locator('button.action-btn--details')).toBeVisible()
-        await expect(row.locator('button.action-btn--report')).not.toBeVisible()
-        await expect(row.locator('button.action-btn--link')).not.toBeVisible()
-        expect(await countActionBtns(row)).toBe(3)
+        await expect(row.locator('button.action-btn--link')).toBeVisible()
+        expect(await countActionBtns(row)).toBe(5)
     })
 
     // ── TC-04 · Desvincular total → barra continua (ônibus não para) ──────────
@@ -271,9 +273,10 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await page.waitForTimeout(5000) // deixa barra subir um pouco
 
         await pausarMissao(page, cap, true)
-        await expect(rowFor(page, cap).locator('.status-badge')).toHaveText('NÃO INICIADA')
+        // Desvincular todos → status permanece INICIADA (protótipo: ônibus nunca volta ao pátio)
+        await expect(rowFor(page, cap).locator('.status-badge')).toHaveText('INICIADA')
 
-        // Reenviar via group_add (send oculto em NÃO INICIADA)
+        // Reenviar via group_add (send oculto em INICIADA, appós desvincular todos)
         await rowFor(page, cap).locator('button.action-btn--add').click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeVisible()
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
@@ -321,10 +324,10 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         )
         expect(pctMid).toBeGreaterThan(0)
 
-        // Desvincular todos (barra continua — ônibus não para)
+        // Desvincular todos (barra continua — ônibus não para; status permanece INICIADA)
         await pausarMissao(page, cap, true)
 
-        // Reenvio via group_add (send oculto em NÃO INICIADA)
+        // Reenvio via group_add (send oculto em INICIADA; desvincular todos não muda o status)
         await rowFor(page, cap).locator('button.action-btn--add').click()
         await page.locator('.drawer-table thead input[type="checkbox"]').first().check()
         await page.locator('.drawer-footer-actions button').last().click()

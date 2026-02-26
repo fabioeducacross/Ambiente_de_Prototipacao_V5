@@ -467,7 +467,7 @@ function getUnidade (chapterId) {
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
   '• Não enviada: A missão nunca foi enviada aos alunos. Você poderá enviá-la a qualquer momento.',
-  '• Não iniciada: A missão foi habilitada mas nenhum aluno está vinculado, ou a data de início ainda não chegou.',
+  '• Não iniciada: A missão foi habilitada com data de início futura. Quando essa data chegar, a missão muda automaticamente para Iniciada.',
   '• Iniciada: A missão está sendo exibida e realizada pelos alunos e você poderá ver o relatório.',
   '• Finalizada: Todos os alunos completaram a missão ou a data final foi atingida. Missões finalizadas podem ser reenviadas sem perda do histórico.',
 ].join('\n\n')

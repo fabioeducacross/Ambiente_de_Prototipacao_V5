@@ -5,11 +5,13 @@
  *
  * Máquina de status alinhada ao protótipo de regras de negócio:
  *   - !enabled                              → "NÃO ENVIADA"  (laranja)
- *   - enabled + sem alunos vinculados       → "NÃO INICIADA" (info)
  *   - enabled + finalizada                    → "FINALIZADA"   (roxo)
  *   - enabled + periodEnabled + fim passado    → "FINALIZADA"   (roxo)
  *   - enabled + periodEnabled + inicio futuro  → "NÃO INICIADA" (info)
  *   - enabled + (qualquer outro caso)          → "INICIADA"     (verde)
+ *
+ * NÃO INICIADA ocorre APENAS quando há data de início no futuro.
+ * Desvincular todos os alunos mantém o status INICIADA — o ônibus nunca volta ao pátio.
  *
  * Simulação de conclusão (protótipo):
  *   - PROGRESS_DURATION_MS : 30 000 ms — barra de progresso vai de 0→100%
@@ -134,10 +136,11 @@ const state = reactive({
  *   1. Não habilitado → NÃO ENVIADA  (ônibus no pátio)
  *   2. Habilitado + finalizada=true → FINALIZADA  (ônibus chegou ao destino)
  *   3. Habilitado + data final passou → FINALIZADA  (itinerário encerrou)
- *   4. Habilitado + sem alunos vinculados → NÃO INICIADA  (ônibus vazio)
- *   5. Habilitado + data início no futuro → NÃO INICIADA  (ônibus esperando no ponto)
- *   6. Habilitado + qualquer outro caso → INICIADA  (ônibus em rota com passageiros)
+ *   4. Habilitado + data início no futuro → NÃO INICIADA  (ônibus agendado para o futuro)
+ *   5. Habilitado + qualquer outro caso → INICIADA  (ônibus em rota)
  *
+ * ⚠️  NÃO INICIADA = APENAS data de início no futuro.
+ *     Desvincular todos os alunos NÃO altera o status — o ônibus nunca volta ao pátio.
  * O ônibus nunca volta ao pátio: uma vez enviada, a missão circula
  * entre NÃO INICIADA ↔ INICIADA até FINALIZADA.
  *
@@ -159,18 +162,13 @@ function calculateStatus(chapter) {
         return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#6e63e8' }
     }
 
-    // 4. Sem passageiros — ônibus partiu mas ninguém embarcou
-    const hasLinkedStudents = chapter.studentsData?.some(sd => sd.isLinked) ?? false
-    if (!hasLinkedStudents) {
-        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
-    }
-
-    // 5. Data de início no futuro → ônibus esperando no ponto
+    // 4. Data de início no futuro → missão agendada (ainda não partiu)
+    //    NÃO INICIADA só ocorre por data, nunca por falta de alunos vinculados
     if (chapter.periodEnabled && chapter.inicio && isFutureISO(chapter.inicio)) {
         return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#00cfe8' }
     }
 
-    // 6. Em rota com passageiros
+    // 5. Em rota — sem data futura e não finalizada
     return { key: 'iniciada', label: 'INICIADA', hexColor: '#28c76f' }
 }
 
