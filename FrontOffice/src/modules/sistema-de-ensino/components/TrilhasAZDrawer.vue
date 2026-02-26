@@ -153,7 +153,7 @@ import EButton from '@/shared/components/base/EButton.vue'
 const {
   students,
   vincularAlunos,
-  pausarAlunos,
+  desvincularAlunos,
   habilitarCapitulo,
   togglePeriod,
   setEndDate,
@@ -340,7 +340,7 @@ function confirm () {
       ? eligibleStudents.value.filter(s => selectedIds.has(s.id)).map(s => s.id)
       : eligibleStudents.value.map(s => s.id)
     if (ids.length === 0) return
-    pausarAlunos(props.chapter.id, ids)
+    desvincularAlunos(props.chapter.id, ids)
   }
 
   selectedIds.clear()

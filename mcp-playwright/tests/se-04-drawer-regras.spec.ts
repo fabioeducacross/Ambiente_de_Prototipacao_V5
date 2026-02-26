@@ -25,7 +25,7 @@
 import { test, expect } from '@playwright/test'
 
 const BASE_URL = process.env.TEST_URL ?? 'http://localhost:5174'
-const PAGE_URL  = `${BASE_URL}/teacher/trilhas-az`
+const PAGE_URL = `${BASE_URL}/teacher/trilhas-az`
 
 // Capítulos — um por TC para isolar o estado (cada teste faz goto() novo)
 const CAP_DW04 = 'Capítulo 1: Sistema de numeração decimal' // DW-01..DW-04
@@ -156,7 +156,7 @@ test.describe('Drawer — Regras da sessão 25/02/2026', () => {
 
     // ── DW-06 · INICIADA mostra "Não há dados" (nunca "–") ──────────────────
     // Valida a distinção de template: nao_enviada/nao_iniciada → "–";
-    // iniciada/pausada sem dados → "Não há dados para exibir"
+    // iniciada sem dados → "Não há dados para exibir"
     test('DW-06 | INICIADA exibe "Não há dados" de rendimento (não o traço "–")', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
 

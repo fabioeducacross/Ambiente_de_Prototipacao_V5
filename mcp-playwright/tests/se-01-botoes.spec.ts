@@ -100,8 +100,8 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         // Apenas garante que o servidor está no ar
     })
 
-    // ── TC-01 · Estado inicial: NÃO ENVIADA → 2 botões ─────────────────────────
-    test('TC-01 | NÃO ENVIADA → send + visibility', async ({ page }) => {
+    // ── TC-01 · Estado inicial: NÃO ENVIADA → 3 botões ─────────────────────────
+    test('TC-01 | NÃO ENVIADA → send + pause (disabled) + visibility', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await expect(page.getByText('MISSÕES SISTEMA DE ENSINO')).toBeVisible()
 
@@ -111,13 +111,14 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         // Badge laranja NÃO ENVIADA
         await expect(row.locator('.status-badge')).toHaveText('NÃO ENVIADA')
 
-        // Exatamente 2 botões: send + visibility
+        // Exatamente 3 botões: send + pause (disabled) + visibility
         await expect(row.locator('button.action-btn--send')).toBeVisible()
         await expect(row.locator('button.action-btn--details')).toBeVisible()
-        await expect(row.locator('button.action-btn--pause')).not.toBeVisible()
+        await expect(row.locator('button.action-btn--pause')).toBeVisible()
+        await expect(row.locator('button.action-btn--pause')).toBeDisabled()
         await expect(row.locator('button.action-btn--report')).not.toBeVisible()
         await expect(row.locator('button.action-btn--link')).not.toBeVisible()
-        expect(await countActionBtns(row)).toBe(2)
+        expect(await countActionBtns(row)).toBe(3)
 
         // Progresso 0%
         await expect(row.locator('.progress-pct')).toHaveText('0%')
@@ -159,8 +160,8 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         expect(value).toBeGreaterThan(0)
     })
 
-    // ── TC-03 · INICIADA → 4 botões ────────────────────────────────────────────
-    test('TC-03 | INICIADA → pause + pie + visibility + link (4 botões)', async ({ page }) => {
+    // ── TC-03 · INICIADA → 5 botões ────────────────────────────────────────────
+    test('TC-03 | INICIADA → send (disabled) + pause + pie + visibility + link (5 botões)', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)  // CAP2 ainda é NÃO ENVIADA
 
@@ -170,8 +171,9 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await expect(row.locator('button.action-btn--report')).toBeVisible()
         await expect(row.locator('button.action-btn--details')).toBeVisible()
         await expect(row.locator('button.action-btn--link')).toBeVisible()
-        await expect(row.locator('button.action-btn--send')).not.toBeVisible()
-        expect(await countActionBtns(row)).toBe(4)
+        await expect(row.locator('button.action-btn--send')).toBeVisible()
+        await expect(row.locator('button.action-btn--send')).toBeDisabled() // todos já vinculados
+        expect(await countActionBtns(row)).toBe(5)
     })
 
     // ── TC-09 · Relatório placeholder em INICIADA ───────────────────────────────
@@ -207,24 +209,26 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await row.locator('button.action-btn--link').click()
     })
 
-    // ── TC-13 · Pausa total → PAUSADA → 3 botões ───────────────────────────────
-    test('TC-13 | Pausa total → PAUSADA + send + pie + visibility (3 botões)', async ({ page }) => {
+    // ── TC-13 · Desvincular total → NÃO INICIADA → 3 botões ─────────────────────
+    test('TC-13 | Desvincular total → NÃO INICIADA + send + pause (disabled) + visibility (3 botões)', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)  // CAP2 começa NÃO ENVIADA neste contexto
         await pausarMissao(page, CAP2, true)
 
         const row = rowFor(page, CAP2)
-        await expect(row.locator('.status-badge')).toHaveText('PAUSADA')
+        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
         await expect(row.locator('button.action-btn--send')).toBeVisible()
-        await expect(row.locator('button.action-btn--report')).toBeVisible()
+        await expect(row.locator('button.action-btn--send')).not.toBeDisabled() // pode adicionar alunos
+        await expect(row.locator('button.action-btn--pause')).toBeVisible()
+        await expect(row.locator('button.action-btn--pause')).toBeDisabled() // sem alunos vinculados
         await expect(row.locator('button.action-btn--details')).toBeVisible()
-        await expect(row.locator('button.action-btn--pause')).not.toBeVisible()
+        await expect(row.locator('button.action-btn--report')).not.toBeVisible() // nao_iniciada sem pie
         await expect(row.locator('button.action-btn--link')).not.toBeVisible()
         expect(await countActionBtns(row)).toBe(3)
     })
 
-    // ── TC-04 · PAUSADA → barra congela ────────────────────────────────────────
-    test('TC-04 | Barra de progresso congela ao pausar', async ({ page }) => {
+    // ── TC-04 · Desvincular total → barra congela ─────────────────────────────
+    test('TC-04 | Barra de progresso congela ao desvincular', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)
 
@@ -259,7 +263,7 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await page.waitForTimeout(5000) // deixa barra subir um pouco
 
         await pausarMissao(page, cap, true)
-        await expect(rowFor(page, cap).locator('.status-badge')).toHaveText('PAUSADA')
+        await expect(rowFor(page, cap).locator('.status-badge')).toHaveText('NÃO INICIADA')
 
         // Reenviar
         await rowFor(page, cap).locator('button.action-btn--send').click()

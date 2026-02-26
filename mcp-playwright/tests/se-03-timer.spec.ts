@@ -155,21 +155,22 @@ test.describe('Sistema de Ensino — Timers', () => {
 
         // Pausar agora (entre T+35 s e T+60 s)
         await pausarMissao(page, CAP_T4, true)
-        await expect(row.locator('.status-badge')).toHaveText('PAUSADA')
+        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
 
         // Aguarda mais 35 s (seria o momento de FINALIZADA se o timer não tivesse sido cancelado)
         await page.waitForTimeout(35_000)
 
-        // Status ainda deve ser PAUSADA — timer cancelado pelo cancelSimulation()
-        await expect(row.locator('.status-badge')).toHaveText('PAUSADA')
+        // Status ainda deve ser NÃO INICIADA — timer cancelado pelo cancelSimulation()
+        await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
         await expect(row.locator('.progress-pct')).toHaveText('100%')
 
-        // Botões corretos de PAUSADA: send + pie + visibility
+        // Botões corretos de NÃO INICIADA: send + pause (disabled) + visibility
         await expect(row.locator('button.action-btn--send')).toBeVisible()
-        await expect(row.locator('button.action-btn--report')).toBeVisible()
+        await expect(row.locator('button.action-btn--pause')).toBeVisible()
+        await expect(row.locator('button.action-btn--pause')).toBeDisabled()
         await expect(row.locator('button.action-btn--details')).toBeVisible()
+        await expect(row.locator('button.action-btn--report')).not.toBeVisible()
         await expect(row.locator('button.action-btn--link')).not.toBeVisible()
-        await expect(row.locator('button.action-btn--pause')).not.toBeVisible()
     })
 
 })

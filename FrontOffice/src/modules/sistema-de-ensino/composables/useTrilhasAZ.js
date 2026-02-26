@@ -5,15 +5,15 @@
  *
  * Máquina de status alinhada ao protótipo de regras de negócio:
  *   - !enabled                              → "NÃO ENVIADA"  (laranja)
- *   - enabled + paused=true                 → "PAUSADA"      (vermelho)
- *   - enabled + periodEnabled + fim futuro  → "NÃO INICIADA" (laranja)
+ *   - enabled + sem alunos vinculados       → "NÃO INICIADA" (info)
+ *   - enabled + periodEnabled + fim futuro  → "NÃO INICIADA" (info)
  *   - enabled + finalizada                  → "FINALIZADA"   (roxo)
  *   - enabled + (qualquer outro caso)       → "INICIADA"     (verde)
  *
  * Simulação de conclusão (protótipo):
  *   - PROGRESS_DURATION_MS : 30 000 ms — barra de progresso vai de 0→100%
  *   - FINISH_DELAY_MS      : 60 000 ms — missão transiciona para FINALIZADA
- *   Timers são cancelados ao pausar e reiniciados ao reenviar.
+ *   Timers são cancelados ao desvincular e reiniciados ao reenviar.
  */
 import { reactive, computed } from 'vue'
 import rawData from '../data/trilhas-az.json'
@@ -71,7 +71,7 @@ function startSimulation(chapterId) {
     // Simula comportamento de produção: dados parciais aparecem conforme alunos jogam
     const intervalId = setInterval(() => {
         const c = getChapter(chapterId)
-        if (!c || c.paused || c.finalizada) {
+        if (!c || c.finalizada) {
             clearInterval(intervalId)
             return
         }
@@ -96,7 +96,7 @@ function startSimulation(chapterId) {
     // Timer de segurança: garante finalização mesmo se o interval falhar
     const timeoutId = setTimeout(() => {
         const c = getChapter(chapterId)
-        if (!c || c.paused || c.finalizada) return
+        if (!c || c.finalizada) return
         c.progresso = 100
         c.finalizada = true
         c.rendimento = targetRendimento
@@ -119,7 +119,6 @@ const state = reactive({
         progresso: 0,
         rendimento: c.rendimento ?? null,
         finalizada: false,
-        paused: false,
         studentsData: c.studentsData.map(sd => ({
             ...sd,
             isLinked: false
@@ -133,7 +132,7 @@ const state = reactive({
  * Regras:
  *   1. Não habilitado → NÃO ENVIADA
  *   2. Habilitado + finalizada=true → FINALIZADA
- *   3. Habilitado + paused=true → PAUSADA
+ *   3. Habilitado + sem alunos vinculados → NÃO INICIADA
  *   4. Habilitado + período ativo + data fim no futuro → NÃO INICIADA
  *   5. Habilitado + qualquer outro caso → INICIADA
  *
@@ -146,10 +145,6 @@ function calculateStatus(chapter) {
 
     if (chapter.finalizada === true) {
         return { key: 'finalizada', label: 'FINALIZADA', hexColor: '#6e63e8' }
-    }
-
-    if (chapter.paused === true) {
-        return { key: 'pausada', label: 'PAUSADA', hexColor: '#EA5455' }
     }
 
     // Sem alunos vinculados: missão enviada mas ninguém iniciou ainda
@@ -218,16 +213,15 @@ function vincularAlunos(chapterId, studentIds, endDate, startDate) {
     }
 
     if (studentIds.length > 0) {
-        chapter.paused = false
         // Inicia simulação de conclusão: progresso 0→100% (30s) + FINALIZADA (60s)
         startSimulation(chapterId)
     }
 }
 
 /**
- * Desvincula alunos do capítulo (Pausar).
+ * Desvincula alunos do capítulo.
  */
-function pausarAlunos(chapterId, studentIds) {
+function desvincularAlunos(chapterId, studentIds) {
     const chapter = getChapter(chapterId)
     if (!chapter) return
 
@@ -239,8 +233,6 @@ function pausarAlunos(chapterId, studentIds) {
         if (entry) entry.isLinked = false
     })
 
-    const linkedCount = chapter.studentsData.filter(sd => sd.isLinked).length
-    chapter.paused = linkedCount === 0
 }
 
 /**
@@ -289,7 +281,7 @@ export function useTrilhasAZ() {
         // Ações
         habilitarCapitulo,
         vincularAlunos,
-        pausarAlunos,
+        desvincularAlunos,
         togglePeriod,
         setEndDate
     }

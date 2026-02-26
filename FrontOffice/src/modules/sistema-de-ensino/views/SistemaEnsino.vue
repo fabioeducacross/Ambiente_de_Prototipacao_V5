@@ -250,21 +250,11 @@
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td class="col-sticky-right">
                   <div class="actions-flat">
-                    <!-- Botão Reativar: ação rápida para PAUSADA (vincula todos, sem drawer) -->
+                    <!-- Botão Enviar / Adicionar alunos — sempre visível, desabilitado quando sem ação -->
                     <button
-                      v-if="isReativarVisible(chapter)"
-                      class="action-btn action-btn--reativar"
-                      title="Reativar missão"
-                      aria-label="Reativar missão"
-                      @click="handleReativarClick(chapter)"
-                    >
-                      <span class="material-symbols-outlined" style="font-size:20px">play_circle</span>
-                    </button>
-
-                    <!-- Botão Enviar / Adicionar alunos -->
-                    <button
-                      v-if="isSendVisible(chapter)"
                       class="action-btn action-btn--send"
+                      :class="{ 'is-disabled': isSendDisabled(chapter) }"
+                      :disabled="isSendDisabled(chapter)"
                       :title="sendBtnTitle(chapter)"
                       :aria-label="sendBtnTitle(chapter)"
                       @click="handleSendClick(chapter)"
@@ -272,18 +262,19 @@
                       <span class="material-symbols-outlined" style="font-size:20px">{{ sendBtnIcon(chapter) }}</span>
                     </button>
 
-                    <!-- Botão Desvincular: nao_iniciada, iniciada -->
+                    <!-- Botão Desvincular — sempre visível, desabilitado quando sem alunos vinculados -->
                     <button
-                      v-if="isPauseVisible(chapter)"
                       class="action-btn action-btn--pause"
-                      title="Desvincular alunos da missão"
-                      aria-label="Desvincular alunos da missão"
+                      :class="{ 'is-disabled': isPauseDisabled(chapter) }"
+                      :disabled="isPauseDisabled(chapter)"
+                      :title="pauseBtnTitle(chapter)"
+                      :aria-label="pauseBtnTitle(chapter)"
                       @click="handlePauseClick(chapter)"
                     >
                       <span class="material-symbols-outlined" style="font-size:20px">group_remove</span>
                     </button>
 
-                    <!-- Botão Relatório: iniciada, pausada, finalizada -->
+                    <!-- Botão Relatório: iniciada, finalizada -->
                     <button
                       v-if="isReportVisible(chapter)"
                       class="action-btn action-btn--report"
@@ -398,7 +389,7 @@ import SubjectIcon     from '../components/SubjectIcon.vue'
 import { ESelect }     from '@/shared/components/base/index.js'
 import { useTrilhasAZ } from '../composables/useTrilhasAZ.js'
 
-const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount, vincularAlunos } = useTrilhasAZ()
+const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount } = useTrilhasAZ()
 
 // ── Layout ────────────────────────────────────────────────────────────────────
 const sidebarCollapsed = ref(false)
@@ -425,7 +416,6 @@ const unitOptions = [
 
 const statusOptions = [
   { value: 'nao_enviada',  label: 'Não enviada' },
-  { value: 'pausada',      label: 'Pausada' },
   { value: 'nao_iniciada', label: 'Não iniciada' },
   { value: 'iniciada',     label: 'Iniciada' },
   { value: 'finalizada',   label: 'Finalizada' }
@@ -444,77 +434,63 @@ function openDrawer (chapter, mode, options = {}) {
   drawerOpen.value    = true
 }
 
-// Quando o drawer desvincular fecha: se a missão ficou PAUSADA e há filtro ativo,
-// limpar filtro para o usuário ver a linha com o botão Reativar
-watch(drawerOpen, (isOpen) => {
-  if (!isOpen && drawerMode.value === 'desvincular' && drawerChapter.value) {
-    const chapId = drawerChapter.value.id
-    const updated = chapters.value.find(c => c.id === chapId)
-    if (updated?.status?.key === 'pausada' && selectedStatus.value != null) {
-      selectedStatus.value = null
-    }
-  }
-})
 
 // ── Helpers: unidade por capítulo ─────────────────────────────────────────────
 function getUnidade (chapterId) {
   return Math.ceil(chapterId / 2) // IDs 1-2 → 1; 3-4 → 2; 5-6 → 3
 }
 
-// ── Visibilidade AS-IS (igual a produção teacher-context/educationSystem/missions/List.vue) ─
-// send         → nao_enviada | pausada | finalizada
-// group_remove → nao_iniciada | iniciada
-// pie_chart    → iniciada | pausada | finalizada
+// ── Botões de ação (lógica simplificada — sem estado PAUSADA) ─────────────────
+// send         → sempre visível; disabled quando todos já vinculados (nao_iniciada/iniciada)
+// group_remove → sempre visível; disabled quando nenhum aluno vinculado
+// pie_chart    → iniciada | finalizada
 // visibility   → sempre visível
 // link         → apenas iniciada (+ guideLinkUrl na produção)
 
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
   '• Não enviada: A missão nunca foi enviada aos alunos. Você poderá enviá-la a qualquer momento.',
-  '• Não iniciada: A missão foi habilitada mas ainda não tem alunos vinculados, ou a data de início ainda não chegou.',
+  '• Não iniciada: A missão foi habilitada mas nenhum aluno está vinculado, ou a data de início ainda não chegou.',
   '• Iniciada: A missão está sendo exibida e realizada pelos alunos e você poderá ver o relatório.',
-  '• Pausada: A missão já foi enviada pelo menos 1 vez, mas está indisponível temporariamente. Você poderá enviá-la novamente a qualquer momento.',
   '• Finalizada: A missão foi finalizada e você poderá ver o relatório. Missões finalizadas podem ser reenviadas sem perda do histórico.',
 ].join('\n\n')
 
-/** Ícone e título do botão de envio variam pelo estado do capítulo */
+/** Ícone do botão de envio varia pelo estado do capítulo */
 function sendBtnIcon (chapter) {
   const s = chapter?.status?.key
-  // Missão habilitada (com ou sem alunos, inclusive pausada) → adicionar/incluir alunos
-  return (s === 'nao_iniciada' || s === 'iniciada' || s === 'pausada') ? 'group_add' : 'send'
+  // Missão habilitada → adicionar alunos; não habilitada → enviar
+  return (s === 'nao_iniciada' || s === 'iniciada') ? 'group_add' : 'send'
 }
 
 function sendBtnTitle (chapter) {
+  if (isSendDisabled(chapter)) return 'Todos os alunos já estão na missão'
   const s = chapter?.status?.key
-  return (s === 'nao_iniciada' || s === 'iniciada' || s === 'pausada') ? 'Adicionar alunos à missão' : 'Enviar missão'
+  return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
 }
 
-function isSendVisible (chapter) {
+function isSendDisabled (chapter) {
   const s = chapter?.status?.key
-  // Botão de envio/add alunos sempre disponível para qualquer missão habilitada
-  return s === 'nao_enviada' || s === 'pausada' || s === 'finalizada' || s === 'iniciada' || s === 'nao_iniciada'
+  // Desabilitado apenas quando missão iniciada/nao_iniciada e todos os alunos já vinculados
+  if (s === 'iniciada' || s === 'nao_iniciada') {
+    return !(chapter.studentsData?.some(sd => !sd.isLinked) ?? true)
+  }
+  return false
 }
 
-function isPauseVisible (chapter) {
-  const s = chapter?.status?.key
-  if (s !== 'nao_iniciada' && s !== 'iniciada') return false
-  // Só mostra desvincular se há alunos vinculados (sem alunos não há o que desvincular)
-  return chapter.studentsData?.some(sd => sd.isLinked) ?? false
+function isPauseDisabled (chapter) {
+  // Desabilitado quando não há alunos vinculados
+  return !(chapter.studentsData?.some(sd => sd.isLinked) ?? false)
 }
 
-// Reativar: ação rápida para missão PAUSADA — vincula todos os alunos sem abrir drawer
-function isReativarVisible (chapter) {
-  return chapter?.status?.key === 'pausada'
-}
-
-function handleReativarClick (chapter) {
-  const allStudentIds = chapter.studentsData.map(sd => sd.studentId)
-  vincularAlunos(chapter.id, allStudentIds, chapter.fim, chapter.inicio)
+function pauseBtnTitle (chapter) {
+  return isPauseDisabled(chapter)
+    ? 'Nenhum aluno vinculado à missão'
+    : 'Desvincular alunos da missão'
 }
 
 function isReportVisible (chapter) {
   const s = chapter?.status?.key
-  return s === 'iniciada' || s === 'pausada' || s === 'finalizada'
+  return s === 'iniciada' || s === 'finalizada'
 }
 
 // link → apenas iniciada (AS-IS: guideLinkUrl && status === Started)
@@ -629,7 +605,6 @@ function perfBadgeLabel (rend) {
 function statusBadgeClass (statusKey) {
   const map = {
     nao_enviada:  'status-light-warning',
-    pausada:      'status-light-danger',
     nao_iniciada: 'status-light-info',
     iniciada:     'status-light-success',
     finalizada:   'status-light-primary'
@@ -1087,10 +1062,6 @@ a.bc-item:hover { color: #5a50d6; }
 }
 
 .action-btn--send .material-symbols-outlined {
-  color: #28c76f;
-}
-
-.action-btn--reativar .material-symbols-outlined {
   color: #28c76f;
 }
 
