@@ -210,6 +210,15 @@ const flatpickrConfig = computed(() => ({
       nextButton.style.alignItems = 'center'
       nextButton.style.justifyContent = 'center'
     }
+
+    // Se não há data selecionada, posiciona o calendário no mês de referência
+    // (minDate se informado, caso contrário hoje) — evita abrir num mês futuro com campo vazio
+    if (!selectedDates.length) {
+      const ref = props.minDate
+        ? (() => { const [y, m, d] = String(props.minDate).split('-'); return new Date(+y, +m - 1, +d) })()
+        : new Date()
+      instance.jumpToDate(ref, false)
+    }
   }
 }))
 
