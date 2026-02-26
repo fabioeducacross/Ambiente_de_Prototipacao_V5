@@ -1084,6 +1084,7 @@ a.bc-item:hover { color: #5a50d6; }
 .action-btn.is-disabled {
   opacity: 0.35;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .action-btn.is-disabled .material-symbols-outlined {
