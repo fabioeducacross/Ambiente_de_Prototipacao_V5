@@ -14,7 +14,7 @@
  * Simulação de conclusão (protótipo):
  *   - PROGRESS_DURATION_MS : 30 000 ms — barra de progresso vai de 0→100%
  *   - FINISH_DELAY_MS      : 60 000 ms — missão transiciona para FINALIZADA
- *   Timers são cancelados ao desvincular e reiniciados ao reenviar.
+ *   Timers continuam mesmo ao desvincular (ônibus nunca para) e são reiniciados ao reenviar.
  */
 import { reactive, computed } from 'vue'
 import rawData from '../data/trilhas-az.json'
@@ -234,13 +234,11 @@ function vincularAlunos(chapterId, studentIds, endDate, startDate) {
 
 /**
  * Desvincula alunos do capítulo.
+ * O ônibus (simulação) nunca para — desvincular passageiros não cancela o itinerário.
  */
 function desvincularAlunos(chapterId, studentIds) {
     const chapter = getChapter(chapterId)
     if (!chapter) return
-
-    // Cancela simulação em andamento ao pausar
-    cancelSimulation(chapterId)
 
     studentIds.forEach(sid => {
         const entry = chapter.studentsData.find(sd => sd.studentId === sid)

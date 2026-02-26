@@ -223,31 +223,31 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         expect(await countActionBtns(row)).toBe(3)
     })
 
-    // ── TC-04 · Desvincular total → barra congela ─────────────────────────────
-    test('TC-04 | Barra de progresso congela ao desvincular', async ({ page }) => {
+    // ── TC-04 · Desvincular total → barra continua (ônibus não para) ──────────
+    test('TC-04 | Barra de progresso continua após desvincular', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)
 
         // Espera a barra subir um pouco
         await page.waitForTimeout(3000)
-        const pctMoving = parseFloat(
+        const pctBefore = parseFloat(
             await rowFor(page, CAP2).locator('.progress-pct').innerText()
         )
-        expect(pctMoving).toBeGreaterThan(0)
+        expect(pctBefore).toBeGreaterThan(0)
 
         await pausarMissao(page, CAP2, true)
 
-        // Lê o valor IMEDIATAMENTE após a pausa ser confirmada (drawer fechou)
-        const pctFrozen = parseFloat(
+        // Lê o valor logo após a desvincular
+        const pctAfterPause = parseFloat(
             await rowFor(page, CAP2).locator('.progress-pct').innerText()
         )
 
-        // Aguarda mais 2 s e verifica que não avançou (barra congelou)
+        // Aguarda 2 s — barra deve continuar subindo (ônibus nunca para)
         await page.waitForTimeout(2000)
-        const pctAfter = parseFloat(
+        const pctLater = parseFloat(
             await rowFor(page, CAP2).locator('.progress-pct').innerText()
         )
-        expect(pctAfter).toBe(pctFrozen)
+        expect(pctLater).toBeGreaterThanOrEqual(pctAfterPause)
     })
 
     // ── TC-07 · Reenvio pós-pausa → progresso reseta 0% ────────────────────────
@@ -308,11 +308,8 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         )
         expect(pctMid).toBeGreaterThan(0)
 
-        // Pausa
+        // Desvincular todos (barra continua — ônibus não para)
         await pausarMissao(page, cap, true)
-        const pctFrozen = parseFloat(
-            await rowFor(page, cap).locator('.progress-pct').innerText()
-        )
 
         // Reenvio
         await rowFor(page, cap).locator('button.action-btn--send').click()
@@ -320,11 +317,10 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await page.locator('.drawer-footer-actions button').last().click()
         await expect(page.locator('aside.tz-drawer[role="dialog"]')).toBeHidden()
 
-        // Progresso reseta — deve ser < valor congelado (começa do zero)
+        // Progresso reseta — reenvio reinicia a simulação do zero
         const pctReset = parseFloat(
             await rowFor(page, cap).locator('.progress-pct').innerText()
         )
-        expect(pctReset).toBeLessThan(pctFrozen)
         expect(pctReset).toBeLessThanOrEqual(10)
     })
 

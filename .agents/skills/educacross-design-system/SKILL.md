@@ -1,4 +1,3 @@
-```skill
 ---
 name: educacross-design-system
 description: >
