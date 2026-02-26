@@ -295,7 +295,7 @@ describe('Students List Page', () => {
 
 | Métrica | Atual | Meta |
 |---------|-------|------|
-| Tempo para encontrar um aluno específico | ~45s | <10s |
+| Tempo para encontrar um aluno específico | ~45s | &lt;10s |
 | % professores que exportam a lista/mês | ~10% | >30% |
 | Taxa de uso do filtro "Em risco" | Não medido | >40% dos professores/semana |
 | Tempo médio na página | ~2 min | >4 min |

@@ -385,9 +385,9 @@ describe('Tela de Login', () => {
 | Métrica | Atual | Meta |
 |---------|-------|------|
 | Taxa de login bem-sucedido na primeira tentativa | ~80% | >90% |
-| Tempo médio de autenticação | ~3s | <1.5s |
-| Solicitações de reset de senha por mês | ~15% usuários | <5% usuários |
-| Taxa de sessões encerradas por timeout | ~20% | <5% |
+| Tempo médio de autenticação | ~3s | &lt;1.5s |
+| Solicitações de reset de senha por mês | ~15% usuários | &lt;5% usuários |
+| Taxa de sessões encerradas por timeout | ~20% | &lt;5% |
 
 ---
 
