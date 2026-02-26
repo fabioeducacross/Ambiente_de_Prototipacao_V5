@@ -58,6 +58,7 @@
               placeholder="Selecione a data de início"
               input-id="dataInicio"
               :clearable="true"
+              :min-date="today"
             />
             <EDatePicker
               v-model="endDateValue"
@@ -65,6 +66,7 @@
               placeholder="Selecione a data de término"
               input-id="dataTermino"
               :clearable="true"
+              :min-date="today"
             />
           </div>
         </div>
@@ -176,6 +178,9 @@ const selectedIds    = reactive(new Set())
 const periodEnabled  = ref(false)
 const startDateValue = ref('')
 const endDateValue   = ref('')
+
+/** Data mínima = hoje (bloqueia datas passadas no flatpickr) */
+const today = new Date().toISOString().slice(0, 10)
 
 // ── Contadores ────────────────────────────────────────────────────────────────
 const totalStudents = computed(() => getTotalStudents())
