@@ -111,7 +111,7 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await expect(naoIniciada).toBeVisible({ timeout: 5000 })
     await expect(naoIniciada.getByText('NÃO INICIADA')).toBeVisible()
     await expect(naoIniciada.locator('button.action-btn--send')).toBeVisible()
-    await expect(naoIniciada.locator('button.action-btn--pause')).toBeVisible()       // pause visível em nao_iniciada
+    await expect(naoIniciada.locator('button.action-btn--pause')).not.toBeVisible()    // ninguém vinculado → oculto
     await expect(naoIniciada.locator('button.action-btn--report')).not.toBeVisible()  // sem pie_chart
     await expect(naoIniciada.locator('button.action-btn--details')).toBeVisible()
     await testInfo.attach('06-NAO-INICIADA-botoes-corretos', {

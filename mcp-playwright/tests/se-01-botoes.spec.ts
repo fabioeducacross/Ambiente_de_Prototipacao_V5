@@ -208,20 +208,20 @@ test.describe('Sistema de Ensino — Botões e Jornadas', () => {
         await row.locator('button.action-btn--link').click()
     })
 
-    // ── TC-13 · Desvincular total → NÃO INICIADA → 3 botões ─────────────────────
-    test('TC-13 | Desvincular total → NÃO INICIADA + send + pause + visibility (3 botões)', async ({ page }) => {
+    // ── TC-13 · Desvincular total → NÃO INICIADA → 2 botões ─────────────────
+    test('TC-13 | Desvincular total → NÃO INICIADA + send + visibility (2 botões)', async ({ page }) => {
         await page.goto(PAGE_URL, { waitUntil: 'networkidle' })
         await enviarMissao(page, CAP2)  // CAP2 começa NÃO ENVIADA neste contexto
         await pausarMissao(page, CAP2, true)
 
         const row = rowFor(page, CAP2)
         await expect(row.locator('.status-badge')).toHaveText('NÃO INICIADA')
-        await expect(row.locator('button.action-btn--send')).toBeVisible()
-        await expect(row.locator('button.action-btn--pause')).toBeVisible()
+        await expect(row.locator('button.action-btn--send')).toBeVisible()     // group_add (há quem adicionar)
+        await expect(row.locator('button.action-btn--pause')).not.toBeVisible() // ninguém vinculado → oculto
         await expect(row.locator('button.action-btn--details')).toBeVisible()
         await expect(row.locator('button.action-btn--report')).not.toBeVisible()
         await expect(row.locator('button.action-btn--link')).not.toBeVisible()
-        expect(await countActionBtns(row)).toBe(3)
+        expect(await countActionBtns(row)).toBe(2)
     })
 
     // ── TC-04 · Desvincular total → barra continua (ônibus não para) ──────────

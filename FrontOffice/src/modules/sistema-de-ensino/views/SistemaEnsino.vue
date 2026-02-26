@@ -442,10 +442,11 @@ function getUnidade (chapterId) {
 
 // ── Botões de ação (v-if por status — tabela definitiva) ──────────────────────
 // NÃO ENVIADA:  send + visibility (2)
-// NÃO INICIADA: group_add* + group_remove + visibility (2–3)
-// INICIADA:     group_add* + group_remove + visibility + pie_chart + link (4–5)
+// NÃO INICIADA: group_add* + group_remove** + visibility (1–3)
+// INICIADA:     group_add* + group_remove** + visibility + pie_chart + link (3–5)
 // FINALIZADA:   send + visibility + pie_chart (3)
 // * group_add oculto se todos os alunos já estão vinculados
+// ** group_remove oculto se nenhum aluno está vinculado
 
 // Tooltip do cabeçalho de STATUS (texto de produção)
 const statusColTooltip = [
@@ -479,10 +480,11 @@ function sendBtnTitle (chapter) {
   return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
 }
 
-/** Botão desvincular visível apenas para missões nao_iniciada ou iniciada */
+/** Botão desvincular visível só se há alunos vinculados para remover */
 function isPauseVisible (chapter) {
   const s = chapter?.status?.key
-  return s === 'nao_iniciada' || s === 'iniciada'
+  if (s !== 'nao_iniciada' && s !== 'iniciada') return false
+  return chapter.linkedCount > 0
 }
 
 function isReportVisible (chapter) {
