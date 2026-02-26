@@ -219,10 +219,13 @@
                 </td>
 
                 <!-- Rendimento (DS: PerformanceCell) -->
-                <!-- Produção: traço em NotSent/NotStarted; PerformanceCell nos demais -->
+                <!-- nao_enviada: traço; nao_iniciada: "Não há dados"; demais: PerformanceCell -->
                 <td>
-                  <template v-if="chapter.status.key === 'nao_enviada' || chapter.status.key === 'nao_iniciada'">
+                  <template v-if="chapter.status.key === 'nao_enviada'">
                     <span class="text-muted">–</span>
+                  </template>
+                  <template v-else-if="chapter.status.key === 'nao_iniciada'">
+                    <span class="perf-badge perf-nodata">Não há dados para exibir</span>
                   </template>
                   <template v-else>
                     <div v-if="chapter.rendimento !== null && chapter.rendimento !== undefined" class="performance-cell">
