@@ -58,9 +58,7 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     const row = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(row).toBeVisible()
     await expect(row.locator('button.action-btn--send')).toBeVisible()
-    await expect(row.locator('button.action-btn--send')).not.toBeDisabled()   // enviar habilitado
-    await expect(row.locator('button.action-btn--pause')).toBeVisible()
-    await expect(row.locator('button.action-btn--pause')).toBeDisabled()       // sem alunos vinculados
+    await expect(row.locator('button.action-btn--pause')).not.toBeVisible()    // pause oculto em NÃO ENVIADA
 
     // Etapa 3: Enviar missão com todos os alunos
     await row.locator('button.action-btn--send').first().click()
@@ -80,9 +78,7 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     const iniciada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(iniciada.getByText('INICIADA')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--send')).toBeVisible()
-    await expect(iniciada.locator('button.action-btn--send')).toBeDisabled()       // todos já vinculados
     await expect(iniciada.locator('button.action-btn--pause')).toBeVisible()
-    await expect(iniciada.locator('button.action-btn--pause')).not.toBeDisabled()  // tem vinculados
     await expect(iniciada.locator('button.action-btn--report')).toBeVisible()
     await expect(iniciada.locator('button.action-btn--details')).toBeVisible()
     await testInfo.attach('03-INICIADA-botoes-corretos', {
@@ -115,9 +111,7 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     await expect(naoIniciada).toBeVisible({ timeout: 5000 })
     await expect(naoIniciada.getByText('NÃO INICIADA')).toBeVisible()
     await expect(naoIniciada.locator('button.action-btn--send')).toBeVisible()
-    await expect(naoIniciada.locator('button.action-btn--send')).not.toBeDisabled()   // pode adicionar alunos
-    await expect(naoIniciada.locator('button.action-btn--pause')).toBeVisible()
-    await expect(naoIniciada.locator('button.action-btn--pause')).toBeDisabled()       // sem vinculados
+    await expect(naoIniciada.locator('button.action-btn--pause')).toBeVisible()       // pause visível em nao_iniciada
     await expect(naoIniciada.locator('button.action-btn--report')).not.toBeVisible()  // sem pie_chart
     await expect(naoIniciada.locator('button.action-btn--details')).toBeVisible()
     await testInfo.attach('06-NAO-INICIADA-botoes-corretos', {
@@ -144,8 +138,8 @@ test('SE-05-T1: fluxo completo desvincular → NÃO INICIADA → reenviar → IN
     const reativada = page.locator('tbody tr').filter({ hasText: CHAPTER }).first()
     await expect(reativada).toBeVisible()
     await expect(reativada.getByText('INICIADA')).toBeVisible()
-    await expect(reativada.locator('button.action-btn--send')).toBeDisabled()       // todos vinculados
-    await expect(reativada.locator('button.action-btn--pause')).not.toBeDisabled()  // tem vinculados
+    await expect(reativada.locator('button.action-btn--send')).toBeVisible()
+    await expect(reativada.locator('button.action-btn--pause')).toBeVisible()
     await expect(reativada.locator('button.action-btn--report')).toBeVisible()
     await testInfo.attach('08-INICIADA-apos-reenvio', {
         body: await page.screenshot({ fullPage: true }),

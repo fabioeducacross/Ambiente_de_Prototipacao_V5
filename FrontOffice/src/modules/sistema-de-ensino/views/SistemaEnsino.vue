@@ -250,11 +250,9 @@
                 <!-- Ações (AS-IS: send | group_remove | pie_chart por status) -->
                 <td class="col-sticky-right">
                   <div class="actions-flat">
-                    <!-- Botão Enviar / Adicionar alunos — sempre visível, desabilitado quando sem ação -->
+                    <!-- Botão Enviar / Adicionar alunos — sempre visível, sempre clicável -->
                     <button
                       class="action-btn action-btn--send"
-                      :class="{ 'is-disabled': isSendDisabled(chapter) }"
-                      :disabled="isSendDisabled(chapter)"
                       :title="sendBtnTitle(chapter)"
                       :aria-label="sendBtnTitle(chapter)"
                       @click="handleSendClick(chapter)"
@@ -262,13 +260,12 @@
                       <span class="material-symbols-outlined" style="font-size:20px">{{ sendBtnIcon(chapter) }}</span>
                     </button>
 
-                    <!-- Botão Desvincular — sempre visível, desabilitado quando sem alunos vinculados -->
+                    <!-- Botão Desvincular — visível apenas em nao_iniciada / iniciada -->
                     <button
+                      v-if="isPauseVisible(chapter)"
                       class="action-btn action-btn--pause"
-                      :class="{ 'is-disabled': isPauseDisabled(chapter) }"
-                      :disabled="isPauseDisabled(chapter)"
-                      :title="pauseBtnTitle(chapter)"
-                      :aria-label="pauseBtnTitle(chapter)"
+                      title="Desvincular alunos da missão"
+                      aria-label="Desvincular alunos da missão"
                       @click="handlePauseClick(chapter)"
                     >
                       <span class="material-symbols-outlined" style="font-size:20px">group_remove</span>
@@ -463,29 +460,14 @@ function sendBtnIcon (chapter) {
 }
 
 function sendBtnTitle (chapter) {
-  if (isSendDisabled(chapter)) return 'Todos os alunos já estão na missão'
   const s = chapter?.status?.key
   return (s === 'nao_iniciada' || s === 'iniciada') ? 'Adicionar alunos à missão' : 'Enviar missão'
 }
 
-function isSendDisabled (chapter) {
+/** Botão desvincular visível apenas para missões nao_iniciada ou iniciada */
+function isPauseVisible (chapter) {
   const s = chapter?.status?.key
-  // Desabilitado apenas quando missão iniciada/nao_iniciada e todos os alunos já vinculados
-  if (s === 'iniciada' || s === 'nao_iniciada') {
-    return !(chapter.studentsData?.some(sd => !sd.isLinked) ?? true)
-  }
-  return false
-}
-
-function isPauseDisabled (chapter) {
-  // Desabilitado quando não há alunos vinculados
-  return !(chapter.studentsData?.some(sd => sd.isLinked) ?? false)
-}
-
-function pauseBtnTitle (chapter) {
-  return isPauseDisabled(chapter)
-    ? 'Nenhum aluno vinculado à missão'
-    : 'Desvincular alunos da missão'
+  return s === 'nao_iniciada' || s === 'iniciada'
 }
 
 function isReportVisible (chapter) {
