@@ -4,7 +4,6 @@ import Home from '../views/Home.vue'
 // Lazy load - Módulo Calendário
 const TeacherCalendar = () => import('../views/teacher/Calendar.vue')
 const TeacherCalendarFigma = () => import('../views/teacher/CalendarFigma.vue')
-const CalendarioModule = () => import('../modules/calendario/views/Calendar.vue')
 
 // Lazy load - Módulo Sistema de Ensino
 const TeacherSistemaEnsino = () => import('../modules/sistema-de-ensino/views/SistemaEnsino.vue')
@@ -17,9 +16,6 @@ const CoordinatorDashboard = () => import('../views/coordinator/Dashboard.vue')
 const DirectorDashboard = () => import('../views/director/Dashboard.vue')
 const NetworkManagerDashboard = () => import('../views/network-manager/Dashboard.vue')
 const About = () => import('../views/About.vue')
-
-// Layouts
-const ProtoLayout = () => import('../layouts/ProtoLayout.vue')
 
 // ─── Protótipo Isolado: Jornada Professor (/professor) ─────────────────────
 const TeacherProtoLayout = () => import('../layouts/TeacherProtoLayout.vue')
@@ -43,7 +39,6 @@ const ProfMissionReport = () => import('../views/teacher/reports/MissionReport.v
 // Jogos
 const ProfIslandConfig = () => import('../views/teacher/games/IslandConfig.vue')
 const ProfIslandRanking = () => import('../views/teacher/games/IslandRanking.vue')
-const ProfExploreGamesConfig = () => import('../views/teacher/games/ExploreGamesConfig.vue')
 
 // Avaliações
 const ProfDigitalEval = () => import('../views/teacher/evaluations/DigitalEvaluation.vue')
@@ -74,63 +69,11 @@ const routes = [
     component: Home,
     meta: { title: 'Educacross - Protótipos de Jornadas' }
   },
-
-  // ─── Rotas com AppNavbar (ProtoLayout) ───────────────────────────────────
   {
-    path: '/',
-    component: ProtoLayout,
-    children: [
-      {
-        path: 'teacher',
-        name: 'TeacherDashboard',
-        component: TeacherDashboard,
-        meta: { title: 'Dashboard Professor | Educacross', persona: 'Professor' }
-      },
-      {
-        path: 'student',
-        name: 'StudentDashboard',
-        component: StudentDashboard,
-        meta: { title: 'Dashboard Aluno | Educacross', persona: 'Aluno' }
-      },
-      {
-        path: 'administrator',
-        name: 'AdministratorDashboard',
-        component: AdministratorDashboard,
-        meta: { title: 'Dashboard Administrador | Educacross', persona: 'Administrador' }
-      },
-      {
-        path: 'coordinator',
-        name: 'CoordinatorDashboard',
-        component: CoordinatorDashboard,
-        meta: { title: 'Dashboard Coordenador | Educacross', persona: 'Coordenador' }
-      },
-      {
-        path: 'director',
-        name: 'DirectorDashboard',
-        component: DirectorDashboard,
-        meta: { title: 'Dashboard Diretor | Educacross', persona: 'Diretor' }
-      },
-      {
-        path: 'network-manager',
-        name: 'NetworkManagerDashboard',
-        component: NetworkManagerDashboard,
-        meta: { title: 'Dashboard Gestor de Rede | Educacross', persona: 'Gestor de Rede' }
-      },
-      {
-        path: 'sobre',
-        name: 'About',
-        component: About,
-        meta: { title: 'Sobre o Ambiente | Educacross' }
-      },
-    ]
-  },
-
-  // ─── Rotas self-contained (têm AppNavbar + Sidebar próprios) ────────────
-  {
-    path: '/professor/calendario',
-    name: 'ProfCalendario',
-    component: CalendarioModule,
-    meta: { title: 'Calendário | Professor', persona: 'Professor', breadcrumb: 'Calendário' }
+    path: '/teacher',
+    name: 'TeacherDashboard',
+    component: TeacherDashboard,
+    meta: { title: 'Dashboard Professor | Educacross', persona: 'Professor' }
   },
   {
     path: '/teacher/calendar',
@@ -150,6 +93,42 @@ const routes = [
     component: TeacherSistemaEnsino,
     meta: { title: 'Sistema de ensino | Educacross', persona: 'Professor', breadcrumb: 'Sistema de ensino' }
   },
+  {
+    path: '/student',
+    name: 'StudentDashboard',
+    component: StudentDashboard,
+    meta: { title: 'Dashboard Aluno | Educacross', persona: 'Aluno' }
+  },
+  {
+    path: '/administrator',
+    name: 'AdministratorDashboard',
+    component: AdministratorDashboard,
+    meta: { title: 'Dashboard Administrador | Educacross', persona: 'Administrador' }
+  },
+  {
+    path: '/coordinator',
+    name: 'CoordinatorDashboard',
+    component: CoordinatorDashboard,
+    meta: { title: 'Dashboard Coordenador | Educacross', persona: 'Coordenador' }
+  },
+  {
+    path: '/director',
+    name: 'DirectorDashboard',
+    component: DirectorDashboard,
+    meta: { title: 'Dashboard Diretor | Educacross', persona: 'Diretor' }
+  },
+  {
+    path: '/network-manager',
+    name: 'NetworkManagerDashboard',
+    component: NetworkManagerDashboard,
+    meta: { title: 'Dashboard Gestor de Rede | Educacross', persona: 'Gestor de Rede' }
+  },
+  {
+    path: '/sobre',
+    name: 'About',
+    component: About,
+    meta: { title: 'Sobre o Ambiente | Educacross' }
+  },
 
   // ─── Protótipo Isolado: Jornada Professor ───────────────────────────────
   {
@@ -157,7 +136,7 @@ const routes = [
     component: TeacherProtoLayout,
     children: [
       { path: '', name: 'ProfessorDashboard', component: ProfessorDashboard, meta: { title: 'Professor | Educacross', breadcrumb: 'Professor' } },
-      { path: 'calendario', redirect: '/professor/calendario' },
+      { path: 'calendario', name: 'ProfCalendario', component: ProfCalendario, meta: { title: 'Calendário | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Calendário', active: true }] } },
       // Gestão
       { path: 'turmas', name: 'ProfClasses', component: ProfClasses, meta: { title: 'Turmas | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Turmas', active: true }] } },
       { path: 'alunos', name: 'ProfStudents', component: ProfStudents, meta: { title: 'Alunos | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Alunos', active: true }] } },
@@ -172,7 +151,6 @@ const routes = [
       { path: 'missoes/:missionId/relatorio', name: 'ProfMissionReport', component: ProfMissionReport, meta: { title: 'Relatório da Missão | Professor', breadcrumb: [{ text: 'Missões da Escola', to: '/professor/missoes' }, { text: 'Missões', to: '/professor/missoes' }, { text: 'Relatório da Missão', active: true }] } },
       // Jogos
       { path: 'jogos/config-ilha', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Configurações da Ilha', active: true }] } },
-      { path: 'explorar-jogos/configuracao', name: 'ProfExploreGamesConfig', component: ProfExploreGamesConfig, meta: { title: 'Configurações da Ilha | Professor', breadcrumb: [{ text: 'Explorar Jogos', to: '/professor/explorar-jogos/configuracao' }, { text: 'Configurações da Ilha', active: true }] } },
       { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Ranking de Conquistas', active: true }] } },
       // Avaliações
       { path: 'avaliacoes/digital', name: 'ProfDigitalEval', component: ProfDigitalEval, meta: { title: 'Avaliação Digital | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'Avaliação Digital', active: true }] } },
