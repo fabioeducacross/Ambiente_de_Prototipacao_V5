@@ -8,12 +8,18 @@ const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 
 
 // Lê o branch e o short SHA do git em tempo de build/dev
 function gitInfo() {
+  const envBranch = process.env.GITHUB_REF_NAME || process.env.VERCEL_GIT_COMMIT_REF || 'unknown'
+  const envSha = (process.env.GITHUB_SHA || process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7)
+
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim()
     const sha = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim()
-    return { branch, sha }
+    return {
+      branch: branch === 'HEAD' ? envBranch : branch,
+      sha: sha || envSha || '0000000'
+    }
   } catch {
-    return { branch: 'unknown', sha: '0000000' }
+    return { branch: envBranch, sha: envSha || '0000000' }
   }
 }
 
