@@ -203,15 +203,15 @@
                 <!-- Progresso (DS: ProgressBarHorizontalV2 reverse height="12px") -->
                 <td>
                   <div class="progress-cell">
-                    <span class="progress-pct fw-bold" :style="{ color: progressColor(chapter.progresso) }">
-                      {{ chapter.progresso }}%
+                    <span class="progress-pct fw-bold" :style="{ color: progressColor(getDisplayProgress(chapter)) }">
+                      {{ getDisplayProgress(chapter) }}%
                     </span>
                     <div class="progress-bar-track">
                       <div
                         class="progress-bar-fill"
                         :style="{
-                          width: chapter.progresso + '%',
-                          backgroundColor: progressColor(chapter.progresso)
+                          width: getDisplayProgress(chapter) + '%',
+                          backgroundColor: progressColor(getDisplayProgress(chapter))
                         }"
                       ></div>
                     </div>
@@ -499,6 +499,21 @@ function formatDate (dateStr) {
   if (!dateStr) return '–'
   const [y, m, d] = dateStr.split('-')
   return `${d}/${m}/${y}`
+}
+
+function isFutureISO (dateStr) {
+  if (!dateStr) return false
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.getTime() > today.getTime()
+}
+
+function getDisplayProgress (chapter) {
+  if (chapter.periodEnabled && chapter.inicio && isFutureISO(chapter.inicio)) {
+    return 0
+  }
+  return chapter.progresso ?? 0
 }
 
 // Cores de progresso (DS: getVariantByRule enum="progress")

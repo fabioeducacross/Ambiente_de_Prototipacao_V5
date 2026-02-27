@@ -11,9 +11,10 @@
  *   TabRouter CSS           → components/tab/TabRouter.vue (estilos idênticos)
  */
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import {
   BCard, BRow, BCol, BFormGroup, BButton,
-  BDropdown, BDropdownItem, BDropdownDivider,
+  BDropdown, BDropdownItem,
 } from 'bootstrap-vue-next'
 import ClassSelector             from '@/components/calendar/ClassSelector.vue'
 import AppBreadcrumb             from '@/components/AppBreadcrumb.vue'
@@ -23,6 +24,8 @@ import GuidesLimitAlert          from '@/components/missions/GuidesLimitAlert.vu
 import ListTableSelect           from '@/components/table/ListTableSelect.vue'
 import ProgressBarHorizontalV2   from '@/components/base/ProgressBarHorizontalV2.vue'
 import LegendEnum                from '@/components/base/LegendEnum.vue'
+
+const router = useRouter()
 
 // ── Tabs (estilo idêntico ao TabRouter.vue de produção) ──────────────────────
 const activeTab = ref('ativas')
@@ -59,21 +62,21 @@ const onSelectionUpdate = (items) => { selectedMissions.value = items }
 
 // ── Dados mock ───────────────────────────────────────────────────────────────
 const allMissions = [
-  { id: 1, title: 'Interpretação de Textos — Semana 1', author: 'Profª Ana Lima',  start: '10/06/2025', end: '17/06/2025', progress: 72,  status: 'ativa'     },
-  { id: 2, title: 'Tabuada do 6 e 7',                   author: 'Profº Carlos M.', start: '12/06/2025', end: '20/06/2025', progress: 48,  status: 'ativa'     },
-  { id: 3, title: 'Quiz das Capitais',                   author: 'Profª Ana Lima',  start: '08/06/2025', end: '22/06/2025', progress: 85,  status: 'ativa'     },
-  { id: 4, title: 'Escrita Criativa',                    author: 'Profº João P.',   start: '13/06/2025', end: '18/06/2025', progress: 30,  status: 'ativa'     },
-  { id: 5, title: 'Fonemas e Sílabas',                   author: 'Profª Maria S.',  start: '01/06/2025', end: '07/06/2025', progress: 100, status: 'arquivada' },
-  { id: 6, title: 'Adição e Subtração',                  author: 'Profº Carlos M.', start: '02/06/2025', end: '09/06/2025', progress: 100, status: 'arquivada' },
-  { id: 7, title: 'Leitura Interpretada',                author: 'Profª Ana Lima',  start: '28/05/2025', end: '04/06/2025', progress: 95,  status: 'arquivada' },
+  { id: 1, title: 'Interpretação de Textos — Semana 1', author: 'Profª Ana Lima',  start: '10/06/2025', end: '17/06/2025', progress: 72,  listStatus: 'ativa', missionStatus: 'iniciada'     },
+  { id: 2, title: 'Tabuada do 6 e 7',                   author: 'Profº Carlos M.', start: '12/06/2025', end: '20/06/2025', progress: 48,  listStatus: 'ativa', missionStatus: 'iniciada'     },
+  { id: 3, title: 'Quiz das Capitais',                  author: 'Profª Ana Lima',  start: '08/06/2025', end: '22/06/2025', progress: 0,   listStatus: 'ativa', missionStatus: 'nao-enviada'  },
+  { id: 4, title: 'Escrita Criativa',                   author: 'Profº João P.',   start: '13/06/2025', end: '18/06/2025', progress: 100, listStatus: 'ativa', missionStatus: 'finalizada'   },
+  { id: 5, title: 'Fonemas e Sílabas',                  author: 'Profª Maria S.',  start: '01/06/2025', end: '07/06/2025', progress: 100, listStatus: 'arquivada', missionStatus: 'finalizada' },
+  { id: 6, title: 'Adição e Subtração',                 author: 'Profº Carlos M.', start: '02/06/2025', end: '09/06/2025', progress: 100, listStatus: 'arquivada', missionStatus: 'cancelada'  },
+  { id: 7, title: 'Leitura Interpretada',               author: 'Profª Ana Lima',  start: '28/05/2025', end: '04/06/2025', progress: 95,  listStatus: 'arquivada', missionStatus: 'finalizada' },
 ]
 
 const filteredMissions = computed(() => {
   const tab = activeTab.value
   const s   = statusAtivo.value.id
   return allMissions.filter(m => {
-    const matchTab    = m.status === (tab === 'ativas' ? 'ativa' : 'arquivada')
-    const matchStatus = s === 'todas' || m.status === s
+    const matchTab = m.listStatus === (tab === 'ativas' ? 'ativa' : 'arquivada')
+    const matchStatus = s === 'todas' || m.missionStatus === s
     return matchTab && matchStatus
   })
 })
@@ -100,14 +103,78 @@ const progressLegends = [{
   ],
 }]
 
-// ── Ações do dropdown de cada linha (mesmo padrão do ListMissionsList.vue) ────
-const getRowActions = (mission) => [
-  { label: 'Ver relatório',   icon: 'pie_chart',    action: () => console.log('relatório', mission.id)   },
-  { label: 'Compartilhar',    icon: 'share',        action: () => console.log('compartilhar', mission.id) },
-  { label: 'Copiar link',     icon: 'content_copy', action: () => console.log('copiar link', mission.id) },
-  { divider: true },
-  { label: 'Arquivar missão', icon: 'archive',      action: () => console.log('arquivar', mission.id),   class: '' },
-  { label: 'Cancelar missão', icon: 'cancel',       action: () => console.log('cancelar', mission.id),  class: 'text-danger' },
+const missionStatusLabel = {
+  'nao-enviada': 'Não enviada',
+  'nao-iniciada': 'Não iniciada',
+  iniciada: 'Iniciada',
+  finalizada: 'Finalizada',
+  cancelada: 'Cancelada',
+}
+
+const statusBadgeClass = (status) => ({
+  'nao-enviada': 'status-light-warning',
+  'nao-iniciada': 'status-light-secondary',
+  iniciada: 'status-light-success',
+  finalizada: 'status-light-success',
+  cancelada: 'status-light-danger',
+}[status] || 'status-light-secondary')
+
+const openMissionReport = (mission) => {
+  router.push({
+    name: 'ProfMissionReport',
+    params: { missionId: mission.id },
+    query: {
+      title: mission.title,
+      author: mission.author,
+      start: mission.start,
+      end: mission.end,
+    },
+  })
+}
+
+const missionActions = (mission) => [
+  {
+    icon: 'play_arrow',
+    title: 'Enviar missão',
+    class: 'text-success',
+    visible: ['nao-enviada', 'nao-iniciada'].includes(mission.missionStatus),
+    action: () => console.log('enviar', mission.id),
+  },
+  {
+    icon: 'delete',
+    title: 'Cancelar missão',
+    class: 'text-danger',
+    visible: ['nao-enviada', 'nao-iniciada'].includes(mission.missionStatus),
+    action: () => console.log('cancelar', mission.id),
+  },
+  {
+    icon: 'edit',
+    title: 'Editar missão',
+    class: 'text-primary',
+    visible: ['nao-enviada', 'nao-iniciada'].includes(mission.missionStatus),
+    action: () => console.log('editar', mission.id),
+  },
+  {
+    icon: 'pie_chart',
+    title: 'Relatório da Missão',
+    class: 'text-primary',
+    visible: ['iniciada', 'finalizada', 'cancelada'].includes(mission.missionStatus),
+    action: () => openMissionReport(mission),
+  },
+  {
+    icon: 'visibility',
+    title: 'Detalhes',
+    class: 'text-primary',
+    visible: true,
+    action: () => console.log('detalhes', mission.id),
+  },
+  {
+    icon: 'share',
+    title: 'Compartilhar Missão',
+    class: 'text-primary',
+    visible: true,
+    action: () => console.log('compartilhar', mission.id),
+  },
 ]
 </script>
 
@@ -237,35 +304,29 @@ const getRowActions = (mission) => [
         />
       </template>
 
-      <!-- Célula: Status — vazio para manter fidelidade com referência -->
-      <template #cell(status)>
-        <span class="status-empty">&nbsp;</span>
+      <!-- Célula: Status -->
+      <template #cell(status)="{ item }">
+        <span class="status-badge" :class="statusBadgeClass(item.missionStatus)">
+          {{ missionStatusLabel[item.missionStatus] }}
+        </span>
       </template>
 
-      <!-- Célula: Ações — BDropdown more_vert (mesmo padrão de produção) -->
+      <!-- Célula: Ações inline (igual jornada produção) -->
       <template #cell(actions)="{ item }">
-        <BDropdown
-          variant="link"
-          no-caret
-          toggle-class="p-0 text-muted"
-        >
-          <template #button-content>
-            <span class="material-symbols-outlined" style="font-size:20px">more_vert</span>
-          </template>
-          <template v-for="action in getRowActions(item)" :key="action.label ?? 'div'">
-            <BDropdownDivider v-if="action.divider" />
-            <BDropdownItem
-              v-else
-              :class="action.class"
-              @click="action.action()"
-            >
-              <span class="d-flex align-items-center gap-1">
-                <span class="material-symbols-outlined" style="font-size:16px">{{ action.icon }}</span>
-                {{ action.label }}
-              </span>
-            </BDropdownItem>
-          </template>
-        </BDropdown>
+        <div class="row-actions">
+          <button
+            v-for="action in missionActions(item).filter(a => a.visible)"
+            :key="`${item.id}-${action.icon}-${action.title}`"
+            type="button"
+            class="action-icon-btn"
+            :class="action.class"
+            :title="action.title"
+            :aria-label="action.title"
+            @click="action.action()"
+          >
+            <span class="material-symbols-outlined">{{ action.icon }}</span>
+          </button>
+        </div>
       </template>
     </ListTableSelect>
 
@@ -325,8 +386,36 @@ const getRowActions = (mission) => [
   justify-content: center;
 }
 
-.status-empty {
-  display: inline-block;
-  min-width: 1px;
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-light-secondary { background: rgba(130, 134, 139, 0.18); color: var(--secondary-dark); }
+.status-light-success { background: rgba(40, 199, 111, 0.16); color: var(--success-dark); }
+.status-light-warning { background: rgba(255, 159, 67, 0.18); color: var(--warning-dark); }
+.status-light-danger { background: rgba(234, 84, 85, 0.15); color: var(--danger-dark); }
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.action-icon-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 1;
+}
+
+.action-icon-btn .material-symbols-outlined {
+  font-size: 18px;
 }
 </style>

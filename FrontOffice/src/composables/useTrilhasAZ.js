@@ -5,8 +5,10 @@
  *
  * Máquina de status alinhada ao protótipo de regras de negócio:
  *   - !enabled                              → "NÃO ENVIADA"  (cinza)
- *   - enabled + periodEnabled + fim futuro  → "NÃO INICIADA" (cinza)
- *   - enabled + (qualquer outro caso)       → "INICIADA"     (verde)
+ *   - enabled + período ativo + início futuro → "NÃO INICIADA" (cinza)
+ *   - enabled + (progresso > 0 ou vinculados) → "INICIADA"     (verde)
+ *   - enabled + periodEnabled + fim futuro    → "NÃO INICIADA" (cinza)
+ *   - enabled + (qualquer outro caso)         → "INICIADA"     (verde)
  */
 import { reactive, computed } from 'vue'
 import rawData from '../data/trilhas-az.json'
@@ -43,14 +45,25 @@ const state = reactive({
  * Calcula o status de um capítulo.
  * Regras:
  *   1. Não habilitado → NÃO ENVIADA
- *   2. Habilitado + período ativo + data fim no futuro → NÃO INICIADA
- *   3. Habilitado + qualquer outro caso → INICIADA
+ *   2. Habilitado + período ativo + data de início no futuro → NÃO INICIADA
+ *   3. Habilitado + execução real (progresso > 0 ou alunos vinculados) → INICIADA
+ *   4. Habilitado + período ativo + data fim no futuro → NÃO INICIADA
+ *   5. Habilitado + qualquer outro caso → INICIADA
  *
  * @returns {{ label: string, hexColor: string, key: string }}
  */
 function calculateStatus(chapter) {
     if (!chapter.enabled) {
         return { key: 'nao_enviada', label: 'NÃO ENVIADA', hexColor: '#b4b7bd' }
+    }
+
+    if (chapter.periodEnabled && chapter.inicio && isFutureISO(chapter.inicio)) {
+        return { key: 'nao_iniciada', label: 'NÃO INICIADA', hexColor: '#b4b7bd' }
+    }
+
+    const hasLinkedStudents = chapter.studentsData?.some(sd => sd.isLinked) ?? false
+    if ((chapter.progresso ?? 0) > 0 || hasLinkedStudents) {
+        return { key: 'iniciada', label: 'INICIADA', hexColor: '#28c76f' }
     }
 
     if (chapter.periodEnabled && chapter.fim && isFutureISO(chapter.fim)) {

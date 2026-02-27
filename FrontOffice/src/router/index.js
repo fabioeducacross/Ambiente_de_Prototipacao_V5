@@ -34,6 +34,7 @@ const ProfMissionsList = () => import('../views/teacher/missions/MissionsList.vu
 const ProfEvidenceReport = () => import('../views/teacher/reports/EvidenceReport.vue')
 const ProfSkillReport = () => import('../views/teacher/reports/SkillReport.vue')
 const ProfStudentAccess = () => import('../views/teacher/reports/StudentAccess.vue')
+const ProfMissionReport = () => import('../views/teacher/reports/MissionReport.vue')
 
 // Jogos
 const ProfIslandConfig = () => import('../views/teacher/games/IslandConfig.vue')
@@ -147,6 +148,7 @@ const routes = [
       { path: 'relatorios/evidencias', name: 'ProfEvidenceReport', component: ProfEvidenceReport, meta: { title: 'Evidências | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Relatório de Evidências', active: true }] } },
       { path: 'relatorios/habilidades', name: 'ProfSkillReport', component: ProfSkillReport, meta: { title: 'Habilidades | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Habilidades', active: true }] } },
       { path: 'relatorios/acesso-alunos', name: 'ProfStudentAccess', component: ProfStudentAccess, meta: { title: 'Acesso de Alunos | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Acesso de Alunos', active: true }] } },
+      { path: 'missoes/:missionId/relatorio', name: 'ProfMissionReport', component: ProfMissionReport, meta: { title: 'Relatório da Missão | Professor', breadcrumb: [{ text: 'Missões da Escola', to: '/professor/missoes' }, { text: 'Missões', to: '/professor/missoes' }, { text: 'Relatório da Missão', active: true }] } },
       // Jogos
       { path: 'jogos/config-ilha', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Configurações da Ilha', active: true }] } },
       { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Ranking de Conquistas', active: true }] } },

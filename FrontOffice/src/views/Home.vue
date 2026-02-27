@@ -60,6 +60,7 @@ const personas = ref([
       { id: 'SIDEBAR-PROTO', label: 'Protótipo Sidebar',   icon: 'view_sidebar',  route: '/professor',           status: 'Ativo' },
       { id: 'CAL',           label: 'Calendário de Eventos', icon: 'calendar_month', route: '/teacher/calendar',  status: 'Ativo' },
       { id: 'TRILHAS-AZ',    label: 'Sistema de ensino',   icon: 'menu_book',     route: '/teacher/trilhas-az',  status: 'Ativo' },
+      { id: 'MISSION-ACTIVE', label: 'Missões Ativas',      icon: 'flag',          route: '/professor/missoes', status: 'Ativo' },
       { id: 'PROF-001', label: 'Criar Turma', icon: 'group_add', route: null, status: 'Planejado' },
       { id: 'PROF-002', label: 'Criar Missão', icon: 'flag', route: null, status: 'Planejado' },
       { id: 'PROF-003', label: 'Acompanhar Progresso', icon: 'trending_up', route: null, status: 'Planejado' },

@@ -226,8 +226,26 @@ function vincularAlunos(chapterId, studentIds, endDate, startDate) {
     })
 
     if (studentIds.length > 0) {
-        // Inicia simulação de conclusão: progresso 0→100% (30s) + FINALIZADA (60s)
-        startSimulation(chapterId)
+        const hasFutureStart = chapter.periodEnabled && chapter.inicio && isFutureISO(chapter.inicio)
+
+        if (hasFutureStart) {
+            // Missão agendada para o futuro: mantém congelada até o início
+            cancelSimulation(chapterId)
+            chapter.progresso = 0
+            chapter.rendimento = null
+            chapter.finalizada = false
+        } else {
+            const hasActiveSimulation = Boolean(simulationTimers[chapterId])
+            const alreadyInProgress = (chapter.progresso ?? 0) > 0 && chapter.finalizada !== true
+
+            // Missão já em andamento: adicionar alunos não reinicia o progresso
+            if (hasActiveSimulation || alreadyInProgress) {
+                return
+            }
+
+            // Primeiro envio (ou retomada sem progresso): inicia simulação 0→100%
+            startSimulation(chapterId)
+        }
     }
 }
 
