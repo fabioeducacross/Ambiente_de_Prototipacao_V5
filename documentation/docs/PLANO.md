@@ -466,13 +466,13 @@ graph TD
 
 ### Tela Principal
 
-![Education System Books List](../../static/img/screenshots/teacher/education-system-books-list.png)
+![Education System Books List](/img/screenshots/prof-001-books-grid-as-is.png)
 
 **Captura**: `npm run capture:screenshots -- --journey=education-system-books`
 
 ### Filtros
 
-![Filtros de Disciplina e Turma](../../static/img/screenshots/teacher/education-system-books-filters.png)
+![Filtros de Disciplina e Turma](/img/screenshots/prof-001-book-card-detail.png)
 
 ---
 
@@ -1027,9 +1027,9 @@ export default {
 
 ### Critérios de Priorização
 
-- 🔴 **Alta**: Jornadas mais usadas (>1000 acessos/dia)
+- 🔴 **Alta**: Jornadas mais usadas (&gt;1000 acessos/dia)
 - 🟡 **Média**: Jornadas regulares (100-1000 acessos/dia)
-- 🟢 **Baixa**: Jornadas esporádicas (<100 acessos/dia)
+- 🟢 **Baixa**: Jornadas esporádicas (&lt;100 acessos/dia)
 
 ### Roadmap de Documentação
 
