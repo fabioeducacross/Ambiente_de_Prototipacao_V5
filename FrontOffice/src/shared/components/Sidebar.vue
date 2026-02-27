@@ -2,212 +2,170 @@
   <aside class="sidebar" :class="[{ collapsed }, `theme-${theme}`]">
     <!-- Navigation Menu -->
     <nav class="sidebar-nav">
+
+      <!-- ── PAINEL INICIAL ─────────────────────────────────── -->
       <div class="nav-section">
         <div class="nav-title">Painel Inicial</div>
-        <RouterLink to="/teacher" class="nav-item">
+        <RouterLink to="/professor" class="nav-item" :class="{ active: route.path === '/professor' }">
           <MaterialIcon name="home" :size="18" />
-          <span>Dashboard</span>
+          <span>Painel Inicial</span>
         </RouterLink>
       </div>
 
+      <!-- ── MISSÕES DA ESCOLA ──────────────────────────────── -->
       <div class="nav-section">
-        <div class="nav-title">Relatórios gerais</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="pie_chart" :size="18" />
-          <span>Acessos</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+        <div class="nav-title">Missões da Escola</div>
+        <RouterLink to="/professor/missoes/criar" class="nav-item" :class="{ active: route.path === '/professor/missoes/criar' }">
+          <MaterialIcon name="add_circle" :size="18" />
+          <span>Criar Missão</span>
+        </RouterLink>
+        <RouterLink to="/professor/missoes" class="nav-item" :class="{ active: route.path === '/professor/missoes' }">
+          <MaterialIcon name="mountain_flag" :size="18" />
+          <span>Missões</span>
+        </RouterLink>
+      </div>
 
-        <button class="nav-item collapsible">
+      <!-- ── RELATÓRIOS GERAIS ───────────────────────────────── -->
+      <div class="nav-section">
+        <div class="nav-title">Relatórios Gerais</div>
+        <RouterLink to="/professor/relatorios/evidencias" class="nav-item" :class="{ active: route.path === '/professor/relatorios/evidencias' }">
           <MaterialIcon name="pie_chart" :size="18" />
-          <span>Evidências</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
+          <span>Relatório de Evidências</span>
+        </RouterLink>
+        <RouterLink to="/professor/relatorios/habilidades" class="nav-item" :class="{ active: route.path === '/professor/relatorios/habilidades' }">
           <MaterialIcon name="graph_5" :size="18" />
           <span>Habilidades</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <RouterLink to="/teacher/calendar" class="nav-item" :class="{ active: isCalendarRoute() }">
+        </RouterLink>
+        <RouterLink to="/professor/relatorios/acesso-alunos" class="nav-item" :class="{ active: route.path === '/professor/relatorios/acesso-alunos' }">
+          <MaterialIcon name="person_play" :size="18" />
+          <span>Acesso dos Alunos</span>
+        </RouterLink>
+        <RouterLink to="/professor/calendario" class="nav-item" :class="{ active: isCalendarRoute() }">
           <MaterialIcon name="calendar_month" :size="18" />
           <span>Calendário</span>
         </RouterLink>
       </div>
 
+      <!-- ── JOGOS ─────────────────────────────────────────── -->
       <div class="nav-section">
-        <div class="nav-title">Missões da Escola</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="add_circle" :size="18" />
-          <span>Criar Missão</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
-          <MaterialIcon name="mountain_flag" :size="18" />
-          <span>Missões</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
-          <MaterialIcon name="frame_inspect" :size="18" />
-          <span>Revisões</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Trilhas</div>
-
-        <RouterLink to="/teacher/trilhas-az" class="nav-item" :class="{ active: isSistemaEnsinoRoute() }">
-          <MaterialIcon name="menu_book" :size="18" />
-          <span>AZ</span>
+        <div class="nav-title">Jogos</div>
+        <RouterLink to="/professor/jogos/config-ilha" class="nav-item" :class="{ active: route.path === '/professor/jogos/config-ilha' }">
+          <MaterialIcon name="sports_esports" :size="18" />
+          <span>Configurações da Ilha</span>
         </RouterLink>
-        
-        <button class="nav-item">
-          <MaterialIcon name="anchor" :size="18" />
-          <span>BNCC</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="location_on" :size="18" />
-          <span>SAEB</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="footprint" :size="18" />
-          <span>Programa 32</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>Super Ensino</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>COC</span>
-        </button>
+        <RouterLink to="/professor/jogos/ranking" class="nav-item" :class="{ active: route.path === '/professor/jogos/ranking' }">
+          <MaterialIcon name="emoji_events" :size="18" />
+          <span>Ranking de Conquistas</span>
+        </RouterLink>
       </div>
 
+      <!-- ── GESTÃO (ESCOLA / TURMAS) ───────────────────────── -->
+      <div class="nav-section">
+        <div class="nav-title">Gestão (Escola / Turmas)</div>
+        <RouterLink to="/professor/turmas" class="nav-item" :class="{ active: route.path === '/professor/turmas' }">
+          <MaterialIcon name="group" :size="18" />
+          <span>Turmas</span>
+        </RouterLink>
+        <RouterLink to="/professor/grupos" class="nav-item" :class="{ active: route.path === '/professor/grupos' }">
+          <MaterialIcon name="folder_shared" :size="18" />
+          <span>Grupos</span>
+        </RouterLink>
+        <RouterLink to="/professor/alunos" class="nav-item" :class="{ active: route.path === '/professor/alunos' }">
+          <MaterialIcon name="sentiment_satisfied" :size="18" />
+          <span>Alunos</span>
+        </RouterLink>
+      </div>
+
+      <!-- ── PROGRAMAS / SISTEMAS (ATALHOS) ────────────────── -->
+      <div class="nav-section">
+        <div class="nav-title">Programas / Sistemas (Atalhos)</div>
+        <RouterLink to="/professor/programas/alfabetiza-manaus" class="nav-item" :class="{ active: route.path === '/professor/programas/alfabetiza-manaus' }">
+          <MaterialIcon name="school" :size="18" />
+          <span>Alfabetiza Manaus</span>
+        </RouterLink>
+        <RouterLink to="/professor/programas/letrar" class="nav-item" :class="{ active: route.path === '/professor/programas/letrar' }">
+          <MaterialIcon name="school" :size="18" />
+          <span>Letrar+JP</span>
+        </RouterLink>
+        <RouterLink to="/professor/programas/super-ensino-jp" class="nav-item" :class="{ active: route.path === '/professor/programas/super-ensino-jp' }">
+          <MaterialIcon name="school" :size="18" />
+          <span>Super Ensino João Pessoa</span>
+        </RouterLink>
+        <RouterLink to="/professor/programas/super-ensino-manaus" class="nav-item" :class="{ active: route.path === '/professor/programas/super-ensino-manaus' }">
+          <MaterialIcon name="school" :size="18" />
+          <span>Super Ensino Manaus</span>
+        </RouterLink>
+        <RouterLink to="/professor/programas/high-five" class="nav-item" :class="{ active: route.path === '/professor/programas/high-five' }">
+          <MaterialIcon name="school" :size="18" />
+          <span>High Five</span>
+        </RouterLink>
+      </div>
+
+      <!-- ── AVALIAÇÕES ─────────────────────────────────────── -->
       <div class="nav-section">
         <div class="nav-title">Avaliações</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="thermostat" :size="18" />
-          <span>Diagnósticas</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="quiz" :size="18" />
-          <span>Somativas</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="checklist_rtl" :size="18" />
-          <span>Simulados</span>
-        </button>
-
+        <RouterLink to="/professor/avaliacoes/digital" class="nav-item" :class="{ active: route.path === '/professor/avaliacoes/digital' }">
+          <MaterialIcon name="assignment" :size="18" />
+          <span>Avaliação Digital</span>
+        </RouterLink>
         <button class="nav-item">
           <MaterialIcon name="mic" :size="18" />
           <span>Fluência Leitora</span>
         </button>
-
-        <button class="nav-item">
+        <RouterLink to="/professor/avaliacoes/flue-esc" class="nav-item" :class="{ active: route.path === '/professor/avaliacoes/flue-esc' }">
+          <MaterialIcon name="record_voice_over" :size="18" />
+          <span>FluEsc</span>
+        </RouterLink>
+        <RouterLink to="/professor/avaliacoes/fases-escrita" class="nav-item" :class="{ active: route.path === '/professor/avaliacoes/fases-escrita' }">
           <MaterialIcon name="checkbook" :size="18" />
-          <span>Testes de Escrita</span>
-        </button>
+          <span>Fases de Escrita</span>
+        </RouterLink>
       </div>
 
-      <div class="nav-section">
-        <div class="nav-title">Olimpíadas</div>
-        <button class="nav-item">
-          <MaterialIcon name="emoji_events" :size="18" />
-          <span>Olimpíadas</span>
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Educateca</div>
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>Educateca</span>
-        </button>
-      </div>
-
+      <!-- ── EXPEDIÇÕES ─────────────────────────────────────── -->
       <div class="nav-section">
         <div class="nav-title">Expedições</div>
-        
-        <button class="nav-item collapsible">
+        <RouterLink to="/professor/expedicao-leitura" class="nav-item" :class="{ active: route.path === '/professor/expedicao-leitura' }">
           <MaterialIcon name="airplane_ticket" :size="18" />
           <span>Expedição Leitura</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
-          <MaterialIcon name="explore" :size="18" />
-          <span>Expedição Aprendizagem</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+        </RouterLink>
       </div>
 
+      <!-- ── EVENTOS ────────────────────────────────────────── -->
+      <div class="nav-section">
+        <div class="nav-title">Eventos</div>
+        <RouterLink to="/professor/eventos/olimpiadas" class="nav-item" :class="{ active: route.path === '/professor/eventos/olimpiadas' }">
+          <MaterialIcon name="emoji_events" :size="18" />
+          <span>Olimpíadas</span>
+        </RouterLink>
+        <RouterLink to="/professor/eventos/extreme" class="nav-item" :class="{ active: route.path === '/professor/eventos/extreme' }">
+          <MaterialIcon name="bolt" :size="18" />
+          <span>Educacross Extreme</span>
+        </RouterLink>
+      </div>
+
+      <!-- ── FORMAÇÃO E APOIO ───────────────────────────────── -->
       <div class="nav-section">
         <div class="nav-title">Formação e Apoio</div>
-        
-        <button class="nav-item collapsible">
+        <RouterLink to="/professor/ajudas-materiais" class="nav-item" :class="{ active: route.path === '/professor/ajudas-materiais' }">
           <MaterialIcon name="folder_open" :size="18" />
           <span>Ajudas e Materiais</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
+        </RouterLink>
+        <button class="nav-item">
           <MaterialIcon name="account_balance" :size="18" />
           <span>Academia Educacross</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
         </button>
       </div>
 
+      <!-- ── EDUCATECA ──────────────────────────────────────── -->
       <div class="nav-section">
-        <div class="nav-title">Jornada Super</div>
-        
-        <button class="nav-item">
-          <MaterialIcon name="swords" :size="18" />
-          <span>Desafios</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="trophy" :size="18" />
-          <span>Ranking</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="shopping_cart" :size="18" />
-          <span>Loja</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="crown" :size="18" />
-          <span>Especiais</span>
-        </button>
+        <div class="nav-title">Educateca</div>
+        <RouterLink to="/professor/educateca" class="nav-item" :class="{ active: route.path === '/professor/educateca' }">
+          <MaterialIcon name="auto_stories" :size="18" />
+          <span>Educateca</span>
+        </RouterLink>
       </div>
 
-      <div class="nav-section">
-        <div class="nav-title">Administração</div>
-        
-        <button class="nav-item">
-          <MaterialIcon name="sentiment_satisfied" :size="18" />
-          <span>Alunos</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="person_play" :size="18" />
-          <span>Permissões</span>
-        </button>
-      </div>
     </nav>
 
     <footer class="sidebar-footer">
@@ -221,13 +179,12 @@ import { RouterLink, useRoute } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
 
 // Injetado pelo vite.config.js via define
-// Usa versão do package.json (estável) + SHA (imutável)
 const appVersion = __APP_VERSION__
 const gitSha     = __GIT_SHA__
 
 const route = useRoute()
 
-const isCalendarRoute = () => route.path.startsWith('/teacher/calendar')
+const isCalendarRoute = () => route.path.startsWith('/professor/calendario') || route.path.startsWith('/teacher/calendar')
 const isSistemaEnsinoRoute = () => route.path === '/teacher/trilhas-az'
 
 defineProps({

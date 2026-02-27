@@ -1044,10 +1044,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Lista Conversas](../../../static/img/screenshots/prof-010-conversations-as-is.png)
+![Lista Conversas](/img/screenshots/prof-010-conversations-as-is.png)
 *Lista de conversas com indicadores*
 
-![Chat Individual](../../../static/img/screenshots/prof-010-chat-as-is.png)
+![Chat Individual](/img/screenshots/prof-010-chat-as-is.png)
 *Chat individual com anexos e tradução*
 
 ## 11. Melhorias TO-BE

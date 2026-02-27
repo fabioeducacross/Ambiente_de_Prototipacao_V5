@@ -126,7 +126,7 @@ graph TD
 
 ### Tela Principal: Mapa de Missões
 
-![Learning Path: Mapa de Missões](../../../static/img/screenshots/student-002-mission-map-as-is.png)
+![Learning Path: Mapa de Missões](/img/screenshots/student-002-mission-map-as-is.png)
 
 **Elementos na tela**:
 - Mapa visual com missões em sequência (nós conectados)
@@ -138,7 +138,7 @@ graph TD
 
 ### Detalhes da Missão
 
-![Learning Path: Detalhes da Missão](../../../static/img/screenshots/student-002-mission-detail-as-is.png)
+![Learning Path: Detalhes da Missão](/img/screenshots/student-002-mission-detail-as-is.png)
 
 **Elementos na tela**:
 - Título da missão e descrição
@@ -150,7 +150,7 @@ graph TD
 
 ### Execução de Exercício
 
-![Learning Path: Exercício em Andamento](../../../static/img/screenshots/student-002-exercise-as-is.png)
+![Learning Path: Exercício em Andamento](/img/screenshots/student-002-exercise-as-is.png)
 
 **Elementos na tela**:
 - Enunciado da questão
@@ -162,7 +162,7 @@ graph TD
 
 ### Feedback Instantâneo (Acerto)
 
-![Learning Path: Feedback de Acerto](../../../static/img/screenshots/student-002-feedback-correct-as-is.png)
+![Learning Path: Feedback de Acerto](/img/screenshots/student-002-feedback-correct-as-is.png)
 
 **Elementos na tela**:
 - <IconCheck /> Animação de acerto (confete ou estrelas)
@@ -173,7 +173,7 @@ graph TD
 
 ### Feedback Instantâneo (Erro)
 
-![Learning Path: Feedback de Erro](../../../static/img/screenshots/student-002-feedback-incorrect-as-is.png)
+![Learning Path: Feedback de Erro](/img/screenshots/student-002-feedback-incorrect-as-is.png)
 
 **Elementos na tela**:
 - <IconX /> Indicação de erro (sem efeitos negativos visuais pesados)
@@ -183,7 +183,7 @@ graph TD
 
 ### Modal de Missão Concluída
 
-![Learning Path: Missão Concluída](../../../static/img/screenshots/student-002-mission-complete-as-is.png)
+![Learning Path: Missão Concluída](/img/screenshots/student-002-mission-complete-as-is.png)
 
 **Elementos na tela**:
 - <span class="material-symbols-outlined">celebration</span> Animação de celebração
@@ -195,7 +195,7 @@ graph TD
 
 ### Modal de Level Up
 
-![Learning Path: Level Up](../../../static/img/screenshots/student-002-level-up-as-is.png)
+![Learning Path: Level Up](/img/screenshots/student-002-level-up-as-is.png)
 
 **Elementos na tela**:
 - <span class="material-symbols-outlined">celebration</span> Animação de fogos de artifício
@@ -206,7 +206,7 @@ graph TD
 
 ### Perfil do Aluno
 
-![Learning Path: Perfil do Aluno](../../../static/img/screenshots/student-002-profile-as-is.png)
+![Learning Path: Perfil do Aluno](/img/screenshots/student-002-profile-as-is.png)
 
 **Elementos na tela**:
 - Avatar customizável

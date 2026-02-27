@@ -94,7 +94,7 @@ Documentação completa das 11 jornadas do contexto educador.
 
 ## Próximas Jornadas a Documentar
 
-Conforme priorização do [PLANO.md](../../../../PLANO.md#-jornadas-prioritárias):
+Conforme priorização do [PLANO.md](../../PLANO.md#-jornadas-prioritárias):
 
 1. <IconCircleRed /> **Alta Prioridade**
    - PROF-003: Custom Missions

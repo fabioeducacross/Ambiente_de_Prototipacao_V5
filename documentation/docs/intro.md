@@ -18,9 +18,13 @@ Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e s
 
 Documentação AS-IS (estado atual) das jornadas:
 
-- <IconTeacher size={18} /> **[Professor](./journeys/teacher/)** - 11 jornadas (2 documentadas)
-- <IconAdmin size={18} /> **[Admin](./journeys/admin/)** - 6 jornadas (0 documentadas)
-- <IconStudent size={18} /> **[Estudante](./journeys/student/)** - 3 jornadas (0 documentadas)
+- <IconTeacher size={18} /> **[Professor](./journeys/teacher/)** - Gestão de livros e missões
+- <IconAdmin size={18} /> **[Administrador](./journeys/administrator/)** - Gestão de usuários e segurança
+- <IconAdmin size={18} /> **[Coordenador](./journeys/coordinator/)** - Relatórios e evidências
+- <IconAdmin size={18} /> **[Diretor](./journeys/director/)** - Acesso de alunos e visão geral
+- <IconAdmin size={18} /> **[Gestor de Rede](./journeys/network-manager/)** - Gerenciamento de rede
+- <IconAdmin size={18} /> **[Auditor](./journeys/auditor/)** - Auditoria e conformidade
+- <IconStudent size={18} /> **[Estudante](./journeys/student/)** - Dashboard e progresso educacional
 
 Cada jornada inclui:
 - <IconChart size={16} /> Fluxo de usuário (diagrama Mermaid)
@@ -124,7 +128,7 @@ Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
 1. **Entenda o Contexto**: Leia as [jornadas documentadas](./journeys/intro)
 2. **Estude a Arquitetura**: Consulte os [padrões técnicos](./architecture/intro)
 3. **Veja Protótipos**: Explore os [protótipos TO-BE](./prototypes/intro)
-4. **Contribua**: Siga o [workflow Git](../../PLANO.md#-workflow-de-prototipação)
+4. **Contribua**: Consulte o workflow Git no repositório
 
 ### Para Designers
 
@@ -138,7 +142,7 @@ Este projeto utiliza o **Design System Vuexy** com componentes disponíveis em:
 1. **Veja Métricas**: Priorização por uso
 2. **Avalie Propostas**: Compare AS-IS vs TO-BE
 3. **Aprove Protótipos**: Via Pull Requests
-4. **Acompanhe Roadmap**: [PLANO.md](../../PLANO.md#-roadmap-de-implementação)
+4. **Acompanhe Roadmap**: Versão de desenvolvimento em `develop` branch
 
 ## <IconLink size={22} /> Links Úteis
 

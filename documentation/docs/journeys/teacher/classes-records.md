@@ -1212,27 +1212,27 @@ Content-Disposition: attachment; filename="relatorio-7ano-a-2024-02-01.pdf"
 ## 10. Screenshots (AS-IS)
 
 ### Lista de Turmas
-![Lista de Turmas](../../../static/img/screenshots/prof-006-classes-list-as-is.png)
+![Lista de Turmas](/img/screenshots/prof-006-classes-list-as-is.png)
 *Grid de cards das turmas com métricas principais e alertas*
 
 ### Dashboard - Visão Geral
-![Dashboard Overview](../../../static/img/screenshots/prof-006-dashboard-overview-as-is.png)
+![Dashboard Overview](/img/screenshots/prof-006-dashboard-overview-as-is.png)
 *KPIs consolidados, distribuição de desempenho, top performers*
 
 ### Dashboard - Habilidades
-![Dashboard Skills](../../../static/img/screenshots/prof-006-dashboard-skills-as-is.png)
+![Dashboard Skills](/img/screenshots/prof-006-dashboard-skills-as-is.png)
 *Heatmap de habilidades com taxas de acerto e drawer de alunos*
 
 ### Dashboard - Distribuição
-![Dashboard Distribution](../../../static/img/screenshots/prof-006-dashboard-distribution-as-is.png)
+![Dashboard Distribution](/img/screenshots/prof-006-dashboard-distribution-as-is.png)
 *Histograma, estatísticas descritivas e box plot*
 
 ### Dashboard - Evolução
-![Dashboard Evolution](../../../static/img/screenshots/prof-006-dashboard-evolution-as-is.png)
+![Dashboard Evolution](/img/screenshots/prof-006-dashboard-evolution-as-is.png)
 *Gráfico de linhas com evolução temporal de múltiplas métricas*
 
 ### Comparação entre Turmas
-![Classes Compare](../../../static/img/screenshots/prof-006-classes-compare-as-is.png)
+![Classes Compare](/img/screenshots/prof-006-classes-compare-as-is.png)
 *Tabela comparativa e radar de habilidades de múltiplas turmas*
 
 ## 11. Melhorias TO-BE

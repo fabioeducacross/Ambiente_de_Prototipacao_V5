@@ -1271,13 +1271,13 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard](../../../static/img/screenshots/prof-008-dashboard-as-is.png)
+![Dashboard](/img/screenshots/prof-008-dashboard-as-is.png)
 *Dashboard de evolução*
 
-![Timeline](../../../static/img/screenshots/prof-008-timeline-as-is.png)
+![Timeline](/img/screenshots/prof-008-timeline-as-is.png)
 *Timeline cronológica*
 
-![Alertas](../../../static/img/screenshots/prof-008-alerts-as-is.png)
+![Alertas](/img/screenshots/prof-008-alerts-as-is.png)
 *Alertas de risco*
 
 ## 11. Melhorias TO-BE
@@ -1374,7 +1374,7 @@ describe('useStudentProgress', () => {
 
 - **[PROF-005: Student Records](./student-records.md)** - Diário integrado com progresso
 - **[PROF-007: Mission Analytics](./mission-analytics.md)** - Dados de missões na timeline
-- **[ADMIN-004: Skill Report](../admin/skill-report.md)** - Habilidades BNCC no perfil
+- **[ADMIN-004: Skill Report](../coordinator/skill-report.md)** - Habilidades BNCC no perfil
 
 ---
 

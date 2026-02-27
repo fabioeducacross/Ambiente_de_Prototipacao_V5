@@ -1358,31 +1358,31 @@ Content-Disposition: attachment; filename="relatorio-joao-silva-2024-02-01.pdf"
 ## 10. Screenshots (AS-IS)
 
 ### Lista de Alunos - Grid View
-![Lista Grid](../../../static/img/screenshots/prof-005-students-grid-as-is.png)
+![Lista Grid](/img/screenshots/prof-005-students-grid-as-is.png)
 *Grid responsivo com cards dos alunos, badges de status e métricas visuais*
 
 ### Lista de Alunos - Table View
-![Lista Tabela](../../../static/img/screenshots/prof-005-students-table-as-is.png)
+![Lista Tabela](/img/screenshots/prof-005-students-table-as-is.png)
 *Tabela com colunas sortable, progress bars inline e busca*
 
 ### Ficha do Aluno - Visão Geral
-![Ficha Overview](../../../static/img/screenshots/prof-005-student-overview-as-is.png)
+![Ficha Overview](/img/screenshots/prof-005-student-overview-as-is.png)
 *Header com foto e dados básicos + KPI cards + Timeline de eventos*
 
 ### Ficha do Aluno - Desempenho
-![Ficha Performance](../../../static/img/screenshots/prof-005-student-performance-as-is.png)
+![Ficha Performance](/img/screenshots/prof-005-student-performance-as-is.png)
 *Gráfico de evolução, radar de habilidades e tabela de notas*
 
 ### Ficha do Aluno - Anotações
-![Ficha Notas](../../../static/img/screenshots/prof-005-student-notes-as-is.png)
+![Ficha Notas](/img/screenshots/prof-005-student-notes-as-is.png)
 *Timeline de anotações com filtros e modal de adição*
 
 ### Modal Adicionar Anotação
-![Modal Anotação](../../../static/img/screenshots/prof-005-add-note-modal-as-is.png)
+![Modal Anotação](/img/screenshots/prof-005-add-note-modal-as-is.png)
 *Formulário com categoria, conteúdo, tags e privacidade*
 
 ### Modal Exportar Relatório
-![Modal Export](../../../static/img/screenshots/prof-005-export-modal-as-is.png)
+![Modal Export](/img/screenshots/prof-005-export-modal-as-is.png)
 *Opções de formato, seções e período para exportação*
 
 ## 11. Melhorias TO-BE

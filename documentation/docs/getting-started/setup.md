@@ -52,26 +52,30 @@ cd ..
 
 ## <IconRocket /> Executar o Ambiente
 
-### Modo Desenvolvimento - Protótipo Vue 3
-
-Execute o ambiente de prototipação com hot-reload:
+### Todos os servidores de uma vez (recomendado)
 
 ```bash
-npm run dev
+# Na raiz do projeto
+npm run dev:all
 ```
 
-O protótipo estará disponível em: http://localhost:5173
+| Servidor | URL |
+|----------|-----|
+| `[ROOT]` Vite raiz | http://localhost:5173 |
+| `[FO]` FrontOffice | http://localhost:5174 |
+| `[DOCS]` Wiki | http://localhost:3000/Ambiente_de_Prototipacao_V5/wiki/ |
 
-### Modo Desenvolvimento - Documentação
+:::tip Reiniciar após crash
+Se qualquer servidor travar, basta rodar `npm run dev:all` novamente. O comando mata automaticamente os processos nas portas 5173, 5174 e 3000 antes de iniciar.
+:::
 
-Execute o servidor de documentação:
+### Servidores individuais
 
 ```bash
-cd documentation
-npm start
+npm run dev          # ROOT Vite (porta 5173)
+npm run dev:fo       # FrontOffice (porta 5174)
+npm run dev:docs     # Docusaurus wiki (porta 3000)
 ```
-
-A documentação estará disponível em: http://localhost:3000
 
 ### Build de Produção
 
@@ -90,18 +94,23 @@ npm run build
 
 ```
 Ambiente_de_Prototipacao_V5/
-├── src/                    # Código fonte do protótipo Vue 3
-│   ├── assets/            # Assets (imagens, estilos)
-│   ├── components/        # Componentes Vue
-│   ├── data/             # Dados JSON (journeys.json)
-│   ├── router/           # Rotas Vue Router
-│   └── views/            # Páginas/Views
-├── documentation/         # Documentação Docusaurus
-│   ├── docs/             # Arquivos markdown
-│   ├── src/              # Tema e componentes customizados
-│   └── static/           # Assets estáticos
-├── public/               # Assets públicos do protótipo
-└── .github/              # Copilot instructions e workflows
+├── FrontOffice/               # App Vue 3 — protótipos por persona (porta 5174)
+│   ├── src/
+│   │   ├── views/             # Views por persona (teacher/, student/, etc.)
+│   │   ├── modules/           # Features auto-contidas (calendario/, sistema-de-ensino/)
+│   │   ├── components/        # Componentes reutilizáveis
+│   │   └── shared/            # Composables e componentes cross-módulo
+│   └── package.json
+├── documentation/             # Wiki Docusaurus (porta 3000)
+│   ├── docs/                  # Arquivos markdown das jornadas
+│   ├── src/                   # Tema e componentes customizados
+│   └── static/img/screenshots/ # Screenshots capturados pelo Playwright
+├── mcp-playwright/
+│   └── capture-screenshots.mjs # Script de captura de screenshots
+├── src/                       # LEGADO — não usar
+├── package.json               # Scripts da raiz (dev:all, build, etc.)
+├── vite.config.js             # Config Vite raiz (root: './FrontOffice')
+└── .github/copilot-instructions.md  # Instruções para AI
 ```
 
 ## <IconApi /> Integração com Design System
@@ -180,16 +189,19 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-### Porta 5173 já em uso
+### Portas 5173 / 5174 / 3000 já em uso (servidor travado)
 
-Edite `vite.config.js` e altere a porta:
+Use o `dev:all` — ele mata os processos automaticamente antes de subir:
 
-```js
-export default defineConfig({
-  server: {
-    port: 3001 // ou outra porta disponível
-  }
-})
+```bash
+npm run dev:all
+```
+
+Ou manualmente via PowerShell:
+
+```powershell
+Get-NetTCPConnection -LocalPort 5173,5174,3000 -ErrorAction SilentlyContinue |
+  ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }
 ```
 
 ### Documentação não carrega CSS

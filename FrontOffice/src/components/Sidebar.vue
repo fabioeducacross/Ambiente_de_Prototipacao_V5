@@ -2,207 +2,90 @@
   <aside class="sidebar" :class="{ 'collapsed': collapsed }">
     <!-- Navigation Menu -->
     <nav class="sidebar-nav">
-      <div class="nav-section">
-        <div class="nav-title">Painel Inicial</div>
-        <RouterLink to="/teacher" class="nav-item">
-          <MaterialIcon name="home" :size="18" />
-          <span>Dashboard</span>
-        </RouterLink>
-      </div>
+      <!-- Painel Inicial -->
+      <RouterLink to="/teacher" class="nav-item">
+        <MaterialIcon name="grid_view" :size="18" />
+        <span>Painel Inicial</span>
+      </RouterLink>
 
-      <div class="nav-section">
-        <div class="nav-title">Relatórios gerais</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="pie_chart" :size="18" />
-          <span>Acessos</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+      <!-- Missões da Escola (collapsible) -->
+      <button class="nav-item collapsible active">
+        <MaterialIcon name="flag" :size="18" />
+        <span>Missões da Escola</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
 
-        <button class="nav-item collapsible">
-          <MaterialIcon name="pie_chart" :size="18" />
-          <span>Evidências</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+      <!-- Relatórios Gerais (collapsible) -->
+      <button class="nav-item collapsible">
+        <MaterialIcon name="pie_chart" :size="18" />
+        <span>Relatórios Gerais</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
 
-        <button class="nav-item collapsible">
-          <MaterialIcon name="graph_5" :size="18" />
-          <span>Habilidades</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+      <!-- Explorar Jogos (collapsible) -->
+      <button class="nav-item collapsible">
+        <MaterialIcon name="map" :size="18" />
+        <span>Explorar Jogos</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
 
-        <RouterLink to="/teacher/calendar" class="nav-item active">
-          <MaterialIcon name="calendar_month" :size="18" />
-          <span>Calendário</span>
-        </RouterLink>
-      </div>
+      <!-- Turmas -->
+      <button class="nav-item">
+        <MaterialIcon name="work_outline" :size="18" />
+        <span>Turmas</span>
+      </button>
 
-      <div class="nav-section">
-        <div class="nav-title">Missões da Escola</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="add_circle" :size="18" />
-          <span>Criar Missão</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+      <!-- Grupos -->
+      <button class="nav-item">
+        <MaterialIcon name="groups" :size="18" />
+        <span>Grupos</span>
+      </button>
 
-        <button class="nav-item collapsible">
-          <MaterialIcon name="mountain_flag" :size="18" />
-          <span>Missões</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
+      <!-- Alunos -->
+      <button class="nav-item">
+        <MaterialIcon name="group" :size="18" />
+        <span>Alunos</span>
+      </button>
 
-        <button class="nav-item collapsible">
-          <MaterialIcon name="frame_inspect" :size="18" />
-          <span>Revisões</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-      </div>
+      <!-- Super Trilhas -->
+      <button class="nav-item">
+        <MaterialIcon name="auto_stories" :size="18" />
+        <span>Super Trilhas</span>
+      </button>
 
-      <div class="nav-section">
-        <div class="nav-title">Trilhas</div>
-        
-        <button class="nav-item">
-          <MaterialIcon name="anchor" :size="18" />
-          <span>BNCC</span>
-        </button>
+      <!-- Separador EDUCACROSS -->
+      <div class="nav-title">Educacross</div>
 
-        <button class="nav-item">
-          <MaterialIcon name="location_on" :size="18" />
-          <span>SAEB</span>
-        </button>
+      <!-- Instituto J&F -->
+      <button class="nav-item">
+        <MaterialIcon name="apartment" :size="18" />
+        <span>Instituto J&amp;F - Comunidade | Adote uma Escola</span>
+      </button>
 
-        <button class="nav-item">
-          <MaterialIcon name="footprint" :size="18" />
-          <span>Programa 32</span>
-        </button>
+      <!-- Avaliações (collapsible) -->
+      <button class="nav-item collapsible">
+        <MaterialIcon name="quiz" :size="18" />
+        <span>Avaliações</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
 
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>Super Ensino</span>
-        </button>
+      <!-- Expedição Leitura -->
+      <button class="nav-item">
+        <MaterialIcon name="book_5" :size="18" />
+        <span>Expedição Leitura</span>
+      </button>
 
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>COC</span>
-        </button>
-      </div>
+      <!-- Eventos -->
+      <button class="nav-item">
+        <MaterialIcon name="calendar_today" :size="18" />
+        <span>Eventos</span>
+      </button>
 
-      <div class="nav-section">
-        <div class="nav-title">Avaliações</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="thermostat" :size="18" />
-          <span>Diagnósticas</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="quiz" :size="18" />
-          <span>Somativas</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="checklist_rtl" :size="18" />
-          <span>Simulados</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="mic" :size="18" />
-          <span>Fluência Leitora</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="checkbook" :size="18" />
-          <span>Testes de Escrita</span>
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Olimpíadas</div>
-        <button class="nav-item">
-          <MaterialIcon name="emoji_events" :size="18" />
-          <span>Olimpíadas</span>
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Educateca</div>
-        <button class="nav-item">
-          <MaterialIcon name="auto_stories" :size="18" />
-          <span>Educateca</span>
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Expedições</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="airplane_ticket" :size="18" />
-          <span>Expedição Leitura</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
-          <MaterialIcon name="explore" :size="18" />
-          <span>Expedição Aprendizagem</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Formação e Apoio</div>
-        
-        <button class="nav-item collapsible">
-          <MaterialIcon name="folder_open" :size="18" />
-          <span>Ajudas e Materiais</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-
-        <button class="nav-item collapsible">
-          <MaterialIcon name="account_balance" :size="18" />
-          <span>Academia Educacross</span>
-          <MaterialIcon name="expand_more" :size="14" class="chevron" />
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Jornada Super</div>
-        
-        <button class="nav-item">
-          <MaterialIcon name="swords" :size="18" />
-          <span>Desafios</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="trophy" :size="18" />
-          <span>Ranking</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="shopping_cart" :size="18" />
-          <span>Loja</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="crown" :size="18" />
-          <span>Especiais</span>
-        </button>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-title">Administração</div>
-        
-        <button class="nav-item">
-          <MaterialIcon name="sentiment_satisfied" :size="18" />
-          <span>Alunos</span>
-        </button>
-
-        <button class="nav-item">
-          <MaterialIcon name="person_play" :size="18" />
-          <span>Permissões</span>
-        </button>
-      </div>
+      <!-- High Five -->
+      <button class="nav-item">
+        <MaterialIcon name="camera" :size="18" />
+        <span>High Five</span>
+      </button>
     </nav>
 
     <footer class="sidebar-footer">
@@ -216,7 +99,6 @@ import { RouterLink } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
 
 // Injetado pelo vite.config.js via define
-// Usa versão do package.json (estável) + SHA (imutável)
 const appVersion = __APP_VERSION__
 const gitSha     = __GIT_SHA__
 
@@ -259,11 +141,9 @@ defineProps({
 .sidebar.collapsed .nav-item {
   justify-content: center;
   padding: 12px 0;
-}
-
-.sidebar.collapsed .nav-section {
-  padding: 0;
-  margin-bottom: 0.25rem;
+  margin: 0;
+  width: 100%;
+  border-radius: 0;
 }
 
 .sidebar-footer {
@@ -309,17 +189,14 @@ defineProps({
   padding: 0.5rem 0;
 }
 
-.nav-section {
-  margin-bottom: 0.5rem;
-}
-
 .nav-title {
   padding: 0.75rem 1rem 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   color: #565674;
+  margin-top: 0.25rem;
 }
 
 .nav-item {
@@ -361,6 +238,10 @@ defineProps({
 .nav-item.active {
   background: #7367F0;
   color: #ffffff;
+  border-radius: 6px;
+  margin: 0 0.5rem;
+  width: calc(100% - 1rem);
+  padding: 0.625rem 0.5rem;
 }
 
 .nav-item.collapsible .chevron {

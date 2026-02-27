@@ -1471,27 +1471,27 @@ Content-Disposition: attachment; filename="relatorio-acesso-alunos-2024-02-03.xl
 ## 10. Screenshots (AS-IS)
 
 ### Dashboard - Visão Geral
-![Dashboard](../../../static/img/screenshots/admin-002-dashboard-as-is.png)
+![Dashboard](/img/screenshots/admin-002-dashboard-as-is.png)
 *KPIs de engajamento, gráfico de tendência, heatmap de horários*
 
 ### Lista de Alunos - Todos
-![Lista Todos](../../../static/img/screenshots/admin-002-students-list-as-is.png)
+![Lista Todos](/img/screenshots/admin-002-students-list-as-is.png)
 *Tabela com status, último acesso e frequência*
 
 ### Lista Filtrada - Inativos
-![Lista Inativos](../../../static/img/screenshots/admin-002-inactive-list-as-is.png)
+![Lista Inativos](/img/screenshots/admin-002-inactive-list-as-is.png)
 *Filtro aplicado mostrando apenas alunos inativos*
 
 ### Análise Temporal
-![Temporal](../../../static/img/screenshots/admin-002-temporal-analysis-as-is.png)
+![Temporal](/img/screenshots/admin-002-temporal-analysis-as-is.png)
 *Horários de pico, distribuição horária e duração de sessões*
 
 ### Correlação com Desempenho
-![Correlação](../../../static/img/screenshots/admin-002-correlation-as-is.png)
+![Correlação](/img/screenshots/admin-002-correlation-as-is.png)
 *Scatter plot e análise de quadrantes*
 
 ### Detalhes de Acesso Individual
-![Detalhes](../../../static/img/screenshots/admin-002-student-details-as-is.png)
+![Detalhes](/img/screenshots/admin-002-student-details-as-is.png)
 *Timeline de acessos e padrão semanal*
 
 ## 11. Melhorias TO-BE
@@ -1731,7 +1731,7 @@ describe('StudentList - Navegação para Detalhes', () => {
 
 ## Dependências Relacionadas
 
-- **[ADMIN-001: Mission Reports](./mission-reports.md)** - Dados de desempenho usados na correlação
+- **[ADMIN-001: Mission Reports](../coordinator/mission-reports.md)** - Dados de desempenho usados na correlação
 - **[PROF-005: Student Records](../teacher/student-records.md)** - Dados individuais de alunos
 - **[Architecture: DDD Pattern](../../architecture/intro.md)** - Padrão arquitetural seguido
 - **[API Documentation](#)** - Especificação completa dos endpoints

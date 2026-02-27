@@ -16,7 +16,7 @@ const popularDocs: PopularDoc[] = [
     icon: 'description',
     title: 'Template PRD',
     description: 'Modelo completo para Product Requirements Documents',
-    href: '/docs/produto/template-prd',
+    href: '/docs/prds/template',
     badge: 'Template'
   },
   {

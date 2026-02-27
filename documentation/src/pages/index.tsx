@@ -105,7 +105,7 @@ const categories = [
     color: '#00CFE8',
     links: [
       { label: 'Guias Práticos', href: '/docs/guides' },
-      { label: 'Meta Documentação', href: '/docs/meta' },
+      { label: 'Editando Docs', href: '/docs/guides/editing-docs' },
       { label: 'Ver FAQ', href: '/docs/intro' }
     ]
   }

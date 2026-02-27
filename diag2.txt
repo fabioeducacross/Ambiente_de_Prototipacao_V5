@@ -1,0 +1,11 @@
+=== ERRORS ===
+none
+
+=== BUTTONS ===
+[enabled] class="btn d-flex align-items-center gap-2 btn-outline-pr" | "joystickVisão aluno"
+[enabled] class="nav-link d-flex align-items-center gap-2 dropdown-" | "Isabela CrossProfessor"
+[enabled] class="nav-item" | "micFluência Leitora"
+[enabled] class="nav-item" | "account_balanceAcademia Educacross"
+
+=== LAST CARD HTML (first 500 chars) ===
+N/A

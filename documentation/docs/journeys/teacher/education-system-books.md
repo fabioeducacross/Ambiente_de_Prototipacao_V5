@@ -159,12 +159,12 @@ graph TD
 <!-- Capturar de: educacross-frontoffice rodando localmente -->
 <!-- URL: /education-system/books/:educationSystemId -->
 <!-- Mostrar: Grid completo com múltiplos cards, filtros no topo, legendas embaixo -->
-![Screenshot AS-IS: Grid de Livros do Sistema Educacional](../../../static/img/screenshots/prof-001-books-grid-as-is.png)
+![Screenshot AS-IS: Grid de Livros do Sistema Educacional](/img/screenshots/prof-001-books-grid-as-is.png)
 
 **Detalhe: Card Individual de Livro**
 <!-- IMAGEM: Close-up de um card específico -->
 <!-- Mostrar: Capa do livro, nome, barra de progresso, badge de rendimento, botão -->
-![Screenshot AS-IS: Card Individual com Indicadores](../../../static/img/screenshots/prof-001-book-card-detail.png)
+![Screenshot AS-IS: Card Individual com Indicadores](/img/screenshots/prof-001-book-card-detail.png)
 
 **Tela 2: Lista de Missões (destino)**
 - Componente: `src/views/pages/teacher-context/educationSystem/missions/Index.vue`
@@ -173,7 +173,7 @@ graph TD
 <!-- IMAGEM: Screenshot da tela de missões (para contexto) -->
 <!-- Capturar de: educacross-frontoffice -->
 <!-- URL: /education-system/missions/:bookId -->
-![Screenshot AS-IS: Tela de Missões do Livro](../../../static/img/screenshots/prof-001-missions-destination.png)
+![Screenshot AS-IS: Tela de Missões do Livro](/img/screenshots/prof-001-missions-destination.png)
 
 ## <span class="material-symbols-outlined">sentiment_dissatisfied</span> Pontos de Dor (Pain Points)
 

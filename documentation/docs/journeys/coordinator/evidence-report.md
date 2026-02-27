@@ -1636,27 +1636,27 @@ Content-Disposition: attachment; filename="portfolio-ana-silva-2024-02-03.pdf"
 ## 10. Screenshots (AS-IS)
 
 ### Dashboard - Visão Geral
-![Dashboard](../../../static/img/screenshots/admin-003-dashboard-as-is.png)
+![Dashboard](/img/screenshots/admin-003-dashboard-as-is.png)
 *KPIs de produção, distribuição por tipo, top produtores*
 
 ### Galeria - Grid View
-![Galeria Grid](../../../static/img/screenshots/admin-003-gallery-grid-as-is.png)
+![Galeria Grid](/img/screenshots/admin-003-gallery-grid-as-is.png)
 *Grid de evidências com thumbnails e filtros*
 
 ### Galeria - List View
-![Galeria Lista](../../../static/img/screenshots/admin-003-gallery-list-as-is.png)
+![Galeria Lista](/img/screenshots/admin-003-gallery-list-as-is.png)
 *Tabela com detalhes e ações*
 
 ### Lightbox - Detalhes da Evidência
-![Lightbox](../../../static/img/screenshots/admin-003-lightbox-as-is.png)
+![Lightbox](/img/screenshots/admin-003-lightbox-as-is.png)
 *Visualização em tamanho real com painel de curadoria*
 
 ### Análise de Participação
-![Participação](../../../static/img/screenshots/admin-003-participation-as-is.png)
+![Participação](/img/screenshots/admin-003-participation-as-is.png)
 *Histograma e tabela de alunos*
 
 ### Análise Temporal
-![Temporal](../../../static/img/screenshots/admin-003-temporal-as-is.png)
+![Temporal](/img/screenshots/admin-003-temporal-as-is.png)
 *Volume ao longo do tempo e distribuição horária*
 
 ## 11. Melhorias TO-BE
@@ -1902,7 +1902,7 @@ describe('EvidenceLightbox - Highlight Feature', () => {
 ## Dependências Relacionadas
 
 - **[ADMIN-001: Mission Reports](./mission-reports.md)** - Missões geram evidências
-- **[ADMIN-002: Student Access Report](./student-access-report.md)** - Correlação entre acesso e produção
+- **[ADMIN-002: Student Access Report](../director/student-access-report.md)** - Correlação entre acesso e produção
 - **[PROF-002: Education System Missions](../teacher/education-system-missions.md)** - Configuração de missões com evidências
 - **[PROF-005: Student Records](../teacher/student-records.md)** - Evidências aparecem no perfil do aluno
 - **[Architecture: DDD Pattern](../../architecture/intro.md)** - Padrão arquitetural seguido

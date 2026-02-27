@@ -35,23 +35,34 @@ npm install
 
 ## 💻 Uso
 
-### Desenvolvimento
+### Desenvolvimento — todos os servidores de uma vez
 
 ```bash
-# Iniciar o servidor de desenvolvimento
-npm run dev
+# Na raiz do projeto — inicia os 3 servidores simultaneamente
+npm run dev:all
 ```
 
-O servidor será iniciado em [http://localhost:5173](http://localhost:5173)
+| Servidor | URL | Descrição |
+|----------|-----|-----------|
+| `[ROOT]`  | http://localhost:5173 | Vite raiz (serve FrontOffice) |
+| `[FO]`    | http://localhost:5174 | FrontOffice — protótipos por persona |
+| `[DOCS]`  | http://localhost:3000/Ambiente_de_Prototipacao_V5/wiki/ | Wiki Docusaurus |
+
+> O `dev:all` mata automaticamente processos nas portas 5173, 5174 e 3000 antes de iniciar — pode rodar mesmo se os servidores já estiverem rodando ou tiverem travado.
+
+### Servidores individuais
+
+```bash
+npm run dev          # ROOT Vite (porta 5173)
+npm run dev:fo       # FrontOffice (porta 5174)
+npm run dev:docs     # Docusaurus wiki (porta 3000)
+```
 
 ### Build para Produção
 
 ```bash
-# Criar build de produção
-npm run build
-
-# Visualizar build de produção localmente
-npm run preview
+npm run build    # Build do FrontOffice
+npm run preview  # Preview do build localmente
 ```
 
 ### Publicação (GitHub Pages)

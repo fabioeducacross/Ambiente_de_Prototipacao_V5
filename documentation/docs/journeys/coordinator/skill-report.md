@@ -1839,27 +1839,27 @@ Content-Disposition: attachment; filename="relatorio-habilidades-bncc-7ano-2024-
 ## 10. Screenshots (AS-IS)
 
 ### Dashboard - Visão Geral
-![Dashboard](../../../static/img/screenshots/admin-004-dashboard-as-is.png)
+![Dashboard](/img/screenshots/admin-004-dashboard-as-is.png)
 *KPIs de proficiência, distribuição por nível, lacunas críticas*
 
 ### Mapa de Competências - Heatmap
-![Mapa de Competências](../../../static/img/screenshots/admin-004-heatmap-as-is.png)
+![Mapa de Competências](/img/screenshots/admin-004-heatmap-as-is.png)
 *Heatmap visual de domínio de habilidades*
 
 ### Matriz Habilidades × Alunos
-![Matriz](../../../static/img/screenshots/admin-004-matrix-as-is.png)
+![Matriz](/img/screenshots/admin-004-matrix-as-is.png)
 *Matriz interativa com badges de nível*
 
 ### Análise de Lacunas
-![Lacunas](../../../static/img/screenshots/admin-004-gaps-as-is.png)
+![Lacunas](/img/screenshots/admin-004-gaps-as-is.png)
 *Lacunas críticas com recomendações*
 
 ### Comparativo - Aluno vs Turma
-![Comparativo](../../../static/img/screenshots/admin-004-comparative-as-is.png)
+![Comparativo](/img/screenshots/admin-004-comparative-as-is.png)
 *Gráfico comparativo por componente*
 
 ### Perfil de Habilidades do Aluno
-![Perfil Aluno](../../../static/img/screenshots/admin-004-student-profile-as-is.png)
+![Perfil Aluno](/img/screenshots/admin-004-student-profile-as-is.png)
 *Radar chart + lista detalhada de habilidades*
 
 ## 11. Melhorias TO-BE
@@ -2099,7 +2099,7 @@ describe('SkillMatrix - Student Profile Navigation', () => {
 ## Dependências Relacionadas
 
 - **[ADMIN-001: Mission Reports](./mission-reports.md)** - Missões geram dados de proficiência em habilidades
-- **[ADMIN-002: Student Access Report](./student-access-report.md)** - Correlação entre acesso e desenvolvimento
+- **[ADMIN-002: Student Access Report](../director/student-access-report.md)** - Correlação entre acesso e desenvolvimento
 - **[ADMIN-003: Evidence Report](./evidence-report.md)** - Evidências demonstram domínio de habilidades
 - **[PROF-002: Education System Missions](../teacher/education-system-missions.md)** - Missões mapeadas para habilidades BNCC
 - **[PROF-005: Student Records](../teacher/student-records.md)** - Habilidades aparecem no perfil do aluno

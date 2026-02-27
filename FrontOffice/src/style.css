@@ -120,10 +120,10 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px 0 rgba(34, 41, 47, 0.08);
+  --shadow-md: 0 5px 20px 0 rgba(34, 41, 47, 0.1);
+  --shadow-lg: 0 8px 24px 0 rgba(34, 41, 47, 0.15);
+  --shadow-xl: 0 14px 40px 0 rgba(34, 41, 47, 0.18);
 
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
@@ -295,11 +295,18 @@ body {
    =================================== */
 
 .card {
+  /* Sobrescreve as vars internas do Bootstrap 5 / bootstrap-vue-next */
+  --bs-card-border-radius: var(--radius-lg);
+  --bs-card-inner-border-radius: calc(var(--radius-lg) - 1px);
+  --bs-card-box-shadow: var(--shadow-md);
+  --bs-card-border-color: transparent;
+
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
+  border: none;
   overflow: hidden;
-  transition: all var(--transition-base);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .card:hover {
@@ -954,4 +961,42 @@ body {
   .toast {
     width: 100%;
   }
+}
+
+/* ─── Vuexy Utility Classes (globais) ──────────────────────────────────────── */
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-normal {
+  font-weight: 400 !important;
+}
+
+.font-14 {
+  font-size: 14px !important;
+}
+
+/* ─── Alert Vuexy (replica bootstrap-vue Vuexy theme) ──────────────────────── */
+.alert {
+  border-radius: .428rem;
+  padding: 0;
+}
+
+.alert-body {
+  padding: .71rem 1.25rem;
+  color: #5e5873;
+  font-size: .9rem;
+}
+
+.alert-primary {
+  background: rgba(115, 103, 240, 0.12) !important;
+  border-color: rgba(115, 103, 240, 0.12) !important;
+}
+
+.alert-primary .alert-body {
+  color: #5e5873;
+}
+
+.alert-primary .material-symbols-outlined {
+  color: #7367F0;
 }

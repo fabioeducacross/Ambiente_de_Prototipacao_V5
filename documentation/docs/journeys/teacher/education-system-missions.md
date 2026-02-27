@@ -222,22 +222,22 @@ graph TD
 <!-- Capturar de: educacross-frontoffice rodando localmente -->
 <!-- URL: /education-system/missions/:bookId -->
 <!-- Mostrar: Filtros no topo, tabela com múltiplas missões, legendas embaixo -->
-![Screenshot AS-IS: Lista de Missões do Livro](../../../static/img/screenshots/prof-002-mission-list-as-is.png)
+![Screenshot AS-IS: Lista de Missões do Livro](/img/screenshots/prof-002-mission-list-as-is.png)
 
 **Detalhe: Linha da Tabela com Ações**
 <!-- IMAGEM: Close-up de uma linha da tabela -->
 <!-- Mostrar: Nome da missão, barra de progresso, badge de rendimento, status, ícones de ação -->
-![Screenshot AS-IS: Linha de Missão com Ações](../../../static/img/screenshots/prof-002-mission-row-detail.png)
+![Screenshot AS-IS: Linha de Missão com Ações](/img/screenshots/prof-002-mission-row-detail.png)
 
 **Modal: Habilitar Missão**
 <!-- IMAGEM: Screenshot do modal de habilitação -->
 <!-- Mostrar: Modal com título, campo de data/hora, botões Cancelar/Confirmar -->
-![Screenshot AS-IS: Modal de Habilitar Missão](../../../static/img/screenshots/prof-002-enable-modal.png)
+![Screenshot AS-IS: Modal de Habilitar Missão](/img/screenshots/prof-002-enable-modal.png)
 
 **Modal: Detalhes Missão Plus**
 <!-- IMAGEM: Screenshot do modal de detalhes -->
 <!-- Mostrar: Modal com descrição, objetivos, preview de questões -->
-![Screenshot AS-IS: Modal de Detalhes Missão Plus](../../../static/img/screenshots/prof-002-details-modal.png)
+![Screenshot AS-IS: Modal de Detalhes Missão Plus](/img/screenshots/prof-002-details-modal.png)
 
 ## <span class="material-symbols-outlined">sentiment_dissatisfied</span> Pontos de Dor (Pain Points)
 

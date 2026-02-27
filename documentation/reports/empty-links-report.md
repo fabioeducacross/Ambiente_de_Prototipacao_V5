@@ -1,6 +1,6 @@
 # Relatório: Links para Páginas Sem Conteúdo
 
-Gerado em: 2026-02-25 | Arquivos analisados: 85
+Gerado em: 2026-02-25 | Arquivos analisados: 90
 
 ---
 
@@ -8,9 +8,9 @@ Gerado em: 2026-02-25 | Arquivos analisados: 85
 
 | Tipo | Quantidade |
 |------|-----------|
-| Links quebrados (destino não existe) | 110 |
+| Links quebrados (destino não existe) | 84 |
 | Links para páginas stub | 0 |
-| Links para páginas placeholder | 68 |
+| Links para páginas placeholder | 84 |
 | Páginas stub (autônomas) | 0 |
 | Páginas placeholder (autônomas) | 21 |
 
@@ -33,18 +33,8 @@ Gerado em: 2026-02-25 | Arquivos analisados: 85
 | `decisions/template.md` | Jornada do Aluno | `../journeys/student/missions-ranking.md` |
 | `decisions/template.md` | PRD: Sistema de Ranking | `../prds/prd-ranking.md` |
 | `design-system/integration.md` | exemplos de protótipos | `/docs/prototypes` |
-| `discovery/gestor.md` | ADMIN-006: User Management | `../journeys/admin/user-management` |
-| `discovery/gestor.md` | ADMIN-001: Mission Reports | `../journeys/admin/mission-reports` |
-| `discovery/gestor.md` | ADMIN-006: User Management | `../journeys/admin/user-management` |
-| `discovery/gestor.md` | ADMIN-004: Skill Report | `../journeys/admin/skill-report` |
-| `discovery/gestor.md` | Ver todas as jornadas de Gestor | `../journeys/admin/` |
-| `discovery/gestor.md` | Persona: Gestor | `../personas/gestor` |
-| `fluxos/aceitar-recusar-perfil.md` | Gestor/Admin | `../personas/gestor` |
 | `fluxos/aceitar-recusar-perfil.md` | Modal Recusar Perfil | `/img/fluxos/modal-recusar-perfil.png` |
-| `fluxos/aceitar-recusar-perfil.md` | Persona: Gestor | `../personas/gestor` |
 | `fluxos/aceitar-recusar-perfil.md` | Jornadas Admin | `../journeys/admin/` |
-| `fluxos/gerar-relatorio.md` | Gestor | `../personas/gestor` |
-| `fluxos/gerar-relatorio.md` | Persona: Gestor | `../personas/gestor` |
 | `getting-started/intro.md` | Começar | `/docs/getting-started/intro` |
 | `getting-started/intro.md` | Jornadas | `/docs/journeys` |
 | `getting-started/intro.md` | Protótipos | `/docs/prototypes` |
@@ -79,21 +69,6 @@ Gerado em: 2026-02-25 | Arquivos analisados: 85
 | `journeys/coordinator/mission-reports.md` | PROF-004: Events Management | `/journeys/teacher/events-management` |
 | `journeys/coordinator/skill-report.md` | ADMIN-002: Student Access Report | `./student-access-report.md` |
 | `journeys/director/student-access-report.md` | ADMIN-001: Mission Reports | `./mission-reports.md` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/login-flow` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/mission-management` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/class-reports` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/create-mission-scratch` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/book-consultation` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/my-games` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/performance-report` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/student-report` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/skills-report` |
-| `journeys/index.md` | Ver Detalhe | `./teacher/students-list` |
-| `journeys/index.md` | Ver Detalhe | `./student/mission-execution` |
-| `journeys/intro.md` | Admin | `./admin/` |
-| `journeys/intro.md` | Events Management | `./teacher/events` |
-| `journeys/intro.md` | Mission Reports | `./admin/mission-reports` |
-| `journeys/intro.md` | <IconAdmin size={16} /> Jornadas Administrativas | `./admin/` |
 | `journeys/network-manager/network-management.md` | ADMIN-002: Student Access Report | `./student-access-report.md` |
 | `journeys/network-manager/network-management.md` | ADMIN-006: User Management | `./user-management.md` |
 | `journeys/student/index.md` | PLANO.md | `../../../../PLANO.md#-jornadas-prioritárias` |
@@ -125,7 +100,6 @@ Gerado em: 2026-02-25 | Arquivos analisados: 85
 | `prds/template.md` | Protótipo no Figma | `link-para-figma` |
 | `prds/template.md` | Decision Record Relacionado | `../decisions/pdr-xxx.md` |
 | `product-strategy/vision.md` | Roadmap | `../roadmap/` |
-| `produto/index.md` | <IconAdmin /> Gestor/Admin | `../personas/gestor` |
 | `prototypes/index.md` | Modal Recusar Perfil | `/img/fluxos/modal-recusar-perfil.png` |
 | `prototypes/index.md` | guia de configuração | `/docs/getting-started/setup` |
 | `prototypes/index.md` | template de jornada | `/docs/templates/journey-template` |
@@ -160,6 +134,10 @@ _Nenhum link para página stub encontrado._
 | `decisions/index.md` | PDR-002: Missões Não Desabilitáveis | `decisions/template.md` | `TODO` |
 | `decisions/index.md` | **Product Vision & Strategy** | `product-strategy/vision.md` | `Em construção`, `TODO` |
 | `decisions/index.md` | Product Vision | `product-strategy/vision.md` | `Em construção`, `TODO` |
+| `discovery/gestor.md` | ADMIN-006: User Management | `journeys/administrator/user-management.md` | `placeholder` |
+| `discovery/gestor.md` | ADMIN-001: Mission Reports | `journeys/coordinator/mission-reports.md` | `placeholder` |
+| `discovery/gestor.md` | ADMIN-006: User Management | `journeys/administrator/user-management.md` | `placeholder` |
+| `discovery/gestor.md` | ADMIN-004: Skill Report | `journeys/coordinator/skill-report.md` | `placeholder` |
 | `discovery/professor.md` | PROF-001: Education System Books | `journeys/teacher/education-system-books.md` | `em breve` |
 | `discovery/professor.md` | PROF-002: Education System Missions | `journeys/teacher/education-system-missions.md` | `em breve` |
 | `discovery/professor.md` | PROF-003: Custom Missions | `journeys/teacher/custom-missions.md` | `placeholder` |
@@ -183,12 +161,18 @@ _Nenhum link para página stub encontrado._
 | `journeys/director/student-access-report.md` | PROF-005: Student Records | `journeys/teacher/student-records.md` | `placeholder` |
 | `journeys/director/student-access-report.md` | Architecture: DDD Pattern | `architecture/intro.md` | `Em construção` |
 | `journeys/director/student-access-report.md` | Prototypes TO-BE | `prototypes/intro.md` | `Será criado` |
+| `journeys/index.md` | Ver Detalhe | `journeys/teacher/education-system-missions.md` | `em breve` |
+| `journeys/index.md` | Ver Detalhe | `journeys/teacher/custom-missions.md` | `placeholder` |
+| `journeys/index.md` | Ver Detalhe | `journeys/teacher/education-system-books.md` | `em breve` |
+| `journeys/index.md` | Ver Detalhe | `journeys/teacher/student-records.md` | `placeholder` |
+| `journeys/index.md` | Ver Detalhe | `journeys/teacher/student-progress-tracking.md` | `placeholder` |
 | `journeys/index.md` | Ver Detalhe | `journeys/administrator/user-management.md` | `placeholder` |
 | `journeys/index.md` | Ver Detalhe | `journeys/coordinator/mission-reports.md` | `placeholder` |
 | `journeys/index.md` | Ver Detalhe | `journeys/coordinator/skill-report.md` | `placeholder` |
 | `journeys/index.md` | Ver Detalhe | `journeys/director/student-access-report.md` | `placeholder` |
 | `journeys/intro.md` | Education System Books | `journeys/teacher/education-system-books.md` | `em breve` |
 | `journeys/intro.md` | Custom Missions | `journeys/teacher/custom-missions.md` | `placeholder` |
+| `journeys/intro.md` | Mission Reports | `journeys/coordinator/mission-reports.md` | `placeholder` |
 | `journeys/teacher/classes-records.md` | PROF-005: Student Records | `journeys/teacher/student-records.md` | `placeholder` |
 | `journeys/teacher/classes-records.md` | PROF-002: Education System Missions | `journeys/teacher/education-system-missions.md` | `em breve` |
 | `journeys/teacher/classes-records.md` | Architecture: DDD Pattern | `architecture/intro.md` | `Em construção` |
@@ -204,6 +188,7 @@ _Nenhum link para página stub encontrado._
 | `journeys/teacher/index.md` | PROF-010: Parent Communication | `journeys/teacher/parent-communication.md` | `placeholder` |
 | `journeys/teacher/mission-analytics.md` | PROF-002: Education System Missions | `journeys/teacher/education-system-missions.md` | `em breve` |
 | `journeys/teacher/mission-analytics.md` | PROF-005: Student Records | `journeys/teacher/student-records.md` | `placeholder` |
+| `journeys/teacher/my-games.md` | Sistema Educacional: Livros | `journeys/teacher/education-system-books.md` | `em breve` |
 | `journeys/teacher/parent-communication.md` | PROF-008: Student Progress Tracking | `journeys/teacher/student-progress-tracking.md` | `placeholder` |
 | `journeys/teacher/parent-communication.md` | PROF-005: Student Records | `journeys/teacher/student-records.md` | `placeholder` |
 | `journeys/teacher/professional-development.md` | PROF-009: Collaborative Planning | `journeys/teacher/collaborative-planning.md` | `placeholder` |
@@ -211,10 +196,15 @@ _Nenhum link para página stub encontrado._
 | `journeys/teacher/student-records.md` | PROF-002: Education System Missions | `journeys/teacher/education-system-missions.md` | `em breve` |
 | `journeys/teacher/student-records.md` | Architecture: DDD Pattern | `architecture/intro.md` | `Em construção` |
 | `journeys/teacher/student-records.md` | Prototypes TO-BE | `prototypes/intro.md` | `Será criado` |
+| `journeys/teacher/students-list.md` | Student Records | `journeys/teacher/student-records.md` | `placeholder` |
 | `personas/administrator.md` | Gestão de Usuários | `journeys/administrator/user-management.md` | `placeholder` |
 | `personas/coordinator.md` | Relatório de Missões | `journeys/coordinator/mission-reports.md` | `placeholder` |
 | `personas/coordinator.md` | Relatório de Habilidades | `journeys/coordinator/skill-report.md` | `placeholder` |
 | `personas/director.md` | Relatório de Acessos | `journeys/director/student-access-report.md` | `placeholder` |
+| `personas/gestor.md` | Relatório de Missões | `journeys/coordinator/mission-reports.md` | `placeholder` |
+| `personas/gestor.md` | Relatório de Habilidades | `journeys/coordinator/skill-report.md` | `placeholder` |
+| `personas/gestor.md` | Relatório de Acesso Escolar | `journeys/director/student-access-report.md` | `placeholder` |
+| `personas/gestor.md` | Gestão de Usuários e Acessos | `journeys/administrator/user-management.md` | `placeholder` |
 | `prds/index.md` | **Product Vision & Strategy** | `product-strategy/vision.md` | `Em construção`, `TODO` |
 | `prds/template.md` | Jornada Relacionada | `journeys/teacher/custom-missions.md` | `placeholder` |
 | `prototypes/intro.md` | PROF-001: Books | `journeys/teacher/education-system-books.md` | `em breve` |

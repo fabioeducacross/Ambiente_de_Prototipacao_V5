@@ -1200,10 +1200,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard](../../../static/img/screenshots/admin-006-dashboard-as-is.png)
+![Dashboard](/img/screenshots/admin-006-dashboard-as-is.png)
 *Dashboard de usuários com KPIs*
 
-![Matriz RBAC](../../../static/img/screenshots/admin-006-permissions-as-is.png)
+![Matriz RBAC](/img/screenshots/admin-006-permissions-as-is.png)
 *Matriz de permissões granulares*
 
 ## 11. Melhorias TO-BE
@@ -1271,7 +1271,7 @@ describe('useUserManagement', () => {
 
 ## Dependências Relacionadas
 
-- **[ADMIN-005: Network Management](./network-management.md)** - Gestão de usuários por instituição
+- **[ADMIN-005: Network Management](../network-manager/network-management.md)** - Gestão de usuários por instituição
 - **[PROF-010: Parent Communication](../teacher/parent-communication.md)** - Gestão de responsáveis
 
 ---

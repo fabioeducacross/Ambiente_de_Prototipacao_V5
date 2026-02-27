@@ -1,0 +1,46 @@
+
+Running 5 tests using 1 worker
+
+  Ô£ô  1 tests\se-04-drawer-regras.spec.ts:74:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-01 | Bot├úo do footer tem label "Enviar" no primeiro envio (n├úo "Habilitar e enviar") (4.4s)
+  Ô£ô  2 tests\se-04-drawer-regras.spec.ts:96:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-02 | Hint do drawer exibe ├¡cone "info" (Material Symbols) (4.0s)
+  Ô£ÿ  3 tests\se-04-drawer-regras.spec.ts:116:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-03 | Bot├úo Enviar n├úo est├í disabled quando h├í eleg├¡veis mas nenhum selecionado (31.3s)
+  -  4 tests\se-04-drawer-regras.spec.ts:138:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-04 | Enviar sem selecionar ÔåÆ todos eleg├¡veis s├úo enviados ÔåÆ INICIADA
+  -  5 tests\se-04-drawer-regras.spec.ts:163:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-05 | Rendimento m├®dio exibe "ÔÇô" quando status ├® N├âO ENVIADA
+
+
+  1) tests\se-04-drawer-regras.spec.ts:116:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-03 | Bot├úo Enviar n├úo est├í disabled quando h├í eleg├¡veis mas nenhum selecionado 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).not.[22mtoBeChecked[2m([22m[2m)[22m failed
+
+    Locator:  locator('.drawer-table tbody input[type="checkbox"]').nth(14)
+    Expected: not checked
+    Received: checked
+
+    Call log:
+    [2m  - Expect "not toBeChecked" with timeout 5000ms[22m
+    [2m  - waiting for locator('.drawer-table tbody input[type="checkbox"]').nth(14)[22m
+
+
+      126 |         expect(count).toBeGreaterThan(0)
+      127 |         for (let i = 0; i < count; i++) {
+    > 128 |             await expect(checkboxes.nth(i)).not.toBeChecked()
+          |                                                 ^
+      129 |         }
+      130 |
+      131 |         // Bot├úo prim├írio N├âO deve estar desabilitado
+        at C:\Users\Educacross\Documents\Educacross\Ambiente_de_Prototipacao_V5\mcp-playwright\tests\se-04-drawer-regras.spec.ts:128:49
+
+    attachment #1: screenshot (image/png) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+    test-results\se-04-drawer-regras-Drawer-a128c-veis-mas-nenhum-selecionado\test-failed-1.png
+    ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error Context: test-results\se-04-drawer-regras-Drawer-a128c-veis-mas-nenhum-selecionado\error-context.md
+
+  1 failed
+    tests\se-04-drawer-regras.spec.ts:116:5 ÔÇ║ Drawer ÔÇö Regras da sess├úo 25/02/2026 ÔÇ║ DW-03 | Bot├úo Enviar n├úo est├í disabled quando h├í eleg├¡veis mas nenhum selecionado 
+  2 did not run
+  2 passed (1.0m)
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m

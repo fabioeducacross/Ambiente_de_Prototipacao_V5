@@ -6,6 +6,10 @@
   "scripts": {
     "start": "npm run start --prefix documentation",
     "dev": "vite",
+    "dev:fo": "npm run dev --prefix FrontOffice",
+    "dev:docs": "npm start --prefix documentation",
+    "predev:all": "powershell -Command \"Get-NetTCPConnection -LocalPort 5173,5174,3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",
+    "dev:all": "concurrently --kill-others-on-fail -n ROOT,FO,DOCS -c blue,green,cyan \"vite --port 5173\" \"npm run dev --prefix FrontOffice\" \"npm start --prefix documentation\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -16,6 +20,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "concurrently": "^9.2.1",
     "vite": "^7.2.4"
   }
 }

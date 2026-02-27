@@ -885,10 +885,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard](../../../static/img/screenshots/prof-011-dashboard-as-is.png)
+![Dashboard](/img/screenshots/prof-011-dashboard-as-is.png)
 *Dashboard de desenvolvimento profissional*
 
-![Cursos](../../../static/img/screenshots/prof-011-courses-as-is.png)
+![Cursos](/img/screenshots/prof-011-courses-as-is.png)
 *Biblioteca de cursos*
 
 ## 11. Melhorias TO-BE

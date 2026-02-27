@@ -1055,10 +1055,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard Hero](../../../static/img/screenshots/student-001-dashboard-hero.png)
+![Dashboard Hero](/img/screenshots/student-001-dashboard-hero.png)
 *Hero com avatar gamificado e progresso de nível*
 
-![Missões Ativas](../../../static/img/screenshots/student-001-missions-cards.png)
+![Missões Ativas](/img/screenshots/student-001-missions-cards.png)
 *Cards de missões com badges de urgência*
 
 ## 11. Melhorias TO-BE
@@ -1132,8 +1132,8 @@ describe('useStudentDashboard', () => {
 
 ## Dependências Relacionadas
 
-- **[PROF-002: Mission Management](../teacher/mission-management.md)** - Professores criam missões que aparecem no dashboard do aluno
-- **[PROF-008: Student Progress Tracking](../teacher/student-progress.md)** - Dados de progresso do aluno
+- **[PROF-002: Education System Missions](../teacher/education-system-missions.md)** - Professores criam missões que aparecem no dashboard do aluno
+- **[PROF-008: Student Progress Tracking](../teacher/student-progress-tracking.md)** - Dados de progresso do aluno
 
 ---
 

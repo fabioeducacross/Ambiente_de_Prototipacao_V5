@@ -208,10 +208,15 @@ function vincularAlunos(chapterId, studentIds, endDate, startDate) {
     const chapter = getChapter(chapterId)
     if (!chapter) return
 
+    // Atualiza fim ANTES da checagem de inicio — senão o auto-fill não detecta que já tem fim
+    if (endDate) {
+        chapter.fim = endDate
+    }
+
     // Se forneceu data de início explícita, usa ela; caso contrário auto-define
     if (startDate) {
         chapter.inicio = startDate
-    } else if (chapter.periodEnabled && chapter.fim && !chapter.inicio) {
+    } else if (chapter.periodEnabled && (chapter.fim || endDate) && !chapter.inicio) {
         chapter.inicio = todayISO()
     }
 
@@ -219,10 +224,6 @@ function vincularAlunos(chapterId, studentIds, endDate, startDate) {
         const entry = chapter.studentsData.find(sd => sd.studentId === sid)
         if (entry) entry.isLinked = true
     })
-
-    if (endDate) {
-        chapter.fim = endDate
-    }
 
     if (studentIds.length > 0) {
         // Inicia simulação de conclusão: progresso 0→100% (30s) + FINALIZADA (60s)

@@ -1,5 +1,5 @@
-// Placeholder - to be implemented in Phase 2
 import React from 'react';
+import Link from '@docusaurus/Link';
 import styles from './CategoryCard.module.css';
 
 export interface CategoryCardProps {
@@ -55,9 +55,9 @@ export default function CategoryCard({
       <ul className={styles.linkList}>
         {links.map((link, idx) => (
           <li key={idx}>
-            <a href={link.href} className={styles.link}>
+            <Link to={link.href} className={styles.link}>
               {link.label} →
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

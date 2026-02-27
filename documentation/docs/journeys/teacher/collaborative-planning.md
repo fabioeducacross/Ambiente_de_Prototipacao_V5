@@ -1041,10 +1041,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Workspaces](../../../static/img/screenshots/prof-009-workspaces-as-is.png)
+![Workspaces](/img/screenshots/prof-009-workspaces-as-is.png)
 *Lista de workspaces*
 
-![Editor](../../../static/img/screenshots/prof-009-editor-as-is.png)
+![Editor](/img/screenshots/prof-009-editor-as-is.png)
 *Editor colaborativo*
 
 ## 11. Melhorias TO-BE

@@ -295,8 +295,8 @@ Então vamos:
 ### 6.3 Impacto em PRDs
 
 **PRDs afetados:**
-- [PRD-AAA](../prds/prd-aaa.md): Seção X precisa ser atualizada
-- [PRD-BBB](../prds/prd-bbb.md): Requisito RF-05 não é mais necessário
+<!-- - [PRD-AAA](../prds/prd-aaa.md): Seção X precisa ser atualizada — substituir pelo PRD real quando criado -->
+<!-- - [PRD-BBB](../prds/prd-bbb.md): Requisito RF-05 não é mais necessário — substituir pelo PRD real quando criado -->
 
 ---
 
@@ -342,9 +342,9 @@ Então vamos:
 - [Artigo/Paper](link): _"Competição desmotiva quando gap é muito grande (Dweck, 2006)"_
 
 **Documentos relacionados:**
-- [Jornada do Aluno](../journeys/student/missions-ranking.md)
+<!-- - [Jornada do Aluno](../journeys/student/missions-ranking.md) — substituir pelo arquivo real quando criado -->
 - [Persona: Aluno Escola Pública](../personas/aluno.md)
-- [PRD: Sistema de Ranking](../prds/prd-ranking.md)
+<!-- - [PRD: Sistema de Ranking](../prds/prd-ranking.md) — substituir pelo arquivo real quando criado -->
 
 ---
 

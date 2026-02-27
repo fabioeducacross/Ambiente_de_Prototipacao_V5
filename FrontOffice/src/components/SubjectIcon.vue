@@ -32,6 +32,38 @@
     </defs>
   </svg>
 
+  <!-- Matemática Inglês (math icon + bandeira EUA overlay) -->
+  <svg v-else-if="subject === 'matematica-ingles'" :width="size" :height="size" viewBox="0 0 43 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect y="0.5" width="36" height="36" rx="4" fill="#00BDB8" />
+    <g :clip-path="`url(#clip_mathing_${uid})`">
+      <path d="M27.2285 7.25H8.77148C7.65689 7.25 6.75 8.15689 6.75 9.27148V27.7285C6.75 28.8431 7.65689 29.75 8.77148 29.75H27.2285C28.3431 29.75 29.25 28.8431 29.25 27.7285V9.27148C29.25 8.15689 28.3431 7.25 27.2285 7.25ZM27.9316 9.27148V17.8408H18.6592V8.56836H27.2285C27.6161 8.56836 27.9316 8.88387 27.9316 9.27148ZM8.77148 8.56836H17.3408V17.8408H8.06836V9.27148C8.06836 8.88387 8.38387 8.56836 8.77148 8.56836ZM8.06836 27.7285V19.1592H17.3408V28.4316H8.77148C8.38387 28.4316 8.06836 28.1161 8.06836 27.7285ZM27.2285 28.4316H18.6592V19.1592H27.9316V27.7285C27.9316 28.1161 27.6161 28.4316 27.2285 28.4316Z" fill="white" />
+      <path d="M10.0898 13.8857H12.0674V15.8633C12.0674 16.2274 12.3625 16.5225 12.7266 16.5225C13.0907 16.5225 13.3857 16.2274 13.3857 15.8633V13.8857H15.3633C15.7274 13.8857 16.0225 13.5907 16.0225 13.2266C16.0225 12.8625 15.7274 12.5674 15.3633 12.5674H13.3857V10.5898C13.3857 10.2257 13.0907 9.93066 12.7266 9.93066C12.3625 9.93066 12.0674 10.2257 12.0674 10.5898V12.5674H10.0898C9.72575 12.5674 9.43066 12.8625 9.43066 13.2266C9.43066 13.5907 9.72575 13.8857 10.0898 13.8857Z" fill="white" />
+      <path d="M20.6367 13.8857H25.9102C26.2743 13.8857 26.5693 13.5907 26.5693 13.2266C26.5693 12.8625 26.2743 12.5674 25.9102 12.5674H20.6367C20.2726 12.5674 19.9775 12.8625 19.9775 13.2266C19.9775 13.5907 20.2726 13.8857 20.6367 13.8857Z" fill="white" />
+      <path d="M15.3633 23.1143H10.0898C9.72575 23.1143 9.43066 23.4093 9.43066 23.7734C9.43066 24.1375 9.72575 24.4326 10.0898 24.4326H15.3633C15.7274 24.4326 16.0225 24.1375 16.0225 23.7734C16.0225 23.4093 15.7274 23.1143 15.3633 23.1143Z" fill="white" />
+      <path d="M26.0701 20.9768C25.8127 20.7195 25.3953 20.7195 25.1379 20.9768L23.2734 22.8412L21.409 20.9768C21.1515 20.7195 20.7342 20.7195 20.4767 20.9768C20.2194 21.2343 20.2194 21.6516 20.4767 21.9091L22.3411 23.7735L20.4767 25.6379C20.2194 25.8954 20.2194 26.3127 20.4767 26.5702C20.7342 26.8275 21.1515 26.8277 21.409 26.5702L23.2734 24.7058L25.1379 26.5702C25.3953 26.8275 25.8127 26.8277 26.0701 26.5702C26.3275 26.3127 26.3275 25.8954 26.0701 25.6379L24.2057 23.7735L26.0701 21.9091C26.3275 21.6516 26.3275 21.2343 26.0701 20.9768Z" fill="white" />
+      <path d="M13.3857 21.1367C13.3857 21.5008 13.0907 21.7959 12.7266 21.7959C12.3625 21.7959 12.0674 21.5008 12.0674 21.1367C12.0674 20.7726 12.3625 20.4775 12.7266 20.4775C13.0907 20.4775 13.3857 20.7726 13.3857 21.1367Z" fill="white" />
+      <path d="M13.3857 26.4102C13.3857 26.7743 13.0907 27.0693 12.7266 27.0693C12.3625 27.0693 12.0674 26.7743 12.0674 26.4102C12.0674 26.0461 12.3625 25.751 12.7266 25.751C13.0907 25.751 13.3857 26.0461 13.3857 26.4102Z" fill="white" />
+    </g>
+    <mask :id="`mask_mathing_${uid}`" maskUnits="userSpaceOnUse" x="20" y="18" width="23" height="24" style="mask-type: alpha">
+      <circle cx="31.5" cy="30" r="11.5" fill="#89AA00" />
+    </mask>
+    <g :mask="`url(#mask_mathing_${uid})`">
+      <rect x="20" y="18.5" width="23" height="23" fill="#FF3535" />
+      <rect x="20" y="30" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="20" y="34.14" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="20" y="38.28" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="20" y="25.86" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="20" y="21.72" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="20" y="17.58" width="23" height="2.07" fill="#FFFEFF" />
+      <rect x="17.7002" y="30" width="13.8" height="13.8" transform="rotate(-90 17.7002 30)" fill="#0066FF" />
+    </g>
+    <defs>
+      <clipPath :id="`clip_mathing_${uid}`">
+        <rect width="22.5" height="22.5" fill="white" transform="translate(6.75 7.25)" />
+      </clipPath>
+    </defs>
+  </svg>
+
   <!-- Fallback genérico: caixa cinza com ícone de livro -->
   <span v-else class="subject-icon-fallback material-symbols-outlined" :style="`font-size:${size}px`">menu_book</span>
 </template>
@@ -49,14 +81,18 @@ const props = defineProps({
 const uid = getCurrentInstance().uid
 
 const subjectMap = {
-  'matemática':         'matematica',
-  'matematica':         'matematica',
-  'math':               'matematica',
-  'português':          'portugues',
-  'portugues':          'portugues',
-  'português (brasil)': 'portugues',
-  'língua portuguesa':  'portugues',
-  'lingua portuguesa':  'portugues',
+  'matemática':             'matematica',
+  'matematica':             'matematica',
+  'math':                   'matematica',
+  'português':              'portugues',
+  'portugues':              'portugues',
+  'português (brasil)':     'portugues',
+  'língua portuguesa':      'portugues',
+  'lingua portuguesa':      'portugues',
+  'matemática inglês':      'matematica-ingles',
+  'matematica ingles':      'matematica-ingles',
+  'matemática inglês':      'matematica-ingles',
+  'math english':           'matematica-ingles',
 }
 
 const subject = computed(() => subjectMap[props.disciplina?.toLowerCase().trim()] ?? 'outro')

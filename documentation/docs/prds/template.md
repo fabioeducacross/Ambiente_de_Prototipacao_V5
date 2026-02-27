@@ -334,7 +334,7 @@ _"Agora você cria missões personalizadas em menos de 10 minutos! <span class="
 - [Protótipo no Figma](link-para-figma)
 - [Jornada Relacionada](../journeys/teacher/custom-missions.md)
 - [Regras de Negócio](../business-rules/)
-- [Decision Record Relacionado](../decisions/pdr-xxx.md)
+<!-- - [Decision Record Relacionado](../decisions/pdr-xxx.md) — substituir pelo PDR real, ex: PDR001-codificacao-eventos.md -->
 
 **Histórico de Decisões:**
 - YYYY-MM-DD: Decidimos usar wizard de 3 passos em vez de single-page (PDR-XXX)

@@ -22,12 +22,14 @@
       @keydown.space.prevent="switchDrop"
     >
       <!-- Single Selected Option Display -->
-      <span
+      <div
         v-if="!multiple && selectedOption"
-        class="selected-option-single"
+        class="selected-option-display"
       >
-        {{ getLabel(selectedOption) }}
-      </span>
+        <slot name="selected-option" v-bind="selectedOption">
+          <span class="selected-option-single">{{ getLabel(selectedOption) }}</span>
+        </slot>
+      </div>
 
       <!-- Placeholder Display -->
       <span v-if="!selectedOption && !multiple" class="text-muted">
@@ -444,6 +446,12 @@ defineExpose({
   opacity: 0.5;
   cursor: not-allowed;
   background-color: var(--gray-50);
+}
+
+.selected-option-display {
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .selected-option-single {

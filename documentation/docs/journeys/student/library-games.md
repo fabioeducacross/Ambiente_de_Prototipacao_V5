@@ -99,25 +99,25 @@ graph TD
 
 ### Biblioteca de Jogos (Grid)
 
-![Library Games: Grid de Jogos](../../../static/img/screenshots/student-003-games-grid-as-is.png)
+![Library Games: Grid de Jogos](/img/screenshots/student-003-games-grid-as-is.png)
 
 **Elementos**: Cards com thumbnail, título, disciplina, nível, rating, botão Play
 
 ### Detalhes do Jogo
 
-![Library Games: Detalhes do Jogo](../../../static/img/screenshots/student-003-game-detail-as-is.png)
+![Library Games: Detalhes do Jogo](/img/screenshots/student-003-game-detail-as-is.png)
 
 **Elementos**: Banner, descrição, conceitos praticados, dificuldade, tempo médio, botão Jogar, progresso anterior (se houver)
 
 ### Jogo em Execução
 
-![Library Games: Jogo em Execução](../../../static/img/screenshots/student-003-game-playing-as-is.png)
+![Library Games: Jogo em Execução](/img/screenshots/student-003-game-playing-as-is.png)
 
 **Elementos**: Iframe fullscreen com jogo HTML5, botões de controle (pausar, sair, volume)
 
 ### Conquistas Desbloqueadas
 
-![Library Games: Conquistas](../../../static/img/screenshots/student-003-achievements-as-is.png)
+![Library Games: Conquistas](/img/screenshots/student-003-achievements-as-is.png)
 
 **Elementos**: Lista de conquistas do jogo, XP ganho, progresso geral
 

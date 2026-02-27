@@ -1217,13 +1217,13 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard](../../../static/img/screenshots/prof-007-dashboard-as-is.png)
+![Dashboard](/img/screenshots/prof-007-dashboard-as-is.png)
 *Dashboard com KPIs e gráficos*
 
-![Questões](../../../static/img/screenshots/prof-007-questions-as-is.png)
+![Questões](/img/screenshots/prof-007-questions-as-is.png)
 *Lista de questões com métricas*
 
-![Análise](../../../static/img/screenshots/prof-007-question-analysis-as-is.png)
+![Análise](/img/screenshots/prof-007-question-analysis-as-is.png)
 *Análise detalhada de questão*
 
 ## 11. Melhorias TO-BE
@@ -1306,7 +1306,7 @@ describe('useMissionAnalytics', () => {
 
 - **[PROF-002: Education System Missions](./education-system-missions.md)** - Missões habilitadas para análise
 - **[PROF-005: Student Records](./student-records.md)** - Diário integrado com analytics
-- **[ADMIN-004: Skill Report](../admin/skill-report.md)** - Habilidades mapeadas em questões
+- **[ADMIN-004: Skill Report](../coordinator/skill-report.md)** - Habilidades mapeadas em questões
 
 ---
 

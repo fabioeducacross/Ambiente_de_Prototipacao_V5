@@ -33,7 +33,7 @@ Documentação das 3 jornadas do contexto student/aluno.
 
 ## Próximas Jornadas a Documentar
 
-Conforme [PLANO.md](../../../../PLANO.md#-jornadas-prioritárias):
+Conforme [PLANO.md](../../PLANO.md#-jornadas-prioritárias):
 
 1. <IconCircleGreen /> **Baixa Prioridade (Sprint 3)**
    - STUDENT-001: Student Dashboard <IconCheck />

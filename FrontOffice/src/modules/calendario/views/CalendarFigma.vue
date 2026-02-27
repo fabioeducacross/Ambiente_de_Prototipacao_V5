@@ -1,8 +1,8 @@
 <template>
   <div>
-    <AppNavbar @toggle-sidebar="toggleSidebar" />
-    <div class="calendar-page" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
-      <Sidebar :collapsed="sidebarCollapsed" />
+    <AppNavbar v-if="!embedded" @toggle-sidebar="toggleSidebar" />
+    <div class="calendar-page" :class="{ 'sidebar-collapsed': sidebarCollapsed, 'embedded': embedded }">
+      <Sidebar v-if="!embedded" :collapsed="sidebarCollapsed" />
       
       <div class="calendar-content">
         <!-- Calendário Unificado -->
@@ -375,7 +375,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, toRefs } from 'vue'
 import { 
   addMonths, 
   subMonths, 
@@ -413,6 +413,11 @@ import { useFeatureFlags } from '@/shared/composables/useFeatureFlags'
 const { canCreateEvent } = useCalendarPermissions()
 const { setMockUser } = useCurrentUser()
 const { showEventTime } = useFeatureFlags()
+
+const props = defineProps({
+  embedded: { type: Boolean, default: false }
+})
+const { embedded } = toRefs(props)
 
 // State
 const sidebarCollapsed = ref(false)
@@ -710,6 +715,9 @@ onUnmounted(() => {
 .calendar-page { display: flex; min-height: calc(100vh - 70px); padding-top: 70px; }
 .calendar-page.sidebar-collapsed .calendar-content { margin-left: 70px; }
 .calendar-content { flex: 1; margin-left: 240px; display: flex; flex-direction: column; transition: margin-left 0.3s ease; background: #f5f5f9; }
+/* Embedded mode: sem navbar/sidebar próprios */
+.calendar-page.embedded { padding-top: 0; min-height: auto; }
+.calendar-page.embedded .calendar-content { margin-left: 0; }
 
 .calendar-unified-container { flex: 1; display: flex; flex-direction: column; background: #ffffff; }
 

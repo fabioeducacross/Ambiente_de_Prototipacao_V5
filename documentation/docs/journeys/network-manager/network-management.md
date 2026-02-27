@@ -1064,10 +1064,10 @@ sequenceDiagram
 
 ## 10. Screenshots (AS-IS)
 
-![Dashboard Executivo](../../../static/img/screenshots/admin-005-dashboard-as-is.png)
+![Dashboard Executivo](/img/screenshots/admin-005-dashboard-as-is.png)
 *Dashboard executivo com mapa e KPIs consolidados*
 
-![Benchmarking](../../../static/img/screenshots/admin-005-benchmarking-as-is.png)
+![Benchmarking](/img/screenshots/admin-005-benchmarking-as-is.png)
 *Comparação de desempenho entre instituições*
 
 ## 11. Melhorias TO-BE
@@ -1150,8 +1150,8 @@ describe('useNetworkManagement', () => {
 
 ## Dependências Relacionadas
 
-- **[ADMIN-002: Student Access Report](./student-access-report.md)** - Alertas de engajamento consolidados
-- **[ADMIN-006: User Management](./user-management.md)** - Gestão de usuários da rede
+- **[ADMIN-002: Student Access Report](../director/student-access-report.md)** - Alertas de engajamento consolidados
+- **[ADMIN-006: User Management](../administrator/user-management.md)** - Gestão de usuários da rede
 
 ---
 
