@@ -19,7 +19,7 @@
           <MaterialIcon name="add_circle" :size="18" />
           <span>Criar Missão</span>
         </RouterLink>
-        <RouterLink to="/professor/missoes" class="nav-item" :class="{ active: route.path === '/professor/missoes' }">
+        <RouterLink to="/professor/missoes" class="nav-item" :class="{ active: isMissionsRoute() }">
           <MaterialIcon name="mountain_flag" :size="18" />
           <span>Missões</span>
         </RouterLink>
@@ -185,6 +185,9 @@ const gitSha     = __GIT_SHA__
 const route = useRoute()
 
 const isCalendarRoute = () => route.path.startsWith('/professor/calendario') || route.path.startsWith('/teacher/calendar')
+const isMissionsRoute = () =>
+  route.path.startsWith('/professor/missoes') ||
+  route.path === '/teacher/trilhas-az'
 const isSistemaEnsinoRoute = () => route.path === '/teacher/trilhas-az'
 
 defineProps({

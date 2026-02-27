@@ -242,8 +242,10 @@ const performanceVariant = (percent) => {
 
 <style scoped>
 .mission-report-page {
-  color: #5e5873;
+  color: var(--gray-700);
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .report-top-stack {
@@ -257,8 +259,8 @@ const performanceVariant = (percent) => {
   width: fit-content;
   padding: 3px 10px;
   border-radius: 9999px;
-  background: #e5e5e8;
-  color: #6e6b7b;
+  background: var(--gray-300);
+  color: var(--gray-600);
   font-size: 11px;
   line-height: 14px;
   font-weight: 500;
@@ -278,8 +280,8 @@ const performanceVariant = (percent) => {
   border-radius: 15px 15px 0 0;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.14);
   cursor: pointer;
-  color: #6e6b7b;
-  background: #fff;
+  color: var(--gray-600);
+  background: var(--white);
   transform: translateX(calc(var(--index) * var(--offset)));
   white-space: nowrap;
   font: 500 14px/20px 'Montserrat', Helvetica, Arial, sans-serif;
@@ -288,12 +290,12 @@ const performanceVariant = (percent) => {
 
 .tab-link:hover,
 .tab-link.active {
-  background: #7367f0;
-  color: #fff;
+  background: var(--primary);
+  color: var(--white);
 }
 
 .tab-line {
-  border: 1px solid #7367f0;
+  border: 1px solid var(--primary);
   height: 1px;
   width: 100%;
 }
@@ -302,29 +304,38 @@ const performanceVariant = (percent) => {
 .metric-card,
 .points-card,
 .turn-card {
-  border: 1px solid #ebe9f1;
+  border: 1px solid var(--gray-200);
   box-shadow: 0 4px 18px rgba(34, 41, 47, 0.08);
 }
 
+.metric-card {
+  border-radius: 14px;
+}
+
+.metric-card :deep(.card-body) {
+  padding: 18px 18px 14px;
+}
+
 .mission-chip-icon {
-  color: #00cfe8;
+  color: var(--info);
   font-size: 18px;
 }
 
 .mission-chip-title {
-  color: #5e5873;
+  color: var(--gray-700);
   font: 600 16px/24px 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
 .mission-chip-date {
-  color: #6e6b7b;
+  color: var(--gray-600);
   font-size: 13px;
   line-height: 18px;
 }
 
 .mission-chip-status {
-  background: rgba(115, 103, 240, 0.16);
-  color: #7367f0;
+  background: var(--primary-light);
+  background: color-mix(in srgb, var(--primary) 16%, var(--white));
+  color: var(--primary);
   padding: 3px 10px;
   border-radius: 9999px;
   font-size: 11px;
@@ -333,15 +344,16 @@ const performanceVariant = (percent) => {
 }
 
 .mission-chip-class {
-  color: #7367f0;
+  color: var(--primary);
   font-size: 13px;
   line-height: 18px;
   font-weight: 700;
 }
 
 .mission-chip-year {
-  background: rgba(115, 103, 240, 0.16);
-  color: #7367f0;
+  background: var(--primary-light);
+  background: color-mix(in srgb, var(--primary) 16%, var(--white));
+  color: var(--primary);
   padding: 3px 10px;
   border-radius: 9999px;
   font-size: 11px;
@@ -352,31 +364,40 @@ const performanceVariant = (percent) => {
 .metric-title {
   font-size: 13px;
   line-height: 18px;
-  color: #6e6b7b;
-  margin-bottom: 2px;
+  color: var(--gray-600);
+  margin-bottom: 6px;
 }
 
 .metric-value {
-  font-size: 24px;
-  line-height: 30px;
+  width: 100%;
+  padding: 4px 10px;
+  font-size: 23px;
+  line-height: 31px;
   font-weight: 700;
+  margin-bottom: 8px;
+  white-space: nowrap;
 }
 
 .metric-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
-  background: rgba(115, 103, 240, 0.14);
-  color: #7367f0;
-  padding: 8px;
-  font-size: 20px;
+  background: var(--primary-light);
+  background: color-mix(in srgb, var(--primary) 14%, var(--white));
+  color: var(--primary);
+  font-size: 22px;
 }
 
 .metric-pill {
   display: inline-flex;
-  margin-top: 6px;
-  padding: 2px 9px;
-  border: 1px solid #28c76f;
+  margin-top: 1px;
+  padding: 2px 11px;
+  border: 1px solid var(--success);
   border-radius: 9999px;
-  color: #28c76f;
+  color: var(--success);
   font-size: 10px;
   line-height: 13px;
   font-weight: 700;
@@ -386,11 +407,11 @@ const performanceVariant = (percent) => {
 
 .metric-link {
   display: block;
-  margin-top: 8px;
+  margin-top: 10px;
   border: none;
   padding: 0;
   background: transparent;
-  color: #7367f0;
+  color: var(--primary);
   font: 600 12px/16px 'Montserrat', Helvetica, Arial, sans-serif;
 }
 
@@ -400,7 +421,7 @@ const performanceVariant = (percent) => {
   gap: 8px;
   padding-bottom: 10px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #ebe9f1;
+  border-bottom: 1px solid var(--gray-200);
   font-size: 11px;
   line-height: 14px;
   font-weight: 700;
@@ -408,11 +429,11 @@ const performanceVariant = (percent) => {
 }
 
 .points-header-success {
-  color: #28c76f;
+  color: var(--success);
 }
 
 .points-header-danger {
-  color: #ea5455;
+  color: var(--danger);
 }
 
 .points-row {
@@ -421,7 +442,7 @@ const performanceVariant = (percent) => {
   justify-content: space-between;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid #ebe9f1;
+  border-bottom: 1px solid var(--gray-200);
   font-size: 13px;
   line-height: 18px;
 }
@@ -440,19 +461,19 @@ const performanceVariant = (percent) => {
   font-size: 16px;
   padding: 6px;
   border-radius: 8px;
-  color: #fff;
+  color: var(--white);
 }
 
 .point-icon-success {
-  background: #ff9f43;
+  background: var(--warning);
 }
 
 .point-icon-danger {
-  background: #7367f0;
+  background: var(--primary);
 }
 
 .turns-title {
-  color: #7367f0;
+  color: var(--primary);
   margin: 12px 0 8px;
   font: 600 24px/30px 'Montserrat', Helvetica, Arial, sans-serif;
 }
@@ -473,24 +494,31 @@ const performanceVariant = (percent) => {
 }
 
 .turn-thumb .material-symbols-outlined {
-  color: #fff;
+  color: var(--white);
   font-size: 30px;
 }
 
+.turn-thumb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
 .turn-name {
-  color: #7367f0;
+  color: var(--primary);
   font: 600 20px/26px 'Montserrat', Helvetica, Arial, sans-serif;
   margin-bottom: 2px;
 }
 
 .turn-meta {
-  color: #6e6b7b;
+  color: var(--gray-600);
   font-size: 13px;
   line-height: 18px;
 }
 
 .turn-meta strong {
-  color: #5e5873;
+  color: var(--gray-700);
   font-weight: 600;
 }
 
@@ -499,8 +527,8 @@ const performanceVariant = (percent) => {
   margin-top: 6px;
   padding: 2px 8px;
   border-radius: 9999px;
-  background: #00cfe8;
-  color: #fff;
+  background: var(--info);
+  color: var(--white);
   font-size: 10px;
   line-height: 13px;
   font-weight: 700;
@@ -518,11 +546,11 @@ const performanceVariant = (percent) => {
   align-items: center;
   font-size: 12px;
   line-height: 16px;
-  color: #6e6b7b;
+  color: var(--gray-600);
 }
 
 :deep(.turn-metrics .progress) {
-  background: #f3f2f7;
+  background: var(--gray-100);
 }
 
 :deep(.turn-metrics .progress-bar) {
@@ -542,27 +570,42 @@ const performanceVariant = (percent) => {
   margin-top: 12px;
   font-size: 12px;
   line-height: 16px;
-  color: #b9b9c3;
+  color: var(--gray-500);
 }
 
 .tone-success {
-  color: #28c76f;
-  background: rgba(40, 199, 111, 0.14);
+  color: var(--success);
+  background: var(--success-light);
+  background: color-mix(in srgb, var(--success) 14%, var(--white));
 }
 
 .tone-warning {
-  color: #ff9f43;
-  background: rgba(255, 159, 67, 0.14);
+  color: var(--warning);
+  background: var(--warning-light);
+  background: color-mix(in srgb, var(--warning) 14%, var(--white));
 }
 
 .tone-primary {
-  color: #7367f0;
-  background: rgba(115, 103, 240, 0.14);
+  color: var(--primary);
+  background: var(--primary-light);
+  background: color-mix(in srgb, var(--primary) 14%, var(--white));
 }
 
 .tone-info {
-  color: #00cfe8;
-  background: rgba(0, 207, 232, 0.14);
+  color: var(--info);
+  background: var(--info-light);
+  background: color-mix(in srgb, var(--info) 14%, var(--white));
+}
+
+.metric-value.tone-success,
+.metric-value.tone-primary,
+.metric-value.tone-info {
+  color: var(--primary);
+  border-radius: 0;
+}
+
+.metric-value.tone-success {
+  color: var(--success);
 }
 
 @media (max-width: 992px) {

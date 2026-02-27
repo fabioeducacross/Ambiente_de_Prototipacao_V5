@@ -30,9 +30,17 @@
       <!-- ── Tabs (DS: Tab.vue) ── -->
       <div class="tz-tabs-row">
         <div class="tabs-container">
-          <a class="tab-link active" href="#" style="--idx:0" @click.prevent>Livros</a>
-          <a class="tab-link" href="#" style="--idx:1" @click.prevent>Alunos</a>
-          <a class="tab-link" href="#" style="--idx:2" @click.prevent>Ranking</a>
+          <a
+            v-for="(tab, index) in tabs"
+            :key="tab.key"
+            class="tab-link"
+            :class="{ active: activeTab === tab.key }"
+            href="#"
+            :style="`--idx: ${index};`"
+            @click.prevent="activeTab = tab.key"
+          >
+            {{ tab.label }}
+          </a>
         </div>
         <span class="tab-title">MISSÕES SISTEMA DE ENSINO</span>
       </div>
@@ -417,6 +425,13 @@ const selectedStatus = ref(null)
 const searchQuery    = ref('')
 const pageSize       = ref(10)
 const currentPage    = ref(1)
+const activeTab      = ref('livros')
+
+const tabs = [
+  { key: 'livros', label: 'Livros' },
+  { key: 'alunos', label: 'Alunos' },
+  { key: 'ranking', label: 'Ranking' }
+]
 
 // Reseta para página 1 sempre que um filtro mudar
 watch([selectedUnit, selectedStatus, searchQuery, pageSize], () => {
@@ -746,7 +761,9 @@ a.bc-item:hover { color: #5a50d6; }
 .tab-line {
   border: 1px solid #6e63e8;
   height: 1px;
-  width: 100%;
+  width: calc(100% - 48px);
+  margin-left: 24px;
+  margin-right: 24px;
   margin-bottom: 1rem;
 }
 
@@ -1225,6 +1242,12 @@ a.bc-item:hover { color: #5a50d6; }
   .tz-breadcrumb {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .tab-line {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .table-toolbar {
