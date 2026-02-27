@@ -220,8 +220,8 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
   <BCard no-body :class="cardClass">
     <!-- ─── Toolbar: per-page + search ─────────────────────────────────── -->
     <BRow class="p-2 align-items-center">
-      <BCol cols="12" md="auto" class="d-flex align-items-center gap-1 mb-1 mb-md-0">
-        <span class="text-muted small">Mostrar</span>
+      <BCol cols="12" md="auto" class="d-flex align-items-center gap-2 mb-1 mb-md-0">
+        <span class="toolbar-label">Mostrar</span>
         <ESelect
           v-model="perPage"
           :options="PER_PAGE_OPTIONS"
@@ -235,14 +235,14 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
 
       <BCol cols="12" md>
         <div class="d-flex justify-content-end">
-          <div v-if="showSearch" class="input-group input-group-sm" style="max-width:380px">
-            <span class="input-group-text bg-transparent">
-              <span class="material-symbols-outlined" style="font-size:16px;color:#b9b9c3">search</span>
+          <div v-if="showSearch" class="input-group toolbar-search-wrap" style="max-width:420px">
+            <span class="input-group-text bg-transparent toolbar-search-icon-wrap">
+              <span class="material-symbols-outlined toolbar-search-icon">search</span>
             </span>
             <input
               v-model="searchQuery"
               type="search"
-              class="form-control border-start-0"
+              class="form-control border-start-0 toolbar-search-input"
               :placeholder="searchPlaceholder"
               @input="onSearchInput"
             />
@@ -389,9 +389,9 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
 <style scoped>
 /* ── Cabeçalho da tabela ─────────────────────────────────────────────────── */
 .header-label {
-  font-size: .72rem;
-  font-weight: 600;
-  color: #5e5873;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: #4b4b6a;
   letter-spacing: .04em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -399,7 +399,7 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
 th {
   border-bottom: 2px solid #ebe9f1;
   background: #fff;
-  padding: .75rem .85rem;
+  padding: 1rem .85rem;
   vertical-align: middle;
 }
 .selectAll-container {
@@ -412,15 +412,38 @@ th {
   font-size: .875rem;
 }
 td {
-  font-size: .875rem;
+  font-size: var(--font-size-lg);
   color: #6e6b7b;
   border-bottom: 1px solid #f3f2f7;
-  padding: .65rem .85rem;
+  padding: 1.1rem .85rem;
 }
 tbody tr:last-child td {
   border-bottom: none;
 }
 .select-col { width: 40px; }
+
+.toolbar-label {
+  font-size: var(--font-size-lg);
+  color: #5e5873;
+  font-weight: 500;
+}
+
+.toolbar-search-wrap {
+  min-height: 44px;
+}
+
+.toolbar-search-icon-wrap {
+  border-right: 0;
+}
+
+.toolbar-search-input {
+  min-height: 44px;
+}
+
+.toolbar-search-icon {
+  font-size: 20px;
+  color: #b9b9c3;
+}
 
 /* ── Sorting ─────────────────────────────────────────────────────────────── */
 .sortable-th { cursor: pointer; }

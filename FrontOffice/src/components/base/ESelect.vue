@@ -87,78 +87,81 @@
       </div>
     </div>
 
-    <!-- Options List Container -->
-    <Transition name="dropdown">
-      <ul
-        v-show="opened"
-        ref="refUl"
-        role="listbox"
-        class="options-container"
-      >
-        <!-- Search Input -->
-        <div v-if="searchable" class="option-searchable">
-          <BFormInput
-            ref="refSearchInput"
-            v-model="search"
-            type="text"
-            :placeholder="searchPlaceholder"
-            class="search-input"
-            @click.stop
-          />
-        </div>
-
-        <!-- Select All (multiple mode) -->
-        <li
-          v-if="multiple && filteredOptions.length > 0"
-          role="option"
-          class="option option-select-all"
-          :class="{ selected: isAllSelected }"
-          @click.stop="toggleSelectAll"
+    <Teleport to="body">
+      <!-- Options List Container -->
+      <Transition name="dropdown">
+        <ul
+          v-show="opened"
+          ref="refUl"
+          role="listbox"
+          class="options-container"
+          :style="dropdownStyle"
         >
-          <BFormCheckbox
-            :model-value="isAllSelected"
-            :indeterminate="isIndeterminate"
-            @click.stop
-          />
-          <span>Selecionar todos</span>
-        </li>
+          <!-- Search Input -->
+          <div v-if="searchable" class="option-searchable">
+            <BFormInput
+              ref="refSearchInput"
+              v-model="search"
+              type="text"
+              :placeholder="searchPlaceholder"
+              class="search-input"
+              @click.stop
+            />
+          </div>
 
-        <!-- No Results -->
-        <li v-if="filteredOptions.length === 0 && !loading" class="option option-no-results">
-          Nenhum resultado encontrado
-        </li>
+          <!-- Select All (multiple mode) -->
+          <li
+            v-if="multiple && filteredOptions.length > 0"
+            role="option"
+            class="option option-select-all"
+            :class="{ selected: isAllSelected }"
+            @click.stop="toggleSelectAll"
+          >
+            <BFormCheckbox
+              :model-value="isAllSelected"
+              :indeterminate="isIndeterminate"
+              @click.stop
+            />
+            <span>Selecionar todos</span>
+          </li>
 
-        <!-- Options List -->
-        <li
-          v-for="option in filteredOptions"
-          :key="getOptionKey(option)"
-          role="option"
-          :aria-selected="isSelected(option).toString()"
-          :aria-disabled="option.disabled ? 'true' : undefined"
-          :class="[
-            'option',
-            { selected: isSelected(option), disabled: option.disabled }
-          ]"
-          @click.stop="toggleSelection(option)"
-        >
-          <BFormCheckbox
-            v-if="multiple"
-            :model-value="isSelected(option)"
-            :disabled="option.disabled"
-            @click.stop
-          />
-          <slot name="option" v-bind="option">
-            {{ getLabel(option) }}
-          </slot>
-        </li>
+          <!-- No Results -->
+          <li v-if="filteredOptions.length === 0 && !loading" class="option option-no-results">
+            Nenhum resultado encontrado
+          </li>
 
-        <!-- Loading -->
-        <li v-if="loading" class="option option-loading">
-          <BSpinner small class="mr-2" />
-          Carregando...
-        </li>
-      </ul>
-    </Transition>
+          <!-- Options List -->
+          <li
+            v-for="option in filteredOptions"
+            :key="getOptionKey(option)"
+            role="option"
+            :aria-selected="isSelected(option).toString()"
+            :aria-disabled="option.disabled ? 'true' : undefined"
+            :class="[
+              'option',
+              { selected: isSelected(option), disabled: option.disabled }
+            ]"
+            @click.stop="toggleSelection(option)"
+          >
+            <BFormCheckbox
+              v-if="multiple"
+              :model-value="isSelected(option)"
+              :disabled="option.disabled"
+              @click.stop
+            />
+            <slot name="option" v-bind="option">
+              {{ getLabel(option) }}
+            </slot>
+          </li>
+
+          <!-- Loading -->
+          <li v-if="loading" class="option option-loading">
+            <BSpinner small class="mr-2" />
+            Carregando...
+          </li>
+        </ul>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -245,6 +248,11 @@ const refSearchInput = ref(null)
 const opened = ref(false)
 const search = ref('')
 const internalSelectedOptions = ref([])
+const dropdownStyle = ref({
+  top: '0px',
+  left: '0px',
+  width: '0px'
+})
 
 // Computed
 const selectedLength = computed(() => internalSelectedOptions.value.length)
@@ -334,6 +342,18 @@ const clear = () => {
   emit('clear')
 }
 
+const updateDropdownPosition = () => {
+  const triggerEl = refContainer.value?.querySelector('.e-select-container')
+  if (!triggerEl) return
+
+  const rect = triggerEl.getBoundingClientRect()
+  dropdownStyle.value = {
+    top: `${rect.bottom + 4}px`,
+    left: `${rect.left}px`,
+    width: `${rect.width}px`
+  }
+}
+
 const emitValue = () => {
   const value = props.multiple
     ? internalSelectedOptions.value
@@ -347,6 +367,7 @@ const open = () => {
   opened.value = true
   emit('open')
   nextTick(() => {
+    updateDropdownPosition()
     if (props.searchable && refSearchInput.value) {
       refSearchInput.value.focus()
     }
@@ -370,8 +391,17 @@ const switchDrop = () => {
 
 // Click outside handler
 const handleClickOutside = (event) => {
-  if (refContainer.value && !refContainer.value.contains(event.target)) {
+  const clickedInsideTrigger = refContainer.value && refContainer.value.contains(event.target)
+  const clickedInsideDropdown = refUl.value && refUl.value.contains(event.target)
+
+  if (!clickedInsideTrigger && !clickedInsideDropdown) {
     close()
+  }
+}
+
+const handleViewportChange = () => {
+  if (opened.value) {
+    updateDropdownPosition()
   }
 }
 
@@ -387,10 +417,14 @@ watch(() => props.modelValue, (newVal) => {
 // Lifecycle
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
+  window.addEventListener('resize', handleViewportChange)
+  window.addEventListener('scroll', handleViewportChange, true)
 })
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('resize', handleViewportChange)
+  window.removeEventListener('scroll', handleViewportChange, true)
 })
 
 // Expose
@@ -512,11 +546,8 @@ defineExpose({
 
 /* Options Dropdown */
 .options-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  position: fixed;
+  z-index: 4000;
   max-height: 300px;
   margin: var(--spacing-xs) 0 0 0;
   padding: var(--spacing-xs) 0;

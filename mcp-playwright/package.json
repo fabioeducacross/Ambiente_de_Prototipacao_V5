@@ -7,9 +7,15 @@
   "scripts": {
     "start": "node mcp-server.js",
     "dev": "node --watch mcp-server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:skill-report": "playwright test \"tests/skill-report-sidebar.spec.ts\" --reporter=list",
+    "figma:capture": "node figma-capture.mjs"
   },
-  "keywords": ["mcp", "figma", "local"],
+  "keywords": [
+    "mcp",
+    "figma",
+    "local"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

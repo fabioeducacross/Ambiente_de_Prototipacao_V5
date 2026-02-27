@@ -20,8 +20,13 @@ const route = useRoute()
 const items = computed(() => {
   const raw = route.meta?.breadcrumb ?? null
   if (!raw) return []
-  if (Array.isArray(raw)) return raw
-  return [{ text: raw, active: true }]
+  const normalized = Array.isArray(raw) ? [...raw] : [{ text: raw, active: true }]
+  const hasActive = normalized.some(item => item?.active)
+  if (!hasActive) return normalized
+
+  const inactiveItems = normalized.filter(item => !item?.active)
+  const activeItems = normalized.filter(item => item?.active)
+  return [...inactiveItems, ...activeItems]
 })
 
 const show = computed(() => items.value.length > 0)

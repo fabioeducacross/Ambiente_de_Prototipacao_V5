@@ -174,6 +174,27 @@ Cada jornada contém:
 - `/jornadas` - Lista de todas as jornadas
 - `/jornada/:id` - Detalhes de uma jornada específica
 
+## 🧭 Convenção de Breadcrumb (FrontOffice)
+
+Para as telas da jornada **Professor** (`/professor/*`), o projeto usa breadcrumb em ordem hierárquica:
+
+- 1º item: agrupador/seção de navegação (com link de retorno)
+- 2º item: tela atual (item ativo)
+
+Seções padronizadas (exemplos):
+
+- `Missões da Escola`
+- `/professor/relatorios/evidencias`
+- `/professor/relatorios/habilidades`
+- `/professor/relatorios/acesso-alunos`
+- `Gestão (Escola / Turmas)`
+- `Jogos`
+- `Avaliações`
+- `Expedições`
+- `Eventos`
+- `Formação e Apoio`
+- `Programas / Sistemas (Atalhos)`
+
 ## 🚧 Desenvolvimento Futuro
 
 ### Funcionalidades Planejadas

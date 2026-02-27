@@ -135,38 +135,38 @@ const routes = [
     component: TeacherProtoLayout,
     children: [
       { path: '', name: 'ProfessorDashboard', component: ProfessorDashboard, meta: { title: 'Professor | Educacross', breadcrumb: 'Professor' } },
-      { path: 'calendario', name: 'ProfCalendario', component: ProfCalendario, meta: { title: 'Calendário | Professor', breadcrumb: 'Calendário' } },
+      { path: 'calendario', name: 'ProfCalendario', component: ProfCalendario, meta: { title: 'Calendário | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Calendário', active: true }] } },
       // Gestão
-      { path: 'turmas', name: 'ProfClasses', component: ProfClasses, meta: { title: 'Turmas | Professor', breadcrumb: 'Turmas' } },
-      { path: 'alunos', name: 'ProfStudents', component: ProfStudents, meta: { title: 'Alunos | Professor', breadcrumb: 'Alunos' } },
-      { path: 'grupos', name: 'ProfGroups', component: ProfGroups, meta: { title: 'Grupos | Professor', breadcrumb: 'Grupos' } },
+      { path: 'turmas', name: 'ProfClasses', component: ProfClasses, meta: { title: 'Turmas | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Turmas', active: true }] } },
+      { path: 'alunos', name: 'ProfStudents', component: ProfStudents, meta: { title: 'Alunos | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Alunos', active: true }] } },
+      { path: 'grupos', name: 'ProfGroups', component: ProfGroups, meta: { title: 'Grupos | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Grupos', active: true }] } },
       // Missões
       { path: 'missoes/criar', name: 'ProfNewMission', component: ProfNewMission, meta: { title: 'Nova Missão | Professor', breadcrumb: [{ text: 'Missões da Escola', to: '/professor/missoes' }, { text: 'Nova Missão', active: true }] } },
       { path: 'missoes', name: 'ProfMissions', component: ProfMissionsList, meta: { title: 'Missões | Professor', breadcrumb: [{ text: 'Missões da Escola', to: '/professor/missoes' }, { text: 'Missões', active: true }] } },
       // Relatórios
       { path: 'relatorios/evidencias', name: 'ProfEvidenceReport', component: ProfEvidenceReport, meta: { title: 'Evidências | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Relatório de Evidências', active: true }] } },
-      { path: 'relatorios/habilidades', name: 'ProfSkillReport', component: ProfSkillReport, meta: { title: 'Habilidades | Professor', breadcrumb: 'Relatório de Habilidades' } },
-      { path: 'relatorios/acesso-alunos', name: 'ProfStudentAccess', component: ProfStudentAccess, meta: { title: 'Acesso de Alunos | Professor', breadcrumb: 'Acesso de Alunos' } },
+      { path: 'relatorios/habilidades', name: 'ProfSkillReport', component: ProfSkillReport, meta: { title: 'Habilidades | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Habilidades', active: true }] } },
+      { path: 'relatorios/acesso-alunos', name: 'ProfStudentAccess', component: ProfStudentAccess, meta: { title: 'Acesso de Alunos | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Acesso de Alunos', active: true }] } },
       // Jogos
-      { path: 'jogos/config-ilha', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: 'Configurar Ilha' } },
-      { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: 'Ranking da Ilha' } },
+      { path: 'jogos/config-ilha', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Configurações da Ilha', active: true }] } },
+      { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Ranking de Conquistas', active: true }] } },
       // Avaliações
-      { path: 'avaliacoes/digital', name: 'ProfDigitalEval', component: ProfDigitalEval, meta: { title: 'Avaliação Digital | Professor', breadcrumb: 'Avaliação Digital' } },
-      { path: 'avaliacoes/flue-esc', name: 'ProfFluesc', component: ProfFluesc, meta: { title: 'FluEsc | Professor', breadcrumb: 'FluEsc' } },
-      { path: 'avaliacoes/fases-escrita', name: 'ProfWritingPhases', component: ProfWritingPhases, meta: { title: 'Fases da Escrita | Professor', breadcrumb: 'Fases da Escrita' } },
+      { path: 'avaliacoes/digital', name: 'ProfDigitalEval', component: ProfDigitalEval, meta: { title: 'Avaliação Digital | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'Avaliação Digital', active: true }] } },
+      { path: 'avaliacoes/flue-esc', name: 'ProfFluesc', component: ProfFluesc, meta: { title: 'FluEsc | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'FluEsc', active: true }] } },
+      { path: 'avaliacoes/fases-escrita', name: 'ProfWritingPhases', component: ProfWritingPhases, meta: { title: 'Fases da Escrita | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'Fases da Escrita', active: true }] } },
       // Expedição / Eventos
-      { path: 'expedicao-leitura', name: 'ProfReadingExp', component: ProfReadingExp, meta: { title: 'Expedição de Leitura | Professor', breadcrumb: 'Expedição de Leitura' } },
-      { path: 'eventos/olimpiadas', name: 'ProfOlympiads', component: ProfOlympiads, meta: { title: 'Olimpíadas | Professor', breadcrumb: 'Olimpíadas' } },
-      { path: 'eventos/extreme', name: 'ProfExtreme', component: ProfExtreme, meta: { title: 'Extreme | Professor', breadcrumb: 'Extreme' } },
+      { path: 'expedicao-leitura', name: 'ProfReadingExp', component: ProfReadingExp, meta: { title: 'Expedição de Leitura | Professor', breadcrumb: [{ text: 'Expedições', to: '/professor/expedicao-leitura' }, { text: 'Expedição Leitura', active: true }] } },
+      { path: 'eventos/olimpiadas', name: 'ProfOlympiads', component: ProfOlympiads, meta: { title: 'Olimpíadas | Professor', breadcrumb: [{ text: 'Eventos', to: '/professor/eventos/olimpiadas' }, { text: 'Olimpíadas', active: true }] } },
+      { path: 'eventos/extreme', name: 'ProfExtreme', component: ProfExtreme, meta: { title: 'Extreme | Professor', breadcrumb: [{ text: 'Eventos', to: '/professor/eventos/olimpiadas' }, { text: 'Educacross Extreme', active: true }] } },
       // Suporte / Conteúdo
-      { path: 'ajudas-materiais', name: 'ProfSupportMaterials', component: ProfSupportMaterials, meta: { title: 'Materiais de Apoio | Professor', breadcrumb: 'Materiais de Apoio' } },
+      { path: 'ajudas-materiais', name: 'ProfSupportMaterials', component: ProfSupportMaterials, meta: { title: 'Materiais de Apoio | Professor', breadcrumb: [{ text: 'Formação e Apoio', to: '/professor/ajudas-materiais' }, { text: 'Ajudas e Materiais', active: true }] } },
       { path: 'educateca', name: 'ProfEducateca', component: ProfEducateca, meta: { title: 'Educateca | Professor', breadcrumb: 'Educateca' } },
       // Programas
-      { path: 'programas/alfabetiza-manaus', name: 'ProfAlfabetiza', component: ProfAlfabetiza, meta: { title: 'Alfabetiza Manaus | Professor', breadcrumb: 'Alfabetiza Manaus' } },
-      { path: 'programas/letrar', name: 'ProfLetrar', component: ProfLetrar, meta: { title: 'Letrar | Professor', breadcrumb: 'Letrar' } },
-      { path: 'programas/super-ensino-jp', name: 'ProfSuperEnsinoJP', component: ProfSuperEnsinoJP, meta: { title: 'Super Ensino JP | Professor', breadcrumb: 'Super Ensino JP' } },
-      { path: 'programas/super-ensino-manaus', name: 'ProfSuperEnsinoMAN', component: ProfSuperEnsinoMAN, meta: { title: 'Super Ensino Manaus | Professor', breadcrumb: 'Super Ensino Manaus' } },
-      { path: 'programas/high-five', name: 'ProfHighFive', component: ProfHighFive, meta: { title: 'High Five | Professor', breadcrumb: 'High Five' } },
+      { path: 'programas/alfabetiza-manaus', name: 'ProfAlfabetiza', component: ProfAlfabetiza, meta: { title: 'Alfabetiza Manaus | Professor', breadcrumb: [{ text: 'Programas / Sistemas (Atalhos)', to: '/professor/programas/alfabetiza-manaus' }, { text: 'Alfabetiza Manaus', active: true }] } },
+      { path: 'programas/letrar', name: 'ProfLetrar', component: ProfLetrar, meta: { title: 'Letrar | Professor', breadcrumb: [{ text: 'Programas / Sistemas (Atalhos)', to: '/professor/programas/alfabetiza-manaus' }, { text: 'Letrar+JP', active: true }] } },
+      { path: 'programas/super-ensino-jp', name: 'ProfSuperEnsinoJP', component: ProfSuperEnsinoJP, meta: { title: 'Super Ensino JP | Professor', breadcrumb: [{ text: 'Programas / Sistemas (Atalhos)', to: '/professor/programas/alfabetiza-manaus' }, { text: 'Super Ensino João Pessoa', active: true }] } },
+      { path: 'programas/super-ensino-manaus', name: 'ProfSuperEnsinoMAN', component: ProfSuperEnsinoMAN, meta: { title: 'Super Ensino Manaus | Professor', breadcrumb: [{ text: 'Programas / Sistemas (Atalhos)', to: '/professor/programas/alfabetiza-manaus' }, { text: 'Super Ensino Manaus', active: true }] } },
+      { path: 'programas/high-five', name: 'ProfHighFive', component: ProfHighFive, meta: { title: 'High Five | Professor', breadcrumb: [{ text: 'Programas / Sistemas (Atalhos)', to: '/professor/programas/alfabetiza-manaus' }, { text: 'High Five', active: true }] } },
     ]
   }
 ]

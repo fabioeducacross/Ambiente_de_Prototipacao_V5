@@ -14,7 +14,6 @@ import { ref, computed } from 'vue'
 import {
   BCard, BRow, BCol, BFormGroup, BButton,
   BDropdown, BDropdownItem, BDropdownDivider,
-  BBadge,
 } from 'bootstrap-vue-next'
 import ClassSelector             from '@/components/calendar/ClassSelector.vue'
 import AppBreadcrumb             from '@/components/AppBreadcrumb.vue'
@@ -90,16 +89,6 @@ const tableColumns = [
   { key: 'actions',  label: 'Ações',    tooltip: 'Ações disponíveis', sortable: false },
 ]
 
-// ── Status badge — espelha missionStatusEnum de produção ─────────────────────
-const missionStatusMap = {
-  ativa:     { variant: 'success',   label: 'Ativa'     },
-  arquivada: { variant: 'secondary', label: 'Arquivada' },
-  rascunho:  { variant: 'warning',   label: 'Rascunho'  },
-  cancelada: { variant: 'danger',    label: 'Cancelada' },
-}
-const getStatusVariant = (s) => `light-${missionStatusMap[s]?.variant ?? 'secondary'}`
-const getStatusLabel   = (s) => missionStatusMap[s]?.label ?? s
-
 // ── LegendEnum — array de legendas (mesmo formato que produção) ───────────────
 const progressLegends = [{
   text: 'Progresso da turma',
@@ -124,11 +113,13 @@ const getRowActions = (mission) => [
 
 <template>
   <div>
-    <!-- ─ Seletor de Turma ──────────────────────────────────────────── -->
-    <ClassSelector school-name="Colégio Nova Jornada" class="mb-2" />
+    <div class="report-top-stack">
+      <!-- ─ Seletor de Turma ──────────────────────────────────────────── -->
+      <ClassSelector school-name="Colégio Nova Jornada" />
 
-    <!-- ─ Breadcrumb — 2ª linha, acima das tabs (AppBreadcrumb.vue produção) --> 
-    <AppBreadcrumb class="mb-1" />
+      <!-- ─ Breadcrumb — 2ª linha, acima das tabs (AppBreadcrumb.vue produção) -->
+      <AppBreadcrumb />
+    </div>
 
     <!-- ─ Tabs (CSS idêntico ao TabRouter.vue de produção) ─────────── -->
     <div class="d-flex flex-column-reverse flex-md-row justify-content-md-between align-items-md-baseline mb-0">
@@ -219,7 +210,7 @@ const getRowActions = (mission) => [
     >
       <!-- Célula: Título -->
       <template #cell(title)="{ item }">
-        <span class="fw-semibold text-dark">{{ item.title }}</span>
+        <span class="fw-bold text-dark">{{ item.title }}</span>
       </template>
 
       <!-- Célula: Autor -->
@@ -246,11 +237,9 @@ const getRowActions = (mission) => [
         />
       </template>
 
-      <!-- Célula: Status — BBadge pill (mesmo padrão de produção) -->
-      <template #cell(status)="{ item }">
-        <BBadge pill :variant="getStatusVariant(item.status)">
-          {{ getStatusLabel(item.status) }}
-        </BBadge>
+      <!-- Célula: Status — vazio para manter fidelidade com referência -->
+      <template #cell(status)>
+        <span class="status-empty">&nbsp;</span>
       </template>
 
       <!-- Célula: Ações — BDropdown more_vert (mesmo padrão de produção) -->
@@ -286,6 +275,13 @@ const getRowActions = (mission) => [
 </template>
 
 <style scoped>
+.report-top-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
 /* ── Tabs — CSS idêntico ao TabRouter.vue de produção ────────────────────── */
 .tabs-row {
   flex-wrap: nowrap;
@@ -327,5 +323,10 @@ const getRowActions = (mission) => [
 :deep(.acoes-lote-dropdown .dropdown-toggle) {
   width: 100%;
   justify-content: center;
+}
+
+.status-empty {
+  display: inline-block;
+  min-width: 1px;
 }
 </style>

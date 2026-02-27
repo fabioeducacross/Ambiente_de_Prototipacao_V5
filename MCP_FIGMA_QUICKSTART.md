@@ -2,6 +2,21 @@
 
 ## ✅ Extensões MCP instaladas e já está configurado
 
+## 📌 Status atual: Code -> Figma
+
+- **Suportado oficialmente** via tool `generate_figma_design` no servidor remoto `https://mcp.figma.com/mcp`.
+- **Clientes suportados (documentação oficial):** **Claude Code** e **Codex by OpenAI**.
+- **Neste workspace:** o fluxo principal documentado e validado continua sendo **Figma -> Code**.
+- **POC local realizado (`mcp-playwright`)**: `POST /mcp/generate_figma_design` retorna `Endpoint não encontrado` (o servidor local mock não implementa code-to-figma).
+
+### Como usar Code -> Figma quando disponível no cliente
+
+1. Conectar no servidor remoto Figma MCP (`figma`).
+2. Autenticar OAuth.
+3. Rodar prompt no cliente suportado:
+   - `"Start a local server for my app and capture the UI in a new Figma file."`
+   - ou `"Capture the UI in <Figma file URL>."`
+
 ### Extensões instaladas:
 - ✅ `automatalabs.copilot-mcp` v0.0.90 - Gerenciar servidores MCP
 - ✅ `anthropic.claude-code` v2.1.39 - Claude Code com MCP nativo

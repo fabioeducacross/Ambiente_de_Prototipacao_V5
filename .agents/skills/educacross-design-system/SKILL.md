@@ -364,6 +364,22 @@ import MaterialIcon from '@/components/MaterialIcon.vue'
 </script>
 ```
 
+### Regra obrigatória — ordem visual do topo (ClassSelector + Breadcrumb)
+
+Para páginas que usam `ClassSelector` e `AppBreadcrumb` juntos, a ordem correta é:
+
+1. `ClassSelector` (linha superior)
+2. `AppBreadcrumb` (linha logo abaixo)
+
+Exemplo correto:
+
+```vue
+<ClassSelector school-name="Colégio Nova Jornada" class="mb-2" />
+<AppBreadcrumb class="mb-1" />
+```
+
+> Nunca renderizar `AppBreadcrumb` acima do `ClassSelector` nessas páginas.
+
 ---
 
 ## 0.6 Validação Visual — Status Atual da Tela Missões

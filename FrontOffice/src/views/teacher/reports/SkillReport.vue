@@ -1,110 +1,193 @@
 <script setup>
 import { ref } from 'vue'
+import { BCard, BRow, BCol, BFormGroup, BButton } from 'bootstrap-vue-next'
+import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
+import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import SelectSubject from '@/components/base/SelectSubject.vue'
+import ESelect from '@/components/base/ESelect.vue'
 
-const turma   = ref('')
-const periodo = ref('')
+const subject = ref({ id: 1, name: 'Matemática' })
 
-const turmas  = ['1º Ano A', '1º Ano B', '2º Ano A', '3º Ano A', '4º Ano A', '5º Ano B']
-
-const skills = [
-  { code: 'EF01LP01', desc: 'Reconhecer que palavras diferentes compartilham letras.',      acerto: 87 },
-  { code: 'EF01LP05', desc: 'Identificar o número de sílabas de palavras ao falar.',        acerto: 74 },
-  { code: 'EF02LP01', desc: 'Ler palavras com correspondências regulares diretas.',          acerto: 66 },
-  { code: 'EF02MA03', desc: 'Resolver adições e subtrações com números naturais.',           acerto: 55 },
-  { code: 'EF03LP01', desc: 'Identificar a função e os usos da escrita na sociedade.',       acerto: 82 },
-  { code: 'EF03MA08', desc: 'Multiplicar e dividir usando tabelas e propriedades.',           acerto: 49 },
-  { code: 'EF04LP12', desc: 'Reconhecer relações entre textos de diferentes épocas.',        acerto: 38 },
-  { code: 'EF04CI04', desc: 'Identificar características dos seres vivos.',                  acerto: 91 },
+const bnccList = [
+  { id: 1, name: 'BNCC 1º Ano' },
+  { id: 2, name: 'BNCC 2º Ano' },
+  { id: 3, name: 'BNCC 3º Ano' },
 ]
 
-const barColor = (v) => v >= 80 ? '#28C76F' : v >= 60 ? '#FF9F43' : '#EA5455'
+const periodOptions = [
+  { id: 1, name: 'Todo o período' },
+  { id: 2, name: 'Última semana' },
+  { id: 3, name: 'Último mês' },
+]
+
+const bncc = ref(bnccList[0])
+const period = ref(periodOptions[0])
+
+const skillGroups = [
+  { title: 'Números', percent: 0 },
+  { title: 'Álgebra', percent: 0 },
+  { title: 'Geometria', percent: 0 },
+  { title: 'Grandezas e Medidas', percent: 0 },
+]
 </script>
 
 <template>
   <section>
-    <!-- Filters -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h6 class="mb-0 fw-bold">Filtros</h6>
-      </div>
-      <div class="card-body">
-        <div class="row g-3 align-items-end">
-          <div class="col-md-4">
-            <label class="form-label small fw-semibold">Turma</label>
-            <select v-model="turma" class="form-select">
-              <option value="">Todas as turmas</option>
-              <option v-for="t in turmas" :key="t">{{ t }}</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label small fw-semibold">Período</label>
-            <select v-model="periodo" class="form-select">
-              <option value="">Selecionar</option>
-              <option>Última semana</option>
-              <option>Último mês</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-primary w-100">
-              <span class="material-symbols-outlined align-middle me-1" style="font-size:16px">search</span>
-              Aplicar
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="report-top-stack">
+      <ClassSelector school-name="Colégio Nova Jornada" />
+      <AppBreadcrumb />
     </div>
 
-    <!-- Table -->
-    <div class="card">
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead class="table-light">
-              <tr>
-                <th style="width:140px">Código BNCC</th>
-                <th>Descrição da Habilidade</th>
-                <th style="width:220px">% de Acerto</th>
-                <th style="width:80px">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="s in skills" :key="s.code">
-                <td>
-                  <span class="badge rounded-pill" style="background:rgba(115,103,240,.15);color:#7367F0;font-family:monospace">
-                    {{ s.code }}
-                  </span>
-                </td>
-                <td class="small">{{ s.desc }}</td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="progress flex-grow-1" style="height:8px;border-radius:4px">
-                      <div class="progress-bar" role="progressbar"
-                        :style="`width:${s.acerto}%;background:${barColor(s.acerto)}`"></div>
-                    </div>
-                    <small class="fw-semibold" :style="`color:${barColor(s.acerto)};min-width:32px`">{{ s.acerto }}%</small>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge rounded-pill"
-                    :style="`background:${barColor(s.acerto)}22;color:${barColor(s.acerto)}`">
-                    {{ s.acerto >= 80 ? 'Bom' : s.acerto >= 60 ? 'Regular' : 'Baixo' }}
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <BCard class="skill-filter-card mb-2">
+      <BRow class="g-3 align-items-end">
+        <BCol cols="12" md="auto">
+          <SelectSubject v-model="subject" />
+        </BCol>
+
+        <BCol cols="12" md>
+          <BFormGroup label="Matriz/Currículo" label-for="bncc">
+            <ESelect
+              v-model="bncc"
+              :options="bnccList"
+              label="name"
+              :clearable="false"
+              :searchable="false"
+            />
+          </BFormGroup>
+        </BCol>
+
+        <BCol cols="12" md>
+          <BFormGroup label="Período" label-for="period">
+            <ESelect
+              v-model="period"
+              :options="periodOptions"
+              label="name"
+              :clearable="false"
+              :searchable="false"
+            >
+              <template #selected-option="item">
+                <span class="period-pill">{{ item.name }}</span>
+              </template>
+            </ESelect>
+          </BFormGroup>
+        </BCol>
+      </BRow>
+    </BCard>
+
+    <BCard
+      v-for="group in skillGroups"
+      :key="group.title"
+      class="skill-card mb-2"
+    >
+      <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+        <h4 class="skill-title mb-0">{{ group.title }}</h4>
+
+        <div class="skill-metrics d-flex align-items-center gap-3">
+          <div class="skill-progress">
+            <span class="skill-progress-label">Rendimento do Ano Escolar</span>
+            <span class="skill-progress-track">
+              <span
+                class="skill-progress-fill"
+                :style="{ width: `${group.percent}%` }"
+              />
+            </span>
+            <span class="skill-progress-value">{{ group.percent }}%</span>
+          </div>
+
+          <span class="material-symbols-outlined skill-chevron">expand_more</span>
         </div>
       </div>
-      <div class="card-footer d-flex justify-content-end gap-2">
-        <button class="btn btn-sm btn-outline-primary">Exportar CSV</button>
-        <button class="btn btn-sm btn-primary">Gerar PDF</button>
-      </div>
+    </BCard>
+
+    <div class="d-flex justify-content-center mt-3">
+      <BButton variant="outline-primary" size="sm" class="px-3">
+        <span class="material-symbols-outlined align-middle me-1" style="font-size:16px">file_download</span>
+        Exportar em Excel
+      </BButton>
     </div>
   </section>
 </template>
 
 <style scoped>
-.card-header { background:#fff; border-bottom:1px solid rgba(0,0,0,.07); padding:1rem 1.25rem; }
-.table th { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.4px; color:#6c757d; }
-.table td { vertical-align:middle; font-size:.875rem; }
+.report-top-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.skill-filter-card {
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-card {
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-card :deep(.card-body) {
+  padding: 1rem 1.25rem;
+}
+
+.skill-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.skill-metrics {
+  margin-left: auto;
+}
+
+.skill-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  min-width: 210px;
+}
+
+.skill-progress-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--gray-500);
+}
+
+.skill-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.skill-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.skill-progress-value {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.skill-chevron {
+  font-size: 20px;
+  color: var(--gray-500);
+}
+
+.period-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
 </style>

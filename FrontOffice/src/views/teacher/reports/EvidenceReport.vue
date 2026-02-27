@@ -103,9 +103,10 @@ function gerarPDF() {
 
 <template>
   <section>
-    <AppBreadcrumb />
-
-    <ClassSelector school-name="Colégio Nova Jornada" class="mb-2" />
+    <div class="report-top-stack">
+      <ClassSelector school-name="Colégio Nova Jornada" />
+      <AppBreadcrumb />
+    </div>
 
     <!-- ── Card 1: Filtros ───────────────────────────────────────────── -->
     <BCard class="mb-2">
@@ -286,6 +287,13 @@ function gerarPDF() {
 </template>
 
 <style scoped>
+.report-top-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
 .studentEvidence-report hr {
   margin-left: -1.5rem;
   margin-right: -1.5rem;
