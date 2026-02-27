@@ -1,14 +1,10 @@
 ---
 name: educacross-design-system
-description: >
-  Design system completo do Educacross FrontOffice. Use SEMPRE que for construir,
-  revisar ou ajustar qualquer tela, componente, protótipo ou UI do Educacross.
-  Ativa ao receber pedidos como "crie a tela de", "adicione componente", "ajuste o
-  layout", "use o padrão visual do Educacross", "siga o design system".
+description: "Diretrizes do Design System Educacross para construir e revisar telas, componentes e protótipos."
+compatibility: ">=1.0.0"
+user-invokable: false
 metadata:
-  author: educacross
-  version: "2.0.0"
-  source: educacross-frontoffice (src/assets/scss, src/components, src/navigation, wiki/)
+  when_to_use: "SEMPRE que for construir, revisar ou ajustar qualquer tela, componente ou protótipo."
 ---
 
 # Educacross Design System
@@ -16,6 +12,424 @@ metadata:
 Referência completa extraída diretamente do repositório `educacross-frontoffice`.
 Use este documento antes de escrever qualquer linha de CSS, HTML ou Vue ao trabalhar
 em telas do Educacross.
+
+> **⚡ QUICK CHECKLIST** — âncora antes de qualquer implementação de UI:
+> 1. **Componente existe no FrontOffice?** → `file_search: FrontOffice/src/components/**/*Nome*`
+> 2. **Não encontrou?** → `search_component("Nome")` via MCP (ver Seção 11)
+> 3. **Cores** → `var(--primary)` no FrontOffice · `rgba(var(--primary), 1)` na produção
+> 4. **Ícones** → `bi bi-*` (Bootstrap Icons) ou `<MaterialIcon name="..." />`
+> 5. **Vue** → sempre `<script setup>` · nunca `defineComponent` · nunca Options API
+> 6. **Validar** → screenshot em `http://localhost:5174` (ou 5175/5176) após implementar
+
+---
+
+## 0. WORKFLOW OBRIGATÓRIO — Antes de qualquer implementação de UI
+
+> ⚠️ **SEMPRE siga estas 4 etapas em ordem. Nunca pule nenhuma.**
+
+### ETAPA 1 — Buscar componente no FrontOffice (Protótipo ativo)
+
+Antes de criar qualquer componente do zero, verifique se já existe no protótipo:
+
+```
+Caminhos a verificar:
+  FrontOffice/src/components/
+  FrontOffice/src/shared/components/
+  FrontOffice/src/modules/
+```
+
+Use `file_search` ou `grep_search` no workspace:
+```
+file_search: FrontOffice/src/components/**/*NomeDoComponente*
+grep_search: "NomeDoComponente" em FrontOffice/src/
+```
+
+✅ **Se encontrou → importe e reutilize diretamente. Não recrie.**
+
+---
+
+### ETAPA 2 — Se NÃO encontrou no FrontOffice → buscar via MCP Design System
+
+Use o servidor MCP `design-system` (stdio) para consultar o `educacross-frontoffice` de produção:
+
+```
+1. search_component("NomeDoComponente")   →  encontra o path exato
+2. get_component("pasta/Componente.vue")  →  lê o código completo
+```
+
+**Ao obter o componente de produção, adapte Vue 2 → Vue 3:**
+
+| Vue 2 / BootstrapVue (produção) | Vue 3 / FrontOffice (protótipo) |
+|---|---|
+| `<b-card>` | `<BCard>` do `bootstrap-vue-next` |
+| `<b-row>` / `<b-col>` | `<BRow>` / `<BCol>` |
+| `<b-button>` | `<BButton>` |
+| `<b-badge>` | `<BBadge>` |
+| `<b-form-group>` | `<BFormGroup>` |
+| `<b-form-input>` | `<BFormInput>` ou `<EInput>` |
+| `<b-alert>` | `<BAlert :model-value="true">` |
+| `<b-modal>` | `<EModal>` (`base/EModal.vue`) |
+| `<b-img src="...">` | `<img src="...">` nativo |
+| `<b-avatar>` | `<span>` + CSS ou `<BAvatar>` |
+| `<b-skeleton-wrapper>` | Loading spinner manual ou `v-if` |
+| `v-b-tooltip` | Atributo `title="..."` nativo |
+| `this.$bvModal.show('id')` | `const modal = ref(); modal.value.show()` |
+| `this.$refs['id'].show()` | `const modal = ref(); modal.value.show()` |
+| `from '@vue/composition-api'` | `from 'vue'` |
+| `import { defineComponent }` | não necessário com `<script setup>` |
+| `@change` em b-select | `@update:modelValue` |
+
+**Demais regras:**
+- **Copie o CSS scoped exatamente** — não invente CSS novo
+- Copie assets (SVGs, imagens) de `educacross-frontoffice/src/assets/` para `FrontOffice/src/assets/`
+- Use `<script setup>` (nunca `defineComponent` ou Options API)
+
+---
+
+### ETAPA 3 — Implementar com CSS fiel à produção
+
+**⚠️ Regra de cores por CONTEXTO:**
+
+| Contexto | Regra |
+|---|---|
+| **Produção** (`educacross-frontoffice`) | Usar `rgba(var(--primary), 1)` — nunca hex inline |
+| **FrontOffice Protótipo** (`FrontOffice/src/style.css`) | Usar `var(--primary)` diretamente — o `style.css` já define as vars como hex |
+
+```css
+/* ✅ CORRETO no FrontOffice protótipo */
+color: var(--primary);        /* → #7367F0 */
+background: var(--success);   /* → #28C76F */
+
+/* ✅ CORRETO na produção */
+color: rgba(var(--primary), 1);
+```
+
+**Demais regras obrigatórias:**
+
+1. Copiar o `<style scoped>` do componente de produção quando disponível
+2. Para layout de filtros: sempre usar `BRow` + `BCol` com `cols="auto"` | `cols` (grow) | `ms-auto`
+3. Para labels de botões sem título: usar `label="&nbsp;"` para alinhar verticalmente
+4. Para abas: usar o padrão Tab.vue (`.tab-link`, `border-radius: 15px 15px 0 0`, `box-shadow`, `--offset: -10px`)
+5. Cores de progresso: tokens exatos `#14693a` (≥100%) · `#28c76f` (≥80%) · `#ff9f43` (≥50%) · `#ea5455` (<50%)
+
+---
+
+### ETAPA 4 — Screenshot + Validação Visual (OBRIGATÓRIO)
+
+Após qualquer implementação ou ajuste de CSS, **SEMPRE**:
+
+**4a. Verificar se o servidor está rodando:**
+```bash
+# Verificar a porta real antes de navegar:
+Get-NetTCPConnection -LocalPort 5174,5175,5176 -State Listen 2>$null
+
+# Se não estiver rodando, iniciar:
+npm run dev:fo   # FrontOffice isolado
+# OU
+npm run dev:all  # Todos os servidores (FO na porta 5174)
+
+# Porta padrão: http://localhost:5174/
+# Se ocupada, pode subir em 5175 ou 5176 — verificar output do terminal
+```
+
+**4b. Tirar screenshot da tela implementada:**
+Use `activate_page_capture_tools` → `browser_take_screenshot`:
+```
+1. Navegar até a rota implementada (ex: http://localhost:5174/professor/missoes)
+2. Capturar screenshot full-page
+3. Comparar visualmente com o print de referência (produção ou SKILL)
+```
+
+**4c. Checklist de validação visual:**
+
+| Item | O que verificar |
+|------|----------------|
+| Abas | Estilo pasta/folder? `border-radius: 15px 15px 0 0`? Cor active `#6e63e8`? |
+| Filtros | `BRow`/`BCol`? Labels alinhados? Status col com `flex-grow`? |
+| Alert | `alert-body` com padding? Ícone `edit_calendar`? |
+| Tabela | `thead` uppercase? Colunas com espaçamento correto? |
+| Empty state | Belinha `confusion.svg`? Texto `text-primary fw-bold`? |
+| Legenda | Dots coloridos com tokens corretos? |
+| Botões | `w-100` ou `btn-block`? Variant correto? |
+
+**4d. CSS errado → corrigir → repetir screenshot → só concluir quando estiver perfeito.**
+
+**4e. Apagar screenshots após validação (OBRIGATÓRIO):**
+
+O script de validação já inclui limpeza automática. Use sempre este template em `mcp-playwright/`:
+
+```js
+// mcp-playwright/validate-screen.cjs  ← template reutilizável
+const { chromium } = require('@playwright/test');
+const fs = require('fs');
+
+const SCREENSHOTS = []; // acumula paths para deletar no final
+
+async function shot(page, name) {
+  const p = `C:/temp/val-${name}.png`;
+  await page.screenshot({ path: p, fullPage: false });
+  SCREENSHOTS.push(p);
+  return p;
+}
+
+(async () => {
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+
+  // ── 1. Navegar ──────────────────────────────────────────────────────────
+  await page.goto('http://localhost:5174/professor/missoes', { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1500);
+
+  // ── 2. Capturar ─────────────────────────────────────────────────────────
+  await shot(page, 'full');
+  await shot(page, 'table');   // recorte da tabela se necessário
+
+  // ── 3. Inspecionar CSS computado ────────────────────────────────────────
+  const checks = await page.evaluate(() => ({
+    cardShadow:    window.getComputedStyle(document.querySelector('.card')).boxShadow,
+    headerColor:   window.getComputedStyle(document.querySelector('.header-label')).color,
+    selectAll:     !!document.querySelector('.selectAll-container'),
+  }));
+  console.log('CSS checks:', JSON.stringify(checks, null, 2));
+
+  await browser.close();
+
+  // ── 4. Abrir no visualizador para aprovação visual ───────────────────────
+  const { execSync } = require('child_process');
+  SCREENSHOTS.forEach(p => execSync(`start "" "${p}"`, { shell: 'cmd' }));
+
+  // ── 5. Deletar screenshots após 10s (tempo para visualizar) ─────────────
+  console.log('Aguardando 10s para deletar screenshots...');
+  setTimeout(() => {
+    SCREENSHOTS.forEach(p => {
+      try { fs.unlinkSync(p); console.log('Deletado:', p); }
+      catch (e) { /* já deletado */ }
+    });
+    // Também limpar qualquer *.png solto na raiz do workspace
+    const ws = 'C:/Users/Educacross/Documents/Educacross/Ambiente_de_Prototipacao_V5';
+    fs.readdirSync(ws)
+      .filter(f => f.endsWith('.png') && (f.startsWith('ms-') || f.startsWith('val-') || f.startsWith('missoes')))
+      .forEach(f => { try { fs.unlinkSync(`${ws}/${f}`); console.log('Deletado:', f); } catch(e){} });
+    console.log('Limpeza concluída.');
+  }, 10_000);
+})().catch(e => { console.error('ERRO:', e.message); process.exit(1); });
+```
+
+> Após cada sessão de validação, rodar também:
+> ```powershell
+> # Limpeza manual de emergência — remove todos os screenshots temporários
+> Remove-Item "C:\temp\val-*.png","C:\temp\ms-*.png","C:\temp\missoes*.png" -ErrorAction SilentlyContinue
+> Remove-Item "$env:USERPROFILE\Documents\Educacross\Ambiente_de_Prototipacao_V5\*.png" -ErrorAction SilentlyContinue
+> ```
+
+> 🔴 **Não considere a tarefa concluída sem screenshot validado e deletado.**
+
+---
+
+### Resumo visual do fluxo
+
+```
+Precisa de componente
+        │
+        ▼
+┌─────────────────────┐
+│ 1. Buscar em        │
+│    FrontOffice/src/ │
+│    components/      │
+└──────────┬──────────┘
+      ┌────┴────┐
+  ACHOU│         │NÃO ACHOU
+      ▼         ▼
+   Usar    ┌─────────────────────┐
+   direto  │ 2. MCP design-system│
+           │  search_component() │
+           │  get_component()    │
+           └──────────┬──────────┘
+                      │
+                      ▼
+           ┌─────────────────────┐
+           │ 3. Adaptar Vue2→3   │
+           │    Copiar CSS scoped │
+           │    Copiar assets SVG │
+           └──────────┬──────────┘
+                      │
+                      ▼
+           ┌─────────────────────┐
+           │ 4. Screenshot +      │
+           │    Validação visual  │
+           │    (OBRIGATÓRIO) 🔴  │
+           └─────────────────────┘
+```
+
+---
+
+## 0.5 Inventário de Componentes do FrontOffice (protótipo ativo)
+
+> **Verifique esta lista ANTES de qualquer `file_search`** (ETAPA 1). Se o componente estiver aqui, importe diretamente.
+> **Status de validação** (última validação Playwright: 26/02/2026)
+
+### Componentes base (`FrontOffice/src/components/base/`)
+
+| Componente | Arquivo | Descrição | Status |
+|---|---|---|---|
+| `ESelect` | `base/ESelect.vue` | Seletor avançado com busca, multi, loading, variant | ⚠️ Parcial |
+| `EButton` | `base/EButton.vue` | Botão padronizado | ✅ OK |
+| `EInput` | `base/EInput.vue` | Input com ícone e validação | ✅ OK |
+| `ETextarea` | `base/ETextarea.vue` | Área de texto estendida | ✅ OK |
+| `EFormGroup` | `base/EFormGroup.vue` | Label + input + estado de erro | ✅ OK |
+| `EDatePicker` | `base/EDatePicker.vue` | Date picker (flatpickr) | ✅ OK |
+| `EModal` | `base/EModal.vue` | Modal padronizado (usa `BModal`) | ✅ OK |
+| `EBadge` | `base/EBadge.vue` | Badge com variant | ✅ OK |
+| `EToast` | `base/EToast.vue` | Notificação toast | ✅ OK |
+| `EConfirmDialog` | `base/EConfirmDialog.vue` | Modal de confirmação (sim/não) | ✅ OK |
+| `SelectSubject` | `base/SelectSubject.vue` | Dropdown de disciplina com ícone colorido | ✅ OK |
+| `LegendEnum` | `base/LegendEnum.vue` | Legenda com bolinhas coloridas + rótulos | ✅ OK |
+| `ProgressBarHorizontalV2` | `base/ProgressBarHorizontalV2.vue` | Barra de progresso horizontal com % colorido | ✅ OK |
+
+### Componentes globais (`FrontOffice/src/components/`)
+
+| Componente | Arquivo | Descrição | Status |
+|---|---|---|---|
+| `AppBreadcrumb` | `AppBreadcrumb.vue` | Breadcrumb idêntico à produção (`ol.breadcrumb pl-0`, SVG feather-home) | ✅ OK |
+| `Sidebar` | `Sidebar.vue` | Sidebar global com personas e navegação | ✅ OK |
+| `AppNavbar` | `AppNavbar.vue` | Topbar com breadcrumb + badge de versão + link wiki | ✅ OK |
+| `MaterialIcon` | `MaterialIcon.vue` | Wrapper para Material Symbols Outlined | ✅ OK |
+| `SubjectIcon` | `SubjectIcon.vue` | Ícone de disciplina com cor e tamanho configurados | ⚠️ Parcial |
+| `ActivityLegend` | `ActivityLegend.vue` | Legenda de categorias de atividade | ✅ OK |
+| `MiniCalendar` | `MiniCalendar.vue` | Mini-calendário compacto | ✅ OK |
+| `EventDrawer` | `EventDrawer.vue` | Drawer de detalhe/edição de evento | ✅ OK |
+| `TrilhasAZDrawer` | `TrilhasAZDrawer.vue` | Drawer do módulo Trilhas A-Z | ✅ OK |
+| `FeatureFlagsPanel` | `FeatureFlagsPanel.vue` | Painel de feature flags (dev) | ✅ OK |
+
+### Componentes de tabela (`FrontOffice/src/components/table/`)
+
+| Componente | Arquivo | Descrição | Status |
+|---|---|---|---|
+| `ListTableSelect` | `table/ListTableSelect.vue` | Tabela com checkbox, sort, empty state Belinha, paginação, busca, select-all | ✅ Validado |
+
+> **Uso de ListTableSelect:** `:columns` (array com `{key, label, sortable, tooltip}`) · `:data` · `v-model:selected` · `empty-text` prop.
+> CSS validado: `selectAll-container` com `border-top: 1px solid #ebe9f1`, headers `#5e5873` uppercase, box-shadow Vuexy `rgba(34,41,47,0.1)`.
+
+### Componentes de missões (`FrontOffice/src/components/missions/`)
+
+| Componente | Arquivo | Descrição | Status |
+|---|---|---|---|
+| `GuidesLimitAlert` | `missions/GuidesLimitAlert.vue` | Alert azul-roxo "40 missões por mês" com contador | ✅ OK |
+| `MissionStatusBadge` | `missions/MissionStatusBadge.vue` | Badge colorido com status da missão | 🔴 **Pendente — buscar na produção** |
+| `ActionsMission` | `missions/ActionsMission.vue` | Dropdown de ações por linha (pie_chart + more_vert) | 🔴 **Pendente — buscar na produção** |
+
+### Componentes de calendário (`FrontOffice/src/components/calendar/`)
+
+| Componente | Arquivo | Descrição | Status |
+|---|---|---|---|
+| `ClassSelector` | `calendar/ClassSelector.vue` | Seletor de turma (escola + turma) | ✅ OK |
+| `CalendarHeaderFigma` | `calendar/CalendarHeaderFigma.vue` | Cabeçalho do calendário | ✅ OK |
+| `CalendarMiniPicker` | `calendar/CalendarMiniPicker.vue` | Mini picker inline no sidebar | ✅ OK |
+| `CalendarActivityFilters` | `calendar/CalendarActivityFilters.vue` | Filtros de atividade do calendário | ✅ OK |
+| `MonthViewFigma` | `calendar/MonthViewFigma.vue` | Visão mensal do calendário | ✅ OK |
+
+### Atoms / Molecules / Organisms
+
+> Componentes menores do calendário em `atoms/`, `molecules/`, `organisms/`, `templates/`. Consultar via `file_search` se necessário.
+
+### Componentes que precisam ser portados da produção (pendentes)
+
+| Componente Produção | Path Produção | Necessário para | Prioridade |
+|---|---|---|---|
+| `MissionStatusBadge` | `components/missions/MissionStatusBadge.vue` | Coluna STATUS da tabela de missões | 🔴 Alta |
+| `ActionsMission` | `components/missions/ActionsMission.vue` | Coluna AÇÕES da tabela de missões | 🔴 Alta |
+| `AppPagination` | `components/AppPagination.vue` | Paginação da tabela | 🟠 Média |
+| `PerPageSelector` | `components/table/PerPageSelector.vue` | Seletor "Mostrar 10" | 🟠 Média |
+| `TooltipInfo` | `components/base/TooltipInfo.vue` | Ícone ⓘ com tooltip real | 🟡 Baixa |
+
+### Como importar (Vue 3 `<script setup>`)
+
+> ⚠️ **Componentes Bootstrap Vue Next (BVN) precisam ser importados explicitamente** — o `createBootstrap()` no `main.js` não faz auto-import automático com Vite.
+
+```vue
+<script setup>
+// Componentes BVN — sempre importar explicitamente
+import { BCard, BRow, BCol, BFormGroup, BButton, BBadge, BDropdown, BDropdownItem } from 'bootstrap-vue-next'
+// Componentes do FrontOffice
+import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
+import ListTableSelect from '@/components/table/ListTableSelect.vue'
+import GuidesLimitAlert from '@/components/missions/GuidesLimitAlert.vue'
+import SelectSubject from '@/components/base/SelectSubject.vue'
+import LegendEnum from '@/components/base/LegendEnum.vue'
+import ProgressBarHorizontalV2 from '@/components/base/ProgressBarHorizontalV2.vue'
+import ESelect from '@/components/base/ESelect.vue'
+import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import SubjectIcon from '@/components/SubjectIcon.vue'
+import MaterialIcon from '@/components/MaterialIcon.vue'
+</script>
+```
+
+---
+
+## 0.6 Validação Visual — Status Atual da Tela Missões
+
+> Última validação: **26/02/2026** via Playwright headless (1440×900) em `http://localhost:5174/professor/missoes`
+
+### Diff Visual — Protótipo vs Produção
+
+| Área | Produção | Protótipo | Status |
+|---|---|---|---|
+| Breadcrumb | `🏠 › Missões da Escola › Missões` | Idem | ✅ OK |
+| ClassSelector | Badge roxo `5º Ano` + chevron | Idem | ✅ OK |
+| Tabs | Ativas · Arquivadas · Ranking | Idem | ✅ OK |
+| SelectSubject | Ícone disciplina + nome + `expand_more` | Portado | ✅ OK |
+| SelectStatus | `Todas` + `expand_more` | Idem | ✅ OK |
+| Botão Nova Missão | Roxo sólido + `add_circle` | Idem | ✅ OK |
+| Ações em lote | Outline desabilitado + chevron | Idem | ✅ OK |
+| GuidesLimitAlert | Fundo `#EDE9FD` + calendário + "0 missões" bold | Portado | ✅ OK |
+| Toolbar tabela | `Mostrar [10 ▼]` + busca | Idem | ✅ OK |
+| selectAll-container | `border-top: 1px solid #ebe9f1`, padding `.875rem 1.175rem` | `border-top: 1px solid rgb(235,233,241)`, `padding: 14px 18.8px` | ✅ OK |
+| Headers tabela | UPPERCASE · `#5e5873` · `unfold_more` | UPPERCASE · `rgb(94,88,115)` · `unfold_more` | ✅ OK |
+| Ícone ⓘ STATUS/AÇÕES | `<TooltipInfo>` com tooltip real | `material-symbols-outlined` inline (sem tooltip) | ⚠️ Parcial |
+| Coluna STATUS | `BBadge` colorido por status | Texto puro | 🔴 Pendente |
+| Coluna AÇÕES | Dropdown com ações reais | `pie_chart` + `more_vert` sem dropdown real | 🔴 Pendente |
+| Coluna NOME | `font-weight: 700` | `font-weight: 600` | ⚠️ Leve |
+| Progress bar | Barra colorida + % colorido | Portada | ✅ OK |
+| Empty state | Belinha `confusion.svg` + texto roxo | `class="mb-1"` sem constraints | ✅ OK |
+| LegendEnum rodapé | 4 bolinhas + rótulos | Portada | ✅ OK |
+| Card sombra | `rgba(34,41,47,0.1) 0 5px 20px` | Idem (Vuexy correto) | ✅ OK |
+| Card border-radius | `12px` | `12px` | ✅ OK |
+
+---
+
+## 0.7 Validação Visual — Tela Relatório de Evidências
+
+> Última validação: **26/02/2026** via Playwright headless (1440×900) em `http://localhost:5174/professor/relatorios/evidencias`
+
+### Diff Visual — Protótipo vs Produção
+
+| Área | Produção | Protótipo | Status |
+|---|---|---|---|
+| Breadcrumb | `🏠 › Relatórios Gerais › Relatório de Evidências` | Idem | ✅ OK |
+| Filtros — Disciplina | `SelectSubject` | Portado | ✅ OK |
+| Filtros — Matriz/Currículo | `ESelect` + opções BNCC | Portado (mock) | ✅ OK |
+| Filtros — Módulo | `ESelect` (Todos/Missão/Ilha/Sistema de ensino) | Portado (mock) | ✅ OK |
+| Filtros — Sistema de ensino | `ESelect` condicional (Módulo = 4) + Mês inicial + Mês final | Portado (mock) | ✅ OK |
+| Card 2 título | `h3.text-body` "Selecione as opções..." | Idem | ✅ OK |
+| Opção 1 | `b-form-checkbox` + "1 - Painel Geral" + legenda | Checkbox nativo + idem | ✅ OK |
+| Opção 2 | `b-form-checkbox` + "2 - Habilidades da Turma" | Checkbox nativo + idem | ✅ OK |
+| Opção 3 | `b-form-checkbox` indeterminate + "3 - Habilidades por Alunos" | Checkbox nativo + idem | ✅ OK |
+| Expand alunos | "Clique aqui" roxo + grid 5 colunas com b-form-checkbox-group | "Clique aqui" + grid 5 colunas com checkboxes nativos | ✅ OK |
+| Grid alunos | `grid-template-columns: repeat(5, 1fr)` | Idem | ✅ OK |
+| Alunos mock | Dados reais da API | 15 alunos mock | ✅ OK (protótipo) |
+| Botão PDF | `BButton` primary + `picture_as_pdf` + disabled se nada selecionado | Idem | ✅ OK |
+| Disable logic | `!dashboard && !classProficiency && selected.length === 0` | Idem | ✅ OK |
+
+### Componentes usados
+
+```vue
+import { BCard, BRow, BCol, BFormGroup, BButton } from 'bootstrap-vue-next'
+import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
+import SelectSubject from '@/components/base/SelectSubject.vue'
+import ESelect from '@/components/base/ESelect.vue'
+```
+
+> ⚠️ **CRÍTICO**: Componentes BVN (`BCard`, `BRow`, `BCol`, `BButton` etc.) **precisam ser importados explicitamente** no  `<script setup>`. O `createBootstrap()` no `main.js` **não** faz auto-import automático no Vue 3 com Vite.
 
 ---
 
@@ -232,6 +646,41 @@ Todos os ícones do sistema são **Material Symbols Outlined** (não Material Ic
 | `missao-liga.svg` | Missão Liga da Cognição |
 | `missao-ldc.svg` | Missão LDC |
 | `missao-math-ing.svg` | Missão Matemática Inglês |
+
+---
+
+### 4.5 Bootstrap Icons (FrontOffice protótipo)
+
+> **Contexto FrontOffice**: além de Material Symbols, o FrontOffice usa **Bootstrap Icons** (`bi bi-*`) importados via npm em `main.js`. Use quando o componente existente já usa Bootstrap Icons ou quando o design exigir.
+
+**Como usar:**
+```html
+<!-- Bootstrap Icons: prefixo bi bi- -->
+<i class="bi bi-arrow-left"></i>
+<i class="bi bi-three-dots-vertical"></i>
+<i class="bi bi-calendar3"></i>
+<span class="bi bi-check-circle-fill text-success"></span>
+```
+
+**Comparativo de bibliotecas no FrontOffice:**
+
+| Biblioteca | Prefixo | Quando usar |
+|---|---|---|
+| Material Symbols Outlined | `material-symbols-outlined` (span) | Padrão — a maioria dos ícones |
+| Bootstrap Icons | `bi bi-*` (i ou span) | Componentes que já usam `bi`, ou ícones sem equiv. em Material |
+
+**Ícones Bootstrap Icons usados no projeto:**
+
+| Ícone | Classe | Uso comum |
+|---|---|---|
+| Seta esquerda | `bi-arrow-left` | Navegar voltar |
+| Três pontos vertical | `bi-three-dots-vertical` | Menu de ações |
+| Calendário | `bi-calendar3` | Datas |
+| Check | `bi-check-circle-fill` | Status sucesso |
+| X / fechar | `bi-x-circle` | Cancelar, fechar |
+| Lupa | `bi-search` | Busca |
+| Clock | `bi-clock` | Tempo / horário |
+| People | `bi-people-fill` | Grupos / turmas |
 
 ---
 
@@ -845,6 +1294,33 @@ this.$bvModal.show('student-detail-modal')
 this.$bvModal.hide('student-detail-modal')
 ```
 
+> **Nota Vue 3**: No FrontOffice, use `<EModal>` com `ref` e `.show()`/`.hide()` — não use `$bvModal`.
+
+---
+
+### 6.14 GuidesLimitAlert (alerta de limite de missões)
+
+**Caminho**: componente inline — usar `BAlert` com o padrão abaixo.
+
+Aparece em todas as telas de missões do professor. Informa o limite mensal de 40 missões por turma.
+
+```vue
+<!-- Padrão exato: icon edit_calendar + texto + icon info -->
+<BAlert variant="primary" :model-value="true" class="mb-2">
+  <div class="alert-body d-flex align-items-center gap-2">
+    <span class="material-symbols-outlined text-primary" style="font-size:22px">edit_calendar</span>
+    <span style="font-size:14px">
+      É permitida a criação de até 40 missões ao mês por turma.
+      Este mês, você criou: <strong class="text-primary">{{ guidesMonth }} missões.</strong>
+    </span>
+    <span class="material-symbols-outlined ms-auto text-primary"
+          style="font-size:18px;cursor:pointer">info</span>
+  </div>
+</BAlert>
+```
+
+**Variável**: `const guidesMonth = ref(0)` — mockar com o número de missões do mês.
+
 ---
 
 ## 7. Padrões de Layout
@@ -923,48 +1399,74 @@ Gutter: 0.625rem (10px) — menor que o Bootstrap padrão
 
 ## 8. Padrões de componente Vue
 
-### 8.1 Estrutura padrão de componente
+### 8.1 Estrutura padrão de componente (Vue 3 + `<script setup>`)
+
+> **SEMPRE usar `<script setup>` + `from 'vue'`. Nunca usar `defineComponent`, Options API ou `from '@vue/composition-api'`.**
 
 ```vue
 <script setup>
-import { ref, computed, onMounted } from '@vue/composition-api'
-import useFilters from '@/store/filters/useFilters'
+import { ref, computed, onMounted } from 'vue'
+import ESelect from '@/components/base/ESelect.vue'
+import { BRow, BCol, BCard } from 'bootstrap-vue-next'
 
-// props
-const props = defineProps({ ... })
+// Props (sem defineProps acima do script setup não é necessário)
+const props = defineProps({
+  title: { type: String, required: true },
+  loading: { type: Boolean, default: false }
+})
 
-// composables
-const { subject, classe } = useFilters()
+// Emits
+const emit = defineEmits(['update:modelValue', 'change'])
 
-// estado local
-const loading = ref(false)
+// Reativos
+const isLoading = ref(false)
 const data = ref([])
+const search = ref('')
 
-// computed
-const filteredData = computed(() => ...)
+// Computed
+const filteredData = computed(() =>
+  data.value.filter(i => i.name.includes(search.value))
+)
 
-// lifecycle
+// Lifecycle
 onMounted(async () => {
   await fetchData()
 })
 
-// métodos
+// Métodos
 const fetchData = async () => {
-  loading.value = true
-  try { ... } finally { loading.value = false }
+  isLoading.value = true
+  try {
+    // dados mock — sem chamadas API
+    data.value = [ /* ... */ ]
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
 <template>
   <div>
-    <b-skeleton-wrapper :loading="loading">
-      <template #loading>...</template>
-      <!-- conteúdo real -->
-    </b-skeleton-wrapper>
+    <!-- Loading state -->
+    <div v-if="isLoading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status" />
+    </div>
+
+    <!-- Empty state (Belinha) -->
+    <div v-else-if="!data.length" class="text-center py-5">
+      <img src="@/assets/images/belinha/confusion.svg" alt="Vazio" style="max-width:120px" class="mb-2" />
+      <p class="text-primary fw-bold mb-0">Não há dados para exibir.</p>
+    </div>
+
+    <!-- Conteúdo real -->
+    <BCard v-else>
+      <!-- ... -->
+    </BCard>
   </div>
 </template>
 
 <style scoped>
+/* Sempre scoped — nunca global */
 </style>
 ```
 
@@ -1003,12 +1505,24 @@ emits: ['input', 'change', 'update:modelValue', 'loading', 'error']
 
 ### 9b.1 Como usar cores em CSS/style
 
-```scss
-/* ✅ CORRETO — respeita whitelabel */
-color: rgba(var(--primary), 1);
-background: rgba(var(--success), 1);
+> **Regra depende do contexto** — veja tabela abaixo. Nunca usar hex hardcoded sem contexto.
 
-/* ❌ ERRADO — quebra whitelabel */
+| Contexto | Padrão correto | Exemplo |
+|---|---|---|
+| **FrontOffice Protótipo** (`FrontOffice/src/style.css`) | `var(--primary)` | `color: var(--primary)` |
+| **Produção** (`educacross-frontoffice`) | `rgba(var(--primary), 1)` | `color: rgba(var(--primary), 1)` |
+
+```css
+/* ✅ FrontOffice protótipo — CSS vars definidas como hex em style.css */
+color: var(--primary);           /* → #7367F0 */
+background: var(--success);      /* → #28C76F */
+border-color: var(--danger);     /* → #EA5455 */
+
+/* ✅ Produção — usa RGB tuple para composição com alpha */
+color: rgba(var(--primary), 1);
+background: rgba(var(--success), 0.12);   /* fundo suave */
+
+/* ❌ NUNCA — hex hardcoded em qualquer contexto */
 color: #6e63e8;
 background: #28c76f;
 ```
@@ -1151,26 +1665,55 @@ $content-color: #626262;     /* cor base do conteúdo */
 
 ---
 
-## 11. Lookup On-Demand via MCP (componentes secundários)
+## 9c. Rotas do FrontOffice (para screenshot e navegação)
 
-Para componentes **não listados nesta SKILL**, use as ferramentas do servidor MCP `design-system` (stdio) para consultar o frontoffice em tempo real:
+> Use estas URLs ao executar a ETAPA 4 (Screenshot). Todas partem de `http://localhost:5174`.
 
-| Ferramenta | Descrição | Exemplo de uso |
-|---|---|---|
-| `list_components` | Lista todos os `.vue` do frontoffice agrupados por pasta | — |
-| `search_component(query)` | Busca componente por nome parcial | `search_component("Badge")` |
-| `get_component(path)` | Lê o conteúdo completo de um `.vue` | `get_component("base/BaseBadge.vue")` |
-| `get_consts(fileName)` | Lê um arquivo de `src/consts/` ou `src/store/` | `get_consts("legends/index.js")` |
-| `get_scss(scssPath)` | Lê um arquivo SCSS de `src/assets/scss/` | `get_scss("main.scss")` |
+### Rotas globais (personas)
 
-### Fluxo recomendado
+| Rota | View | Descrição |
+|------|------|-----------|
+| `/` | `Home.vue` | Seletor de personas |
+| `/teacher` | `teacher/Dashboard.vue` | Dashboard Professor |
+| `/student` | `student/Dashboard.vue` | Dashboard Aluno |
+| `/administrator` | `administrator/Dashboard.vue` | Dashboard Administrador |
+| `/coordinator` | `coordinator/Dashboard.vue` | Dashboard Coordenador |
+| `/director` | `director/Dashboard.vue` | Dashboard Diretor |
+| `/network-manager` | `network-manager/Dashboard.vue` | Dashboard Gestor de Rede |
+| `/teacher/calendar` | `teacher/Calendar.vue` | Calendário |
+| `/teacher/calendar-figma` | `teacher/CalendarFigma.vue` | Calendário Unificado |
+| `/teacher/trilhas-az` | `modules/sistema-de-ensino/` | Sistema de Ensino |
+| `/sobre` | `About.vue` | Sobre o ambiente |
 
-1. Procure o componente aqui na SKILL primeiro (seções 1–10)
-2. Se não encontrar → use `search_component("NomeDoComponente")`
-3. Com o path encontrado → use `get_component("pasta/Componente.vue")`
-4. Adapte o padrão Vue 2 (BootstrapVue, `b-tag`) para Vue 3 (HTML nativo + CSS vars do projeto)
+### Jornada Professor (`/professor/*`)
 
-> **Atenção**: O frontoffice usa Vue 2 + BootstrapVue. Ao adaptar para prototipação (Vue 3), substitua `<b-card>`, `<b-badge>` etc. por HTML semântico com as CSS vars de `src/style.css`.
+| Rota | Descrição |
+|------|-----------|
+| `/professor` | Dashboard Professor |
+| `/professor/calendario` | Calendário do Professor |
+| `/professor/turmas` | Gestão de Turmas |
+| `/professor/alunos` | Gestão de Alunos |
+| `/professor/grupos` | Gestão de Grupos |
+| `/professor/missoes` | Lista de Missões |
+| `/professor/missoes/criar` | Nova Missão |
+| `/professor/relatorios/evidencias` | Relatório de Evidências |
+| `/professor/relatorios/habilidades` | Relatório de Habilidades |
+| `/professor/relatorios/acesso-alunos` | Acesso de Alunos |
+| `/professor/jogos/config-ilha` | Configurar Ilha |
+| `/professor/jogos/ranking` | Ranking da Ilha |
+| `/professor/avaliacoes/digital` | Avaliação Digital |
+| `/professor/avaliacoes/flue-esc` | FluEsc |
+| `/professor/avaliacoes/fases-escrita` | Fases da Escrita |
+| `/professor/expedicao-leitura` | Expedição de Leitura |
+| `/professor/eventos/olimpiadas` | Olimpíadas |
+| `/professor/eventos/extreme` | Extreme |
+| `/professor/ajudas-materiais` | Materiais de Apoio |
+| `/professor/educateca` | Educateca |
+| `/professor/programas/alfabetiza-manaus` | Alfabetiza Manaus |
+| `/professor/programas/letrar` | Letrar |
+| `/professor/programas/super-ensino-jp` | Super Ensino JP |
+| `/professor/programas/super-ensino-manaus` | Super Ensino Manaus |
+| `/professor/programas/high-five` | High Five |
 
 ---
 
@@ -1185,4 +1728,42 @@ Para componentes **não listados nesta SKILL**, use as ferramentas do servidor M
 | Cores whitelabel | `src/consts/whitelabelColors.config.js` |
 | Variáveis SCSS | `src/assets/scss/variables/_variables.scss` |
 | themeConfig | `themeConfig.js` |
+
+---
+
+## 11. Lookup On-Demand via MCP (componentes secundários)
+
+> Use **apenas** para componentes não listados na Seção 0.5 e não encontrados em `FrontOffice/src/components/`.  
+> Para o workflow completo com screenshot, ver **Seção 0**.
+
+### Ferramentas disponíveis
+
+| Ferramenta | O que faz | Exemplo correto | ❌ Erro comum |
+|---|---|---|---|
+| `list_components` | Lista todos os `.vue` do frontoffice agrupados por pasta | `list_components()` | — |
+| `search_component(query)` | Busca por nome parcial (case-insensitive) | `search_component("Badge")` | Nome muito específico — tente variações: `"badge"`, `"Base"`, `"Alert"` |
+| `get_component(path)` | Lê código completo de um `.vue` | `get_component("base/BaseBadge.vue")` | Path sem pasta: `get_component("BaseBadge.vue")` → não encontra |
+| `get_consts(fileName)` | Lê arquivo de `src/consts/` ou `src/store/` | `get_consts("legends/index.js")` | — |
+| `get_scss(scssPath)` | Lê arquivo SCSS de `src/assets/scss/` | `get_scss("variables/_variables.scss")` | — |
+
+### Situações de erro e como contornar
+
+| Situação | O que fazer |
+|---|---|
+| `search_component("Foo")` retorna vazio | Tentar termos alternativos: nome em inglês, nome base, prefixo (`E`, `Base`, `App`) |
+| `get_component(path)` retorna "not found" | Confirmar path exato com `list_components()` primeiro |
+| Componente retornado é Vue 2 (`<b-card>`, `<b-badge>`...) | Adaptar usando tabela da **Seção 0, Etapa 2** |
+| Componente usa `this.$store` | Substituir por `const store = useStore()` com Pinia/Vuex 4 |
+| Componente usa `$route` / `$router` | Substituir por `useRoute()` / `useRouter()` do Vue Router 4 |
+| Componente usa `this.$emit` / `this.$props` | Substituir por `defineEmits()` / `defineProps()` |
+
+### Sequência de 4 passos
+
 ```
+1. search_component("NomeDoComponente")     →  path exato
+2. get_component("pasta/Componente.vue")    →  código completo
+3. Adaptar Vue 2 → Vue 3 (tabela Seção 0, Etapa 2)
+4. Screenshot em localhost:5174 para validar
+```
+
+> ⚠️ **O frontoffice usa Vue 2 + BootstrapVue.** Ao adaptar: substitua `<b-card>` → `<BCard>`, `<b-badge>` → `<BBadge>` (bootstrap-vue-next), e use CSS vars de `FrontOffice/src/style.css` em vez de SCSS vars do frontoffice.
