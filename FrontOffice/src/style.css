@@ -5,10 +5,21 @@
 /* Bootstrap Icons importado em main.js */
 
 :root {
+  /* Layout */
+  --navbar-height: 70px;  /* altura da barra de navegação fixa */
+
   /* Primary Colors - Vuexy Purple */
   --primary: #7367F0;
   --primary-light: #9E95F5;
   --primary-dark: #5E50EE;
+  --ec-primary: #6E63E8;
+  --ec-primary-soft: #EEEDFD;
+  --ec-text: #5E5873;
+  --ec-body: #6E6B7B;
+  --ec-muted: #B9B9C3;
+  --ec-border: #EBE9F1;
+  --ec-card-radius: 0.428rem;
+  --ec-card-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
 
   /* Bootstrap 5 native vars override → força roxo em todos os btn-primary */
   --bs-primary: #7367F0;

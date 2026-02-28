@@ -23,11 +23,52 @@ const periodOptions = [
 const bncc = ref(bnccList[0])
 const period = ref(periodOptions[0])
 
+const expandedGroups = ref(new Set())
+
+function toggleGroup(index) {
+  if (expandedGroups.value.has(index)) {
+    expandedGroups.value.delete(index)
+  } else {
+    expandedGroups.value.add(index)
+  }
+  // trigger reactivity
+  expandedGroups.value = new Set(expandedGroups.value)
+}
+
 const skillGroups = [
-  { title: 'Números', percent: 0 },
-  { title: 'Álgebra', percent: 0 },
-  { title: 'Geometria', percent: 0 },
-  { title: 'Grandezas e Medidas', percent: 0 },
+  {
+    title: 'Números',
+    percent: 72,
+    skills: [
+      { code: 'EF07MA01', desc: 'Calcular potências e raízes', students: 28, avg: 80 },
+      { code: 'EF07MA02', desc: 'Números racionais e suas operações', students: 28, avg: 65 },
+      { code: 'EF07MA03', desc: 'Resolver problemas com números inteiros', students: 28, avg: 70 },
+    ],
+  },
+  {
+    title: 'Álgebra',
+    percent: 54,
+    skills: [
+      { code: 'EF07MA13', desc: 'Equações do 1º grau com uma incógnita', students: 28, avg: 58 },
+      { code: 'EF07MA14', desc: 'Inequações e representação na reta numérica', students: 28, avg: 50 },
+    ],
+  },
+  {
+    title: 'Geometria',
+    percent: 68,
+    skills: [
+      { code: 'EF07MA19', desc: 'Ângulos formados por transversal com retas paralelas', students: 28, avg: 63 },
+      { code: 'EF07MA20', desc: 'Triângulos: relações entre lados e ângulos', students: 28, avg: 73 },
+    ],
+  },
+  {
+    title: 'Grandezas e Medidas',
+    percent: 61,
+    skills: [
+      { code: 'EF07MA28', desc: 'Resolver problemas de área e perímetro', students: 28, avg: 61 },
+      { code: 'EF07MA29', desc: 'Conversão de unidades de medida', students: 28, avg: 60 },
+    ],
+  },
 ]
 </script>
 
@@ -74,12 +115,19 @@ const skillGroups = [
       </BRow>
     </BCard>
 
-    <BCard
-      v-for="group in skillGroups"
+    <div
+      v-for="(group, idx) in skillGroups"
       :key="group.title"
       class="skill-card mb-2"
+      :class="{ open: expandedGroups.has(idx) }"
     >
-      <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+      <!-- Header (clicável) -->
+      <div
+        class="skill-card-header d-flex align-items-center justify-content-between gap-3 flex-wrap"
+        role="tab"
+        :aria-expanded="expandedGroups.has(idx)"
+        @click="toggleGroup(idx)"
+      >
         <h4 class="skill-title mb-0">{{ group.title }}</h4>
 
         <div class="skill-metrics d-flex align-items-center gap-3">
@@ -94,10 +142,34 @@ const skillGroups = [
             <span class="skill-progress-value">{{ group.percent }}%</span>
           </div>
 
-          <span class="material-symbols-outlined skill-chevron">expand_more</span>
+          <span
+            class="material-symbols-outlined skill-chevron"
+            :class="{ rotated: expandedGroups.has(idx) }"
+          >expand_more</span>
         </div>
       </div>
-    </BCard>
+
+      <!-- Body (expansível) -->
+      <div v-show="expandedGroups.has(idx)" class="skill-card-body">
+        <div
+          v-for="skill in group.skills"
+          :key="skill.code"
+          class="skill-row d-flex align-items-center justify-content-between flex-wrap gap-2"
+        >
+          <div>
+            <span class="skill-code">{{ skill.code }}</span>
+            <p class="skill-desc mb-0">{{ skill.desc }}</p>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="skill-students text-muted">{{ skill.students }} alunos</span>
+            <span
+              class="skill-badge"
+              :class="skill.avg >= 70 ? 'badge-success' : skill.avg >= 50 ? 'badge-warning' : 'badge-danger'"
+            >{{ skill.avg }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="d-flex justify-content-center mt-3">
       <BButton variant="outline-primary" size="sm" class="px-3">
@@ -122,14 +194,82 @@ const skillGroups = [
 }
 
 .skill-card {
-  border: 1px solid var(--gray-200);
+  background: #fff;
+  border: 1px solid var(--gray-200, #ebe9f1);
+  border-radius: 0.428rem;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
 
-.skill-card :deep(.card-body) {
+.skill-card-header {
   padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid transparent;
 }
 
+.skill-card-header:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.skill-card.open .skill-card-header {
+  background-color: rgba(115, 103, 240, 0.05);
+  border-bottom-color: var(--gray-200, #ebe9f1);
+}
+
+.skill-card-body {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--gray-200, #ebe9f1);
+}
+
+.skill-row {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--gray-200, #ebe9f1);
+}
+
+.skill-row:last-child {
+  border-bottom: none;
+}
+
+.skill-code {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.skill-desc {
+  font-size: 0.9rem;
+  color: var(--gray-700, #5e5873);
+}
+
+.skill-students {
+  font-size: 0.8rem;
+}
+
+.skill-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.skill-badge.badge-success { background: var(--success); }
+.skill-badge.badge-warning { background: var(--warning); }
+.skill-badge.badge-danger  { background: var(--danger); }
+
+.skill-chevron {
+  font-size: 20px;
+  color: var(--gray-500);
+  transition: transform 0.25s ease;
+}
+
+.skill-chevron.rotated {
+  transform: rotate(-180deg);
+}
+
+/* ─── Titles & metrics ─── */
 .skill-title {
   font-size: 1.1rem;
   font-weight: 500;
@@ -174,10 +314,6 @@ const skillGroups = [
   color: var(--gray-500);
 }
 
-.skill-chevron {
-  font-size: 20px;
-  color: var(--gray-500);
-}
 
 .period-pill {
   display: inline-flex;

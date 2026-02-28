@@ -122,9 +122,9 @@ defineProps({
   overflow-x: hidden;
   position: fixed;
   left: 0;
-  top: 70px;
+  top: var(--navbar-height);
   z-index: 100;
-  height: calc(100vh - 70px);
+  height: calc(100vh - var(--navbar-height));
   transition: width 0.3s ease;
 }
 

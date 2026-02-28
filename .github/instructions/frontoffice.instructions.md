@@ -40,8 +40,8 @@ import { ref, computed } from 'vue'
 ## Antes de criar qualquer componente novo
 
 1. Verificar `FrontOffice/src/components/` — pode já existir
-2. Consultar a skill `educacross-design-system` (Seção 0.5) para inventário completo
-3. Se não existir no FrontOffice → buscar no MCP `design-system` (Seção 11 da skill)
+2. Consultar a skill `educacross-design-system` (`SKILL.md` para fluxo rápido ou `SKILL.full.md` para inventário completo)
+3. Se não existir no FrontOffice → buscar no MCP `design-system` (fluxo de reaproveitamento da skill)
 4. Só criar do zero se não houver equivalente
 
 ## Dados
@@ -67,4 +67,6 @@ import { ref, computed } from 'vue'
 ## Para detalhes completos do Design System
 
 Use a skill `educacross-design-system` digitando `/educacross-design-system` no chat.  
+`SKILL.md` = versão core (rápida, operacional).  
+`SKILL.full.md` = versão completa (referência detalhada para casos complexos).  
 Ela contém: paleta completa, tipografia, todos os componentes, rotas, padrões Vue 3.

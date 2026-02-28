@@ -707,7 +707,7 @@ onUnmounted(() => {
 
 <style scoped>
 /* Base Layout */
-.calendar-page { display: flex; min-height: calc(100vh - 70px); padding-top: 70px; }
+.calendar-page { display: flex; min-height: calc(100vh - var(--navbar-height)); padding-top: var(--navbar-height); }
 .calendar-page.sidebar-collapsed .calendar-content { margin-left: 70px; }
 .calendar-content { flex: 1; margin-left: 240px; display: flex; flex-direction: column; transition: margin-left 0.3s ease; background: #f5f5f9; }
 
@@ -870,7 +870,7 @@ onUnmounted(() => {
 /* Responsive specifics */
 @media (max-width: 1024px) {
   .calendar-content { margin-left: 0; }
-  .left-column { position: absolute; left: 0; top: 70px; height: calc(100vh - 70px); z-index: 100; transform: translateX(-100%); transition: transform 0.3s; }
+  .left-column { position: absolute; left: 0; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); z-index: 100; transform: translateX(-100%); transition: transform 0.3s; }
   .calendar-page:not(.sidebar-collapsed) .left-column { transform: translateX(0); }
 }
 </style>

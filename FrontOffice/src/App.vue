@@ -4,14 +4,14 @@ import { EToast } from '@/components/base'
 </script>
 
 <template>
-  <div id="app">
+  <div class="app-root">
     <RouterView />
     <EToast />
   </div>
 </template>
 
 <style scoped>
-#app {
+.app-root {
   min-height: 100vh;
 }
 </style>

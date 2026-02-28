@@ -1,105 +1,331 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { BCard } from 'bootstrap-vue-next'
+import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
+import ClassSelector from '@/components/calendar/ClassSelector.vue'
 
-const turma = ref('')
-const turmas = ['1º Ano A', '1º Ano B', '2º Ano A', '3º Ano A', '4º Ano A', '5º Ano B']
+const MONTHS = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez']
+const MONTH_LABELS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+const ACTIVE_MONTHS = new Set(['jan','fev'])
 
 const students = [
-  { id: 1, name: 'Ana Carolina Souza',   turma: '3º Ano A', lastAccess: '13/06/2025 14:32', total: 42, status: 'Ativo' },
-  { id: 2, name: 'Bruno Lima Santos',    turma: '3º Ano A', lastAccess: '12/06/2025 09:10', total: 38, status: 'Ativo' },
-  { id: 3, name: 'Camila Rocha Alves',   turma: '4º Ano A', lastAccess: '10/06/2025 16:45', total: 21, status: 'Ativo' },
-  { id: 4, name: 'Diego Fernandes',      turma: '2º Ano A', lastAccess: '05/06/2025 11:20', total: 8,  status: 'Inativo' },
-  { id: 5, name: 'Érika Nascimento',     turma: '3º Ano A', lastAccess: '13/06/2025 10:05', total: 55, status: 'Ativo' },
-  { id: 6, name: 'Felipe de Oliveira',   turma: '5º Ano B', lastAccess: '—',                total: 0,  status: 'Pendente' },
-  { id: 7, name: 'Gabriela Martins',     turma: '4º Ano A', lastAccess: '11/06/2025 08:50', total: 17, status: 'Ativo' },
-  { id: 8, name: 'Hugo Costa',           turma: '2º Ano A', lastAccess: '01/06/2025 15:30', total: 5,  status: 'Inativo' },
+  { id:  1, name: 'ALUNO EXCLUIR LISTAGEM',   lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  2, name: 'Anderson',                 lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  3, name: 'Consultor Caio',           lastAccess: '16/02/2026', monthly: { jan:0, fev:1 } },
+  { id:  4, name: 'Consultor Val',            lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  5, name: 'Diego Daniel Torini',      lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  6, name: 'Domus01',                  lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  7, name: 'Felipe Zanini Fundamental',lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  8, name: 'Filhos do carlos',         lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id:  9, name: 'Francisco guerra',         lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id: 10, name: 'GabrielzinJr',             lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id: 11, name: 'Helena Braz',              lastAccess: '10/02/2026', monthly: { jan:2, fev:4 } },
+  { id: 12, name: 'Igor Mendes',              lastAccess: '05/02/2026', monthly: { jan:1, fev:2 } },
+  { id: 13, name: 'Juliana Costa',            lastAccess: '01/02/2026', monthly: { jan:0, fev:1 } },
+  { id: 14, name: 'Kaique Silva',             lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id: 15, name: 'Larissa Nunes',            lastAccess: '14/02/2026', monthly: { jan:3, fev:5 } },
+  { id: 16, name: 'Matheus Rocha',            lastAccess: null,         monthly: { jan:0, fev:0 } },
+  { id: 17, name: 'Natalia Fernandes',        lastAccess: '20/02/2026', monthly: { jan:0, fev:3 } },
+  { id: 18, name: 'Otavio Borges',            lastAccess: null,         monthly: { jan:0, fev:0 } },
 ]
 
-const statusStyle = (s) => ({
-  Ativo:    { bg: 'rgba(40,199,111,.15)', tx: '#28C76F' },
-  Inativo:  { bg: 'rgba(234,84,85,.15)',  tx: '#EA5455' },
-  Pendente: { bg: 'rgba(255,159,67,.15)', tx: '#FF9F43' },
-}[s] || { bg: '#eee', tx: '#888' })
+const pageSizeOptions = [10, 25, 50]
+const pageSize = ref(10)
+const currentPage = ref(1)
 
-const initials = (n) => n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase()
+const totalPages = computed(() => Math.ceil(students.length / pageSize.value))
+const paginated  = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value
+  return students.slice(start, start + pageSize.value)
+})
+const pageFrom = computed(() => (currentPage.value - 1) * pageSize.value + 1)
+const pageTo   = computed(() => Math.min(currentPage.value * pageSize.value, students.length))
 
-const filtered = () => turma.value ? students.filter(s => s.turma === turma.value) : students
+function goTo(p) {
+  if (p >= 1 && p <= totalPages.value) currentPage.value = p
+}
+function onPageSize(v) {
+  pageSize.value = Number(v)
+  currentPage.value = 1
+}
+
+const sortMonth = ref(null)
+const sortDir   = ref('desc')
+function toggleSort(m) {
+  if (!ACTIVE_MONTHS.has(m)) return
+  if (sortMonth.value === m) sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  else { sortMonth.value = m; sortDir.value = 'desc' }
+  currentPage.value = 1
+}
+
+function cellValue(student, month) {
+  if (!ACTIVE_MONTHS.has(month)) return null
+  return student.monthly[month] ?? 0
+}
+
+function cellClass(student, month) {
+  const v = cellValue(student, month)
+  if (v === null) return ''
+  if (v === 0) return 'less-activity'
+  return 'almost-full-activity'
+}
 </script>
 
 <template>
   <section>
-    <div class="card mb-4">
-      <div class="card-header">
-        <h6 class="mb-0 fw-bold">Filtrar por turma</h6>
-      </div>
-      <div class="card-body">
-        <div class="row g-3 align-items-end">
-          <div class="col-md-4">
-            <label class="form-label small fw-semibold">Turma</label>
-            <select v-model="turma" class="form-select">
-              <option value="">Todas as turmas</option>
-              <option v-for="t in turmas" :key="t">{{ t }}</option>
-            </select>
-          </div>
-          <div class="col-auto">
-            <button class="btn btn-outline-secondary" @click="turma=''">Limpar</button>
-          </div>
-        </div>
-      </div>
+    <div class="report-top-stack">
+      <ClassSelector school-name="Colégio Nova Jornada" />
+      <AppBreadcrumb />
     </div>
 
-    <div class="card">
-      <div class="card-body p-0">
+    <BCard class="p-0">
+      <div class="m-2">
+        <!-- Info bar: ultima atualizacao + total de alunos -->
+        <div class="d-flex justify-content-between align-items-center info-bar">
+          <span class="text-muted info-bar-text">Última atualização: 26/02/2026</span>
+          <span class="info-bar-text">
+            Total de alunos na turma:
+            <strong class="text-primary">{{ students.length }}</strong>
+          </span>
+        </div>
+
+        <!-- Row: Mostrar -->
+        <div class="row mb-1">
+          <div class="d-flex align-items-center justify-content-start mb-1 mb-md-0 col-md-auto col-12">
+            <label class="me-1">Mostrar</label>
+            <select
+              class="per-page-selector form-select d-inline-block"
+              style="width: auto"
+              :value="pageSize"
+              @change="e => onPageSize(e.target.value)"
+            >
+              <option v-for="n in pageSizeOptions" :key="n" :value="n">{{ n }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabela -->
         <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead class="table-light">
+          <table id="table-access" role="table" aria-busy="false" class="table b-table table-striped">
+            <thead>
               <tr>
-                <th>Aluno</th>
-                <th>Turma</th>
-                <th>Último Acesso</th>
-                <th>Total de Acessos</th>
-                <th>Status</th>
+                <th scope="col">
+                  <div class="d-inline-flex align-items-center gap-1 fw-bolder text-uppercase">Aluno</div>
+                </th>
+                <th scope="col" class="whitespace-no-wrap">
+                  <div class="d-inline-flex align-items-center gap-1 fw-bolder text-uppercase">Último acesso</div>
+                </th>
+                <th
+                  v-for="(m, i) in MONTHS"
+                  :key="m"
+                  scope="col"
+                  class="position-relative"
+                  :class="{ 'sortable-col': ACTIVE_MONTHS.has(m) }"
+                  :tabindex="ACTIVE_MONTHS.has(m) ? 0 : undefined"
+                  @click="toggleSort(m)"
+                  @keydown.enter="toggleSort(m)"
+                >
+                  <div class="d-inline-flex align-items-center gap-1 fw-bolder text-uppercase">
+                    {{ MONTH_LABELS[i] }}
+                    <span
+                      class="material-symbols-outlined sort-icon"
+                      :class="{ active: sortMonth === m, inactive: !ACTIVE_MONTHS.has(m) }"
+                    >{{ sortMonth === m && sortDir === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</span>
+                  </div>
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr v-for="s in filtered()" :key="s.id">
+            <tbody class="text-black">
+              <tr v-for="s in paginated" :key="s.id">
+                <!-- Nome -->
                 <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="avatar-circle text-white fw-bold"
-                      style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;background:linear-gradient(135deg,#7367F0,#9E95F5)">
-                      {{ initials(s.name) }}
-                    </div>
-                    <span class="fw-semibold small">{{ s.name }}</span>
+                  <div>
+                    <span class="font-bold text-body whitespace-no-wrap">{{ s.name }}</span>
                   </div>
                 </td>
-                <td>
-                  <span class="badge rounded-pill"
-                    style="background:rgba(115,103,240,.15);color:#7367F0">{{ s.turma }}</span>
+                <!-- Ultimo acesso -->
+                <td class="whitespace-no-wrap">
+                  <div class="text-center">
+                    <span class="text-body whitespace-no-wrap">{{ s.lastAccess ?? '-' }}</span>
+                  </div>
                 </td>
-                <td class="small text-muted">{{ s.lastAccess }}</td>
-                <td>
-                  <span class="fw-bold"
-                    :style="s.total === 0 ? 'color:#EA5455' : s.total < 10 ? 'color:#FF9F43' : 'color:#28C76F'">
-                    {{ s.total }}
-                  </span>
-                </td>
-                <td>
-                  <span class="badge rounded-pill"
-                    :style="`background:${statusStyle(s.status).bg};color:${statusStyle(s.status).tx}`">
-                    {{ s.status }}
-                  </span>
+                <!-- Celulas mensais -->
+                <td
+                  v-for="m in MONTHS"
+                  :key="m"
+                  class="position-relative"
+                >
+                  <div class="cell-access">
+                    <div
+                      class="position-absolute cell-access-content d-flex justify-content-center align-items-center"
+                      :class="cellClass(s, m)"
+                    >
+                      <span class="text-black">{{ cellValue(s, m) ?? '-' }}</span>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <!-- Paginacao -->
+        <div class="row mt-1 align-items-center">
+          <div class="col-sm-6 col-12 d-flex align-items-center justify-content-center justify-content-sm-start">
+            <span class="text-muted">
+              Exibindo {{ pageFrom }} a {{ pageTo }} de <strong>{{ students.length }}</strong> entradas
+            </span>
+          </div>
+          <div class="col-sm-6 col-12 d-flex align-items-center justify-content-center justify-content-sm-end">
+            <ul class="pagination mb-0">
+              <li class="page-item prev-item" :class="{ disabled: currentPage === 1 }">
+                <button class="page-link" @click="goTo(currentPage - 1)">
+                  <span class="material-symbols-outlined" style="font-size:18px">chevron_left</span>
+                </button>
+              </li>
+              <li
+                v-for="p in totalPages"
+                :key="p"
+                class="page-item"
+                :class="{ active: p === currentPage }"
+              >
+                <button class="page-link" @click="goTo(p)">{{ p }}</button>
+              </li>
+              <li class="page-item next-item" :class="{ disabled: currentPage === totalPages }">
+                <button class="page-link" @click="goTo(currentPage + 1)">
+                  <span class="material-symbols-outlined" style="font-size:18px">chevron_right</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </BCard>
   </section>
 </template>
 
 <style scoped>
-.card-header { background:#fff; border-bottom:1px solid rgba(0,0,0,.07); padding:1rem 1.25rem; }
-.table th { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.4px; color:#6c757d; }
-.table td { vertical-align:middle; font-size:.875rem; }
+.report-top-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Info bar ─────────────────────────────────────── */
+.info-bar {
+  padding: 0.85rem 0.5rem 0.6rem;
+  border-bottom: 1px solid #ebe9f1;
+  margin-bottom: 0.75rem;
+}
+
+.info-bar-text {
+  font-size: 0.875rem;
+  color: #5e5873;
+}
+
+/* ── Helpers ─────────────────────────────────────── */
+.whitespace-no-wrap { white-space: nowrap; }
+.font-bold { font-weight: 700; }
+
+/* ── Table ─────────────────────────────────────── */
+#table-access th {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 0.75rem 0.5rem;
+  white-space: nowrap;
+  border-bottom: 2px solid #ebe9f1;
+  background: #fff;
+}
+
+#table-access td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* Aluno + Último acesso cells keep normal padding */
+#table-access td:first-child,
+#table-access td:nth-child(2) {
+  padding: 0.72rem 0.75rem;
+}
+
+/* ── Sort icons (all months) ─────────────────────── */
+.sortable-col { cursor: pointer; user-select: none; }
+.sortable-col:hover { background: #f5f3ff; }
+
+.sort-icon {
+  font-size: 12px;
+  line-height: 1;
+  color: #6e6b7b;
+  opacity: 0.8;
+}
+.sort-icon.inactive { opacity: 0.35; }
+.sort-icon.active   { color: var(--primary); opacity: 1; }
+
+/* ── Heatmap cells — exact production pattern ──────── */
+.cell-access {
+  position: relative;
+  height: 46px; /* aligns with row height */
+  margin: 0;
+}
+
+.cell-access-content {
+  position: absolute;
+  inset: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* less-activity = vermelho/rosa */
+.cell-access-content.less-activity {
+  background-color: #ffbdbd;
+  color: #333;
+}
+
+/* almost-full-activity = verde claro */
+.cell-access-content.almost-full-activity {
+  background-color: #b9f5cc;
+  color: #333;
+}
+
+/* ── per-page select ────────────────────────────── */
+.per-page-selector {
+  min-width: 72px;
+  font-size: 0.875rem;
+  border-radius: 0.357rem;
+  border-color: #d8d6de;
+  padding: 0.25rem 1.8rem 0.25rem 0.6rem;
+  background-size: 14px;
+  color: #6e6b7b;
+}
+
+/* ── Pagination ────────────────────────────────── */
+.pagination { gap: 2px; }
+
+.page-item .page-link {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: #5e5873;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.page-item .page-link:hover { background: #f0eeff; color: var(--primary); }
+.page-item.disabled .page-link { opacity: 0.4; pointer-events: none; }
+
+/* striped tbody rows */
+#table-access.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(115, 103, 240, 0.02);
+}
 </style>

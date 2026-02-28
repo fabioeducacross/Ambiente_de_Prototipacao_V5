@@ -9,6 +9,14 @@
 - **Neste workspace:** o fluxo principal documentado e validado continua sendo **Figma -> Code**.
 - **POC local realizado (`mcp-playwright`)**: `POST /mcp/generate_figma_design` retorna `Endpoint não encontrado` (o servidor local mock não implementa code-to-figma).
 
+### 🔒 Regras oficiais (não esquecer)
+
+1. `generate_figma_design` é **remote-only** (não roda no servidor desktop/local do Figma).
+2. Para **Code -> Figma**, os clientes oficialmente suportados são **Claude Code** e **Codex by OpenAI**.
+3. Para enviar para um arquivo existente, use prompt com **URL do arquivo Figma Design**.
+4. Para indicar alvo exato de contexto/seleção, use **Copy link to selection** (URL com `node-id`).
+5. Se a URL não for de um arquivo Figma Design válido, o agente pode cair em criação de arquivo novo.
+
 ### Como usar Code -> Figma quando disponível no cliente
 
 1. Conectar no servidor remoto Figma MCP (`figma`).

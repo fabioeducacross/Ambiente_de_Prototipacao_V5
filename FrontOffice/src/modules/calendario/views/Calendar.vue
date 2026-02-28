@@ -230,8 +230,8 @@ onMounted(() => {
 <style scoped>
 .calendar-page {
   display: flex;
-  min-height: calc(100vh - 70px);
-  padding-top: 70px; /* Altura do AppNavbar fixo */
+  min-height: calc(100vh - var(--navbar-height));
+  padding-top: var(--navbar-height); /* Altura do AppNavbar fixo */
   background: #f9fafb;
 }
 

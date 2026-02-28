@@ -48,10 +48,10 @@
 
       <!-- ── JOGOS ─────────────────────────────────────────── -->
       <div class="nav-section">
-        <div class="nav-title">Jogos</div>
-        <RouterLink to="/professor/jogos/config-ilha" class="nav-item" :class="{ active: route.path === '/professor/jogos/config-ilha' }">
-          <MaterialIcon name="sports_esports" :size="18" />
-          <span>Configurações da Ilha</span>
+        <div class="nav-title">Explorar Jogos</div>
+        <RouterLink to="/professor/explorar-jogos/configuracao" class="nav-item" :class="{ active: route.path.startsWith('/professor/explorar-jogos') }">
+          <MaterialIcon name="videogame_asset" :size="18" />
+          <span>Configuração</span>
         </RouterLink>
         <RouterLink to="/professor/jogos/ranking" class="nav-item" :class="{ active: route.path === '/professor/jogos/ranking' }">
           <MaterialIcon name="emoji_events" :size="18" />
@@ -214,9 +214,9 @@ defineProps({
   overflow-x: hidden;
   position: fixed;
   left: 0;
-  top: 70px;
+  top: var(--navbar-height);
   z-index: 100;
-  height: calc(100vh - 70px);
+  height: calc(100vh - var(--navbar-height));
   transition: width 0.3s ease;
 }
 

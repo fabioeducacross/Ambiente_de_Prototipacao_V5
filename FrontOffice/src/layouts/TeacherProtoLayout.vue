@@ -38,8 +38,8 @@ const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value }
 
 /* ── Layout base ─────────────────────────────────────────── */
 .proto-layout {
-  min-height: calc(100vh - 70px);
-  margin-top: 70px;
+  min-height: calc(100vh - var(--navbar-height));
+  margin-top: var(--navbar-height);
   background: #f8f7fa;
 }
 
@@ -49,7 +49,7 @@ const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value }
   transition: margin-left .3s ease;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - var(--navbar-height));
 }
 
 .sidebar-collapsed .proto-main {

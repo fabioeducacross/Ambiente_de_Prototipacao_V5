@@ -6,6 +6,13 @@
 - `anthropic.claude-code` v2.1.39  
 - Pasta `.mcp/` conflitante removida
 
+## Regras oficiais para Code -> Figma (fixas)
+
+- Tool usada: `generate_figma_design` (**somente servidor remoto** `https://mcp.figma.com/mcp`).
+- Clientes oficialmente suportados para esse fluxo: **Claude Code** e **Codex by OpenAI**.
+- Para arquivo existente: usar URL do arquivo Figma no prompt.
+- Para alvo específico: usar URL com `node-id` (Copy link to selection).
+
 ## Instruções de teste (ATUALIZADAS):
 
 ### 1. Reiniciar VS Code

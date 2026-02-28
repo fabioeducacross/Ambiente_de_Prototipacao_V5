@@ -1,10 +1,9 @@
 <template>
-  <header class="app-navbar">
+  <header class="app-navbar" :class="persona">
     <!-- Coluna esquerda: menu -->
     <div class="navbar-column">
       <span
-        class="material-symbols-outlined text-primary cursor-pointer"
-        style="vertical-align: middle;"
+        class="material-symbols-outlined text-primary navbar-menu-icon"
         @click="$emit('toggle-sidebar')"
       >menu</span>
     </div>
@@ -12,8 +11,8 @@
     <!-- Coluna central: logo -->
     <div class="navbar-column d-flex justify-content-center">
       <RouterLink to="/" class="logo-container">
-        <img :src="logoUrl" alt="logo" class="d-sm-inline d-none" />
-        <img :src="logoUrlSmall" alt="logo" class="d-sm-none" />
+        <img :src="logoUrl" alt="Educacross" class="navbar-logo d-sm-inline d-none" />
+        <img :src="logoUrl" alt="Educacross" class="navbar-logo navbar-logo--sm d-sm-none" />
       </RouterLink>
     </div>
 
@@ -22,35 +21,92 @@
       <ul class="navbar-nav nav align-items-center flex-nowrap gap-2">
 
         <!-- Botão Visão aluno -->
-        <button
-          type="button"
-          class="btn d-flex align-items-center gap-2 btn-outline-primary rounded-pill"
-        >
-          <span class="material-symbols-outlined text-primary" style="font-size: 14px; vertical-align: middle;">joystick</span>
-          <span class="d-xl-inline d-none">Visão aluno</span>
-        </button>
+        <li v-if="showStudentView" class="nav-item">
+          <button
+            type="button"
+            class="btn d-flex align-items-center gap-2 btn-outline-primary rounded-pill navbar-student-btn"
+          >
+            <span class="material-symbols-outlined text-primary" style="font-size: 14px; vertical-align: middle;">joystick</span>
+            <span class="d-xl-inline d-none">Visão aluno</span>
+          </button>
+        </li>
 
-        <!-- Usuário -->
-        <li class="nav-item dropdown dropdown-user">
+        <!-- Usuário + Dropdown -->
+        <li class="nav-item dropdown dropdown-user" ref="dropdownRef">
           <a
             role="button"
             class="nav-link d-flex align-items-center gap-2 dropdown-user-link"
             href="#"
-            @click.prevent
+            @click.prevent="toggleDropdown"
+            :aria-expanded="dropdownOpen.toString()"
           >
-            <!-- Nome + perfil (oculto em telas pequenas) -->
+            <!-- Nome + perfil (xl+) -->
             <div class="d-xl-flex d-none user-nav">
-              <p class="user-name d-flex flex-column justify-content-center align-items-end mb-0" style="line-height: 1.5rem;">
-                <span class="profileName d-inline-block text-truncate" style="font-weight: 500;">Isabela Cross</span>
-                <span class="permissionUser" style="font-weight: bold;">Professor</span>
+              <p class="user-name mb-0">
+                <span class="navbar-profile-name d-inline-block text-truncate">{{ userName }}</span>
+                <span class="navbar-permission-name">{{ userRole }}</span>
               </p>
             </div>
 
             <!-- Avatar -->
-            <span class="user-avatar-wrapper rounded-circle">
-              <img :src="avatarUrl" alt="avatar" class="user-avatar-img" />
+            <span class="user-avatar-wrapper">
+              <img :src="userAvatar" alt="avatar" class="user-avatar-img" />
             </span>
           </a>
+
+          <!-- Dropdown Menu -->
+          <ul class="dropdown-menu dropdown-menu-end navbar-user-dropdown" :class="{ show: dropdownOpen }">
+            <!-- Cabeçalho do dropdown -->
+            <li class="dropdown-header px-3 pt-2 pb-1">
+              <div class="d-flex align-items-center gap-2">
+                <span class="user-avatar-wrapper user-avatar-wrapper--sm">
+                  <img :src="userAvatar" alt="avatar" class="user-avatar-img" />
+                </span>
+                <div>
+                  <p class="mb-0 navbar-profile-name">{{ userName }}</p>
+                  <small class="navbar-permission-name">{{ userRole }}</small>
+                </div>
+              </div>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+
+            <!-- Ir para a conta -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent>
+                <span class="material-symbols-outlined dropdown-icon">account_circle</span>
+                Ir para a conta
+              </a>
+            </li>
+
+            <!-- Notificações -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent>
+                <span class="material-symbols-outlined dropdown-icon">mail</span>
+                Notificações
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+
+            <!-- Idioma -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent>
+                <span class="dropdown-lang-flag">🇧🇷</span>
+                <span>PT</span>
+                <span class="material-symbols-outlined ms-auto" style="font-size:18px;">expand_more</span>
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+
+            <!-- Sair -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#" @click.prevent>
+                <span class="material-symbols-outlined dropdown-icon">logout</span>
+                Sair
+              </a>
+            </li>
+          </ul>
         </li>
 
       </ul>
@@ -59,17 +115,44 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import logoUrl from '@/assets/images/MainLogo.svg'
-import avatarUrl from '@/assets/images/avatar-default.png'
-const logoUrlSmall = logoUrl
+import defaultAvatar from '@/assets/images/avatar-default.png'
 
 defineEmits(['toggle-sidebar'])
+
+const props = defineProps({
+  userName:        { type: String,  default: 'Isabela Cross' },
+  userRole:        { type: String,  default: 'Professor' },
+  userAvatar:      { type: String,  default: () => defaultAvatar },
+  showStudentView: { type: Boolean, default: true },
+  /** Classe de persona no container (ex: 'Teacher', 'Student') */
+  persona:         { type: String,  default: '' },
+})
+
+// ── Dropdown ──────────────────────────────────────────────────────────────
+const dropdownOpen = ref(false)
+const dropdownRef  = ref(null)
+
+function toggleDropdown() {
+  dropdownOpen.value = !dropdownOpen.value
+}
+
+function handleOutsideClick(e) {
+  if (dropdownRef.value && !dropdownRef.value.contains(e.target)) {
+    dropdownOpen.value = false
+  }
+}
+
+onMounted(()  => document.addEventListener('click', handleOutsideClick))
+onUnmounted(() => document.removeEventListener('click', handleOutsideClick))
 </script>
 
 <style scoped>
+/* ── Barra principal ───────────────────────────────────────────────── */
 .app-navbar {
-  height: 70px;
+  height: var(--navbar-height);
   background: #ffffff;
   display: flex;
   align-items: center;
@@ -81,41 +164,35 @@ defineEmits(['toggle-sidebar'])
   right: 0;
   width: 100%;
   z-index: 110;
-  box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
-  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  box-shadow: var(--ec-card-shadow);
 }
 
+/* ── Colunas ───────────────────────────────────────────────────────── */
 .navbar-column {
   display: flex;
   align-items: center;
 }
 
-/* Esquerda e direita com flex:1 garante que o logo central fique
-   exatamente no meio, independente da largura de cada lado */
-.navbar-column:nth-child(1) {
-  flex: 1;
-}
+.navbar-column:nth-child(1) { flex: 1; }
+.navbar-column:nth-child(3) { flex: 1; justify-content: flex-end; }
 
-.navbar-column:nth-child(3) {
-  flex: 1;
-  justify-content: flex-end;
-}
-
-.cursor-pointer {
+/* ── Ícone hambúrguer ──────────────────────────────────────────────── */
+.navbar-menu-icon {
+  font-size: 28px; /* produção: 28px */
+  vertical-align: middle;
   cursor: pointer;
 }
 
-/* Logo */
+/* ── Logo ──────────────────────────────────────────────────────────── */
 .logo-container {
   text-decoration: none;
+  line-height: 0;
 }
 
-.logo-container img {
-  height: 34px;
-  width: auto;
-}
+.navbar-logo     { height: 40px; width: auto; }
+.navbar-logo--sm { height: 32px; }
 
-/* Navbar nav */
+/* ── Lista nav ─────────────────────────────────────────────────────── */
 .navbar-nav {
   list-style: none;
   margin: 0;
@@ -125,33 +202,50 @@ defineEmits(['toggle-sidebar'])
   align-items: center;
 }
 
-/* Dropdown link */
+/* ── Botão Visão aluno ─────────────────────────────────────────────── */
+.navbar-student-btn {
+  font-size: var(--font-size-sm);
+  padding: 0.4rem 0.875rem;
+  line-height: 1.5;
+}
+
+/* ── Seção do usuário ──────────────────────────────────────────────── */
 .dropdown-user-link {
   text-decoration: none;
   color: inherit;
 }
 
-/* Seção do usuário */
 .user-nav {
-  align-items: center;
-  margin-right: 0.5rem;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 0.375rem;
 }
 
-.profileName {
-  font-size: 0.875rem;
-  color: #5e5873;
+.user-name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.5;
+}
+
+.navbar-profile-name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--ec-text);
   max-width: 130px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: block;
 }
 
-.permissionUser {
-  font-size: 0.75rem;
+.navbar-permission-name {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
   color: var(--primary);
 }
 
-/* Avatar — replica b-avatar badge-light-primary do BootstrapVue */
+/* ── Avatar ────────────────────────────────────────────────────────── */
 .user-avatar-wrapper {
   display: inline-flex;
   align-items: center;
@@ -159,15 +253,85 @@ defineEmits(['toggle-sidebar'])
   width: 40px;
   height: 40px;
   overflow: hidden;
-  background-color: #eeedfd;
-  border-radius: 50%;
+  background-color: var(--ec-primary-soft);
+  border-radius: var(--radius-full);
   flex-shrink: 0;
+}
+
+.user-avatar-wrapper--sm {
+  width: 32px;
+  height: 32px;
+}
+
+.user-avatar-wrapper--sm .user-avatar-img {
+  width: 32px;
+  height: 32px;
 }
 
 .user-avatar-img {
   width: 40px;
   height: 40px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
+}
+
+/* ── Dropdown ──────────────────────────────────────────────────────── */
+.navbar-user-dropdown {
+  min-width: 220px;
+  border: none;
+  box-shadow: var(--ec-card-shadow);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0;
+  top: calc(100% + 4px);
+  right: 0;
+}
+
+.dropdown-icon {
+  font-size: 18px;
+  color: var(--ec-body);
+  vertical-align: middle;
+}
+
+.dropdown-item {
+  font-size: var(--font-size-sm);
+  color: var(--ec-text);
+  padding: 0.5rem 1rem;
+  transition: background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background-color: var(--ec-primary-soft);
+  color: var(--primary);
+}
+
+.dropdown-item:hover .dropdown-icon,
+.dropdown-item:hover .material-symbols-outlined {
+  color: var(--primary);
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: rgba(234, 84, 85, 0.1);
+  color: var(--danger) !important;
+}
+
+.dropdown-item.text-danger:hover .dropdown-icon {
+  color: var(--danger) !important;
+}
+
+.dropdown-lang-flag {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.dropdown-divider {
+  margin: 0.25rem 0;
+  border-color: var(--ec-border);
+}
+
+.dropdown-header {
+  background: var(--ec-primary-soft);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 </style>
+
+
