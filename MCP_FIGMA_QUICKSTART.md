@@ -105,6 +105,26 @@ npm start
 "Gerar código React para este frame: [FIGMA_URL]"
 ```
 
+### Captura robusta com gates (anti-regressão visual)
+
+Use o script guardado para evitar repetir erros de tipografia/ícones:
+
+```powershell
+npm run figma:capture:guarded -- `
+  --url "http://localhost:5174/professor/missoes/1/relatorio?..." `
+  --file-key "cKVnqgPDWVx3LWo4N3wWLD" `
+  --node-id "10727:3995" `
+  --verify-node-id "4536:12591" `
+  --frame-name "Relatório Missão - Semana 1" `
+  --top-block-offset-px -2
+```
+
+Esse fluxo aplica **gates automáticos**:
+1. Aguarda `document.fonts.ready` e fixa tipografia inline no DOM.
+2. Converte `img.svg`, Material Symbols e Bootstrap Icons para **SVG inline**.
+3. Faz polling de conclusão no MCP.
+4. Valida o frame novo no Figma e falha se detectar ligatures de ícones como texto.
+
 ### Troubleshooting
 
 **Se MCP não aparecer no VS Code:**
