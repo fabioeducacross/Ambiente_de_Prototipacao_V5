@@ -22,20 +22,22 @@ const missionClass = computed(() => route.query.classLabel || '8º ano C - Tarde
 const missionSchoolYear = computed(() => route.query.schoolYear || '8º ano')
 const currentYear = new Date().getFullYear()
 
-const figmaPointsHeaderIcon = '/assets/figma-report/family-star.svg'
-const figmaPointsIconMath = '/assets/figma-report/math-icon.svg'
-const figmaPointsIconGeometry = '/assets/figma-report/math1-icon.svg'
-const figmaPointsIconRuler = '/assets/figma-report/ruler-icon.svg'
-const figmaImproveHeaderIcon = '/assets/figma-report/sentiment-dissatisfied.svg'
-const figmaImproveIconGeometry = '/assets/figma-report/math1-icon.svg'
-const figmaImproveIconMath = '/assets/figma-report/math-icon.svg'
-const figmaImproveIconFunction = '/assets/figma-report/function-icon.svg'
-const figmaMissionHeaderTargetIcon = '/assets/figma-report/target-icon.svg'
-const figmaTurnPotenciasImage = '/assets/figma-report/potencias-image.png'
-const figmaFooterFacebookIcon = '/assets/figma-report/facebook-icon.svg'
-const figmaFooterYoutubeIcon = '/assets/figma-report/youtube-icon.svg'
-const figmaFooterInstagramIcon = '/assets/figma-report/instagram-icon.svg'
-const figmaMetricProgressIcon = '/assets/figma-report/timeline-progress-icon.svg'
+const withBase = (assetPath) => `${import.meta.env.BASE_URL}${assetPath.replace(/^\/+/, '')}`
+
+const figmaPointsHeaderIcon = withBase('assets/figma-report/family-star.svg')
+const figmaPointsIconMath = withBase('assets/figma-report/math-icon.svg')
+const figmaPointsIconGeometry = withBase('assets/figma-report/math1-icon.svg')
+const figmaPointsIconRuler = withBase('assets/figma-report/ruler-icon.svg')
+const figmaImproveHeaderIcon = withBase('assets/figma-report/sentiment-dissatisfied.svg')
+const figmaImproveIconGeometry = withBase('assets/figma-report/math1-icon.svg')
+const figmaImproveIconMath = withBase('assets/figma-report/math-icon.svg')
+const figmaImproveIconFunction = withBase('assets/figma-report/function-icon.svg')
+const figmaMissionHeaderTargetIcon = withBase('assets/figma-report/target-icon.svg')
+const figmaTurnPotenciasImage = withBase('assets/figma-report/potencias-image.png')
+const figmaFooterFacebookIcon = withBase('assets/figma-report/facebook-icon.svg')
+const figmaFooterYoutubeIcon = withBase('assets/figma-report/youtube-icon.svg')
+const figmaFooterInstagramIcon = withBase('assets/figma-report/instagram-icon.svg')
+const figmaMetricProgressIcon = withBase('assets/figma-report/timeline-progress-icon.svg')
 
 const mediaProgressItems = [
   { label: 'Jogos', completed: 20, total: 20, value: 100 },
@@ -213,12 +215,12 @@ const pointsSections = [
 ]
 
 const missionTurns = [
-  { id: 1, mediaType: 'jogos', title: 'Adição e subtração', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA01', icon: 'sports_esports', tone: 'warning', image: '/img/missions/custom.svg' },
-  { id: 2, mediaType: 'questoes', title: 'Construção de um ângulo reto (90°)', knowledge: 'Construções e transformações geométricas', theme: 'Geometria', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'quiz', tone: 'primary', image: '/img/missions/educacross.svg' },
-  { id: 3, mediaType: 'livros', title: 'Multiplicação e divisão', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'book_5', tone: 'primary', image: '/img/missions/shared.svg' },
+  { id: 1, mediaType: 'jogos', title: 'Adição e subtração', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA01', icon: 'sports_esports', tone: 'warning', image: withBase('img/missions/custom.svg') },
+  { id: 2, mediaType: 'questoes', title: 'Construção de um ângulo reto (90°)', knowledge: 'Construções e transformações geométricas', theme: 'Geometria', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'quiz', tone: 'primary', image: withBase('img/missions/educacross.svg') },
+  { id: 3, mediaType: 'livros', title: 'Multiplicação e divisão', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'book_5', tone: 'primary', image: withBase('img/missions/shared.svg') },
   { id: 4, mediaType: 'videos', title: 'Potências de base 10', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF06MA15', icon: 'smart_display', tone: 'info', image: figmaTurnPotenciasImage },
-  { id: 5, mediaType: 'musica', title: 'Expressões algébricas', knowledge: 'Expressões algébricas e monômios', theme: 'Álgebra', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA06', icon: 'music_note', tone: 'success', image: '/img/missions/collective.svg' },
-  { id: 6, mediaType: 'jogos', title: 'Frações e equivalências', knowledge: 'Números racionais e equivalência de frações', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA07', icon: 'sports_esports', tone: 'warning', image: '/img/missions/custom.svg' },
+  { id: 5, mediaType: 'musica', title: 'Expressões algébricas', knowledge: 'Expressões algébricas e monômios', theme: 'Álgebra', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA06', icon: 'music_note', tone: 'success', image: withBase('img/missions/collective.svg') },
+  { id: 6, mediaType: 'jogos', title: 'Frações e equivalências', knowledge: 'Números racionais e equivalência de frações', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA07', icon: 'sports_esports', tone: 'warning', image: withBase('img/missions/custom.svg') },
 ]
 
 const mediaTypeLabelMap = {
