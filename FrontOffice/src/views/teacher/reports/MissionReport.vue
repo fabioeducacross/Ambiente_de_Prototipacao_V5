@@ -553,8 +553,6 @@ const performanceVariant = (percent) => {
 .mission-report-page {
   color: var(--ec-text);
   font-family: 'Montserrat', Helvetica, Arial, sans-serif;
-  max-width: 1280px;
-  margin: 0 auto;
 }
 
 .report-top-stack {
