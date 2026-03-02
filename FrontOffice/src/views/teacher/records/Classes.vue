@@ -1,121 +1,136 @@
 <script setup>
 import { ref } from 'vue'
-
-const search = ref('')
+import ListTableSelect from '@/components/table/ListTableSelect.vue'
+import ClassSelector   from '@/components/calendar/ClassSelector.vue'
+import AppBreadcrumb   from '@/components/AppBreadcrumb.vue'
 
 const classes = ref([
-  { id: 1, name: '1º Ano A', serie: '1º Ano', students: 28, teachers: ['Ana S.', 'Carlos M.'] },
-  { id: 2, name: '1º Ano B', serie: '1º Ano', students: 25, teachers: ['Ana S.'] },
-  { id: 3, name: '2º Ano A', serie: '2º Ano', students: 30, teachers: ['Beatriz O.', 'João P.'] },
-  { id: 4, name: '3º Ano A', serie: '3º Ano', students: 27, teachers: ['Carlos M.'] },
-  { id: 5, name: '4º Ano B', serie: '4º Ano', students: 22, teachers: ['Beatriz O.'] },
+  { id: 1, name: 'G2 ads - Tarde',   serie: 'G2', students: 7,  teachers: ['Paulo Alves', 'Pedro Dias', 'Lucas Martins', 'Maria Costa', 'João Souza'] },
+  { id: 2, name: 'G2 AG2 - Manhã',   serie: 'G2', students: 1,  teachers: ['Amanda Lima', 'Leonardo Ferreira', 'Quênia Rocha'] },
+  { id: 3, name: 'G2 S@s - Manhã',   serie: 'G2', students: 0,  teachers: ['Amanda Lima', 'Fabio Alves'] },
+  { id: 4, name: 'G2 TES - Manhã',   serie: 'G2', students: 14, teachers: ['Marcos Teixeira', 'Alice Andrade', 'Roberto Gomes', 'Ana Silva', 'Carlos Mota'] },
+  { id: 5, name: 'G2 TST - Manhã',   serie: 'G2', students: 0,  teachers: ['Amanda Lima', 'Fabio Alves'] },
+  { id: 6, name: 'G2 xxx - Manhã',   serie: 'G2', students: 0,  teachers: ['Amanda Lima', 'Thiago Guedes', 'Fabio Alves'] },
+  { id: 7, name: 'G2 zxc - Tarde',   serie: 'G2', students: 0,  teachers: ['Amanda Lima', 'Fabio Alves'] },
+  { id: 8, name: 'G3 TES - Tarde',   serie: 'G3', students: 2,  teachers: ['Marcos Teixeira', 'Pedro Esteves', 'Diego Moura'] },
+  { id: 9, name: 'G4 TES - Manhã',   serie: 'G4', students: 1,  teachers: ['Marcos Teixeira', 'Daniel Costa', 'Amanda Lima'] },
+  { id: 10, name: 'G5 G5 - Manhã',   serie: 'G5', students: 5,  teachers: ['Pedro Esteves', 'Amanda Lima', 'Bruno Oliveira'] },
 ])
 
-const filtered = () =>
-  classes.value.filter(c =>
-    c.name.toLowerCase().includes(search.value.toLowerCase())
-  )
+const tableColumns = [
+  { key: 'name',     label: 'Turma',           sortable: true  },
+  { key: 'serie',    label: 'Ano Escolar',      sortable: true  },
+  { key: 'students', label: 'Alunos na Turma',  sortable: true  },
+  { key: 'teachers', label: 'Professores',      sortable: false },
+  { key: 'actions',  label: 'Ações',            sortable: false },
+]
+
+const AVATAR_COLORS = ['#28C76F', '#00CFE8', '#7367F0', '#FF9F43', '#EA5455', '#1E9E8E', '#9E95F5']
+const avatarColor = (index) => AVATAR_COLORS[index % AVATAR_COLORS.length]
+
+const initials = (name) =>
+  name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase()
+
+const MAX_AVATARS = 3
 </script>
 
 <template>
-  <section>
-    <!-- Top Action Bar -->
-    <div class="card mb-3">
-      <div class="card-body py-2">
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-primary">
-            <span class="material-symbols-outlined align-middle" style="font-size:18px">add</span>
-            Nova Turma
-          </button>
-        </div>
-      </div>
+  <div>
+    <div class="report-top-stack">
+      <ClassSelector school-name="Colégio Nova Jornada" />
+      <AppBreadcrumb />
     </div>
 
-    <!-- Table Card -->
-    <div class="card">
-      <div class="card-header d-flex align-items-center gap-3">
-        <div class="input-group" style="max-width: 320px">
-          <span class="input-group-text bg-transparent border-end-0">
-            <span class="material-symbols-outlined" style="font-size:18px;color:#6c757d">search</span>
-          </span>
-          <input
-            v-model="search"
-            type="text"
-            class="form-control border-start-0"
-            placeholder="Pesquisar por turma"
-          />
+    <ListTableSelect
+      :data-table="classes"
+      :table-columns="tableColumns"
+      :total-data="classes.length"
+      :show-select-all="false"
+      search-placeholder="Pesquisar por turma"
+      empty-text="Nenhuma turma encontrada."
+    >
+      <!-- Turma -->
+      <template #cell(name)="{ item }">
+        <span class="fw-bold text-dark">{{ item.name }}</span>
+      </template>
+
+      <!-- Ano Escolar -->
+      <template #cell(serie)="{ item }">
+        <span class="badge rounded-pill serie-badge">{{ item.serie }}</span>
+      </template>
+
+      <!-- Alunos na Turma -->
+      <template #cell(students)="{ item }">
+        <span>{{ item.students }}</span>
+      </template>
+
+      <!-- Professores -->
+      <template #cell(teachers)="{ item }">
+        <div class="d-flex align-items-center gap-1">
+          <span
+            v-for="(t, i) in item.teachers.slice(0, MAX_AVATARS)"
+            :key="t"
+            class="teacher-avatar"
+            :style="{ background: avatarColor(i) }"
+            :title="t"
+          >{{ initials(t) }}</span>
+          <span
+            v-if="item.teachers.length > MAX_AVATARS"
+            class="teacher-overflow"
+          >+{{ item.teachers.length - MAX_AVATARS }}</span>
         </div>
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>Turma</th>
-                <th>Ano escolar</th>
-                <th>Alunos na turma</th>
-                <th>Professores</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in filtered()" :key="item.id">
-                <td>
-                  <span class="fw-semibold">{{ item.name }}</span>
-                </td>
-                <td>
-                  <span class="badge rounded-pill" style="background:rgba(115,103,240,0.15);color:#7367F0">
-                    {{ item.serie }}
-                  </span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-1">
-                    <span class="material-symbols-outlined text-primary" style="font-size:16px">group</span>
-                    <span class="fw-semibold text-primary">{{ item.students }}</span>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex gap-1 flex-wrap">
-                    <span
-                      v-for="t in item.teachers"
-                      :key="t"
-                      class="badge rounded-circle d-flex align-items-center justify-content-center"
-                      style="width:30px;height:30px;background:#7367F0;color:#fff;font-size:11px"
-                      :title="t"
-                    >{{ t.split(' ').map(w => w[0]).join('') }}</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="material-symbols-outlined text-primary cursor-pointer" style="font-size:18px;cursor:pointer" title="Editar">edit</span>
-                </td>
-              </tr>
-              <tr v-if="filtered().length === 0">
-                <td colspan="5" class="text-center py-4 text-muted">Nenhuma turma encontrada.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
+      </template>
+
+      <!-- Ações -->
+      <template #cell(actions)="{ item }">
+        <span class="flag-action" :title="item.name">🇧🇷</span>
+      </template>
+    </ListTableSelect>
+  </div>
 </template>
 
 <style scoped>
-.card-header {
-  background: #fff;
-  border-bottom: 1px solid rgba(0,0,0,.07);
-  padding: 1rem 1.25rem;
-}
-.table th {
-  font-size: 0.75rem;
+/* Ano Escolar badge */
+.serie-badge {
+  background: rgba(0, 207, 232, 0.15);
+  color: #00CFE8;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: #6c757d;
-  white-space: nowrap;
 }
-.table td {
-  vertical-align: middle;
-  font-size: 0.875rem;
+
+/* Professor avatar */
+.teacher-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+/* Overflow badge "+N" */
+.teacher-overflow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(115,103,240,.15);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+/* Ações — flag */
+.flag-action {
+  font-size: 20px;
+  cursor: default;
 }
 </style>

@@ -1,132 +1,231 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import SelectSubject from '@/components/base/SelectSubject.vue'
 
-const turma = ref('')
-const turmas = ['3º Ano A', '3º Ano B', '4º Ano A', '5º Ano A']
+const selectedSubject = ref({ id: 1, name: 'Matemática' })
 
-const top3 = [
-  { place: 2, name: 'Bruno Lima', turma: '3º Ano A', pts: 4820, icon: '🥈' },
-  { place: 1, name: 'Ana Carolina', turma: '4º Ano A', pts: 5640, icon: '🥇' },
-  { place: 3, name: 'Érika Nascimento', turma: '3º Ano B', pts: 4210, icon: '🥉' },
-]
+const currentYear = new Date().getFullYear()
+
+const pageTitle    = computed(() => `Ilhas da ${selectedSubject.value?.name || 'Matemática'}`)
+const rankingTitle = computed(() => `Ranking de conquistas - Ilhas ${currentYear}`)
 
 const ranking = [
-  { pos: 1,  name: 'Ana Carolina Souza',    turma: '4º Ano A', pontos: 5640, conquistas: 12 },
-  { pos: 2,  name: 'Bruno Lima Santos',     turma: '3º Ano A', pontos: 4820, conquistas: 9  },
-  { pos: 3,  name: 'Érika Nascimento',      turma: '3º Ano B', pontos: 4210, conquistas: 8  },
-  { pos: 4,  name: 'Gabriela Martins',      turma: '4º Ano A', pontos: 3980, conquistas: 7  },
-  { pos: 5,  name: 'Felipe de Oliveira',    turma: '5º Ano A', pontos: 3670, conquistas: 6  },
-  { pos: 6,  name: 'Camila Rocha Alves',    turma: '3º Ano A', pontos: 3210, conquistas: 5  },
-  { pos: 7,  name: 'Hugo Costa',            turma: '3º Ano B', pontos: 2890, conquistas: 4  },
-  { pos: 8,  name: 'Diego Fernandes',       turma: '4º Ano A', pontos: 2400, conquistas: 4  },
+  { nome: 'Ana Carolina Souza',  classe: '1º Ano A', escola: 'Colégio Nova Jornada', geral: 1, ouro: 3, prata: 5, bronze: 2, moedas: 480 },
+  { nome: 'Bruno Lima Santos',   classe: '1º Ano A', escola: 'Colégio Nova Jornada', geral: 2, ouro: 2, prata: 4, bronze: 3, moedas: 320 },
+  { nome: 'Érika Nascimento',    classe: '1º Ano B', escola: 'Colégio Nova Jornada', geral: 3, ouro: 1, prata: 6, bronze: 4, moedas: 290 },
+  { nome: 'Gabriela Martins',    classe: '1º Ano A', escola: 'Colégio Nova Jornada', geral: 4, ouro: 1, prata: 3, bronze: 5, moedas: 210 },
+  { nome: 'Felipe de Oliveira',  classe: '1º Ano C', escola: 'Colégio Nova Jornada', geral: 5, ouro: 0, prata: 4, bronze: 6, moedas: 185 },
 ]
-
-const posBadge = (p) => p === 1 ? '#FF9F43' : p === 2 ? '#6c757d' : p === 3 ? '#CD7F32' : 'rgba(115,103,240,.15)'
-const posTxt   = (p) => p <= 3 ? '#fff' : '#7367F0'
-
-const initials = (n) => n.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase()
 </script>
 
 <template>
   <section>
-    <!-- Filter -->
+    <!-- ClassSelector -->
+    <ClassSelector class="mb-3" />
+
+    <!-- Título da página -->
+    <h4 class="fw-bold mb-4">{{ pageTitle }}</h4>
+
+    <!-- Filtro -->
     <div class="card mb-4">
       <div class="card-body">
-        <div class="row g-3 align-items-end">
-          <div class="col-md-4">
-            <label class="form-label small fw-semibold">Filtrar por turma</label>
-            <select v-model="turma" class="form-select">
-              <option value="">Todas as turmas</option>
-              <option v-for="t in turmas" :key="t">{{ t }}</option>
-            </select>
-          </div>
-        </div>
+        <SelectSubject v-model="selectedSubject" />
       </div>
     </div>
 
-    <!-- Podium -->
-    <div class="card mb-4">
-      <div class="card-header"><h6 class="mb-0 fw-bold">Top 3 — Ilha da Aventura</h6></div>
-      <div class="card-body">
-        <div class="d-flex justify-content-center align-items-end gap-4 py-2">
-          <div v-for="p in top3" :key="p.place" class="text-center">
-            <div class="podium-avatar mx-auto mb-2"
-              :class="`place-${p.place}`">
-              {{ initials(p.name) }}
-            </div>
-            <div class="fw-bold small">{{ p.icon }}</div>
-            <div class="fw-semibold small">{{ p.name }}</div>
-            <div class="text-muted" style="font-size:.75rem">{{ p.turma }}</div>
-            <div class="fw-bold" style="color:#7367F0">{{ p.pts.toLocaleString('pt-BR') }} pts</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Table -->
+    <!-- Tabela de ranking -->
     <div class="card">
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>Pos.</th>
-                <th>Aluno</th>
-                <th>Turma</th>
-                <th>Pontos</th>
-                <th>Conquistas</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="r in ranking" :key="r.pos">
-                <td>
-                  <span class="badge rounded-circle fw-bold"
-                    :style="`background:${posBadge(r.pos)};color:${posTxt(r.pos)};width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center`">
-                    {{ r.pos }}
-                  </span>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <div class="text-white fw-bold"
-                      style="width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;background:linear-gradient(135deg,#7367F0,#9E95F5)">
-                      {{ initials(r.name) }}
-                    </div>
-                    <span class="fw-semibold small">{{ r.name }}</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="badge rounded-pill"
-                    style="background:rgba(115,103,240,.15);color:#7367F0">{{ r.turma }}</span>
-                </td>
-                <td class="fw-bold" style="color:#7367F0">{{ r.pontos.toLocaleString('pt-BR') }}</td>
-                <td>
-                  <div class="d-flex flex-wrap gap-1">
-                    <span v-for="n in Math.min(r.conquistas, 5)" :key="n"
-                      class="badge rounded-pill"
-                      style="background:rgba(255,159,67,.15);color:#FF9F43;font-size:.65rem">⭐</span>
-                    <span v-if="r.conquistas > 5" class="text-muted small">+{{ r.conquistas - 5 }}</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="card-body pb-0">
+        <h6 class="fw-semibold mb-0 ranking-title">{{ rankingTitle }}</h6>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table ranking-table mb-0">
+          <thead>
+            <!-- Grupos de colunas -->
+            <tr class="group-row">
+              <th colspan="4" class="group-header text-center">RANKING</th>
+              <th colspan="4" class="group-header text-center insignias-header">INSÍGNIAS</th>
+            </tr>
+            <!-- Cabeçalhos individuais -->
+            <tr>
+              <th>NOME</th>
+              <th>CLASSE</th>
+              <th>ESCOLA</th>
+              <th>GERAL</th>
+              <th>
+                <span class="insignia-icon ouro"><i class="bi bi-hexagon-fill"></i></span>
+                OURO
+              </th>
+              <th>
+                <span class="insignia-icon prata"><i class="bi bi-hexagon-fill"></i></span>
+                PRATA
+              </th>
+              <th>
+                <span class="insignia-icon bronze"><i class="bi bi-hexagon-fill"></i></span>
+                BRONZE
+              </th>
+              <th>
+                <span class="insignia-icon moedas"><i class="bi bi-coin"></i></span>
+                MOEDAS
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="r in ranking" :key="r.geral">
+              <td class="fw-semibold">{{ r.nome }}</td>
+              <td>{{ r.classe }}</td>
+              <td>{{ r.escola }}</td>
+              <td>
+                <span class="geral-badge">{{ r.geral }}</span>
+              </td>
+              <td>
+                <span v-if="r.ouro" class="count-badge ouro-badge">{{ r.ouro }}</span>
+                <span v-else class="text-muted">—</span>
+              </td>
+              <td>
+                <span v-if="r.prata" class="count-badge prata-badge">{{ r.prata }}</span>
+                <span v-else class="text-muted">—</span>
+              </td>
+              <td>
+                <span v-if="r.bronze" class="count-badge bronze-badge">{{ r.bronze }}</span>
+                <span v-else class="text-muted">—</span>
+              </td>
+              <td class="fw-semibold moedas-val">{{ r.moedas }}</td>
+            </tr>
+            <tr v-if="!ranking.length">
+              <td colspan="8" class="text-center py-4 empty-state">
+                Nenhum dado encontrado.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <div class="card-footer d-flex justify-content-center py-3">
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled">
+            <span class="page-link"><i class="bi bi-chevron-left"></i></span>
+          </li>
+          <li class="page-item active">
+            <span class="page-link">1</span>
+          </li>
+          <li class="page-item disabled">
+            <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.card-header { background:#fff; border-bottom:1px solid rgba(0,0,0,.07); padding:1rem 1.25rem; }
-.table th { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.4px; color:#6c757d; }
-.table td { vertical-align:middle; font-size:.875rem; }
-
-.podium-avatar {
-  width: 56px; height: 56px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .85rem; color: #fff;
+/* ── Título ── */
+.ranking-title {
+  padding: 1rem 1.25rem;
+  font-size: .9375rem;
+  color: rgba(47,43,61,.9);
 }
-.place-1 { background: linear-gradient(135deg,#FF9F43,#FFD700); width:68px!important; height:68px!important; font-size:1rem!important; }
-.place-2 { background: linear-gradient(135deg,#7367F0,#9E95F5); }
-.place-3 { background: linear-gradient(135deg,#CD7F32,#e8a870); }
+
+/* ── Grupos de colunas ── */
+.group-row .group-header {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .6px;
+  color: #6c757d;
+  background: #f8f8f8;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  padding: .5rem 1rem;
+}
+.group-row .insignias-header {
+  border-left: 2px solid rgba(0,0,0,.07);
+}
+
+/* ── Cabeçalhos de coluna ── */
+.ranking-table thead tr:last-child th {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #6c757d;
+  padding: .6rem 1rem;
+  white-space: nowrap;
+}
+.ranking-table thead tr:last-child th:nth-child(5) {
+  border-left: 2px solid rgba(0,0,0,.07);
+}
+
+/* ── Ícones de insígnia ── */
+.insignia-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  margin-right: .25rem;
+  vertical-align: middle;
+}
+.ouro   { color: #F5A623; }
+.prata  { color: #9E9E9E; }
+.bronze { color: #CD7F32; }
+.moedas { color: #F5A623; }
+
+/* ── Linhas de dados ── */
+.ranking-table tbody td {
+  font-size: .875rem;
+  vertical-align: middle;
+  padding: .65rem 1rem;
+}
+.ranking-table tbody td:nth-child(5) {
+  border-left: 2px solid rgba(0,0,0,.07);
+}
+
+/* ── Badge posição GERAL ── */
+.geral-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(115,103,240,.15);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: .8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Badges de contagem ── */
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 0 6px;
+}
+.ouro-badge   { background: rgba(245,166,35,.15); color: #F5A623; }
+.prata-badge  { background: rgba(158,158,158,.15); color: #9E9E9E; }
+.bronze-badge { background: rgba(205,127,50,.15); color: #CD7F32; }
+
+.moedas-val { color: #F5A623; }
+
+/* ── Empty state ── */
+.empty-state { color: rgba(47,43,61,.4); font-size: .875rem; }
+
+/* ── Card footer ── */
+.card-footer {
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+
+/* ── Pagination ── */
+.page-item.active .page-link {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.page-link { color: var(--primary); }
 </style>

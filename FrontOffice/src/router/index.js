@@ -138,7 +138,7 @@ const routes = [
       { path: '', name: 'ProfessorDashboard', component: ProfessorDashboard, meta: { title: 'Professor | Educacross', breadcrumb: 'Professor' } },
       { path: 'calendario', name: 'ProfCalendario', component: ProfCalendario, meta: { title: 'Calendário | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Calendário', active: true }] } },
       // Gestão
-      { path: 'turmas', name: 'ProfClasses', component: ProfClasses, meta: { title: 'Turmas | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Turmas', active: true }] } },
+      { path: 'turmas', name: 'ProfClasses', component: ProfClasses, meta: { title: 'Turmas | Professor', breadcrumb: 'Turmas' } },
       { path: 'alunos', name: 'ProfStudents', component: ProfStudents, meta: { title: 'Alunos | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Alunos', active: true }] } },
       { path: 'grupos', name: 'ProfGroups', component: ProfGroups, meta: { title: 'Grupos | Professor', breadcrumb: [{ text: 'Gestão (Escola / Turmas)', to: '/professor/turmas' }, { text: 'Grupos', active: true }] } },
       // Missões
@@ -150,8 +150,9 @@ const routes = [
       { path: 'relatorios/acesso-alunos', name: 'ProfStudentAccess', component: ProfStudentAccess, meta: { title: 'Acesso de Alunos | Professor', breadcrumb: [{ text: 'Relatórios Gerais', to: '/professor/relatorios/evidencias' }, { text: 'Acesso de Alunos', active: true }] } },
       { path: 'missoes/:missionId/relatorio', name: 'ProfMissionReport', component: ProfMissionReport, meta: { title: 'Relatório da Missão | Professor', breadcrumb: [{ text: 'Missões da Escola', to: '/professor/missoes' }, { text: 'Missões', to: '/professor/missoes' }, { text: 'Relatório da Missão', active: true }] } },
       // Jogos
-      { path: 'jogos/config-ilha', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Configurações da Ilha', active: true }] } },
-      { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: [{ text: 'Jogos', to: '/professor/jogos/config-ilha' }, { text: 'Ranking de Conquistas', active: true }] } },
+      { path: 'jogos/config-ilha', redirect: '/professor/explorar-jogos/configuracao' },
+      { path: 'explorar-jogos/configuracao', name: 'ProfIslandConfig', component: ProfIslandConfig, meta: { title: 'Config. Ilha | Professor', breadcrumb: [{ text: 'Explorar Jogos', to: '/professor/explorar-jogos/configuracao' }, { text: 'Configurações da Ilha', active: true }] } },
+      { path: 'jogos/ranking', name: 'ProfIslandRanking', component: ProfIslandRanking, meta: { title: 'Ranking Ilha | Professor', breadcrumb: [{ text: 'Explorar Jogos', to: '/professor/explorar-jogos/configuracao' }, { text: 'Ranking de Conquistas', active: true }] } },
       // Avaliações
       { path: 'avaliacoes/digital', name: 'ProfDigitalEval', component: ProfDigitalEval, meta: { title: 'Avaliação Digital | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'Avaliação Digital', active: true }] } },
       { path: 'avaliacoes/flue-esc', name: 'ProfFluesc', component: ProfFluesc, meta: { title: 'FluEsc | Professor', breadcrumb: [{ text: 'Avaliações', to: '/professor/avaliacoes/digital' }, { text: 'FluEsc', active: true }] } },

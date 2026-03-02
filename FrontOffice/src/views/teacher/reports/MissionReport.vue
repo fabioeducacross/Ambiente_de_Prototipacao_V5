@@ -22,21 +22,20 @@ const missionClass = computed(() => route.query.classLabel || '8º ano C - Tarde
 const missionSchoolYear = computed(() => route.query.schoolYear || '8º ano')
 const currentYear = new Date().getFullYear()
 
-const figmaPointsHeaderIcon = 'http://localhost:3845/assets/733794ca76f2cfae8b800ca74af8cd9bd8dd3496.svg'
-const figmaPointsIconMath = 'http://localhost:3845/assets/0561c334736337a006e85f3d89a225a806e21690.svg'
-const figmaPointsIconGeometry = 'http://localhost:3845/assets/fe61feaefa12fe294214f5186c608e6d56b56e42.svg'
-const figmaPointsIconRuler = 'http://localhost:3845/assets/be5175cc52d490df4f14f87c97d85ed4b6aa9a01.svg'
-const figmaImproveHeaderIcon = 'http://localhost:3845/assets/1ce1df1356d259c59666d55aed8264ffc7bfd0eb.svg'
-const figmaImproveIconGeometry = 'http://localhost:3845/assets/fe61feaefa12fe294214f5186c608e6d56b56e42.svg'
-const figmaImproveIconMath = 'http://localhost:3845/assets/0561c334736337a006e85f3d89a225a806e21690.svg'
-const figmaImproveIconFunction = 'http://localhost:3845/assets/7399af35c4ea2806ba75c1d3a032070d34218a9f.svg'
-const figmaMissionHeaderTargetIcon = 'http://localhost:3845/assets/e96a2e2223eb5ea5a416ec7f4647d5d73aaf3ef8.svg'
-const figmaTurnPotenciasImage = 'http://localhost:3845/assets/3b07dcbb90181d4c57c2cbd1eda855f48a452985.png'
-const figmaTurnExpressoesIcon = 'http://localhost:3845/assets/542330c4008947ae8b64c1d8d9df5fc79441a27b.svg'
-const figmaFooterFacebookIcon = 'http://localhost:3845/assets/fd06c93a5d89c3d75c1482f05aa63b15b3f53993.svg'
-const figmaFooterYoutubeIcon = 'http://localhost:3845/assets/b9229d713d16bdd2f5fa8de34ba157c99fa90124.svg'
-const figmaFooterInstagramIcon = 'http://localhost:3845/assets/23961cfc1aa28946b3faab3885c33b786be4da05.svg'
-const figmaMetricProgressIcon = 'http://localhost:3845/assets/48470599bb6ff3b0491ee742d9455ae4811ee48a.svg'
+const figmaPointsHeaderIcon = '/assets/figma-report/family-star.svg'
+const figmaPointsIconMath = '/assets/figma-report/math-icon.svg'
+const figmaPointsIconGeometry = '/assets/figma-report/math1-icon.svg'
+const figmaPointsIconRuler = '/assets/figma-report/ruler-icon.svg'
+const figmaImproveHeaderIcon = '/assets/figma-report/sentiment-dissatisfied.svg'
+const figmaImproveIconGeometry = '/assets/figma-report/math1-icon.svg'
+const figmaImproveIconMath = '/assets/figma-report/math-icon.svg'
+const figmaImproveIconFunction = '/assets/figma-report/function-icon.svg'
+const figmaMissionHeaderTargetIcon = '/assets/figma-report/target-icon.svg'
+const figmaTurnPotenciasImage = '/assets/figma-report/potencias-image.png'
+const figmaFooterFacebookIcon = '/assets/figma-report/facebook-icon.svg'
+const figmaFooterYoutubeIcon = '/assets/figma-report/youtube-icon.svg'
+const figmaFooterInstagramIcon = '/assets/figma-report/instagram-icon.svg'
+const figmaMetricProgressIcon = '/assets/figma-report/timeline-progress-icon.svg'
 
 const mediaProgressItems = [
   { label: 'Jogos', completed: 20, total: 20, value: 100 },
@@ -214,12 +213,12 @@ const pointsSections = [
 ]
 
 const missionTurns = [
-  { id: 1, mediaType: 'jogos', title: 'Adição e subtração', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA01', icon: 'calculate', tone: 'warning', image: '/img/missions/custom.svg' },
-  { id: 2, mediaType: 'questoes', title: 'Construção de um ângulo reto (90°)', knowledge: 'Construções e transformações geométricas', theme: 'Geometria', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'architecture', tone: 'primary', image: '/img/missions/educacross.svg' },
-  { id: 3, mediaType: 'livros', title: 'Multiplicação e divisão', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'calculate', tone: 'warning', image: '/img/missions/shared.svg' },
-  { id: 4, mediaType: 'videos', title: 'Potências de base 10', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF06MA15', icon: 'deployed_code', tone: 'warning', image: figmaTurnPotenciasImage },
-  { id: 5, mediaType: 'musica', title: 'Expressões algébricas', knowledge: 'Expressões algébricas e monômios', theme: 'Álgebra', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA06', icon: 'functions', tone: 'trilha', image: figmaTurnExpressoesIcon, imageContain: true },
-  { id: 6, mediaType: 'jogos', title: 'Frações e equivalências', knowledge: 'Números racionais e equivalência de frações', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA07', icon: 'calculate', tone: 'warning', image: '/img/missions/custom.svg' },
+  { id: 1, mediaType: 'jogos', title: 'Adição e subtração', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA01', icon: 'sports_esports', tone: 'warning', image: '/img/missions/custom.svg' },
+  { id: 2, mediaType: 'questoes', title: 'Construção de um ângulo reto (90°)', knowledge: 'Construções e transformações geométricas', theme: 'Geometria', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'quiz', tone: 'primary', image: '/img/missions/educacross.svg' },
+  { id: 3, mediaType: 'livros', title: 'Multiplicação e divisão', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA15', icon: 'book_5', tone: 'primary', image: '/img/missions/shared.svg' },
+  { id: 4, mediaType: 'videos', title: 'Potências de base 10', knowledge: 'Notação Científica', theme: 'Números', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF06MA15', icon: 'smart_display', tone: 'info', image: figmaTurnPotenciasImage },
+  { id: 5, mediaType: 'musica', title: 'Expressões algébricas', knowledge: 'Expressões algébricas e monômios', theme: 'Álgebra', progress: 20, performance: null, avgTime: '6min 25s', tag: 'EF08MA06', icon: 'music_note', tone: 'success', image: '/img/missions/collective.svg' },
+  { id: 6, mediaType: 'jogos', title: 'Frações e equivalências', knowledge: 'Números racionais e equivalência de frações', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA07', icon: 'sports_esports', tone: 'warning', image: '/img/missions/custom.svg' },
 ]
 
 const mediaTypeLabelMap = {
@@ -230,7 +229,27 @@ const mediaTypeLabelMap = {
   musica: 'Música',
 }
 
+// Mapa canônico de ícones — 3 confirmados em produção, 2 sugestões para o protótipo
+const mediaTypeIconMap = {
+  jogos:    { icon: 'sports_esports', tone: 'warning' },   // ✓ MissionReportGames.vue
+  questoes: { icon: 'quiz',            tone: 'primary' },   // ✓ teacher.js nav
+  livros:   { icon: 'book_5',          tone: 'primary' },   // ✓ GeneralDashboard.vue
+  videos:   { icon: 'smart_display',   tone: 'info' },      // ⚠ sugestão protótipo
+  musica:   { icon: 'music_note',      tone: 'success' },   // ⚠ sugestão protótipo
+}
+
+const getMediaTypeTag = (mediaType) => mediaTypeIconMap[mediaType] || { icon: 'category', tone: 'muted' }
+
 const getTurnMediaTypeLabel = (turn) => mediaTypeLabelMap[turn.mediaType] || 'Não definido'
+
+const mediaTypeByLabelMap = Object.fromEntries(
+  Object.entries(mediaTypeLabelMap).map(([mediaType, label]) => [label, mediaType])
+)
+
+const getDrawerMediaIcon = (label) => getMediaTypeTag(mediaTypeByLabelMap[label])?.icon || 'category'
+
+const mediaTypesWithoutPerformance = new Set(['livros', 'videos', 'musica'])
+const shouldShowTurnPerformance = (turn) => !mediaTypesWithoutPerformance.has(turn.mediaType) && turn.performance !== null && turn.performance !== undefined
 
 const toneClass = (tone) => ({
   success: 'tone-success',
@@ -370,10 +389,19 @@ const performanceVariant = (percent) => {
           </div>
           <div class="min-w-0">
             <div class="turn-name">{{ turn.title }}</div>
-            <div class="turn-meta">Mídia: <strong>{{ getTurnMediaTypeLabel(turn) }}</strong></div>
             <div class="turn-meta">Objeto do conhecimento: <strong>{{ turn.knowledge }}</strong></div>
             <div class="turn-meta">Temática: <strong>{{ turn.theme }}</strong></div>
-            <span class="turn-tag">{{ turn.tag }}</span>
+            <div class="turn-tag-bar">
+              <span
+                class="media-type-tag"
+                :class="`media-type-tag--${getMediaTypeTag(turn.mediaType).tone}`"
+                :title="`Tipo de mídia: ${getTurnMediaTypeLabel(turn)}`"
+              >
+                <span class="material-symbols-outlined media-type-tag__icon">{{ getMediaTypeTag(turn.mediaType).icon }}</span>
+                {{ getTurnMediaTypeLabel(turn) }}
+              </span>
+              <span class="turn-tag">{{ turn.tag }}</span>
+            </div>
           </div>
         </div>
 
@@ -384,7 +412,7 @@ const performanceVariant = (percent) => {
           </div>
           <ProgressBarHorizontalV2 :value="turn.progress" :max="100" :get-variant="progressVariant" height="5px" />
 
-          <template v-if="turn.performance !== null">
+          <template v-if="shouldShowTurnPerformance(turn)">
             <div class="metric-line">
               <span>Rendimento médio da turma</span>
               <strong class="text-primary">{{ turn.performance }}%</strong>
@@ -428,7 +456,10 @@ const performanceVariant = (percent) => {
             <div class="metric-drawer-list">
               <div v-for="item in mediaProgressItems" :key="item.label" class="metric-drawer-item">
                 <div class="metric-drawer-item-head">
-                  <span>{{ item.label }}</span>
+                  <span class="metric-drawer-item-label">
+                    <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
+                    {{ item.label }}
+                  </span>
                   <strong>{{ item.completed }}/{{ item.total }} - {{ item.value }}%</strong>
                 </div>
                 <div class="metric-drawer-item-bar">
@@ -446,7 +477,10 @@ const performanceVariant = (percent) => {
             <div class="metric-drawer-list">
               <div v-for="item in mediaPerformanceItems" :key="item.label" class="metric-drawer-item">
                 <div class="metric-drawer-item-head">
-                  <span>{{ item.label }}</span>
+                  <span class="metric-drawer-item-label">
+                    <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
+                    {{ item.label }}
+                  </span>
                   <strong>
                     <template v-if="hasPerformanceData(item.value)">
                       {{ item.completed }}/{{ item.total }} - {{ item.value }}%
@@ -473,7 +507,10 @@ const performanceVariant = (percent) => {
             <div class="metric-drawer-list">
               <div v-for="item in mediaChallengeItems" :key="item.label" class="metric-drawer-item">
                 <div class="metric-drawer-item-head">
-                  <span>{{ item.label }}</span>
+                  <span class="metric-drawer-item-label">
+                    <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
+                    {{ item.label }}
+                  </span>
                   <strong>{{ item.value }}</strong>
                 </div>
               </div>
@@ -484,7 +521,10 @@ const performanceVariant = (percent) => {
             <div class="metric-drawer-list">
               <div v-for="item in mediaTimeItems" :key="item.label" class="metric-drawer-item">
                 <div class="metric-drawer-item-head">
-                  <span>{{ item.label }}</span>
+                  <span class="metric-drawer-item-label">
+                    <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
+                    {{ item.label }}
+                  </span>
                   <strong>{{ item.completed }}/{{ item.total }} - {{ formatDuration(item.seconds) }}</strong>
                 </div>
               </div>
@@ -896,12 +936,14 @@ const performanceVariant = (percent) => {
 }
 
 .turn-thumb {
+  position: relative;
   width: 100px;
   height: 100px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .turn-thumb .material-symbols-outlined {
@@ -924,7 +966,7 @@ const performanceVariant = (percent) => {
 .turn-name {
   color: var(--primary);
   font: 500 18px/100% 'Montserrat', Helvetica, Arial, sans-serif;
-  margin-bottom: 0;
+  margin-bottom: 2px;
 }
 
 .turn-meta {
@@ -938,6 +980,14 @@ const performanceVariant = (percent) => {
   font-weight: 700;
 }
 
+.turn-tag-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
 .turn-tag {
   display: inline-flex;
   margin-top: 0;
@@ -948,6 +998,46 @@ const performanceVariant = (percent) => {
   font-size: 12px;
   line-height: 18px;
   font-weight: 700;
+}
+
+/* ── Media-type tag (pill com ícone + label) ───────────── */
+.media-type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px 2px 6px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.media-type-tag__icon {
+  font-size: 14px !important;
+  line-height: 1;
+}
+
+/* Tons — fundo leve + texto/ícone saturado */
+.media-type-tag--warning {
+  background: rgba(255, 159, 67, 0.12);
+  color: var(--warning);
+}
+.media-type-tag--primary {
+  background: rgba(115, 103, 240, 0.12);
+  color: var(--primary);
+}
+.media-type-tag--info {
+  background: rgba(0, 207, 232, 0.12);
+  color: var(--info);
+}
+.media-type-tag--success {
+  background: rgba(40, 199, 111, 0.12);
+  color: var(--success);
+}
+.media-type-tag--muted {
+  background: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
 }
 
 .turn-metrics {
@@ -1170,6 +1260,18 @@ const performanceVariant = (percent) => {
   justify-content: space-between;
   color: var(--ec-body);
   font: 500 14px/21px 'Montserrat', Helvetica, Arial, sans-serif;
+}
+
+.metric-drawer-item-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-drawer-item-icon {
+  font-size: 16px;
+  line-height: 1;
+  color: var(--ec-body);
 }
 
 .metric-drawer-item-head strong {
