@@ -40,34 +40,34 @@ const figmaFooterInstagramIcon = withBase('assets/figma-report/instagram-icon.sv
 const figmaMetricProgressIcon = withBase('assets/figma-report/timeline-progress-icon.svg')
 
 const mediaProgressItems = [
-  { label: 'Jogos', completed: 20, total: 20, value: 100 },
-  { label: 'Questões', completed: 17, total: 20, value: 85 },
-  { label: 'Livros', completed: 10, total: 20, value: 50 },
-  { label: 'Vídeos', completed: 9, total: 20, value: 45 },
+  { label: 'Jogo', completed: 20, total: 20, value: 100 },
+  { label: 'Questão', completed: 17, total: 20, value: 85 },
+  { label: 'Livro', completed: 10, total: 20, value: 50 },
+  { label: 'Vídeo', completed: 9, total: 20, value: 45 },
   { label: 'Música', completed: 12, total: 20, value: 60 },
 ]
 
 const mediaPerformanceItems = [
-  { label: 'Jogos', completed: 16, total: 20, value: 80 },
-  { label: 'Questões', completed: 15, total: 20, value: 75 },
-  { label: 'Livros', completed: 11, total: 20, value: null },
-  { label: 'Vídeos', completed: 6, total: 20, value: null },
+  { label: 'Jogo', completed: 16, total: 20, value: 80 },
+  { label: 'Questão', completed: 15, total: 20, value: 75 },
+  { label: 'Livro', completed: 11, total: 20, value: null },
+  { label: 'Vídeo', completed: 6, total: 20, value: null },
   { label: 'Música', completed: 4, total: 20, value: null },
 ]
 
 const mediaTimeItems = [
-  { label: 'Jogos', completed: 20, total: 20, seconds: 2325 },
-  { label: 'Questões', completed: 20, total: 20, seconds: 2470 },
-  { label: 'Livros', completed: 20, total: 20, seconds: 2660 },
-  { label: 'Vídeos', completed: 20, total: 20, seconds: 2895 },
+  { label: 'Jogo', completed: 20, total: 20, seconds: 2325 },
+  { label: 'Questão', completed: 20, total: 20, seconds: 2470 },
+  { label: 'Livro', completed: 20, total: 20, seconds: 2660 },
+  { label: 'Vídeo', completed: 20, total: 20, seconds: 2895 },
   { label: 'Música', completed: 20, total: 20, seconds: 1980 },
 ]
 
 const mediaChallengeItems = [
-  { label: 'Jogos', value: 260 },
-  { label: 'Questões', value: 220 },
-  { label: 'Livros', value: 140 },
-  { label: 'Vídeos', value: 170 },
+  { label: 'Jogo', value: 260 },
+  { label: 'Questão', value: 220 },
+  { label: 'Livro', value: 140 },
+  { label: 'Vídeo', value: 170 },
   { label: 'Música', value: 110 },
 ]
 
@@ -224,10 +224,10 @@ const missionTurns = [
 ]
 
 const mediaTypeLabelMap = {
-  jogos: 'Jogos',
-  questoes: 'Questões',
-  livros: 'Livros',
-  videos: 'Vídeos',
+  jogos: 'Jogo',
+  questoes: 'Questão',
+  livros: 'Livro',
+  videos: 'Vídeo',
   musica: 'Música',
 }
 
