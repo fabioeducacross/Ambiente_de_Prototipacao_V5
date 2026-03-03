@@ -1297,8 +1297,8 @@ const performanceVariant = (percent) => {
   align-items: flex-start;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(0, 207, 232, 0.1);
-  border: 1px solid rgba(0, 207, 232, 0.3);
+  background: color-mix(in srgb, var(--info) 10%, var(--white));
+  border: 1px solid color-mix(in srgb, var(--info) 30%, var(--white));
   border-radius: 8px;
   color: var(--ec-body);
 }
@@ -1311,13 +1311,19 @@ const performanceVariant = (percent) => {
 }
 
 .metric-drawer-empty-notice-title {
-  font: 600 12px/18px 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
   color: var(--ec-text);
   margin-bottom: 3px;
 }
 
 .metric-drawer-empty-notice-desc {
-  font: 400 11px/17px 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 17px;
   color: var(--ec-body);
 }
 
