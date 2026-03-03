@@ -1321,11 +1321,12 @@ const performanceVariant = (percent) => {
 }
 
 .metric-drawer-empty-notice-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  line-height: 18px;
+  line-height: 17px;
   color: var(--ec-text);
   margin-bottom: 3px;
+  white-space: nowrap;
 }
 
 .metric-drawer-empty-notice-desc {
