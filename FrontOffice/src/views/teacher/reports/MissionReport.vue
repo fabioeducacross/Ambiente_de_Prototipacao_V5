@@ -483,13 +483,11 @@ const performanceVariant = (percent) => {
                     <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
                     {{ item.label }}
                   </span>
-                  <strong>
+                  <strong :class="{ 'metric-drawer-empty': !hasPerformanceData(item.value) }">
                     <template v-if="hasPerformanceData(item.value)">
                       {{ item.completed }} de {{ item.total }}
                     </template>
-                    <template v-else>
-                      Sem dados
-                    </template>
+                    <template v-else>—</template>
                   </strong>
                 </div>
                 <template v-if="hasPerformanceData(item.value)">
@@ -501,6 +499,13 @@ const performanceVariant = (percent) => {
                     />
                   </div>
                 </template>
+              </div>
+            </div>
+            <div v-if="mediaPerformanceItems.some(i => !hasPerformanceData(i.value))" class="metric-drawer-empty-notice">
+              <span class="material-symbols-outlined metric-drawer-empty-notice-icon">info</span>
+              <div>
+                <p class="metric-drawer-empty-notice-title">Alguns tipos de mídia ainda não têm dados</p>
+                <p class="metric-drawer-empty-notice-desc">O rendimento é calculado somente após os alunos interagirem com atividades desse tipo. Continue acompanhando ao longo da missão.</p>
               </div>
             </div>
           </template>
@@ -1277,6 +1282,43 @@ const performanceVariant = (percent) => {
 .metric-drawer-item-head strong {
   color: var(--primary);
   font-weight: 700;
+}
+
+.metric-drawer-item-head strong.metric-drawer-empty {
+  color: var(--ec-muted);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.metric-drawer-empty-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #FFF8F0;
+  border: 1px solid #FFE0B2;
+  border-radius: 8px;
+  color: var(--ec-body);
+}
+
+.metric-drawer-empty-notice-icon {
+  font-size: 18px;
+  color: var(--warning);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.metric-drawer-empty-notice-title {
+  font: 600 12px/18px 'Montserrat', Helvetica, Arial, sans-serif;
+  color: var(--ec-text);
+  margin-bottom: 3px;
+}
+
+.metric-drawer-empty-notice-desc {
+  font: 400 11px/17px 'Montserrat', Helvetica, Arial, sans-serif;
+  color: var(--ec-body);
 }
 
 .metric-drawer-pill {
