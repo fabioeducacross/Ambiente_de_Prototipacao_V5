@@ -19,6 +19,37 @@ Existem dois padrões de aviso no FrontOffice, cada um para um contexto específ
 - `FrontOffice/src/views/teacher/reports/MissionReport.vue`
 - `FrontOffice/src/views/teacher/evaluations/FluEsc.vue`
 
+### Racional de design
+
+#### Por que existe um componente separado para drawers?
+
+Drawers são contextos **compactos e focados em tarefa**. O Bootstrap `.alert` e o `BAlert` foram projetados para ocupá-ro nível de página — têm espaçamento generoso, bordas, e constroem hierarquia visual de página. Dentro de um drawer, esse peso visual é excessivo e compete com o conteúdo principal. O `drawer-hint` usa padding reduzido (`10px 12px`), borda-raio menor e fundo com 8% de opacidade — quase imperceptível, mas presente o suficiente para contextualizar a orientação.
+
+#### Por que primário vs. neutro — e não uma escala de severidade?
+
+A distinção **não é de severidade** (não é "roxo = mais perigoso"). É um eixo de **novidade da ação**:
+
+- **Primário (roxo)** → o usuário ainda não fez isso antes; a ação tem consequências que ele precisa entender antes de prosseguir. Ex: primeiro envio de missão, que habilita acesso dos alunos.
+- **Neutro (ciano)** → a ação já é conhecida; o hint é apenas um lembrete contextual, sem peso emocional. Ex: reenvio de uma missão que o professor já realizou antes.
+
+Essa distinção espelha exatamente o que o Adobe Spectrum chama de `neutral` vs. `informative` — a diferença é o grau de atenção que o usuário precisa dedicar, não o risco envolvido.
+
+#### Por que sem botão fechar?
+
+O `drawer-hint` não é feedback de uma ação — é orientação prévia. O Carbon Design System (IBM) define seu componente equivalente (`Callout`) explicitamente como persistente:
+
+> *"Unlike other notifications, callouts do not dismiss because they are used to highlight important information for the user that cannot be missed."*
+
+Se o usuário pudesse fechar o hint, ele poderia iniciar a ação sem compreender o contexto — exatamente o problema que o componente existe para prevenir.
+
+#### Por que máximo 2 linhas?
+
+Carbon e MUI convergem para esse limite. Acima de 2 linhas, a carga cognitiva dentro do drawer se torna alta demais — o hint começa a competir com o conteúdo principal. Se a explicação precisa de mais espaço, o design do fluxo deve ser revisado, ou o conteúdo deve ir para um modal ou página de detalhe.
+
+#### Por que não usar `--success` ou `--danger`?
+
+O `drawer-hint` é um componente de **orientação antes da ação**, não de **feedback após a ação**. O Carbon é explícito sobre isso: seu `Callout` permite apenas `informational` e `warning` — `success` e `error` são exclusivos do `Inline Notification`, disparado por resultado de ação. Dentro de um drawer de envio, um `--danger` vermelho geraria confusão — o usuário interpretaria como "algo deu errado" quando na verdade apenas há uma atenção necessária.
+
 ### Variantes
 
 | Variante | Classe | Cor | Quando usar |
@@ -161,13 +192,64 @@ import { BAlert } from 'bootstrap-vue-next'
 
 ## Benchmark de referência
 
-Este componente foi comparado com as implementações de ponta do mercado. A abordagem atual está alinhada com:
+Em março/2026 foi feito um benchmark comparativo com os principais Design Systems do mercado para validar as decisões arquiteturais do `drawer-hint`. Abaixo os achados por sistema.
 
-| DS | Componente equivalente | O que valida |
-|----|------------------------|---------------|
-| **Carbon (IBM)** | `Callout` | Persistente, sem fechar, orienta antes da ação. Só `informational` + `warning` — sem `success`/`error` |
-| **Spectrum (Adobe)** | `In-line alert` | Distância semântica entre `neutral` (sem emoção) e `informative` (mais chamativo) — equivalente ao nosso primário vs. neutro |
-| **Polaris (Shopify)** | `Banner` contextual | Reça menor e menos espaçamento quando dentro de painel lateral — equivalente ao nosso formato compacto |
-| **MUI / Ant Design** | `Alert` | Valida o modelo de 4 severidades; `info` e `warning` são as mais usadas em contextos inline |
+### Carbon Design System (IBM) — `Callout`
 
-> **Consistência confirmada:** nossa escolha de 2 variantes ativas (primário + neutro) + 1 reserva (`--warning`) espelha exatamente o modelo do Carbon Callout.
+O componente mais próximo do `drawer-hint`. A definição do Carbon é quase idêntica ao nosso uso:
+
+> *"Callouts are used to highlight important information contextually within the contents of the page. Unlike other notifications they are not triggered by the user or system — they load with the contents. They are persistent and always present on screen."*
+
+**O que valida:**
+- Persistente, sem botão fechar → confirma nossa decisão de não ter `x`
+- Apenas variantes `informational` e `warning` → sem `success`/`error` no contexto de orientação prévia → confirma que `--danger` seria errado no `drawer-hint`
+- Título é opcional: *"omit the title when it would break the reading flow"* → confirma nosso modo texto simples (sem título)
+
+### Adobe Spectrum — `In-line alert`
+
+Especificação mais detalhada de variantes semânticas. Define 5 níveis:
+
+| Variante Spectrum | Equivalente nosso | Observação |
+|---|---|---|
+| `neutral` | `.drawer-hint--neutral` | Sem ícone, tom cinza — informação sem emoção |
+| `informative` (azul) | `.drawer-hint` (primário) | Requer atenção extra vs. o neutro |
+| `notice` (laranja) | `.drawer-hint--warning` | Situação que pode precisar de ação em breve |
+| `negative` (vermelho) | — (não implementado) | Erro/falha — não faz sentido em hint de orientação |
+| `positive` (verde) | — (não implementado) | Confirmação de ação — é feedback, não orientação |
+
+**O que valida:** a distinção primário vs. neutro é exatamente a distinção `informative` vs. `neutral` do Spectrum — grau de atenção, não severidade.
+
+### Polaris (Shopify) — `Banner` contextual
+
+O Polaris tem uma regra explícita de posicionamento que valida a existência do `drawer-hint` como componente separado:
+
+> *"Banners related to a section of a page (card, popover, or modal) should be placed inside that section, below any section heading. These banners have less spacing and a pared-back design to fit within a content context."*
+
+Além disso, o Polaris define um antipadrão que adotamos como regra:
+
+> *"Not be used to call attention to what a merchant needs to do in the UI instead of making the action clear in the UI itself."*
+
+Traduzido: se o hint existe péra explicar o botão, o botão está mal rotulado.
+
+### MUI (Material UI) e Ant Design — `Alert`
+
+Ambos usam o modelo clássico de 4 severidades (`success`, `info`, `warning`, `error`) sem distinção por contexto de posicionamento. O que validam:
+- `info` e `warning` são as variantes mais usadas em contextos inline compactos
+- MUI permite separar `severity` de `variant` visual (`outlined`, `filled`, `standard`) — reforça que forma e semântica são independentes
+
+### Atlassian Design System — `InlineMessage`
+
+Abordagem diferente: sem fundo colorido, apenas ícone + texto; ao clicar abre um popover. Válido para tabelas densas. **Não é o padrão correto para drawers** — o `drawer-hint` com fundo sutil é mais adequado porque o professor precisa ver a orientação sem precisar clicar.
+
+---
+
+### Resumo de consistência
+
+| Decisão do `drawer-hint` | Validado por |
+|---|---|
+| Persistente, sem fechar | Carbon Callout, Spectrum In-line alert |
+| Sem `--success` / `--danger` | Carbon (proibido no Callout) |
+| Neutro vs. primário = novidade, não severidade | Spectrum (`neutral` vs. `informative`) |
+| Máximo 2 linhas | Carbon + MUI |
+| Hint não substitui label de botão | Polaris antipattern |
+| Fundo compacto 8% opacidade | Polaris ("pared-back design" em painéis) |
