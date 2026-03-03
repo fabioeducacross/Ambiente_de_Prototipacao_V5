@@ -110,6 +110,12 @@ const getPerformanceLabel = (value) => {
 
 const hasPerformanceData = (value) => value !== null && value !== undefined
 
+// Apenas tipos de mídia com dado de rendimento disponível.
+// Tipos sem dado são omitidos — o cálculo não está no roadmap atual.
+const availablePerformanceItems = computed(() =>
+  mediaPerformanceItems.filter((item) => hasPerformanceData(item.value))
+)
+
 const formatDuration = (seconds) => {
   const minutes = Math.floor(seconds / 60)
   const secs = seconds % 60
@@ -476,21 +482,16 @@ const performanceVariant = (percent) => {
           </template>
 
           <template v-else-if="isPerformanceDrawer">
-            <div class="metric-drawer-list">
-              <div v-for="item in mediaPerformanceItems" :key="item.label" class="metric-drawer-item">
-                <div class="metric-drawer-item-head">
-                  <span class="metric-drawer-item-label">
-                    <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
-                    {{ item.label }}
-                  </span>
-                  <strong :class="{ 'metric-drawer-empty': !hasPerformanceData(item.value) }">
-                    <template v-if="hasPerformanceData(item.value)">
-                      {{ item.completed }} de {{ item.total }}
-                    </template>
-                    <template v-else>—</template>
-                  </strong>
-                </div>
-                <template v-if="hasPerformanceData(item.value)">
+            <template v-if="availablePerformanceItems.length > 0">
+              <div class="metric-drawer-list">
+                <div v-for="item in availablePerformanceItems" :key="item.label" class="metric-drawer-item">
+                  <div class="metric-drawer-item-head">
+                    <span class="metric-drawer-item-label">
+                      <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
+                      {{ item.label }}
+                    </span>
+                    <strong>{{ item.completed }} de {{ item.total }}</strong>
+                  </div>
                   <div class="metric-drawer-item-bar">
                     <span
                       class="metric-drawer-item-bar-fill"
@@ -498,16 +499,16 @@ const performanceVariant = (percent) => {
                       :style="{ width: `${item.value}%` }"
                     />
                   </div>
-                </template>
+                </div>
               </div>
-            </div>
-            <div v-if="mediaPerformanceItems.some(i => !hasPerformanceData(i.value))" class="drawer-hint drawer-hint--neutral">
-              <span class="material-symbols-outlined drawer-hint-icon">info</span>
-              <div>
-                <p class="metric-drawer-empty-notice-title">Alguns tipos de mídia ainda não têm dados</p>
-                <p class="metric-drawer-empty-notice-desc">O rendimento é calculado somente após os alunos interagirem com atividades desse tipo. Continue acompanhando ao longo da missão.</p>
+            </template>
+            <template v-else>
+              <div class="metric-drawer-empty-state">
+                <span class="material-symbols-outlined metric-drawer-empty-state-icon">bar_chart_off</span>
+                <p class="metric-drawer-empty-state-title">Rendimento não disponível</p>
+                <p class="metric-drawer-empty-state-desc">Nenhum tipo de mídia desta missão possui dado de rendimento neste momento.</p>
               </div>
-            </div>
+            </template>
           </template>
 
           <template v-else-if="isChallengesDrawer">
@@ -1320,19 +1321,35 @@ const performanceVariant = (percent) => {
   color: var(--warning);
 }
 
-.metric-drawer-empty-notice-title {
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 18px;
-  color: var(--ec-text);
-  margin-bottom: 3px;
+.metric-drawer-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 16px;
+  text-align: center;
 }
 
-.metric-drawer-empty-notice-desc {
-  font-size: 11px;
+.metric-drawer-empty-state-icon {
+  font-size: 36px;
+  color: var(--ec-muted);
+}
+
+.metric-drawer-empty-state-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ec-text);
+  margin: 0;
+}
+
+.metric-drawer-empty-state-desc {
+  font-size: 12px;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 1.55;
   color: var(--ec-body);
+  margin: 0;
+  max-width: 260px;
 }
 
 .metric-drawer-pill {
