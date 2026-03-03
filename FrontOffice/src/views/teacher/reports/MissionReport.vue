@@ -462,7 +462,7 @@ const performanceVariant = (percent) => {
                     <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
                     {{ item.label }}
                   </span>
-                  <strong>{{ item.completed }}/{{ item.total }} - {{ item.value }}%</strong>
+                  <strong>{{ item.completed }} de {{ item.total }}</strong>
                 </div>
                 <div class="metric-drawer-item-bar">
                   <span
@@ -485,7 +485,7 @@ const performanceVariant = (percent) => {
                   </span>
                   <strong>
                     <template v-if="hasPerformanceData(item.value)">
-                      {{ item.completed }}/{{ item.total }} - {{ item.value }}%
+                      {{ item.completed }} de {{ item.total }}
                     </template>
                     <template v-else>
                       Sem dados
@@ -527,7 +527,7 @@ const performanceVariant = (percent) => {
                     <span class="material-symbols-outlined metric-drawer-item-icon">{{ getDrawerMediaIcon(item.label) }}</span>
                     {{ item.label }}
                   </span>
-                  <strong>{{ item.completed }}/{{ item.total }} - {{ formatDuration(item.seconds) }}</strong>
+                  <strong>{{ item.completed }} de {{ item.total }}</strong>
                 </div>
               </div>
             </div>
