@@ -1297,8 +1297,8 @@ const performanceVariant = (percent) => {
   align-items: flex-start;
   gap: 10px;
   padding: 12px 14px;
-  background: #FFF8F0;
-  border: 1px solid #FFE0B2;
+  background: rgba(255, 159, 67, 0.1);
+  border: 1px solid rgba(255, 159, 67, 0.3);
   border-radius: 8px;
   color: var(--ec-body);
 }
