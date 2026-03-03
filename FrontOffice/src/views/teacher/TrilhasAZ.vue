@@ -38,6 +38,12 @@
       </div>
       <div class="tab-line"></div>
 
+      <!-- ── Callout: sobre progresso sequencial ── -->
+      <PageCallout variant="info" icon="info" class="mt-3">
+        Os capítulos de Trilhas AZ são sequenciais — cada aluno precisa concluir um capítulo
+        para desbloquear o próximo. Habilite os capítulos na ordem para liberar o acesso da turma.
+      </PageCallout>
+
       <!-- ── Card Título (DS: missions/Title.vue) ── -->
       <div class="ds-card title-card">
         <div class="card-body py-1">
@@ -356,6 +362,7 @@ import TrilhasAZDrawer from '../../components/TrilhasAZDrawer.vue'
 import SubjectIcon     from '../../components/SubjectIcon.vue'
 import { ESelect }     from '../../components/base/index.js'
 import { useTrilhasAZ } from '../../composables/useTrilhasAZ.js'
+import PageCallout     from '../../components/atoms/PageCallout.vue'
 
 const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount } = useTrilhasAZ()
 

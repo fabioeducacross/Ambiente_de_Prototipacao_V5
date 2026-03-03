@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import {
   BRow, BCol, BCard, BCardTitle, BCardText,
-  BBadge, BButton, BAlert,
+  BBadge, BButton,
   BFormGroup,
 } from 'bootstrap-vue-next'
 import ESelect from '@/components/base/ESelect.vue'
 import SubjectIcon from '@/components/SubjectIcon.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import PageCallout from '@/components/atoms/PageCallout.vue'
 
 // ─── Disciplinas (mock) ───────────────────────────────────────────────────────
 const disciplinas = [
@@ -111,23 +112,12 @@ const loading = ref(false)
       </BCol>
     </BRow>
 
-    <!-- Alert: limite de missões (GuidesLimitAlert) -->
-    <BAlert variant="primary" :model-value="true" class="mb-2">
-      <div class="alert-body">
-        <div class="d-flex justify-content-center align-items-center font-normal">
-          <div class="d-flex flex-column flex-lg-row align-items-center gap-1">
-            <span class="material-symbols-outlined">edit_calendar</span>
-            É permitida a criação de até 40 missões ao mês por turma. Este mês, você criou:
-            <span class="font-bold">{{ guidesMonth }} {{ guidesMonth === 1 ? 'missão' : 'missões' }}.</span>
-            <span
-              class="material-symbols-outlined"
-              style="font-size: 15px"
-              title="Somente as missões criadas no mês atual são consideradas, canceladas não são contabilizadas."
-            >info</span>
-          </div>
-        </div>
-      </div>
-    </BAlert>
+    <!-- Callout: limite de missões -->
+    <PageCallout icon="edit_calendar" class="mb-3">
+      É permitida a criação de até 40 missões ao mês por turma. Este mês, você criou
+      <strong>{{ guidesMonth }} {{ guidesMonth === 1 ? 'missão' : 'missões' }}</strong>.
+      Somente missões do mês atual são contabilizadas — canceladas não entram na contagem.
+    </PageCallout>
 
     <!-- Row 2: Cards de tipo de missão -->
     <BRow v-if="!loading" class="match-height">
