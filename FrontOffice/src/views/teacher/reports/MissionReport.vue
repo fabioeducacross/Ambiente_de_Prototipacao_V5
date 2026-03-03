@@ -501,8 +501,8 @@ const performanceVariant = (percent) => {
                 </template>
               </div>
             </div>
-            <div v-if="mediaPerformanceItems.some(i => !hasPerformanceData(i.value))" class="alert metric-drawer-empty-notice" role="alert">
-              <span class="material-symbols-outlined align-middle me-2" style="font-size:18px">info</span>
+            <div v-if="mediaPerformanceItems.some(i => !hasPerformanceData(i.value))" class="drawer-hint drawer-hint--neutral">
+              <span class="material-symbols-outlined drawer-hint-icon">info</span>
               <div>
                 <p class="metric-drawer-empty-notice-title">Alguns tipos de mídia ainda não têm dados</p>
                 <p class="metric-drawer-empty-notice-desc">O rendimento é calculado somente após os alunos interagirem com atividades desse tipo. Continue acompanhando ao longo da missão.</p>
@@ -1292,15 +1292,27 @@ const performanceVariant = (percent) => {
   letter-spacing: 0.5px;
 }
 
-.metric-drawer-empty-notice {
-  --bs-alert-bg: color-mix(in srgb, var(--info) 10%, var(--white));
-  --bs-alert-border-color: color-mix(in srgb, var(--info) 30%, var(--white));
-  --bs-alert-color: var(--info-dark);
-  --bs-alert-margin-bottom: 0;
-  padding: 12px 14px;
+.drawer-hint {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ec-primary) 8%, transparent);
+  color: var(--ec-primary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.drawer-hint-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.drawer-hint--neutral {
+  background: color-mix(in srgb, var(--info) 8%, transparent);
+  color: var(--info);
 }
 
 .metric-drawer-empty-notice-title {
