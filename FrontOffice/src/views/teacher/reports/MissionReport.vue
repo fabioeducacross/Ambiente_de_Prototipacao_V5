@@ -48,27 +48,27 @@ const mediaProgressItems = [
 ]
 
 const mediaPerformanceItems = [
-  { label: 'Jogo', completed: 16, total: 20, value: 80 },
+  { label: 'Jogos', completed: 16, total: 20, value: 80 },
   { label: 'Questões', completed: 15, total: 20, value: 75 },
-  { label: 'Livro', completed: 11, total: 20, value: null },
-  { label: 'Vídeo', completed: 6, total: 20, value: null },
-  { label: 'Música', completed: 4, total: 20, value: null },
+  { label: 'Livros', completed: 11, total: 20, value: null },
+  { label: 'Vídeos', completed: 6, total: 20, value: null },
+  { label: 'Músicas', completed: 4, total: 20, value: null },
 ]
 
 const mediaTimeItems = [
-  { label: 'Jogo', completed: 20, total: 20, seconds: 2325 },
+  { label: 'Jogos', completed: 20, total: 20, seconds: 2325 },
   { label: 'Questões', completed: 20, total: 20, seconds: 2470 },
-  { label: 'Livro', completed: 20, total: 20, seconds: 2660 },
-  { label: 'Vídeo', completed: 20, total: 20, seconds: 2895 },
-  { label: 'Música', completed: 20, total: 20, seconds: 1980 },
+  { label: 'Livros', completed: 20, total: 20, seconds: 2660 },
+  { label: 'Vídeos', completed: 20, total: 20, seconds: 2895 },
+  { label: 'Músicas', completed: 20, total: 20, seconds: 1980 },
 ]
 
 const mediaChallengeItems = [
-  { label: 'Jogo', value: 260 },
+  { label: 'Jogos', value: 260 },
   { label: 'Questões', value: 220 },
-  { label: 'Livro', value: 140 },
-  { label: 'Vídeo', value: 170 },
-  { label: 'Música', value: 110 },
+  { label: 'Livros', value: 140 },
+  { label: 'Vídeos', value: 170 },
+  { label: 'Músicas', value: 110 },
 ]
 
 const activeMetricDrawer = ref(null)
@@ -224,11 +224,11 @@ const missionTurns = [
 ]
 
 const mediaTypeLabelMap = {
-  jogos: 'Jogo',
+  jogos: 'Jogos',
   questoes: 'Questões',
-  livros: 'Livro',
-  videos: 'Vídeo',
-  musica: 'Música',
+  livros: 'Livros',
+  videos: 'Vídeos',
+  musica: 'Músicas',
 }
 
 // Mapa canônico de ícones — 3 confirmados em produção, 2 sugestões para o protótipo
@@ -485,7 +485,7 @@ const performanceVariant = (percent) => {
                   </span>
                   <strong :class="{ 'metric-drawer-empty': !hasPerformanceData(item.value) }">
                     <template v-if="hasPerformanceData(item.value)">
-                      {{ item.completed }} de {{ item.total }}
+                      {{ item.value }}%
                     </template>
                     <template v-else>Não se aplica</template>
                   </strong>
