@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import MaterialIcon from '@/components/MaterialIcon.vue'
 import SubjectIcon from '@/components/SubjectIcon.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import { PROGRESSO_TONES, RENDIMENTO_TONES, getRendimentoTone } from '@/shared/data/tones.js'
 
 // ─── Disciplinas (SelectSubject) ─────────────────────────────────────────────
 //     Replica: SelectSubject.vue → selectMode=true → usa ESelect
@@ -101,39 +102,34 @@ const formatTempo = (seg) => {
 
 // ─── PerformanceCell: replica getVariantByRule (accuracyPerformance) ──────────
 //     Fonte: educacross-frontoffice/src/consts/legends/performanceEnum.js
-//     ≥70 → advanced · ≥50 → proficient · ≥25 → basic · <25 → below-basic
+const BADGE_CLASS_BY_KEY = {
+  avancado: 'badge-legend-advanced', proficiente: 'badge-legend-proficient',
+  basico: 'badge-legend-basic', abaixo_basico: 'badge-legend-below',
+}
 const perfVariant = (v) => {
   if (v === null || v === undefined) return null
-  if (v >= 70) return { badge: 'Avançado',        cls: 'badge-legend-advanced'  }
-  if (v >= 50) return { badge: 'Proficiente',      cls: 'badge-legend-proficient'}
-  if (v >= 25) return { badge: 'Básico',           cls: 'badge-legend-basic'    }
-  return            { badge: 'Abaixo do Básico',  cls: 'badge-legend-below'   }
+  const tone = getRendimentoTone(v)
+  return { badge: tone.label, cls: BADGE_CLASS_BY_KEY[tone.key] }
 }
 
 // ─── ProgressBarHorizontalV2: variant de barra ────────────────────────────────
 //     Fonte: ProgressBarHorizontalV2.vue → getVariantByRule → textClass + variant
+const BAR_VARIANT_BY_KEY = {
+  avancado:      { bar: 'bar-primary',  text: 'rend-advanced'   },
+  proficiente:   { bar: 'bar-success',  text: 'rend-proficient' },
+  basico:        { bar: 'bar-warning',  text: 'rend-basic'      },
+  abaixo_basico: { bar: 'bar-danger',   text: 'rend-below'      },
+}
 const barVariant = (v) => {
-  if (v >= 70) return { bar: 'bar-primary',  text: 'rend-advanced'  }
-  if (v >= 50) return { bar: 'bar-success',  text: 'rend-proficient'}
-  if (v >= 25) return { bar: 'bar-warning',  text: 'rend-basic'     }
-  return            { bar: 'bar-danger',   text: 'rend-below'    }
+  if (v === null || v === undefined) return BAR_VARIANT_BY_KEY.abaixo_basico
+  return BAR_VARIANT_BY_KEY[getRendimentoTone(v)?.key] ?? BAR_VARIANT_BY_KEY.abaixo_basico
 }
 
-// ─── LegendEnum: enums de participação e rendimento ──────────────────────────
-//     Replicado de: participationEnum.js (variant: legend-complete/proficient/basic/below-basic)
-//                 + performanceEnum.js   (variant: legend-advanced/proficient/basic/below-basic)
-const legendParticipacao = [
-  { label: 'Finalizado',   variant: 'sem-complete',   desc: '100%'    },
-  { label: 'Satisfatório', variant: 'sem-proficient',  desc: '≥ 80%'  },
-  { label: 'Moderado',     variant: 'sem-basic',       desc: '≥ 50%'  },
-  { label: 'Crítico',      variant: 'sem-below',       desc: '< 50%'  },
-]
-const legendRendimento = [
-  { label: 'Avançado',        variant: 'sem-advanced',   desc: '≥ 70% de acertos' },
-  { label: 'Proficiente',     variant: 'sem-proficient',  desc: '≥ 50% de acertos' },
-  { label: 'Básico',          variant: 'sem-basic',       desc: '≥ 25% de acertos' },
-  { label: 'Abaixo do Básico',variant: 'sem-below',       desc: '< 25% de acertos' },
-]
+// ─── LegendEnum: montados a partir de shared/data/tones.js ───────────────────
+const PROGRESSO_DS_VARIANT = { finalizado: 'sem-complete', satisfatorio: 'sem-proficient', moderado: 'sem-basic', critico: 'sem-below' }
+const RENDIMENTO_DS_VARIANT = { avancado: 'sem-advanced', proficiente: 'sem-proficient', basico: 'sem-basic', abaixo_basico: 'sem-below' }
+const legendParticipacao = PROGRESSO_TONES.map(t => ({ label: t.label, variant: PROGRESSO_DS_VARIANT[t.key], desc: t.desc }))
+const legendRendimento   = RENDIMENTO_TONES.map(t => ({ label: t.label, variant: RENDIMENTO_DS_VARIANT[t.key], desc: t.desc }))
 </script>
 
 <template>

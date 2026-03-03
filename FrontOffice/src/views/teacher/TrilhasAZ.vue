@@ -363,6 +363,7 @@ import SubjectIcon     from '../../components/SubjectIcon.vue'
 import { ESelect }     from '../../components/base/index.js'
 import { useTrilhasAZ } from '../../composables/useTrilhasAZ.js'
 import PageCallout     from '../../components/atoms/PageCallout.vue'
+import { getProgressoTone, getRendimentoTone } from '@/shared/data/tones.js'
 
 const { book, chapters, getTotalStudents, habilitarCapitulo, getLinkedCount } = useTrilhasAZ()
 
@@ -523,27 +524,26 @@ function getDisplayProgress (chapter) {
   return chapter.progresso ?? 0
 }
 
-// Cores de progresso (DS: getVariantByRule enum="progress")
-function progressColor (pct) {
-  if (pct >= 100) return '#14693a'  // Finalizado
-  if (pct >= 80)  return '#28c76f'  // Satisfatório — $success
-  if (pct >= 50)  return '#ff9f43'  // Moderado — $warning
-  return '#ea5455'                   // Crítico — $danger
+// Mapa local: key de tom → classe CSS do badge de rendimento
+const PERF_BADGE_CLASS = {
+  avancado:      'perf-primary',
+  proficiente:   'perf-success',
+  basico:        'perf-warning',
+  abaixo_basico: 'perf-danger',
+}
+
+// Cor hex de progresso (DS: getVariantByRule enum="progress")
+function progressColor(pct) {
+  return getProgressoTone(pct).hexColor
 }
 
 // Variante do badge de rendimento (DS: PerformanceCell → getVariantByRule)
-function perfBadgeVariant (rend) {
-  if (rend >= 70) return 'perf-primary'   // Avançado — $primary
-  if (rend >= 50) return 'perf-success'   // Proficiente — $success
-  if (rend >= 25) return 'perf-warning'   // Básico — $warning
-  return 'perf-danger'                     // Abaixo do Básico — $danger
+function perfBadgeVariant(rend) {
+  return PERF_BADGE_CLASS[getRendimentoTone(rend)?.key] ?? 'perf-danger'
 }
 
-function perfBadgeLabel (rend) {
-  if (rend >= 70) return 'Avançado'
-  if (rend >= 50) return 'Proficiente'
-  if (rend >= 25) return 'Básico'
-  return 'Abaixo do Básico'
+function perfBadgeLabel(rend) {
+  return getRendimentoTone(rend)?.label ?? 'Abaixo do Básico'
 }
 
 // Classe do badge de status (regras de negócio: iniciada = verde, demais = cinza)

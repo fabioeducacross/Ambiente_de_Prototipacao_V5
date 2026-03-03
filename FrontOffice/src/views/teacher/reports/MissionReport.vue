@@ -5,6 +5,7 @@ import { BCard, BCol, BRow } from 'bootstrap-vue-next'
 import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
 import ProgressBarHorizontalV2 from '@/components/base/ProgressBarHorizontalV2.vue'
+import { getProgressoTone, getRendimentoTone } from '@/shared/data/tones.js'
 
 const route = useRoute()
 
@@ -94,19 +95,11 @@ const closeMetricDrawer = () => {
   activeMetricDrawer.value = null
 }
 
-const getPerformanceToneClass = (value) => {
-  if (value >= 100) return 'metric-drawer-item-bar-fill-finalizado'
-  if (value >= 80) return 'metric-drawer-item-bar-fill-satisfatorio'
-  if (value >= 50) return 'metric-drawer-item-bar-fill-moderado'
-  return 'metric-drawer-item-bar-fill-critico'
-}
+const getPerformanceToneClass = (value) =>
+  `metric-drawer-item-bar-fill-${getProgressoTone(value).key}`
 
-const getPerformanceLabel = (value) => {
-  if (value >= 100) return 'Finalizado'
-  if (value >= 80) return 'Satisfatório'
-  if (value >= 50) return 'Moderado'
-  return 'Crítico'
-}
+const getPerformanceLabel = (value) =>
+  getProgressoTone(value).label
 
 const hasPerformanceData = (value) => value !== null && value !== undefined
 
@@ -116,12 +109,8 @@ const formatDuration = (seconds) => {
   return `${minutes}min ${String(secs).padStart(2, '0')}s`
 }
 
-const getPerformanceLevelLabel = (value) => {
-  if (value >= 70) return 'Avançado'
-  if (value >= 50) return 'Proficiente'
-  if (value >= 25) return 'Básico'
-  return 'Abaixo do Básico'
-}
+const getPerformanceLevelLabel = (value) =>
+  getRendimentoTone(value)?.label ?? 'Abaixo do Básico'
 
 const avgProgressValue = computed(() => {
   if (!mediaProgressItems.length) return 0
