@@ -1286,10 +1286,10 @@ const performanceVariant = (percent) => {
 
 .metric-drawer-item-head strong.metric-drawer-empty {
   color: var(--ec-muted);
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 12px;
   line-height: 1;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 
 .drawer-hint {
