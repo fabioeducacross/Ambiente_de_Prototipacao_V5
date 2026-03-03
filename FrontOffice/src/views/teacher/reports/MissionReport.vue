@@ -1293,26 +1293,25 @@ const performanceVariant = (percent) => {
 }
 
 .metric-drawer-empty-notice {
-  background: color-mix(in srgb, var(--info) 10%, var(--white));
-  border-color: color-mix(in srgb, var(--info) 30%, var(--white));
-  color: var(--info);
-  border-radius: 8px;
+  --bs-alert-bg: color-mix(in srgb, var(--info) 10%, var(--white));
+  --bs-alert-border-color: color-mix(in srgb, var(--info) 30%, var(--white));
+  --bs-alert-color: var(--info-dark);
+  --bs-alert-margin-bottom: 0;
+  padding: 12px 14px;
   display: flex;
   align-items: flex-start;
   gap: 10px;
 }
 
 .metric-drawer-empty-notice-title {
-  font-family: var(--font-family-base);
   font-size: 12px;
   font-weight: 600;
   line-height: 18px;
-  color: var(--info-dark);
+  color: var(--ec-text);
   margin-bottom: 3px;
 }
 
 .metric-drawer-empty-notice-desc {
-  font-family: var(--font-family-base);
   font-size: 11px;
   font-weight: 400;
   line-height: 17px;
