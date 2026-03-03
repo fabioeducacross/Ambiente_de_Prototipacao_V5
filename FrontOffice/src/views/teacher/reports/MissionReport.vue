@@ -377,8 +377,6 @@ const performanceVariant = (percent) => {
 
     <h3 class="turns-title">Turnos da missão</h3>
 
-    <LegendEnum :legends="turnsLegends" border class="mb-3" />
-
     <BCard v-for="turn in missionTurns" :key="turn.id" class="turn-card mb-2" :data-media-type="turn.mediaType || 'unknown'">
       <div class="turn-grid">
         <div class="d-flex align-items-center turn-info-block">
@@ -543,6 +541,8 @@ const performanceVariant = (percent) => {
         </div>
       </aside>
     </Transition>
+
+    <LegendEnum :legends="turnsLegends" border class="mb-2" />
 
     <div class="mission-footer">
       <p class="mission-footer-text">
