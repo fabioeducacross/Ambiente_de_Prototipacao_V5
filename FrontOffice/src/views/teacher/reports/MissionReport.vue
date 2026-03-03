@@ -5,6 +5,7 @@ import { BCard, BCol, BRow } from 'bootstrap-vue-next'
 import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
 import ProgressBarHorizontalV2 from '@/components/base/ProgressBarHorizontalV2.vue'
+import LegendEnum from '@/components/base/LegendEnum.vue'
 import { PROGRESSO_TONES, RENDIMENTO_TONES, getProgressoTone, getRendimentoTone } from '@/shared/data/tones.js'
 
 const route = useRoute()
@@ -250,6 +251,17 @@ const toneClass = (tone) => ({
   trilha: 'tone-trilha',
 }[tone] || 'tone-primary')
 
+const turnsLegends = [
+  {
+    text: 'Progresso',
+    enum: PROGRESSO_TONES.map(t => ({ text: `${t.label} ${t.desc}`, color: t.hexColor })),
+  },
+  {
+    text: 'Rendimento',
+    enum: RENDIMENTO_TONES.map(t => ({ text: `${t.label} ${t.desc}`, color: t.hexColor })),
+  },
+]
+
 const progressVariant = (percent) => {
   if (percent >= 100) return { variant: 'success', textClass: 'text-success', color: 'var(--success-dark)' }
   if (percent >= 80) return { variant: 'success', textClass: 'text-success', color: 'var(--success)' }
@@ -365,26 +377,7 @@ const performanceVariant = (percent) => {
 
     <h3 class="turns-title">Turnos da missão</h3>
 
-    <div class="turns-legend">
-      <div class="turns-legend-row">
-        <span class="turns-legend-label">Progresso</span>
-        <div class="turns-legend-items">
-          <span v-for="t in PROGRESSO_TONES" :key="t.key" class="turns-legend-item">
-            <span class="turns-legend-dot" :style="{ background: t.colorVar }" />
-            {{ t.label }} {{ t.desc }}
-          </span>
-        </div>
-      </div>
-      <div class="turns-legend-row">
-        <span class="turns-legend-label">Rendimento</span>
-        <div class="turns-legend-items">
-          <span v-for="t in RENDIMENTO_TONES" :key="t.key" class="turns-legend-item">
-            <span class="turns-legend-dot" :style="{ background: t.colorVar }" />
-            {{ t.label }} {{ t.desc }}
-          </span>
-        </div>
-      </div>
-    </div>
+    <LegendEnum :legends="turnsLegends" border class="mb-3" />
 
     <BCard v-for="turn in missionTurns" :key="turn.id" class="turn-card mb-2" :data-media-type="turn.mediaType || 'unknown'">
       <div class="turn-grid">
@@ -1438,55 +1431,6 @@ const performanceVariant = (percent) => {
 .slide-enter-from,
 .slide-leave-to {
   transform: translateX(100%);
-}
-
-.turns-legend {
-  background: var(--white);
-  border: 1px solid var(--ec-border);
-  border-radius: 8px;
-  padding: 10px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.turns-legend-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.turns-legend-label {
-  font: 600 11px/16px 'Montserrat', Helvetica, Arial, sans-serif;
-  color: var(--ec-text);
-  min-width: 72px;
-  flex-shrink: 0;
-}
-
-.turns-legend-items {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.turns-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font: 500 11px/16px 'Montserrat', Helvetica, Arial, sans-serif;
-  color: var(--ec-body);
-  white-space: nowrap;
-}
-
-.turns-legend-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 9999px;
-  display: inline-block;
-  flex-shrink: 0;
 }
 
 .tone-success {
