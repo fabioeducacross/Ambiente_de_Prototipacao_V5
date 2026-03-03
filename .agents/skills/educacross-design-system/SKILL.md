@@ -138,6 +138,48 @@ Esta seção é o inventário vivo dos componentes **criados no FrontOffice** qu
 
 ---
 
+### `GuidesLimitAlert` — Alerta de limite em página
+
+**Arquivo:** `FrontOffice/src/components/missions/GuidesLimitAlert.vue`
+**Port de produção:** `components/missions/GuidesLimitAlert.vue`
+
+**Uso:** alertas de limite, bloqueio ou estado crítico em nível de **página** (fora de drawers). Usa `BAlert` do `bootstrap-vue-next`.
+
+#### Variantes
+
+| Variante | Prop `variant` | Quando usar |
+|----------|---------------|-------------|
+| Informativo | `primary` | Contagem normal, orientação |
+| Atenção / Esgotado | `danger` | Limite próximo ou atingido |
+
+#### Template padrão
+
+```vue
+<script setup>
+import { BAlert } from 'bootstrap-vue-next'
+</script>
+
+<template>
+  <BAlert variant="primary" :model-value="true">
+    <div class="alert-body">
+      <!-- conteúdo -->
+    </div>
+  </BAlert>
+</template>
+```
+
+#### Regras de uso
+
+- Sempre usar `BAlert` (bootstrap-vue-next) — nunca `<div class="alert">` manual em páginas
+- `:model-value="true"` para manter visível
+- Conteúdo sempre dentro de `.alert-body`
+- Para lógica multi-layout, encapsular em componente dedicado (padrão `GuidesLimitAlert`)
+- **Não usar para avisos dentro de drawer** — usar `.drawer-hint`
+
+> **Documentação completa:** `documentation/docs/design-system/componentes-de-aviso.md`
+
+---
+
 ## Gerenciamento de protótipos
 
 ### Estrutura de personas e rotas
@@ -263,3 +305,4 @@ Usar MCP local sempre antes de navegar na web.
 - Workflow de protótipos: `PROTOTYPES-WORKFLOW.md`
 - DS público: `https://fabioeducacross.github.io/DesignSystem-Vuexy/`
 - DS local (somente leitura): `C:\Users\Educacross\Documents\Educacross\educacross-frontoffice\`
+- Wiki — Componentes de Aviso: `documentation/docs/design-system/componentes-de-aviso.md`

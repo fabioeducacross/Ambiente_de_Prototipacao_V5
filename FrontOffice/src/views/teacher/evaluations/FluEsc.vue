@@ -12,9 +12,9 @@ const barColor = (p) => p >= 80 ? '#28C76F' : p >= 50 ? '#FF9F43' : '#EA5455'
 
 <template>
   <section>
-    <div class="alert" style="background:rgba(0,207,232,.08);border:1px solid rgba(0,207,232,.2);color:#00CFE8;border-radius:10px" role="alert">
-      <span class="material-symbols-outlined align-middle me-2" style="font-size:18px">info</span>
-      <strong>FluEsc</strong> avalia a fluência em escrita dos alunos. Inicie uma avaliação por turma.
+    <div class="drawer-hint drawer-hint--neutral mb-3">
+      <span class="material-symbols-outlined drawer-hint-icon">info</span>
+      <span><strong>FluEsc</strong> avalia a fluência em escrita dos alunos. Inicie uma avaliação por turma.</span>
     </div>
 
     <div class="row g-3 mt-1">
@@ -59,4 +59,27 @@ const barColor = (p) => p >= 80 ? '#28C76F' : p >= 50 ? '#FF9F43' : '#EA5455'
 
 <style scoped>
 .card { border-radius: 12px; }
+
+.drawer-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ec-primary) 8%, transparent);
+  color: var(--ec-primary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.drawer-hint-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.drawer-hint--neutral {
+  background: color-mix(in srgb, var(--info) 8%, transparent);
+  color: var(--info);
+}
 </style>
