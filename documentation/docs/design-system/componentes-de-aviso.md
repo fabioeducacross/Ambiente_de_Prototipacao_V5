@@ -26,6 +26,8 @@ Existem dois padrões de aviso no FrontOffice, cada um para um contexto específ
 | **Primário** | `.drawer-hint` | `--ec-primary` (#6E63E8) | Ação obrigatória, instrução de primeiro uso |
 | **Neutro / Info** | `.drawer-hint drawer-hint--neutral` | `--info` (#00CFE8) | Estado informativo, reenvio, aviso sem urgência |
 
+![Prévia das variantes do componente drawer-hint](/img/ds/drawer-hint-variants.png)
+
 ### Uso (texto simples)
 
 ```vue
