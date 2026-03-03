@@ -258,7 +258,7 @@ const progressVariant = (percent) => {
 }
 
 const performanceVariant = (percent) => {
-  if (percent >= 70) return { variant: 'primary', textClass: 'text-primary', color: 'var(--primary)' }
+  if (percent >= 75) return { variant: 'primary', textClass: 'text-primary', color: 'var(--primary)' }
   if (percent >= 50) return { variant: 'success', textClass: 'text-success', color: 'var(--success)' }
   if (percent >= 25) return { variant: 'warning', textClass: 'text-warning', color: 'var(--warning)' }
   return { variant: 'danger', textClass: 'text-danger', color: 'var(--danger)' }
@@ -399,14 +399,14 @@ const performanceVariant = (percent) => {
         <div class="turn-metrics">
           <div class="metric-line">
             <span>Progresso médio da turma</span>
-            <strong class="text-danger">{{ turn.progress }}%</strong>
+            <strong :class="progressVariant(turn.progress).textClass">{{ turn.progress }}%</strong>
           </div>
           <ProgressBarHorizontalV2 :value="turn.progress" :max="100" :get-variant="progressVariant" height="5px" />
 
           <template v-if="shouldShowTurnPerformance(turn)">
             <div class="metric-line">
               <span>Rendimento médio da turma</span>
-              <strong class="text-primary">{{ turn.performance }}%</strong>
+              <strong :class="performanceVariant(turn.performance).textClass">{{ turn.performance }}%</strong>
             </div>
             <ProgressBarHorizontalV2 :value="turn.performance" :max="100" :get-variant="performanceVariant" height="5px" />
           </template>
