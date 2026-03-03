@@ -4,6 +4,8 @@ title: Componentes de Aviso
 description: Padrões de faixas informativas, alertas e notices usados no FrontOffice
 ---
 
+import GlossaryTerm from '@site/src/components/GlossaryTerm';
+
 # Componentes de Aviso
 
 Existem dois padrões de aviso no FrontOffice, cada um para um contexto específico. **Use o padrão correto para cada situação** — não misturar nem criar variações ad-hoc.
@@ -12,7 +14,7 @@ Existem dois padrões de aviso no FrontOffice, cada um para um contexto específ
 
 ## 1. `drawer-hint` — Aviso contextual em drawer
 
-**Quando usar:** orientação ou estado informativo dentro de um painel lateral (drawer). Compacto, sem título, texto único.
+**Quando usar:** orientação ou estado informativo dentro de um <GlossaryTerm id="drawer">painel lateral (drawer)</GlossaryTerm>. Compacto, sem título, texto único.
 
 **Arquivos de referência:**
 - `FrontOffice/src/modules/sistema-de-ensino/components/TrilhasAZDrawer.vue`
@@ -23,7 +25,7 @@ Existem dois padrões de aviso no FrontOffice, cada um para um contexto específ
 
 #### Por que existe um componente separado para drawers?
 
-Drawers são contextos **compactos e focados em tarefa**. O Bootstrap `.alert` e o `BAlert` foram projetados para ocupá-ro nível de página — têm espaçamento generoso, bordas, e constroem hierarquia visual de página. Dentro de um drawer, esse peso visual é excessivo e compete com o conteúdo principal. O `drawer-hint` usa padding reduzido (`10px 12px`), borda-raio menor e fundo com 8% de opacidade — quase imperceptível, mas presente o suficiente para contextualizar a orientação.
+<GlossaryTerm id="drawer">Drawers</GlossaryTerm> são contextos **compactos e focados em tarefa**. O Bootstrap `.alert` e o <GlossaryTerm id="BAlert">`BAlert`</GlossaryTerm> foram projetados para ocupar o nível de página — têm espaçamento generoso, bordas, e constroem hierarquia visual de página. Dentro de um drawer, esse peso visual é excessivo e compete com o conteúdo principal. O <GlossaryTerm id="drawer-hint">`drawer-hint`</GlossaryTerm> usa padding reduzido (`10px 12px`), borda-raio menor e fundo com 8% de opacidade via <GlossaryTerm id="color-mix">`color-mix()`</GlossaryTerm> — quase imperceptível, mas presente o suficiente para contextualizar a orientação.
 
 #### Por que primário vs. neutro — e não uma escala de severidade?
 
@@ -36,7 +38,7 @@ Essa distinção espelha exatamente o que o Adobe Spectrum chama de `neutral` vs
 
 #### Por que sem botão fechar?
 
-O `drawer-hint` não é feedback de uma ação — é orientação prévia. O Carbon Design System (IBM) define seu componente equivalente (`Callout`) explicitamente como persistente:
+O <GlossaryTerm id="drawer-hint">`drawer-hint`</GlossaryTerm> não é feedback de uma ação — é orientação prévia. O Carbon Design System (IBM) define seu componente equivalente (<GlossaryTerm id="callout">`Callout`</GlossaryTerm>) explicitamente como persistente:
 
 > *"Unlike other notifications, callouts do not dismiss because they are used to highlight important information for the user that cannot be missed."*
 
@@ -48,7 +50,7 @@ Carbon e MUI convergem para esse limite. Acima de 2 linhas, a carga cognitiva de
 
 #### Por que não usar `--success` ou `--danger`?
 
-O `drawer-hint` é um componente de **orientação antes da ação**, não de **feedback após a ação**. O Carbon é explícito sobre isso: seu `Callout` permite apenas `informational` e `warning` — `success` e `error` são exclusivos do `Inline Notification`, disparado por resultado de ação. Dentro de um drawer de envio, um `--danger` vermelho geraria confusão — o usuário interpretaria como "algo deu errado" quando na verdade apenas há uma atenção necessária.
+O <GlossaryTerm id="drawer-hint">`drawer-hint`</GlossaryTerm> é um componente de **orientação antes da ação**, não de **feedback após a ação**. O Carbon é explícito sobre isso: seu `Callout` permite apenas `informational` e `warning` — `success` e `error` são exclusivos da <GlossaryTerm id="inline-notification">Inline Notification</GlossaryTerm>, disparada por resultado de ação. Dentro de um drawer de envio, um `--danger` vermelho geraria confusão — o usuário interpretaria como "algo deu errado" quando na verdade há apenas uma atenção necessária.
 
 ### Variantes
 
@@ -83,7 +85,7 @@ O `drawer-hint` é um componente de **orientação antes da ação**, não de **
 
 ### CSS base
 
-Copiar para o componente que usar (scoped):
+Copiar para o componente que usar (<GlossaryTerm id="scoped-styles">scoped</GlossaryTerm>):
 
 ```css
 .drawer-hint {
@@ -117,13 +119,13 @@ Copiar para o componente que usar (scoped):
 
 ### Regras
 
-- Sempre começar com ícone `info` (primário e neutro) ou `warning` (variante warning) do Material Symbols
+- Sempre começar com ícone `info` (primário e neutro) ou `warning` (variante warning) do <GlossaryTerm id="material-symbols">Material Symbols</GlossaryTerm>
 - Texto `font-weight: 600`, tamanho `12px` — não usar parágrafo solto
 - **Máximo 2 linhas de conteúdo** — se precisar de mais, usar página ou modal
 - **Sem botão fechar** — o hint é persistente; não é feedback, é orientação
 - **Não usar para explicar o que o botão deveria dizer** — se precisa de um hint pra explicar o botão, o botão está mal rotulado
 - **Não usar Bootstrap `.alert`** para este contexto
-- Não usar hex inline — apenas `var(--token)`
+- Não usar hex inline — apenas `var(--token)` (<GlossaryTerm id="design-tokens">design tokens</GlossaryTerm>)
 
 ---
 
@@ -133,7 +135,7 @@ Copiar para o componente que usar (scoped):
 
 **Componente de referência:** `FrontOffice/src/components/missions/GuidesLimitAlert.vue`
 
-**Porta de produção:** `components/missions/GuidesLimitAlert.vue` (BootstrapVue 2 → bootstrap-vue-next)
+**Porta de produção:** `components/missions/GuidesLimitAlert.vue` (BootstrapVue 2 → <GlossaryTerm id="bootstrap-vue-next">bootstrap-vue-next</GlossaryTerm>)
 
 ### Variantes semânticas
 
@@ -160,10 +162,10 @@ import { BAlert } from 'bootstrap-vue-next'
 
 ### Regras
 
-- Usar sempre `bootstrap-vue-next` (`BAlert`) — não escrever `<div class="alert">` manualmente em páginas
+- Usar sempre <GlossaryTerm id="bootstrap-vue-next">bootstrap-vue-next</GlossaryTerm> (`BAlert`) — não escrever `<div class="alert">` manualmente em páginas
 - `:model-value="true"` para manter visível (sem fechar)
 - Conteúdo sempre dentro de `.alert-body`
-- Para lógica multi-layout, encapsular em componente dedicado (padrão `GuidesLimitAlert`)
+- Para lógica multi-layout, encapsular em componente dedicado (padrão <GlossaryTerm id="GuidesLimitAlert">`GuidesLimitAlert`</GlossaryTerm>)
 
 ---
 
@@ -185,18 +187,19 @@ import { BAlert } from 'bootstrap-vue-next'
 | `<div class="alert" style="background:rgba(...)">` | `<div class="drawer-hint">` ou `<BAlert>` |
 | Hex hardcoded no style | `var(--info)`, `var(--danger)` |
 | `color-mix` com `var(--white)` | `color-mix(in srgb, var(--token) 8%, transparent)` |
-| Bootstrap `.alert` dentro de drawer | `.drawer-hint` || Hint para explicar o que o botão já deveria dizer | Melhorar o label do botão |
+| Bootstrap `.alert` dentro de drawer | `.drawer-hint` |
+| Hint para explicar o que o botão já deveria dizer | Melhorar o label do botão |
 | Criar nova variante com hex ad-hoc | Usar `--warning`, `--info`, `--ec-primary` existentes |
 
 ---
 
 ## Benchmark de referência
 
-Em março/2026 foi feito um benchmark comparativo com os principais Design Systems do mercado para validar as decisões arquiteturais do `drawer-hint`. Abaixo os achados por sistema.
+Em março/2026 foi feito um benchmark comparativo com os principais Design Systems do mercado para validar as decisões arquiteturais do <GlossaryTerm id="drawer-hint">`drawer-hint`</GlossaryTerm>. Abaixo os achados por sistema.
 
 ### Carbon Design System (IBM) — `Callout`
 
-O componente mais próximo do `drawer-hint`. A definição do Carbon é quase idêntica ao nosso uso:
+O componente mais próximo do <GlossaryTerm id="drawer-hint">`drawer-hint`</GlossaryTerm>. A definição do Carbon é quase idêntica ao nosso uso:
 
 > *"Callouts are used to highlight important information contextually within the contents of the page. Unlike other notifications they are not triggered by the user or system — they load with the contents. They are persistent and always present on screen."*
 
@@ -207,7 +210,7 @@ O componente mais próximo do `drawer-hint`. A definição do Carbon é quase id
 
 ### Adobe Spectrum — `In-line alert`
 
-Especificação mais detalhada de variantes semânticas. Define 5 níveis:
+Especificação mais detalhada de <GlossaryTerm id="semantic-variant">variantes semânticas</GlossaryTerm>. Define 5 níveis:
 
 | Variante Spectrum | Equivalente nosso | Observação |
 |---|---|---|
@@ -229,7 +232,7 @@ Além disso, o Polaris define um antipadrão que adotamos como regra:
 
 > *"Not be used to call attention to what a merchant needs to do in the UI instead of making the action clear in the UI itself."*
 
-Traduzido: se o hint existe péra explicar o botão, o botão está mal rotulado.
+Traduzido: se o hint existe para explicar o botão, o botão está mal rotulado.
 
 ### MUI (Material UI) e Ant Design — `Alert`
 

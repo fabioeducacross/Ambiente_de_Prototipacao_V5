@@ -1,0 +1,90 @@
+---
+sidebar_position: 99
+title: Glossário
+description: Termos do Design System Educacross — componentes, padrões, tecnologias e conceitos
+---
+
+import React from 'react';
+import { getAllTerms, categoryMeta } from '@site/src/data/glossary';
+
+export function GlossaryPage() {
+  const terms = getAllTerms();
+  const byCategory = {};
+  terms.forEach((t) => {
+    if (!byCategory[t.category]) byCategory[t.category] = [];
+    byCategory[t.category].push(t);
+  });
+  const categoryOrder = ['component', 'pattern', 'tech', 'concept'];
+
+  return (
+    <div>
+      {categoryOrder
+        .filter((cat) => byCategory[cat]?.length)
+        .map((cat) => {
+          const meta = categoryMeta[cat];
+          return (
+            <section key={cat} style={{ marginBottom: '2.5rem' }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginBottom: '1rem',
+              }}>
+                <span style={{
+                  background: meta.color,
+                  color: '#fff',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                  padding: '3px 10px',
+                  borderRadius: '20px',
+                }}>
+                  {meta.label}
+                </span>
+                <span style={{ color: 'var(--ifm-color-emphasis-500)', fontSize: '13px' }}>
+                  {byCategory[cat].length} {byCategory[cat].length === 1 ? 'termo' : 'termos'}
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {byCategory[cat].map((t) => (
+                  <div
+                    key={t.id}
+                    id={t.id}
+                    style={{
+                      padding: '14px 18px',
+                      borderRadius: '10px',
+                      border: '1px solid var(--ifm-color-emphasis-200)',
+                      background: 'var(--ifm-background-surface-color)',
+                      scrollMarginTop: '80px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
+                      <h3 style={{ margin: 0, fontSize: '15px', fontFamily: 'var(--ifm-font-family-monospace)', color: 'var(--ifm-heading-color)' }}>
+                        {t.term}
+                      </h3>
+                    </div>
+                    <p style={{ margin: '0 0 8px', fontSize: '13.5px', fontWeight: 500, color: 'var(--ifm-font-color-base)' }}>
+                      {t.short}
+                    </p>
+                    {t.context && (
+                      <p style={{ margin: 0, fontSize: '12.5px', lineHeight: 1.6, color: 'var(--ifm-color-emphasis-700)', borderTop: '1px solid var(--ifm-color-emphasis-100)', paddingTop: '8px' }}>
+                        {t.context}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+    </div>
+  );
+}
+
+# Glossário
+
+Termos e definições usados ao longo deste handbook. Passe o mouse sobre qualquer `<GlossaryTerm>` nas páginas da wiki para ver o popover com a definição rápida e um link de volta para cá.
+
+<GlossaryPage />
