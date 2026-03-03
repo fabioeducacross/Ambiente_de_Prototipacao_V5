@@ -186,7 +186,7 @@ const route = useRoute()
 
 const isCalendarRoute = () => route.path.startsWith('/professor/calendario') || route.path.startsWith('/teacher/calendar')
 const isMissionsRoute = () =>
-  route.path.startsWith('/professor/missoes') ||
+  (route.path.startsWith('/professor/missoes') && !route.path.startsWith('/professor/missoes/criar')) ||
   route.path === '/teacher/trilhas-az'
 const isSistemaEnsinoRoute = () => route.path === '/teacher/trilhas-az'
 

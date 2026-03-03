@@ -23,35 +23,36 @@ const disciplinaAtiva = ref(disciplinas[0])
 const guidesMonth = ref(0)
 
 // ─── Tipos de missão (espelhando produção) ─────────────────────────────────────
+const base = import.meta.env.BASE_URL
 const missions = [
   {
     type: 'custom',
-    img: '/img/missions/custom.svg',
+    img: `${base}img/missions/custom.svg`,
     title: 'Missão personalizada',
     description: 'Selecione jogos específicos para compor uma missão, tendo como base seu plano de aula.',
   },
   {
     type: 'educacross',
-    img: '/img/missions/educacross.svg',
+    img: `${base}img/missions/educacross.svg`,
     title: 'Missão Educacross',
     description: 'Conjuntos de jogos sugeridos pelo nosso time pedagógico e alinhados à BNCC.',
   },
   {
     type: 'shared',
-    img: '/img/missions/shared.svg',
+    img: `${base}img/missions/shared.svg`,
     title: 'Missão compartilhada',
     description: 'Conjuntos de jogos sugeridos e compartilhados por professores que utilizam a plataforma.',
   },
   {
     type: 'inclusion',
-    img: '/img/missions/inclusion.svg',
+    img: `${base}img/missions/inclusion.svg`,
     isNew: true,
     title: 'Missão inclusiva',
     description: 'Conjuntos de jogos elaborados e sugeridos pelo nosso time pedagógico para atender crianças com necessidades especiais.',
   },
   {
     type: 'books',
-    img: '/img/missions/books.svg',
+    img: `${base}img/missions/books.svg`,
     title: 'Missão dos livros',
     description: 'Conjuntos de jogos mapeados pelo time nosso pedagógico com base em materiais didáticos de sistemas de ensino.',
   },
