@@ -487,7 +487,7 @@ const performanceVariant = (percent) => {
                     <template v-if="hasPerformanceData(item.value)">
                       {{ item.completed }} de {{ item.total }}
                     </template>
-                    <template v-else>—</template>
+                    <template v-else>Não se aplica</template>
                   </strong>
                 </div>
                 <template v-if="hasPerformanceData(item.value)">
@@ -504,8 +504,8 @@ const performanceVariant = (percent) => {
             <div v-if="mediaPerformanceItems.some(i => !hasPerformanceData(i.value))" class="drawer-hint drawer-hint--neutral">
               <span class="material-symbols-outlined drawer-hint-icon">info</span>
               <div>
-                <p class="metric-drawer-empty-notice-title">Alguns tipos de mídia ainda não têm rendimento</p>
-                <p class="metric-drawer-empty-notice-desc">Este indicador está em desenvolvimento e será exibido em uma próxima versão.</p>
+                <p class="metric-drawer-empty-notice-title">Rendimento disponível apenas para Jogos e Questões</p>
+                <p class="metric-drawer-empty-notice-desc">Em Livros, Vídeos e Músicas, exibimos apenas progresso e tempo de uso.</p>
               </div>
             </div>
           </template>
