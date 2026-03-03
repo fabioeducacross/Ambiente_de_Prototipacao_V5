@@ -1297,15 +1297,15 @@ const performanceVariant = (percent) => {
   align-items: flex-start;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(255, 159, 67, 0.1);
-  border: 1px solid rgba(255, 159, 67, 0.3);
+  background: rgba(0, 207, 232, 0.1);
+  border: 1px solid rgba(0, 207, 232, 0.3);
   border-radius: 8px;
   color: var(--ec-body);
 }
 
 .metric-drawer-empty-notice-icon {
   font-size: 18px;
-  color: var(--warning);
+  color: var(--info);
   flex-shrink: 0;
   margin-top: 1px;
 }
