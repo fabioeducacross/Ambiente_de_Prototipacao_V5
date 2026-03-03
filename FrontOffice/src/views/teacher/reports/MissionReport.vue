@@ -1315,6 +1315,11 @@ const performanceVariant = (percent) => {
   color: var(--info);
 }
 
+.drawer-hint--warning {
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  color: var(--warning);
+}
+
 .metric-drawer-empty-notice-title {
   font-size: 12px;
   font-weight: 600;

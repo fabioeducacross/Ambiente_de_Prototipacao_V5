@@ -519,6 +519,11 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
   color: #00cfe8;
 }
 
+.drawer-hint--warning {
+  background: rgba(255, 159, 67, 0.08);
+  color: #ff9f43;
+}
+
 /* ── Período ──────────────────────────────────────────────────────────────── */
 .check-row {
   display: flex;

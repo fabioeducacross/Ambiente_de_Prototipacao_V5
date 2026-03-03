@@ -90,8 +90,9 @@ Esta seção é o inventário vivo dos componentes **criados no FrontOffice** qu
 |----------|--------|-------------|--------------|-------------|
 | **Primário** (padrão) | `.drawer-hint` | `--ec-primary` 8% | `--ec-primary` | Instrução de ação obrigatória ("primeiro envio", "preencha X antes") |
 | **Neutro / Info** | `.drawer-hint drawer-hint--neutral` | `--info` 8% | `--info` | Informação contextual, reenvio, estado neutro sem urgência |
+| **Warning** | `.drawer-hint drawer-hint--warning` | `--warning` 8% | `--warning` | Atenção necessária, configuração incompleta, situação que pode impactar em breve |
 
-> **Não existem ainda:** variantes `--success`, `--warning`, `--danger`. Criar se necessário, seguindo o padrão abaixo.
+> **Não existem ainda:** variantes `--success` e `--danger`. Criar se necessário.
 
 #### Template padrão
 
@@ -127,14 +128,22 @@ Esta seção é o inventário vivo dos componentes **criados no FrontOffice** qu
   background: color-mix(in srgb, var(--info) 8%, transparent);
   color: var(--info);
 }
+
+.drawer-hint--warning {
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  color: var(--warning);
+}
 ```
 
 #### Regras de uso
 
-- Usar sempre ícone `info` (Material Symbols) como primeiro elemento
+- Ícone: `info` para primário/neutro; `warning` para `--warning` (Material Symbols)
 - Texto em `font-weight: 600`, tamanho 12px — nunca corpo de parágrafo
-- Para mensagens com título + descrição, usar estrutura `<div>` interna com `<p>` separados (ver `MissionReport.vue`)
-- Não usar Bootstrap `.alert` para esse padrão — o `.drawer-hint` já é o componente correto
+- **Máximo 2 linhas** — conteudo maior vai em modal ou página
+- **Sem botão fechar** — o hint é orientação persistente, não feedback
+- **Não usar para explicar o que o botão já deveria dizer** (Polaris antipattern)
+- Para mensagens com título + descrição, usar estrutura `<div>` interna com `<p>` separados
+- Não usar Bootstrap `.alert` para esse padrão
 
 ---
 

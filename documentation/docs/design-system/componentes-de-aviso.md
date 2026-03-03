@@ -25,6 +25,7 @@ Existem dois padrões de aviso no FrontOffice, cada um para um contexto específ
 |----------|--------|-----|-------------|
 | **Primário** | `.drawer-hint` | `--ec-primary` (#6E63E8) | Ação obrigatória, instrução de primeiro uso |
 | **Neutro / Info** | `.drawer-hint drawer-hint--neutral` | `--info` (#00CFE8) | Estado informativo, reenvio, aviso sem urgência |
+| **Warning** | `.drawer-hint drawer-hint--warning` | `--warning` (#FF9F43) | Atenção necessária, situação que pode precisar de ação em breve |
 
 ![Prévia das variantes do componente drawer-hint](/img/ds/drawer-hint-variants.png)
 
@@ -76,12 +77,20 @@ Copiar para o componente que usar (scoped):
   background: color-mix(in srgb, var(--info) 8%, transparent);
   color: var(--info);
 }
+
+.drawer-hint--warning {
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  color: var(--warning);
+}
 ```
 
 ### Regras
 
-- Sempre começar com ícone `info` (Material Symbols) como primeiro elemento
+- Sempre começar com ícone `info` (primário e neutro) ou `warning` (variante warning) do Material Symbols
 - Texto `font-weight: 600`, tamanho `12px` — não usar parágrafo solto
+- **Máximo 2 linhas de conteúdo** — se precisar de mais, usar página ou modal
+- **Sem botão fechar** — o hint é persistente; não é feedback, é orientação
+- **Não usar para explicar o que o botão deveria dizer** — se precisa de um hint pra explicar o botão, o botão está mal rotulado
 - **Não usar Bootstrap `.alert`** para este contexto
 - Não usar hex inline — apenas `var(--token)`
 
@@ -145,4 +154,20 @@ import { BAlert } from 'bootstrap-vue-next'
 | `<div class="alert" style="background:rgba(...)">` | `<div class="drawer-hint">` ou `<BAlert>` |
 | Hex hardcoded no style | `var(--info)`, `var(--danger)` |
 | `color-mix` com `var(--white)` | `color-mix(in srgb, var(--token) 8%, transparent)` |
-| Bootstrap `.alert` dentro de drawer | `.drawer-hint` |
+| Bootstrap `.alert` dentro de drawer | `.drawer-hint` || Hint para explicar o que o botão já deveria dizer | Melhorar o label do botão |
+| Criar nova variante com hex ad-hoc | Usar `--warning`, `--info`, `--ec-primary` existentes |
+
+---
+
+## Benchmark de referência
+
+Este componente foi comparado com as implementações de ponta do mercado. A abordagem atual está alinhada com:
+
+| DS | Componente equivalente | O que valida |
+|----|------------------------|---------------|
+| **Carbon (IBM)** | `Callout` | Persistente, sem fechar, orienta antes da ação. Só `informational` + `warning` — sem `success`/`error` |
+| **Spectrum (Adobe)** | `In-line alert` | Distância semântica entre `neutral` (sem emoção) e `informative` (mais chamativo) — equivalente ao nosso primário vs. neutro |
+| **Polaris (Shopify)** | `Banner` contextual | Reça menor e menos espaçamento quando dentro de painel lateral — equivalente ao nosso formato compacto |
+| **MUI / Ant Design** | `Alert` | Valida o modelo de 4 severidades; `info` e `warning` são as mais usadas em contextos inline |
+
+> **Consistência confirmada:** nossa escolha de 2 variantes ativas (primário + neutro) + 1 reserva (`--warning`) espelha exatamente o modelo do Carbon Callout.

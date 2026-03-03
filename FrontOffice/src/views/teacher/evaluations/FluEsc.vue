@@ -82,4 +82,9 @@ const barColor = (p) => p >= 80 ? '#28C76F' : p >= 50 ? '#FF9F43' : '#EA5455'
   background: color-mix(in srgb, var(--info) 8%, transparent);
   color: var(--info);
 }
+
+.drawer-hint--warning {
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  color: var(--warning);
+}
 </style>
