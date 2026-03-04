@@ -37,6 +37,10 @@ const config: Config = {
     locales: ['pt-br', 'en'],
   },
 
+  clientModules: [
+    require.resolve('./src/clientModules/clearSearchHighlights.js'),
+  ],
+
   markdown: {
     mermaid: true,
     // Migração para Docusaurus v4: tratamento de links markdown quebrados
