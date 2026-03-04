@@ -40,7 +40,132 @@ O **Design System Vuexy** está documentado no Storybook, organizado por context
 
 ---
 
-## <span class="material-symbols-outlined">folder_copy</span> Componentes por Contexto
+## <span class="material-symbols-outlined">folder_copy</span> Protótipos por Persona
+
+> Todos os protótipos rodam em **http://localhost:5174**. Inicie o servidor com `npm run dev:fo` na raiz do workspace.
+
+### <span class="material-symbols-outlined">school</span> Professor
+
+#### Dashboards & Navegação
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Home – Seletor de Personas | `/` | Ponto de entrada geral, seleção de persona |
+| Dashboard Professor | `/teacher` | Dashboard legado (componentes isolados) |
+| Dashboard Professor (Jornada Completa) | `/professor` | Dashboard com sidebar e navegação completa |
+| Calendário | `/professor/calendario` | Calendário de atividades pedagógicas |
+| Calendário Unificado (Figma) | `/teacher/calendar-figma` | Versão baseada no layout Figma |
+
+#### Gestão de Alunos e Turmas
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Turmas | `/professor/turmas` | Lista e gestão de turmas da escola |
+| Alunos | `/professor/alunos` | Lista de alunos por turma |
+| Grupos | `/professor/grupos` | Grupos de alunos para atividades |
+
+#### Missões
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Lista de Missões | `/professor/missoes` | Missões ativas da escola |
+| Nova Missão | `/professor/missoes/criar` | Criação de nova missão |
+| Relatório da Missão | `/professor/missoes/:id/relatorio` | Desempenho dos alunos por missão |
+
+#### Avaliações
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Avaliação Digital | `/professor/avaliacoes/digital` | Criação de avaliações online |
+| FluEsc | `/professor/avaliacoes/flue-esc` | Fluência em escrita |
+| Fases da Escrita | `/professor/avaliacoes/fases-escrita` | Diagnóstico de fases de escrita |
+
+#### Relatórios
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Relatório de Evidências | `/professor/relatorios/evidencias` | Evidências de aprendizagem por turma |
+| Relatório de Habilidades | `/professor/relatorios/habilidades` | Progresso por habilidade / BNCC |
+| Acesso de Alunos | `/professor/relatorios/acesso-alunos` | Frequência e engajamento dos alunos |
+
+#### Jogos e Gamificação
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Configuração da Ilha | `/professor/explorar-jogos/configuracao` | Parâmetros do jogo Ilha |
+| Ranking de Conquistas | `/professor/jogos/ranking` | Ranking da turma no jogo |
+
+#### Expedições e Eventos
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Expedição de Leitura | `/professor/expedicao-leitura` | Portal de expedições literárias |
+| Olimpíadas | `/professor/eventos/olimpiadas` | Gestão das olimpíadas escolares |
+| Educacross Extreme | `/professor/eventos/extreme` | Evento competitivo Extreme |
+
+#### Conteúdo e Formação
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Sistema de Ensino (Trilhas A-Z) | `/teacher/trilhas-az` | Catálogo de trilhas de aprendizagem |
+| Ajudas e Materiais | `/professor/ajudas-materiais` | Materiais de apoio pedagógico |
+| Educateca | `/professor/educateca` | Repositório de conteúdos |
+
+#### Programas e Projetos Especiais
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Alfabetiza Manaus | `/professor/programas/alfabetiza-manaus` | Programa municipal de alfabetização |
+| Letrar+JP | `/professor/programas/letrar` | Programa de letramento João Pessoa |
+| Super Ensino João Pessoa | `/professor/programas/super-ensino-jp` | Programa João Pessoa |
+| Super Ensino Manaus | `/professor/programas/super-ensino-manaus` | Programa Manaus |
+| High Five | `/professor/programas/high-five` | Programa bilíngue High Five |
+
+---
+
+### <span class="material-symbols-outlined">person</span> Aluno
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Dashboard Aluno | `/student` | Visão geral de missões e progresso do aluno |
+
+---
+
+### <span class="material-symbols-outlined">manage_accounts</span> Coordenador
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Dashboard Coordenador | `/coordinator` | Painel de acompanhamento pedagógico |
+
+---
+
+### <span class="material-symbols-outlined">supervisor_account</span> Diretor
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Dashboard Diretor | `/director` | Visão gerencial da escola |
+
+---
+
+### <span class="material-symbols-outlined">admin_panel_settings</span> Administrador
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Dashboard Administrador | `/administrator` | Gestão de usuários e configurações |
+
+---
+
+### <span class="material-symbols-outlined">hub</span> Gestor de Rede
+
+| Tela | Rota | Descrição |
+|------|------|-----------|
+| Dashboard Gestor de Rede | `/network-manager` | Visão consolidada de múltiplas escolas |
+
+---
+
+## <span class="material-symbols-outlined">palette</span> Design System – Componentes Front-Office
+
+Componentes documentados no [Storybook](https://fabioeducacross.github.io/DesignSystem-Vuexy/).
 
 ### Front-Office (Usuário Final)
 
@@ -56,11 +181,11 @@ O **Design System Vuexy** está documentado no Storybook, organizado por context
 
 | Categoria | Componentes | Link |
 |-----------|-------------|------|
-| **Atoms** | Buttons, Badges, Icons | [Ver Atoms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-atoms--docs) |
-| **Molecules** | Cards, Forms, Inputs | [Ver Molecules](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-molecules--docs) |
-| **Organisms** | Tables, Modals, Sidebars | [Ver Organisms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-organisms--docs) |
+| **Atoms** | Buttons, Badges, Icons | [Ver Atoms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-atoms-buttons--docs) |
+| **Molecules** | Cards, Forms, Inputs | [Ver Molecules](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-molecules-cards--docs) |
+| **Organisms** | Tables, Modals, Sidebars | [Ver Organisms](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-organisms-table--docs) |
 | **Templates** | Layouts, Pages | [Ver Templates](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-templates--docs) |
-| **Foundations** | Colors, Typography, Spacing | [Ver Foundations](https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/vuexy-foundations--docs) |
+| **Foundations** | Colors, Typography, Spacing | [Ver Foundations](https://fabioeducacross.github.io/DesignSystem-Vuexy/) |
 
 ---
 
