@@ -125,41 +125,112 @@ O **Design System Vuexy** está documentado no Storybook, organizado por context
 
 ### <span class="material-symbols-outlined">person</span> Aluno
 
-| Tela | Rota | Descrição |
-|------|------|-----------|
-| Dashboard Aluno | `/student` | Visão geral de missões e progresso do aluno |
+#### KPIs do Dashboard
+
+| Indicador | Valor mockado | Descrição |
+|-----------|--------------|-----------|
+| Missões Ativas | 5 | Missões em andamento |
+| Conquistas | 23 | Badges e troféus acumulados |
+| Pontos | 1.840 | Pontuação total na plataforma |
+| Nível | 12 | Nível de progressão gamificada |
+
+#### Jornadas (status atual: Planejado)
+
+| Tela | Rota | Jornada ID | Descrição |
+|------|------|-----------|-----------|
+| Dashboard Aluno | `/student` | — | Hub principal: missões, conquistas e progresso |
+| Acessar Missões | `/student` *(a implementar)* | ALUNO-001 | Visualizar e iniciar missões disponíveis |
+| Completar Atividades | `/student` *(a implementar)* | ALUNO-002 | Realizar e entregar atividades das missões |
+| Ver Conquistas | `/student` *(a implementar)* | ALUNO-003 | Acompanhar badges e evolução pessoal |
+| Receber Feedback | `/student` *(a implementar)* | ALUNO-004 | Visualizar correções e comentários do professor |
 
 ---
 
 ### <span class="material-symbols-outlined">manage_accounts</span> Coordenador
 
-| Tela | Rota | Descrição |
-|------|------|-----------|
-| Dashboard Coordenador | `/coordinator` | Painel de acompanhamento pedagógico |
+#### KPIs do Dashboard
+
+| Indicador | Valor mockado | Descrição |
+|-----------|--------------|-----------|
+| Turmas | 24 | Total de turmas ativas na escola |
+| Professores | 18 | Professores vinculados |
+| Alunos | 680 | Alunos matriculados |
+| Aproveitamento | 89% | Taxa de aproveitamento global |
+
+#### Jornadas (status atual: Planejado)
+
+| Tela | Rota | Jornada ID | Descrição |
+|------|------|-----------|-----------|
+| Dashboard Coordenador | `/coordinator` | — | Hub principal: indicadores pedagógicos e turmas |
+| Gestão Pedagógica | `/coordinator` *(a implementar)* | COORD-001 | Acompanhar indicadores pedagógicos da escola |
+| Suporte a Professores | `/coordinator` *(a implementar)* | COORD-002 | Apoiar professores em questões pedagógicas |
+| Análise de Turmas | `/coordinator` *(a implementar)* | COORD-003 | Monitorar desempenho das turmas |
 
 ---
 
 ### <span class="material-symbols-outlined">supervisor_account</span> Diretor
 
-| Tela | Rota | Descrição |
-|------|------|-----------|
-| Dashboard Diretor | `/director` | Visão gerencial da escola |
+#### KPIs do Dashboard
+
+| Indicador | Valor mockado | Descrição |
+|-----------|--------------|-----------|
+| Alunos Total | 1.250 | Total de alunos na escola |
+| Taxa de Aprovação | 94% | Percentual de aprovação |
+| Professores | 45 | Total de professores |
+| Satisfação | 4,6 | NPS / nota de satisfação |
+
+#### Jornadas (status atual: Planejado)
+
+| Tela | Rota | Jornada ID | Descrição |
+|------|------|-----------|-----------|
+| Dashboard Diretor | `/director` | — | Hub principal: KPIs estratégicos e gestão escolar |
+| Indicadores Estratégicos | `/director` *(a implementar)* | DIR-001 | Visualizar KPIs e métricas da escola |
+| Gestão de Recursos | `/director` *(a implementar)* | DIR-002 | Alocar e gerenciar recursos escolares |
+| Relatórios Gerenciais | `/director` *(a implementar)* | DIR-003 | Gerar relatórios executivos |
 
 ---
 
 ### <span class="material-symbols-outlined">admin_panel_settings</span> Administrador
 
-| Tela | Rota | Descrição |
-|------|------|-----------|
-| Dashboard Administrador | `/administrator` | Gestão de usuários e configurações |
+#### KPIs do Dashboard
+
+| Indicador | Valor mockado | Descrição |
+|-----------|--------------|-----------|
+| Usuários Ativos | 1.850 | Usuários ativos na plataforma |
+| Escolas | 12 | Escolas configuradas |
+| Uptime | 99,9% | Disponibilidade do sistema |
+| Tickets Abertos | 4 | Chamados de suporte em aberto |
+
+#### Jornadas (status atual: Planejado)
+
+| Tela | Rota | Jornada ID | Descrição |
+|------|------|-----------|-----------|
+| Dashboard Administrador | `/administrator` | — | Hub principal: saúde do sistema e gestão de usuários |
+| Gerenciar Usuários | `/administrator` *(a implementar)* | ADM-001 | Criar, editar e desabilitar usuários |
+| Configurar Sistema | `/administrator` *(a implementar)* | ADM-002 | Ajustar parâmetros e configurações |
+| Logs e Auditoria | `/administrator` *(a implementar)* | ADM-003 | Visualizar logs de sistema |
 
 ---
 
 ### <span class="material-symbols-outlined">hub</span> Gestor de Rede
 
-| Tela | Rota | Descrição |
-|------|------|-----------|
-| Dashboard Gestor de Rede | `/network-manager` | Visão consolidada de múltiplas escolas |
+#### KPIs do Dashboard
+
+| Indicador | Valor mockado | Descrição |
+|-----------|--------------|-----------|
+| Escolas na Rede | 24 | Total de escolas gerenciadas |
+| Alunos Total | 18,5K | Total de alunos na rede |
+| Taxa Global | 92% | Aproveitamento consolidado da rede |
+| NPS Médio | 78 | Satisfação média entre as escolas |
+
+#### Jornadas (status atual: Planejado)
+
+| Tela | Rota | Jornada ID | Descrição |
+|------|------|-----------|-----------|
+| Dashboard Gestor de Rede | `/network-manager` | — | Hub principal: visão consolidada de múltiplas escolas |
+| Visão Geral da Rede | `/network-manager` *(a implementar)* | REDE-001 | Indicadores consolidados de todas as escolas |
+| Comparações | `/network-manager` *(a implementar)* | REDE-002 | Análise comparativa entre escolas |
+| Planejamento Estratégico | `/network-manager` *(a implementar)* | REDE-003 | Definir metas e estratégias da rede |
 
 ---
 
