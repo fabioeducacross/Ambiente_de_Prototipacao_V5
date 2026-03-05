@@ -42,11 +42,11 @@ const figmaFooterInstagramIcon = withBase('assets/figma-report/instagram-icon.sv
 const figmaMetricProgressIcon = withBase('assets/figma-report/timeline-progress-icon.svg')
 
 const mediaProgressItems = [
-  { label: 'Jogo', completed: 20, total: 20, value: 100 },
+  { label: 'Jogos', completed: 20, total: 20, value: 100 },
   { label: 'Questões', completed: 17, total: 20, value: 85 },
-  { label: 'Livro', completed: 10, total: 20, value: 50 },
-  { label: 'Vídeo', completed: 9, total: 20, value: 45 },
-  { label: 'Música', completed: 12, total: 20, value: 60 },
+  { label: 'Livros', completed: 10, total: 20, value: 50 },
+  { label: 'Vídeos', completed: 9, total: 20, value: 45 },
+  { label: 'Músicas', completed: 12, total: 20, value: 60 },
 ]
 
 const mediaPerformanceItems = [
@@ -213,7 +213,17 @@ const missionTurns = [
   { id: 6, mediaType: 'jogos', title: 'Frações e equivalências', knowledge: 'Números racionais e equivalência de frações', theme: 'Números', progress: 20, performance: 80, avgTime: '6min 25s', tag: 'EF08MA07', icon: 'sports_esports', tone: 'warning', image: withBase('img/missions/custom.svg') },
 ]
 
+// Label singular — usado nas tags dos turn cards
 const mediaTypeLabelMap = {
+  jogos: 'Jogo',
+  questoes: 'Questões',
+  livros: 'Livro',
+  videos: 'Vídeo',
+  musica: 'Música',
+}
+
+// Label plural — usado nos drawers de métricas
+const mediaTypePluralLabelMap = {
   jogos: 'Jogos',
   questoes: 'Questões',
   livros: 'Livros',
@@ -234,11 +244,11 @@ const getMediaTypeTag = (mediaType) => mediaTypeIconMap[mediaType] || { icon: 'c
 
 const getTurnMediaTypeLabel = (turn) => mediaTypeLabelMap[turn.mediaType] || 'Não definido'
 
-const mediaTypeByLabelMap = Object.fromEntries(
-  Object.entries(mediaTypeLabelMap).map(([mediaType, label]) => [label, mediaType])
+const mediaTypeByPluralLabelMap = Object.fromEntries(
+  Object.entries(mediaTypePluralLabelMap).map(([mediaType, label]) => [label, mediaType])
 )
 
-const getDrawerMediaIcon = (label) => getMediaTypeTag(mediaTypeByLabelMap[label])?.icon || 'category'
+const getDrawerMediaIcon = (label) => getMediaTypeTag(mediaTypeByPluralLabelMap[label])?.icon || 'category'
 
 const mediaTypesWithoutPerformance = new Set(['livros', 'videos', 'musica'])
 const shouldShowTurnPerformance = (turn) => !mediaTypesWithoutPerformance.has(turn.mediaType) && turn.performance !== null && turn.performance !== undefined
