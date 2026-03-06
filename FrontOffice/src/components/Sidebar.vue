@@ -87,20 +87,12 @@
         <span>High Five</span>
       </button>
     </nav>
-
-    <footer class="sidebar-footer">
-      <span class="version-note" :title="`commit: ${gitSha}`">v{{ appVersion }} · {{ gitSha }}</span>
-    </footer>
   </aside>
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
-
-// Injetado pelo vite.config.js via define
-const appVersion = __APP_VERSION__
-const gitSha     = __GIT_SHA__
 
 defineProps({
   collapsed: {
@@ -144,26 +136,6 @@ defineProps({
   margin: 0;
   width: 100%;
   border-radius: 0;
-}
-
-.sidebar-footer {
-  border-top: 1px solid rgba(161, 165, 183, 0.2);
-  padding: 12px 16px;
-  margin-top: auto;
-}
-
-.version-note {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #a1a5b7;
-  text-align: center;
-}
-
-.sidebar.collapsed .sidebar-footer {
-  display: none;
 }
 
 /* Logo Header */
