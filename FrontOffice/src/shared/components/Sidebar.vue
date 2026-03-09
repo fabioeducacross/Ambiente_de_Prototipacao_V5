@@ -167,20 +167,12 @@
       </div>
 
     </nav>
-
-    <footer class="sidebar-footer">
-      <span class="version-note" :title="`commit: ${gitSha}`">v{{ appVersion }} · {{ gitSha }}</span>
-    </footer>
   </aside>
 </template>
 
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
-
-// Injetado pelo vite.config.js via define
-const appVersion = __APP_VERSION__
-const gitSha     = __GIT_SHA__
 
 const route = useRoute()
 
@@ -243,34 +235,6 @@ defineProps({
 .sidebar.collapsed .nav-section {
   padding: 0;
   margin-bottom: 0.25rem;
-}
-
-.sidebar-footer {
-  border-top: 1px solid rgba(161, 165, 183, 0.2);
-  padding: 12px 16px;
-  margin-top: auto;
-}
-
-.sidebar.theme-yellow .sidebar-footer {
-  border-top: 1px solid rgba(94, 88, 115, 0.28);
-}
-
-.version-note {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #a1a5b7;
-  text-align: center;
-}
-
-.sidebar.theme-yellow .version-note {
-  color: #5e5873;
-}
-
-.sidebar.collapsed .sidebar-footer {
-  display: none;
 }
 
 /* Logo Header */
@@ -384,5 +348,3 @@ defineProps({
 }
 
 </style>
-
-
