@@ -66,6 +66,15 @@
             </div>
           </div>
 
+          <!-- Atividade (apenas visualização) -->
+          <div class="info-row" v-if="eventTypeLabel">
+            <span class="material-symbols-outlined info-icon">category</span>
+            <div class="info-content">
+              <span class="info-label">Atividade</span>
+              <span class="info-value">{{ eventTypeLabel }}</span>
+            </div>
+          </div>
+
           <!-- Status (unificado: mission_status para atividades, status geral para demais) -->
           <div class="info-row" v-if="displayStatusData">
             <span class="material-symbols-outlined info-icon">info</span>
@@ -128,26 +137,6 @@
               v-model="formData.titulo"
               placeholder="Digite o título do evento"
               :invalid="invalid"
-            />
-          </template>
-        </EFormGroup>
-
-        <!-- Atividade -->
-        <EFormGroup
-          id="atividade"
-          label="Atividade"
-          :error-message="errors.atividade"
-          required
-        >
-          <template #default="{ invalid, id }">
-            <ESelect
-              :id="id"
-              v-model="formData.atividade"
-              placeholder="Selecione o tipo"
-              :invalid="invalid"
-              :options="atividadeOptions"
-              label="name"
-              trackBy="id"
             />
           </template>
         </EFormGroup>
@@ -527,12 +516,6 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Atividade
-  if (!formData.atividade) {
-    errors.atividade = 'Selecione um tipo de atividade'
-    isValid = false
-  }
-
   // Turmas
   if (formData.turmas.length === 0) {
     errors.turmas = 'Selecione ao menos uma turma'
@@ -570,7 +553,7 @@ const handleSubmit = () => {
     const eventPayload = {
       id: props.eventData?.id || Date.now(),
       titulo: formData.titulo,
-      tipo: formData.atividade?.id || formData.atividade,
+      tipo: props.eventData?.tipo || props.eventData?.type || 'lembrete',
       turmas: formData.turmas.map(t => t.id || t),
       dataInicio: `${formData.dataInicio}T08:00:00`,
       dataTermino: `${formData.dataTermino}T18:00:00`,
@@ -934,20 +917,15 @@ watch(() => props.isOpen, (isOpen) => {
 .event-description p {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--gray-600);
   line-height: 1.6;
+  color: var(--gray-700);
 }
 
 .view-actions {
   display: flex;
-  width: calc(100% + 48px);
   gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-  margin-left: -24px;
-  margin-right: -24px;
+  margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
-  padding-left: 24px;
-  padding-right: 24px;
   border-top: 1px solid var(--gray-200);
 }
 
@@ -955,46 +933,28 @@ watch(() => props.isOpen, (isOpen) => {
   flex: 1;
 }
 
-.drawer-content::-webkit-scrollbar {
-  width: 6px;
+/* Responsivo para view mode */
+@media (max-width: 768px) {
+  .drawer-content {
+    padding: 16px;
+  }
+
+  .view-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
 }
 
-.drawer-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+/* Modal de confirmação */
+:deep(.delete-confirm-modal) {
+  max-width: 420px;
 }
 
-.drawer-content::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
+:deep(.delete-confirm-modal .modal-body) {
+  padding: 1.5rem;
 }
 
-.drawer-content::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-</style>
-
-<!-- Estilos não-scoped para sobrescrever Bootstrap nos botões -->
-<style>
-.event-drawer .form-actions .btn-outline-secondary {
-  background-color: var(--gray-100) !important;
-  color: var(--gray-700) !important;
-  border: 1px solid var(--gray-300) !important;
-}
-
-.event-drawer .form-actions .btn-outline-secondary:hover {
-  background-color: var(--gray-200) !important;
-  color: var(--gray-800) !important;
-  border-color: var(--gray-400) !important;
-}
-
-.event-drawer .form-actions .btn-danger {
-  background-color: var(--danger) !important;
-  border-color: var(--danger) !important;
-  color: white !important;
-}
-
-.event-drawer .form-actions .btn-danger:hover {
-  background-color: var(--danger-dark) !important;
-  border-color: var(--danger-dark) !important;
+.modal-icon {
+  font-size: 2rem;
 }
 </style>
