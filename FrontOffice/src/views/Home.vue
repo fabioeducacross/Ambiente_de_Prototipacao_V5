@@ -1,9 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+import JourneyPrototypeDrawer from '@/components/JourneyPrototypeDrawer.vue'
+import { useJourneyPrototypeDrawer } from '@/composables/useJourneyPrototypeDrawer'
+import { personasJourneys } from '@/data/journeys'
 
 // URL da wiki: localhost:3000 em dev, GitHub Pages /wiki/ em build
 const wikiUrl = __WIKI_URL__
+const router = useRouter()
 
 /** Converte hex + alpha (0-1) para rgba */
 const hexAlpha = (hex, a) => {
@@ -18,6 +22,45 @@ const journeyIconStyle = (color) => ({
   borderColor: hexAlpha(color, 0.22),
   color
 })
+
+const {
+  isOpen: isJourneyDrawerOpen,
+  activeJourney: activeDrawerJourney,
+  activePersona: activeDrawerPersona,
+  triggerEl: drawerTriggerEl,
+  validationResult: drawerValidationResult,
+  iframeSrc: drawerIframeSrc,
+  openJourneyDrawer,
+  closeJourneyDrawer,
+  openFullPage
+} = useJourneyPrototypeDrawer({ router })
+
+const handleOpenJourneyDrawer = (journey, persona, event) => {
+  openJourneyDrawer({
+    journey,
+    persona,
+    triggerElement: event?.currentTarget ?? null
+  })
+}
+
+const handleDrawerModelValue = (isOpen) => {
+  if (!isOpen) {
+    closeJourneyDrawer()
+  }
+}
+
+const handleQuickAccessClick = (link, event) => {
+  const persona = personas.value.find((p) => p.id === link.personaId) || null
+
+  if (link?.route && persona) {
+    handleOpenJourneyDrawer(link, persona, event)
+    return
+  }
+
+  if (link?.route) {
+    router.push(link.route)
+  }
+}
 
 // Master-detail inline
 const selectedPersonaId = ref(null)
@@ -48,87 +91,7 @@ const personasProgress = computed(() => personas.value.map(p => ({
   pct:    p.journeys.length ? Math.round(p.journeys.filter(j => j.route).length / p.journeys.length * 100) : 0
 })))
 
-const personas = ref([
-  {
-    id: 'teacher',
-    name: 'Professor',
-    icon: 'manage_accounts',
-    color: '#7367F0',
-    description: 'Gestão de turmas, missões e acompanhamento de alunos',
-    route: '/teacher',
-    journeys: [
-      { id: 'SIDEBAR-PROTO', label: 'Protótipo Sidebar',   icon: 'view_sidebar',  route: '/professor',           status: 'Ativo' },
-      { id: 'CAL',           label: 'Calendário de Eventos', icon: 'calendar_month', route: '/teacher/calendar',  status: 'Ativo' },
-      { id: 'TRILHAS-AZ',    label: 'Sistema de ensino',   icon: 'menu_book',     route: '/teacher/trilhas-az',  status: 'Ativo' },
-      { id: 'MISSION-ACTIVE', label: 'Missões Ativas',      icon: 'flag',          route: '/professor/missoes', status: 'Ativo' },
-      { id: 'PROF-001', label: 'Criar Turma', icon: 'group_add', route: null, status: 'Planejado' },
-      { id: 'PROF-002', label: 'Criar Missão', icon: 'flag', route: null, status: 'Planejado' },
-      { id: 'PROF-003', label: 'Acompanhar Progresso', icon: 'trending_up', route: null, status: 'Planejado' },
-      { id: 'PROF-004', label: 'Avaliar Atividades', icon: 'grading', route: null, status: 'Planejado' },
-    ]
-  },
-  {
-    id: 'student',
-    name: 'Aluno',
-    icon: 'school',
-    color: '#00CFE8',
-    description: 'Missões, conquistas e progresso individual',
-    journeys: [
-      { id: 'ALUNO-001', label: 'Acessar Missões',      icon: 'flag',         route: null, status: 'Planejado' },
-      { id: 'ALUNO-002', label: 'Completar Atividades', icon: 'task_alt',     route: null, status: 'Planejado' },
-      { id: 'ALUNO-003', label: 'Ver Conquistas',        icon: 'emoji_events', route: null, status: 'Planejado' },
-      { id: 'ALUNO-004', label: 'Receber Feedback',      icon: 'reviews',      route: null, status: 'Planejado' },
-    ]
-  },
-  {
-    id: 'coordinator',
-    name: 'Coordenador',
-    icon: 'account_tree',
-    color: '#28C76F',
-    description: 'Coordenação pedagógica e gestão de turmas',
-    journeys: [
-      { id: 'COORD-001', label: 'Gestão Pedagógica',     icon: 'account_tree',  route: null, status: 'Planejado' },
-      { id: 'COORD-002', label: 'Suporte a Professores', icon: 'support_agent', route: null, status: 'Planejado' },
-      { id: 'COORD-003', label: 'Análise de Turmas',     icon: 'bar_chart',     route: null, status: 'Planejado' },
-    ]
-  },
-  {
-    id: 'director',
-    name: 'Diretor',
-    icon: 'apartment',
-    color: '#FF9F43',
-    description: 'Gestão escolar e indicadores estratégicos',
-    journeys: [
-      { id: 'DIR-001', label: 'Indicadores Estratégicos', icon: 'insights',    route: null, status: 'Planejado' },
-      { id: 'DIR-002', label: 'Gestão de Recursos',       icon: 'inventory_2', route: null, status: 'Planejado' },
-      { id: 'DIR-003', label: 'Relatórios Gerenciais',    icon: 'summarize',   route: null, status: 'Planejado' },
-    ]
-  },
-  {
-    id: 'administrator',
-    name: 'Administrador',
-    icon: 'settings',
-    color: '#EA5455',
-    description: 'Configuração do sistema e gestão de usuários',
-    journeys: [
-      { id: 'ADM-001', label: 'Gerenciar Usuários', icon: 'manage_accounts', route: null, status: 'Planejado' },
-      { id: 'ADM-002', label: 'Configurar Sistema', icon: 'build',           route: null, status: 'Planejado' },
-      { id: 'ADM-003', label: 'Logs e Auditoria',   icon: 'policy',          route: null, status: 'Planejado' },
-    ]
-  },
-  {
-    id: 'network-manager',
-    name: 'Gestor de Rede',
-    icon: 'language',
-    color: '#9E95F5',
-    description: 'Gestão de múltiplas escolas e indicadores de rede',
-    journeys: [
-      { id: 'REDE-001', label: 'Visão Geral da Rede',      icon: 'hub',            route: null, status: 'Planejado' },
-      { id: 'REDE-002', label: 'Comparações',               icon: 'compare_arrows', route: null, status: 'Planejado' },
-      { id: 'REDE-003', label: 'Planejamento Estratégico',  icon: 'route',          route: null, status: 'Planejado' },
-    ]
-  }
-])
+const personas = ref(personasJourneys)
 </script>
 
 <template>
@@ -175,6 +138,10 @@ const personas = ref([
           <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
           <span class="material-symbols-outlined nav-external">open_in_new</span>
         </a>
+        <span class="nav-link nav-link--disabled">
+          <span class="material-symbols-outlined">design_services</span> Design System
+          <span class="nav-soon">Em breve</span>
+        </span>
         <span class="nav-link nav-link--disabled">
           <span class="material-symbols-outlined">view_kanban</span> Kanban
           <span class="nav-soon">Em breve</span>
@@ -255,12 +222,14 @@ const personas = ref([
             </a>
           </div>
           <div class="quick-grid">
-            <RouterLink
+            <button
               v-for="link in quickLinks"
               :key="link.id"
-              :to="link.route"
+              type="button"
               class="quick-card"
               :style="{ '--q-color': link.personaColor }"
+              :aria-label="'Abrir jornada ' + link.label + ' de ' + link.personaName"
+              @click="handleQuickAccessClick(link, $event)"
             >
               <div class="quick-card-top">
                 <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
@@ -268,7 +237,7 @@ const personas = ref([
               </div>
               <p class="quick-card-title">{{ link.label }}</p>
               <p class="quick-card-desc">{{ link.personaName }}</p>
-            </RouterLink>
+            </button>
           </div>
         </section>
       </template>
@@ -296,11 +265,12 @@ const personas = ref([
             <template v-for="j in selectedPersona.journeys" :key="j.id">
 
               <!-- Jornada ativa: RouterLink -->
-              <RouterLink
+              <button
                 v-if="j.route"
-                :to="j.route"
+                type="button"
                 class="journey-card journey-card--active"
                 :style="{ '--p-color': selectedPersona.color }"
+                @click="handleOpenJourneyDrawer(j, selectedPersona, $event)"
               >
                 <div class="journey-card-top">
                   <div class="journey-card-icon" :style="journeyIconStyle(selectedPersona.color)" aria-hidden="true">
@@ -310,7 +280,7 @@ const personas = ref([
                 </div>
                 <p class="journey-card-label">{{ j.label }}</p>
                 <p class="journey-card-id">{{ j.id }}</p>
-              </RouterLink>
+              </button>
 
               <!-- Jornada planejada: div muted -->
               <div v-else class="journey-card journey-card--planned">
@@ -329,13 +299,24 @@ const personas = ref([
         </section>
       </template>
 
+      <JourneyPrototypeDrawer
+        :model-value="isJourneyDrawerOpen"
+        :journey="activeDrawerJourney"
+        :persona="activeDrawerPersona"
+        :validation-result="drawerValidationResult"
+        :iframe-src="drawerIframeSrc"
+        :trigger-el="drawerTriggerEl"
+        @update:model-value="handleDrawerModelValue"
+        @open-full-page="openFullPage"
+      />
+
     </main>
 
   </div>
 </template>
 
 <style scoped>
-/* ── Material Symbols ────────── */
+/* ── Material Symbols ──────────────── */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
   font-size: inherit;
@@ -355,7 +336,7 @@ const personas = ref([
 .journey-row-icon .material-symbols-outlined { font-size: 15px; }
 .cta-icon { font-size: 16px; }
 
-/* ── Tokens dark ─────────────── */
+/* ── Tokens dark ───────────────── */
 .shell {
   --bg: #0a0a0a;
   --surface: #111111;
@@ -380,7 +361,7 @@ const personas = ref([
   overflow-x: hidden;
 }
 
-/* ── Sidebar ─────────────────── */
+/* ── Sidebar ───────────────── */
 .sidebar {
   border-right: 1px solid var(--border);
   background: var(--surface);
@@ -495,7 +476,7 @@ const personas = ref([
   flex-shrink: 0;
 }
 
-/* ── Main ────────────────────── */
+/* ── Main ───────────────── */
 .main { display: flex; flex-direction: column; min-width: 0; }
 
 /* ── Hero strip ──────────────── */
@@ -527,7 +508,7 @@ const personas = ref([
 .stat-label { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
 .stat-divider { width: 1px; height: 30px; background: var(--border); }
 
-/* ── Progress section ────────── */
+/* ── Progress section ──────────── */
 .progress-section { padding: 24px 24px 0; }
 
 .progress-grid {
@@ -608,7 +589,7 @@ const personas = ref([
   min-width: 0;
 }
 
-/* ── Quick section ───────────── */
+/* ── Quick section ─────────────── */
 .quick-section { padding: 24px 24px 0; }
 
 .quick-section-header {
@@ -650,10 +631,15 @@ const personas = ref([
 .quick-card {
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
   text-decoration: none;
   color: var(--text);
   transition: border-color var(--t), background var(--t);
@@ -727,7 +713,7 @@ const personas = ref([
   .shell { grid-template-columns: 240px 1fr; }
 }
 
-/* ── Persona view header ─────── */
+/* ── Persona view header ─────────── */
 .persona-view-header {
   display: flex;
   align-items: center;
@@ -770,7 +756,7 @@ const personas = ref([
 }
 .persona-view-desc { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
-/* ── Journeys grid ───────────── */
+/* ── Journeys grid ─────────────── */
 .journeys-section { padding: 20px 24px 24px; }
 
 .journeys-grid {
@@ -791,6 +777,12 @@ const personas = ref([
   text-decoration: none;
   color: var(--text);
   transition: border-color var(--t), background var(--t);
+}
+
+button.journey-card {
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
 }
 
 .journey-card--active {
