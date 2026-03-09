@@ -66,6 +66,15 @@
             </div>
           </div>
 
+          <!-- Atividade (apenas visualização) -->
+          <div class="info-row" v-if="eventTypeLabel">
+            <span class="material-symbols-outlined info-icon">category</span>
+            <div class="info-content">
+              <span class="info-label">Atividade</span>
+              <span class="info-value">{{ eventTypeLabel }}</span>
+            </div>
+          </div>
+
           <!-- Status (unificado: mission_status para atividades, status geral para demais) -->
           <div class="info-row" v-if="displayStatusData">
             <span class="material-symbols-outlined info-icon">info</span>
@@ -125,26 +134,6 @@
               v-model="formData.titulo"
               placeholder="Digite o título do evento"
               :invalid="invalid"
-            />
-          </template>
-        </EFormGroup>
-
-        <!-- Atividade -->
-        <EFormGroup
-          id="atividade"
-          label="Atividade"
-          :error-message="errors.atividade"
-          required
-        >
-          <template #default="{ invalid, id }">
-            <ESelect
-              :id="id"
-              v-model="formData.atividade"
-              placeholder="Selecione o tipo"
-              :invalid="invalid"
-              :options="atividadeOptions"
-              label="name"
-              trackBy="id"
             />
           </template>
         </EFormGroup>
@@ -511,12 +500,6 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Atividade
-  if (!formData.atividade) {
-    errors.atividade = 'Selecione um tipo de atividade'
-    isValid = false
-  }
-
   // Turmas
   if (formData.turmas.length === 0) {
     errors.turmas = 'Selecione ao menos uma turma'
@@ -554,7 +537,7 @@ const handleSubmit = () => {
     const eventPayload = {
       id: props.eventData?.id || Date.now(),
       titulo: formData.titulo,
-      tipo: formData.atividade?.id || formData.atividade,
+      tipo: props.eventData?.tipo || props.eventData?.type || 'outro',
       turmas: formData.turmas.map(t => t.id || t),
       dataInicio: `${formData.dataInicio}T08:00:00`,
       dataTermino: `${formData.dataTermino}T18:00:00`,
