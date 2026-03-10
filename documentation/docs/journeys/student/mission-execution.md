@@ -436,4 +436,4 @@ describe('Mission Execution Flow', () => {
 ---
 
 **Última Atualização**: Fevereiro 2026
-**Referências**: [Persona: Aluno](../../personas/aluno) · [Dashboard do Aluno](./student-dashboard) · [Learning Path](./learning-path) · [Catálogo de Jornadas](../index)
+**Referências**: [Persona: Aluno](../../personas/aluno) · [Dashboard do Aluno](./student-dashboard) · [Learning Path](./learning-path) · [Catálogo de Jornadas](../)

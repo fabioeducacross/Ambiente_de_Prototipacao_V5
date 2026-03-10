@@ -272,7 +272,7 @@ Este documento deve ser revisado:
 - [Regras de Negócio](../business-rules/) - Como o produto funciona
 - [Personas](../personas/) - Quem são nossos usuários
 - [Jornadas](../journeys/) - O que eles fazem no produto
-- [Roadmap](../roadmap/) - _TODO: Criar roadmap trimestral_
+- Roadmap - _TODO: Criar roadmap trimestral_
 
 ---
 

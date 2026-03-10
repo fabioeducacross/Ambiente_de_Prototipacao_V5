@@ -1,0 +1,122 @@
+{
+  "fileKey": "mouf1Vc5WyhnDoYNBM1rWn",
+  "source": "https://www.figma.com/design/mouf1Vc5WyhnDoYNBM1rWn/Educa-Guidelines-1.0",
+  "generatedAt": "2026-03-05T13:25:52.474Z",
+  "namingConvention": {
+    "prefix": "educacross-logo",
+    "pattern": "educacross-logo-<logical-name>-<node-id>.png"
+  },
+  "items": [
+    {
+      "nodeId": "895:733",
+      "rawFile": "figma-imports/logos/raw/895-733.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-centralizado-light-895-733.png",
+      "mimeType": "image/png",
+      "width": 360,
+      "height": 188,
+      "status": "ok",
+      "logicalName": "logo-centralizado-light"
+    },
+    {
+      "nodeId": "895:788",
+      "rawFile": "figma-imports/logos/raw/895-788.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-justificado-light-895-788.png",
+      "mimeType": "image/png",
+      "width": 336,
+      "height": 124,
+      "status": "ok",
+      "logicalName": "logo-justificado-light"
+    },
+    {
+      "nodeId": "895:1115",
+      "rawFile": "figma-imports/logos/raw/895-1115.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-horizontal-light-895-1115.png",
+      "mimeType": "image/png",
+      "width": 410,
+      "height": 69,
+      "status": "ok",
+      "logicalName": "logo-horizontal-light"
+    },
+    {
+      "nodeId": "1538:129",
+      "rawFile": "figma-imports/logos/raw/1538-129.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-1-light-1538-129.png",
+      "mimeType": "image/png",
+      "width": 465,
+      "height": 65,
+      "status": "ok",
+      "logicalName": "logo-reduzido-1-light"
+    },
+    {
+      "nodeId": "895:1054",
+      "rawFile": "figma-imports/logos/raw/895-1054.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-2-light-895-1054.png",
+      "mimeType": "image/png",
+      "width": 348,
+      "height": 58,
+      "status": "ok",
+      "logicalName": "logo-reduzido-2-light"
+    },
+    {
+      "nodeId": "895:992",
+      "rawFile": "figma-imports/logos/raw/895-992.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-3-light-895-992.png",
+      "mimeType": "image/png",
+      "width": 158,
+      "height": 98,
+      "status": "ok",
+      "logicalName": "logo-reduzido-3-light"
+    },
+    {
+      "nodeId": "947:4",
+      "rawFile": "figma-imports/logos/raw/947-4.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-centralizado-dark-947-4.png",
+      "mimeType": "image/png",
+      "width": 336,
+      "height": 166,
+      "status": "ok",
+      "logicalName": "logo-centralizado-dark"
+    },
+    {
+      "nodeId": "895:888",
+      "rawFile": "figma-imports/logos/raw/895-888.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-1-dark-895-888.png",
+      "mimeType": "image/png",
+      "width": 445,
+      "height": 94,
+      "status": "ok",
+      "logicalName": "logo-reduzido-1-dark"
+    },
+    {
+      "nodeId": "895:1071",
+      "rawFile": "figma-imports/logos/raw/895-1071.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-2-dark-895-1071.png",
+      "mimeType": "image/png",
+      "width": 456,
+      "height": 69,
+      "status": "ok",
+      "logicalName": "logo-reduzido-2-dark"
+    },
+    {
+      "nodeId": "895:1101",
+      "rawFile": "figma-imports/logos/raw/895-1101.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-reduzido-3-dark-895-1101.png",
+      "mimeType": "image/png",
+      "width": 346,
+      "height": 57,
+      "status": "ok",
+      "logicalName": "logo-reduzido-3-dark"
+    },
+    {
+      "nodeId": "2281:10059",
+      "rawFile": "figma-imports/logos/raw/2281-10059.get_screenshot.json",
+      "assetFile": "figma-imports/logos/assets/educacross-logo-slot-small-2281-10059.png",
+      "mimeType": "image/png",
+      "width": 101,
+      "height": 64,
+      "status": "ok",
+      "logicalName": "logo-slot-small"
+    }
+  ],
+  "updatedAt": "2026-03-05T13:25:52.486Z"
+}

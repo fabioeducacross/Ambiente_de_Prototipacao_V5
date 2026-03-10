@@ -424,4 +424,4 @@ npm run build
 
 1. Crie seu primeiro baseline: [Documentação AS-IS](/docs/journeys)
 2. Experimente o workflow: [Criar protótipo](/docs/prototypes)
-3. Configure Vercel: [Guia de Deploy](/docs/getting-started/setup#deploy)
+3. Configure Vercel: [Guia de Deploy](/docs/getting-started/setup)

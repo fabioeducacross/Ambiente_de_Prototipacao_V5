@@ -402,7 +402,7 @@ if (total_questoes === 0) {
 
 - [Regras de Domínio](./domain-rules) - Entidades envolvidas
 - [Estados e Transições](./state-transitions) - Quando cálculos são disparados
-- [Jornada: Missões](../journeys/student/missions) - Contexto de uso
+- [Jornada: Missões](../journeys/student/mission-execution) - Contexto de uso
 
 ---
 

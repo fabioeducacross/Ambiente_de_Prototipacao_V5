@@ -51,7 +51,7 @@ const MAX_AVATARS = 3
     >
       <!-- Turma -->
       <template #cell(name)="{ item }">
-        <span class="fw-bold text-dark">{{ item.name }}</span>
+        <span class="fw-semibold">{{ item.name }}</span>
       </template>
 
       <!-- Ano Escolar -->
@@ -132,5 +132,15 @@ const MAX_AVATARS = 3
 .flag-action {
   font-size: 20px;
   cursor: default;
+}
+
+/* Tipografia da tabela — 14px, igual à produção */
+:deep(.b-table td),
+:deep(.b-table th) {
+  font-size: 0.875rem;
+}
+:deep(.b-table tbody td) {
+  font-size: 0.875rem;
+  vertical-align: middle;
 }
 </style>

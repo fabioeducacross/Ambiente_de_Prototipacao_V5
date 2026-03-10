@@ -1,6 +1,6 @@
 import { IconCheck, IconCircleGreen, IconGraduation, IconPending } from '@site/src/components/MaterialIcon';
 
-# Jornadas do Aluno <IconGraduation />
+# Jornadas do Aluno
 
 Documentação das 3 jornadas do contexto student/aluno.
 

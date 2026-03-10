@@ -330,8 +330,8 @@ _"Agora você cria missões personalizadas em menos de 10 minutos! <span class="
 ## <span class="material-symbols-outlined">library_books</span> 10. Anexos e Referências
 
 **Links úteis:**
-- [Pesquisa de Usuários](link-para-research)
-- [Protótipo no Figma](link-para-figma)
+- Pesquisa de Usuários - substituir pelo link real da pesquisa
+- Protótipo no Figma - substituir pelo link real do arquivo
 - [Jornada Relacionada](../journeys/teacher/custom-missions.md)
 - [Regras de Negócio](../business-rules/)
 <!-- - [Decision Record Relacionado](../decisions/pdr-xxx.md) — substituir pelo PDR real, ex: PDR001-codificacao-eventos.md -->

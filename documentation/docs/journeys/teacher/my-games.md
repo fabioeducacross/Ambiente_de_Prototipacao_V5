@@ -326,4 +326,4 @@ describe('Tela de Detalhe do Jogo', () => {
 ---
 
 **Última Atualização**: Fevereiro 2026
-**Referências**: [Persona: Professor](../../personas/professor) · [Sistema Educacional: Livros](./education-system-books) · [Catálogo de Jornadas](../index)
+**Referências**: [Persona: Professor](../../personas/professor) · [Sistema Educacional: Livros](./education-system-books) · [Catálogo de Jornadas](../)

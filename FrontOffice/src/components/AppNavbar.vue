@@ -10,7 +10,14 @@
 
     <!-- Coluna central: logo -->
     <div class="navbar-column d-flex justify-content-center">
-      <RouterLink to="/" class="logo-container">
+      <RouterLink
+        to="/"
+        class="logo-container"
+        :class="{ 'logo-container--locked': isLogoNavigationLocked }"
+        :aria-disabled="isLogoNavigationLocked ? 'true' : 'false'"
+        :tabindex="isLogoNavigationLocked ? -1 : 0"
+        @click="handleLogoClick"
+      >
         <img :src="logoUrl" alt="Educacross" class="navbar-logo d-sm-inline d-none" />
         <img :src="logoUrl" alt="Educacross" class="navbar-logo navbar-logo--sm d-sm-none" />
       </RouterLink>
@@ -115,8 +122,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import logoUrl from '@/assets/images/MainLogo.svg'
 import defaultAvatar from '@/assets/images/avatar-default.png'
 
@@ -130,6 +137,22 @@ const props = defineProps({
   /** Classe de persona no container (ex: 'Teacher', 'Student') */
   persona:         { type: String,  default: '' },
 })
+
+const route = useRoute()
+const isLogoNavigationLocked = computed(() => {
+  const embedValue = route.query.embed
+  const normalized = Array.isArray(embedValue) ? embedValue[0] : embedValue
+  return normalized === 'drawer'
+})
+
+function handleLogoClick(event) {
+  if (!isLogoNavigationLocked.value) {
+    return
+  }
+
+  event.preventDefault()
+  event.stopPropagation()
+}
 
 // ── Dropdown ──────────────────────────────────────────────────────────────
 const dropdownOpen = ref(false)
@@ -187,6 +210,11 @@ onUnmounted(() => document.removeEventListener('click', handleOutsideClick))
 .logo-container {
   text-decoration: none;
   line-height: 0;
+}
+
+.logo-container--locked {
+  cursor: default;
+  pointer-events: none;
 }
 
 .navbar-logo     { height: 40px; width: auto; }

@@ -5,7 +5,7 @@ description: Perfil com acesso restrito a avaliações de fluência leitora
 ---
 import { IconAuditor } from '@site/src/components/MaterialIcon';
 
-# <IconAuditor size={28} /> Auditor
+# Auditor
 
 O Auditor é um perfil especializado com acesso **exclusivo ao módulo de Fluência Leitora**. Atua na aplicação e acompanhamento de avaliações de leitura.
 

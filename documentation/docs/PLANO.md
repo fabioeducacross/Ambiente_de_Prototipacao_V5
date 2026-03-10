@@ -9,13 +9,13 @@
 ## 📋 Índice
 
 1. [Visão Geral](#-visão-geral)
-2. [Arquitetura de Projetos](#-arquitetura-de-projetos)
+2. Arquitetura de Projetos
 3. [Workflow de Prototipação](#-workflow-de-prototipação)
 4. [Sistema de Documentação](#-sistema-de-documentação)
-5. [Automação e Scripts](#-automação-e-scripts)
+5. Automação e Scripts
 6. [Integração do Design System](#-integração-do-design-system)
 7. [Jornadas Prioritárias](#-jornadas-prioritárias)
-8. [Roadmap de Implementação](#-roadmap-de-implementação)
+8. Roadmap de Implementação
 9. [Referências Técnicas](#-referências-técnicas)
 
 ---
@@ -39,6 +39,7 @@
 
 ---
 
+<a id="arquitetura-de-projetos"></a>
 ## 🏗️ Arquitetura de Projetos
 
 ### educacross-frontoffice (REFERÊNCIA)
@@ -596,7 +597,7 @@ watch([subject, classe], () => {
 - [ ] **Histórico**: Mostrar últimos livros acessados
 - [ ] **Busca Avançada**: Filtro por capítulo, página, ou conteúdo
 
-**Protótipo**: [Veja o protótipo TO-BE](/prototypes/education-system-v2)
+**Protótipo**: [Veja o protótipo TO-BE](/docs/prototypes/intro#1-education-system-v2)
 
 ---
 
@@ -613,11 +614,12 @@ watch([subject, classe], () => {
 
 - [Design System - DSBookCard](https://storybook.educacross.com/?path=/story/cards-bookcard)
 - [API Docs - Books Endpoint](https://apieducacrossmanager-test.azurewebsites.net/index.html)
-- [Protótipo TO-BE - Education System v2](/prototypes/education-system-v2)
+- [Protótipo TO-BE - Education System v2](/docs/prototypes/intro#1-education-system-v2)
 ```
 
 ---
 
+<a id="automacao-e-scripts"></a>
 ## 🤖 Automação e Scripts
 
 ### Script 1: analyze-routes.js
@@ -1056,6 +1058,7 @@ export default {
 
 ---
 
+<a id="roadmap-de-implementacao"></a>
 ## 🗓️ Roadmap de Implementação
 
 ### Fase 1: Fundação (Semana 1) ✅ 100% CONCLUÍDA

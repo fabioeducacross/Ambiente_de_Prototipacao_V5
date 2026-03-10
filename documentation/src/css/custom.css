@@ -342,6 +342,7 @@ html[data-theme='dark'] .feature-card:hover {
 
 /* Tables - Vuexy Style */
 table {
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   border-radius: 8px;
@@ -626,6 +627,31 @@ article h2 {
   box-shadow: none;
 }
 
+.navbar-link-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.navbar-link-coming-soon::after {
+  content: 'Em breve';
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.2rem 0.45rem;
+  white-space: nowrap;
+}
+
+.navbar-link-coming-soon .iconExternalLink_nPIU {
+  display: none;
+}
+
 html[data-theme='dark'] .navbar {
   background: #111111;
 }
@@ -659,6 +685,7 @@ html[data-theme='dark'] .menu__link:not(.menu__link--active):hover {
 
 /* ---- Tables ---- */
 table {
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid var(--ifm-color-emphasis-200);
@@ -823,6 +850,25 @@ html {
   font-size: 15.5px;
   font-weight: 450;
   font-variation-settings: 'wght' 450;
+}
+
+/*
+  Corrige tabela "encolhida" no desktop: o estilo base do Infima usa display:block,
+  o que faz as colunas ocuparem apenas a largura do conteudo.
+*/
+.markdown table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+  .markdown table {
+    display: block;
+    table-layout: auto;
+    overflow-x: auto;
+  }
 }
 
 /* ---- Sidebar ---- */

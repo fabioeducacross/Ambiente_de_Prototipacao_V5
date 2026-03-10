@@ -239,6 +239,6 @@ Response: 200 OK
 ## Referências
 
 - [Persona: Gestor](../personas/gestor)
-- [Jornadas Admin](../journeys/admin/)
+- [Jornadas Admin](../journeys/administrator/user-management)
 - [Design System Completo](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 

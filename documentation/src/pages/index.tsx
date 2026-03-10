@@ -18,7 +18,7 @@ function HomepageHeader() {
           <img src="/Ambiente_de_Prototipacao_V5/wiki/img/five-icon.svg" alt="Five Icon" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '40px' }}>
-          <img src="/Ambiente_de_Prototipacao_V5/wiki/img/logo-white.svg" alt="Educacross Logo" style={{ height: '80px' }} />
+          <img src="/Ambiente_de_Prototipacao_V5/wiki/img/logos/educacross-logo-reduzido-2-dark-1538-129.svg" alt="Educacross Logo" style={{ height: '80px' }} />
         </div>
         <Heading as="h1" className="hero__title">
           {siteConfig.title}

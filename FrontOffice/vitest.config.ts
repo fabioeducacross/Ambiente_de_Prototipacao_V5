@@ -10,7 +10,7 @@ export default defineConfig({
         }
     },
     define: {
-        __WIKI_URL__: JSON.stringify('http://localhost:3000'),
+        __WIKI_URL__: JSON.stringify('http://localhost:3000/Ambiente_de_Prototipacao_V5/wiki/'),
         __GIT_BRANCH__: JSON.stringify('test'),
         __GIT_SHA__: JSON.stringify('0000000'),
         __APP_VERSION__: JSON.stringify('test')
