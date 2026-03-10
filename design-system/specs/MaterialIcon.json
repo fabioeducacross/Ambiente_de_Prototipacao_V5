@@ -1,0 +1,34 @@
+{
+  "name": "MaterialIcon",
+  "category": "base",
+  "description": "Wrapper para ícones Material Symbols Outlined. Requer a fonte Material Symbols carregada globalmente.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/MaterialIcon.vue",
+  "legacyRef": "https://fonts.google.com/icons",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Nome do ícone Material Symbols (ex: 'edit', 'delete', 'home')"
+    },
+    {
+      "name": "size",
+      "type": "string | number",
+      "default": 20,
+      "description": "Tamanho em pixels"
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "states": [],
+  "usageExamples": [
+    "<MaterialIcon name=\"edit\" />",
+    "<MaterialIcon name=\"delete\" :size=\"24\" />",
+    "<MaterialIcon name=\"home\" size=\"32\" />"
+  ],
+  "a11y": [
+    "Sempre acompanhar de texto descritivo ou aria-label no elemento pai",
+    "Usar aria-hidden='true' quando decorativo"
+  ]
+}

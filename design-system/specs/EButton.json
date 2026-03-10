@@ -1,0 +1,74 @@
+{
+  "name": "EButton",
+  "category": "base",
+  "description": "Botão de ação com suporte a variantes, tamanhos, estado de loading e ícone Material Symbol.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EButton.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-button",
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "primary",
+      "values": ["primary", "secondary", "success", "danger", "warning", "info", "outline", "outline-primary", "outline-secondary", "outline-danger", "link"],
+      "description": "Variante visual do botão"
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "medium",
+      "values": ["small", "medium", "large"],
+      "description": "Tamanho do botão"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "default": "button",
+      "values": ["button", "submit", "reset"],
+      "description": "Atributo HTML type"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o botão"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe spinner de carregamento"
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "",
+      "description": "Nome do Material Symbol (ex: 'edit', 'delete')"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "default": false,
+      "description": "Botão ocupa 100% da largura do container"
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Texto ou conteúdo do botão"
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "description": "Emitido ao clicar (ignora se disabled ou loading)"
+    }
+  ],
+  "variants": ["primary", "secondary", "success", "danger", "warning", "info", "outline-primary", "outline-secondary", "outline-danger", "link"],
+  "states": ["default", "hover", "active", "disabled", "loading"],
+  "a11y": [
+    "Usar type='submit' em formulários",
+    "Fornecer texto descritivo no slot ou aria-label quando apenas ícone",
+    "Estado disabled refletido em aria-disabled via Bootstrap"
+  ]
+}

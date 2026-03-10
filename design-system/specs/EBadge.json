@@ -1,0 +1,53 @@
+{
+  "name": "EBadge",
+  "category": "base",
+  "description": "Badge para status, categorias e contadores com variantes de cor e formato pill.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EBadge.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-badge",
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "primary",
+      "values": ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"],
+      "description": "Variante de cor"
+    },
+    {
+      "name": "pill",
+      "type": "boolean",
+      "default": false,
+      "description": "Formato pill (bordas totalmente arredondadas)"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "default": null,
+      "description": "Cor de texto customizada (sobrescreve variant)"
+    },
+    {
+      "name": "backgroundColor",
+      "type": "string",
+      "default": null,
+      "description": "Cor de fundo customizada (sobrescreve variant)"
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Texto ou conteúdo do badge"
+    }
+  ],
+  "events": [],
+  "variants": ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"],
+  "states": ["default"],
+  "usagePatterns": [
+    "Nível de dificuldade: success=Iniciante, warning=Intermediário, danger=Avançado",
+    "Status: success=Ativo, danger=Inativo, warning=Pendente",
+    "Contadores em pill format"
+  ],
+  "a11y": [
+    "Não usar badge como único indicador de informação crítica",
+    "Combinar com texto quando a cor tiver significado semântico"
+  ]
+}

@@ -1,0 +1,116 @@
+/* ===================================
+   DESIGN SYSTEM EDUCACROSS — TOKENS
+   Fonte canônica de tokens CSS.
+   Extraído de FrontOffice/src/style.css
+   =================================== */
+
+:root {
+  /* Layout */
+  --navbar-height: 70px;
+
+  /* Primary Colors - Vuexy Purple */
+  --primary: #7367F0;
+  --primary-light: #9E95F5;
+  --primary-dark: #5E50EE;
+  --ec-primary: #6E63E8;
+  --ec-primary-soft: #EEEDFD;
+  --ec-text: #5E5873;
+  --ec-body: #6E6B7B;
+  --ec-muted: #B9B9C3;
+  --ec-border: #EBE9F1;
+  --ec-card-radius: 0.428rem;
+  --ec-card-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+
+  /* Bootstrap 5 native overrides */
+  --bs-primary: #7367F0;
+  --bs-primary-rgb: 115, 103, 240;
+  --bs-btn-bg: #7367F0;
+
+  /* Secondary Colors */
+  --secondary: #82868B;
+  --secondary-light: #A8AAAE;
+  --secondary-dark: #6E7175;
+
+  /* Success - Green */
+  --success: #28C76F;
+  --success-light: #55D68D;
+  --success-dark: #1FAE5F;
+
+  /* Info - Cyan */
+  --info: #00CFE8;
+  --info-light: #33DAED;
+  --info-dark: #00B8D4;
+
+  /* Warning - Orange */
+  --warning: #FF9F43;
+  --warning-light: #FFB569;
+  --warning-dark: #FF8C1A;
+
+  /* Danger - Red */
+  --danger: #EA5455;
+  --danger-light: #EE7677;
+  --danger-dark: #E73C3D;
+
+  /* Calendar Category Colors */
+  --category-missao: #7F6CC3;
+  --category-olimpiada: #8BC728;
+  --category-avaliacao: #FE5153;
+  --category-trilha: #00A5A0;
+  --category-expedicao: #FFB443;
+  --category-lembrete: #7CD7D3;
+
+  /* Neutral Colors */
+  --white: #FFFFFF;
+  --gray-50: #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #EEEEEE;
+  --gray-300: #E0E0E0;
+  --gray-400: #BDBDBD;
+  --gray-500: #9E9E9E;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121;
+  --black: #000000;
+
+  /* Typography */
+  --font-family-base: 'Montserrat', Helvetica, Arial, sans-serif;
+  --font-family-mono: 'Courier New', monospace;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(34, 41, 47, 0.08);
+  --shadow-md: 0 5px 20px 0 rgba(34, 41, 47, 0.1);
+  --shadow-lg: 0 8px 24px 0 rgba(34, 41, 47, 0.15);
+  --shadow-xl: 0 14px 40px 0 rgba(34, 41, 47, 0.18);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}

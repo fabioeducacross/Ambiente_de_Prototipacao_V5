@@ -1,0 +1,89 @@
+{
+  "name": "EInput",
+  "category": "base",
+  "description": "Campo de input de texto com suporte a tipos HTML, tamanhos, estados de validação e integração com v-model.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EInput.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-input",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string | number",
+      "default": "",
+      "description": "Valor do input (v-model)"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "default": "",
+      "description": "ID HTML do input, usado para associar ao label"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "default": "text",
+      "values": ["text", "email", "password", "number", "tel", "url", "date", "datetime-local", "time"],
+      "description": "Tipo do input"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "Texto placeholder"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o campo"
+    },
+    {
+      "name": "readonly",
+      "type": "boolean",
+      "default": false,
+      "description": "Campo somente leitura"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Campo obrigatório"
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "default": false,
+      "description": "Aplica estado de erro visual"
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "medium",
+      "values": ["small", "medium", "large"],
+      "description": "Tamanho do campo"
+    }
+  ],
+  "slots": [],
+  "events": [
+    {
+      "name": "update:modelValue",
+      "description": "Emitido a cada mudança de valor"
+    },
+    {
+      "name": "blur",
+      "description": "Emitido ao perder foco"
+    },
+    {
+      "name": "focus",
+      "description": "Emitido ao ganhar foco"
+    }
+  ],
+  "exposes": ["focus", "blur"],
+  "variants": [],
+  "states": ["default", "focus", "disabled", "readonly", "invalid"],
+  "a11y": [
+    "Sempre associar ao EFormGroup com label correspondente via id",
+    "Usar required para campos obrigatórios",
+    "Usar invalid + EFormGroup errorMessage para feedback de erro"
+  ]
+}

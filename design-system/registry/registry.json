@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedFrom": "design-system/specs/",
+    "description": "Registry canônico de componentes do Design System Educacross. Consumido pelo MCP design-system.",
+    "tokensRef": "design-system/tokens/tokens.json",
+    "storybookUrl": "${STORYBOOK_URL:-http://localhost:6006}"
+  },
+  "components": [
+    {
+      "name": "EButton",
+      "category": "base",
+      "status": "nativo",
+      "description": "Botão de ação com suporte a variantes, tamanhos, loading e ícone.",
+      "specFile": "design-system/specs/EButton.json",
+      "sourceFile": "FrontOffice/src/components/base/EButton.vue",
+      "storyFile": "design-system/stories/EButton.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "secondary", "success", "danger", "warning", "info", "outline-primary", "outline-secondary", "outline-danger", "link"],
+      "tags": ["button", "action", "cta", "form"]
+    },
+    {
+      "name": "EInput",
+      "category": "base",
+      "status": "nativo",
+      "description": "Campo de input com tipos HTML, tamanhos e estados de validação.",
+      "specFile": "design-system/specs/EInput.json",
+      "sourceFile": "FrontOffice/src/components/base/EInput.vue",
+      "storyFile": "design-system/stories/EInput.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["input", "form", "text", "field"]
+    },
+    {
+      "name": "ESelect",
+      "category": "base",
+      "status": "adaptado",
+      "description": "Select customizado com múltipla seleção, busca e limpeza.",
+      "specFile": "design-system/specs/ESelect.json",
+      "sourceFile": "FrontOffice/src/components/base/ESelect.vue",
+      "storyFile": "design-system/stories/ESelect.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["select", "dropdown", "form", "choice"]
+    },
+    {
+      "name": "ETextarea",
+      "category": "base",
+      "status": "nativo",
+      "description": "Área de texto multilinha com contador e resize.",
+      "specFile": "design-system/specs/ETextarea.json",
+      "sourceFile": "FrontOffice/src/components/base/ETextarea.vue",
+      "storyFile": "design-system/stories/ETextarea.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["textarea", "form", "text", "multiline"]
+    },
+    {
+      "name": "EFormGroup",
+      "category": "base",
+      "status": "nativo",
+      "description": "Container de campo de formulário com label, hint e mensagem de erro.",
+      "specFile": "design-system/specs/EFormGroup.json",
+      "sourceFile": "FrontOffice/src/components/base/EFormGroup.vue",
+      "storyFile": "design-system/stories/EFormGroup.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["form-group", "form", "label", "validation"]
+    },
+    {
+      "name": "EBadge",
+      "category": "base",
+      "status": "nativo",
+      "description": "Badge para status, categorias e contadores.",
+      "specFile": "design-system/specs/EBadge.json",
+      "sourceFile": "FrontOffice/src/components/base/EBadge.vue",
+      "storyFile": "design-system/stories/EBadge.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"],
+      "tags": ["badge", "status", "label", "tag"]
+    },
+    {
+      "name": "EModal",
+      "category": "base",
+      "status": "nativo",
+      "description": "Modal com header/body/footer, tamanhos e backdrop.",
+      "specFile": "design-system/specs/EModal.json",
+      "sourceFile": "FrontOffice/src/components/base/EModal.vue",
+      "storyFile": "design-system/stories/EModal.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["modal", "dialog", "overlay", "popup"]
+    },
+    {
+      "name": "EConfirmDialog",
+      "category": "base",
+      "status": "nativo",
+      "description": "Dialog de confirmação com ícone, variante e botões configuráveis.",
+      "specFile": "design-system/specs/EConfirmDialog.json",
+      "sourceFile": "FrontOffice/src/components/base/EConfirmDialog.vue",
+      "storyFile": "design-system/stories/EConfirmDialog.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["confirm", "dialog", "modal", "alert", "destructive"]
+    },
+    {
+      "name": "EDatePicker",
+      "category": "base",
+      "status": "adaptado",
+      "description": "Date picker com configuração flatpickr simplificada.",
+      "specFile": "design-system/specs/EDatePicker.json",
+      "sourceFile": "FrontOffice/src/components/base/EDatePicker.vue",
+      "storyFile": "design-system/stories/EDatePicker.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["datepicker", "date", "calendar", "form"]
+    },
+    {
+      "name": "MaterialIcon",
+      "category": "base",
+      "status": "nativo",
+      "description": "Ícone Material Symbols Outlined com tamanho configurável.",
+      "specFile": "design-system/specs/MaterialIcon.json",
+      "sourceFile": "FrontOffice/src/components/MaterialIcon.vue",
+      "storyFile": "design-system/stories/MaterialIcon.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["icon", "material", "symbol"]
+    }
+  ],
+  "statusLegend": {
+    "nativo": "Componente criado nativamente para o FrontOffice Vue 3",
+    "adaptado": "Componente adaptado do legado com ajustes para Vue 3",
+    "espelhado": "Cópia fiel do legado, ainda não adaptada",
+    "divergente": "Implementação diverge intencionalmente do legado"
+  },
+  "categories": {
+    "base": "Componentes atômicos fundamentais (inputs, buttons, badges, modals)"
+  }
+}
