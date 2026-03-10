@@ -917,20 +917,15 @@ watch(() => props.isOpen, (isOpen) => {
 .event-description p {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--gray-600);
   line-height: 1.6;
+  color: var(--gray-700);
 }
 
 .view-actions {
   display: flex;
-  width: calc(100% + 48px);
   gap: var(--spacing-md);
-  margin-top: var(--spacing-lg);
-  margin-left: -24px;
-  margin-right: -24px;
+  margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
-  padding-left: 24px;
-  padding-right: 24px;
   border-top: 1px solid var(--gray-200);
 }
 
@@ -938,46 +933,28 @@ watch(() => props.isOpen, (isOpen) => {
   flex: 1;
 }
 
-.drawer-content::-webkit-scrollbar {
-  width: 6px;
+/* Responsivo para view mode */
+@media (max-width: 768px) {
+  .drawer-content {
+    padding: 16px;
+  }
+
+  .view-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
 }
 
-.drawer-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
+/* Modal de confirmação */
+:deep(.delete-confirm-modal) {
+  max-width: 420px;
 }
 
-.drawer-content::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
+:deep(.delete-confirm-modal .modal-body) {
+  padding: 1.5rem;
 }
 
-.drawer-content::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-</style>
-
-<!-- Estilos não-scoped para sobrescrever Bootstrap nos botões -->
-<style>
-.event-drawer .form-actions .btn-outline-secondary {
-  background-color: var(--gray-100) !important;
-  color: var(--gray-700) !important;
-  border: 1px solid var(--gray-300) !important;
-}
-
-.event-drawer .form-actions .btn-outline-secondary:hover {
-  background-color: var(--gray-200) !important;
-  color: var(--gray-800) !important;
-  border-color: var(--gray-400) !important;
-}
-
-.event-drawer .form-actions .btn-danger {
-  background-color: var(--danger) !important;
-  border-color: var(--danger) !important;
-  color: white !important;
-}
-
-.event-drawer .form-actions .btn-danger:hover {
-  background-color: var(--danger-dark) !important;
-  border-color: var(--danger-dark) !important;
+.modal-icon {
+  font-size: 2rem;
 }
 </style>

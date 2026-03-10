@@ -316,7 +316,7 @@ const personas = ref(personasJourneys)
 </template>
 
 <style scoped>
-/* ── Material Symbols ────────── */
+/* ── Material Symbols ──────────────── */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
   font-size: inherit;
@@ -336,7 +336,7 @@ const personas = ref(personasJourneys)
 .journey-row-icon .material-symbols-outlined { font-size: 15px; }
 .cta-icon { font-size: 16px; }
 
-/* ── Tokens dark ─────────────── */
+/* ── Tokens dark ───────────────── */
 .shell {
   --bg: #0a0a0a;
   --surface: #111111;
@@ -361,7 +361,7 @@ const personas = ref(personasJourneys)
   overflow-x: hidden;
 }
 
-/* ── Sidebar ─────────────────── */
+/* ── Sidebar ───────────────── */
 .sidebar {
   border-right: 1px solid var(--border);
   background: var(--surface);
@@ -476,7 +476,7 @@ const personas = ref(personasJourneys)
   flex-shrink: 0;
 }
 
-/* ── Main ────────────────────── */
+/* ── Main ───────────────── */
 .main { display: flex; flex-direction: column; min-width: 0; }
 
 /* ── Hero strip ──────────────── */
@@ -508,7 +508,7 @@ const personas = ref(personasJourneys)
 .stat-label { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
 .stat-divider { width: 1px; height: 30px; background: var(--border); }
 
-/* ── Progress section ────────── */
+/* ── Progress section ──────────── */
 .progress-section { padding: 24px 24px 0; }
 
 .progress-grid {
@@ -589,7 +589,7 @@ const personas = ref(personasJourneys)
   min-width: 0;
 }
 
-/* ── Quick section ───────────── */
+/* ── Quick section ─────────────── */
 .quick-section { padding: 24px 24px 0; }
 
 .quick-section-header {
@@ -713,7 +713,7 @@ const personas = ref(personasJourneys)
   .shell { grid-template-columns: 240px 1fr; }
 }
 
-/* ── Persona view header ─────── */
+/* ── Persona view header ─────────── */
 .persona-view-header {
   display: flex;
   align-items: center;
@@ -756,7 +756,7 @@ const personas = ref(personasJourneys)
 }
 .persona-view-desc { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
-/* ── Journeys grid ───────────── */
+/* ── Journeys grid ─────────────── */
 .journeys-section { padding: 20px 24px 24px; }
 
 .journeys-grid {

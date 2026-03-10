@@ -83,7 +83,10 @@ function appendQueryParam(url, key, value) {
 function normalizeInternalIframeSrc(validation, target) {
     if (validation && validation.kind === 'internal') {
         const internalTarget = validation.normalizedUrl || target
-        return appendQueryParam(internalTarget, 'embed', 'drawer')
+        // Prefixa BASE_URL para funcionar tanto em dev (/) quanto em GitHub Pages (/Ambiente_de_Prototipacao_V5/)
+        const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
+        const withBase = base + (internalTarget.startsWith('/') ? internalTarget : '/' + internalTarget)
+        return appendQueryParam(withBase, 'embed', 'drawer')
     }
 
     return (validation && validation.normalizedUrl) || target
