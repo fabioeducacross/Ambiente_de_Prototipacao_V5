@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: FrontOffice Journey Drawer Contract (Local Mock)
+  version: 1.0.0
+  description: |
+    Contrato para dados locais/mock usados pelo FrontOffice para abrir drawer full com iframe e contexto.
+    Nao representa backend produtivo; serve como contrato validavel para testes e evolucao.
+servers:
+  - url: http://localhost:5174
+    description: FrontOffice dev
+paths:
+  /api/mock/journeys:
+    get:
+      summary: Lista jornadas da Home
+      operationId: listJourneys
+      responses:
+        '200':
+          description: Lista de jornadas
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Journey'
+
+  /api/mock/journeys/{journeyId}/drawer-context:
+    get:
+      summary: Retorna contexto completo do drawer para uma jornada
+      operationId: getJourneyDrawerContext
+      parameters:
+        - in: path
+          name: journeyId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Contexto da jornada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JourneyDrawerPayload'
+        '404':
+          description: Jornada nao encontrada
+
+  /api/mock/iframe/validate:
+    post:
+      summary: Valida alvo de iframe conforme whitelist
+      operationId: validateIframeTarget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IframeValidationRequest'
+      responses:
+        '200':
+          description: Resultado de validacao
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IframeValidationResult'
+
+  /api/mock/iframe/audit-events:
+    post:
+      summary: Registra evento de bloqueio/invalidez de URL
+      operationId: createIframeAuditEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IframeAuditEvent'
+      responses:
+        '201':
+          description: Evento registrado
+
+components:
+  schemas:
+    Journey:
+      type: object
+      required: [id, label, icon, status, route]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        icon:
+          type: string
+        route:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [Ativo, Planejado]
+        experienceTarget:
+          type: string
+        jtbd:
+          type: string
+        checklist:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        lastUpdate:
+          type: string
+          format: date
+        nextStep:
+          type: string
+        context:
+          allOf:
+            - $ref: '#/components/schemas/JourneyContext'
+        experience:
+          allOf:
+            - $ref: '#/components/schemas/JourneyExperience'
+
+    JourneyDrawerPayload:
+      type: object
+      required: [journey]
+      properties:
+        journey:
+          $ref: '#/components/schemas/Journey'
+
+    JourneyContext:
+      type: object
+      required: [jtbd, checklist, owner, lastUpdate, nextStep]
+      properties:
+        persona:
+          type: string
+        journeyName:
+          type: string
+        statusLabel:
+          type: string
+          enum: [Ativo, Planejado]
+        jtbd:
+          type: string
+        checklist:
+          type: array
+          items:
+            type: string
+        owner:
+          type: string
+        lastUpdate:
+          type: string
+          format: date
+        nextStep:
+          type: string
+        completionPercent:
+          type: integer
+          minimum: 0
+          maximum: 100
+
+    JourneyExperience:
+      type: object
+      required: [target]
+      properties:
+        target:
+          type: string
+          description: Rota interna (/teacher/...) ou URL externa HTTPS
+        targetType:
+          type: string
+          enum: [internal, external]
+        openInNewTabLabel:
+          type: string
+          default: Abrir pagina completa
+
+    IframeValidationRequest:
+      type: object
+      required: [target]
+      properties:
+        journeyId:
+          type: string
+        target:
+          type: string
+
+    IframeValidationResult:
+      type: object
+      required: [kind, allowed, reasonCode, normalizedUrl, origin, path]
+      properties:
+        kind:
+          type: string
+          enum: [internal, external-allowed, external-blocked, invalid]
+        allowed:
+          type: boolean
+        normalizedUrl:
+          type: string
+        reasonCode:
+          type: string
+          enum:
+            - OK
+            - INVALID_TARGET
+            - PROHIBITED_SCHEME
+            - INTERNAL_PATH_NOT_ALLOWED
+            - MALFORMED_URL
+            - UNSUPPORTED_PROTOCOL
+            - EXTERNAL_NOT_ALLOWED
+        origin:
+          type: string
+        path:
+          type: string
+
+    IframeAuditEvent:
+      type: object
+      required: [timestamp, journeyId, target, result, reasonCode, actor]
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        journeyId:
+          type: string
+        target:
+          type: string
+        result:
+          type: string
+          enum: [blocked, invalid]
+        reasonCode:
+          type: string
+        actor:
+          type: string
+          enum: [frontoffice-user]
