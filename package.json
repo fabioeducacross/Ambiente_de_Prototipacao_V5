@@ -13,6 +13,7 @@
     "figma:capture:guarded": "node scripts/figma_capture_guarded.cjs",
     "tokens:extract": "node scripts/tokens/run-token-pipeline.mjs",
     "predev:all": "powershell -Command \"Get-NetTCPConnection -LocalPort 5173,5174,3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",
+    "setup:ds": "npm ci --prefix design-system",
     "dev:ds": "npm run storybook --prefix design-system",
     "build:ds": "npm run build-storybook --prefix design-system",
     "dev:all": "concurrently --kill-others-on-fail -n ROOT,FO,DOCS -c blue,green,cyan \"vite --port 5173\" \"npm run dev --prefix FrontOffice\" \"npm start --prefix documentation\"",
