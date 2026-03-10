@@ -1,0 +1,8 @@
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\components\MaterialIcon.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\components\SubjectIcon.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\components\atoms\EventOriginIcon.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\modules\sistema-de-ensino\components\SubjectIcon.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\shared\components\MaterialIcon.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\views\teacher\missions\MissionsList.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\views\teacher\missions\NewMission.vue
+C:\Users\Educacross\Documents\Projetos Educacross\Ambiente_de_Prototipacao_V5\FrontOffice\src\views\teacher\reports\MissionReport.vue

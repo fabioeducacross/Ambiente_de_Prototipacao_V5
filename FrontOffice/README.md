@@ -122,7 +122,7 @@ Cada dashboard possui link direto para a documentação da jornada correspondent
 1. ✅ Estrutura base criada
 2. ✅ Home page e navegação implementadas
 3. ✅ Dashboards de todas as personas
-4. 🔄 **Próximo:** Implementar PROF-001 (Criar Turma)
+4. 🔄 **Próximo:** consolidar as jornadas canônicas PROF-001 a PROF-004 no FrontOffice
 5. 📋 Implementar jornadas prioritárias de cada persona
 6. 📋 Criar componentes reutilizáveis
 7. 📋 Conectar com backend (quando disponível)

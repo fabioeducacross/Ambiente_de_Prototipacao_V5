@@ -1,6 +1,6 @@
 import { IconCheck, IconCircleRed, IconCircleYellow, IconTeacher } from '@site/src/components/MaterialIcon';
 
-# Jornadas do Professor <IconTeacher />
+# Jornadas do Professor
 
 Documentação completa das 11 jornadas do contexto educador.
 

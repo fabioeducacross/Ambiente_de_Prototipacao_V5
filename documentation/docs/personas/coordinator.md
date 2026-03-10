@@ -5,7 +5,7 @@ description: Tipo de usuário gerenciado pelo Administrador com foco pedagógico
 ---
 import { IconCoordinator } from '@site/src/components/MaterialIcon';
 
-# <IconCoordinator size={28} /> Coordenador Pedagógico
+# Coordenador Pedagógico
 
 :::caution Nota sobre implementação
 O Coordenador **não possui uma role de navegação independente** no sistema atual. Ele é um **tipo de usuário cadastrado pelo Administrador** (menu Cadastros → Coordenadores) e acessa a plataforma com permissões do escopo `Admin`, restritas conforme configuração.

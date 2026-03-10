@@ -69,7 +69,7 @@ Crie PDR para decisões que:
     <div className="feature-card-content">
       <h3>PDR-001: Ranking por Turma</h3>
       <p>Por que ranking é apenas por turma, nunca nacional</p>
-      <a href="./template#exemplo-1-pdr-001---ranking-por-turma" className="card-link">
+      <a href="./template" className="card-link">
         Ver Exemplo <span className="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -80,7 +80,7 @@ Crie PDR para decisões que:
     <div className="feature-card-content">
       <h3>PDR-002: Missões Não Desabilitáveis</h3>
       <p>Por que professores não podem desabilitar missões de gestores</p>
-      <a href="./template#exemplo-2-pdr-002---missões-não-podem-ser-desabilitadas" className="card-link">
+      <a href="./template" className="card-link">
         Ver Exemplo <span className="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -91,7 +91,7 @@ Crie PDR para decisões que:
     <div className="feature-card-content">
       <h3>PDR-003: Medalhas com Nota Mínima</h3>
       <p>Por que medalhas exigem 70% de acerto mínimo</p>
-      <a href="./template#exemplo-3-pdr-003---nota-mínima-para-conquista-de-medalhas" className="card-link">
+      <a href="./template" className="card-link">
         Ver Exemplo <span className="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -106,9 +106,9 @@ Crie PDR para decisões que:
 
 | ID | Título | Data | Autor | Impacto |
 |----|--------|------|-------|---------|
-| [PDR-001](./template#exemplo-1-pdr-001---ranking-por-turma) | Ranking por Turma | 2025-02-10 | Time Produto | Alto |
-| [PDR-002](./template#exemplo-2-pdr-002---missões-não-podem-ser-desabilitadas) | Missões Não Desabilitáveis | 2025-02-12 | Time Produto | Alto |
-| [PDR-003](./template#exemplo-3-pdr-003---nota-mínima-para-conquista-de-medalhas) | Medalhas com Nota Mínima 70% | 2025-02-15 | Time Produto | Médio |
+| [PDR-001](./template) | Ranking por Turma | 2025-02-10 | Time Produto | Alto |
+| [PDR-002](./template) | Missões Não Desabilitáveis | 2025-02-12 | Time Produto | Alto |
+| [PDR-003](./template) | Medalhas com Nota Mínima 70% | 2025-02-15 | Time Produto | Médio |
 
 ---
 
@@ -133,11 +133,11 @@ _Adicione PDRs que foram substituídos por decisões posteriores_
 ## <span class="material-symbols-outlined">bar_chart</span> PDRs por Categoria
 
 ### <span class="material-symbols-outlined">sports_esports</span> Gamificação
-- [PDR-001: Ranking por Turma](./template#exemplo-1-pdr-001---ranking-por-turma)
-- [PDR-003: Medalhas com Nota Mínima](./template#exemplo-3-pdr-003---nota-mínima-para-conquista-de-medalhas)
+- [PDR-001: Ranking por Turma](./template)
+- [PDR-003: Medalhas com Nota Mínima](./template)
 
 ### <span class="material-symbols-outlined">group</span> Controle de Acesso
-- [PDR-002: Missões Não Desabilitáveis](./template#exemplo-2-pdr-002---missões-não-podem-ser-desabilitadas)
+- [PDR-002: Missões Não Desabilitáveis](./template)
 
 ### <span class="material-symbols-outlined">library_books</span> Conteúdo Pedagógico
 _Adicione PDRs relacionados a conteúdo BNCC aqui_

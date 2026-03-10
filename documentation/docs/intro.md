@@ -4,7 +4,7 @@ sidebar_position: 1
 
 import { IconGraduation, IconTarget, IconBooks, IconTeacher, IconAdmin, IconStudent, IconChart, IconCamera, IconExtension, IconApi, IconSparkle, IconRocket, IconPalette, IconArchitecture, IconRoute, IconStorage, IconClipboard, IconCheck, IconConstruction, IconPending, IconLink, IconBookOpen, IconHandshake, IconPhone, IconGlobe, IconCode, IconAntenna, IconCircleYellow, StatusDone, StatusProgress, StatusPlanned } from '@site/src/components/MaterialIcon';
 
-# Bem-vindo à Documentação Educacross <IconGraduation size={28} />
+# Bem-vindo à Documentação Educacross
 
 Documentação técnica completa do **Ambiente de Prototipação V5** - Sistema de documentação AS-IS e prototipação TO-BE para jornadas educacionais.
 
@@ -19,11 +19,11 @@ Este projeto documenta **50+ jornadas de usuário** da plataforma Educacross e s
 Documentação AS-IS (estado atual) das jornadas:
 
 - <IconTeacher size={18} /> **[Professor](./journeys/teacher/)** - Gestão de livros e missões
-- <IconAdmin size={18} /> **[Administrador](./journeys/administrator/)** - Gestão de usuários e segurança
-- <IconAdmin size={18} /> **[Coordenador](./journeys/coordinator/)** - Relatórios e evidências
-- <IconAdmin size={18} /> **[Diretor](./journeys/director/)** - Acesso de alunos e visão geral
-- <IconAdmin size={18} /> **[Gestor de Rede](./journeys/network-manager/)** - Gerenciamento de rede
-- <IconAdmin size={18} /> **[Auditor](./journeys/auditor/)** - Auditoria e conformidade
+- <IconAdmin size={18} /> **[Administrador](./journeys/administrator/user-management)** - Gestão de usuários e segurança
+- <IconAdmin size={18} /> **[Coordenador](./journeys/coordinator/mission-reports)** - Relatórios e evidências
+- <IconAdmin size={18} /> **[Diretor](./journeys/director/student-access-report)** - Acesso de alunos e visão geral
+- <IconAdmin size={18} /> **[Gestor de Rede](./journeys/network-manager/network-management)** - Gerenciamento de rede
+- <IconAdmin size={18} /> **[Auditor](./journeys/auditor/writing-phases-students)** - Auditoria e conformidade
 - <IconStudent size={18} /> **[Estudante](./journeys/student/)** - Dashboard e progresso educacional
 
 Cada jornada inclui:

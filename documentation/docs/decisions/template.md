@@ -284,8 +284,8 @@ Então vamos:
 ### 6.2 Regras de Negócio Criadas/Alteradas
 
 **Novas regras:**
-- [RD-XXX](../business-rules/domain-rules.md#rd-xxx): [Descrição da regra]
-- [AC-YYY](../business-rules/access-control.md#ac-yyy): [Descrição da regra]
+- RD-XXX: [Descrição da regra]
+- AC-YYY: [Descrição da regra]
 
 **Regras depreciadas:**
 - ~~RD-ZZZ~~: [Por que foi removida]
@@ -335,11 +335,11 @@ Então vamos:
 
 **Dados que embasaram a decisão:**
 
-- [Pesquisa de Usuários](link): _"73% dos alunos de escolas públicas nunca apareciam no top 100"_
-- [Dados de Produto](link): _"NPS escolas públicas: 35 vs 55 (média)"_
-- [Tickets de Suporte](link): _"5 escolas pediram para desabilitar ranking"_
-- [Benchmarking](link): _"Duolingo usa ligas por nível, não ranking global"_
-- [Artigo/Paper](link): _"Competição desmotiva quando gap é muito grande (Dweck, 2006)"_
+- Pesquisa de Usuários: _"73% dos alunos de escolas públicas nunca apareciam no top 100"_
+- Dados de Produto: _"NPS escolas públicas: 35 vs 55 (média)"_
+- Tickets de Suporte: _"5 escolas pediram para desabilitar ranking"_
+- Benchmarking: _"Duolingo usa ligas por nível, não ranking global"_
+- Artigo/Paper: _"Competição desmotiva quando gap é muito grande (Dweck, 2006)"_
 
 **Documentos relacionados:**
 <!-- - [Jornada do Aluno](../journeys/student/missions-ranking.md) — substituir pelo arquivo real quando criado -->
@@ -420,7 +420,7 @@ NPS dessas escolas: 35 vs 55 (média).
 - Reduzir churn risk de 5 escolas para 0
 
 ### Referência
-[Ver regra RD-012](../business-rules/domain-rules.md#rd-012)
+[Ver regra RD-012](../business-rules/domain-rules.md)
 
 </details>
 
@@ -450,7 +450,7 @@ Se professores puderem desabilitar, perde-se rastreabilidade de cobertura curric
 - **Mitigação:** Permitir criar missões custom como complemento
 
 ### Referência
-[Ver regra EST-010](../business-rules/state-transitions.md#est-010)
+[Ver regra EST-010](../business-rules/state-transitions.md)
 
 </details>
 
@@ -480,7 +480,7 @@ Benchmarking: Khan Academy usa 70%, Duolingo usa 80%.
 - Perceived value de medalhas (NPS feature): > 60
 
 ### Referência
-[Ver regra CALC-007](../business-rules/calculation-rules.md#calc-007)
+[Ver regra CALC-007](../business-rules/calculation-rules.md)
 
 </details>
 

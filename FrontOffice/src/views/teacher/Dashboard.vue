@@ -6,29 +6,29 @@ import { EBadge } from '@/components/base'
 const journeys = ref([
   {
     id: 'PROF-001',
-    name: 'Criar Turma',
-    description: 'Processo completo de criação de uma nova turma',
-    status: 'Em desenvolvimento',
+    name: 'Livros do Sistema Educacional',
+    description: 'Visualização dos livros e trilhas para acessar o contexto pedagógico por etapa.',
+    status: 'Em prototipo',
     color: '#28C76F'
   },
   {
     id: 'PROF-002',
-    name: 'Criar Missão',
-    description: 'Criação e configuração de missões educacionais',
+    name: 'Missoes do Livro do Sistema Educacional',
+    description: 'Gestao das missoes de um livro com filtros, status e acompanhamento por turma.',
     status: 'Planejado',
     color: '#FF9F43'
   },
   {
     id: 'PROF-003',
-    name: 'Acompanhar Progresso',
-    description: 'Visualização e análise do desempenho dos alunos',
+    name: 'Missoes Personalizadas',
+    description: 'Criacao de missoes customizadas com combinacao de questoes e configuracoes avancadas.',
     status: 'Planejado',
     color: '#FF9F43'
   },
   {
     id: 'PROF-004',
-    name: 'Avaliar Atividades',
-    description: 'Correção e feedback de atividades entregues',
+    name: 'Gestao de Eventos',
+    description: 'Habilitacao e acompanhamento de eventos educacionais configurados para as turmas.',
     status: 'Planejado',
     color: '#FF9F43'
   }

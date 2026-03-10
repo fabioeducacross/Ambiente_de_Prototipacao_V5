@@ -14,16 +14,17 @@ Mapeamento completo de todas as jornadas do Educacross, organizadas pelos novos 
 
 | Perfil | Total | Documentadas |
 |--------|-------|--------------|
-| [<IconTeacher size={20} /> Professor](#professor) | 11 | 11 |
-| [<IconStudent size={20} /> Aluno](#aluno) | 3 | 1 |
-| [<IconAdmin size={20} /> Administrador](#administrador) | 1 | 1 |
-| [<IconCoordinator size={20} /> Coordenador](#coordenador) | 3 | 3 |
-| [<IconDirector size={20} /> Diretor](#diretor) | 1 | 1 |
-| [<IconNetworkManager size={20} /> Gestor de Rede](#gestor-de-rede) | 1 | 1 |
-| [<IconAuditor size={20} /> Auditor](#auditor) | 1 | 1 |
+| [<IconTeacher size={20} /> Professor](./teacher/) | 11 | 11 |
+| [<IconStudent size={20} /> Aluno](./student/) | 3 | 1 |
+| [<IconAdmin size={20} /> Administrador](./administrator/user-management) | 1 | 1 |
+| [<IconCoordinator size={20} /> Coordenador](./coordinator/mission-reports) | 3 | 3 |
+| [<IconDirector size={20} /> Diretor](./director/student-access-report) | 1 | 1 |
+| [<IconNetworkManager size={20} /> Gestor de Rede](./network-manager/network-management) | 1 | 1 |
+| [<IconAuditor size={20} /> Auditor](./auditor/writing-phases-students) | 1 | 1 |
 
 ---
 
+<a id="professor"></a>
 ## <IconTeacher size={28} /> Professor
 
 Jornadas focadas na gestão de sala de aula e ensino.
@@ -44,6 +45,7 @@ Jornadas focadas na gestão de sala de aula e ensino.
 
 ---
 
+<a id="aluno"></a>
 ## <IconStudent size={28} /> Aluno
 
 Jornadas do estudante na plataforma gamificada.
@@ -56,6 +58,7 @@ Jornadas do estudante na plataforma gamificada.
 
 ---
 
+<a id="administrador"></a>
 ## <IconAdmin size={28} /> Administrador
 
 Jornadas técnicas e operacionais da escola.
@@ -66,6 +69,7 @@ Jornadas técnicas e operacionais da escola.
 
 ---
 
+<a id="coordenador"></a>
 ## <IconCoordinator size={28} /> Coordenador
 
 Jornadas de acompanhamento pedagógico.
@@ -78,6 +82,7 @@ Jornadas de acompanhamento pedagógico.
 
 ---
 
+<a id="diretor"></a>
 ## <IconDirector size={28} /> Diretor
 
 Jornadas de gestão estratégica e macro-indicadores.
@@ -88,6 +93,7 @@ Jornadas de gestão estratégica e macro-indicadores.
 
 ---
 
+<a id="gestor-de-rede"></a>
 ## <IconNetworkManager size={24} /> Gestor de Rede
 
 Jornadas de gestão multi-escola.
@@ -98,6 +104,7 @@ Jornadas de gestão multi-escola.
 
 ---
 
+<a id="auditor"></a>
 ## <IconAuditor size={28} /> Auditor
 
 Perfil especializado em verificação de integridade/qualidade.

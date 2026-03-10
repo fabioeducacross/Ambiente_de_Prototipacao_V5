@@ -99,7 +99,7 @@ const personas = ref(personasJourneys)
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <img src="@/assets/images/MainLogo-white.svg" alt="Educacross" class="brand-logo-img" />
+        <img src="@/assets/images/logos/figma-guidelines-1.0/node-1538-129-1.svg" alt="Educacross" class="brand-logo-img" />
       </div>
 
       <nav class="sidebar-nav">
@@ -384,9 +384,11 @@ const personas = ref(personasJourneys)
 }
 
 .brand-logo-img {
-  height: 22px;
-  width: auto;
+  width: 152px;
+  max-width: 100%;
+  height: 25px;
   display: block;
+  object-fit: contain;
   opacity: 0.9;
 }
 

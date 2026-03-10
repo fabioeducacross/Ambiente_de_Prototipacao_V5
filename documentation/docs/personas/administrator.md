@@ -5,7 +5,7 @@ description: Perfil responsável pela gestão de acessos e configurações da es
 ---
 import { IconAdmin } from '@site/src/components/MaterialIcon';
 
-# <IconAdmin size={28} /> Administrador
+# Administrador
 
 O Administrador gerencia a escola no Educacross: cadastros, turmas, relatórios consolidados, módulos de avaliação e eventos. É o perfil mais completo dentro de uma unidade escolar.
 

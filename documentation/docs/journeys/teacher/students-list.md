@@ -303,4 +303,4 @@ describe('Students List Page', () => {
 ---
 
 **Última Atualização**: Fevereiro 2026
-**Referências**: [Persona: Professor](../../personas/professor) · [Student Records](./student-records) · [Classes Records](./classes-records) · [Catálogo de Jornadas](../index)
+**Referências**: [Persona: Professor](../../personas/professor) · [Student Records](./student-records) · [Classes Records](./classes-records) · [Catálogo de Jornadas](../)

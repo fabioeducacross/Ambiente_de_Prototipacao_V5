@@ -5,7 +5,7 @@ description: Tipo de usuário gerenciado pelo Administrador com visão estratég
 ---
 import { IconDirector } from '@site/src/components/MaterialIcon';
 
-# <IconDirector size={28} /> Diretor Escolar
+# Diretor Escolar
 
 :::caution Nota sobre implementação
 O Diretor **não possui uma role de navegação independente** no sistema atual. Ele é um **tipo de usuário cadastrado pelo Administrador** (menu Cadastros → Diretores) e acessa a plataforma com permissões do escopo `Admin`, restritas conforme configuração.

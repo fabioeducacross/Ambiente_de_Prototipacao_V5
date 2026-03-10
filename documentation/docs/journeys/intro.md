@@ -9,7 +9,7 @@ Bem-vindo à documentação completa das jornadas de usuário da plataforma Educ
 Esta seção documenta **50+ jornadas** organizadas por contexto de usuário:
 
 - <IconTeacher size={18} /> **[Professor](./teacher/)** - 11 jornadas do contexto educador
-- <IconAdmin size={18} /> **[Administrador](./administrator/)** - 6 jornadas administrativas
+- <IconAdmin size={18} /> **[Administrador](./administrator/user-management)** - jornadas administrativas
 - <IconStudent size={18} /> **[Estudante](./student/)** - 3 jornadas de aprendizado
 - <IconChart size={18} /> **Network Manager** - Jornadas de gestão de rede
 - <IconSearch size={18} /> **Auditor** - Jornadas de auditoria
@@ -115,7 +115,7 @@ Jornadas esporádicas (menos de 100 acessos/dia):
 ### Por Contexto
 
 - [<IconTeacher size={16} /> Jornadas do Professor](./teacher/)
-- [<IconAdmin size={16} /> Jornadas Administrativas](./administrator/)
+- [<IconAdmin size={16} /> Jornadas Administrativas](./administrator/user-management)
 - [<IconStudent size={16} /> Jornadas do Estudante](./student/)
 
 ### Por Funcionalidade
@@ -129,7 +129,7 @@ Jornadas esporádicas (menos de 100 acessos/dia):
 
 1. Explore as [Jornadas do Professor](./teacher/) - contexto mais completo
 2. Veja os [Protótipos TO-BE](../prototypes/) - melhorias propostas
-3. Consulte a [Arquitetura](../architecture/) - padrões técnicos
+3. Consulte a [Arquitetura](../architecture/intro) - padrões técnicos
 4. Acesse o [Design System](https://fabioeducacross.github.io/DesignSystem-Vuexy/) - componentes
 
 ---

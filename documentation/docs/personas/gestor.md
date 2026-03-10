@@ -5,7 +5,7 @@ description: Perfil de gestão escolar com foco em relatórios consolidados e ap
 ---
 import { IconAdmin, IconCoordinator } from '@site/src/components/MaterialIcon';
 
-# <IconAdmin size={28} /> Gestor Escolar
+# Gestor Escolar
 
 O Gestor é o responsável pela administração pedagógica e operacional da escola na plataforma. Tem foco em **acompanhamento de desempenho consolidado**, **aprovação de perfis de acesso** e **geração de relatórios para a diretoria**.
 

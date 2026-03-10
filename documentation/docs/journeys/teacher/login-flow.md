@@ -392,4 +392,4 @@ describe('Tela de Login', () => {
 ---
 
 **Última Atualização**: Fevereiro 2026
-**Referências**: [Persona: Professor](../../personas/professor) · [Catálogo de Jornadas](../index)
+**Referências**: [Persona: Professor](../../personas/professor) · [Catálogo de Jornadas](../)

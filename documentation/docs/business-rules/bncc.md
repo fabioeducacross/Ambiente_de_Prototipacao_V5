@@ -94,7 +94,7 @@ Além da BNCC federal, redes de ensino parceiras podem operar com **currículos 
 
 ## Onde encontrar nas jornadas
 
-- [Criar Missão](/docs/journeys/teacher/missions) — seleção de habilidades BNCC
+- [Criar Missão](/docs/journeys/teacher/education-system-missions) — seleção de habilidades BNCC
 - [Relatório de Evidências](/docs/journeys/teacher/student-progress-tracking) — filtro por BNCC
 - [Relatório de Habilidades](/docs/journeys/teacher/student-progress-tracking) — progresso por habilidade
 - [Meus Jogos](/docs/journeys/teacher/my-games) — filtro por habilidade BNCC no catálogo

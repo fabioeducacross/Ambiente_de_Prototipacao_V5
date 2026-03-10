@@ -34,6 +34,7 @@ Cada perfil tem **apenas as permissões necessárias** para realizar suas funç�
 
 ---
 
+<a id="administrador"></a>
 ## <IconAdmin /> Administrador
 
 ### Escopo de Acesso
@@ -71,6 +72,8 @@ Ações de **Admin** devem ser registradas em **log de auditoria** para complian
 
 ---
 
+<a id="gestor"></a>
+<a id="gestor-de-rede"></a>
 ## <IconNetworkManager /> Gestor de Rede
 
 ### Escopo de Acesso
@@ -178,6 +181,7 @@ sequenceDiagram
 
 ---
 
+<a id="professor"></a>
 ## <IconTeacher /> Professor
 
 ### Escopo de Acesso
@@ -229,6 +233,7 @@ sequenceDiagram
 
 ---
 
+<a id="aluno"></a>
 ## <IconStudent /> Aluno
 
 ### Escopo de Acesso

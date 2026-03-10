@@ -22,7 +22,7 @@ import {
 } from '@site/src/components/MaterialIcon';
 
 
-# <IconEdit /> Como Editar a Documentação
+# Como Editar a Documentação
 
 Este guia mostra as diferentes formas de editar a documentação do Ambiente de Prototipação.
 

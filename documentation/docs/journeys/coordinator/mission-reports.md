@@ -912,7 +912,7 @@ watch([networkGroup, institution], () => {
 - <IconCheck /> Compartilhamento seguro via link (com senha)
 - <IconCheck /> API para integração com BI externo (Power BI, Tableau)
 
-**Protótipo**: [Veja o protótipo TO-BE](/prototypes/mission-reports-v2)
+**Protótipo**: [Veja o protótipo TO-BE](/docs/prototypes/intro)
 
 ---
 
@@ -1026,7 +1026,7 @@ describe('Mission Reports - Fluxo Completo', () => {
 
 - [Design System - Dashboard Components](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - [API Docs - Reports Endpoint](https://apieducacrossmanager-test.azurewebsites.net/index.html)
-- [Protótipo TO-BE - Mission Reports v2](/prototypes/mission-reports-v2)
-- [Architecture - DDD Pattern](/architecture/intro#ddd-page-structure-pattern)
-- [PROF-003: Custom Missions](/journeys/teacher/custom-missions)
-- [PROF-004: Events Management](/journeys/teacher/events-management)
+- [Protótipo TO-BE - Mission Reports v2](/docs/prototypes/intro)
+- [Architecture - DDD Pattern](../../architecture/intro)
+- [PROF-003: Custom Missions](../teacher/custom-missions)
+- [PROF-004: Events Management](../teacher/events-management)

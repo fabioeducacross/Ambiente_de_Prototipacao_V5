@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auditoria de Ícones — Tipos de Mídia Educacross</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #9E95F5;
+            --success: #34E57E;
+            --warning: #FF9F43;
+            --danger: #EA5455;
+            --info: #00CFE8;
+            --trilha: #B2ABF7;
+            --bg: #121316;
+            --bg-accent: #191b20;
+            --card: #1f2229;
+            --border: #2a2e38;
+            --text: #d8dbe3;
+            --muted: #96a0b5;
+            --dark: #f3f5fb;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            src: url('documentation/static/fonts/Geist-Variable.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            font-family: 'Geist', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: radial-gradient(circle at 20% -10%, #2b2556 0%, var(--bg) 35%), var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* ── Page header ── */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .page-header p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+
+        .badge-date {
+            display: inline-block;
+            background: var(--bg-accent);
+            color: var(--muted);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            margin-top: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        /* ── Section cards ── */
+        .section {
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+        }
+
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Canonical map ── */
+        .canonical-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+        }
+
+        @media (max-width: 700px) {
+            .canonical-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .canonical-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.857rem;
+            padding: 1.25rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            text-align: center;
+            transition: box-shadow .15s;
+        }
+
+        .canonical-card:hover {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .35);
+            transform: translateY(-1px);
+        }
+
+        .icon-bubble {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-bubble .material-symbols-outlined {
+            font-size: 26px;
+        }
+
+        .canonical-card .label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .canonical-card .icon-name {
+            font-size: 0.72rem;
+            color: var(--muted);
+            background: var(--bg-accent);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .canonical-card .hex {
+            font-size: 0.68rem;
+            color: var(--muted);
+        }
+
+        /* tone colors */
+        .tone-warning {
+            background: rgba(255, 159, 67, .18);
+            color: var(--warning);
+        }
+
+        .tone-primary {
+            background: rgba(158, 149, 245, .2);
+            color: var(--primary);
+        }
+
+        .tone-info {
+            background: rgba(0, 207, 232, .2);
+            color: var(--info);
+        }
+
+        .tone-success {
+            background: rgba(52, 229, 126, .2);
+            color: var(--success);
+        }
+
+        .tone-trilha {
+            background: rgba(178, 171, 247, .2);
+            color: var(--trilha);
+        }
+
+        .tone-danger {
+            background: rgba(234, 84, 85, .2);
+            color: var(--danger);
+        }
+
+        .tone-muted {
+            background: var(--bg-accent);
+            color: var(--muted);
+        }
+
+        /* ── Audit table ── */
+        .table-wrap {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.857rem;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.825rem;
+        }
+
+        thead th {
+            background: var(--bg-accent);
+            color: var(--muted);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background .1s;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(158, 149, 245, .08);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            vertical-align: middle;
+        }
+
+        /* type column */
+        .type-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .type-chip .material-symbols-outlined {
+            font-size: 15px;
+        }
+
+        /* icon preview column */
+        .icon-preview {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .icon-preview-bubble {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-preview-bubble .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .icon-preview-name {
+            font-family: 'Courier New', monospace;
+            font-size: 0.78rem;
+            color: var(--dark);
+        }
+
+        /* status badge */
+        .status-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .status-ok {
+            background: rgba(52, 229, 126, .18);
+            color: #68f0a0;
+        }
+
+        .status-mock {
+            background: rgba(255, 159, 67, .18);
+            color: #ffc07b;
+        }
+
+        .status-inadequado {
+            background: rgba(234, 84, 85, .2);
+            color: #ff9fa0;
+        }
+
+        .status-confirmed {
+            background: rgba(52, 229, 126, .2);
+            color: #8af5b6;
+            border: 1px solid rgba(52, 229, 126, .45);
+        }
+
+        /* context column */
+        .ctx-label {
+            color: var(--text);
+        }
+
+        .ctx-file {
+            font-size: 0.7rem;
+            color: var(--muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ── Problems section ── */
+        .problems-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .problems-list li {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--warning);
+            border-radius: 0 0.5rem 0.5rem 0;
+            padding: 0.75rem 1rem;
+            font-size: 0.82rem;
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+        }
+
+        .problems-list li .material-symbols-outlined {
+            color: var(--warning);
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .problems-list li.danger {
+            border-left-color: var(--danger);
+        }
+
+        .problems-list li.danger .material-symbols-outlined {
+            color: var(--danger);
+        }
+
+        /* ── Code block ── */
+        .code-block {
+            background: #141820;
+            color: #d8def5;
+            border-radius: 0.857rem;
+            padding: 1.25rem 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .code-comment {
+            color: #7b86a3;
+        }
+
+        .code-key {
+            color: #89dceb;
+        }
+
+        .code-val {
+            color: #a6e3a1;
+        }
+
+        .code-str {
+            color: #f9e2af;
+        }
+
+        .code-punc {
+            color: #cdd6f4;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            font-size: 0.75rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ────────────────────────────────────── HEADER ── -->
+    <div class="page-header">
+        <h1>Auditoria de Ícones — Tipos de Mídia</h1>
+        <p>Levantamento realizado diretamente no código de <strong>produção</strong>
+            (<code>educacross-frontoffice-git</code> · branch <code>migration-phase2</code>).
+            Ícones <strong>confirmados</strong> têm fonte e contexto de uso real. Tipos sem mapeamento em produção
+            são marcados como <em>sugestão para o protótipo</em>.</p>
+        <span class="badge-date">🗓 Atualizado em 2 de março de 2026 · educacross-frontoffice-git ·
+            migration-phase2 · commit f5d060d</span>
+    </div>
+
+    <!-- ────────────────────────────────────── CANONICAL MAP ── -->
+    <div class="section">
+        <p class="section-title">Mapa canônico recomendado</p>
+        <div class="canonical-grid">
+
+            <!-- Jogos — CONFIRMADO EM PRODUÇÃO -->
+            <div class="canonical-card" style="border:2px solid var(--warning)">
+                <div class="icon-bubble tone-warning">
+                    <span class="material-symbols-outlined">sports_esports</span>
+                </div>
+                <span class="label">Jogos</span>
+                <span class="icon-name">sports_esports</span>
+                <span class="hex">#FF9F43 · warning</span>
+                <span class="status-badge status-confirmed"
+                    style="display:inline-block;margin-top:.4rem;font-size:.65rem">✓ produção confirmada</span>
+                <span style="font-size:.64rem;color:var(--muted);margin-top:.15rem;display:block">MissionReportGames.vue
+                    · MediaCard</span>
+            </div>
+
+            <!-- Questões — CONFIRMADO EM PRODUÇÃO -->
+            <div class="canonical-card" style="border:2px solid var(--primary)">
+                <div class="icon-bubble tone-primary">
+                    <span class="material-symbols-outlined">quiz</span>
+                </div>
+                <span class="label">Questões</span>
+                <span class="icon-name">quiz</span>
+                <span class="hex">#7367F0 · primary</span>
+                <span class="status-badge status-confirmed"
+                    style="display:inline-block;margin-top:.4rem;font-size:.65rem">✓ produção confirmada</span>
+                <span style="font-size:.64rem;color:var(--muted);margin-top:.15rem;display:block">teacher.js · nav
+                    Avaliações</span>
+            </div>
+
+            <!-- Livros — CONFIRMADO EM PRODUÇÃO -->
+            <div class="canonical-card" style="border:2px solid var(--primary)">
+                <div class="icon-bubble tone-primary">
+                    <span class="material-symbols-outlined">book_5</span>
+                </div>
+                <span class="label">Livros</span>
+                <span class="icon-name">book_5</span>
+                <span class="hex">#7367F0 · primary</span>
+                <span class="status-badge status-confirmed"
+                    style="display:inline-block;margin-top:.4rem;font-size:.65rem">✓ produção confirmada</span>
+                <span style="font-size:.64rem;color:var(--muted);margin-top:.15rem;display:block">GeneralDashboard.vue +
+                    teacher.js</span>
+            </div>
+
+            <!-- Vídeos — SEM MAPEAMENTO EM PRODUÇÃO -->
+            <div class="canonical-card" style="border:2px dashed var(--info);opacity:.85">
+                <div class="icon-bubble tone-info" style="opacity:.6">
+                    <span class="material-symbols-outlined">smart_display</span>
+                </div>
+                <span class="label">Vídeos</span>
+                <span class="icon-name" style="color:var(--muted)">smart_display</span>
+                <span class="hex">#00CFE8 · info</span>
+                <span class="status-badge status-mock" style="display:inline-block;margin-top:.4rem;font-size:.65rem">⚠
+                    sem ícone em produção</span>
+                <span style="font-size:.64rem;color:var(--muted);margin-top:.15rem;display:block">LibraryRoot.vue · aba
+                    texto puro</span>
+            </div>
+
+            <!-- Música — SEM MAPEAMENTO EM PRODUÇÃO -->
+            <div class="canonical-card" style="border:2px dashed var(--success);opacity:.85">
+                <div class="icon-bubble tone-success" style="opacity:.6">
+                    <span class="material-symbols-outlined">music_note</span>
+                </div>
+                <span class="label">Música</span>
+                <span class="icon-name" style="color:var(--muted)">music_note</span>
+                <span class="hex">#28C76F · success</span>
+                <span class="status-badge status-mock" style="display:inline-block;margin-top:.4rem;font-size:.65rem">⚠
+                    sem ícone em produção</span>
+                <span style="font-size:.64rem;color:var(--muted);margin-top:.15rem;display:block">MeetMusics.vue · só
+                    usa &lt;Player&gt;</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ────────────────────────────────────── AUDIT TABLE ── -->
+    <div class="section">
+        <p class="section-title">Todos os ícones encontrados por contexto</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Ícone atual</th>
+                        <th>Contexto de uso</th>
+                        <th>Cor / tone</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <!-- ── JOGOS ─────────────────────────────────────── -->
+                    <tr style="background:rgba(255,159,67,.04)">
+                        <td>
+                            <span class="type-chip tone-warning">
+                                <span class="material-symbols-outlined">sports_esports</span>
+                                Jogos
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-warning">
+                                    <span class="material-symbols-outlined">sports_esports</span>
+                                </div>
+                                <span class="icon-preview-name">sports_esports</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">MediaCard "Desafios realizados" no relatório de missão</div>
+                            <div class="ctx-file">MissionReportGames.vue ·
+                                <code>&lt;MediaCard icon="sports_esports" variant="light-warning"&gt;</code>
+                            </div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">branch migration-phase2 ·
+                                confirmado em código</div>
+                        </td>
+                        <td><span class="type-chip tone-warning" style="font-size:.72rem;padding:.15rem .5rem">warning ·
+                                light</span></td>
+                        <td><span class="status-badge status-confirmed">✓ confirmado produção</span></td>
+                    </tr>
+
+                    <!-- ── QUESTÕES ────────────────────────────────────── -->
+                    <tr style="background:rgba(115,103,240,.04)">
+                        <td>
+                            <span class="type-chip tone-primary">
+                                <span class="material-symbols-outlined">quiz</span>
+                                Questões
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-primary">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                </div>
+                                <span class="icon-preview-name">quiz</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">Navegação lateral — seção "Avaliações" (inclui questões / quizzes)
+                            </div>
+                            <div class="ctx-file">navigation/vertical/teacher.js ·
+                                <code>{ title: 'Avaliações', icon: 'quiz', order: 76 }</code>
+                            </div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">branch migration-phase2 ·
+                                confirmado em código</div>
+                        </td>
+                        <td><span class="type-chip tone-primary"
+                                style="font-size:.72rem;padding:.15rem .5rem">primary</span></td>
+                        <td><span class="status-badge status-confirmed">✓ confirmado produção</span></td>
+                    </tr>
+
+                    <!-- ── LIVROS ──────────────────────────────────────── -->
+                    <tr style="background:rgba(115,103,240,.04)">
+                        <td>
+                            <span class="type-chip tone-primary">
+                                <span class="material-symbols-outlined">book_5</span>
+                                Livros
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-primary">
+                                    <span class="material-symbols-outlined">book_5</span>
+                                </div>
+                                <span class="icon-preview-name">book_5</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">Stat card "Livros — títulos lidos" no dashboard da biblioteca</div>
+                            <div class="ctx-file">library/general/GeneralDashboard.vue ·
+                                <code>{ title: 'Livros', icon: 'book_5', value: data.value.readBooks }</code>
+                            </div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">branch migration-phase2 ·
+                                confirmado em código</div>
+                        </td>
+                        <td><span class="type-chip tone-primary"
+                                style="font-size:.72rem;padding:.15rem .5rem">primary</span></td>
+                        <td><span class="status-badge status-confirmed">✓ confirmado produção</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="type-chip tone-primary">
+                                <span class="material-symbols-outlined">book_5</span>
+                                Livros
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-primary">
+                                    <span class="material-symbols-outlined">book_5</span>
+                                </div>
+                                <span class="icon-preview-name">book_5</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">Navegação lateral — "Expedição Leitura" (seção de livros)</div>
+                            <div class="ctx-file">navigation/vertical/teacher.js ·
+                                <code>{ title: 'Expedição Leitura', icon: 'book_5' }</code>
+                            </div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">branch migration-phase2 ·
+                                confirmado em código</div>
+                        </td>
+                        <td><span class="type-chip tone-primary"
+                                style="font-size:.72rem;padding:.15rem .5rem">primary</span></td>
+                        <td><span class="status-badge status-confirmed">✓ confirmado produção</span></td>
+                    </tr>
+
+                    <!-- ── VÍDEOS ──────────────────────────────────────── -->
+                    <tr style="background:rgba(0,207,232,.04)">
+                        <td>
+                            <span class="type-chip tone-info">
+                                <span class="material-symbols-outlined">smart_display</span>
+                                Vídeos
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-info" style="opacity:.55">
+                                    <span class="material-symbols-outlined">—</span>
+                                </div>
+                                <span class="icon-preview-name" style="color:var(--muted)">sem ícone</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">Aba "Vídeos" na Educateca (LibraryRoot) — somente texto, sem ícone
+                            </div>
+                            <div class="ctx-file">library/LibraryRoot.vue · tabs são <code>{ title: 'Vídeos' }</code> —
+                                sem propriedade <code>icon</code></div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">MeetVideos.vue usa apenas
+                                iframe Vimeo · sem Material Symbol</div>
+                        </td>
+                        <td><span class="type-chip tone-info" style="font-size:.72rem;padding:.15rem .5rem">info</span>
+                        </td>
+                        <td><span class="status-badge status-mock">⚠ sem ícone em produção</span></td>
+                    </tr>
+
+                    <!-- ── MÚSICAS ─────────────────────────────────────── -->
+                    <tr style="background:rgba(40,199,111,.04)">
+                        <td>
+                            <span class="type-chip tone-success">
+                                <span class="material-symbols-outlined">music_note</span>
+                                Músicas
+                            </span>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <div class="icon-preview-bubble tone-success" style="opacity:.55">
+                                    <span class="material-symbols-outlined">—</span>
+                                </div>
+                                <span class="icon-preview-name" style="color:var(--muted)">sem ícone</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="ctx-label">Aba "Músicas" na Educateca (LibraryRoot) — somente texto, sem ícone
+                            </div>
+                            <div class="ctx-file">library/LibraryRoot.vue · tabs são <code>{ title: 'Músicas' }</code> —
+                                sem propriedade <code>icon</code></div>
+                            <div class="ctx-file" style="font-size:.68rem;color:var(--muted)">MeetMusics.vue usa
+                                &lt;Player&gt; de áudio · sem Material Symbol</div>
+                        </td>
+                        <td><span class="type-chip tone-success"
+                                style="font-size:.72rem;padding:.15rem .5rem">success</span></td>
+                        <td><span class="status-badge status-mock">⚠ sem ícone em produção</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ────────────────────────────────────── CANDIDATOS ALTERNATIVOS ── -->
+    <div class="section">
+        <p class="section-title">Candidatos alternativos por tipo</p>
+        <div
+            style="background:var(--card);border:1px solid var(--border);border-radius:.857rem;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1rem;">
+
+            <!-- Jogos -->
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="width:80px;font-size:.78rem;font-weight:600;color:var(--dark)">Jogos</span>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;cursor:default"
+                        title="sports_esports — CONFIRMADO em produção">
+                        <div class="icon-preview-bubble tone-warning"
+                            style="width:42px;height:42px;border-radius:8px;border:2px solid var(--warning)"><span
+                                class="material-symbols-outlined" style="font-size:20px;">sports_esports</span></div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--warning)">sports_esports
+                            ✓</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="videogame_asset">
+                        <div class="icon-preview-bubble tone-warning"
+                            style="width:42px;height:42px;border-radius:8px;opacity:.55">
+                            <span class="material-symbols-outlined" style="font-size:20px;">videogame_asset</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">videogame_asset</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="casino">
+                        <div class="icon-preview-bubble tone-warning" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">casino</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">casino</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="stadia_controller">
+                        <div class="icon-preview-bubble tone-warning" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">stadia_controller</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">stadia_controller</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid var(--border)">
+
+            <!-- Questões -->
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="width:80px;font-size:.78rem;font-weight:600;color:var(--dark)">Questões</span>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="quiz — recomendado">
+                        <div class="icon-preview-bubble tone-primary"
+                            style="width:42px;height:42px;border-radius:8px;border:2px solid var(--primary)"><span
+                                class="material-symbols-outlined" style="font-size:20px;">quiz</span></div>
+                        <span style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">quiz
+                            ★</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="task_alt">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">task_alt</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">task_alt</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="help_outline">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">help_outline</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">help_outline</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="checklist">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">checklist</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">checklist</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid var(--border)">
+
+            <!-- Livros -->
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="width:80px;font-size:.78rem;font-weight:600;color:var(--dark)">Livros</span>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="book_5 — CONFIRMADO em produção">
+                        <div class="icon-preview-bubble tone-primary"
+                            style="width:42px;height:42px;border-radius:8px;border:2px solid var(--primary)"><span
+                                class="material-symbols-outlined" style="font-size:20px;">book_5</span></div>
+                        <span style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--primary)">book_5
+                            ✓</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="library_books">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">library_books</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">library_books</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="auto_stories">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">auto_stories</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">auto_stories</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="checkbook">
+                        <div class="icon-preview-bubble tone-primary" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">checkbook</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">checkbook</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid var(--border)">
+
+            <!-- Vídeos -->
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="width:80px;font-size:.78rem;font-weight:600;color:var(--dark)">Vídeos</span>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="play_circle — recomendado">
+                        <div class="icon-preview-bubble tone-info"
+                            style="width:42px;height:42px;border-radius:8px;border:2px solid var(--info)"><span
+                                class="material-symbols-outlined" style="font-size:20px;">play_circle</span></div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">play_circle
+                            ★</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="videocam">
+                        <div class="icon-preview-bubble tone-info" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">videocam</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">videocam</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="movie">
+                        <div class="icon-preview-bubble tone-info" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">movie</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">movie</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="smart_display">
+                        <div class="icon-preview-bubble tone-info" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">smart_display</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">smart_display</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="border:none;border-top:1px solid var(--border)">
+
+            <!-- Música -->
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <span style="width:80px;font-size:.78rem;font-weight:600;color:var(--dark)">Música</span>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;"
+                        title="music_note — recomendado">
+                        <div class="icon-preview-bubble tone-success"
+                            style="width:42px;height:42px;border-radius:8px;border:2px solid var(--success)"><span
+                                class="material-symbols-outlined" style="font-size:20px;">music_note</span></div>
+                        <span style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">music_note
+                            ★</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="headphones">
+                        <div class="icon-preview-bubble tone-success" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">headphones</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">headphones</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="queue_music">
+                        <div class="icon-preview-bubble tone-success" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">queue_music</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">queue_music</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem;" title="audiotrack">
+                        <div class="icon-preview-bubble tone-success" style="width:42px;height:42px;border-radius:8px">
+                            <span class="material-symbols-outlined" style="font-size:20px;">audiotrack</span>
+                        </div>
+                        <span
+                            style="font-size:.65rem;font-family:'Courier New',monospace;color:var(--muted)">audiotrack</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ────────────────────────────────────── PROBLEMS ── -->
+    <div class="section">
+        <p class="section-title">Conclusões da auditoria em produção</p>
+        <ul class="problems-list">
+            <li>
+                <span class="material-symbols-outlined" style="color:var(--success)">check_circle</span>
+                <div>
+                    <strong>3 de 5 tipos têm ícone confirmado no código de produção</strong> —
+                    <code>sports_esports</code> (Jogos), <code>quiz</code> (Questões) e <code>book_5</code> (Livros)
+                    foram encontrados em componentes reais (<em>MissionReportGames.vue</em>,
+                    <em>teacher.js</em> e <em>GeneralDashboard.vue</em>).
+                </div>
+            </li>
+            <li class="danger">
+                <span class="material-symbols-outlined">error</span>
+                <div>
+                    <strong>Vídeos e Músicas não possuem ícone mapeado em produção</strong> — as abas
+                    na Educateca (<em>LibraryRoot.vue</em>) são definidas apenas com <code>{ title: 'Vídeos' }</code>
+                    e <code>{ title: 'Músicas' }</code>, sem propriedade <code>icon</code>. Os componentes
+                    <em>MeetVideos.vue</em> e <em>MeetMusics.vue</em> não usam nenhum Material Symbol para
+                    representar o tipo de mídia.
+                </div>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">warning</span>
+                <div>
+                    <strong>Não existe um <code>mediaTypeIconMap</code> centralizado em produção</strong> — cada
+                    contexto define seu próprio ícone de forma ad hoc. Recomendado criar o mapa centralizado
+                    abaixo e adotá-lo tanto no protótipo quanto ao implementar em produção.
+                </div>
+            </li>
+            <li>
+                <span class="material-symbols-outlined">info</span>
+                <div>
+                    <strong>Sugestão para Vídeos: <code>smart_display</code></strong> e
+                    <strong>para Músicas: <code>music_note</code></strong> — semanticamente adequados e
+                    disponíveis no Material Symbols Outlined. Adotar no protótipo até que produção defina oficialmente.
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ────────────────────────────────────── CODE BLOCK ── -->
+    <div class="section">
+        <p class="section-title">Código sugerido — mediaTypeIconMap centralizado</p>
+        <pre
+            class="code-block"><span class="code-comment">// FrontOffice/src/shared/mediaTypeIconMap.js</span>
+<span class="code-comment">// Mapa canônico de ícones por tipo de mídia — Material Symbols Outlined</span>
+<span class="code-comment">// Fontes: ✓ confirmado em produção (migration-phase2) | ⚠ sugestão para protótipo</span>
+
+<span class="code-key">export const</span> <span class="code-val">mediaTypeIconMap</span> <span class="code-punc">= {</span>
+  <span class="code-comment">// ✓ MissionReportGames.vue · MediaCard icon="sports_esports"</span>
+  <span class="code-str">jogos</span><span class="code-punc">:    {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'sports_esports'</span><span class="code-punc">,</span>  <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#FF9F43'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'warning'</span> <span class="code-punc">},</span>
+  <span class="code-comment">// ✓ navigation/vertical/teacher.js · { title: 'Avaliações', icon: 'quiz' }</span>
+  <span class="code-str">questoes</span><span class="code-punc">: {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'quiz'</span><span class="code-punc">,</span>             <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#7367F0'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'primary'</span> <span class="code-punc">},</span>
+  <span class="code-comment">// ✓ GeneralDashboard.vue + teacher.js · icon: 'book_5'</span>
+  <span class="code-str">livros</span><span class="code-punc">:   {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'book_5'</span><span class="code-punc">,</span>           <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#7367F0'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'primary'</span> <span class="code-punc">},</span>
+  <span class="code-comment">// ⚠ sem ícone em produção — sugestão para o protótipo</span>
+  <span class="code-str">videos</span><span class="code-punc">:   {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'smart_display'</span><span class="code-punc">,</span>   <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#00CFE8'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'info'</span>    <span class="code-punc">},</span>
+  <span class="code-comment">// ⚠ sem ícone em produção — sugestão para o protótipo</span>
+  <span class="code-str">musica</span><span class="code-punc">:   {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'music_note'</span><span class="code-punc">,</span>      <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#28C76F'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'success'</span> <span class="code-punc">},</span>
+<span class="code-punc">}</span>
+
+<span class="code-comment">// Helper: retorna o ícone para um mediaType, com fallback</span>
+<span class="code-key">export const</span> <span class="code-val">getMediaTypeIcon</span> <span class="code-punc">= (</span><span class="code-key">mediaType</span><span class="code-punc">) =></span>
+  <span class="code-val">mediaTypeIconMap</span><span class="code-punc">[</span><span class="code-key">mediaType</span><span class="code-punc">] ?? {</span> <span class="code-key">icon</span><span class="code-punc">:</span> <span class="code-str">'category'</span><span class="code-punc">,</span> <span class="code-key">color</span><span class="code-punc">:</span> <span class="code-str">'#B9B9C3'</span><span class="code-punc">,</span> <span class="code-key">tone</span><span class="code-punc">:</span> <span class="code-str">'muted'</span> <span class="code-punc">}</span></pre>
+    </div>
+
+    <!-- ────────────────────────────────────── FOOTER ── -->
+    <div class="footer">
+        <span>Ambiente de Prototipação V5 · FrontOffice</span>
+        <span>Material Symbols Outlined · Google Fonts CDN</span>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,2384 @@
+===FILE===FrontOffice/src/components/JourneyPrototypeDrawer.vue
+<template>
+  <teleport to="body">
+    <Transition name="journey-drawer-fade">
+      <div
+        v-if="modelValue"
+        class="journey-drawer-backdrop"
+        @click="closeDrawer"
+      ></div>
+    </Transition>
+
+    <Transition name="journey-drawer-slide">
+      <aside
+        v-if="modelValue"
+        class="journey-drawer"
+        role="dialog"
+        aria-modal="true"
+        :aria-labelledby="titleId"
+      >
+        <header class="journey-drawer-header">
+          <div class="journey-drawer-headline">
+            <div class="journey-drawer-meta">
+              <p class="journey-drawer-eyebrow">Jornada prototipada</p>
+            </div>
+            <h2 :id="titleId" class="journey-drawer-title">
+              {{ journeyTitle }}
+            </h2>
+          </div>
+
+          <div class="journey-drawer-actions">
+            <span class="journey-state-badge journey-state-badge-header" :class="`is-${iframeState}`">
+              {{ iframeStateLabel }}
+            </span>
+
+            <button
+              type="button"
+              class="btn journey-open-full"
+              :disabled="isCtaDisabled"
+              @click="emit('open-full-page')"
+            >
+              Abrir pagina completa
+              <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+            </button>
+
+            <button
+              type="button"
+              class="journey-drawer-toggle"
+              :aria-label="contextToggleLabel"
+              :aria-pressed="isContextCollapsed"
+              :title="contextToggleLabel"
+              @click="toggleContextPanel"
+            >
+              <i
+                class="bi"
+                :class="isContextCollapsed ? 'bi-layout-sidebar-inset' : 'bi-layout-sidebar-inset-reverse'"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            <button
+              ref="closeButtonRef"
+              type="button"
+              class="journey-drawer-close"
+              aria-label="Fechar painel"
+              @click="closeDrawer"
+            >
+              <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+
+        <div
+          class="journey-drawer-body"
+          :class="{ 'is-context-collapsed': isContextCollapsed }"
+        >
+          <section class="journey-drawer-preview" :data-state="iframeState">
+            <div class="journey-preview-stage">
+              <iframe
+                v-if="showIframe"
+                class="journey-preview-iframe"
+                :src="iframeSrc"
+                title="Prototipo da jornada"
+                @load="onIframeLoad"
+                @error="onIframeError"
+              ></iframe>
+
+              <div
+                v-if="overlayVisible"
+                class="journey-preview-overlay"
+                :data-state="iframeState"
+              >
+                <i class="bi bi-window-stack journey-preview-icon" aria-hidden="true"></i>
+                <h3 class="journey-preview-overlay-title">{{ overlayTitle }}</h3>
+                <p class="journey-preview-overlay-text">{{ overlayText }}</p>
+              </div>
+            </div>
+          </section>
+
+          <aside class="journey-drawer-context" :aria-hidden="isContextCollapsed ? 'true' : 'false'">
+            <h3 class="journey-context-title">Contexto da jornada</h3>
+
+            <dl class="journey-context-grid">
+              <div class="journey-context-item">
+                <dt>Persona</dt>
+                <dd>{{ personaName }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Jornada</dt>
+                <dd>{{ journeyTitle }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Build da branch</dt>
+                <dd class="journey-build-meta">
+                  <span class="journey-build-branch">{{ branchText }}</span>
+                  <span class="journey-build-details">{{ buildText }}</span>
+                </dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Status</dt>
+                <dd>{{ statusText }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>JTBD</dt>
+                <dd>{{ jtbdText }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Checklist</dt>
+                <dd>
+                  <ul v-if="checklistItems.length" class="journey-checklist">
+                    <li v-for="(item, index) in checklistItems" :key="`${index}-${item}`">
+                      {{ item }}
+                    </li>
+                  </ul>
+                  <span v-else>Sem checklist</span>
+                </dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Responsavel</dt>
+                <dd>{{ ownerText }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Ultima atualizacao</dt>
+                <dd>{{ lastUpdateText }}</dd>
+              </div>
+
+              <div class="journey-context-item">
+                <dt>Proximo passo</dt>
+                <dd>{{ nextStepText }}</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </aside>
+    </Transition>
+  </teleport>
+</template>
+
+<script setup>
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+
+const props = defineProps({
+  modelValue: { type: Boolean, default: false },
+  journey: { type: Object, default: null },
+  persona: { type: Object, default: null },
+  validationResult: { type: Object, default: null },
+  iframeSrc: { type: String, default: '' },
+  triggerEl: { type: Object, default: null }
+})
+
+const emit = defineEmits(['update:modelValue', 'open-full-page'])
+
+const closeButtonRef = ref(null)
+const iframeReady = ref(false)
+const iframeFailed = ref(false)
+const contextPanelMode = ref('expanded')
+const titleId = `journey-prototype-title-${Math.random().toString(36).slice(2, 10)}`
+const contextPanelStorageKey = 'journey-drawer-context-panel-mode'
+const gitBranch = typeof __GIT_BRANCH__ === 'string' ? __GIT_BRANCH__ : ''
+const gitSha = typeof __GIT_SHA__ === 'string' ? __GIT_SHA__ : ''
+const appVersion = typeof __APP_VERSION__ === 'string' ? __APP_VERSION__ : ''
+
+const isContextCollapsed = computed(() => contextPanelMode.value === 'collapsed')
+const contextToggleLabel = computed(() => {
+  return isContextCollapsed.value ? 'Expandir contexto' : 'Recolher contexto'
+})
+
+const statusFromValidation = computed(() => {
+  const raw = props.validationResult?.state ?? props.validationResult?.status ?? ''
+  return String(raw).trim().toLowerCase()
+})
+
+const isBlocked = computed(() => {
+  if (props.validationResult?.blocked === true) return true
+  return ['blocked', 'bloqueado'].includes(statusFromValidation.value)
+})
+
+const isUnavailable = computed(() => {
+  if (!props.iframeSrc) return true
+  if (props.validationResult?.unavailable === true) return true
+  return ['unavailable', 'indisponivel'].includes(statusFromValidation.value)
+})
+
+const iframeState = computed(() => {
+  if (isBlocked.value) return 'blocked'
+  if (isUnavailable.value) return 'unavailable'
+  if (iframeFailed.value) return 'embedError'
+  if (!iframeReady.value) return 'loading'
+  return 'ready'
+})
+
+const showIframe = computed(() => ['loading', 'ready'].includes(iframeState.value))
+const overlayVisible = computed(() => iframeState.value !== 'ready')
+const isCtaDisabled = computed(() => ['blocked', 'unavailable'].includes(iframeState.value))
+
+const iframeStateLabel = computed(() => {
+  const labels = {
+    loading: 'Carregando',
+    ready: 'Ativo',
+    blocked: 'Bloqueado',
+    embedError: 'Erro de embed',
+    unavailable: 'Indisponivel'
+  }
+  return labels[iframeState.value]
+})
+
+const overlayTitle = computed(() => {
+  const titles = {
+    loading: 'Carregando o prototipo',
+    blocked: 'Visualizacao bloqueada',
+    embedError: 'Nao foi possivel exibir o iframe',
+    unavailable: 'Prototipo indisponivel'
+  }
+  return titles[iframeState.value] ?? ''
+})
+
+const overlayText = computed(() => {
+  if (iframeState.value === 'blocked' || iframeState.value === 'unavailable') {
+    return props.validationResult?.message || props.validationResult?.reason || 'Valide as regras da jornada para prosseguir.'
+  }
+
+  if (iframeState.value === 'embedError') {
+    return 'A exibicao dentro do painel falhou. Tente abrir a pagina completa.'
+  }
+
+  return 'Aguarde alguns segundos enquanto a experiencia e carregada.'
+})
+
+const journeyContext = computed(() => {
+  if (props.journey?.context && typeof props.journey.context === 'object') {
+    return props.journey.context
+  }
+
+  return null
+})
+
+function asReadableText(value) {
+  if (typeof value === 'string' && value.trim()) {
+    return value.trim()
+  }
+
+  return ''
+}
+
+function normalizeChecklist(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map(item => (typeof item === 'string' ? item.trim() : String(item ?? '').trim()))
+      .filter(Boolean)
+  }
+
+  if (typeof value === 'string' && value.trim()) {
+    return [value.trim()]
+  }
+
+  return []
+}
+
+function formatDateForContext(value) {
+  if (!value) return ''
+
+  const raw = String(value).trim()
+  if (!raw) return ''
+
+  if (!raw.includes('-')) {
+    return raw
+  }
+
+  const dateOnlyMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (dateOnlyMatch) {
+    const [, year, month, day] = dateOnlyMatch
+    return `${day}/${month}/${year}`
+  }
+
+  const parsed = new Date(raw)
+  if (Number.isNaN(parsed.getTime())) {
+    return raw
+  }
+
+  return new Intl.DateTimeFormat('pt-BR').format(parsed)
+}
+
+const journeyTitle = computed(() => {
+  return (
+    asReadableText(journeyContext.value?.journeyName) ||
+    asReadableText(props.journey?.title) ||
+    asReadableText(props.journey?.label) ||
+    asReadableText(props.journey?.name) ||
+    'Jornada sem titulo'
+  )
+})
+
+const personaName = computed(() => {
+  return (
+    asReadableText(journeyContext.value?.persona) ||
+    asReadableText(props.persona?.label) ||
+    asReadableText(props.persona?.name) ||
+    'Nao informado'
+  )
+})
+
+const branchText = computed(() => asReadableText(gitBranch) || 'Branch nao informada')
+
+const buildText = computed(() => {
+  const normalizedVersion = asReadableText(appVersion)
+  const normalizedSha = asReadableText(gitSha)
+  const parts = []
+
+  if (normalizedVersion) {
+    parts.push(`v${normalizedVersion}`)
+  }
+
+  if (normalizedSha) {
+    parts.push(normalizedSha)
+  }
+
+  return parts.join(' · ') || 'Build nao informada'
+})
+
+const statusText = computed(() => {
+  if (['blocked', 'unavailable', 'embedError'].includes(iframeState.value)) {
+    return (
+      asReadableText(props.validationResult?.statusLabel) ||
+      asReadableText(props.validationResult?.status) ||
+      'Nao informado'
+    )
+  }
+
+  return (
+    asReadableText(journeyContext.value?.statusLabel) ||
+    asReadableText(props.journey?.status) ||
+    asReadableText(props.validationResult?.statusLabel) ||
+    asReadableText(props.validationResult?.status) ||
+    'Nao informado'
+  )
+})
+
+const jtbdText = computed(() => {
+  return (
+    asReadableText(journeyContext.value?.jtbd) ||
+    asReadableText(props.journey?.jtbd) ||
+    asReadableText(props.journey?.JTBD) ||
+    'Nao informado'
+  )
+})
+
+const checklistItems = computed(() => {
+  const fromContext = normalizeChecklist(journeyContext.value?.checklist)
+  if (fromContext.length) {
+    return fromContext
+  }
+
+  return normalizeChecklist(props.journey?.checklist)
+})
+
+const ownerText = computed(() => {
+  return (
+    asReadableText(journeyContext.value?.owner) ||
+    asReadableText(props.journey?.owner) ||
+    asReadableText(props.validationResult?.owner) ||
+    'Nao informado'
+  )
+})
+
+const lastUpdateText = computed(() => {
+  const fromContext = formatDateForContext(journeyContext.value?.lastUpdate)
+  if (fromContext) {
+    return fromContext
+  }
+
+  const fromJourney = formatDateForContext(props.journey?.lastUpdate)
+  if (fromJourney) {
+    return fromJourney
+  }
+
+  return asReadableText(props.validationResult?.lastUpdate) || 'Nao informado'
+})
+
+const nextStepText = computed(() => {
+  return (
+    asReadableText(journeyContext.value?.nextStep) ||
+    asReadableText(props.journey?.nextStep) ||
+    asReadableText(props.validationResult?.nextStep) ||
+    'Nao informado'
+  )
+})
+
+function resetIframeState() {
+  iframeReady.value = false
+  iframeFailed.value = false
+}
+
+function closeDrawer() {
+  emit('update:modelValue', false)
+}
+
+function persistContextPanelMode() {
+  if (typeof window === 'undefined') return
+  window.sessionStorage.setItem(contextPanelStorageKey, contextPanelMode.value)
+}
+
+function restoreContextPanelMode() {
+  if (typeof window === 'undefined') return
+  const persisted = window.sessionStorage.getItem(contextPanelStorageKey)
+  if (persisted === 'collapsed' || persisted === 'expanded') {
+    contextPanelMode.value = persisted
+  }
+}
+
+function toggleContextPanel() {
+  contextPanelMode.value = isContextCollapsed.value ? 'expanded' : 'collapsed'
+  persistContextPanelMode()
+}
+
+function onIframeLoad() {
+  iframeReady.value = true
+  iframeFailed.value = false
+}
+
+function onIframeError() {
+  iframeReady.value = false
+  iframeFailed.value = true
+}
+
+function lockBodyScroll() {
+  document.body.style.overflow = 'hidden'
+}
+
+function unlockBodyScroll() {
+  document.body.style.overflow = ''
+}
+
+function restoreTriggerFocus() {
+  if (props.triggerEl && typeof props.triggerEl.focus === 'function') {
+    props.triggerEl.focus()
+  }
+}
+
+function handleEscKey(event) {
+  if (event.key === 'Escape' && props.modelValue) {
+    closeDrawer()
+  }
+}
+
+watch(() => props.modelValue, async (isOpen) => {
+  if (isOpen) {
+    resetIframeState()
+    lockBodyScroll()
+    await nextTick()
+    closeButtonRef.value?.focus()
+    return
+  }
+
+  unlockBodyScroll()
+  restoreTriggerFocus()
+})
+
+watch(() => props.iframeSrc, () => {
+  if (props.modelValue) {
+    resetIframeState()
+  }
+})
+
+onMounted(() => {
+  restoreContextPanelMode()
+  document.addEventListener('keydown', handleEscKey)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleEscKey)
+  unlockBodyScroll()
+})
+</script>
+
+<style scoped>
+.journey-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1090;
+  background: color-mix(in srgb, var(--black) 64%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.journey-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(100vw, 100%);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--gray-900) 96%, var(--black));
+  color: color-mix(in srgb, var(--white) 92%, var(--gray-100));
+  box-shadow: var(--shadow-lg);
+}
+
+.journey-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: 0.95rem 1.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray-700) 58%, var(--black));
+  background: color-mix(in srgb, var(--gray-900) 88%, var(--black));
+}
+
+.journey-drawer-headline {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.journey-drawer-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.journey-drawer-eyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--gray-400) 72%, var(--white));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.journey-drawer-title {
+  margin: 0;
+  font-size: 1.55rem;
+  line-height: 1.18;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: color-mix(in srgb, var(--white) 94%, var(--gray-200));
+}
+
+.journey-drawer-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.journey-drawer-toggle,
+.journey-drawer-close {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid color-mix(in srgb, var(--gray-600) 68%, var(--black));
+  border-radius: calc(var(--radius-sm) + 0.12rem);
+  background: color-mix(in srgb, var(--gray-800) 86%, var(--black));
+  color: color-mix(in srgb, var(--gray-300) 78%, var(--white));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.journey-drawer-toggle i,
+.journey-drawer-close i {
+  font-size: 0.85rem;
+}
+
+.journey-drawer-toggle:hover,
+.journey-drawer-toggle:focus-visible,
+.journey-drawer-close:hover,
+.journey-drawer-close:focus-visible {
+  color: color-mix(in srgb, var(--white) 96%, var(--gray-100));
+  border-color: color-mix(in srgb, var(--gray-500) 70%, var(--primary));
+  background: color-mix(in srgb, var(--gray-700) 84%, var(--black));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.journey-drawer-toggle:active,
+.journey-drawer-close:active {
+  transform: translateY(1px);
+}
+
+.journey-drawer-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.8fr minmax(15rem, 0.7fr);
+  transition: grid-template-columns var(--transition-base);
+}
+
+.journey-drawer-body.is-context-collapsed {
+  grid-template-columns: minmax(0, 1fr) 0;
+}
+
+.journey-drawer-preview {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid color-mix(in srgb, var(--gray-700) 58%, var(--black));
+}
+
+.journey-state-badge-header {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.journey-state-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0 0.62rem;
+  font-size: 0.66rem;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid color-mix(in srgb, var(--gray-600) 66%, var(--black));
+  border-radius: calc(var(--radius-sm) + 0.12rem);
+  background: color-mix(in srgb, var(--gray-800) 84%, var(--black));
+  color: color-mix(in srgb, var(--gray-300) 76%, var(--white));
+  white-space: nowrap;
+}
+
+.journey-state-badge.is-loading {
+  color: var(--info-dark);
+  border-color: color-mix(in srgb, var(--info) 28%, var(--ec-border));
+  background: color-mix(in srgb, var(--info) 8%, var(--white));
+}
+
+.journey-state-badge.is-ready {
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 20%, transparent);
+  background: color-mix(in srgb, var(--success) 10%, transparent);
+}
+
+.journey-state-badge.is-blocked,
+.journey-state-badge.is-embedError,
+.journey-state-badge.is-unavailable {
+  color: var(--danger-dark);
+  border-color: color-mix(in srgb, var(--danger) 28%, var(--ec-border));
+  background: color-mix(in srgb, var(--danger) 8%, var(--white));
+}
+
+.journey-preview-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: color-mix(in srgb, var(--gray-800) 78%, var(--black));
+  border-left: 1px solid color-mix(in srgb, var(--gray-600) 56%, var(--black));
+  border-right: 1px solid color-mix(in srgb, var(--gray-600) 56%, var(--black));
+  border-bottom: 1px solid color-mix(in srgb, var(--gray-600) 56%, var(--black));
+  border-radius: calc(var(--radius-md) + 0.1rem);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gray-700) 52%, var(--black));
+}
+
+.journey-preview-iframe {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--gray-500) 30%, var(--white));
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--gray-700) 54%, var(--black)), 0 14px 30px color-mix(in srgb, var(--black) 42%, transparent);
+  background: var(--white);
+}
+
+.journey-preview-overlay {
+  position: absolute;
+  inset: 0.45rem;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xl);
+  border: 1px solid color-mix(in srgb, var(--gray-600) 58%, var(--black));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--black) 58%, transparent);
+}
+
+.journey-preview-icon {
+  font-size: 1.625rem;
+  color: color-mix(in srgb, var(--gray-300) 84%, var(--white));
+}
+
+.journey-preview-overlay-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: color-mix(in srgb, var(--white) 94%, var(--gray-100));
+}
+
+.journey-preview-overlay-text {
+  margin: 0;
+  max-width: 30rem;
+  color: color-mix(in srgb, var(--gray-300) 80%, var(--white));
+  font-size: var(--font-size-sm);
+}
+
+.journey-open-full {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.32rem;
+  width: auto;
+  min-height: 2rem;
+  padding: 0.38rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--gray-600) 64%, var(--black));
+  background: color-mix(in srgb, var(--gray-800) 86%, var(--black));
+  color: color-mix(in srgb, var(--gray-200) 84%, var(--white));
+  border-radius: calc(var(--radius-sm) + 0.12rem);
+  letter-spacing: 0.005em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.journey-open-full i {
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.journey-open-full:hover,
+.journey-open-full:focus-visible {
+  border-color: color-mix(in srgb, var(--gray-500) 72%, var(--primary));
+  background: color-mix(in srgb, var(--gray-700) 84%, var(--black));
+  color: color-mix(in srgb, var(--white) 94%, var(--gray-100));
+}
+
+.journey-open-full:disabled {
+  border-color: color-mix(in srgb, var(--gray-700) 62%, var(--black));
+  color: color-mix(in srgb, var(--gray-500) 72%, var(--white));
+  background: color-mix(in srgb, var(--gray-800) 78%, var(--black));
+}
+
+.journey-drawer-context {
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: color-mix(in srgb, var(--gray-900) 90%, var(--black));
+  transition: padding var(--transition-base), opacity var(--transition-base);
+}
+
+.journey-drawer-body.is-context-collapsed .journey-drawer-preview {
+  border-right: 0;
+}
+
+.journey-drawer-body.is-context-collapsed .journey-drawer-context {
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.journey-context-title {
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: color-mix(in srgb, var(--white) 90%, var(--gray-100));
+}
+
+.journey-context-grid {
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.journey-context-item {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray-700) 56%, var(--black));
+}
+
+.journey-context-item dt {
+  margin-bottom: 0.25rem;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--gray-500) 70%, var(--white));
+  font-weight: 700;
+}
+
+.journey-context-item dd {
+  margin: 0;
+  color: color-mix(in srgb, var(--gray-200) 82%, var(--white));
+  font-size: var(--font-size-sm);
+}
+
+.journey-build-meta {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.journey-build-branch {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--white) 94%, var(--gray-100));
+}
+
+.journey-build-details {
+  color: color-mix(in srgb, var(--gray-400) 76%, var(--white));
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.02em;
+}
+
+.journey-checklist {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.journey-drawer-fade-enter-active,
+.journey-drawer-fade-leave-active {
+  transition: opacity var(--transition-base);
+}
+
+.journey-drawer-fade-enter-from,
+.journey-drawer-fade-leave-to {
+  opacity: 0;
+}
+
+.journey-drawer-slide-enter-active,
+.journey-drawer-slide-leave-active {
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.journey-drawer-slide-enter-from,
+.journey-drawer-slide-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+@media (max-width: 992px) {
+  .journey-drawer-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    justify-content: start;
+    gap: 0.55rem;
+    padding: 0.875rem 1.1rem;
+  }
+
+  .journey-drawer-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: 0.35rem;
+  }
+
+  .journey-drawer-toggle {
+    display: none;
+  }
+
+  .journey-drawer-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .journey-drawer-body.is-context-collapsed {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .journey-drawer-preview {
+    border-right: 0;
+    border-bottom: 1px solid var(--ec-border);
+  }
+
+  .journey-drawer-context {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .journey-open-full {
+    width: auto;
+    min-height: 1.9rem;
+    font-size: 0.75rem;
+  }
+
+  .journey-drawer-body.is-context-collapsed .journey-drawer-context {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    opacity: 1;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .journey-drawer-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .journey-drawer-context {
+    max-height: 42vh;
+  }
+}
+</style>
+===END===
+===FILE===FrontOffice/src/composables/useJourneyPrototypeDrawer.js
+import { ref } from 'vue'
+import { validateIframeTarget } from '@/utils/iframeWhitelist'
+import { logIframeAccessBlocked } from '@/utils/iframeAudit'
+
+function resolveJourneyTarget(journey) {
+    if (!journey || typeof journey !== 'object') {
+        return ''
+    }
+
+    const experienceTarget = typeof journey.experienceTarget === 'string'
+        ? journey.experienceTarget.trim()
+        : ''
+
+    if (experienceTarget) {
+        return experienceTarget
+    }
+
+    const routeTarget = typeof journey.route === 'string' ? journey.route.trim() : ''
+    return routeTarget
+}
+
+function toBlockedResult(validation, target) {
+    return {
+        state: 'blocked',
+        status: 'Bloqueado',
+        statusLabel: 'Bloqueado',
+        blocked: true,
+        reasonCode: validation.reasonCode,
+        kind: validation.kind,
+        normalizedUrl: validation.normalizedUrl,
+        target,
+        message: 'Destino bloqueado pela whitelist de iframe.'
+    }
+}
+
+function toUnavailableResult(reasonCode, target) {
+    return {
+        state: 'unavailable',
+        status: 'Indisponivel',
+        statusLabel: 'Indisponivel',
+        unavailable: true,
+        reasonCode,
+        kind: 'invalid',
+        normalizedUrl: '',
+        target,
+        message: 'A jornada ainda nao possui um destino valido para visualizacao.'
+    }
+}
+
+function toAllowedResult(validation, target) {
+    return {
+        state: 'ready',
+        status: 'Ativo',
+        statusLabel: 'Ativo',
+        blocked: false,
+        unavailable: false,
+        reasonCode: validation.reasonCode,
+        kind: validation.kind,
+        normalizedUrl: validation.normalizedUrl,
+        target,
+        message: ''
+    }
+}
+
+function appendQueryParam(url, key, value) {
+    if (typeof url !== 'string' || !url.trim()) {
+        return url
+    }
+
+    const [pathAndQuery, hashPart = ''] = url.split('#')
+    const hashSuffix = hashPart ? `#${hashPart}` : ''
+    const queryStart = pathAndQuery.indexOf('?')
+    const hasQuery = queryStart >= 0
+    const basePath = hasQuery ? pathAndQuery.slice(0, queryStart) : pathAndQuery
+    const existingQuery = hasQuery ? pathAndQuery.slice(queryStart + 1) : ''
+
+    const params = new URLSearchParams(existingQuery)
+    params.set(key, value)
+
+    return `${basePath}?${params.toString()}${hashSuffix}`
+}
+
+function normalizeInternalIframeSrc(validation, target) {
+    if (validation && validation.kind === 'internal') {
+        const internalTarget = validation.normalizedUrl || target
+        return appendQueryParam(internalTarget, 'embed', 'drawer')
+    }
+
+    return (validation && validation.normalizedUrl) || target
+}
+
+function logBlocked(journey, persona, target, reasonCode) {
+    logIframeAccessBlocked({
+        journeyId: journey?.id || 'unknown',
+        personaId: persona?.id || 'unknown',
+        target,
+        reasonCode: reasonCode || 'UNKNOWN_REASON'
+    })
+}
+
+export function useJourneyPrototypeDrawer(options = {}) {
+    const router = options.router
+
+    const isOpen = ref(false)
+    const activeJourney = ref(null)
+    const activePersona = ref(null)
+    const triggerEl = ref(null)
+    const validationResult = ref(null)
+    const iframeSrc = ref('')
+
+    function openJourneyDrawer({ journey, persona, triggerElement }) {
+        activeJourney.value = journey || null
+        activePersona.value = persona || null
+        triggerEl.value = triggerElement || null
+
+        const target = resolveJourneyTarget(journey)
+
+        if (!target) {
+            validationResult.value = toUnavailableResult('EMPTY_TARGET', target)
+            iframeSrc.value = ''
+            isOpen.value = true
+            return
+        }
+
+        const validation = validateIframeTarget(target)
+
+        if (!validation.allowed) {
+            validationResult.value = toBlockedResult(validation, target)
+            iframeSrc.value = ''
+            logBlocked(journey, persona, target, validation.reasonCode)
+            isOpen.value = true
+            return
+        }
+
+        validationResult.value = toAllowedResult(validation, target)
+        iframeSrc.value = normalizeInternalIframeSrc(validation, target)
+        isOpen.value = true
+    }
+
+    function closeJourneyDrawer() {
+        isOpen.value = false
+    }
+
+    function openFullPage() {
+        const journey = activeJourney.value
+        const persona = activePersona.value
+        const target = resolveJourneyTarget(journey)
+
+        if (!target) {
+            validationResult.value = toUnavailableResult('EMPTY_TARGET', target)
+            return
+        }
+
+        const validation = validateIframeTarget(target)
+
+        if (!validation.allowed) {
+            validationResult.value = toBlockedResult(validation, target)
+            logBlocked(journey, persona, target, validation.reasonCode)
+            return
+        }
+
+        validationResult.value = toAllowedResult(validation, target)
+
+        if (validation.kind === 'internal') {
+            const internalTarget = validation.normalizedUrl || target
+            if (router && typeof router.push === 'function') {
+                router.push(internalTarget)
+            } else if (typeof window !== 'undefined') {
+                window.location.assign(internalTarget)
+            }
+            return
+        }
+
+        const externalTarget = validation.normalizedUrl || target
+        if (typeof window !== 'undefined') {
+            window.open(externalTarget, '_blank', 'noopener,noreferrer')
+        }
+    }
+
+    return {
+        isOpen,
+        activeJourney,
+        activePersona,
+        triggerEl,
+        validationResult,
+        iframeSrc,
+        openJourneyDrawer,
+        closeJourneyDrawer,
+        openFullPage
+    }
+}
+===END===
+===FILE===FrontOffice/src/config/iframeWhitelist.ts
+export const INTERNAL_PATH_PREFIXES = [
+    '/',
+    '/teacher',
+    '/student',
+    '/coordinator',
+    '/director',
+    '/administrator',
+    '/network-manager'
+]
+
+export const EXTERNAL_ALLOWED = [
+    {
+        origin: 'https://www.youtube.com',
+        pathPrefixes: ['/embed/']
+    },
+    {
+        origin: 'https://youtube.com',
+        pathPrefixes: ['/embed/']
+    },
+    {
+        origin: 'https://player.vimeo.com',
+        pathPrefixes: ['/video/']
+    }
+]
+
+export const IFRAME_WHITELIST_CONFIG = {
+    internalPathPrefixes: INTERNAL_PATH_PREFIXES,
+    externalAllowed: EXTERNAL_ALLOWED,
+    prohibitedSchemes: ['javascript:', 'data:', 'file:']
+}
+===END===
+===FILE===FrontOffice/src/data/journeys.ts
+import type { Journey } from '../types/journey'
+
+export interface PersonaJourneys {
+    id: string
+    name: string
+    icon: string
+    color: string
+    description: string
+    route?: string
+    journeys: Journey[]
+}
+
+export const personasJourneys: PersonaJourneys[] = [
+    {
+        id: 'teacher',
+        name: 'Professor',
+        icon: 'manage_accounts',
+        color: '#7367F0',
+        description: 'Gestao de turmas, missoes e acompanhamento de alunos',
+        route: '/teacher',
+        journeys: [
+            {
+                id: 'PROF-PROT-001',
+                label: 'Dashboard Professor',
+                icon: 'view_sidebar',
+                route: '/professor',
+                experienceTarget: '/professor',
+                status: 'Ativo',
+                jtbd: 'Centralizar o acesso rapido do professor para as jornadas prioritarias do dia.',
+                checklist: [
+                    'Validar hierarquia de navegacao entre menu e conteudo principal',
+                    'Conferir consistencia dos estados ativo e hover nos itens',
+                    'Testar responsividade da barra lateral em telas pequenas'
+                ],
+                owner: 'Squad FrontOffice',
+                lastUpdate: '2026-03-05',
+                nextStep: 'Consolidar feedback de usabilidade com 2 professores piloto.'
+            },
+            {
+                id: 'PROF-CAL-001',
+                label: 'Calendario de Eventos',
+                icon: 'calendar_month',
+                route: '/teacher/calendar',
+                experienceTarget: '/teacher/calendar',
+                status: 'Ativo',
+                jtbd: 'Planejar a rotina pedagogica semanal com visao clara de eventos e conflitos.',
+                checklist: [
+                    'Garantir exibicao de eventos multi-dia sem sobreposicao incorreta',
+                    'Validar criacao e edicao pelo drawer de evento',
+                    'Confirmar filtros de periodo em desktop e mobile'
+                ],
+                owner: 'Modulo Calendario',
+                lastUpdate: '2026-03-05',
+                nextStep: 'Executar rodada de refinamento visual com base no snapshot atual.'
+            },
+            {
+                id: 'PROF-001',
+                label: 'Livros do Sistema Educacional',
+                icon: 'menu_book',
+                route: '/teacher/trilhas-az',
+                experienceTarget: '/teacher/trilhas-az',
+                status: 'Ativo',
+                jtbd: 'Acessar trilhas organizadas para planejar a aplicacao pedagogica por etapa.',
+                checklist: [
+                    'Checar ordenacao das trilhas por eixo e serie',
+                    'Validar estados de carregamento e vazio',
+                    'Confirmar navegacao para detalhes da trilha selecionada'
+                ],
+                owner: 'Modulo Sistema de Ensino',
+                lastUpdate: '2026-03-05',
+                nextStep: 'Detalhar criterios de curadoria para publicacao de novas trilhas.'
+            },
+            {
+                id: 'PROF-PROT-002',
+                label: 'Missoes da Escola',
+                icon: 'flag',
+                route: '/professor/missoes',
+                experienceTarget: '/professor/missoes',
+                status: 'Ativo',
+                jtbd: 'Priorizar intervencoes pedagogicas com base no status atual das missoes.',
+                checklist: [
+                    'Validar filtros de status por turma',
+                    'Conferir destaque de prazo critico e pendencias',
+                    'Testar abertura de detalhes sem perda de contexto'
+                ],
+                owner: 'Squad Missoes',
+                lastUpdate: '2026-03-05',
+                nextStep: 'Ajustar indicadores de urgencia com base em regras de negocio.'
+            },
+            { id: 'PROF-002', label: 'Missoes do Livro do Sistema Educacional', icon: 'flag', route: null, status: 'Planejado' },
+            { id: 'PROF-003', label: 'Missoes Personalizadas', icon: 'assignment_add', route: null, status: 'Planejado' },
+            { id: 'PROF-004', label: 'Gestao de Eventos', icon: 'event_note', route: null, status: 'Planejado' }
+        ]
+    },
+    {
+        id: 'student',
+        name: 'Aluno',
+        icon: 'school',
+        color: '#00CFE8',
+        description: 'Missoes, conquistas e progresso individual',
+        journeys: [
+            { id: 'ALUNO-001', label: 'Acessar Missoes', icon: 'flag', route: null, status: 'Planejado' },
+            { id: 'ALUNO-002', label: 'Completar Atividades', icon: 'task_alt', route: null, status: 'Planejado' },
+            { id: 'ALUNO-003', label: 'Ver Conquistas', icon: 'emoji_events', route: null, status: 'Planejado' },
+            { id: 'ALUNO-004', label: 'Receber Feedback', icon: 'reviews', route: null, status: 'Planejado' }
+        ]
+    },
+    {
+        id: 'coordinator',
+        name: 'Coordenador',
+        icon: 'account_tree',
+        color: '#28C76F',
+        description: 'Coordenacao pedagogica e gestao de turmas',
+        journeys: [
+            { id: 'COORD-001', label: 'Gestao Pedagogica', icon: 'account_tree', route: null, status: 'Planejado' },
+            { id: 'COORD-002', label: 'Suporte a Professores', icon: 'support_agent', route: null, status: 'Planejado' },
+            { id: 'COORD-003', label: 'Analise de Turmas', icon: 'bar_chart', route: null, status: 'Planejado' }
+        ]
+    },
+    {
+        id: 'director',
+        name: 'Diretor',
+        icon: 'apartment',
+        color: '#FF9F43',
+        description: 'Gestao escolar e indicadores estrategicos',
+        journeys: [
+            { id: 'DIR-001', label: 'Indicadores Estrategicos', icon: 'insights', route: null, status: 'Planejado' },
+            { id: 'DIR-002', label: 'Gestao de Recursos', icon: 'inventory_2', route: null, status: 'Planejado' },
+            { id: 'DIR-003', label: 'Relatorios Gerenciais', icon: 'summarize', route: null, status: 'Planejado' }
+        ]
+    },
+    {
+        id: 'administrator',
+        name: 'Administrador',
+        icon: 'settings',
+        color: '#EA5455',
+        description: 'Configuracao do sistema e gestao de usuarios',
+        journeys: [
+            { id: 'ADM-001', label: 'Gerenciar Usuarios', icon: 'manage_accounts', route: null, status: 'Planejado' },
+            { id: 'ADM-002', label: 'Configurar Sistema', icon: 'build', route: null, status: 'Planejado' },
+            { id: 'ADM-003', label: 'Logs e Auditoria', icon: 'policy', route: null, status: 'Planejado' }
+        ]
+    },
+    {
+        id: 'network-manager',
+        name: 'Gestor de Rede',
+        icon: 'language',
+        color: '#9E95F5',
+        description: 'Gestao de multiplas escolas e indicadores de rede',
+        journeys: [
+            { id: 'REDE-001', label: 'Visao Geral da Rede', icon: 'hub', route: null, status: 'Planejado' },
+            { id: 'REDE-002', label: 'Comparacoes', icon: 'compare_arrows', route: null, status: 'Planejado' },
+            { id: 'REDE-003', label: 'Planejamento Estrategico', icon: 'route', route: null, status: 'Planejado' }
+        ]
+    }
+]
+===END===
+===FILE===FrontOffice/src/types/journey.ts
+export type JourneyStatus = 'Ativo' | 'Planejado'
+
+export interface JourneyContext {
+    persona?: string
+    journeyName?: string
+    statusLabel?: JourneyStatus | string
+    jtbd: string
+    checklist: string[]
+    owner: string
+    lastUpdate: string
+    nextStep: string
+    completionPercent?: number
+}
+
+export interface JourneyExperience {
+    target: string
+    targetType?: 'internal' | 'external'
+    openInNewTabLabel?: string
+}
+
+export interface Journey {
+    id: string
+    label: string
+    icon: string
+    route: string | null
+    status: JourneyStatus | string
+    experienceTarget?: string
+    jtbd?: string
+    checklist?: string[]
+    owner?: string
+    lastUpdate?: string
+    nextStep?: string
+    context?: JourneyContext
+    experience?: JourneyExperience
+}
+
+export interface IframeValidationResult {
+    kind: 'internal' | 'external-allowed' | 'external-blocked' | 'invalid'
+    allowed: boolean
+    reasonCode:
+    | 'OK'
+    | 'INVALID_TARGET'
+    | 'PROHIBITED_SCHEME'
+    | 'INTERNAL_PATH_NOT_ALLOWED'
+    | 'MALFORMED_URL'
+    | 'UNSUPPORTED_PROTOCOL'
+    | 'EXTERNAL_NOT_ALLOWED'
+    | string
+    normalizedUrl: string
+    origin: string
+    path: string
+}
+===END===
+===FILE===FrontOffice/src/utils/iframeAudit.js
+export function logIframeAccessBlocked(payload) {
+    const data = payload && typeof payload === "object" ? payload : {}
+
+    const entry = {
+        timestamp: new Date().toISOString(),
+        journeyId: data.journeyId || "unknown",
+        personaId: data.personaId || "unknown",
+        target: data.target || "",
+        reasonCode: data.reasonCode || "UNKNOWN_REASON"
+    }
+
+    console.warn("[iframe-access-blocked]", entry)
+}
+===END===
+===FILE===FrontOffice/src/utils/iframeWhitelist.js
+import { IFRAME_WHITELIST_CONFIG as IFRAME_WHITELIST_BASE_CONFIG } from '@/config/iframeWhitelist'
+
+export const IFRAME_WHITELIST_CONFIG = IFRAME_WHITELIST_BASE_CONFIG
+
+function normalizePath(value) {
+    if (typeof value !== "string") {
+        return ""
+    }
+
+    const trimmed = value.trim()
+    if (!trimmed) {
+        return ""
+    }
+
+    return trimmed.startsWith("/") ? trimmed : "/" + trimmed
+}
+
+function hasPathPrefix(pathname, prefixes) {
+    return prefixes.some(function (prefix) {
+        return pathname.startsWith(prefix)
+    })
+}
+
+function isProhibitedScheme(target, prohibitedSchemes) {
+    const lowerTarget = target.toLowerCase()
+    return prohibitedSchemes.some(function (scheme) {
+        return lowerTarget.startsWith(scheme)
+    })
+}
+
+export function validateIframeTarget(target, config = IFRAME_WHITELIST_CONFIG) {
+    const defaultResponse = {
+        kind: "invalid",
+        allowed: false,
+        reasonCode: "INVALID_TARGET",
+        normalizedUrl: "",
+        origin: "",
+        path: ""
+    }
+
+    if (typeof target !== "string") {
+        return defaultResponse
+    }
+
+    const rawTarget = target.trim()
+    if (!rawTarget) {
+        return defaultResponse
+    }
+
+    const prohibitedSchemes = (config && config.prohibitedSchemes) || []
+    if (isProhibitedScheme(rawTarget, prohibitedSchemes)) {
+        return {
+            kind: "invalid",
+            allowed: false,
+            reasonCode: "PROHIBITED_SCHEME",
+            normalizedUrl: "",
+            origin: "",
+            path: ""
+        }
+    }
+
+    const looksInternal =
+        rawTarget.startsWith("/") ||
+        rawTarget.startsWith("./") ||
+        rawTarget.startsWith("../") ||
+        rawTarget.startsWith("#")
+
+    if (looksInternal) {
+        const normalizedPath = normalizePath(rawTarget.split(/[?#]/)[0])
+        const internalPrefixes = (config && config.internalPathPrefixes) || []
+
+        if (!normalizedPath || !hasPathPrefix(normalizedPath, internalPrefixes)) {
+            return {
+                kind: "internal",
+                allowed: false,
+                reasonCode: "INTERNAL_PATH_NOT_ALLOWED",
+                normalizedUrl: normalizedPath,
+                origin: "",
+                path: normalizedPath
+            }
+        }
+
+        return {
+            kind: "internal",
+            allowed: true,
+            reasonCode: "OK",
+            normalizedUrl: normalizedPath,
+            origin: "",
+            path: normalizedPath
+        }
+    }
+
+    let parsed
+    try {
+        parsed = new URL(rawTarget)
+    } catch (error) {
+        return {
+            kind: "invalid",
+            allowed: false,
+            reasonCode: "MALFORMED_URL",
+            normalizedUrl: "",
+            origin: "",
+            path: ""
+        }
+    }
+
+    const protocol = parsed.protocol.toLowerCase()
+    if (protocol !== "http:" && protocol !== "https:") {
+        return {
+            kind: "invalid",
+            allowed: false,
+            reasonCode: "UNSUPPORTED_PROTOCOL",
+            normalizedUrl: parsed.href,
+            origin: parsed.origin,
+            path: parsed.pathname
+        }
+    }
+
+    const normalizedOrigin = parsed.origin.toLowerCase()
+    const pathname = parsed.pathname || "/"
+    const normalizedUrl = parsed.href
+    const externalAllowed = (config && config.externalAllowed) || []
+
+    const matched = externalAllowed.find(function (entry) {
+        const entryOrigin = String(entry.origin || "").toLowerCase()
+        const prefixes = Array.isArray(entry.pathPrefixes) ? entry.pathPrefixes : []
+        return entryOrigin === normalizedOrigin && hasPathPrefix(pathname, prefixes)
+    })
+
+    if (!matched) {
+        return {
+            kind: "external-blocked",
+            allowed: false,
+            reasonCode: "EXTERNAL_NOT_ALLOWED",
+            normalizedUrl: normalizedUrl,
+            origin: normalizedOrigin,
+            path: pathname
+        }
+    }
+
+    return {
+        kind: "external-allowed",
+        allowed: true,
+        reasonCode: "OK",
+        normalizedUrl: normalizedUrl,
+        origin: normalizedOrigin,
+        path: pathname
+    }
+}
+===END===
+===FILE===FrontOffice/src/views/Home.vue
+<script setup>
+import { ref, computed } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import JourneyPrototypeDrawer from '@/components/JourneyPrototypeDrawer.vue'
+import { useJourneyPrototypeDrawer } from '@/composables/useJourneyPrototypeDrawer'
+import { personasJourneys } from '@/data/journeys'
+
+// URL da wiki: localhost:3000 em dev, GitHub Pages /wiki/ em build
+const wikiUrl = __WIKI_URL__
+const router = useRouter()
+
+/** Converte hex + alpha (0-1) para rgba */
+const hexAlpha = (hex, a) => {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r},${g},${b},${a})`
+}
+
+const journeyIconStyle = (color) => ({
+  background: hexAlpha(color, 0.13),
+  borderColor: hexAlpha(color, 0.22),
+  color
+})
+
+const {
+  isOpen: isJourneyDrawerOpen,
+  activeJourney: activeDrawerJourney,
+  activePersona: activeDrawerPersona,
+  triggerEl: drawerTriggerEl,
+  validationResult: drawerValidationResult,
+  iframeSrc: drawerIframeSrc,
+  openJourneyDrawer,
+  closeJourneyDrawer,
+  openFullPage
+} = useJourneyPrototypeDrawer({ router })
+
+const handleOpenJourneyDrawer = (journey, persona, event) => {
+  openJourneyDrawer({
+    journey,
+    persona,
+    triggerElement: event?.currentTarget ?? null
+  })
+}
+
+const handleDrawerModelValue = (isOpen) => {
+  if (!isOpen) {
+    closeJourneyDrawer()
+  }
+}
+
+const handleQuickAccessClick = (link, event) => {
+  const persona = personas.value.find((p) => p.id === link.personaId) || null
+
+  if (link?.route && persona) {
+    handleOpenJourneyDrawer(link, persona, event)
+    return
+  }
+
+  if (link?.route) {
+    router.push(link.route)
+  }
+}
+
+// Master-detail inline
+const selectedPersonaId = ref(null)
+const selectedPersona   = computed(() => personas.value.find(p => p.id === selectedPersonaId.value) ?? null)
+const selectPersona     = (id) => { selectedPersonaId.value = id }
+const goHome            = () => { selectedPersonaId.value = null }
+
+// Acesso rápido — jornadas com rota ativa, cap 4
+const QUICK_CAP = 4
+const allQuickLinks = computed(() =>
+  personas.value.flatMap(p =>
+    (p.journeys ?? []).filter(j => j.route).map(j => ({
+      ...j, personaId: p.id, personaName: p.name, personaColor: p.color, personaIcon: p.icon
+    }))
+  )
+)
+const quickLinks    = computed(() => allQuickLinks.value.slice(0, QUICK_CAP))
+const hasMoreLinks  = computed(() => allQuickLinks.value.length > QUICK_CAP)
+
+// Stats computados do estado real das personas
+const totalJornadas  = computed(() => personas.value.flatMap(p => p.journeys).length)
+const jornadasAtivas = computed(() => personas.value.flatMap(p => p.journeys).filter(j => j.route).length)
+const coberturaPercent = computed(() => totalJornadas.value ? Math.round(jornadasAtivas.value / totalJornadas.value * 100) : 0)
+const personasProgress = computed(() => personas.value.map(p => ({
+  ...p,
+  ativas: p.journeys.filter(j => j.route).length,
+  total:  p.journeys.length,
+  pct:    p.journeys.length ? Math.round(p.journeys.filter(j => j.route).length / p.journeys.length * 100) : 0
+})))
+
+const personas = ref(personasJourneys)
+</script>
+
+<template>
+  <div class="shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img src="@/assets/images/MainLogo-white.svg" alt="Educacross" class="brand-logo-img" />
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-label">Navegação</span>
+        <a
+          class="nav-link"
+          :class="{ active: !selectedPersonaId }"
+          href="#"
+          @click.prevent="goHome"
+        >
+          <span class="material-symbols-outlined">home</span> Início
+        </a>
+
+        <span class="nav-label nav-label--personas">Personas</span>
+        <button
+          v-for="persona in personas"
+          :key="persona.id"
+          type="button"
+          class="nav-persona"
+          :class="{ 'nav-persona--active': selectedPersonaId === persona.id }"
+          :style="{ '--p-color': persona.color }"
+          :aria-label="'Ver jornadas de ' + persona.name"
+          :aria-current="selectedPersonaId === persona.id ? 'page' : undefined"
+          @click="selectPersona(persona.id)"
+        >
+          <span class="material-symbols-outlined nav-persona-icon" aria-hidden="true">{{ persona.icon }}</span>
+          <span class="nav-persona-name">{{ persona.name }}</span>
+          <span class="material-symbols-outlined nav-persona-arrow" aria-hidden="true">chevron_right</span>
+        </button>
+
+        <span class="nav-label">Recursos</span>
+        <RouterLink class="nav-link" to="/sobre">
+          <span class="material-symbols-outlined">info</span> Sobre
+        </RouterLink>
+        <a class="nav-link" :href="wikiUrl" target="_blank" rel="noopener">
+          <span class="material-symbols-outlined">menu_book</span> Wiki TO-BE
+          <span class="material-symbols-outlined nav-external">open_in_new</span>
+        </a>
+        <span class="nav-link nav-link--disabled">
+          <span class="material-symbols-outlined">design_services</span> Design System
+          <span class="nav-soon">Em breve</span>
+        </span>
+        <span class="nav-link nav-link--disabled">
+          <span class="material-symbols-outlined">view_kanban</span> Kanban
+          <span class="nav-soon">Em breve</span>
+        </span>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="env-badge">
+          <span class="env-dot"></span>
+          Redesenho-home
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Vista: Home (nenhuma persona selecionada) -->
+      <template v-if="!selectedPersona">
+        <!-- Hero strip -->
+        <section class="hero-strip">
+          <div class="hero-text">
+            <h1 class="hero-title">Ambiente de Prototipação</h1>
+            <p class="hero-desc">Explore e valide fluxos de cada persona antes de migrar para produção.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value">{{ jornadasAtivas }}<span class="stat-value-total">/{{ totalJornadas }}</span></span>
+              <span class="stat-label">Jornadas Ativas</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">{{ coberturaPercent }}<span class="stat-value-unit">%</span></span>
+              <span class="stat-label">Cobertura</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-value">{{ personas.length }}</span>
+              <span class="stat-label">Personas</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Progresso por persona -->
+        <section class="progress-section">
+          <span class="section-label">Progresso por Persona</span>
+          <div class="progress-grid">
+            <button
+              v-for="p in personasProgress"
+              :key="p.id"
+              type="button"
+              class="progress-card"
+              :class="{ 'progress-card--done': p.pct === 100 }"
+              :style="{ '--p-color': p.color }"
+              :aria-label="'Ver jornadas de ' + p.name"
+              @click="selectPersona(p.id)"
+            >
+              <div class="progress-card-header">
+                <div class="progress-card-icon" :style="journeyIconStyle(p.color)" aria-hidden="true">
+                  <span class="material-symbols-outlined">{{ p.icon }}</span>
+                </div>
+                <span class="progress-card-name">{{ p.name }}</span>
+                <span class="progress-card-count">{{ p.ativas }}<span class="progress-card-total">/{{ p.total }}</span></span>
+              </div>
+              <div class="progress-bar-track" role="progressbar" :aria-valuenow="p.pct" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar-fill" :style="{ width: p.pct + '%', '--p-color': p.color }"></div>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Acesso rápido (dinâmico) -->
+        <section v-if="quickLinks.length" class="quick-section">
+          <div class="quick-section-header">
+            <h2 class="section-label">Acesso rápido</h2>
+            <a v-if="hasMoreLinks" href="#" class="quick-see-all" @click.prevent="selectPersona(quickLinks[0].personaId)">
+              Ver todas <span class="material-symbols-outlined">arrow_downward</span>
+            </a>
+          </div>
+          <div class="quick-grid">
+            <button
+              v-for="link in quickLinks"
+              :key="link.id"
+              type="button"
+              class="quick-card"
+              :style="{ '--q-color': link.personaColor }"
+              :aria-label="'Abrir jornada ' + link.label + ' de ' + link.personaName"
+              @click="handleQuickAccessClick(link, $event)"
+            >
+              <div class="quick-card-top">
+                <div class="quick-card-icon"><span class="material-symbols-outlined">{{ link.icon }}</span></div>
+                <span class="material-symbols-outlined quick-card-arrow">arrow_forward</span>
+              </div>
+              <p class="quick-card-title">{{ link.label }}</p>
+              <p class="quick-card-desc">{{ link.personaName }}</p>
+            </button>
+          </div>
+        </section>
+      </template>
+
+      <!-- Vista: Jornadas da persona selecionada -->
+      <template v-else>
+        <!-- Header da persona -->
+        <section class="persona-view-header" :style="{ '--p-color': selectedPersona.color }">
+          <button type="button" class="back-btn" @click="goHome" aria-label="Voltar ao início">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <div class="persona-view-icon" :style="journeyIconStyle(selectedPersona.color)" aria-hidden="true">
+            <span class="material-symbols-outlined">{{ selectedPersona.icon }}</span>
+          </div>
+          <div class="persona-view-info">
+            <h1 class="persona-view-name">{{ selectedPersona.name }}</h1>
+            <p class="persona-view-desc">{{ selectedPersona.description }}</p>
+          </div>
+        </section>
+
+        <!-- Grid de jornadas -->
+        <section class="journeys-section">
+          <h2 class="section-label">Jornadas</h2>
+          <div class="journeys-grid">
+            <template v-for="j in selectedPersona.journeys" :key="j.id">
+
+              <!-- Jornada ativa: RouterLink -->
+              <button
+                v-if="j.route"
+                type="button"
+                class="journey-card journey-card--active"
+                :style="{ '--p-color': selectedPersona.color }"
+                @click="handleOpenJourneyDrawer(j, selectedPersona, $event)"
+              >
+                <div class="journey-card-top">
+                  <div class="journey-card-icon" :style="journeyIconStyle(selectedPersona.color)" aria-hidden="true">
+                    <span class="material-symbols-outlined">{{ j.icon }}</span>
+                  </div>
+                  <span class="journey-status status-ativo">{{ j.status }}</span>
+                </div>
+                <p class="journey-card-label">{{ j.label }}</p>
+                <p class="journey-card-id">{{ j.id }}</p>
+              </button>
+
+              <!-- Jornada planejada: div muted -->
+              <div v-else class="journey-card journey-card--planned">
+                <div class="journey-card-top">
+                  <div class="journey-card-icon" aria-hidden="true">
+                    <span class="material-symbols-outlined">{{ j.icon }}</span>
+                  </div>
+                  <span class="journey-status status-planejado">{{ j.status }}</span>
+                </div>
+                <p class="journey-card-label">{{ j.label }}</p>
+                <p class="journey-card-id">{{ j.id }}</p>
+              </div>
+
+            </template>
+          </div>
+        </section>
+      </template>
+
+      <JourneyPrototypeDrawer
+        :model-value="isJourneyDrawerOpen"
+        :journey="activeDrawerJourney"
+        :persona="activeDrawerPersona"
+        :validation-result="drawerValidationResult"
+        :iframe-src="drawerIframeSrc"
+        :trigger-el="drawerTriggerEl"
+        @update:model-value="handleDrawerModelValue"
+        @open-full-page="openFullPage"
+      />
+
+    </main>
+
+  </div>
+</template>
+
+<style scoped>
+/* ── Material Symbols ────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+  font-size: inherit;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  flex-shrink: 0;
+}
+.brand-logo .material-symbols-outlined {
+  font-size: 15px;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+}
+.quick-card-icon .material-symbols-outlined { font-size: 17px; }
+.persona-icon .material-symbols-outlined { font-size: 18px; }
+.journey-row-icon .material-symbols-outlined { font-size: 15px; }
+.cta-icon { font-size: 16px; }
+
+/* ── Tokens dark ─────────────── */
+.shell {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --text: #ededed;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #7367F0;
+  --accent-glow: rgba(115,103,240,0.18);
+  --r: 8px;
+  --r-lg: 12px;
+  --t: 150ms ease;
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-family-base);
+  overflow-x: hidden;
+}
+
+/* ── Sidebar ─────────────────── */
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.brand-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.nav-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 8px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--r);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  transition: background var(--t), color var(--t);
+}
+
+.nav-link:hover { background: var(--surface-2); color: var(--text); }
+.nav-link.active { background: var(--accent-glow); color: var(--accent); }
+.nav-link--disabled { opacity: 0.38; cursor: default; pointer-events: none; }
+.nav-soon { margin-left: auto; font-size: 10px; font-weight: 500; color: var(--text-dim); background: var(--surface-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 20px; }
+
+.nav-external { margin-left: auto; font-size: 13px; opacity: 0.4; }
+
+.nav-label--personas { margin-top: 8px; }
+
+.nav-persona {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: var(--r);
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: background var(--t), color var(--t);
+}
+.nav-persona:hover { background: var(--surface-2); color: var(--text); }
+.nav-persona:hover .nav-persona-icon { color: var(--p-color); }
+.nav-persona:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--r); }
+.nav-persona-icon { font-size: 15px; color: var(--text-dim); transition: color var(--t); flex-shrink: 0; }
+.nav-persona-name { flex: 1; }
+.nav-persona-arrow { font-size: 13px; color: var(--text-dim); opacity: 0; transition: opacity var(--t); }
+.nav-persona:hover .nav-persona-arrow { opacity: 1; }
+.nav-persona--active { background: var(--surface-2); color: var(--text); }
+.nav-persona--active .nav-persona-icon { color: var(--p-color); }
+.nav-persona--active .nav-persona-arrow { opacity: 1; color: var(--p-color); }
+
+.sidebar-footer {
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.env-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  padding: 4px 8px;
+}
+
+.env-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #28C76F;
+  flex-shrink: 0;
+}
+
+/* ── Main ────────────────────── */
+.main { display: flex; flex-direction: column; min-width: 0; }
+
+/* ── Hero strip ──────────────── */
+.hero-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 24px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.hero-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; max-width: 480px; }
+
+.hero-stats { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+
+.stat { display: flex; flex-direction: column; align-items: center; }
+.stat-value { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-value-total { font-size: 13px; font-weight: 400; color: var(--text-dim); }
+.stat-value-unit  { font-size: 13px; font-weight: 400; color: var(--text-muted); }
+.stat-label { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
+.stat-divider { width: 1px; height: 30px; background: var(--border); }
+
+/* ── Progress section ────────── */
+.progress-section { padding: 24px 24px 0; }
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
+  touch-action: manipulation;
+}
+.progress-card:hover {
+  border-color: var(--p-color);
+  background: var(--surface-2);
+}
+.progress-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.progress-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-card-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.progress-card-icon .material-symbols-outlined { font-size: 15px; }
+
+.progress-card-name {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-card-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--p-color);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.progress-card-total { font-size: 10.5px; font-weight: 400; color: var(--text-dim); }
+
+.progress-bar-track {
+  height: 3px;
+  background: var(--surface-2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--p-color);
+  border-radius: 99px;
+  transition: width 400ms ease;
+  min-width: 0;
+}
+
+/* ── Quick section ───────────── */
+.quick-section { padding: 24px 24px 0; }
+
+.quick-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.quick-section-header .section-label { margin-bottom: 0; }
+
+.quick-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--t);
+}
+.quick-see-all .material-symbols-outlined { font-size: 13px; }
+.quick-see-all:hover { color: var(--text); }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 8px;
+}
+
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
+}
+.quick-card:hover {
+  border-color: var(--q-color, var(--border-hover));
+  background: var(--surface-2);
+}
+.quick-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.quick-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.quick-card-icon {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--q-color, var(--accent)) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--q-color, var(--accent)) 28%, transparent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  color: var(--q-color, var(--accent));
+  flex-shrink: 0;
+}
+.quick-card-icon .material-symbols-outlined { font-size: 17px; }
+
+.quick-card-arrow {
+  font-size: 14px;
+  color: var(--text-dim);
+  transition: color var(--t);
+}
+.quick-card:hover .quick-card-arrow { color: var(--q-color, var(--text-muted)); }
+
+.quick-card-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.quick-card-desc { font-size: 11.5px; color: var(--text-muted); }
+
+/* ── Responsivo ──────────────── */
+@media (max-width: 1024px) {
+  .shell { grid-template-columns: 1fr; }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 14px;
+    width: 100%;
+    overflow: visible;
+    gap: 12px;
+  }
+
+  .sidebar-nav { flex-direction: row; align-items: center; flex: 1; }
+  .nav-label, .sidebar-footer, .nav-persona { display: none; }
+  .quick-grid { grid-template-columns: 1fr; }
+
+  .hero-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .hero-stats { align-self: flex-start; }
+}
+
+@media (min-width: 1440px) {
+  .shell { grid-template-columns: 240px 1fr; }
+}
+
+/* ── Persona view header ─────── */
+.persona-view-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.back-btn {
+  width: 32px; height: 32px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: background var(--t), color var(--t), border-color var(--t);
+}
+.back-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-hover); }
+.back-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.persona-view-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.persona-view-info { min-width: 0; }
+.persona-view-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.persona-view-desc { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Journeys grid ───────────── */
+.journeys-section { padding: 20px 24px 24px; }
+
+.journeys-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.journey-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color var(--t), background var(--t);
+}
+
+button.journey-card {
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+}
+
+.journey-card--active {
+  cursor: pointer;
+}
+.journey-card--active:hover {
+  border-color: var(--p-color);
+  background: var(--surface-2);
+}
+.journey-card--active:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.journey-card--planned {
+  opacity: 0.42;
+  cursor: default;
+}
+
+.journey-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.journey-card-icon {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.journey-card-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+  flex: 1;
+  margin-bottom: 3px;
+}
+.journey-card-id {
+  font-size: 10.5px;
+  font-family: var(--font-family-mono);
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.journey-status {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.status-ativo {
+  background: rgba(40,199,111,0.1);
+  border: 1px solid rgba(40,199,111,0.2);
+  color: #28C76F;
+}
+.status-planejado {
+  background: rgba(255,159,67,0.1);
+  border: 1px solid rgba(255,159,67,0.2);
+  color: #FF9F43;
+}
+
+</style>
+===END===

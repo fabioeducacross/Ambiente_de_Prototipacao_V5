@@ -5,7 +5,7 @@ description: Conheça o perfil do professor que usa o Educacross
 ---
 import { IconTeacher } from '@site/src/components/MaterialIcon';
 
-# <IconTeacher size={28} /> Professor
+# Professor
 
 O professor é o principal usuário ativo do Educacross. Ele utiliza a plataforma para **criar missões, acompanhar turmas** e **avaliar o desempenho dos alunos** com relatórios detalhados.
 

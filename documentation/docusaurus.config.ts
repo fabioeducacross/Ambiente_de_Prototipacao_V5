@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Educacross Handbook',
   tagline: 'Guia de Produto e Engenharia da plataforma Educacross',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -108,7 +108,8 @@ const config: Config = {
       title: 'Educacross Handbook',
       logo: {
         alt: 'Educacross Logo',
-        src: 'img/logo.svg',
+        src: 'img/logos/educacross-logo-slot-small-2281-10059.svg',
+        srcDark: 'img/logos/educacross-logo-slot-small-2281-10059.svg',
       },
       items: [
         {
@@ -128,9 +129,15 @@ const config: Config = {
           position: 'left',
         },
         {
+          href: 'http://localhost:5174',
+          label: 'Dashboard',
+          position: 'left',
+        },
+        {
           href: 'https://fabioeducacross.github.io/DesignSystem-Vuexy',
           label: 'Design System',
           position: 'left',
+          className: 'navbar-link-coming-soon',
         },
         {
           type: 'search',
@@ -155,11 +162,11 @@ const config: Config = {
             },
             {
               label: 'Regras de Negócio',
-              to: '/docs/category/regras-de-negocio',
+              to: '/docs/business-rules',
             },
             {
               label: 'Produto',
-              to: '/docs/category/produto',
+              to: '/docs/produto',
             },
             {
               label: 'Jornadas',
@@ -176,11 +183,11 @@ const config: Config = {
             },
             {
               label: 'FAQ',
-              to: '/docs/faq',
+              href: 'https://github.com/fabioeducacross/Ambiente_de_Prototipacao_V5/discussions',
             },
             {
               label: 'Guia de Início Rápido',
-              to: '/docs/setup/quickstart',
+              to: '/docs/getting-started/setup',
             },
           ],
         },

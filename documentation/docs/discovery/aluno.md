@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: <IconStudent /> Aluno
+title: Aluno
 description: Pesquisa e hipóteses sobre o estudante
 ---
 import {

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: <IconTeacher /> Professor
+title: Professor
 description: Pesquisa e hipóteses sobre o professor
 ---
 import { IconCheck, IconCircleYellow, IconClipboard, IconLightbulb, IconTeacher } from '@site/src/components/MaterialIcon';

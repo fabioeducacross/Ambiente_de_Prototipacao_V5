@@ -5,6 +5,8 @@ import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 
 const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const wikiBaseUrl = 'http://localhost:3000/Ambiente_de_Prototipacao_V5/wiki/'
+const wikiProductionUrl = 'https://fabioeducacross.github.io/Ambiente_de_Prototipacao_V5/wiki/'
 
 // Lê o branch e o short SHA do git em tempo de build/dev
 function gitInfo() {
@@ -44,8 +46,8 @@ export default defineConfig(({ command }) => ({
     __GIT_SHA__: JSON.stringify(sha),    // Versão estável do package.json — não muda com merge de branches
     __APP_VERSION__: JSON.stringify(pkg.version),    // Em build aponta para GitHub Pages; em dev aponta para Docusaurus local
     __WIKI_URL__: command === 'build'
-      ? JSON.stringify('https://fabioeducacross.github.io/Ambiente_de_Prototipacao_V5/wiki/')
-      : JSON.stringify('http://localhost:3000')
+      ? JSON.stringify(wikiProductionUrl)
+      : JSON.stringify(wikiBaseUrl)
   },
   server: {
     port: 5174,

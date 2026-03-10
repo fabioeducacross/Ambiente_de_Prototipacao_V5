@@ -5,7 +5,7 @@ config.global.stubs = {
 }
 
 Object.defineProperty(globalThis, '__WIKI_URL__', {
-    value: 'http://localhost:3000',
+    value: 'http://localhost:3000/Ambiente_de_Prototipacao_V5/wiki/',
     writable: true,
     configurable: true
 })

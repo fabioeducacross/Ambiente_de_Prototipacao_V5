@@ -619,7 +619,7 @@ watch([classe, subject], () => {
 - <IconCheck /> Botões "Mover para Cima/Baixo"
 - <IconCheck /> Numeração automática das questões
 
-**Protótipo**: [Veja o protótipo TO-BE](/prototypes/missions-plus-v3)
+**Protótipo**: [Veja o protótipo TO-BE](/docs/prototypes/intro)
 
 ---
 
@@ -731,6 +731,6 @@ describe('Missions Plus - Fluxo Completo', () => {
 
 - [Design System - Wizard Component](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - [API Docs - Missions Plus](https://apieducacrossmanager-test.azurewebsites.net/index.html)
-- [Protótipo TO-BE - Missions Plus v3](/prototypes/missions-plus-v3)
-- [PROF-002: Education System Missions](/journeys/teacher/education-system-missions)
-- [Architecture - DDD Pattern](/architecture/intro#ddd-page-structure-pattern)
+- [Protótipo TO-BE - Missions Plus v3](/docs/prototypes/intro)
+- [PROF-002: Education System Missions](./education-system-missions)
+- [Architecture - DDD Pattern](../../architecture/intro)

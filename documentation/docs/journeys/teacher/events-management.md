@@ -782,5 +782,5 @@ describe('Events - Fluxo de Habilitação', () => {
 
 - [Design System - Event Card](https://fabioeducacross.github.io/DesignSystem-Vuexy/)
 - [API Docs - Events Endpoint](https://apieducacrossmanager-test.azurewebsites.net/index.html)
-- [Architecture - DDD Pattern](/architecture/intro#ddd-page-structure-pattern)
-- [PROF-003: Custom Missions](/journeys/teacher/custom-missions)
+- [Architecture - DDD Pattern](../../architecture/intro)
+- [PROF-003: Custom Missions](./custom-missions)

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-title: <IconAdmin /> Gestor
+title: Gestor
 description: Pesquisa e hipóteses sobre o gestor/coordenador
 ---
 import { IconAdmin, IconCheck, IconCircleYellow, IconClipboard, IconLightbulb } from '@site/src/components/MaterialIcon';
@@ -100,12 +100,12 @@ As seguintes jornadas implementam os JTBDs acima:
 
 | JTBD | Jornada | Status |
 |------|---------|--------|
-| Quando chego na escola, quero ver perfis pendentes | [ADMIN-006: User Management](../journeys/administrator/user-management) | <IconCheck /> |
+| Quando chego na escola, quero ver perfis pendentes | [ADMIN-001: User Management](../journeys/administrator/user-management) | <IconCheck /> |
 | Quando a diretoria pede métricas, quero gerar relatório | [ADMIN-001: Mission Reports](../journeys/coordinator/mission-reports) | <IconCheck /> |
-| Quando preciso recusar um perfil, quero registrar o motivo | [ADMIN-006: User Management](../journeys/administrator/user-management) | <IconCheck /> |
+| Quando preciso recusar um perfil, quero registrar o motivo | [ADMIN-001: User Management](../journeys/administrator/user-management) | <IconCheck /> |
 | Quando analiso competências, quero ver mapas de habilidades | [ADMIN-004: Skill Report](../journeys/coordinator/skill-report) | <IconCheck /> |
 
-→ [Ver todas as jornadas de Gestor](../journeys/administrator/)
+→ [Ver todas as jornadas de Gestor](../journeys/administrator/user-management)
 
 ---
 
