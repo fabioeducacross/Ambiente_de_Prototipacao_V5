@@ -1,38 +1,23 @@
 <template>
   <aside class="calendar-sidebar">
-    <!-- Botão Adicionar Evento -->
     <div class="sidebar-header">
       <button
         class="add-event-button"
         @click="handleAddEvent"
-        aria-label="Adicionar novo evento"
+        aria-label="Adicionar novo lembrete"
       >
         <span class="material-symbols-outlined button-icon">add</span>
-        <span class="button-text">Adicionar Evento</span>
+        <span class="button-text">Adicionar Lembrete</span>
       </button>
     </div>
     
     <div class="divider"></div>
-    
-    <!-- Mini Calendar (DatePicker) -->
-    <div class="sidebar-picker">
-      <MiniCalendar
-        :selected-date="selectedDate"
-        @select-date="handleMiniDaySelect"
-      />
-    </div>
-    
-    <div class="divider"></div>
-    
-    <!-- Área de Filtros Expansíveis (Accordion) -->
+
     <div class="sidebar-filters">
-      <!-- Filtros de Tipo de Atividade -->
       <FilterSection
         title="Tipo de Atividade"
         icon="layers"
-        v-model="isActivitySectionOpen"
         :active-count="activeActivityCount"
-        @toggle="handleActivitySectionToggle"
       >
         <CheckboxGroup
           :options="activityOptions"
@@ -40,14 +25,11 @@
           @update:model-value="handleActivityChange"
         />
       </FilterSection>
-      
-      <!-- Filtros de Perfil de Origem -->
+
       <FilterSection
         title="Perfil de Origem"
         icon="account_circle"
-        v-model="isOriginSectionOpen"
         :active-count="activeOriginCount"
-        @toggle="handleOriginSectionToggle"
       >
         <CheckboxGroup
           :options="originOptions"
@@ -60,18 +42,13 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
-import MiniCalendar from '../MiniCalendar.vue'
+import { computed } from 'vue'
 import CheckboxGroup from '../molecules/CheckboxGroup.vue'
 import FilterSection from '../molecules/FilterSection.vue'
 import iconeBelinha from '../../assets/icons/icone_belinha.svg'
 import { ORIGIN_LEVELS } from '@/data/calendar-enums'
 
 const props = defineProps({
-  currentDate: {
-    type: Date,
-    default: () => new Date()
-  },
   activityOptions: {
     type: Array,
     default: () => [
@@ -108,40 +85,10 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['add-event', 'activity-change', 'origin-change', 'day-click'])
+const emit = defineEmits(['add-event', 'activity-change', 'origin-change'])
 
-// Data selecionada no mini calendário (sincronizada com currentDate do pai)
-const selectedDate = ref(new Date(props.currentDate))
-
-watch(() => props.currentDate, (newDate) => {
-  selectedDate.value = new Date(newDate)
-})
-
-const handleMiniDaySelect = (date) => {
-  selectedDate.value = date
-  emit('day-click', date)
-}
-
-// Contagem de filtros ativos
 const activeActivityCount = computed(() => props.selectedActivities.length)
 const activeOriginCount = computed(() => props.selectedOrigins.length)
-
-// Estado das seções do accordion
-const isActivitySectionOpen = ref(true)
-const isOriginSectionOpen = ref(false)
-
-// Handlers para comportamento de accordion (um fecha quando o outro abre)
-const handleActivitySectionToggle = (isOpening) => {
-  if (isOpening) {
-    isOriginSectionOpen.value = false
-  }
-}
-
-const handleOriginSectionToggle = (isOpening) => {
-  if (isOpening) {
-    isActivitySectionOpen.value = false
-  }
-}
 
 const handleAddEvent = () => {
   emit('add-event')
@@ -167,7 +114,6 @@ const handleOriginChange = (newSelectedOrigins) => {
   overflow-y: auto;
 }
 
-/* Header */
 .sidebar-header {
   padding: 24px;
 }
@@ -179,7 +125,7 @@ const handleOriginChange = (newSelectedOrigins) => {
   gap: 8px;
   width: 100%;
   padding: 8px 20px;
-  background-color: #7367f0;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 6px;
@@ -189,20 +135,20 @@ const handleOriginChange = (newSelectedOrigins) => {
   line-height: 22px;
   text-transform: capitalize;
   cursor: pointer;
-  box-shadow: 0px 2px 6px 0px rgba(115, 103, 240, 0.3);
+  box-shadow: 0px 2px 6px 0px color-mix(in srgb, var(--primary) 30%, transparent);
   transition: all 0.2s ease;
   min-height: 38px;
 }
 
 .add-event-button:hover {
-  background-color: #6558e3;
+  background-color: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0px 4px 8px 0px rgba(115, 103, 240, 0.4);
+  box-shadow: 0px 4px 8px 0px color-mix(in srgb, var(--primary) 40%, transparent);
 }
 
 .add-event-button:active {
   transform: translateY(0);
-  box-shadow: 0px 2px 4px 0px rgba(115, 103, 240, 0.3);
+  box-shadow: 0px 2px 4px 0px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .button-icon {
@@ -214,25 +160,17 @@ const handleOriginChange = (newSelectedOrigins) => {
     'opsz' 20;
 }
 
-/* Divider */
 .divider {
   width: 100%;
   height: 1px;
   background-color: rgba(47, 43, 61, 0.12);
 }
 
-/* Picker */
-.sidebar-picker {
-  padding: 8px;
-}
-
-/* Filtros */
 .sidebar-filters {
   flex: 1;
   overflow-y: auto;
 }
 
-/* Scrollbar customizado */
 .calendar-sidebar::-webkit-scrollbar {
   width: 6px;
 }
@@ -250,7 +188,6 @@ const handleOriginChange = (newSelectedOrigins) => {
   background: rgba(47, 43, 61, 0.3);
 }
 
-/* Responsividade */
 @media (max-width: 1024px) {
   .calendar-sidebar {
     width: 280px;

@@ -3,7 +3,6 @@
     <!-- Sidebar (300px ou colapsada) -->
     <CalendarSidebar
       v-if="showSidebar"
-      :current-date="currentDate"
       :activity-options="activityOptions"
       :selected-activities="selectedActivities"
       :origin-options="originOptions"
@@ -11,7 +10,6 @@
       @add-event="handleAddEvent"
       @activity-change="handleActivityChange"
       @origin-change="handleOriginChange"
-      @day-click="handleSidebarDaySelect"
     />
     
     <!-- Botão para toggle sidebar em mobile -->
@@ -28,45 +26,20 @@
     
     <!-- Conteúdo principal -->
     <main class="calendar-main">
-      <!-- Slot para o conteúdo principal (MonthViewGrid, WeekView, DayView, etc.) -->
+      <!-- Slot para o conteúdo principal -->
       <slot name="main">
-        <!-- Visualização Mensal -->
         <MonthViewGrid
           v-if="activeView === 'month'"
           :key="monthViewKey"
           :current-view="activeView"
+          :show-view-toggle="false"
+          :available-views="monthOnlyViews"
           :events="filteredEvents"
           :initial-date="currentDate"
           @view-change="handleViewChange"
           @day-click="handleDayClick"
           @event-click="handleEventClick"
           @month-change="handleMonthChange"
-        />
-        
-        <!-- Visualização Semanal -->
-        <WeekViewGrid
-          v-else-if="activeView === 'week'"
-          :key="weekViewKey"
-          :current-view="activeView"
-          :events="filteredEvents"
-          :initial-date="currentDate"
-          @view-change="handleViewChange"
-          @event-click="handleEventClick"
-          @week-change="handleWeekChange"
-          @slot-click="handleSlotClick"
-        />
-        
-        <!-- Visualização Diária -->
-        <DayViewGrid
-          v-else-if="activeView === 'day'"
-          :key="dayViewKey"
-          :current-view="activeView"
-          :events="currentDayEvents"
-          :initial-date="currentDate"
-          @view-change="handleViewChange"
-          @event-click="handleEventClick"
-          @day-change="handleDayChange"
-          @slot-click="handleSlotClick"
         />
       </slot>
       
@@ -89,8 +62,6 @@
 import { ref, computed } from 'vue'
 import CalendarSidebar from '../organisms/CalendarSidebar.vue'
 import MonthViewGrid from '../organisms/MonthViewGrid.vue'
-import WeekViewGrid from '../organisms/WeekViewGrid.vue'
-import DayViewGrid from '../organisms/DayViewGrid.vue'
 import iconeBelinha from '../../assets/icons/icone_belinha.svg'
 import { ORIGIN_LEVELS, normalizeOriginLevel } from '@/data/calendar-enums'
 
@@ -134,7 +105,7 @@ const props = defineProps({
   currentView: {
     type: String,
     default: 'month',
-    validator: (value) => ['month', 'week', 'day'].includes(value)
+    validator: (value) => ['month'].includes(value)
   }
 })
 
@@ -155,13 +126,11 @@ const emit = defineEmits([
 // Estado - inicializa com todos os filtros selecionados
 const selectedActivities = ref(props.activityOptions.map(opt => opt.value))
 const selectedOrigins = ref(props.originOptions.map(opt => opt.value))
-const activeView = ref(props.currentView)
+const activeView = ref('month')
 const currentDate = ref(new Date(props.initialDate))
+const monthOnlyViews = [{ value: 'month', label: 'Mês', ariaLabel: 'Visualização mensal' }]
 
-// Chaves únicas para forçar remonte das views ao navegar via mini calendário
 const monthViewKey = computed(() => `month-${currentDate.value.getFullYear()}-${currentDate.value.getMonth()}`)
-const weekViewKey = computed(() => `week-${currentDate.value.toDateString()}`)
-const dayViewKey = computed(() => `day-${currentDate.value.toDateString()}`)
 
 // Computed
 const normalizeEventOrigin = (originValue) => normalizeOriginLevel(originValue)
@@ -184,21 +153,6 @@ const filteredEvents = computed(() => {
   return filtered
 })
 
-const currentDayEvents = computed(() => {
-  const targetDate = new Date(currentDate.value)
-  targetDate.setHours(0, 0, 0, 0)
-  
-  return filteredEvents.value.filter(event => {
-    const eventStart = new Date(event.dataInicio)
-    const eventEnd = new Date(event.dataTermino || event.dataInicio)
-    eventStart.setHours(0, 0, 0, 0)
-    eventEnd.setHours(23, 59, 59, 999)
-    
-    // Inclui eventos que estejam ativos no dia selecionado
-    return targetDate >= eventStart && targetDate <= eventEnd
-  })
-})
-
 // Methods
 const handleAddEvent = () => {
   emit('add-event')
@@ -215,19 +169,12 @@ const handleOriginChange = (newSelectedOrigins) => {
 }
 
 const handleViewChange = (newView) => {
-  activeView.value = newView
-  emit('view-change', newView)
+  activeView.value = 'month'
+  emit('view-change', newView === 'month' ? 'month' : 'month')
 }
 
 const handleDayClick = (day) => {
   emit('day-click', day)
-}
-
-// Navega para o dia clicado no mini calendário e muda para a view de dia
-const handleSidebarDaySelect = (date) => {
-  currentDate.value = date
-  activeView.value = 'day'
-  emit('day-click', date)
 }
 
 const handleEventClick = (event) => {

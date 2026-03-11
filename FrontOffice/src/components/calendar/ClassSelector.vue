@@ -1,34 +1,62 @@
 <template>
   <div class="class-selector-header">
-    <!-- Dropdown de Seleção de Turma -->
-    <div class="class-selector-dropdown" @click="toggleDropdown">
-      <div class="dropdown-content">
-        <div class="class-info">
-          <span class="class-name">{{ selectedClass.name }}</span>
-          <span class="class-badge">{{ selectedClass.grade }}</span>
+    <div class="selector-filters">
+      <div v-if="showSchoolYear" class="class-selector-dropdown" @click="toggleSchoolYearDropdown">
+        <div class="dropdown-content dropdown-content--school-year">
+          <div class="class-info">
+            <span class="class-name">{{ selectedSchoolYear.name }}</span>
+          </div>
+          <span class="material-symbols-outlined chevron-icon">
+            {{ isSchoolYearOpen ? 'expand_less' : 'expand_more' }}
+          </span>
         </div>
-        <span class="material-symbols-outlined chevron-icon">
-          {{ isOpen ? 'expand_less' : 'expand_more' }}
-        </span>
+
+        <transition name="dropdown">
+          <div v-if="isSchoolYearOpen" class="dropdown-menu dropdown-menu--school-year">
+            <button
+              v-for="schoolYear in schoolYears"
+              :key="schoolYear.id"
+              class="dropdown-item"
+              :class="{ active: schoolYear.id === selectedSchoolYear.id }"
+              @click.stop="selectSchoolYear(schoolYear)"
+            >
+              <div class="item-content">
+                <span class="item-name">{{ schoolYear.name }}</span>
+              </div>
+            </button>
+          </div>
+        </transition>
       </div>
-      
-      <!-- Dropdown Menu -->
-      <transition name="dropdown">
-        <div v-if="isOpen" class="dropdown-menu">
-          <button
-            v-for="classItem in classes"
-            :key="classItem.id"
-            class="dropdown-item"
-            :class="{ active: classItem.id === selectedClass.id }"
-            @click.stop="selectClass(classItem)"
-          >
-            <div class="item-content">
-              <span class="item-name">{{ classItem.name }}</span>
-              <span class="item-badge">{{ classItem.grade }}</span>
-            </div>
-          </button>
+
+      <!-- Dropdown de Seleção de Turma -->
+      <div class="class-selector-dropdown" @click="toggleDropdown">
+        <div class="dropdown-content dropdown-content--class">
+          <div class="class-info">
+            <span class="class-name">{{ selectedClass.name }}</span>
+            <span class="class-badge">{{ selectedClass.grade }}</span>
+          </div>
+          <span class="material-symbols-outlined chevron-icon">
+            {{ isOpen ? 'expand_less' : 'expand_more' }}
+          </span>
         </div>
-      </transition>
+
+        <transition name="dropdown">
+          <div v-if="isOpen" class="dropdown-menu dropdown-menu--class">
+            <button
+              v-for="classItem in classes"
+              :key="classItem.id"
+              class="dropdown-item"
+              :class="{ active: classItem.id === selectedClass.id }"
+              @click.stop="selectClass(classItem)"
+            >
+              <div class="item-content">
+                <span class="item-name">{{ classItem.name }}</span>
+                <span class="item-badge">{{ classItem.grade }}</span>
+              </div>
+            </button>
+          </div>
+        </transition>
+      </div>
     </div>
     
     <!-- Informação da Escola -->
@@ -43,6 +71,14 @@
 import { ref } from 'vue'
 
 const props = defineProps({
+  schoolYears: {
+    type: Array,
+    default: () => [
+      { id: '2026', name: 'Ano escolar 2026' },
+      { id: '2025', name: 'Ano escolar 2025' },
+      { id: '2024', name: 'Ano escolar 2024' }
+    ]
+  },
   classes: {
     type: Array,
     default: () => [
@@ -56,19 +92,35 @@ const props = defineProps({
     type: String,
     default: '5a'
   },
+  initialSchoolYear: {
+    type: String,
+    default: '2026'
+  },
+  showSchoolYear: {
+    type: Boolean,
+    default: true
+  },
   schoolName: {
     type: String,
     default: 'COLÉGIO FLORESTA ENCANTADA'
   }
 })
 
-const emit = defineEmits(['class-change'])
+const emit = defineEmits(['class-change', 'school-year-change'])
 
 const isOpen = ref(false)
+const isSchoolYearOpen = ref(false)
+const selectedSchoolYear = ref(props.schoolYears.find(y => y.id === props.initialSchoolYear) || props.schoolYears[0])
 const selectedClass = ref(props.classes.find(c => c.id === props.initialClass) || props.classes[0])
 
 const toggleDropdown = () => {
+  isSchoolYearOpen.value = false
   isOpen.value = !isOpen.value
+}
+
+const toggleSchoolYearDropdown = () => {
+  isOpen.value = false
+  isSchoolYearOpen.value = !isSchoolYearOpen.value
 }
 
 const selectClass = (classItem) => {
@@ -77,11 +129,18 @@ const selectClass = (classItem) => {
   emit('class-change', classItem)
 }
 
+const selectSchoolYear = (schoolYear) => {
+  selectedSchoolYear.value = schoolYear
+  isSchoolYearOpen.value = false
+  emit('school-year-change', schoolYear)
+}
+
 // Fechar dropdown ao clicar fora
 if (typeof window !== 'undefined') {
   window.addEventListener('click', (e) => {
     if (!e.target.closest('.class-selector-dropdown')) {
       isOpen.value = false
+      isSchoolYearOpen.value = false
     }
   })
 }
@@ -96,6 +155,13 @@ if (typeof window !== 'undefined') {
   gap: 20px;
 }
 
+.selector-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
 /* Dropdown de Turma */
 .class-selector-dropdown {
   position: relative;
@@ -103,8 +169,8 @@ if (typeof window !== 'undefined') {
 }
 
 .dropdown-content {
-  background: #fff;
-  border: 1px solid #B9B9C3;
+  background: var(--white);
+  border: 1px solid var(--ec-border);
   border-radius: 100px;
   padding: 10px 20px;
   height: 40px;
@@ -116,9 +182,19 @@ if (typeof window !== 'undefined') {
   user-select: none;
 }
 
+.dropdown-content--school-year {
+  min-width: 190px;
+  justify-content: space-between;
+}
+
+.dropdown-content--class {
+  min-width: 280px;
+  justify-content: space-between;
+}
+
 .dropdown-content:hover {
-  border-color: #7367F0;
-  box-shadow: 0 2px 8px rgba(115, 103, 240, 0.15);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 .class-info {
@@ -132,13 +208,13 @@ if (typeof window !== 'undefined') {
   font-weight: 700;
   font-size: 14px;
   line-height: 21px;
-  color: #7367F0;
+  color: var(--primary);
   white-space: nowrap;
 }
 
 .class-badge {
-  background: rgba(115, 103, 240, 0.12);
-  color: #7367F0;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 12px;
@@ -150,7 +226,7 @@ if (typeof window !== 'undefined') {
 
 .chevron-icon {
   font-size: 16px;
-  color: #7367F0;
+  color: var(--primary);
   transition: transform 0.2s;
 }
 
@@ -164,13 +240,17 @@ if (typeof window !== 'undefined') {
   top: calc(100% + 8px);
   left: 0;
   min-width: 280px;
-  background: #fff;
-  border: 1px solid #B9B9C3;
+  background: var(--white);
+  border: 1px solid var(--ec-border);
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   padding: 8px;
   z-index: 1000;
   overflow: hidden;
+}
+
+.dropdown-menu--school-year {
+  min-width: 190px;
 }
 
 .dropdown-item {
@@ -185,11 +265,11 @@ if (typeof window !== 'undefined') {
 }
 
 .dropdown-item:hover {
-  background: rgba(115, 103, 240, 0.08);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
 .dropdown-item.active {
-  background: rgba(115, 103, 240, 0.12);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .item-content {
@@ -202,12 +282,12 @@ if (typeof window !== 'undefined') {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 14px;
-  color: #7367F0;
+  color: var(--primary);
 }
 
 .item-badge {
-  background: rgba(115, 103, 240, 0.12);
-  color: #7367F0;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 11px;
@@ -241,7 +321,7 @@ if (typeof window !== 'undefined') {
 
 .school-icon {
   font-size: 24px;
-  color: #7367F0;
+  color: var(--primary);
 }
 
 .school-name {
@@ -249,7 +329,7 @@ if (typeof window !== 'undefined') {
   font-weight: 700;
   font-size: 14px;
   line-height: 21px;
-  color: #7367F0;
+  color: var(--primary);
   white-space: nowrap;
 }
 
@@ -258,6 +338,17 @@ if (typeof window !== 'undefined') {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .selector-filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .dropdown-content--school-year,
+  .dropdown-content--class {
+    min-width: unset;
+    width: 100%;
   }
   
   .school-info {

@@ -120,7 +120,7 @@
             <BFormCheckbox
               :model-value="isAllSelected"
               :indeterminate="isIndeterminate"
-              @click.stop
+              @click.stop="toggleSelectAll"
             />
             <span>Selecionar todos</span>
           </li>
@@ -147,7 +147,7 @@
               v-if="multiple"
               :model-value="isSelected(option)"
               :disabled="option.disabled"
-              @click.stop
+              @click.stop="toggleSelection(option)"
             />
             <slot name="option" v-bind="option">
               {{ getLabel(option) }}

@@ -1,12 +1,15 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import AppNavbar from '@/components/AppNavbar.vue'
 import Sidebar from '@/shared/components/Sidebar.vue'
+import { useProfileSwitcher } from '@/shared/composables/useProfileSwitcher'
 
 // ─── Sidebar ───────────────────────────────────────────────────────────────
 const sidebarOpen = ref(true)
 const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value }
+const { currentProfile } = useProfileSwitcher()
+const sidebarTheme = computed(() => currentProfile.value?.menuTheme || 'teacher')
 </script>
 
 <template>
@@ -15,7 +18,7 @@ const toggleSidebar = () => { sidebarOpen.value = !sidebarOpen.value }
   <div class="proto-layout" :class="{ 'sidebar-collapsed': !sidebarOpen }">
 
     <!-- ═══ SIDEBAR ══════════════════════════════════════════════════════════ -->
-    <Sidebar :collapsed="!sidebarOpen" />
+    <Sidebar :collapsed="!sidebarOpen" :theme="sidebarTheme" />
 
     <!-- ═══ MAIN AREA ═════════════════════════════════════════════════════════ -->
     <div class="proto-main">

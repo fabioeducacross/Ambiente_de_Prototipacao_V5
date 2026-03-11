@@ -16,6 +16,7 @@ const CoordinatorDashboard = () => import('../views/coordinator/Dashboard.vue')
 const DirectorDashboard = () => import('../views/director/Dashboard.vue')
 const NetworkManagerDashboard = () => import('../views/network-manager/Dashboard.vue')
 const About = () => import('../views/About.vue')
+const ManageAccount = () => import('../views/ManageAccount.vue')
 
 // ─── Protótipo Isolado: Jornada Professor (/professor) ─────────────────────
 const TeacherProtoLayout = () => import('../layouts/TeacherProtoLayout.vue')
@@ -128,6 +129,12 @@ const routes = [
     name: 'About',
     component: About,
     meta: { title: 'Sobre o Ambiente | Educacross' }
+  },
+  {
+    path: '/manage-account',
+    name: 'ManageAccount',
+    component: ManageAccount,
+    meta: { title: 'Troca de Perfil | Educacross' }
   },
 
   // ─── Protótipo Isolado: Jornada Professor ───────────────────────────────

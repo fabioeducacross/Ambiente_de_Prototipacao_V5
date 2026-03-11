@@ -15,6 +15,7 @@
           :classes="[{ id: '1', name: book.turma, grade: book.ano }]"
           initial-class="1"
           :school-name="book.escola"
+          :show-school-year="false"
         />
       </div>
 

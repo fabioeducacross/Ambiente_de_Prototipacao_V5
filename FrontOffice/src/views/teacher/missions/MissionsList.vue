@@ -16,8 +16,8 @@ import {
   BCard, BRow, BCol, BFormGroup, BButton,
   BDropdown, BDropdownItem,
 } from 'bootstrap-vue-next'
-import ClassSelector             from '@/components/calendar/ClassSelector.vue'
 import AppBreadcrumb             from '@/components/AppBreadcrumb.vue'
+import ClassSelector             from '@/components/calendar/ClassSelector.vue'
 import ESelect                   from '@/components/base/ESelect.vue'
 import SelectSubject             from '@/components/base/SelectSubject.vue'
 import GuidesLimitAlert          from '@/components/missions/GuidesLimitAlert.vue'
@@ -182,7 +182,7 @@ const missionActions = (mission) => [
   <div>
     <div class="report-top-stack">
       <!-- ─ Seletor de Turma ──────────────────────────────────────────── -->
-      <ClassSelector school-name="Colégio Nova Jornada" />
+      <ClassSelector school-name="Colégio Nova Jornada" :show-school-year="false" />
 
       <!-- ─ Breadcrumb — 2ª linha, acima das tabs (AppBreadcrumb.vue produção) -->
       <AppBreadcrumb />

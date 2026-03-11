@@ -7,7 +7,7 @@
 
       <!-- Main Content com CalendarLayoutTemplate -->
       <div class="calendar-main">
-        <ClassSelector 
+        <ClassSelector
           :initial-class="selectedTurma"
           @class-change="handleClassChange"
         />
