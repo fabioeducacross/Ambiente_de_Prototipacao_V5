@@ -35,6 +35,14 @@ O **Design System Vuexy** é um sistema de componentes **HTML-based e framework-
 - **Documentação**: Storybook interativo
 - **URL**: https://fabioeducacross.github.io/DesignSystem-Vuexy
 
+:::info Design System Interno — Storybook ativo
+O terceiro asset do repositório, `design-system/`, está ativo com Storybook interno, 10 componentes catalogados, tokens, specs e registry MCP.
+
+- **Storybook local**: `npm run dev:ds` na raiz → `http://localhost:6006`
+- **Plano de implementação**: [Plano de Implementação do Storybook e Design System](./plano-implementacao-storybook-ds.md)
+- **Status de execução**: [Status do Plano](./status-plano-implementacao-storybook-ds.md)
+:::
+
 ### Vantagens
 
 <IconCheck /> **Framework Agnostic**: Não depende de Vue ou React  

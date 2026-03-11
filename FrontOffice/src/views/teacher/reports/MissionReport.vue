@@ -290,7 +290,7 @@ const performanceVariant = (percent) => {
 <template>
   <section class="mission-report-page">
     <div class="report-top-stack">
-      <ClassSelector school-name="COLÉGIO FLORESTA ENCANTADA" />
+      <ClassSelector school-name="COLÉGIO FLORESTA ENCANTADA" :show-school-year="false" />
       <AppBreadcrumb />
     </div>
 

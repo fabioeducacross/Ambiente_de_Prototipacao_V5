@@ -48,6 +48,7 @@ const handleSave = () => {
     <!-- ClassSelector — igual à produção -->
     <ClassSelector
       :initial-class="selectedTurma"
+      :show-school-year="false"
       @class-change="handleClassChange"
     />
 

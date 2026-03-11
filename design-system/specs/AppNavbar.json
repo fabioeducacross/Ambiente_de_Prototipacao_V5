@@ -1,0 +1,63 @@
+{
+  "name": "AppNavbar",
+  "category": "layout",
+  "status": "nativo",
+  "description": "Topbar global da aplicação. Exibe logo centralizado, botão de menu (toggle sidebar) à esquerda, e avatar do usuário com dropdown à direita. Suporta botão 'Visão aluno' por persona.",
+  "source": "FrontOffice/src/components/AppNavbar.vue",
+  "legacyRef": "Navbar de produção do educacross-frontoffice",
+  "props": [
+    {
+      "name": "userName",
+      "type": "string",
+      "default": "Isabela Cross",
+      "description": "Nome do usuário exibido no dropdown e no header do menu."
+    },
+    {
+      "name": "userRole",
+      "type": "string",
+      "default": "Professor",
+      "description": "Perfil/role do usuário exibido abaixo do nome."
+    },
+    {
+      "name": "userAvatar",
+      "type": "string",
+      "default": "avatar-default.png",
+      "description": "URL da imagem de avatar do usuário."
+    },
+    {
+      "name": "showStudentView",
+      "type": "boolean",
+      "default": true,
+      "description": "Exibe ou oculta o botão 'Visão aluno' na barra de ações."
+    },
+    {
+      "name": "persona",
+      "type": "string",
+      "default": "",
+      "description": "Classe CSS aplicada ao header para estilização por persona (ex: 'Teacher', 'Student', 'Coordinator')."
+    }
+  ],
+  "events": [
+    {
+      "name": "toggle-sidebar",
+      "description": "Emitido ao clicar no ícone de menu (hamburguer). O pai decide colapsar/expandir a Sidebar."
+    }
+  ],
+  "slots": [],
+  "states": [
+    { "name": "dropdown-closed", "description": "Estado padrão do menu de usuário" },
+    { "name": "dropdown-open", "description": "Menu de usuário expandido ao clicar no avatar" },
+    { "name": "logo-locked", "description": "Logo não navegável quando query param embed=drawer está ativo" }
+  ],
+  "a11y": {
+    "element": "header",
+    "logoAlt": "Educacross",
+    "dropdownAria": "aria-expanded no botão de toggle",
+    "closeOnOutsideClick": true
+  },
+  "design": {
+    "layout": "3 colunas: [menu] [logo] [ações]",
+    "height": "var(--navbar-height)",
+    "position": "fixed, top: 0, z-index: aplicado globalmente"
+  }
+}

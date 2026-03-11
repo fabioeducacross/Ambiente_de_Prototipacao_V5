@@ -75,7 +75,7 @@ const skillGroups = [
 <template>
   <section>
     <div class="report-top-stack">
-      <ClassSelector school-name="Colégio Nova Jornada" />
+      <ClassSelector school-name="Colégio Nova Jornada" :show-school-year="false" />
       <AppBreadcrumb />
     </div>
 

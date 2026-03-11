@@ -213,6 +213,67 @@ const flatpickrConfig = computed(() => ({
   }
 }))
 
+const pad = (value) => String(value).padStart(2, '0')
+
+const formatDateForOutput = (date) => {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  const year = date.getFullYear()
+  const month = pad(date.getMonth() + 1)
+  const day = pad(date.getDate())
+
+  if (props.dateFormat === 'Y-m-d') {
+    return `${year}-${month}-${day}`
+  }
+
+  if (props.dateFormat === 'd/m/Y') {
+    return `${day}/${month}/${year}`
+  }
+
+  return `${year}-${month}-${day}`
+}
+
+const parseManualDate = (rawValue) => {
+  if (!rawValue || typeof rawValue !== 'string') {
+    return null
+  }
+
+  const trimmedValue = rawValue.trim()
+  const brMatch = trimmedValue.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+  if (brMatch) {
+    const [, day, month, year] = brMatch
+    return new Date(Number(year), Number(month) - 1, Number(day))
+  }
+
+  const isoMatch = trimmedValue.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch
+    return new Date(Number(year), Number(month) - 1, Number(day))
+  }
+
+  return null
+}
+
+const syncManualInputValue = (instance) => {
+  const manualValue = instance?.altInput?.value || instance?.input?.value || ''
+  const parsedDate = parseManualDate(manualValue)
+
+  if (!parsedDate) {
+    return
+  }
+
+  const normalizedValue = formatDateForOutput(parsedDate)
+  if (!normalizedValue) {
+    return
+  }
+
+  internalValue.value = normalizedValue
+  emit('update:modelValue', normalizedValue)
+  emit('change', { selectedDates: [parsedDate], dateStr: normalizedValue })
+}
+
 // Methods
 const handleChange = (selectedDates, dateStr) => {
   emit('update:modelValue', dateStr)
@@ -223,7 +284,11 @@ const handleOpen = () => {
   emit('open')
 }
 
-const handleClose = () => {
+const handleClose = (selectedDates, dateStr, instance) => {
+  if (!dateStr && !selectedDates?.length) {
+    syncManualInputValue(instance)
+  }
+
   emit('close')
 }
 

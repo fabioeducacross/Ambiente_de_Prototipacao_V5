@@ -3,7 +3,11 @@ import { ref, computed } from 'vue'
 import MaterialIcon from '@/components/MaterialIcon.vue'
 import SubjectIcon from '@/components/SubjectIcon.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
+import { useProfileSwitcher } from '@/shared/composables/useProfileSwitcher'
 import { PROGRESSO_TONES, RENDIMENTO_TONES, getRendimentoTone } from '@/shared/data/tones.js'
+
+const { currentProfile } = useProfileSwitcher()
+const hideSchoolYear = computed(() => currentProfile.value?.id === 'teacher')
 
 // ─── Disciplinas (SelectSubject) ─────────────────────────────────────────────
 //     Replica: SelectSubject.vue → selectMode=true → usa ESelect
@@ -134,12 +138,7 @@ const legendRendimento   = RENDIMENTO_TONES.map(t => ({ label: t.label, variant:
 
 <template>
   <div class="painel-root">
-
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         Barra superior: ClassSelector (Turma + Escola)
-         Componente reutilizável já implementado no protótipo
-    ═══════════════════════════════════════════════════════════════════════════ -->
-    <ClassSelector school-name="Colégio Nova Jornada" class="mb-1" />
+    <ClassSelector school-name="Colégio Nova Jornada" class="mb-1" :show-school-year="!hideSchoolYear" />
 
     <!-- ═══════════════════════════════════════════════════════════════════════
          Card Filtros

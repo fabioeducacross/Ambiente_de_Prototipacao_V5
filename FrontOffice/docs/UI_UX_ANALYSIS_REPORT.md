@@ -382,7 +382,7 @@ export function useKeyboardShortcuts(handlers) {
 <!-- Hierarquia de botões -->
 <div class="form-actions">
   <div class="danger-zone">
-    <EButton variant="text-danger" size="sm" @click="confirmDelete">
+    <EButton variant="danger" size="small" @click="confirmDelete">
       Deletar
     </EButton>
   </div>

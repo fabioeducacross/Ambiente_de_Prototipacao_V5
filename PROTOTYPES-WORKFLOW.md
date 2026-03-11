@@ -26,6 +26,8 @@ Este documento descreve o **workflow Git** para gerenciar:
 - **Protótipos TO-BE**: Melhorias propostas em branches isoladas
 - **Sincronização**: Migração de protótipos aprovados para produção
 
+> **Nota importante**: neste repositório, o código ativo dos protótipos fica em `FrontOffice/`. A pasta `src/` da raiz é legado e não deve ser usada como alvo de novas implementações.
+
 ### Princípios Fundamentais
 
 1. **AS-IS como Fonte da Verdade**: Branch `prototypes/as-is` sempre reflete produção
@@ -141,13 +143,13 @@ git checkout -b prototypes/feature/education-system-v2
 # ... código ...
 
 # Commits incrementais
-git add src/views/education-system/
+git add FrontOffice/src/modules/sistema-de-ensino/
 git commit -m "proto: add book selection wizard - step 1 (filter)"
 
-git add src/components/DSBookSelector.vue
+git add FrontOffice/src/components/DSBookSelector.vue
 git commit -m "proto: add book selection wizard - step 2 (preview)"
 
-git add src/views/education-system/
+git add FrontOffice/src/modules/sistema-de-ensino/
 git commit -m "proto: add book selection wizard - step 3 (confirmation)"
 
 # Push para deploy preview
@@ -215,7 +217,7 @@ git pull origin prototypes/as-is
 # Replicar mudanças implementadas em produção
 # Copiar código final de educacross-frontoffice
 cp -r ../Ambiente-de-Prototipacao-V4/educacross-frontoffice/src/views/pages/teacher-context/educationSystem/ \
-      src/views/education-system/
+      FrontOffice/src/modules/sistema-de-ensino/
 
 # Commit sincronização
 git add .
@@ -532,7 +534,7 @@ Manter arquivo `CHANGELOG.md` na raiz:
 - Deploy: master@x9y8z7w
 
 ### Baseline Atualizado
-- src/views/missions/ atualizado
+- FrontOffice/src/views/teacher/missions/ atualizado
 - Componente DSMissionTimeline integrado
 
 ---
@@ -544,7 +546,7 @@ Manter arquivo `CHANGELOG.md` na raiz:
 - Deploy: master@a1b2c3d
 
 ### Baseline Atualizado
-- src/views/education-system/ atualizado
+- FrontOffice/src/modules/sistema-de-ensino/ atualizado
 - Componente DSBookSelector integrado
 
 ---

@@ -9,6 +9,7 @@ Este arquivo define as instrucoes do projeto para o Codex CLI.
 2. Priorize `CLI First -> Observability Second -> UI Third`
 3. Trabalhe por stories em `docs/stories/`
 4. Nao invente requisitos fora dos artefatos existentes
+5. Para a iniciativa de Design System/Storybook, trate `documentation/docs/design-system/plano-implementacao-storybook-ds.md` como plano estrategico; `.copilot/session-state/**/plan.md` e apenas plano temporario e nunca substitui a story ativa nem o plano estrategico
 <!-- AIOX-MANAGED-END: core -->
 
 <!-- AIOX-MANAGED-START: quality -->

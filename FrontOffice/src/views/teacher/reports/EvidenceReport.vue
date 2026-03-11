@@ -1,10 +1,8 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import {
-  BCard, BRow, BCol, BFormGroup, BButton,
+  BCard, BRow, BCol, BFormGroup, BFormCheckbox, BFormCheckboxGroup, BOverlay, BButton, BSpinner, BTooltip,
 } from 'bootstrap-vue-next'
-import AppBreadcrumb from '@/components/AppBreadcrumb.vue'
-import ClassSelector from '@/components/calendar/ClassSelector.vue'
 import SelectSubject from '@/components/base/SelectSubject.vue'
 import ESelect from '@/components/base/ESelect.vue'
 
@@ -43,6 +41,8 @@ const monthsList = [
   { value: 12, label: 'Dezembro' },
 ]
 
+const currentMonth = new Date().getMonth() + 1
+
 const studentsMock = [
   { id: 1,  name: 'Ana Lima' },
   { id: 2,  name: 'Bruno Souza' },
@@ -65,8 +65,8 @@ const studentsMock = [
 const bncc        = ref(bnccList[0])
 const modulo      = ref(modulos[0])
 const eduSystem   = ref(null)
-const startMonth  = ref(monthsList[1])   // Fevereiro
-const endMonth    = ref(monthsList[1])
+const startMonth  = ref(monthsList.find((month) => month.value === currentMonth) ?? monthsList[0])
+const endMonth    = ref(monthsList.find((month) => month.value === currentMonth) ?? monthsList[0])
 
 const showEduSystem = computed(() => modulo.value?.value === 4)
 
@@ -80,6 +80,8 @@ const selectedStudents   = ref([])
 const allStudentsSelected = ref(false)
 const indeterminate      = ref(false)
 const showStudents       = ref(false)
+const isGeneratingPdf    = ref(false)
+const loading            = ref(false)
 
 watch(selectedStudents, (v) => {
   if (v.length === 0)                       { indeterminate.value = false; allStudentsSelected.value = false }
@@ -96,18 +98,37 @@ const disableButton = computed(() =>
   !optDashboard.value && !optClassProficiency.value && selectedStudents.value.length === 0
 )
 
-function gerarPDF() {
+const hasStudents = computed(() => studentsMock.length > 0)
+
+function changeShowStudents() {
+  if (!hasStudents.value) return
+  showStudents.value = !showStudents.value
+}
+
+function unactiveMonthsStartMonth(monthValue) {
+  return monthValue > (endMonth.value?.value ?? 0)
+}
+
+function unactiveMonthsEndMonth(monthValue) {
+  return monthValue < (startMonth.value?.value ?? 0)
+}
+
+async function gerarPDF() {
+  if (disableButton.value || isGeneratingPdf.value) return
+
+  isGeneratingPdf.value = true
+
+  await new Promise((resolve) => {
+    setTimeout(resolve, 900)
+  })
+
+  isGeneratingPdf.value = false
   alert('Gerando relatório em PDF...')
 }
 </script>
 
 <template>
   <section>
-    <div class="report-top-stack">
-      <ClassSelector school-name="Colégio Nova Jornada" />
-      <AppBreadcrumb />
-    </div>
-
     <!-- ── Card 1: Filtros ───────────────────────────────────────────── -->
     <BCard class="mb-2">
       <BRow class="match-height">
@@ -167,7 +188,25 @@ function gerarPDF() {
               label="label"
               placeholder="Selecione um mês inicial"
               :clearable="false"
-            />
+            >
+              <template #option="item">
+                <div>
+                  <span
+                    :id="`month-start-${item.value}`"
+                    :class="{ 'text-muted': unactiveMonthsStartMonth(item.value) }"
+                  >
+                    {{ item.label }}
+                  </span>
+                  <BTooltip
+                    v-if="unactiveMonthsStartMonth(item.value)"
+                    :target="`month-start-${item.value}`"
+                    triggers="hover"
+                  >
+                    O mês inicial não pode ser maior que o mês final
+                  </BTooltip>
+                </div>
+              </template>
+            </ESelect>
           </BFormGroup>
         </BCol>
 
@@ -180,7 +219,25 @@ function gerarPDF() {
               label="label"
               placeholder="Selecione um mês final"
               :clearable="false"
-            />
+            >
+              <template #option="item">
+                <div>
+                  <span
+                    :id="`month-end-${item.value}`"
+                    :class="{ 'text-muted': unactiveMonthsEndMonth(item.value) }"
+                  >
+                    {{ item.label }}
+                  </span>
+                  <BTooltip
+                    v-if="unactiveMonthsEndMonth(item.value)"
+                    :target="`month-end-${item.value}`"
+                    triggers="hover"
+                  >
+                    O mês final não pode ser maior que o mês inicial
+                  </BTooltip>
+                </div>
+              </template>
+            </ESelect>
           </BFormGroup>
         </BCol>
       </BRow>
@@ -188,130 +245,135 @@ function gerarPDF() {
 
     <!-- ── Card 2: Opções do relatório ──────────────────────────────── -->
     <BCard class="mb-2">
-      <div class="studentEvidence-report">
-        <h3 class="text-body">Selecione as opções que serão exibidas no relatório</h3>
-        <hr />
+      <BOverlay :show="loading">
+        <div class="studentEvidence-report studentEvidence-reportOptions">
+          <h3 class="text-body">Selecione as opções que serão exibidas no relatório</h3>
+          <hr />
 
-        <!-- Opção 1: Painel Geral -->
-        <div class="studentEvidence-option">
-          <input
-            type="checkbox"
-            class="form-check-input studentEvidence-optionCheckbox"
-            v-model="optDashboard"
-          />
-          <div class="studentEvidence-optionContent">
-            <h2 class="studentEvidence-optionTitle">1 - Painel Geral</h2>
-            <p class="studentEvidence-optionLegend">
-              Veja o desempenho dos alunos por objetivo de aprendizagem e desenvolvimento da BNCC
-              e a quantidade de jogos que cada um finalizou.
-            </p>
+          <!-- Opção 1: Painel Geral -->
+          <div class="studentEvidence-option">
+            <BFormCheckbox
+              v-model="optDashboard"
+              class="studentEvidence-optionCheckbox"
+            />
+            <div class="studentEvidence-optionContent">
+              <h2 class="studentEvidence-optionTitle">1 - Painel Geral</h2>
+              <p class="studentEvidence-optionLegend">
+                Veja o desempenho dos alunos por objetivo de aprendizagem e desenvolvimento da BNCC
+                e a quantidade de jogos que cada um finalizou.
+              </p>
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- Opção 2: Habilidades da Turma -->
+          <div class="studentEvidence-option">
+            <BFormCheckbox
+              v-model="optClassProficiency"
+              class="studentEvidence-optionCheckbox"
+            />
+            <div class="studentEvidence-optionContent">
+              <h2 class="studentEvidence-optionTitle">2 - Habilidades da Turma</h2>
+              <p class="studentEvidence-optionLegend">
+                Veja os objetivos de aprendizagem e desenvolvimento da turma.
+              </p>
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- Opção 3: Habilidades por Alunos -->
+          <div class="studentEvidence-option">
+            <BFormCheckbox
+              v-model="allStudentsSelected"
+              :indeterminate="indeterminate"
+              class="studentEvidence-optionCheckbox"
+              aria-describedby="students"
+              aria-controls="students"
+              @change="toggleAll"
+            />
+            <div class="studentEvidence-optionContent">
+              <h2 class="studentEvidence-optionTitle">3 - Habilidades por Alunos</h2>
+              <p class="studentEvidence-optionLegend">
+                <strong
+                  class="studentEvidence-showStudents"
+                  :class="{ 'studentEvidence-disabled': !hasStudents }"
+                  @click="changeShowStudents"
+                >Clique aqui</strong>
+                para gerar os dados de habilidade de um aluno específico.
+              </p>
+            </div>
+          </div>
+
+          <div v-if="showStudents" class="studentEvidence-students">
+            <BFormCheckboxGroup
+              id="students"
+              v-model="selectedStudents"
+              :options="studentsMock"
+              class="student-group"
+              value-field="id"
+              text-field="name"
+            />
           </div>
         </div>
-
-        <hr />
-
-        <!-- Opção 2: Habilidades da Turma -->
-        <div class="studentEvidence-option">
-          <input
-            type="checkbox"
-            class="form-check-input studentEvidence-optionCheckbox"
-            v-model="optClassProficiency"
-          />
-          <div class="studentEvidence-optionContent">
-            <h2 class="studentEvidence-optionTitle">2 - Habilidades da Turma</h2>
-            <p class="studentEvidence-optionLegend">
-              Veja os objetivos de aprendizagem e desenvolvimento da turma.
-            </p>
-          </div>
-        </div>
-
-        <hr />
-
-        <!-- Opção 3: Habilidades por Alunos -->
-        <div class="studentEvidence-option">
-          <input
-            type="checkbox"
-            class="form-check-input studentEvidence-optionCheckbox"
-            :checked="allStudentsSelected"
-            :indeterminate.prop="indeterminate"
-            @change="toggleAll"
-          />
-          <div class="studentEvidence-optionContent">
-            <h2 class="studentEvidence-optionTitle">3 - Habilidades por Alunos</h2>
-            <p class="studentEvidence-optionLegend">
-              <strong class="studentEvidence-showStudents" @click="showStudents = !showStudents">
-                Clique aqui
-              </strong>
-              para gerar os dados de habilidade de um aluno específico.
-            </p>
-          </div>
-        </div>
-
-        <!-- Lista de alunos (expansível) -->
-        <div v-if="showStudents" class="studentEvidence-students">
-          <div class="student-group">
-            <label
-              v-for="student in studentsMock"
-              :key="student.id"
-              class="d-flex align-items-center gap-2 mb-0 cursor-pointer"
-              style="user-select: none"
-            >
-              <input
-                type="checkbox"
-                class="form-check-input mt-0"
-                :value="student.id"
-                v-model="selectedStudents"
-              />
-              <span>{{ student.name }}</span>
-            </label>
-          </div>
-        </div>
-      </div>
+      </BOverlay>
     </BCard>
 
     <!-- ── Card 3: Botão PDF ─────────────────────────────────────────── -->
     <BCard>
-      <div class="d-flex flex-column flex-md-row justify-content-center" style="gap: 16px">
-        <BButton
-          variant="primary"
-          class="d-flex align-items-center justify-content-center gap-2"
-          :disabled="disableButton"
-          @click="gerarPDF"
-        >
-          <span class="material-symbols-outlined" style="font-size: 18px">picture_as_pdf</span>
-          Gerar relatório em PDF
-        </BButton>
+      <div>
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+          <span
+            id="reportToPdf"
+            class="d-inline-block"
+            tabindex="0"
+          >
+            <BButton
+              class="button d-flex align-items-center justify-content-center gap-2"
+              variant="primary"
+              :disabled="disableButton || isGeneratingPdf"
+              tabindex="1"
+              @click="gerarPDF"
+            >
+              <BSpinner v-if="isGeneratingPdf" small variant="light" />
+              <span v-else class="material-symbols-outlined">picture_as_pdf</span>
+              Gerar relatório em PDF
+            </BButton>
+          </span>
+          <BTooltip target="reportToPdf" triggers="hover" :disabled="!disableButton">
+            Selecione uma opção para habilitar a exportação em PDF
+          </BTooltip>
+        </div>
       </div>
     </BCard>
   </section>
 </template>
 
 <style scoped>
-.report-top-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
 .studentEvidence-report hr {
   margin-left: -1.5rem;
   margin-right: -1.5rem;
 }
 
+.studentEvidence-reportOptions {
+  background: var(--white);
+  border-radius: 10px;
+}
+
 .studentEvidence-optionTitle {
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 22px;
-  color: #2c2c2c;
+  color: var(--gray-900);
   margin: 0;
 }
 
 .studentEvidence-optionLegend {
   font-weight: 400;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 19px;
-  color: #6e6b7b;
+  color: var(--ec-body);
   margin: 0;
 }
 
@@ -323,9 +385,12 @@ function gerarPDF() {
 
 .studentEvidence-optionCheckbox {
   flex-shrink: 0;
+}
+
+:deep(.studentEvidence-optionCheckbox .form-check-input) {
   width: 1.1em;
   height: 1.1em;
-  margin-right: 0;
+  margin-top: 0;
 }
 
 .studentEvidence-optionContent {
@@ -344,15 +409,36 @@ function gerarPDF() {
   gap: 1rem;
 }
 
+:deep(.student-group) {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+:deep(.student-group .form-check) {
+  margin-bottom: 0;
+}
+
+:deep(.student-group .form-check-label) {
+  color: var(--ec-text);
+}
+
 @media (max-width: 768px) {
-  .studentEvidence-students .student-group {
+  :deep(.student-group) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .studentEvidence-showStudents {
-  color: #7367f0;
+  color: var(--primary);
   text-decoration: underline;
   cursor: pointer;
+}
+
+.studentEvidence-disabled {
+  color: var(--ec-muted) !important;
+  text-decoration: none;
+  cursor: not-allowed;
 }
 </style>

@@ -1,0 +1,144 @@
+{
+  "name": "ESelect",
+  "category": "base",
+  "description": "Select customizado com suporte a seleção única, múltipla, busca, limpeza e posicionamento via Teleport.",
+  "status": "adaptado",
+  "source": "FrontOffice/src/components/base/ESelect.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-select",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string | number | object | array",
+      "default": null,
+      "description": "Valor selecionado (v-model)"
+    },
+    {
+      "name": "options",
+      "type": "array",
+      "default": "[]",
+      "description": "Lista de opções. Pode ser array de strings, números ou objetos"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "name",
+      "description": "Propriedade do objeto usada como texto exibido"
+    },
+    {
+      "name": "trackBy",
+      "type": "string",
+      "default": "id",
+      "description": "Propriedade do objeto usada como chave única"
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "default": false,
+      "description": "Habilita seleção múltipla"
+    },
+    {
+      "name": "searchable",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe campo de busca no dropdown"
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe botão de limpar seleção"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Selecione uma opção",
+      "description": "Texto exibido quando nenhuma opção está selecionada"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string",
+      "default": "Buscar...",
+      "description": "Placeholder do campo de busca"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o select"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false,
+      "description": "Estado de carregamento"
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "default": false,
+      "description": "Estado de erro visual"
+    },
+    {
+      "name": "closeOnSelect",
+      "type": "boolean",
+      "default": true,
+      "description": "Fecha dropdown ao selecionar (modo single)"
+    },
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "primary",
+      "description": "Variante de cor do badge de múltipla seleção"
+    }
+  ],
+  "slots": [
+    {
+      "name": "option",
+      "description": "Template customizado para cada opção na lista"
+    },
+    {
+      "name": "selected-option",
+      "description": "Template customizado para a opção selecionada no trigger"
+    }
+  ],
+  "events": [
+    {
+      "name": "update:modelValue",
+      "description": "Emitido ao selecionar/deselecionar opção"
+    },
+    {
+      "name": "change",
+      "description": "Emitido junto a update:modelValue"
+    },
+    {
+      "name": "clear",
+      "description": "Emitido ao limpar seleção"
+    },
+    {
+      "name": "open",
+      "description": "Emitido ao abrir dropdown"
+    },
+    {
+      "name": "close",
+      "description": "Emitido ao fechar dropdown"
+    }
+  ],
+  "exposes": [
+    "open",
+    "close",
+    "clear"
+  ],
+  "variants": [],
+  "states": [
+    "default",
+    "open",
+    "disabled",
+    "loading",
+    "invalid"
+  ],
+  "a11y": [
+    "Elemento trigger usa role='combobox' com aria-expanded",
+    "Lista usa role='listbox', opções usam role='option' com aria-selected",
+    "Suporta teclado: Enter/Space abrem, Escape fecha"
+  ]
+}

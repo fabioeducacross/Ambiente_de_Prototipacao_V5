@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedFrom": "design-system/specs/",
+    "description": "Registry canônico de componentes do Design System Educacross. Consumido pelo MCP design-system.",
+    "tokensRef": "design-system/tokens/tokens.json",
+    "storybookUrl": "${STORYBOOK_URL:-http://localhost:6006}"
+  },
+  "components": [
+    {
+      "name": "EButton",
+      "category": "base",
+      "status": "nativo",
+      "description": "Botão de ação com suporte a variantes, tamanhos, loading e ícone.",
+      "specFile": "design-system/specs/EButton.json",
+      "sourceFile": "FrontOffice/src/components/base/EButton.vue",
+      "storyFile": "design-system/stories/EButton.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "secondary", "success", "danger", "warning", "info", "outline-primary", "outline-secondary", "outline-danger", "link"],
+      "tags": ["button", "action", "cta", "form"]
+    },
+    {
+      "name": "EInput",
+      "category": "base",
+      "status": "nativo",
+      "description": "Campo de input com tipos HTML, tamanhos e estados de validação.",
+      "specFile": "design-system/specs/EInput.json",
+      "sourceFile": "FrontOffice/src/components/base/EInput.vue",
+      "storyFile": "design-system/stories/EInput.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["input", "form", "text", "field"]
+    },
+    {
+      "name": "ESelect",
+      "category": "base",
+      "status": "adaptado",
+      "description": "Select customizado com múltipla seleção, busca e limpeza.",
+      "specFile": "design-system/specs/ESelect.json",
+      "sourceFile": "FrontOffice/src/components/base/ESelect.vue",
+      "storyFile": "design-system/stories/ESelect.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["select", "dropdown", "form", "choice"]
+    },
+    {
+      "name": "ETextarea",
+      "category": "base",
+      "status": "nativo",
+      "description": "Área de texto multilinha com contador e resize.",
+      "specFile": "design-system/specs/ETextarea.json",
+      "sourceFile": "FrontOffice/src/components/base/ETextarea.vue",
+      "storyFile": "design-system/stories/ETextarea.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["textarea", "form", "text", "multiline"]
+    },
+    {
+      "name": "EFormGroup",
+      "category": "base",
+      "status": "nativo",
+      "description": "Container de campo de formulário com label, hint e mensagem de erro.",
+      "specFile": "design-system/specs/EFormGroup.json",
+      "sourceFile": "FrontOffice/src/components/base/EFormGroup.vue",
+      "storyFile": "design-system/stories/EFormGroup.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["form-group", "form", "label", "validation"]
+    },
+    {
+      "name": "EBadge",
+      "category": "base",
+      "status": "nativo",
+      "description": "Badge para status, categorias e contadores.",
+      "specFile": "design-system/specs/EBadge.json",
+      "sourceFile": "FrontOffice/src/components/base/EBadge.vue",
+      "storyFile": "design-system/stories/EBadge.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"],
+      "tags": ["badge", "status", "label", "tag"]
+    },
+    {
+      "name": "EModal",
+      "category": "base",
+      "status": "nativo",
+      "description": "Modal com header/body/footer, tamanhos e backdrop.",
+      "specFile": "design-system/specs/EModal.json",
+      "sourceFile": "FrontOffice/src/components/base/EModal.vue",
+      "storyFile": "design-system/stories/EModal.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["modal", "dialog", "overlay", "popup"]
+    },
+    {
+      "name": "EConfirmDialog",
+      "category": "base",
+      "status": "nativo",
+      "description": "Dialog de confirmação com ícone, variante e botões configuráveis.",
+      "specFile": "design-system/specs/EConfirmDialog.json",
+      "sourceFile": "FrontOffice/src/components/base/EConfirmDialog.vue",
+      "storyFile": "design-system/stories/EConfirmDialog.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["confirm", "dialog", "modal", "alert", "destructive"]
+    },
+    {
+      "name": "EDatePicker",
+      "category": "base",
+      "status": "adaptado",
+      "description": "Date picker com configuração flatpickr simplificada.",
+      "specFile": "design-system/specs/EDatePicker.json",
+      "sourceFile": "FrontOffice/src/components/base/EDatePicker.vue",
+      "storyFile": "design-system/stories/EDatePicker.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["datepicker", "date", "calendar", "form"]
+    },
+    {
+      "name": "MaterialIcon",
+      "category": "base",
+      "status": "nativo",
+      "description": "Ícone Material Symbols Outlined com tamanho configurável.",
+      "specFile": "design-system/specs/MaterialIcon.json",
+      "sourceFile": "FrontOffice/src/components/MaterialIcon.vue",
+      "storyFile": "design-system/stories/MaterialIcon.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["icon", "material", "symbol"]
+    },
+    {
+      "name": "EToast",
+      "category": "feedback",
+      "status": "nativo",
+      "description": "Componente global de notificação toast. Acionado via composable useToast(). Suporta variantes success, error, warning, info com ícone, título e animação slide-in.",
+      "specFile": "design-system/specs/EToast.json",
+      "sourceFile": "FrontOffice/src/components/base/EToast.vue",
+      "storyFile": "design-system/stories/EToast.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["success", "error", "warning", "info"],
+      "tags": ["toast", "notification", "feedback", "alert", "global"]
+    },
+    {
+      "name": "Sidebar",
+      "category": "layout",
+      "status": "nativo",
+      "description": "Sidebar de navegação global fixa à esquerda. Suporta estado collapsed (70px, apenas ícones) e expanded (240px, ícone + texto).",
+      "specFile": "design-system/specs/Sidebar.json",
+      "sourceFile": "FrontOffice/src/components/Sidebar.vue",
+      "storyFile": "design-system/stories/Sidebar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["sidebar", "navigation", "layout", "menu"]
+    },
+    {
+      "name": "AppNavbar",
+      "category": "layout",
+      "status": "nativo",
+      "description": "Topbar global com logo centralizado, toggle de sidebar à esquerda e avatar do usuário com dropdown à direita. Suporta personalização por persona.",
+      "specFile": "design-system/specs/AppNavbar.json",
+      "sourceFile": "FrontOffice/src/components/AppNavbar.vue",
+      "storyFile": "design-system/stories/AppNavbar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["navbar", "topbar", "header", "layout", "navigation"]
+    },
+    {
+      "name": "ECheckbox",
+      "category": "base",
+      "status": "nativo",
+      "description": "Checkbox customizado com label, ícone Material Symbol ou SVG opcional, cor configurável e estado disabled. Implementa v-model Boolean.",
+      "specFile": "design-system/specs/ECheckbox.json",
+      "sourceFile": "FrontOffice/src/components/atoms/Checkbox.vue",
+      "storyFile": "design-system/stories/ECheckbox.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["checkbox", "form", "input", "toggle", "boolean"]
+    },
+    {
+      "name": "CheckboxGroup",
+      "category": "base",
+      "status": "nativo",
+      "description": "Grupo de checkboxes com título opcional. Recebe array de options e emite array de valores selecionados via v-model. Usa ECheckbox internamente.",
+      "specFile": "design-system/specs/CheckboxGroup.json",
+      "sourceFile": "FrontOffice/src/components/molecules/CheckboxGroup.vue",
+      "storyFile": "design-system/stories/CheckboxGroup.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["checkbox-group", "form", "multi-select", "filter"]
+    },
+    {
+      "name": "ProgressBar",
+      "category": "feedback",
+      "status": "adaptado",
+      "description": "Barra de progresso horizontal com variante automática por percentual: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%). Suporta valores absolutos (value/max) ou percentual direto.",
+      "specFile": "design-system/specs/ProgressBar.json",
+      "sourceFile": "FrontOffice/src/components/base/ProgressBarHorizontalV2.vue",
+      "storyFile": "design-system/stories/ProgressBar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["progress", "progress-bar", "feedback", "dashboard", "metrics"]
+    },
+    {
+      "name": "PageCallout",
+      "category": "feedback",
+      "status": "nativo",
+      "description": "Faixa informativa persistente de nível de página. Sem botão fechar. Variantes: primary, info, warning, neutral. Ícone Material Symbol e título configuráveis.",
+      "specFile": "design-system/specs/PageCallout.json",
+      "sourceFile": "FrontOffice/src/components/atoms/PageCallout.vue",
+      "storyFile": "design-system/stories/PageCallout.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "info", "warning", "neutral"],
+      "tags": ["callout", "info", "feedback", "banner", "notice"]
+    },
+    {
+      "name": "FilterSection",
+      "category": "base",
+      "status": "nativo",
+      "description": "Seção colapsável de filtros com título, ícone opcional e badge de contagem. Suporta modo não-controlado e controlado (v-model). Ideal para painéis laterais.",
+      "specFile": "design-system/specs/FilterSection.json",
+      "sourceFile": "FrontOffice/src/components/molecules/FilterSection.vue",
+      "storyFile": "design-system/stories/FilterSection.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["filter", "accordion", "collapsible", "section", "panel"]
+    },
+    {
+      "name": "LegendEnum",
+      "category": "feedback",
+      "status": "adaptado",
+      "description": "Legenda de enumeração com pontos coloridos. Exibe grupos de categorias para explicar cores de dashboards (ex: variantes de ProgressBar). Porta do legado.",
+      "specFile": "design-system/specs/LegendEnum.json",
+      "sourceFile": "FrontOffice/src/components/base/LegendEnum.vue",
+      "storyFile": "design-system/stories/LegendEnum.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["legend", "enum", "colors", "dashboard", "reference"]
+    },
+    {
+      "name": "AppBreadcrumb",
+      "category": "layout",
+      "status": "adaptado",
+      "description": "Breadcrumb que lê route.meta.breadcrumb automaticamente. Sem props. Suporta array de itens [{text, to?, active}] ou string legada. Porta fiel do legado.",
+      "specFile": "design-system/specs/AppBreadcrumb.json",
+      "sourceFile": "FrontOffice/src/components/AppBreadcrumb.vue",
+      "storyFile": "design-system/stories/AppBreadcrumb.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["breadcrumb", "navigation", "layout", "route"]
+    }
+  ],
+  "statusLegend": {
+    "nativo": "Componente criado nativamente para o FrontOffice Vue 3",
+    "adaptado": "Componente adaptado do legado com ajustes para Vue 3",
+    "espelhado": "Cópia fiel do legado, ainda não adaptada",
+    "divergente": "Implementação diverge intencionalmente do legado"
+  },
+  "categories": {
+    "base": "Componentes atômicos fundamentais (inputs, buttons, badges, modals, checkboxes)",
+    "layout": "Componentes estruturais de layout (sidebar, navbar)",
+    "feedback": "Componentes de feedback ao usuário (toast, progress bar)"
+  }
+}

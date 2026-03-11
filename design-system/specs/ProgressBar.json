@@ -1,0 +1,75 @@
+{
+  "name": "ProgressBar",
+  "category": "feedback",
+  "status": "adaptado",
+  "description": "Barra de progresso horizontal com variante automática por percentual. Suporta modo com valores absolutos (value/max) ou percentual direto. Variante visual muda conforme progresso: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%).",
+  "source": "FrontOffice/src/components/base/ProgressBarHorizontalV2.vue",
+  "legacyRef": "components/progessBar/ProgressBarHorizontalV2.vue do educacross-frontoffice",
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": 0,
+      "description": "Valor atual. Se max for informado, calcula percentual como (value/max)*100. Se não, usa diretamente como percentual."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": null,
+      "description": "Valor máximo para cálculo de percentual. Se null, value é tratado como percentual direto (0-100)."
+    },
+    {
+      "name": "showValues",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe texto com valores abaixo da barra (ex: '72%' ou '36/50')."
+    },
+    {
+      "name": "reverse",
+      "type": "boolean",
+      "default": false,
+      "description": "Inverte a ordem: valores exibidos acima da barra ao invés de abaixo."
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "default": "6px",
+      "description": "Altura CSS da barra de progresso."
+    },
+    {
+      "name": "valuesDivisor",
+      "type": "string",
+      "default": "/",
+      "description": "Separador exibido entre value e max quando showValues=true (ex: '/' resulta em '36/50')."
+    },
+    {
+      "name": "getVariant",
+      "type": "function",
+      "default": null,
+      "description": "Função customizada (percent: number) => { variant: string, textClass: string, color: string }. Se null, usa a regra padrão do DS: <50 danger, 50-79 warning, 80-99 success, >=100 success-dark."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "slotProps": "{ item: { value, max, showValues, variant, percent } }",
+      "description": "Substitui o display padrão de valores. Use para layouts customizados de texto abaixo/acima da barra."
+    }
+  ],
+  "events": [],
+  "variantRules": {
+    "danger":       "percent < 50 — cor: #EA5455",
+    "warning":      "percent 50-79 — cor: #FF9F43",
+    "success":      "percent 80-99 — cor: #28C76F",
+    "success-dark": "percent >= 100 — cor: #14693A"
+  },
+  "states": [
+    { "name": "critical",    "description": "< 50% — variante danger" },
+    { "name": "moderate",    "description": "50-79% — variante warning" },
+    { "name": "satisfactory","description": "80-99% — variante success" },
+    { "name": "complete",    "description": "100% — variante success escura" }
+  ],
+  "a11y": {
+    "note": "Usa BProgress do bootstrap-vue-next que renderiza role=progressbar com aria-valuenow/min/max"
+  }
+}

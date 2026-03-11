@@ -19,7 +19,7 @@
     </div>
     
     <!-- Toggle de Views -->
-    <div v-if="showViewToggle" class="header-right">
+    <div v-if="shouldShowViewToggle" class="header-right">
       <ViewToggleGroup
         :model-value="currentView"
         :views="availableViews"
@@ -31,6 +31,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import NavigationButton from '../atoms/NavigationButton.vue'
 import ViewToggleGroup from './ViewToggleGroup.vue'
 
@@ -51,9 +52,7 @@ const props = defineProps({
   availableViews: {
     type: Array,
     default: () => [
-      { value: 'month', label: 'Mês', ariaLabel: 'Visualização mensal' },
-      { value: 'week', label: 'Semana', ariaLabel: 'Visualização semanal' },
-      { value: 'day', label: 'Dia', ariaLabel: 'Visualização diária' }
+      { value: 'month', label: 'Mês', ariaLabel: 'Visualização mensal' }
     ]
   },
   viewToggleSize: {
@@ -64,6 +63,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['previous', 'next', 'view-change'])
+const shouldShowViewToggle = computed(() => props.showViewToggle && props.availableViews.length > 1)
 
 const handlePrevious = () => {
   emit('previous')

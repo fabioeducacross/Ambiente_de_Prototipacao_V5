@@ -1,0 +1,33 @@
+{
+  "name": "AppBreadcrumb",
+  "category": "layout",
+  "status": "adaptado",
+  "description": "Breadcrumb de navegação que lê automaticamente route.meta.breadcrumb. Sem props — toda a configuração vem dos metadados da rota. Suporta array de items [{text, to?, active}] ou string legada. Porta do AppBreadcrumb de produção.",
+  "source": "FrontOffice/src/components/AppBreadcrumb.vue",
+  "legacyRef": "src/layouts/components/AppBreadcrumb.vue do educacross-frontoffice",
+  "props": [],
+  "routeMetaFormat": {
+    "array": "[{ text: string, to?: string|RouteLocation, active?: boolean }]",
+    "string": "string legada — normalizada automaticamente como item ativo",
+    "example": "meta: { breadcrumb: [{ text: 'Calendário', to: '/teacher/calendar' }, { text: 'Novo Evento', active: true }] }"
+  },
+  "behavior": {
+    "rendering": "Itens inativos com link (RouterLink), item ativo como span com aria-current='location'",
+    "homeIcon": "Ícone feather-home sempre como primeiro item, navegando para '/'",
+    "sort": "Itens inativos (com to) sempre antes do item ativo",
+    "emptyState": "Nada renderizado (v-if show) se route.meta.breadcrumb for null/undefined"
+  },
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "element": "ol.breadcrumb",
+    "activeItem": "aria-current='location' no item ativo",
+    "homeLink": "aria-label='Início'"
+  },
+  "design": {
+    "fontSize": "0.875rem",
+    "fontFamily": "Montserrat, Helvetica, Arial, sans-serif",
+    "activeColor": "var(--primary) #7367f0",
+    "inactiveColor": "#6e6b7b"
+  }
+}

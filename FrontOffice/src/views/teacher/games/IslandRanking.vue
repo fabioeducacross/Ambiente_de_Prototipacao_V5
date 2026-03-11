@@ -22,7 +22,7 @@ const ranking = [
 <template>
   <section>
     <!-- ClassSelector -->
-    <ClassSelector class="mb-3" />
+    <ClassSelector class="mb-3" :show-school-year="false" />
 
     <!-- Título da página -->
     <h4 class="fw-bold mb-4">{{ pageTitle }}</h4>

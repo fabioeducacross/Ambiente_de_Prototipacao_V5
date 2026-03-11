@@ -37,7 +37,7 @@ const MAX_AVATARS = 3
 <template>
   <div>
     <div class="report-top-stack">
-      <ClassSelector school-name="Colégio Nova Jornada" />
+      <ClassSelector school-name="Colégio Nova Jornada" :show-school-year="false" />
       <AppBreadcrumb />
     </div>
 

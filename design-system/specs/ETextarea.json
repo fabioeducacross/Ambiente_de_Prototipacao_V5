@@ -1,0 +1,83 @@
+{
+  "name": "ETextarea",
+  "category": "base",
+  "description": "Área de texto multilinha com suporte a v-model, resize, contador de caracteres e estados de validação.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/ETextarea.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-textarea",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string",
+      "default": "",
+      "description": "Valor do textarea (v-model)"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "default": "",
+      "description": "ID HTML, usado para associar ao label"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "Texto placeholder"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o campo"
+    },
+    {
+      "name": "readonly",
+      "type": "boolean",
+      "default": false,
+      "description": "Campo somente leitura"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Campo obrigatório"
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "default": false,
+      "description": "Aplica estado de erro visual"
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "default": 4,
+      "description": "Número de linhas visíveis"
+    },
+    {
+      "name": "maxlength",
+      "type": "number",
+      "default": null,
+      "description": "Limite de caracteres"
+    },
+    {
+      "name": "resize",
+      "type": "string",
+      "default": "vertical",
+      "values": ["none", "vertical", "horizontal", "both"],
+      "description": "Direção de redimensionamento"
+    }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "update:modelValue", "description": "Emitido a cada mudança de valor" },
+    { "name": "blur", "description": "Emitido ao perder foco" },
+    { "name": "focus", "description": "Emitido ao ganhar foco" }
+  ],
+  "exposes": ["focus", "blur"],
+  "states": ["default", "focus", "disabled", "readonly", "invalid"],
+  "a11y": [
+    "Associar ao EFormGroup com label via id",
+    "Usar maxlength + descrição visível para limite de caracteres"
+  ]
+}

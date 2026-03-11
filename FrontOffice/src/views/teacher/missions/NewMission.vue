@@ -65,7 +65,7 @@ const loading = ref(false)
 <template>
   <div>
     <!-- ClassSelector (turma + escola) -->
-    <ClassSelector school-name="Colégio Nova Jornada" class="mb-2" />
+    <ClassSelector school-name="Colégio Nova Jornada" class="mb-2" :show-school-year="false" />
 
     <!-- Row 1: Seletor de disciplina + card informativo -->
     <BRow class="match-height mb-2">

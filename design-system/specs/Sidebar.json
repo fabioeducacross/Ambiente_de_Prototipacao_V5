@@ -1,0 +1,38 @@
+{
+  "name": "Sidebar",
+  "category": "layout",
+  "status": "nativo",
+  "description": "Sidebar de navegação global fixa à esquerda. Suporta estado colapsado (apenas ícones) e expandido (ícones + texto). Exibe itens de menu por persona.",
+  "source": "FrontOffice/src/components/Sidebar.vue",
+  "legacyRef": "Sidebar do educacross-frontoffice com fundo escuro #1e1e2d",
+  "props": [
+    {
+      "name": "collapsed",
+      "type": "boolean",
+      "default": false,
+      "description": "Colapsa a sidebar para modo ícone (width: 70px). Quando false, exibe ícone + texto (width: 240px)."
+    }
+  ],
+  "slots": [],
+  "events": [],
+  "states": [
+    { "name": "expanded", "description": "Estado padrão: width 240px, ícone + label visíveis" },
+    { "name": "collapsed", "description": "Width 70px, apenas ícones visíveis, labels ocultas" }
+  ],
+  "a11y": {
+    "element": "aside",
+    "navigation": "nav",
+    "activeItem": "classe 'active' no item ativo"
+  },
+  "design": {
+    "background": "#1e1e2d",
+    "textColor": "#a1a5b7",
+    "activeColor": "var(--primary)",
+    "width": {
+      "expanded": "240px",
+      "collapsed": "70px"
+    },
+    "transition": "width 0.3s ease",
+    "position": "fixed, left: 0, top: var(--navbar-height)"
+  }
+}

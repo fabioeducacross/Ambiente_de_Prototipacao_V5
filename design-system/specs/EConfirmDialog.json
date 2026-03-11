@@ -1,0 +1,69 @@
+{
+  "name": "EConfirmDialog",
+  "category": "base",
+  "description": "Dialog de confirmação com ícone, mensagem, variante e botões configuráveis. Composto por EModal + EButton.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EConfirmDialog.vue",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "boolean",
+      "default": false,
+      "description": "Controla visibilidade (v-model)"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "Confirmar ação",
+      "description": "Título do dialog"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "description": "Mensagem principal de confirmação"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "default": "",
+      "description": "Texto secundário opcional"
+    },
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "warning",
+      "values": ["warning", "danger", "info", "success"],
+      "description": "Variante visual (define cor do ícone)"
+    },
+    {
+      "name": "confirmText",
+      "type": "string",
+      "default": "Confirmar",
+      "description": "Texto do botão de confirmação"
+    },
+    {
+      "name": "cancelText",
+      "type": "string",
+      "default": "Cancelar",
+      "description": "Texto do botão de cancelamento"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false,
+      "description": "Estado de carregamento (desabilita botões)"
+    }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "update:modelValue", "description": "Emitido ao fechar" },
+    { "name": "confirm", "description": "Emitido ao clicar no botão de confirmação" },
+    { "name": "cancel", "description": "Emitido ao cancelar ou fechar" }
+  ],
+  "states": ["closed", "open", "loading"],
+  "a11y": [
+    "Herda a11y do EModal",
+    "Botão de confirmação deve ser o último no foco (destructive actions)"
+  ]
+}
