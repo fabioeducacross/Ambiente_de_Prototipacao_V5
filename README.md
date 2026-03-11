@@ -1,19 +1,20 @@
 # Ambiente de Prototipação V5
 
-Ambiente de prototipação para criar jornadas educacionais usando Vue 3 e o Design System Vuexy.
+Workspace de prototipação da Educacross com `FrontOffice/` como aplicação ativa, wiki Docusaurus e artefatos de apoio ao design system.
 
 ## 📖 Visão Geral
 
-Este projeto é um ambiente de prototipação para a criação e teste de jornadas educacionais da [Educacross](https://educacross.com.br/). Utiliza Vue 3 com Vite, o Design System baseado no Vuexy, e um sistema de dados simples em JSON.
+Este repositório reúne 3 superfícies: o `FrontOffice/` (desenvolvimento ativo), a wiki em `documentation/` e a pasta `src/` da raiz, mantida apenas como legado/histórico. A stack principal continua sendo Vue 3 + Vite, com Bootstrap, protótipos por persona e dados locais/mockados.
 
 ## 🚀 Características
 
-- **Vue 3** com Composition API e `<script setup>`
-- **Vue Router** para navegação entre páginas
-- **Design System Vuexy** inspirado em cores e componentes
-- **Banco de dados JSON** simples e eficiente
-- **Interface Responsiva** que funciona em desktop e mobile
-- **Sistema de Jornadas Educacionais** completo
+- **FrontOffice ativo** em `FrontOffice/` com Vue 3, Vite e `<script setup>`
+- **Rotas por persona** para professor, aluno, administrador, coordenador, diretor e gestor de rede
+- **Módulos dedicados** para calendários e sistema de ensino
+- **Storybook canônico** em `design-system/` para catálogo de componentes
+- **Wiki Docusaurus** para documentação, jornadas e screenshots de referência
+- **Dados locais/mockados** em arquivos do próprio repositório
+- **Interface responsiva** com Design System inspirado no Vuexy
 
 ## 📋 Pré-requisitos
 
@@ -53,9 +54,25 @@ npm run dev:all
 ### Servidores individuais
 
 ```bash
-npm run dev          # ROOT Vite (porta 5173)
-npm run dev:fo       # FrontOffice (porta 5174)
+npm run dev          # FrontOffice via vite.config.js da raiz (porta 5174)
+npm run dev:fo       # FrontOffice diretamente (porta 5174)
 npm run dev:docs     # Docusaurus wiki (porta 3000)
+npm run dev:ds       # Storybook / design system (porta 6006)
+```
+
+### Storybook / Design System
+
+Na primeira utilização do subprojeto `design-system/`, instale as dependências dele separadamente:
+
+```bash
+npm run setup:ds
+```
+
+Depois disso:
+
+```bash
+npm run dev:ds    # Storybook local em http://localhost:6006
+npm run build:ds  # Build estático do Storybook
 ```
 
 ### Build para Produção
@@ -75,29 +92,29 @@ npm run preview  # Preview do build localmente
 
 ```
 Ambiente_de_Prototipacao_V5/
-├── public/                      # Arquivos estáticos
-│   └── vuexy/                  # Assets do Design System Vuexy
-│       ├── css/                # CSS do Vuexy
-│       ├── js/                 # JavaScript do Vuexy
-│       ├── fonts/              # Fontes do Vuexy
-│       └── vendors/            # Bibliotecas de terceiros
-├── src/
-│   ├── components/             # Componentes Vue reutilizáveis
-│   ├── data/                   # Dados em JSON
-│   │   └── journeys.json      # Dados das jornadas educacionais
-│   ├── router/                 # Configuração do Vue Router
-│   │   └── index.js           # Rotas da aplicação
-│   ├── views/                  # Páginas/Views da aplicação
-│   │   ├── Home.vue           # Página inicial
-│   │   ├── JourneyList.vue    # Lista de jornadas
-│   │   └── JourneyDetail.vue  # Detalhes de uma jornada
-│   ├── App.vue                # Componente raiz
-│   ├── main.js                # Arquivo de entrada
-│   └── style.css              # Estilos globais
-├── index.html                  # HTML principal
-├── package.json               # Dependências e scripts
-├── vite.config.js             # Configuração do Vite
-└── README.md                  # Este arquivo
+├── FrontOffice/                  # Aplicação ativa do workspace
+│   ├── src/
+│   │   ├── views/                # Home, About e telas por persona
+│   │   ├── modules/              # calendário, sistema-de-ensino
+│   │   ├── components/           # Componentes reutilizáveis do FrontOffice
+│   │   ├── shared/               # Recursos compartilhados entre módulos
+│   │   ├── data/                 # Mocks e fixtures
+│   │   └── router/               # Rotas ativas
+│   └── package.json
+├── documentation/                # Wiki Docusaurus
+│   ├── docs/
+│   ├── src/components/
+│   └── static/img/screenshots/
+├── design-system/                # Storybook / design system local
+│   ├── .storybook/
+│   ├── stories/
+│   ├── registry/
+│   └── tokens/
+├── public/                       # Assets públicos compartilhados
+├── src/                          # Protótipo legado (somente consulta)
+├── package.json                  # Scripts raiz
+├── vite.config.js                # Root Vite apontando para `FrontOffice/`
+└── README.md                     # Este arquivo
 ```
 
 ## 🎨 Design System
@@ -118,61 +135,46 @@ Para mais informações sobre o Design System completo, visite:
 
 ## 📊 Sistema de Dados
 
-Os dados são armazenados em arquivos JSON na pasta `src/data/`. Atualmente, incluímos:
+Os mocks e fixtures usados pelo FrontOffice ficam principalmente em `FrontOffice/src/data/`.
 
-### Jornadas Educacionais (`journeys.json`)
+Atualmente, os arquivos-base incluem:
 
-Cada jornada contém:
-- **id**: Identificador único
-- **titulo**: Título da jornada
-- **descricao**: Descrição detalhada
-- **categoria**: Categoria da jornada (Fundamentos, Metodologia, Avaliação, etc.)
-- **duracao**: Duração estimada
-- **nivel**: Nível de dificuldade (Iniciante, Intermediário, Avançado)
-- **objetivos**: Array de objetivos de aprendizagem
-- **modulos**: Array de módulos com lições
-- **status**: Status da jornada (ativo, inativo, etc.)
+- `calendar-mock-teacher.json`
+- `eventsCalendar.json`
+- `journeys.ts`
+- `trilhas-az.json`
 
-### Exemplo de Estrutura
-
-```json
-{
-  "id": 1,
-  "titulo": "Introdução à Educação Digital",
-  "descricao": "Jornada de aprendizado para iniciantes...",
-  "categoria": "Fundamentos",
-  "duracao": "4 semanas",
-  "nivel": "Iniciante",
-  "objetivos": [...],
-  "modulos": [...],
-  "status": "ativo"
-}
-```
+Sempre que possível, mantenha dados de protótipo próximos da feature: use `FrontOffice/src/data/` para dados compartilhados e os módulos em `FrontOffice/src/modules/` quando o mock pertencer a uma feature específica.
 
 ## 🔧 Personalização
 
-### Adicionar Nova Jornada
+### Adicionar ou ajustar dados mockados
 
-1. Abra o arquivo `src/data/journeys.json`
-2. Adicione um novo objeto seguindo a estrutura existente
-3. A jornada aparecerá automaticamente na lista
+1. Edite arquivos em `FrontOffice/src/data/`
+2. Se o dado pertencer a uma feature isolada, prefira armazená-lo próximo ao módulo correspondente em `FrontOffice/src/modules/`
+3. Reutilize estruturas já existentes antes de criar novos formatos
 
 ### Criar Nova Página
 
-1. Crie um novo arquivo em `src/views/`
-2. Adicione a rota em `src/router/index.js`
-3. Navegue para a nova página usando `<router-link>` ou programaticamente
+1. Crie a view em `FrontOffice/src/views/` ou dentro de `FrontOffice/src/modules/`
+2. Registre a rota em `FrontOffice/src/router/index.js`
+3. Adicione metadados de `title`, `persona` e `breadcrumb` quando fizer sentido
 
 ### Adicionar Componente Reutilizável
 
-1. Crie um novo arquivo em `src/components/`
-2. Importe e use o componente em suas views
+1. Verifique primeiro `FrontOffice/src/components/`
+2. Para componentes cross-feature, use `FrontOffice/src/shared/`
+3. Importe o componente nas views ou módulos necessários
 
 ## 🌐 Rotas Disponíveis
 
-- `/` - Página inicial (Home)
-- `/jornadas` - Lista de todas as jornadas
-- `/jornada/:id` - Detalhes de uma jornada específica
+As rotas ativas ficam em `FrontOffice/src/router/index.js`. Hoje, os principais grupos são:
+
+- `/` - Home do ambiente de prototipação
+- `/teacher`, `/teacher/calendar`, `/teacher/calendar-figma`, `/teacher/trilhas-az`
+- `/student`, `/administrator`, `/coordinator`, `/director`, `/network-manager`
+- `/professor/*` - Jornada isolada do professor com subrotas de gestão, missões, relatórios, jogos, avaliações e programas
+- `/sobre` - Página editorial sobre o ambiente
 
 ## 🧭 Convenção de Breadcrumb (FrontOffice)
 

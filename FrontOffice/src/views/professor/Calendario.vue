@@ -1,13 +1,15 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 import EventDrawer from '@/components/EventDrawer.vue'
 import CalendarLayoutTemplate from '@/components/templates/CalendarLayoutTemplate.vue'
 import ClassSelector from '@/components/calendar/ClassSelector.vue'
 import { ORIGIN_LEVELS, normalizeOriginLevel } from '@/data/calendar-enums'
 import calendarMockData from '@/data/calendar-mock-teacher.json'
+import { useProfileSwitcher } from '@/shared/composables/useProfileSwitcher'
 
 const STORAGE_KEY = 'educacross_calendar_events'
+const { currentProfile } = useProfileSwitcher()
 
 const currentDate = ref(new Date(2026, 1, 15))
 const selectedTurma = ref('5a-manha')
@@ -15,6 +17,8 @@ const events = ref([])
 const isDrawerOpen = ref(false)
 const editingEvent = ref(null)
 const drawerMode = ref('create')
+const selectedSchoolYear = ref('2026')
+const hideSchoolYear = computed(() => currentProfile.value?.id === 'teacher')
 
 const saveToLocalStorage = () => {
   try {
@@ -66,6 +70,18 @@ const typeColorMap = {
   trilha: '#00A5A0', expedicao: '#FFB443', lembrete: '#7CD7D3',
 }
 
+const syncCalendarYear = (schoolYear) => {
+  const numericSchoolYear = Number(schoolYear)
+
+  if (Number.isNaN(numericSchoolYear)) {
+    return
+  }
+
+  const nextDate = new Date(currentDate.value)
+  nextDate.setFullYear(numericSchoolYear)
+  currentDate.value = nextDate
+}
+
 const transformEvent = (event) => {
   const startDate = new Date(event.start_at || event.dataInicio)
   const endDate = new Date(event.end_at || event.dataTermino || startDate)
@@ -97,6 +113,10 @@ const calendarEvents = computed(() =>
 )
 
 const handleClassChange = (c) => { selectedTurma.value = c.id }
+const handleSchoolYearChange = (year) => {
+  selectedSchoolYear.value = year.id
+  syncCalendarYear(year.id)
+}
 const handleMonthChange = (d) => { currentDate.value = d }
 const handleDayClick = () => {}
 const handleActivityChange = () => {}
@@ -121,19 +141,24 @@ const closeDrawer = () => {
   drawerMode.value = 'create'
 }
 const saveEvent = (eventData) => {
-  const idx = events.value.findIndex(e => e.id === eventData.id)
-  const origin = normalizeOriginLevel(eventData.origin_level || 'professor') || ORIGIN_LEVELS.TEACHER.value
+  const payload = {
+    ...eventData,
+    schoolYear: eventData.schoolYear || Number(selectedSchoolYear.value),
+    school_year: eventData.school_year || Number(selectedSchoolYear.value),
+  }
+  const idx = events.value.findIndex(e => e.id === payload.id)
+  const origin = normalizeOriginLevel(payload.origin_level || 'professor') || ORIGIN_LEVELS.TEACHER.value
   if (idx !== -1) {
-    events.value[idx] = { ...eventData, origin_level: origin }
+    events.value[idx] = { ...payload, origin_level: origin }
   } else {
     events.value.push({
-      ...eventData,
-      id: eventData.id || Date.now(),
+      ...payload,
+      id: payload.id || Date.now(),
       status: 'ativo',
-      origem: eventData.origem || 'professor',
+      origem: payload.origem || 'professor',
       origin_level: origin,
-      start_at: eventData.start_at || eventData.dataInicio,
-      end_at: eventData.end_at || eventData.dataTermino,
+      start_at: payload.start_at || payload.dataInicio,
+      end_at: payload.end_at || payload.dataTermino,
     })
   }
   closeDrawer()
@@ -146,6 +171,7 @@ const deleteEvent = (eventId) => {
 onMounted(() => {
   const saved = loadFromLocalStorage()
   events.value = (saved && saved.length > 0) ? saved : calendarMockData
+  syncCalendarYear(selectedSchoolYear.value)
   if (!saved || saved.length === 0) saveToLocalStorage()
   if (typeof window !== 'undefined') {
     window.__resetCalendarData__ = () => {
@@ -161,6 +187,7 @@ onMounted(() => {
   <div class="calendario-wrapper">
     <ClassSelector
       :initial-class="selectedTurma"
+      :show-school-year="!hideSchoolYear"
       @class-change="handleClassChange"
     />
 
@@ -183,6 +210,7 @@ onMounted(() => {
       :event-data="editingEvent"
       :mode="drawerMode"
       :default-turma="selectedTurma"
+      :school-year="Number(selectedSchoolYear)"
       @close="closeDrawer"
       @save="saveEvent"
       @delete="deleteEvent"
@@ -204,5 +232,11 @@ onMounted(() => {
   box-shadow: 0px 3px 12px rgba(47, 43, 61, 0.14);
   overflow: hidden;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .calendario-wrapper {
+    gap: 0.75rem;
+  }
 }
 </style>

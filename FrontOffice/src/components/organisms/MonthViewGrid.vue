@@ -114,9 +114,7 @@ const props = defineProps({
   availableViews: {
     type: Array,
     default: () => [
-      { value: 'month', label: 'Mês' },
-      { value: 'week', label: 'Semana' },
-      { value: 'day', label: 'Dia' }
+      { value: 'month', label: 'Mês' }
     ]
   },
   daysLabels: {

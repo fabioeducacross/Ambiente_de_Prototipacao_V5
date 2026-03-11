@@ -1,0 +1,49 @@
+{
+  "name": "LegendEnum",
+  "category": "feedback",
+  "status": "adaptado",
+  "description": "Componente de legenda baseado em enumeração de cores. Exibe grupos de categorias com ponto colorido e texto. Usado em dashboards para explicar variantes de ProgressBar, status de alunos, etc. Porta do LegendEnum de produção.",
+  "source": "FrontOffice/src/components/base/LegendEnum.vue",
+  "legacyRef": "components/legends/LegendEnum.vue do educacross-frontoffice",
+  "props": [
+    {
+      "name": "legends",
+      "type": "array",
+      "required": true,
+      "description": "Array de grupos de legenda. Cada grupo contém: text? (string, rótulo do grupo) e enum (array de itens)."
+    },
+    {
+      "name": "border",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe borda ao redor do card container (border: 1px solid #d8d6de)."
+    },
+    {
+      "name": "cardClass",
+      "type": "string",
+      "default": "",
+      "description": "Classe CSS adicional aplicada ao BCard container."
+    }
+  ],
+  "legendShape": {
+    "text": "string? — rótulo do grupo (ex: 'Progresso da turma')",
+    "enum": "array de { text: string, color?: string, dotColor?: string, legend?: string }"
+  },
+  "enumItemShape": {
+    "text": "string — label do item",
+    "color": "string? — cor do ponto (ex: '#28c76f')",
+    "dotColor": "string? — alias de color",
+    "legend": "string? — texto descritivo extra (HTML permitido)"
+  },
+  "slots": [
+    {
+      "name": "enum-component",
+      "slotProps": "{ value: enumItem }",
+      "description": "Substitui o renderer padrão de cada item da legenda. Use para renderizar SemaphoreStatus ou badges customizados."
+    }
+  ],
+  "events": [],
+  "a11y": {
+    "note": "Usa BCard/BCardBody do bootstrap-vue-next como container semântico"
+  }
+}

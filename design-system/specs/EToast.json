@@ -1,0 +1,47 @@
+{
+  "name": "EToast",
+  "category": "feedback",
+  "status": "nativo",
+  "description": "Componente global de notificação toast. Registrado uma vez no App.vue e acionado via composable useToast(). Suporta 4 variantes com ícone, título e mensagem.",
+  "source": "FrontOffice/src/components/base/EToast.vue",
+  "legacyRef": "Baseado no toast de produção com fundo colorido sólido e avatar circular",
+  "composable": "FrontOffice/src/composables/useToast.js",
+  "usage": "global",
+  "props": [],
+  "composableAPI": [
+    {
+      "method": "toast.success(message, duration?)",
+      "description": "Exibe toast de sucesso (verde). Duration padrão: 3000ms."
+    },
+    {
+      "method": "toast.error(message, duration?)",
+      "description": "Exibe toast de erro (vermelho). Duration padrão: 3000ms."
+    },
+    {
+      "method": "toast.warning(message, duration?)",
+      "description": "Exibe toast de atenção (laranja). Duration padrão: 3000ms."
+    },
+    {
+      "method": "toast.info(message, duration?)",
+      "description": "Exibe toast informativo (azul). Duration padrão: 3000ms."
+    }
+  ],
+  "variants": ["success", "error", "warning", "info"],
+  "states": [
+    { "name": "visible", "description": "Toast visível com animação slide-in da direita" },
+    { "name": "dismissing", "description": "Toast saindo com slide-out ao fechar ou timeout" }
+  ],
+  "slots": [],
+  "events": [],
+  "a11y": {
+    "ariaLive": "polite",
+    "ariaAtomic": true,
+    "role": "alert",
+    "closeButton": "aria-label='Fechar notificação'"
+  },
+  "animations": {
+    "enter": "slide-in da direita (translateX 80px → 0, opacity 0 → 1)",
+    "leave": "slide-out para direita + scale(0.9)"
+  },
+  "positioning": "fixed, top: 1.25rem, right: 1.25rem, z-index: 9999"
+}

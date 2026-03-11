@@ -1,0 +1,60 @@
+{
+  "name": "EFormGroup",
+  "category": "base",
+  "description": "Container de campo de formulário com label, mensagem de erro/hint e suporte a estado de validação via slot.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EFormGroup.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-form-group",
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "ID do campo interno, associado ao label via for"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Texto do label"
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "default": "",
+      "description": "Mensagem de erro (ativa estado inválido automaticamente)"
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "default": "",
+      "description": "Texto de ajuda exibido abaixo do campo (ignorado se errorMessage presente)"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe asterisco de obrigatório no label"
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "medium",
+      "values": ["small", "medium", "large"],
+      "description": "Tamanho do grupo (afeta espaçamento)"
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Campo do formulário (EInput, ESelect, ETextarea etc.). Recebe slot props: { invalid, id }"
+    }
+  ],
+  "events": [],
+  "states": ["default", "invalid", "required"],
+  "a11y": [
+    "Label associado ao campo via for/id",
+    "Asterisco de required tem aria-hidden (texto visível apenas visual)",
+    "errorMessage deve descrever o erro de forma clara"
+  ]
+}

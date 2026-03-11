@@ -101,20 +101,21 @@
         </div>
 
         <!-- Descrição -->
-        <div class="event-description" v-if="eventData.descricao || eventData.description">
+        <div v-if="showEventDescription && (eventData.descricao || eventData.description)" class="event-description">
           <h4>Descrição</h4>
           <p>{{ eventData.descricao || eventData.description }}</p>
         </div>
 
         <!-- Ações -->
         <div class="view-actions">
-          <EButton variant="danger" @click="handleDelete">
-            Deletar
+          <EButton v-if="showReportsAction" variant="link" class="event-link-button" @click="handleOpenReports">
+            <span class="event-link-button__label">Ver relatórios</span>
+            <MaterialIcon name="open_in_new" :size="14" class="event-link-button__icon" />
           </EButton>
-          <EButton variant="outline-primary" @click="closeDrawer">
-            Fechar
+          <EButton v-else variant="danger" @click="handleDelete">
+            Excluir
           </EButton>
-          <EButton variant="primary" @click="switchToEdit">
+          <EButton v-if="showEditAction" variant="primary" @click="switchToEdit">
             Editar
           </EButton>
         </div>
@@ -135,7 +136,7 @@
             <EInput
               :id="id"
               v-model="formData.titulo"
-              placeholder="Digite o título do evento"
+              placeholder="Digite o título do lembrete"
               :invalid="invalid"
             />
           </template>
@@ -169,6 +170,8 @@
           label="Data de início"
           placeholder="Selecione a data de início"
           date-format="Y-m-d"
+          :min-date="schoolYearStartDate"
+          :max-date="schoolYearEndDate"
           :invalid="!!errors.dataInicio"
           :error-message="errors.dataInicio"
           :required="true"
@@ -181,6 +184,8 @@
           label="Data de término"
           placeholder="Selecione a data de término"
           date-format="Y-m-d"
+          :min-date="schoolYearStartDate"
+          :max-date="schoolYearEndDate"
           :invalid="!!errors.dataTermino"
           :error-message="errors.dataTermino"
         />
@@ -195,7 +200,7 @@
             <ETextarea
               :id="id"
               v-model="formData.description"
-              placeholder="Descreva os detalhes do evento..."
+              placeholder="Descreva os detalhes do lembrete..."
               :rows="4"
               :invalid="invalid"
             />
@@ -205,25 +210,16 @@
 
         <!-- Footer fixo com botões -->
         <div class="form-actions">
-          <div class="form-actions-left">
-            <EButton
-              v-if="eventData"
-              type="button"
-              variant="danger"
-              @click="handleDelete"
-            >
-              Deletar
-            </EButton>
-            <EButton
-              type="button"
-              variant="outline-primary"
-              @click="closeDrawer"
-            >
-              Cancelar
-            </EButton>
-          </div>
+          <EButton
+            v-if="eventData"
+            type="button"
+            variant="danger"
+            @click="handleDelete"
+          >
+            Excluir
+          </EButton>
           <EButton type="submit" variant="primary">
-            {{ eventData ? 'Atualizar' : 'Adicionar' }}
+            {{ eventData ? 'Atualizar lembrete' : 'Adicionar lembrete' }}
           </EButton>
         </div>
       </form>
@@ -258,7 +254,9 @@
 
 <script setup>
 import { ref, reactive, computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { EButton, EInput, ESelect, ETextarea, EFormGroup, EBadge, EDatePicker, EModal } from './base'
+import MaterialIcon from './MaterialIcon.vue'
 import { useFeatureFlags } from '@/composables/useFeatureFlags'
 import { useToast } from '@/composables/useToast'
 import { 
@@ -288,6 +286,10 @@ const props = defineProps({
   defaultTurma: {
     type: String,
     default: ''
+  },
+  schoolYear: {
+    type: Number,
+    default: () => new Date().getFullYear()
   }
 })
 
@@ -298,6 +300,7 @@ const { showEventTime } = useFeatureFlags()
 
 // Toast Notifications
 const toast = useToast()
+const router = useRouter()
 
 // Delete Confirmation State
 const showDeleteConfirm = ref(false)
@@ -353,10 +356,14 @@ const displayStatusData = computed(() => {
   return eventStatusData.value
 })
 
+const showReportsAction = computed(() => props.mode === 'view' && isActivity.value)
+const showEditAction = computed(() => props.mode === 'view' && !showReportsAction.value)
+const showEventDescription = computed(() => !showReportsAction.value)
+
 // Computed properties para modo visualização
 const drawerTitle = computed(() => {
-  if (props.mode === 'view') return 'Detalhes do Evento'
-  return props.eventData ? 'Editar evento' : 'Adicionar evento'
+  if (props.mode === 'view') return 'Detalhes'
+  return props.eventData ? 'Editar lembrete' : 'Adicionar lembrete'
 })
 
 const eventCategoryData = computed(() => {
@@ -420,6 +427,9 @@ const formattedTime = computed(() => {
   return startTime
 })
 
+const schoolYearStartDate = computed(() => `${props.schoolYear}-01-01`)
+const schoolYearEndDate = computed(() => `${props.schoolYear}-12-31`)
+
 const formatTurmaName = (turmaId) => {
   const turmaMap = {
     '5a-manha': '5° A - Manhã',
@@ -434,6 +444,11 @@ const formatTurmaName = (turmaId) => {
 
 const switchToEdit = () => {
   emit('edit', props.eventData)
+}
+
+const handleOpenReports = async () => {
+  await router.push('/professor/relatorios/evidencias')
+  closeDrawer()
 }
 
 // Form data
@@ -528,18 +543,17 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Data de término
-  if (!formData.dataTermino) {
-    errors.dataTermino = 'Data de término é obrigatória'
-    isValid = false
-  }
-
-  // Validar se data término >= data início
+  // Validar se data término >= data início quando informada
   if (formData.dataInicio && formData.dataTermino) {
     const inicio = new Date(formData.dataInicio)
     const termino = new Date(formData.dataTermino)
     if (termino < inicio) {
       errors.dataTermino = 'Data de término deve ser posterior à data de início'
+      isValid = false
+    }
+
+    if (inicio.getFullYear() !== props.schoolYear || termino.getFullYear() !== props.schoolYear) {
+      errors.dataTermino = `Lembretes devem permanecer no ano letivo de ${props.schoolYear}`
       isValid = false
     }
   }
@@ -550,13 +564,17 @@ const validateForm = () => {
 // Handle submit
 const handleSubmit = () => {
   if (validateForm()) {
+    const dataTermino = formData.dataTermino || formData.dataInicio
+
     const eventPayload = {
       id: props.eventData?.id || Date.now(),
       titulo: formData.titulo,
       tipo: props.eventData?.tipo || props.eventData?.type || 'lembrete',
       turmas: formData.turmas.map(t => t.id || t),
       dataInicio: `${formData.dataInicio}T08:00:00`,
-      dataTermino: `${formData.dataTermino}T18:00:00`,
+      dataTermino: `${dataTermino}T18:00:00`,
+      schoolYear: props.schoolYear,
+      school_year: props.schoolYear,
       descricao: formData.description,
       status: 'ativo',
       origem: 'professor'
@@ -566,7 +584,7 @@ const handleSubmit = () => {
     // Feedback visual
     const isEdit = props.eventData?.id
     toast.success(
-      isEdit ? 'Evento atualizado com sucesso!' : 'Evento criado com sucesso!',
+      isEdit ? 'Lembrete atualizado com sucesso!' : 'Lembrete criado com sucesso!',
       3000
     )
     
@@ -595,7 +613,7 @@ const handleDelete = () => {
 const confirmDelete = () => {
   if (props.eventData) {
     emit('delete', props.eventData.id)
-    toast.success('Evento deletado com sucesso!', 3000)
+    toast.success('Lembrete excluído com sucesso!', 3000)
     showDeleteConfirm.value = false
     closeDrawer()
   }
@@ -617,6 +635,10 @@ const resetForm = () => {
 
 // Prevent body scroll when drawer is open
 watch(() => props.isOpen, (isOpen) => {
+  if (typeof document === 'undefined') {
+    return
+  }
+
   if (isOpen) {
     document.body.style.overflow = 'hidden'
     // Pré-selecionar turma no modo criação
@@ -731,12 +753,6 @@ watch(() => props.isOpen, (isOpen) => {
   border-top: 1px solid var(--gray-200);
 }
 
-.form-actions-left {
-  display: flex;
-  flex: 1;
-  gap: var(--spacing-md);
-}
-
 .form-actions .e-button {
   flex: 1;
 }
@@ -824,11 +840,7 @@ watch(() => props.isOpen, (isOpen) => {
     flex-direction: column-reverse;
     gap: 8px;
   }
-  
-  .form-actions-left {
-    width: 100%;
-  }
-  
+
   .form-actions .btn-danger {
     width: 100%;
   }
@@ -927,10 +939,48 @@ watch(() => props.isOpen, (isOpen) => {
   margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
   border-top: 1px solid var(--gray-200);
+  justify-content: center;
 }
 
 .view-actions .e-button {
   flex: 1;
+}
+
+.view-actions .event-link-button {
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0 auto;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--white);
+  color: var(--primary);
+  box-shadow: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.view-actions .event-link-button:hover,
+.view-actions .event-link-button:focus-visible,
+.view-actions .event-link-button:active {
+  background: var(--white);
+  color: var(--primary-dark);
+  border: none;
+  box-shadow: none;
+}
+
+.event-link-button__label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.event-link-button__icon {
+  color: inherit;
+  line-height: 1;
 }
 
 /* Responsivo para view mode */
@@ -942,6 +992,10 @@ watch(() => props.isOpen, (isOpen) => {
   .view-actions {
     flex-direction: column-reverse;
     gap: 8px;
+  }
+
+  .view-actions .event-link-button {
+    width: auto;
   }
 }
 

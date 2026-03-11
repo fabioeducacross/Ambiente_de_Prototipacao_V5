@@ -1,0 +1,93 @@
+{
+  "name": "EModal",
+  "category": "base",
+  "description": "Modal Bootstrap com header/body/footer configuráveis, tamanhos, centralização e controle de scroll.",
+  "status": "nativo",
+  "source": "FrontOffice/src/components/base/EModal.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-modal",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "boolean",
+      "default": false,
+      "description": "Controla visibilidade do modal (v-model)"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "",
+      "description": "Título no header"
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "md",
+      "values": ["sm", "md", "lg", "xl"],
+      "description": "Tamanho do modal"
+    },
+    {
+      "name": "centered",
+      "type": "boolean",
+      "default": true,
+      "description": "Centraliza verticalmente na viewport"
+    },
+    {
+      "name": "scrollable",
+      "type": "boolean",
+      "default": false,
+      "description": "Habilita scroll interno no body do modal"
+    },
+    {
+      "name": "closable",
+      "type": "boolean",
+      "default": true,
+      "description": "Exibe botão de fechar no header"
+    },
+    {
+      "name": "closeOnOverlay",
+      "type": "boolean",
+      "default": true,
+      "description": "Fecha ao clicar no backdrop"
+    },
+    {
+      "name": "closeOnEsc",
+      "type": "boolean",
+      "default": true,
+      "description": "Fecha ao pressionar Escape"
+    },
+    {
+      "name": "showHeader",
+      "type": "boolean",
+      "default": true,
+      "description": "Exibe o header"
+    },
+    {
+      "name": "showFooter",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe o footer (alternativa ao slot footer)"
+    },
+    {
+      "name": "contentClass",
+      "type": "string",
+      "default": "",
+      "description": "Classes extras para modal-content"
+    }
+  ],
+  "slots": [
+    { "name": "default", "description": "Conteúdo do modal-body" },
+    { "name": "header", "description": "Conteúdo customizado do header (sobrescreve title)" },
+    { "name": "footer", "description": "Conteúdo do modal-footer" }
+  ],
+  "events": [
+    { "name": "update:modelValue", "description": "Emitido ao fechar" },
+    { "name": "close", "description": "Emitido ao fechar" },
+    { "name": "open", "description": "Emitido ao abrir" }
+  ],
+  "states": ["closed", "open"],
+  "a11y": [
+    "aria-modal='true' e role='dialog' nativos",
+    "aria-labelledby aponta para o título do header",
+    "Foco deve ser gerenciado pelo consumer ao abrir o modal"
+  ]
+}

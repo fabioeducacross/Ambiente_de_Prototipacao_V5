@@ -1,0 +1,69 @@
+{
+  "name": "FilterSection",
+  "category": "base",
+  "status": "nativo",
+  "description": "Seção colapsável de filtros com título, ícone opcional e badge de contagem de filtros ativos. Suporta modo não-controlado (interno) e controlado (v-model). Ideal para painéis laterais de filtro.",
+  "source": "FrontOffice/src/components/molecules/FilterSection.vue",
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Título da seção exibido no header clicável."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "",
+      "description": "Nome do Material Symbol exibido à esquerda do título."
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "default": true,
+      "description": "Estado inicial da seção no modo não-controlado (sem v-model)."
+    },
+    {
+      "name": "activeCount",
+      "type": "number",
+      "default": 0,
+      "description": "Número de filtros ativos nesta seção. Exibido como badge quando a seção está fechada e o valor é > 0."
+    },
+    {
+      "name": "modelValue",
+      "type": "boolean",
+      "default": "undefined",
+      "description": "Controle externo do estado open/closed (v-model). Quando undefined, usa estado interno."
+    }
+  ],
+  "events": [
+    {
+      "name": "update:modelValue",
+      "payload": "boolean",
+      "description": "Emitido no modo controlado (v-model). Novo estado open/closed."
+    },
+    {
+      "name": "toggle",
+      "payload": "boolean",
+      "description": "Emitido sempre ao clicar no header, independente do modo. Recebe o novo estado."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Conteúdo da seção quando expandida. Tipicamente um CheckboxGroup ou lista de filtros."
+    }
+  ],
+  "states": [
+    { "name": "open",   "description": "Seção expandida, conteúdo visível, chevron para cima, cor primary" },
+    { "name": "closed", "description": "Seção colapsada, conteúdo oculto, chevron para baixo, badge se activeCount > 0" }
+  ],
+  "modes": {
+    "uncontrolled": "defaultOpen sem v-model — gerencia estado internamente",
+    "controlled":   "v-model — pai gerencia estado, FilterSection apenas emite"
+  },
+  "a11y": {
+    "headerElement": "button com aria-expanded",
+    "animation": "slideDown 0.2s ease-out ao expandir"
+  }
+}

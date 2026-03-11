@@ -7,8 +7,9 @@
 
       <!-- Main Content com CalendarLayoutTemplate -->
       <div class="calendar-main">
-        <ClassSelector 
+        <ClassSelector
           :initial-class="selectedTurma"
+          :show-school-year="false"
           @class-change="handleClassChange"
         />
         <!-- Container com sombra e padding (matching Figma) -->
@@ -38,6 +39,7 @@
       :event-data="editingEvent"
       :mode="drawerMode"
       :default-turma="selectedTurma"
+      :school-year="currentSchoolYear"
       @close="closeDrawer"
       @save="saveEvent"
       @delete="deleteEvent"
@@ -218,6 +220,8 @@ const calendarEvents = computed(() => {
   
   return filtered
 })
+
+const currentSchoolYear = computed(() => currentDate.value.getFullYear())
 
 // Methods
 const handleClassChange = (newClass) => {

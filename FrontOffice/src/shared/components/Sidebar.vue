@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebar" :class="[{ collapsed }, `theme-${theme}`]">
+  <aside class="sidebar" :class="{ collapsed }" :style="themeVars">
     <!-- Navigation Menu -->
     <nav class="sidebar-nav">
 
@@ -171,6 +171,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import MaterialIcon from './MaterialIcon.vue'
 
@@ -182,24 +183,56 @@ const isMissionsRoute = () =>
   route.path === '/teacher/trilhas-az'
 const isSistemaEnsinoRoute = () => route.path === '/teacher/trilhas-az'
 
-defineProps({
+const props = defineProps({
   collapsed: {
     type: Boolean,
     default: false
   },
   theme: {
     type: String,
-    default: 'dark'
+    default: 'teacher'
   }
 })
+
+const sidebarPalettes = {
+  teacher: {
+    '--sidebar-bg': '#1c0f2a',
+    '--sidebar-text': '#ffffff',
+    '--sidebar-title': 'color-mix(in srgb, #ffffff 36%, transparent)',
+    '--sidebar-hover-bg': '#311b48',
+    '--sidebar-hover-text': '#ffffff',
+    '--sidebar-active-bg': '#6463e8',
+    '--sidebar-active-text': '#ffffff',
+  },
+  admin: {
+    '--sidebar-bg': '#ffffff',
+    '--sidebar-text': 'var(--ec-body)',
+    '--sidebar-title': 'var(--ec-muted)',
+    '--sidebar-hover-bg': 'color-mix(in srgb, var(--primary) 12%, transparent)',
+    '--sidebar-hover-text': 'var(--primary)',
+    '--sidebar-active-bg': 'color-mix(in srgb, var(--primary) 12%, transparent)',
+    '--sidebar-active-text': 'var(--primary)',
+  },
+  responsible: {
+    '--sidebar-bg': '#133d59',
+    '--sidebar-text': '#ffffff',
+    '--sidebar-title': 'color-mix(in srgb, #ffffff 36%, transparent)',
+    '--sidebar-hover-bg': '#6463e8',
+    '--sidebar-hover-text': '#ffffff',
+    '--sidebar-active-bg': '#6463e8',
+    '--sidebar-active-text': '#ffffff',
+  },
+}
+
+const themeVars = computed(() => sidebarPalettes[props.theme] || sidebarPalettes.teacher)
 </script>
 
 <style scoped>
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #1e1e2d;
-  color: #a1a5b7;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -210,11 +243,6 @@ defineProps({
   z-index: 100;
   height: calc(100vh - var(--navbar-height));
   transition: width 0.3s ease;
-}
-
-.sidebar.theme-yellow {
-  background: #FFD643;
-  color: #5e5873;
 }
 
 .sidebar.collapsed {
@@ -270,11 +298,7 @@ defineProps({
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #565674;
-}
-
-.sidebar.theme-yellow .nav-title {
-  color: #6e6b7b;
+  color: var(--sidebar-title);
 }
 
 .nav-item {
@@ -283,7 +307,7 @@ defineProps({
   align-items: center;
   gap: 0.75rem;
   padding: 0.625rem 1rem;
-  color: #a1a5b7;
+  color: var(--sidebar-text);
   text-decoration: none;
   font-size: 0.875rem;
   transition: all 0.2s ease;
@@ -291,11 +315,6 @@ defineProps({
   background: transparent;
   cursor: pointer;
   text-align: left;
-}
-
-.sidebar.theme-yellow .nav-item {
-  color: #5e5873;
-  font-weight: 500;
 }
 
 .nav-item .material-symbols-outlined {
@@ -314,29 +333,24 @@ defineProps({
 }
 
 .nav-item:hover {
-  background: #2d2d3f;
-  color: #ffffff;
-}
-
-.sidebar.theme-yellow .nav-item:hover {
-  background: rgba(110, 99, 232, 0.12);
-  color: #2c2c2c;
-}
-
-.sidebar.theme-yellow .nav-item.active {
-  background: #6e63e8;
-  color: #ffffff;
-}
-
-.sidebar.theme-yellow .nav-item.active .material-symbols-outlined,
-.sidebar.theme-yellow .nav-item.active .chevron {
-  color: #ffffff;
-  opacity: 1;
+  background: var(--sidebar-hover-bg);
+  color: var(--sidebar-hover-text);
 }
 
 .nav-item.active {
-  background: #7367F0;
-  color: #ffffff;
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+}
+
+.nav-item.active .material-symbols-outlined,
+.nav-item.active .chevron {
+  color: var(--sidebar-active-text);
+  opacity: 1;
+}
+
+.nav-item:hover .material-symbols-outlined,
+.nav-item:hover .chevron {
+  color: var(--sidebar-hover-text);
 }
 
 .nav-item.collapsible .chevron {

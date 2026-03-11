@@ -28,10 +28,11 @@
       <ul class="navbar-nav nav align-items-center flex-nowrap gap-2">
 
         <!-- Botão Visão aluno -->
-        <li v-if="showStudentView" class="nav-item">
+        <li v-if="showStudentView && studentViewAvailable" class="nav-item">
           <button
             type="button"
             class="btn d-flex align-items-center gap-2 btn-outline-primary rounded-pill navbar-student-btn"
+            @click="handleStudentView"
           >
             <span class="material-symbols-outlined text-primary" style="font-size: 14px; vertical-align: middle;">joystick</span>
             <span class="d-xl-inline d-none">Visão aluno</span>
@@ -50,8 +51,8 @@
             <!-- Nome + perfil (xl+) -->
             <div class="d-xl-flex d-none user-nav">
               <p class="user-name mb-0">
-                <span class="navbar-profile-name d-inline-block text-truncate">{{ userName }}</span>
-                <span class="navbar-permission-name">{{ userRole }}</span>
+                <span class="navbar-profile-name d-inline-block text-truncate">{{ resolvedUserName }}</span>
+                <span class="navbar-permission-name">{{ resolvedUserRole }}</span>
               </p>
             </div>
 
@@ -70,8 +71,8 @@
                   <img :src="userAvatar" alt="avatar" class="user-avatar-img" />
                 </span>
                 <div>
-                  <p class="mb-0 navbar-profile-name">{{ userName }}</p>
-                  <small class="navbar-permission-name">{{ userRole }}</small>
+                  <p class="mb-0 navbar-profile-name">{{ resolvedUserName }}</p>
+                  <small class="navbar-permission-name">{{ resolvedUserRole }}</small>
                 </div>
               </div>
             </li>
@@ -79,7 +80,7 @@
 
             <!-- Ir para a conta -->
             <li>
-              <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="#" @click.prevent="handleManageAccount">
                 <span class="material-symbols-outlined dropdown-icon">account_circle</span>
                 Ir para a conta
               </a>
@@ -126,12 +127,14 @@ import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import logoUrl from '@/assets/images/MainLogo.svg'
 import defaultAvatar from '@/assets/images/avatar-default.png'
+import { useProfileSwitcher } from '@/shared/composables/useProfileSwitcher'
+import { getProfileAccessById } from '@/shared/data/profileAccess'
 
 defineEmits(['toggle-sidebar'])
 
 const props = defineProps({
-  userName:        { type: String,  default: 'Isabela Cross' },
-  userRole:        { type: String,  default: 'Professor' },
+  userName:        { type: String,  default: '' },
+  userRole:        { type: String,  default: '' },
   userAvatar:      { type: String,  default: () => defaultAvatar },
   showStudentView: { type: Boolean, default: true },
   /** Classe de persona no container (ex: 'Teacher', 'Student') */
@@ -139,6 +142,15 @@ const props = defineProps({
 })
 
 const route = useRoute()
+const {
+  currentProfile,
+  goToManageAccount,
+  goToStudentView,
+} = useProfileSwitcher()
+
+const resolvedUserName = computed(() => props.userName || 'Isabela Cross')
+const resolvedUserRole = computed(() => props.userRole || currentProfile.value?.name || 'Professor')
+const studentViewAvailable = computed(() => Boolean(getProfileAccessById('student')?.defaultRoute))
 
 const isLogoNavigationLocked = computed(() => {
   const embedQuery = route.query?.embed
@@ -156,6 +168,15 @@ function handleLogoClick(event) {
 
   event.preventDefault()
   event.stopPropagation()
+}
+
+async function handleManageAccount() {
+  dropdownOpen.value = false
+  await goToManageAccount()
+}
+
+async function handleStudentView() {
+  await goToStudentView()
 }
 
 // ── Dropdown ──────────────────────────────────────────────────────────────

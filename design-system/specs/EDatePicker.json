@@ -1,0 +1,121 @@
+{
+  "name": "EDatePicker",
+  "category": "base",
+  "description": "Date picker baseado em vue-flatpickr-component com configuração simplificada.",
+  "status": "adaptado",
+  "source": "FrontOffice/src/components/base/EDatePicker.vue",
+  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-datepicker",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "string | date | array",
+      "default": null,
+      "description": "Data selecionada (v-model)"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Selecione uma data",
+      "description": "Texto placeholder"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o campo"
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "default": false,
+      "description": "Estado de erro visual"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Label exibido acima do campo"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Marca o campo como obrigatório"
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "default": "",
+      "description": "Mensagem de erro"
+    },
+    {
+      "name": "hint",
+      "type": "string",
+      "default": "",
+      "description": "Texto de ajuda"
+    },
+    {
+      "name": "clearable",
+      "type": "boolean",
+      "default": true,
+      "description": "Exibe botão de limpar"
+    },
+    {
+      "name": "enableTime",
+      "type": "boolean",
+      "default": false,
+      "description": "Habilita seleção de horário"
+    },
+    {
+      "name": "noCalendar",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe apenas o seletor de hora"
+    },
+    {
+      "name": "dateFormat",
+      "type": "string",
+      "default": "d/m/Y",
+      "description": "Formato da data no flatpickr"
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "default": "single",
+      "values": ["single", "multiple", "range"],
+      "description": "Modo de seleção"
+    },
+    {
+      "name": "minDate",
+      "type": "string | date",
+      "default": null,
+      "description": "Data mínima permitida"
+    },
+    {
+      "name": "maxDate",
+      "type": "string | date",
+      "default": null,
+      "description": "Data máxima permitida"
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "default": false,
+      "description": "Exibe o calendário inline (sem popup)"
+    }
+  ],
+  "slots": [],
+  "events": [
+    { "name": "update:modelValue", "description": "Emitido ao selecionar data" },
+    { "name": "change", "description": "Emitido junto a update:modelValue com { selectedDates, dateStr }" },
+    { "name": "open", "description": "Emitido ao abrir o calendário" },
+    { "name": "close", "description": "Emitido ao fechar o calendário" },
+    { "name": "clear", "description": "Emitido ao limpar a data" }
+  ],
+  "exposes": ["clear"],
+  "states": ["default", "open", "disabled", "invalid"],
+  "a11y": [
+    "Associar ao EFormGroup com label via id",
+    "Usar dateFormat humano-legível quando possível"
+  ]
+}
