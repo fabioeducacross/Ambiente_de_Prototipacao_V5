@@ -6,16 +6,25 @@ description: Status de execucao do plano de implementacao do terceiro asset (Sto
 
 # Status do Plano - Storybook e Expansao do Design System (ASCII)
 
-Atualizado em: 2026-03-10
+Atualizado em: 2026-03-11 (Sprint 5 concluido; Fase 4 operacional segue em andamento)
 Plano base: `documentation/docs/design-system/plano-implementacao-storybook-ds.md`
 
 ## Resumo executivo
 
-- Status atual do plano: **Sprint 0+1+2 concluidos, Sprint 3 planejado**.
+- Status atual do asset estrutural (Sprints 0+1+2+3+4+5): **concluido**.
+- Status atual do plano operacional: **Fase 4 segue em andamento no plano base, agora com a Story 4.3 pronta para execucao**.
 - Documento de plano publicado: `plano-implementacao-storybook-ds.md`.
 - Asset `design-system/` criado com Storybook interno, stories, tokens, specs e registry.
-- MCP com tools `get_spec` e `get_registry` ativas e documentadas.
+- MCP com tools `get_spec` e `get_registry` ativas, documentadas e validadas por IA.
 - Documentacao de governanca publicada: `CONTRIBUTING.md` + `governanca.md`.
+- Sprint 3: validacao MCP (PASS), fluxo designer→dev e Matriz de Migracao publicados.
+- Sprint 4: +6 componentes de alta prioridade catalogados (registry 10→16).
+- Sprint 5: +4 componentes de media prioridade catalogados (registry 16→20, 35% do FrontOffice).
+- Tokens sincronizados com `FrontOffice/src/style.css` (v1.4.0, +ec-text/body/muted/border, +layout).
+- Build Storybook validado: 20 stories compiladas, `built in 8.99s`.
+- Story 4.2 fechou a baseline verificavel de producao e abriu o proximo recorte objetivo: parity direta de API do `ESelect` na Story 4.3.
+
+> Nota: este documento registra o fechamento estrutural do asset Storybook/Design System e da expansao catalogada ate o Sprint 5. Ele nao substitui o status operacional da convergencia com producao, que continua sendo governado pelo plano base e pelas stories ativas da Fase 4.
 
 ## Grafico geral
 
@@ -23,10 +32,15 @@ Plano base: `documentation/docs/design-system/plano-implementacao-storybook-ds.m
 Planejamento e diretrizes      [####################] 100%  (documentado e validado)
 Governanca de escopo           [####################] 100%  (separacao drawer x DS registrada)
 Execucao tecnica Storybook     [####################] 100%  (Sprint 1 concluido)
-Execucao tecnica Tokens/Specs  [####################] 100%  (Sprint 1 concluido)
+Execucao tecnica Tokens/Specs  [####################] 100%  (Sprint 1 concluido, tokens v1.4.0)
 Execucao tecnica Registry MCP  [####################] 100%  (tools get_spec/get_registry ativas + docs publicados)
+Validacao MCP por IA           [####################] 100%  (Sprint 3: 7 tools, 10 specs, fluxo validado)
+Fluxo designer -> story -> dev [####################] 100%  (Sprint 3: guia end-to-end publicado)
+Convergencia com producao      [##########----------] 50%   (plano base: Fase 4 em andamento; baseline validada e Story 4.3 pronta)
+Catalogo alta prioridade       [####################] 100%  (Sprint 4: 6 componentes catalogados)
+Catalogo media prioridade      [####################] 100%  (Sprint 5: 4 componentes catalogados)
 
-STATUS ATUAL DO PLANO          [##################--]  90%  (Sprint 0+1+2 concluidos, Sprint 3 em planejamento)
+STATUS ATUAL DO PLANO          [################░░░░] 80%  (asset estrutural concluido; Fase 4 operacional em andamento)
 ```
 
 ## O que ja esta fechado
@@ -48,13 +62,43 @@ CONTRIBUTING.md de governanca publicado       [##########] 100%
 Wiki de governanca (governanca.md) publicada  [##########] 100%
 ```
 
-## O que ainda nao foi iniciado
+## Sprint 4 — Concluido
 
 ```text
-Sprint 3: Validacao de consumo por IA via MCP  [----------]   0%
-Sprint 3: Validacao fluxo designer-story-dev   [----------]   0%
-Sprint 3: Convergencia com producao            [----------]   0%
+EToast catalogado (spec + story + registry)          [##########] 100%
+Sidebar catalogada (spec + story + registry)         [##########] 100%
+AppNavbar catalogada (spec + story + registry)       [##########] 100%
+ECheckbox catalogado (spec + story + registry)       [##########] 100%
+CheckboxGroup catalogado (spec + story + registry)   [##########] 100%
+ProgressBar catalogado (spec + story + registry)     [##########] 100%
+Registry expandido: 10 → 16 componentes (28.1%)      [##########] 100%
 ```
+
+Novos artefatos:
+- `design-system/specs/` → +6 specs (EToast, Sidebar, AppNavbar, ECheckbox, CheckboxGroup, ProgressBar)
+- `design-system/stories/` → +6 stories
+- `design-system/registry/registry.json` → 16 componentes, 3 categorias (base, layout, feedback)
+- `documentation/docs/design-system/matriz-migracao-componentes.md` → cobertura 16/57
+
+## Sprint 5 — Concluido
+
+```text
+PageCallout catalogado (spec + story + registry)         [##########] 100%
+FilterSection catalogado (spec + story + registry)       [##########] 100%
+LegendEnum catalogado (spec + story + registry)          [##########] 100%
+AppBreadcrumb catalogado (spec + story + registry)       [##########] 100%
+Registry expandido: 16 → 20 componentes (35.1%)          [##########] 100%
+Tokens sincronizados (v1.3.0→v1.4.0)                    [##########] 100%
+Build Storybook validado: 20 stories OK                  [##########] 100%
+```
+
+Novos artefatos:
+- `design-system/specs/` → +4 specs (PageCallout, FilterSection, LegendEnum, AppBreadcrumb)
+- `design-system/stories/` → +4 stories
+- `design-system/registry/registry.json` → 20 componentes, 3 categorias (base, layout, feedback)
+- `design-system/tokens/tokens.json` → v1.4.0: +layout (navbar-height), +text (ec-text/body/muted), +ui (ec-border/card-*)
+- `design-system/tokens/tokens.css` → sincronizado com tokens.json v1.4.0
+- `documentation/docs/design-system/matriz-migracao-componentes.md` → cobertura 20/57
 
 ## Gates de validacao deste plano (Storybook/DS)
 
@@ -70,20 +114,37 @@ Sprint 3: Convergencia com producao            [----------]   0%
 9. Registry MCP estruturado publicado            [#] PASS (registry.json + tools get_spec/get_registry + docs)
 ```
 
-Formula atual:
+Formula atual do asset estrutural:
 
 ```text
 9 gates PASS / 9 gates totais = 100%
-STATUS GERAL DO PLANO = 90% (Sprint 3 ainda nao iniciado)
+STATUS ESTRUTURAL DO ASSET = 100% (todos os Sprints concluidos)
+
+Leitura operacional complementar:
+
+- O plano base continua com a Fase 4 ativa.
+- A Story 4.2 encerrou a descoberta e comparacao factual da baseline de producao.
+- A Story 4.3 assume o proximo recorte executavel, focado exclusivamente em parity direta de API do `ESelect`.
 ```
 
 ## Proximo passo objetivo
 
-Iniciar o **Sprint 3 — Validacao de Consumo por IA e Convergencia com Producao**:
+O plano estrutural de implementacao do Storybook e Design System (Sprint 0-5) esta **100% concluido**.
 
-1. Validar consumo de componentes via MCP por agentes de IA,
-2. Validar fluxo completo: designer -> story -> dev -> prototipo,
-3. Planejar primeira convergencia de tokens e componentes-base com producao.
+A continuidade operacional da Fase 4 permanece aberta no plano base.
+
+Proximo recorte executavel ja preparado:
+
+- `docs/stories/4.3.parity-api-eselect.md` -> parity direta de API do `ESelect`, em status Ready.
+
+Cobertura atual: **20/57 componentes do FrontOffice** (~35%) com spec + story + registry.
+
+Para continuidade futura de catalogacao, consultar a **Matriz de Migracao** (`matriz-migracao-componentes.md`):
+
+**Sprint 6+ — Baixa Prioridade (restante):**
+- 37 componentes marcados como `catalogar-futuro`
+- Priorizar por frequencia de uso nas telas de prototipacao
+- Cada componente novo segue o fluxo: spec JSON → story → registry
 
 ## Fontes usadas neste status
 
@@ -92,4 +153,7 @@ Iniciar o **Sprint 3 — Validacao de Consumo por IA e Convergencia com Producao
 - `documentation/docs/design-system/governanca.md`
 - `design-system/CONTRIBUTING.md`
 - `design-system/registry/registry.json`
+- `documentation/docs/design-system/sprint3-validacao-mcp.md`
+- `documentation/docs/design-system/sprint3-fluxo-designer-dev.md`
+- `documentation/docs/design-system/matriz-migracao-componentes.md`
 - `documentation/docs/design-system/status-plano-implementacao-storybook-ds.md`

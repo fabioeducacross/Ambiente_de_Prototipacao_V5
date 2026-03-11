@@ -147,6 +147,115 @@ Todo componente deverá cair em uma destas categorias:
 
 ## Fases de Execução
 
+## Status Atual das Fases
+
+<!-- DS_PHASE_STATUS:START -->
+Atualizado em: 2026-03-10
+
+Fase atual principal: **Fase 4 — Convergência com produção**
+
+```text
+>>> FASE ATUAL: 4
+
+FASE 0  [##########] 100%  CONCLUIDA      Descoberta e mapeamento
+FASE 1  [##########] 100%  CONCLUIDA      Storybook interno com a stack atual
+FASE 2  [##########] 100%  CONCLUIDA      Camada canônica de contratos
+FASE 3  [##########] 100%  CONCLUIDA      Registry para MCP
+FASE 4  [#####-----] 50%   EM ANDAMENTO   Convergência com produção
+```
+
+Resumo operacional:
+
+- Sprints 0, 1 e 2 estão concluídas.
+- A Fase 4 foi iniciada com o recorte interno da Story 4.1.
+- A convergência total com produção segue parcial e dependente de acesso válido à referência real do legado.
+- O status detalhado e cumulativo do plano continua em `status-plano-implementacao-storybook-ds.md`.
+<!-- DS_PHASE_STATUS:END -->
+
+## Hierarquia Operacional de Planos
+
+Para esta iniciativa, a execucao deve obedecer a seguinte precedencia:
+
+1. **Plano estrategico:** este documento.
+2. **Plano executavel:** a story ativa em `docs/stories/`.
+3. **Plano temporario de sessao:** qualquer arquivo em `.copilot/session-state/**/plan.md`.
+
+### Regra de uso
+
+- O plano de sessao nao define prioridade, fase ou escopo por conta propria.
+- Ele so pode resumir o recorte atual ja aprovado no plano estrategico e na story ativa.
+- Se houver conflito entre o plano de sessao e este documento, este documento prevalece.
+- Se houver conflito entre este documento e a story ativa aprovada para execucao, a story prevalece no recorte tatico, mas nao pode violar a fase e a direcao definidas aqui.
+
+### Regra pratica para agentes e CLI
+
+Antes de continuar uma execucao do Design System, o agente deve responder internamente a 3 perguntas:
+
+1. Em que fase deste plano a iniciativa esta?
+2. Qual story ativa materializa esse recorte?
+3. O plano de sessao apenas espelha essas duas respostas?
+
+Se a resposta da pergunta 3 for nao, o plano de sessao deve ser tratado como contexto stale e nao como fonte de verdade.
+
+## Graficos ASCII das Fases
+
+### 1. Visao Macro do Plano
+
+```text
++-------------------+     +-------------------------+     +--------------------------+
+| FASE 0            | --> | FASE 1                 | --> | FASE 2                  |
+| Descoberta        |     | Storybook interno      |     | Contratos canonicos     |
+| e mapeamento      |     | com stack atual        |     | de componentes          |
++-------------------+     +-------------------------+     +--------------------------+
+                            |
+                            v
+            +--------------------------+     +--------------------------+
+            | FASE 3                  | --> | FASE 4                  |
+            | Registry para MCP       |     | Convergencia com        |
+            | e interface de maquina  |     | producao                |
+            +--------------------------+     +--------------------------+
+```
+
+### 2. Dependencias Entre Fases
+
+```text
+FASE 0  [##########] Define inventario, taxonomia e matriz de equivalencia
+   |
+   +--> FASE 1  [##########] Cataloga componentes reais no Storybook interno
+      |
+      +--> FASE 2  [##########] Formaliza contratos canonicos
+         |
+         +--> FASE 3  [##########] Publica registry estruturado para MCP
+            |
+            +--> FASE 4  [##########] Converge tokens e componentes com producao
+
+Regra de leitura:
+- Fase 0 reduz ambiguidade antes de catalogar.
+- Fase 1 documenta o que existe de verdade.
+- Fase 2 transforma catalogo visual em contrato semantico.
+- Fase 3 expoe a mesma verdade para IA e humanos.
+- Fase 4 aproxima prototipo e producao sem copia manual.
+```
+
+### 3. Mapeamento Fases x Sprints
+
+```text
+Sprint 0  -> [FASE 0] Descoberta e mapeamento
+Sprint 1  -> [FASE 1] Storybook interno + primeiro lote de componentes-base
+Sprint 2  -> [FASE 2] Contratos canonicos + [FASE 3] Registry inicial para MCP
+Sprint 3  -> [FASE 4] Validacao de consumo por IA + fluxo designer -> story -> dev -> prototipo + primeira convergencia com producao
+```
+
+### 4. Leitura Rapida por Objetivo
+
+```text
+FASE 0 = Descobrir o que existe
+FASE 1 = Catalogar o que ja funciona
+FASE 2 = Formalizar o contrato
+FASE 3 = Expor a verdade para MCP
+FASE 4 = Convergir com producao
+```
+
 ## Fase 0 — Descoberta e Mapeamento
 
 ### Objetivo

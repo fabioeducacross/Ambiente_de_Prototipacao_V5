@@ -1,0 +1,50 @@
+{
+  "name": "PageCallout",
+  "category": "feedback",
+  "status": "nativo",
+  "description": "Faixa informativa persistente de nível de página. Sem botão fechar. Equivalente ao Carbon 'Callout'. Suporta variantes primary, info, warning e neutral com ícone Material Symbol configurável e título opcional.",
+  "source": "FrontOffice/src/components/atoms/PageCallout.vue",
+  "props": [
+    {
+      "name": "variant",
+      "type": "string",
+      "default": "primary",
+      "values": ["primary", "info", "warning", "neutral"],
+      "description": "Variante visual. Define cor da borda esquerda, ícone e texto via CSS var: primary=#7367F0, info=#00CFE8, warning=#FF9F43, neutral=#6b7280."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "info",
+      "description": "Nome do Material Symbol exibido antes do conteúdo (ex: 'info', 'warning', 'check_circle')."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "",
+      "description": "Título opcional exibido acima do texto do slot em negrito."
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Conteúdo da mensagem. Aceita texto ou HTML simples."
+    }
+  ],
+  "events": [],
+  "states": [
+    { "name": "primary",  "description": "Borda e texto em var(--primary) #7367F0" },
+    { "name": "info",     "description": "Borda e texto em var(--info) #00CFE8" },
+    { "name": "warning",  "description": "Borda e texto em var(--warning) #FF9F43" },
+    { "name": "neutral",  "description": "Borda e texto em #6b7280 (cinza)" }
+  ],
+  "a11y": {
+    "role": "note",
+    "description": "role='note' — conteúdo informativo não urgente"
+  },
+  "design": {
+    "borderLeft": "4px solid var(--callout-color)",
+    "background": "color-mix(callout-color 10%, transparent)",
+    "borderRadius": "0 8px 8px 0"
+  }
+}

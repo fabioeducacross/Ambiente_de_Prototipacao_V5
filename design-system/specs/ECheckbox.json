@@ -1,0 +1,63 @@
+{
+  "name": "ECheckbox",
+  "category": "base",
+  "status": "nativo",
+  "description": "Checkbox customizado com label, suporte a ícone Material Symbols ou SVG, cor configurável e estado disabled. Implementa v-model com Boolean.",
+  "source": "FrontOffice/src/components/atoms/Checkbox.vue",
+  "note": "O componente no FrontOffice se chama Checkbox.vue mas é catalogado como ECheckbox para manter convenção E-prefix do DS.",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "boolean",
+      "required": true,
+      "description": "Estado checked do checkbox. Usado com v-model."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Texto da label exibida ao lado do checkbox."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Desabilita o checkbox e aplica estilo visual opaco."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "default": "#7367f0",
+      "description": "Cor de fundo quando checked. Deve usar tokens do DS (var(--primary) = #7367f0)."
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "",
+      "description": "Nome do Material Symbol exibido antes da label (ex: 'star', 'school')."
+    },
+    {
+      "name": "iconSvg",
+      "type": "string",
+      "default": "",
+      "description": "URL de imagem SVG exibida antes da label (alternativa ao icon Material Symbol)."
+    }
+  ],
+  "events": [
+    {
+      "name": "update:modelValue",
+      "payload": "boolean",
+      "description": "Emitido ao mudar estado do checkbox. Compatível com v-model."
+    }
+  ],
+  "slots": [],
+  "states": [
+    { "name": "unchecked", "description": "Estado padrão: borda visível, sem preenchimento" },
+    { "name": "checked", "description": "Fundo preenchido com prop color e ícone check branco" },
+    { "name": "disabled", "description": "Opacity reduzida, pointer-events: none" }
+  ],
+  "a11y": {
+    "element": "label com input[type=checkbox] interno",
+    "keyboardSupport": "Space para toggle via input nativo"
+  }
+}

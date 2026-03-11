@@ -10,6 +10,8 @@
     "dev:docs": "npm start --prefix documentation",
     "docs:index": "npm run build --prefix documentation && npm run serve --prefix documentation -- --port 3000 --host localhost",
     "plan:ascii": "node scripts/plan-progress-ascii.mjs",
+    "plan:ds:context": "node scripts/show-ds-plan-context.mjs",
+    "plan:ds:phase": "node scripts/update-ds-phase-status.mjs",
     "figma:capture:guarded": "node scripts/figma_capture_guarded.cjs",
     "tokens:extract": "node scripts/tokens/run-token-pipeline.mjs",
     "predev:all": "powershell -Command \"Get-NetTCPConnection -LocalPort 5173,5174,3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",

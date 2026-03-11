@@ -157,6 +157,21 @@ O script usa Playwright (headless Chromium, 1440×900) e mapeia cada screenshot 
 5. Atualizar `prototypes/as-is` com tag (ex: `as-is-v1.1`)
 6. Deletar feature branch
 
+## Precedência de Planos para Execução
+
+Para evitar drift de contexto entre plano estratégico, story executável e plano temporário de sessão, use a seguinte hierarquia operacional:
+
+1. **Plano estratégico do Design System**: `documentation/docs/design-system/plano-implementacao-storybook-ds.md`
+	Este é o plano mestre da iniciativa Storybook/Design System e define fases, objetivo macro e direção de execução.
+
+2. **Story ativa em `docs/stories/`**
+	A story aprovada é a unidade executável do trabalho. Ela detalha o recorte atual dentro do plano estratégico.
+
+3. **Plano temporário de sessão em `.copilot/session-state/**/plan.md`**
+	Esse arquivo é apenas memória operacional de uma sessão. Ele **não pode sobrescrever** nem o plano estratégico nem a story ativa. Quando houver divergência, o agente deve seguir o plano estratégico e a story, e tratar o plano de sessão apenas como cache temporário a ser atualizado ou descartado.
+
+Regra prática: para iniciativas do Design System, o plano de sessão só é válido se apontar explicitamente para o plano estratégico e para a story em execução.
+
 ## Skills Locais
 
 | Skill | Arquivo | Quando usar |

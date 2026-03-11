@@ -20,6 +20,16 @@ O Design System Educacross opera como **fonte única da verdade** para component
 
 > Regra fundamental: **nunca crie um componente novo sem antes consultar o registry e o FrontOffice**. Duplicatas aumentam drift e custo de manutenção.
 
+### Hierarquia operacional de contexto
+
+Para evitar que ferramentas de IA ou CLIs executem um plano stale, a governança do Design System adota esta hierarquia operacional:
+
+1. `documentation/docs/design-system/plano-implementacao-storybook-ds.md` = fonte de verdade estratégica.
+2. `docs/stories/*.md` = fonte de verdade executável por recorte.
+3. `.copilot/session-state/**/plan.md` = memória temporária de sessão.
+
+Regra: nenhum plano temporário de sessão pode redefinir escopo, fase ou prioridade fora do que já está estabelecido no plano estratégico e na story ativa.
+
 ---
 
 ## 2. Os Três Assets e Seus Papéis

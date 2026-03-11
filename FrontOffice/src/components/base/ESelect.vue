@@ -14,7 +14,7 @@
       tabindex="0"
       :class="[
         'e-select-container',
-        { 'is-invalid': state === false || invalid }
+        { 'is-invalid': invalid }
       ]"
       @click="switchDrop"
       @keydown.escape="close"
@@ -198,10 +198,6 @@ const props = defineProps({
   variant: {
     type: String,
     default: 'primary'
-  },
-  state: {
-    type: [String, Boolean],
-    default: null
   },
   invalid: {
     type: Boolean,

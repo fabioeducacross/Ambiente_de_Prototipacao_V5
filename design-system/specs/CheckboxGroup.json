@@ -1,0 +1,57 @@
+{
+  "name": "CheckboxGroup",
+  "category": "base",
+  "status": "nativo",
+  "description": "Grupo de checkboxes com título opcional. Recebe array de options e emite array de valores selecionados via v-model. Usa ECheckbox internamente.",
+  "source": "FrontOffice/src/components/molecules/CheckboxGroup.vue",
+  "props": [
+    {
+      "name": "modelValue",
+      "type": "array",
+      "default": "[]",
+      "description": "Array de valores atualmente selecionados. Usado com v-model."
+    },
+    {
+      "name": "options",
+      "type": "array",
+      "required": true,
+      "description": "Array de objetos de opção. Cada item deve ter: value (any, obrigatório), label (string, obrigatório), disabled? (boolean), color? (string), icon? (string), iconSvg? (string)."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "",
+      "description": "Título opcional exibido acima do grupo de checkboxes."
+    }
+  ],
+  "optionShape": {
+    "value": "any — identificador único da opção",
+    "label": "string — texto exibido",
+    "disabled": "boolean? — desabilita item individualmente",
+    "color": "string? — cor do checkbox quando checked",
+    "icon": "string? — nome do Material Symbol",
+    "iconSvg": "string? — URL de imagem SVG"
+  },
+  "events": [
+    {
+      "name": "update:modelValue",
+      "payload": "array",
+      "description": "Array atualizado dos valores selecionados. Compatível com v-model."
+    },
+    {
+      "name": "change",
+      "payload": "array",
+      "description": "Mesmo payload que update:modelValue. Emitido junto para casos sem v-model."
+    }
+  ],
+  "slots": [],
+  "states": [
+    { "name": "none-selected", "description": "Nenhum item marcado" },
+    { "name": "partial", "description": "Alguns itens marcados" },
+    { "name": "all-selected", "description": "Todos os itens marcados" }
+  ],
+  "a11y": {
+    "groupRole": "group implícito via lista de labels+inputs",
+    "titleElement": "h5"
+  }
+}

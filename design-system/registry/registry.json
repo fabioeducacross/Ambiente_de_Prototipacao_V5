@@ -118,6 +118,118 @@
       "storyFile": "design-system/stories/MaterialIcon.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
       "tags": ["icon", "material", "symbol"]
+    },
+    {
+      "name": "EToast",
+      "category": "feedback",
+      "status": "nativo",
+      "description": "Componente global de notificação toast. Acionado via composable useToast(). Suporta variantes success, error, warning, info com ícone, título e animação slide-in.",
+      "specFile": "design-system/specs/EToast.json",
+      "sourceFile": "FrontOffice/src/components/base/EToast.vue",
+      "storyFile": "design-system/stories/EToast.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["success", "error", "warning", "info"],
+      "tags": ["toast", "notification", "feedback", "alert", "global"]
+    },
+    {
+      "name": "Sidebar",
+      "category": "layout",
+      "status": "nativo",
+      "description": "Sidebar de navegação global fixa à esquerda. Suporta estado collapsed (70px, apenas ícones) e expanded (240px, ícone + texto).",
+      "specFile": "design-system/specs/Sidebar.json",
+      "sourceFile": "FrontOffice/src/components/Sidebar.vue",
+      "storyFile": "design-system/stories/Sidebar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["sidebar", "navigation", "layout", "menu"]
+    },
+    {
+      "name": "AppNavbar",
+      "category": "layout",
+      "status": "nativo",
+      "description": "Topbar global com logo centralizado, toggle de sidebar à esquerda e avatar do usuário com dropdown à direita. Suporta personalização por persona.",
+      "specFile": "design-system/specs/AppNavbar.json",
+      "sourceFile": "FrontOffice/src/components/AppNavbar.vue",
+      "storyFile": "design-system/stories/AppNavbar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["navbar", "topbar", "header", "layout", "navigation"]
+    },
+    {
+      "name": "ECheckbox",
+      "category": "base",
+      "status": "nativo",
+      "description": "Checkbox customizado com label, ícone Material Symbol ou SVG opcional, cor configurável e estado disabled. Implementa v-model Boolean.",
+      "specFile": "design-system/specs/ECheckbox.json",
+      "sourceFile": "FrontOffice/src/components/atoms/Checkbox.vue",
+      "storyFile": "design-system/stories/ECheckbox.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["checkbox", "form", "input", "toggle", "boolean"]
+    },
+    {
+      "name": "CheckboxGroup",
+      "category": "base",
+      "status": "nativo",
+      "description": "Grupo de checkboxes com título opcional. Recebe array de options e emite array de valores selecionados via v-model. Usa ECheckbox internamente.",
+      "specFile": "design-system/specs/CheckboxGroup.json",
+      "sourceFile": "FrontOffice/src/components/molecules/CheckboxGroup.vue",
+      "storyFile": "design-system/stories/CheckboxGroup.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["checkbox-group", "form", "multi-select", "filter"]
+    },
+    {
+      "name": "ProgressBar",
+      "category": "feedback",
+      "status": "adaptado",
+      "description": "Barra de progresso horizontal com variante automática por percentual: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%). Suporta valores absolutos (value/max) ou percentual direto.",
+      "specFile": "design-system/specs/ProgressBar.json",
+      "sourceFile": "FrontOffice/src/components/base/ProgressBarHorizontalV2.vue",
+      "storyFile": "design-system/stories/ProgressBar.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["progress", "progress-bar", "feedback", "dashboard", "metrics"]
+    },
+    {
+      "name": "PageCallout",
+      "category": "feedback",
+      "status": "nativo",
+      "description": "Faixa informativa persistente de nível de página. Sem botão fechar. Variantes: primary, info, warning, neutral. Ícone Material Symbol e título configuráveis.",
+      "specFile": "design-system/specs/PageCallout.json",
+      "sourceFile": "FrontOffice/src/components/atoms/PageCallout.vue",
+      "storyFile": "design-system/stories/PageCallout.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "variants": ["primary", "info", "warning", "neutral"],
+      "tags": ["callout", "info", "feedback", "banner", "notice"]
+    },
+    {
+      "name": "FilterSection",
+      "category": "base",
+      "status": "nativo",
+      "description": "Seção colapsável de filtros com título, ícone opcional e badge de contagem. Suporta modo não-controlado e controlado (v-model). Ideal para painéis laterais.",
+      "specFile": "design-system/specs/FilterSection.json",
+      "sourceFile": "FrontOffice/src/components/molecules/FilterSection.vue",
+      "storyFile": "design-system/stories/FilterSection.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["filter", "accordion", "collapsible", "section", "panel"]
+    },
+    {
+      "name": "LegendEnum",
+      "category": "feedback",
+      "status": "adaptado",
+      "description": "Legenda de enumeração com pontos coloridos. Exibe grupos de categorias para explicar cores de dashboards (ex: variantes de ProgressBar). Porta do legado.",
+      "specFile": "design-system/specs/LegendEnum.json",
+      "sourceFile": "FrontOffice/src/components/base/LegendEnum.vue",
+      "storyFile": "design-system/stories/LegendEnum.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["legend", "enum", "colors", "dashboard", "reference"]
+    },
+    {
+      "name": "AppBreadcrumb",
+      "category": "layout",
+      "status": "adaptado",
+      "description": "Breadcrumb que lê route.meta.breadcrumb automaticamente. Sem props. Suporta array de itens [{text, to?, active}] ou string legada. Porta fiel do legado.",
+      "specFile": "design-system/specs/AppBreadcrumb.json",
+      "sourceFile": "FrontOffice/src/components/AppBreadcrumb.vue",
+      "storyFile": "design-system/stories/AppBreadcrumb.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": ["breadcrumb", "navigation", "layout", "route"]
     }
   ],
   "statusLegend": {
@@ -127,6 +239,8 @@
     "divergente": "Implementação diverge intencionalmente do legado"
   },
   "categories": {
-    "base": "Componentes atômicos fundamentais (inputs, buttons, badges, modals)"
+    "base": "Componentes atômicos fundamentais (inputs, buttons, badges, modals, checkboxes)",
+    "layout": "Componentes estruturais de layout (sidebar, navbar)",
+    "feedback": "Componentes de feedback ao usuário (toast, progress bar)"
   }
 }

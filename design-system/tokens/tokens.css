@@ -2,6 +2,7 @@
    DESIGN SYSTEM EDUCACROSS — TOKENS
    Fonte canônica de tokens CSS.
    Extraído de FrontOffice/src/style.css
+   v1.4.0
    =================================== */
 
 :root {
@@ -14,6 +15,8 @@
   --primary-dark: #5E50EE;
   --ec-primary: #6E63E8;
   --ec-primary-soft: #EEEDFD;
+
+  /* Text / UI Tokens */
   --ec-text: #5E5873;
   --ec-body: #6E6B7B;
   --ec-muted: #B9B9C3;

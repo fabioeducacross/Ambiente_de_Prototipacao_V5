@@ -102,15 +102,40 @@
     }
   ],
   "events": [
-    { "name": "update:modelValue", "description": "Emitido ao selecionar/deselecionar opção" },
-    { "name": "change", "description": "Emitido junto a update:modelValue" },
-    { "name": "clear", "description": "Emitido ao limpar seleção" },
-    { "name": "open", "description": "Emitido ao abrir dropdown" },
-    { "name": "close", "description": "Emitido ao fechar dropdown" }
+    {
+      "name": "update:modelValue",
+      "description": "Emitido ao selecionar/deselecionar opção"
+    },
+    {
+      "name": "change",
+      "description": "Emitido junto a update:modelValue"
+    },
+    {
+      "name": "clear",
+      "description": "Emitido ao limpar seleção"
+    },
+    {
+      "name": "open",
+      "description": "Emitido ao abrir dropdown"
+    },
+    {
+      "name": "close",
+      "description": "Emitido ao fechar dropdown"
+    }
   ],
-  "exposes": ["open", "close", "clear"],
+  "exposes": [
+    "open",
+    "close",
+    "clear"
+  ],
   "variants": [],
-  "states": ["default", "open", "disabled", "loading", "invalid"],
+  "states": [
+    "default",
+    "open",
+    "disabled",
+    "loading",
+    "invalid"
+  ],
   "a11y": [
     "Elemento trigger usa role='combobox' com aria-expanded",
     "Lista usa role='listbox', opções usam role='option' com aria-selected",
