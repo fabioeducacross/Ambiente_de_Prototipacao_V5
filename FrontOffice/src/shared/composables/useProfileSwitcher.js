@@ -152,14 +152,14 @@ export function useProfileSwitcher() {
     )
 
     const resolveTargetRoute = (targetContext) => {
-        const storedRoute = getStoredRoute(targetContext.id)
-        if (isRouteCompatibleWithProfile(targetContext, storedRoute) && isExistingRoute(router, storedRoute)) {
-            return storedRoute
-        }
-
         const returnTo = typeof route.query?.returnTo === 'string' ? route.query.returnTo : null
         if (isRouteCompatibleWithProfile(targetContext, returnTo) && isExistingRoute(router, returnTo)) {
             return returnTo
+        }
+
+        const storedRoute = getStoredRoute(targetContext.id)
+        if (isRouteCompatibleWithProfile(targetContext, storedRoute) && isExistingRoute(router, storedRoute)) {
+            return storedRoute
         }
 
         const preferredRoute = resolveExistingRoute(router, targetContext.preferredRoutes)
