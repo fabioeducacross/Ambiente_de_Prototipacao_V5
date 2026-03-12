@@ -7,7 +7,7 @@ export default {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'outline-primary', 'outline-secondary', 'outline-danger', 'link']
+      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'outline', 'outline-primary', 'outline-secondary', 'outline-danger', 'link']
     },
     size: {
       control: 'radio',
@@ -45,6 +45,7 @@ export const AllVariants = {
         <EButton variant="danger">Danger</EButton>
         <EButton variant="warning">Warning</EButton>
         <EButton variant="info">Info</EButton>
+        <EButton variant="outline">Outline</EButton>
         <EButton variant="outline-primary">Outline Primary</EButton>
         <EButton variant="outline-secondary">Outline Secondary</EButton>
         <EButton variant="outline-danger">Outline Danger</EButton>
@@ -73,6 +74,23 @@ export const Loading = {
     components: { EButton },
     setup() { return { args } },
     template: '<EButton v-bind="args">Salvando...</EButton>'
+  })
+}
+
+export const LegacyLabelFallback = {
+  name: 'Compatibilidade legada - label fallback',
+  args: { variant: 'primary', label: 'Salvar' },
+  render: (args) => ({
+    components: { EButton },
+    setup() { return { args } },
+    template: `
+      <div style="display:flex;flex-direction:column;gap:8px;padding:16px;max-width:320px">
+        <EButton v-bind="args" />
+        <p style="margin:0;font-size:12px;color:#666">
+          O slot default continua canônico; label existe apenas como fallback de compatibilidade.
+        </p>
+      </div>
+    `
   })
 }
 

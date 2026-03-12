@@ -280,6 +280,8 @@ async function submitCapture({
           ".b-offcanvas.show",
           ".drawer.show",
           ".drawer.open",
+          "[role='dialog'][aria-modal='true']",
+          "dialog[open]",
           "[class*='drawer'][class*='open']",
           "[class*='offcanvas'][class*='show']",
         ].some((selector) => !!document.querySelector(selector));
@@ -316,17 +318,46 @@ async function submitCapture({
             };
           });
 
+        const visibleDialogs = Array.from(document.querySelectorAll("[role='dialog'], dialog"))
+          .filter((element) => {
+            const styles = getComputedStyle(element);
+            if (
+              styles.display === "none" ||
+              styles.visibility === "hidden" ||
+              Number.parseFloat(styles.opacity || "1") < 0.1
+            ) {
+              return false;
+            }
+            const rect = element.getBoundingClientRect();
+            return rect.width >= 280 && rect.height >= 260;
+          })
+          .slice(0, 5)
+          .map((element) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              tag: element.tagName.toLowerCase(),
+              role: element.getAttribute("role") || "",
+              className: element.className || "",
+              x: rect.x,
+              y: rect.y,
+              w: rect.width,
+              h: rect.height,
+            };
+          });
+
         return {
           namedSelectorHit,
           largeRightPanelCount: largeRightPanels.length,
           largeRightPanels,
+          visibleDialogCount: visibleDialogs.length,
+          visibleDialogs,
         };
       });
 
       drawerOpenResult = {
         ...drawerOpenResult,
         clicked: true,
-        detected: detection.namedSelectorHit || detection.largeRightPanelCount > 0,
+        detected: detection.namedSelectorHit || detection.largeRightPanelCount > 0 || detection.visibleDialogCount > 0,
         detection,
       };
 

@@ -1,7 +1,11 @@
 <template>
   <div class="class-selector-header">
     <div class="selector-filters">
-      <div v-if="showSchoolYear" class="class-selector-dropdown" @click="toggleSchoolYearDropdown">
+      <div
+        v-if="showSchoolYear"
+        class="class-selector-dropdown"
+        @click="toggleSchoolYearDropdown"
+      >
         <div class="dropdown-content dropdown-content--school-year">
           <div class="class-info">
             <span class="class-name">{{ selectedSchoolYear.name }}</span>
@@ -12,10 +16,13 @@
         </div>
 
         <transition name="dropdown">
-          <div v-if="isSchoolYearOpen" class="dropdown-menu dropdown-menu--school-year">
+          <div
+            v-if="isSchoolYearOpen"
+            class="selector-menu selector-menu--school-year"
+          >
             <button
-              v-for="schoolYear in schoolYears"
-              :key="schoolYear.id"
+              v-for="schoolYear in normalizedSchoolYears"
+              :key="schoolYear.id ?? 'all-school-years'"
               class="dropdown-item"
               :class="{ active: schoolYear.id === selectedSchoolYear.id }"
               @click.stop="selectSchoolYear(schoolYear)"
@@ -28,12 +35,11 @@
         </transition>
       </div>
 
-      <!-- Dropdown de Seleção de Turma -->
       <div class="class-selector-dropdown" @click="toggleDropdown">
         <div class="dropdown-content dropdown-content--class">
           <div class="class-info">
             <span class="class-name">{{ selectedClass.name }}</span>
-            <span class="class-badge">{{ selectedClass.grade }}</span>
+            <span v-if="selectedClass.grade" class="class-badge">{{ selectedClass.grade }}</span>
           </div>
           <span class="material-symbols-outlined chevron-icon">
             {{ isOpen ? 'expand_less' : 'expand_more' }}
@@ -41,9 +47,9 @@
         </div>
 
         <transition name="dropdown">
-          <div v-if="isOpen" class="dropdown-menu dropdown-menu--class">
+          <div v-if="isOpen" class="selector-menu selector-menu--class">
             <button
-              v-for="classItem in classes"
+              v-for="classItem in normalizedClasses"
               :key="classItem.id"
               class="dropdown-item"
               :class="{ active: classItem.id === selectedClass.id }"
@@ -51,15 +57,14 @@
             >
               <div class="item-content">
                 <span class="item-name">{{ classItem.name }}</span>
-                <span class="item-badge">{{ classItem.grade }}</span>
+                <span v-if="classItem.grade" class="item-badge">{{ classItem.grade }}</span>
               </div>
             </button>
           </div>
         </transition>
       </div>
     </div>
-    
-    <!-- Informação da Escola -->
+
     <div class="school-info">
       <span class="material-symbols-outlined school-icon">school</span>
       <span class="school-name">{{ schoolName }}</span>
@@ -68,50 +73,141 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 const props = defineProps({
   schoolYears: {
     type: Array,
-    default: () => [
-      { id: '2026', name: 'Ano escolar 2026' },
-      { id: '2025', name: 'Ano escolar 2025' },
-      { id: '2024', name: 'Ano escolar 2024' }
-    ]
+    default: () => [],
   },
   classes: {
     type: Array,
     default: () => [
-      { id: '5a', name: 'Turma 5º A - Manhã', grade: '5º ano' },
-      { id: '5b', name: 'Turma 5º B - Tarde', grade: '5º ano' },
-      { id: '6a', name: 'Turma 6º A - Manhã', grade: '6º ano' },
-      { id: '6b', name: 'Turma 6º B - Tarde', grade: '6º ano' }
-    ]
+      { id: '5a-manha', name: 'Turma 5º A - Manhã', grade: '5º ano', schoolYearId: '5º ano' },
+      { id: '5b-manha', name: 'Turma 5º B - Manhã', grade: '5º ano', schoolYearId: '5º ano' },
+      { id: '5a-tarde', name: 'Turma 5º A - Tarde', grade: '5º ano', schoolYearId: '5º ano' },
+      { id: '6a-manha', name: 'Turma 6º A - Manhã', grade: '6º ano', schoolYearId: '6º ano' },
+      { id: '6b-manha', name: 'Turma 6º B - Manhã', grade: '6º ano', schoolYearId: '6º ano' },
+      { id: '7a-manha', name: 'Turma 7º A - Manhã', grade: '7º ano', schoolYearId: '7º ano' },
+    ],
   },
   initialClass: {
     type: String,
-    default: '5a'
+    default: '5a-manha',
   },
   initialSchoolYear: {
-    type: String,
-    default: '2026'
+    type: [String, Number],
+    default: null,
   },
   showSchoolYear: {
     type: Boolean,
-    default: true
+    default: true,
   },
   schoolName: {
     type: String,
-    default: 'COLÉGIO FLORESTA ENCANTADA'
-  }
+    default: 'COLÉGIO FLORESTA ENCANTADA',
+  },
 })
 
 const emit = defineEmits(['class-change', 'school-year-change'])
 
+const fallbackSchoolYear = { id: null, name: 'Todos' }
+const FALLBACK_CLASS_ID = 'all-classes'
+
 const isOpen = ref(false)
 const isSchoolYearOpen = ref(false)
-const selectedSchoolYear = ref(props.schoolYears.find(y => y.id === props.initialSchoolYear) || props.schoolYears[0])
-const selectedClass = ref(props.classes.find(c => c.id === props.initialClass) || props.classes[0])
+
+const classMatchesSchoolYear = (classItem, schoolYear) => {
+  if (!schoolYear || schoolYear.id === null) {
+    return true
+  }
+
+  return classItem.schoolYearId === schoolYear.id
+    || classItem.schoolYearId === schoolYear.name
+    || classItem.grade === schoolYear.id
+    || classItem.grade === schoolYear.name
+}
+
+const normalizedSchoolYears = computed(() => {
+  if (props.schoolYears.length > 0) {
+    return props.schoolYears
+  }
+
+  const seenGrades = new Set()
+  const gradeOptions = props.classes
+    .map((classItem) => classItem.grade)
+    .filter((grade) => {
+      if (!grade || seenGrades.has(grade)) {
+        return false
+      }
+
+      seenGrades.add(grade)
+      return true
+    })
+    .map((grade) => ({ id: grade, name: grade }))
+
+  return [fallbackSchoolYear, ...gradeOptions]
+})
+
+const resolveSchoolYearSelection = (schoolYearId) => {
+  return normalizedSchoolYears.value.find((schoolYear) => schoolYear.id === schoolYearId)
+    || normalizedSchoolYears.value.find((schoolYear) => schoolYear.name === schoolYearId)
+    || normalizedSchoolYears.value[0]
+    || fallbackSchoolYear
+}
+
+const fallbackClass = computed(() => ({
+  id: FALLBACK_CLASS_ID,
+  name: 'Todas as turmas',
+  grade: selectedSchoolYear.value?.id ?? selectedSchoolYear.value?.name ?? 'Todos os anos',
+  isAll: true,
+}))
+
+const normalizedClasses = computed(() => {
+  const filteredClasses = props.classes.filter((classItem) => classMatchesSchoolYear(classItem, selectedSchoolYear.value))
+  return [fallbackClass.value, ...filteredClasses]
+})
+
+const resolveClassSelection = (classId) => {
+  return normalizedClasses.value.find((classItem) => classItem.id === classId)
+    || normalizedClasses.value[0]
+    || fallbackClass.value
+}
+
+const selectedSchoolYear = ref(resolveSchoolYearSelection(props.initialSchoolYear))
+const selectedClass = ref(resolveClassSelection(props.initialClass))
+
+watch(
+  () => props.initialSchoolYear,
+  (schoolYearId) => {
+    selectedSchoolYear.value = resolveSchoolYearSelection(schoolYearId)
+  }
+)
+
+watch(
+  normalizedSchoolYears,
+  () => {
+    selectedSchoolYear.value = resolveSchoolYearSelection(
+      selectedSchoolYear.value?.id ?? props.initialSchoolYear
+    )
+  },
+  { deep: true }
+)
+
+watch(
+  normalizedClasses,
+  () => {
+    selectedClass.value = resolveClassSelection(selectedClass.value?.id ?? props.initialClass)
+  },
+  { deep: true }
+)
+
+watch(
+  () => props.initialClass,
+  (classId) => {
+    selectedClass.value = resolveClassSelection(classId)
+  }
+)
 
 const toggleDropdown = () => {
   isSchoolYearOpen.value = false
@@ -131,19 +227,37 @@ const selectClass = (classItem) => {
 
 const selectSchoolYear = (schoolYear) => {
   selectedSchoolYear.value = schoolYear
+  selectedClass.value = resolveClassSelection(selectedClass.value?.id)
+
+  if (!classMatchesSchoolYear(selectedClass.value, schoolYear)) {
+    selectedClass.value = fallbackClass.value
+  }
+
   isSchoolYearOpen.value = false
   emit('school-year-change', schoolYear)
+  emit('class-change', selectedClass.value)
 }
 
-// Fechar dropdown ao clicar fora
-if (typeof window !== 'undefined') {
-  window.addEventListener('click', (e) => {
-    if (!e.target.closest('.class-selector-dropdown')) {
-      isOpen.value = false
-      isSchoolYearOpen.value = false
-    }
-  })
+const handleOutsideClick = (event) => {
+  const target = event.target
+
+  if (!(target instanceof Element) || !target.closest('.class-selector-dropdown')) {
+    isOpen.value = false
+    isSchoolYearOpen.value = false
+  }
 }
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    window.addEventListener('click', handleOutsideClick)
+  }
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('click', handleOutsideClick)
+  }
+})
 </script>
 
 <style scoped>
@@ -162,7 +276,6 @@ if (typeof window !== 'undefined') {
   min-width: 0;
 }
 
-/* Dropdown de Turma */
 .class-selector-dropdown {
   position: relative;
   display: inline-block;
@@ -234,8 +347,7 @@ if (typeof window !== 'undefined') {
   transform: translateY(2px);
 }
 
-/* Dropdown Menu */
-.dropdown-menu {
+.selector-menu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
@@ -249,7 +361,7 @@ if (typeof window !== 'undefined') {
   overflow: hidden;
 }
 
-.dropdown-menu--school-year {
+.selector-menu--school-year {
   min-width: 190px;
 }
 
@@ -295,23 +407,17 @@ if (typeof window !== 'undefined') {
   border-radius: 100px;
 }
 
-/* Transição do Dropdown */
 .dropdown-enter-active,
 .dropdown-leave-active {
   transition: all 0.2s ease;
 }
 
-.dropdown-enter-from {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
+.dropdown-enter-from,
 .dropdown-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }
 
-/* Informação da Escola */
 .school-info {
   display: flex;
   align-items: center;
@@ -341,32 +447,45 @@ if (typeof window !== 'undefined') {
   }
 
   .selector-filters {
-    width: 100%;
     flex-wrap: wrap;
+    width: 100%;
   }
 
   .dropdown-content--school-year,
   .dropdown-content--class {
-    min-width: unset;
-    width: 100%;
+    min-width: min(100%, 280px);
   }
-  
+
   .school-info {
     margin-left: 0;
   }
 }
 
 @media (max-width: 768px) {
-  .class-name {
-    font-size: 13px;
+  .class-selector-header {
+    padding: 4px 0 8px;
   }
-  
-  .school-name {
-    font-size: 13px;
+
+  .selector-filters {
+    flex-direction: column;
+    align-items: stretch;
   }
-  
-  .dropdown-menu {
+
+  .class-selector-dropdown,
+  .dropdown-content--school-year,
+  .dropdown-content--class,
+  .selector-menu,
+  .selector-menu--school-year {
+    width: 100%;
     min-width: 100%;
+  }
+
+  .school-info {
+    width: 100%;
+  }
+
+  .school-name {
+    white-space: normal;
   }
 }
 </style>

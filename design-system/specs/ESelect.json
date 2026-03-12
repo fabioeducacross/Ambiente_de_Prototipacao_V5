@@ -1,16 +1,22 @@
 {
   "name": "ESelect",
   "category": "base",
-  "description": "Select customizado com suporte a seleção única, múltipla, busca, limpeza e posicionamento via Teleport.",
+  "description": "Select customizado com suporte a seleção única, múltipla, busca, limpeza e posicionamento via Teleport. Mantém modelValue e invalid como contrato canônico Vue 3 e aceita value, state e input como ponte explícita de compatibilidade com o legado verificado.",
   "status": "adaptado",
   "source": "FrontOffice/src/components/base/ESelect.vue",
-  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-select",
+  "legacyRef": "src/components/selects/ESelect.vue do educacross-frontoffice",
   "props": [
     {
       "name": "modelValue",
       "type": "string | number | object | array",
       "default": null,
-      "description": "Valor selecionado (v-model)"
+      "description": "Valor selecionado no contrato canônico Vue 3 (v-model)"
+    },
+    {
+      "name": "value",
+      "type": "string | number | object | array",
+      "default": null,
+      "description": "Alias de compatibilidade com o legado. Só é usado quando modelValue não for informado."
     },
     {
       "name": "options",
@@ -76,7 +82,13 @@
       "name": "invalid",
       "type": "boolean",
       "default": false,
-      "description": "Estado de erro visual"
+      "description": "Estado de erro visual no contrato canônico Vue 3"
+    },
+    {
+      "name": "state",
+      "type": "string | boolean",
+      "default": null,
+      "description": "Alias de compatibilidade com o legado. Nesta etapa, state === false ativa o estado visual inválido."
     },
     {
       "name": "closeOnSelect",
@@ -104,7 +116,11 @@
   "events": [
     {
       "name": "update:modelValue",
-      "description": "Emitido ao selecionar/deselecionar opção"
+      "description": "Evento canônico Vue 3 emitido ao selecionar ou desselecionar opção"
+    },
+    {
+      "name": "input",
+      "description": "Evento espelho de compatibilidade com o legado, emitido com o mesmo payload de update:modelValue"
     },
     {
       "name": "change",

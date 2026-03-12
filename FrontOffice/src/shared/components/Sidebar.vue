@@ -1,7 +1,79 @@
 <template>
   <aside class="sidebar" :class="{ collapsed }" :style="themeVars">
-    <!-- Navigation Menu -->
-    <nav class="sidebar-nav">
+    <nav v-if="isLegacyTeacherMode" class="sidebar-nav">
+      <RouterLink to="/teacher" class="nav-item">
+        <MaterialIcon name="grid_view" :size="18" />
+        <span>Painel Inicial</span>
+      </RouterLink>
+
+      <button class="nav-item collapsible active">
+        <MaterialIcon name="flag" :size="18" />
+        <span>Missões da Escola</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
+
+      <button class="nav-item collapsible">
+        <MaterialIcon name="pie_chart" :size="18" />
+        <span>Relatórios Gerais</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
+
+      <button class="nav-item collapsible">
+        <MaterialIcon name="map" :size="18" />
+        <span>Explorar Jogos</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="work_outline" :size="18" />
+        <span>Turmas</span>
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="groups" :size="18" />
+        <span>Grupos</span>
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="group" :size="18" />
+        <span>Alunos</span>
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="auto_stories" :size="18" />
+        <span>Super Trilhas</span>
+      </button>
+
+      <div class="nav-title">Educacross</div>
+
+      <button class="nav-item">
+        <MaterialIcon name="apartment" :size="18" />
+        <span>Instituto J&amp;F - Comunidade | Adote uma Escola</span>
+      </button>
+
+      <button class="nav-item collapsible">
+        <MaterialIcon name="quiz" :size="18" />
+        <span>Avaliações</span>
+        <MaterialIcon name="chevron_right" :size="14" class="chevron" />
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="book_5" :size="18" />
+        <span>Expedição Leitura</span>
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="calendar_today" :size="18" />
+        <span>Eventos</span>
+      </button>
+
+      <button class="nav-item">
+        <MaterialIcon name="camera" :size="18" />
+        <span>High Five</span>
+      </button>
+    </nav>
+
+    <nav v-else class="sidebar-nav">
 
       <!-- ── PAINEL INICIAL ─────────────────────────────────── -->
       <div class="nav-section">
@@ -188,10 +260,26 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  navigationMode: {
+    type: String,
+    default: 'auto'
+  },
   theme: {
     type: String,
     default: 'teacher'
   }
+})
+
+const isLegacyTeacherMode = computed(() => {
+  if (props.navigationMode === 'legacyTeacher') {
+    return true
+  }
+
+  if (props.navigationMode === 'shared') {
+    return false
+  }
+
+  return route.path.startsWith('/teacher')
 })
 
 const sidebarPalettes = {

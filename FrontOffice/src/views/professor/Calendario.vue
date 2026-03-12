@@ -11,14 +11,44 @@ import { useProfileSwitcher } from '@/shared/composables/useProfileSwitcher'
 const STORAGE_KEY = 'educacross_calendar_events'
 const { currentProfile } = useProfileSwitcher()
 
+const classCatalog = [
+  { id: '5a-manha', name: 'Turma 5º A - Manhã', grade: '5º ano', schoolYearId: '5º ano' },
+  { id: '5b-manha', name: 'Turma 5º B - Manhã', grade: '5º ano', schoolYearId: '5º ano' },
+  { id: '5a-tarde', name: 'Turma 5º A - Tarde', grade: '5º ano', schoolYearId: '5º ano' },
+  { id: '6a-manha', name: 'Turma 6º A - Manhã', grade: '6º ano', schoolYearId: '6º ano' },
+  { id: '6b-manha', name: 'Turma 6º B - Manhã', grade: '6º ano', schoolYearId: '6º ano' },
+  { id: '7a-manha', name: 'Turma 7º A - Manhã', grade: '7º ano', schoolYearId: '7º ano' },
+]
+const ALL_CLASSES_ID = 'all-classes'
+
 const currentDate = ref(new Date(2026, 1, 15))
 const selectedTurma = ref('5a-manha')
 const events = ref([])
 const isDrawerOpen = ref(false)
 const editingEvent = ref(null)
 const drawerMode = ref('create')
-const selectedSchoolYear = ref('2026')
+const selectedSchoolYear = ref(null)
 const hideSchoolYear = computed(() => currentProfile.value?.id === 'teacher')
+const hideDrawerSchoolYearField = computed(() => currentProfile.value?.id === 'teacher')
+const currentCalendarYear = computed(() => currentDate.value.getFullYear())
+const schoolYearOptions = computed(() => {
+  const turmaGrades = [...new Set(classCatalog.map((classItem) => classItem.schoolYearId))]
+  return [
+    { id: null, name: 'Todos' },
+    ...turmaGrades.map((grade) => ({ id: grade, name: grade })),
+  ]
+})
+const turmaOptions = computed(() => classCatalog)
+const turmaGradeMap = computed(() => Object.fromEntries(classCatalog.map((classItem) => [classItem.id, classItem.grade])))
+
+const matchesSelectedSchoolYear = (turmaId) => {
+  if (!selectedSchoolYear.value || selectedSchoolYear.value.id === null) {
+    return true
+  }
+
+  const turmaGrade = turmaGradeMap.value[turmaId]
+  return turmaGrade === selectedSchoolYear.value.id || turmaGrade === selectedSchoolYear.value.name
+}
 
 const saveToLocalStorage = () => {
   try {
@@ -70,18 +100,6 @@ const typeColorMap = {
   trilha: '#00A5A0', expedicao: '#FFB443', lembrete: '#7CD7D3',
 }
 
-const syncCalendarYear = (schoolYear) => {
-  const numericSchoolYear = Number(schoolYear)
-
-  if (Number.isNaN(numericSchoolYear)) {
-    return
-  }
-
-  const nextDate = new Date(currentDate.value)
-  nextDate.setFullYear(numericSchoolYear)
-  currentDate.value = nextDate
-}
-
 const transformEvent = (event) => {
   const startDate = new Date(event.start_at || event.dataInicio)
   const endDate = new Date(event.end_at || event.dataTermino || startDate)
@@ -109,13 +127,17 @@ const transformEvent = (event) => {
 
 const calendarEvents = computed(() =>
   events.value.map(transformEvent).filter(Boolean)
-    .filter(ev => !ev.turmas || ev.turmas.includes(selectedTurma.value))
+    .filter((ev) => {
+      const turmaIds = ev.turmas || []
+      const yearMatches = turmaIds.length === 0 || turmaIds.some((turmaId) => matchesSelectedSchoolYear(turmaId))
+      const classMatches = selectedTurma.value === ALL_CLASSES_ID || turmaIds.length === 0 || turmaIds.includes(selectedTurma.value)
+      return yearMatches && classMatches
+    })
 )
 
 const handleClassChange = (c) => { selectedTurma.value = c.id }
 const handleSchoolYearChange = (year) => {
-  selectedSchoolYear.value = year.id
-  syncCalendarYear(year.id)
+  selectedSchoolYear.value = year
 }
 const handleMonthChange = (d) => { currentDate.value = d }
 const handleDayClick = () => {}
@@ -143,8 +165,8 @@ const closeDrawer = () => {
 const saveEvent = (eventData) => {
   const payload = {
     ...eventData,
-    schoolYear: eventData.schoolYear || Number(selectedSchoolYear.value),
-    school_year: eventData.school_year || Number(selectedSchoolYear.value),
+    schoolYear: eventData.schoolYear || currentCalendarYear.value,
+    school_year: eventData.school_year || currentCalendarYear.value,
   }
   const idx = events.value.findIndex(e => e.id === payload.id)
   const origin = normalizeOriginLevel(payload.origin_level || 'professor') || ORIGIN_LEVELS.TEACHER.value
@@ -171,7 +193,6 @@ const deleteEvent = (eventId) => {
 onMounted(() => {
   const saved = loadFromLocalStorage()
   events.value = (saved && saved.length > 0) ? saved : calendarMockData
-  syncCalendarYear(selectedSchoolYear.value)
   if (!saved || saved.length === 0) saveToLocalStorage()
   if (typeof window !== 'undefined') {
     window.__resetCalendarData__ = () => {
@@ -186,9 +207,13 @@ onMounted(() => {
 <template>
   <div class="calendario-wrapper">
     <ClassSelector
+      :classes="turmaOptions"
       :initial-class="selectedTurma"
+      :initial-school-year="selectedSchoolYear?.id ?? null"
+      :school-years="schoolYearOptions"
       :show-school-year="!hideSchoolYear"
       @class-change="handleClassChange"
+      @school-year-change="handleSchoolYearChange"
     />
 
     <div class="calendar-container">
@@ -210,7 +235,11 @@ onMounted(() => {
       :event-data="editingEvent"
       :mode="drawerMode"
       :default-turma="selectedTurma"
-      :school-year="Number(selectedSchoolYear)"
+      :selected-school-year="selectedSchoolYear"
+      :show-school-year-field="!hideDrawerSchoolYearField"
+      :school-year="currentCalendarYear"
+      :school-year-options="schoolYearOptions"
+      :turma-options="turmaOptions"
       @close="closeDrawer"
       @save="saveEvent"
       @delete="deleteEvent"

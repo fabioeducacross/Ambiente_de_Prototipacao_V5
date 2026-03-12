@@ -150,7 +150,7 @@ Todo componente deverá cair em uma destas categorias:
 ## Status Atual das Fases
 
 <!-- DS_PHASE_STATUS:START -->
-Atualizado em: 2026-03-10
+Atualizado em: 2026-03-12
 
 Fase atual principal: **Fase 4 — Convergência com produção**
 
@@ -161,14 +161,14 @@ FASE 0  [##########] 100%  CONCLUIDA      Descoberta e mapeamento
 FASE 1  [##########] 100%  CONCLUIDA      Storybook interno com a stack atual
 FASE 2  [##########] 100%  CONCLUIDA      Camada canônica de contratos
 FASE 3  [##########] 100%  CONCLUIDA      Registry para MCP
-FASE 4  [#####-----] 50%   EM ANDAMENTO   Convergência com produção
+FASE 4  [#######---] 70%   EM ANDAMENTO   Convergência com produção
 ```
 
 Resumo operacional:
 
 - Sprints 0, 1 e 2 estão concluídas.
-- A Fase 4 foi iniciada com o recorte interno da Story 4.1.
-- A convergência total com produção segue parcial e dependente de acesso válido à referência real do legado.
+- O recorte 4.1-4.5 dos componentes-base foi fechado, cobrindo baseline local estrita, baseline verificável de produção, parity mínima do ESelect, convergência funcional do EButton e contrato canônico mínimo do EInput.
+- A convergência total com produção segue parcial no macro do plano, agora dependente da expansão para componentes compostos e novos recortes além dos componentes-base.
 - O status detalhado e cumulativo do plano continua em `status-plano-implementacao-storybook-ds.md`.
 <!-- DS_PHASE_STATUS:END -->
 

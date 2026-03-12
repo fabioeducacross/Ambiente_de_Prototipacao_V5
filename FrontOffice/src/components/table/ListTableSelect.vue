@@ -1,9 +1,9 @@
 <script setup>
 /**
- * ListTableSelect — porta simplificada do componente de produção
- * (components/table/ListTableSelect.vue)
+ * ListTableSelect — componente composto canônico com convergência mínima
+ * do modo tabela da baseline de produção.
  *
- * Props de entrada iguais à produção:
+ * Contrato mínimo publicado nesta etapa:
  *   :data-table      → array de dados
  *   :table-columns   → [{ key, label, sortable?, labelClass?, tooltip? }]
  *   :total-data      → total de registros (para paginação)
@@ -11,7 +11,10 @@
  *   :card-class      → string extra no BCard
  *   :empty-text      → texto do empty state
  *   :show-select-all → habilita coluna de seleção
+ *   :show-search     → controla a visibilidade da busca
+ *   :show-search-query-input → alias explícito de compatibilidade para show-search
  *   :search-placeholder
+ *   :selected        → seleção controlada externamente
  *
  * Emits:
  *   update:selected   → array de itens selecionados
@@ -25,9 +28,11 @@
  * Slot empty:
  *   #empty
  */
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, getCurrentInstance } from 'vue'
 import { BCard, BRow, BCol } from 'bootstrap-vue-next'
 import ESelect from '@/components/base/ESelect.vue'
+
+const instance = getCurrentInstance()
 
 // ────────────────────────────────────────────────────────────────────────────
 // Props
@@ -41,6 +46,7 @@ const props = defineProps({
   emptyText:         { type: String,  default: 'Não há dados para exibir.' },
   showSelectAll:     { type: Boolean, default: true },
   showSearch:        { type: Boolean, default: true },
+  showSearchQueryInput: { type: Boolean, default: null },
   searchPlaceholder: { type: String,  default: 'Pesquisar...' },
   selected:          { type: Array,   default: () => [] },
 })
@@ -75,6 +81,25 @@ const onSearchInput = (e) => {
 const sortColumn = ref('')
 const sortDesc   = ref(false)
 
+const hasExplicitShowSearch = computed(() => {
+  const vnodeProps = instance?.vnode.props ?? {}
+
+  return Object.prototype.hasOwnProperty.call(vnodeProps, 'showSearch')
+    || Object.prototype.hasOwnProperty.call(vnodeProps, 'show-search')
+})
+
+const effectiveShowSearch = computed(() => {
+  if (hasExplicitShowSearch.value) {
+    return props.showSearch
+  }
+
+  if (props.showSearchQueryInput !== null) {
+    return props.showSearchQueryInput
+  }
+
+  return props.showSearch
+})
+
 const sortBy = (col) => {
   if (sortColumn.value === col.key) {
     sortDesc.value = !sortDesc.value
@@ -89,15 +114,41 @@ const sortBy = (col) => {
 // Selection
 // ────────────────────────────────────────────────────────────────────────────
 const selectedKeys = ref(new Set())
+const transientItemKeys = new WeakMap()
+let transientItemKeySeed = 0
+
+const itemKey = (item) => {
+  if (item && typeof item === 'object') {
+    if (item.id !== undefined && item.id !== null) {
+      return item.id
+    }
+
+    if (!transientItemKeys.has(item)) {
+      transientItemKeys.set(item, `row-${transientItemKeySeed++}`)
+    }
+
+    return transientItemKeys.get(item)
+  }
+
+  return String(item)
+}
 
 const selectedItems = computed(() =>
-  props.dataTable.filter((item, i) => selectedKeys.value.has(item.id ?? i))
+  props.dataTable.filter((item) => selectedKeys.value.has(itemKey(item)))
 )
 
 watch(selectedItems, (val) => emit('update:selected', val))
 
-const toggleItem = (item, rowIndex) => {
-  const key = item.id ?? rowIndex
+watch(() => props.selected, (nextSelected) => {
+  const nextKeys = new Set(
+    (nextSelected || []).map((item) => itemKey(item))
+  )
+
+  selectedKeys.value = nextKeys
+}, { immediate: true, deep: true })
+
+const toggleItem = (item) => {
+  const key = itemKey(item)
   if (selectedKeys.value.has(key)) {
     selectedKeys.value.delete(key)
   } else {
@@ -106,13 +157,13 @@ const toggleItem = (item, rowIndex) => {
   selectedKeys.value = new Set(selectedKeys.value)
 }
 
-const onRowClick = (item, rowIndex) => {
-  toggleItem(item, rowIndex)
+const onRowClick = (item) => {
+  toggleItem(item)
 }
 
 const isPageSelected = computed(() => {
   if (!paginatedData.value.length) return false
-  return paginatedData.value.every((item, i) => selectedKeys.value.has(item.id ?? i))
+  return paginatedData.value.every((item) => selectedKeys.value.has(itemKey(item)))
 })
 
 const isSelectAll = ref(false)
@@ -122,7 +173,7 @@ const toggleSelectAll = () => {
     selectedKeys.value = new Set()
     isSelectAll.value = false
   } else {
-    selectedKeys.value = new Set(props.dataTable.map((item, i) => item.id ?? i))
+    selectedKeys.value = new Set(props.dataTable.map((item) => itemKey(item)))
     isSelectAll.value = true
   }
 }
@@ -130,9 +181,9 @@ const toggleSelectAll = () => {
 const toggleSelectPage = () => {
   const newSet = new Set(selectedKeys.value)
   if (isPageSelected.value) {
-    paginatedData.value.forEach((item, i) => newSet.delete(item.id ?? i))
+    paginatedData.value.forEach((item) => newSet.delete(itemKey(item)))
   } else {
-    paginatedData.value.forEach((item, i) => newSet.add(item.id ?? i))
+    paginatedData.value.forEach((item) => newSet.add(itemKey(item)))
   }
   selectedKeys.value = newSet
 }
@@ -142,15 +193,23 @@ const toggleSelectPage = () => {
 // ────────────────────────────────────────────────────────────────────────────
 const currentPage = ref(1)
 
+const effectiveTotal = computed(() => (
+  searchQuery.value ? filteredData.value.length : (props.totalData || filteredData.value.length)
+))
+
 const totalPages = computed(() =>
-  Math.ceil((props.totalData || props.dataTable.length) / perPage.value.value)
+  Math.max(1, Math.ceil(effectiveTotal.value / perPage.value.value))
 )
 
 const paginationStart = computed(() =>
-  Math.min((currentPage.value - 1) * perPage.value.value + 1, props.totalData || props.dataTable.length)
+  effectiveTotal.value === 0
+    ? 0
+    : Math.min((currentPage.value - 1) * perPage.value.value + 1, effectiveTotal.value)
 )
 const paginationEnd = computed(() =>
-  Math.min(currentPage.value * perPage.value.value, props.totalData || props.dataTable.length)
+  effectiveTotal.value === 0
+    ? 0
+    : Math.min(currentPage.value * perPage.value.value, effectiveTotal.value)
 )
 
 const changePage = (page) => {
@@ -161,6 +220,13 @@ const changePage = (page) => {
 
 // Reset to page 1 when per-page changes
 watch(perPage, () => { currentPage.value = 1 })
+watch(searchQuery, () => { currentPage.value = 1 })
+watch([sortColumn, sortDesc], () => { currentPage.value = 1 })
+watch(totalPages, (nextTotalPages) => {
+  if (currentPage.value > nextTotalPages) {
+    currentPage.value = nextTotalPages
+  }
+})
 
 // Visible page buttons (max 5 + ellipsis)
 const visiblePages = computed(() => {
@@ -212,8 +278,6 @@ const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * perPage.value.value
   return filteredData.value.slice(start, start + perPage.value.value)
 })
-
-const effectiveTotal = computed(() => props.totalData || filteredData.value.length)
 </script>
 
 <template>
@@ -235,7 +299,7 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
 
       <BCol cols="12" md>
         <div class="d-flex justify-content-end">
-          <div v-if="showSearch" class="input-group toolbar-search-wrap" style="max-width:420px">
+          <div v-if="effectiveShowSearch" class="input-group toolbar-search-wrap" style="max-width:420px">
             <span class="input-group-text bg-transparent toolbar-search-icon-wrap">
               <span class="material-symbols-outlined toolbar-search-icon">search</span>
             </span>
@@ -320,7 +384,7 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
                     alt="Sem dados"
                     class="mb-1"
                   />
-                  <span class="text-center text-primary fw-bold" v-html="emptyText" />
+                  <span class="text-center text-primary fw-bold empty-text-label">{{ emptyText }}</span>
                 </div>
               </slot>
             </td>
@@ -328,15 +392,15 @@ const effectiveTotal = computed(() => props.totalData || filteredData.value.leng
 
           <tr
             v-for="(item, rowIndex) in paginatedData"
-            :key="item.id ?? rowIndex"
-            :class="{ 'row-selected': selectedKeys.has(item.id ?? rowIndex) }"
+            :key="itemKey(item)"
+            :class="{ 'row-selected': selectedKeys.has(itemKey(item)) }"
           >
             <td v-if="showSelectAll" class="ps-2">
               <input
                 type="checkbox"
                 class="form-check-input"
-                :checked="selectedKeys.has(item.id ?? rowIndex)"
-                @change="toggleItem(item, rowIndex)"
+                :checked="selectedKeys.has(itemKey(item))"
+                @change="toggleItem(item)"
                 @click.stop
               />
             </td>
@@ -473,5 +537,9 @@ tbody tr:last-child td {
 }
 .pagination .page-link {
   color: #7367f0;
+}
+
+.empty-text-label {
+  white-space: pre-line;
 }
 </style>

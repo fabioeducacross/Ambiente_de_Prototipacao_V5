@@ -1,7 +1,12 @@
 <script setup>
 /**
- * ProgressBarHorizontalV2 — porta do componente de produção
+ * ProgressBarHorizontalV2 — runtime técnico do componente canônico ProgressBar
  * (components/progessBar/ProgressBarHorizontalV2.vue)
+ *
+ * Governança:
+ * - Nome público do catálogo: ProgressBar
+ * - Nome técnico deste arquivo: ProgressBarHorizontalV2
+ * - Não há alias público nesta rodada
  *
  * Uso: <ProgressBarHorizontalV2 :value="72" />
  *      <ProgressBarHorizontalV2 :value="30" :max="100" show-values />

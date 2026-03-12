@@ -177,13 +177,14 @@ Regra prática: para iniciativas do Design System, o plano de sessão só é vá
 | Skill | Arquivo | Quando usar |
 |-------|---------|-------------|
 | `educacross-design-system` | `.agents/skills/educacross-design-system/SKILL.md` | **SEMPRE** ao construir ou revisar telas, componentes, protótipos ou qualquer UI do Educacross. Contém: paleta de cores completa (tokens SCSS), tipografia, ícones (Material Symbols), componentes (`ESelect`, `ListTable`, `MediaCard`, `EFormCheck`, gráficos), padrões de layout, roles e assets. |
+| `figma-prototype-export` | `.agents/skills/figma-prototype-export/SKILL.md` | Quando precisar exportar uma rota local do FrontOffice para o Figma via MCP oficial, com suporte a arquivo novo, arquivo existente e fallback guardado para capturas sensíveis. |
 | `web-design-guidelines` | `.agents/skills/web-design-guidelines/SKILL.md` | Ao revisar UI para conformidade com boas práticas web |
 
 ## Servidores MCP Locais
 
 | Servidor | Tipo | Descrição | Ferramentas |
 |----------|------|-----------|-------------|
-| `figma` | HTTP | Integração com Figma (design, diagramas) | `get_design_context`, `generate_diagram` |
+| `figma` | HTTP | Integração com Figma (design, diagramas, captura Code -> Figma) | `get_design_context`, `generate_diagram`, `generate_figma_design` |
 | `design-system` | stdio | Lookup on-demand de componentes do `educacross-frontoffice` | `list_components`, `get_component`, `search_component`, `get_consts`, `get_scss` |
 
 > Para consultar componentes secundários não cobertos pela SKILL, use as ferramentas do servidor `design-system`. Ver seção 11 da SKILL `educacross-design-system` para o fluxo detalhado.

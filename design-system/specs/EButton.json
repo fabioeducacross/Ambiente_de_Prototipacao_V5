@@ -1,30 +1,56 @@
 {
   "name": "EButton",
   "category": "base",
-  "description": "Botão de ação com suporte a variantes, tamanhos, estado de loading e ícone Material Symbol.",
+  "description": "Botão de ação com suporte a variantes, tamanhos, estado de loading e ícone Material Symbol. Mantém slot default e loading por prop como contrato canônico local e aceita label apenas como fallback explícito de compatibilidade com o ButtonWaitAction legado.",
   "status": "nativo",
   "source": "FrontOffice/src/components/base/EButton.vue",
-  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-button",
+  "legacyRef": "src/components/form/button/ButtonWaitAction.vue do educacross-frontoffice",
   "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Fallback textual de compatibilidade. Só é usado quando o slot default não for fornecido."
+    },
     {
       "name": "variant",
       "type": "string",
       "default": "primary",
-      "values": ["primary", "secondary", "success", "danger", "warning", "info", "outline", "outline-primary", "outline-secondary", "outline-danger", "link"],
+      "values": [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "outline",
+        "outline-primary",
+        "outline-secondary",
+        "outline-danger",
+        "link"
+      ],
       "description": "Variante visual do botão"
     },
     {
       "name": "size",
       "type": "string",
       "default": "medium",
-      "values": ["small", "medium", "large"],
+      "values": [
+        "small",
+        "medium",
+        "large"
+      ],
       "description": "Tamanho do botão"
     },
     {
       "name": "type",
       "type": "string",
       "default": "button",
-      "values": ["button", "submit", "reset"],
+      "values": [
+        "button",
+        "submit",
+        "reset"
+      ],
       "description": "Atributo HTML type"
     },
     {
@@ -37,7 +63,7 @@
       "name": "loading",
       "type": "boolean",
       "default": false,
-      "description": "Exibe spinner de carregamento"
+      "description": "Contrato canônico local para estado de carregamento controlado externamente"
     },
     {
       "name": "icon",
@@ -55,17 +81,35 @@
   "slots": [
     {
       "name": "default",
-      "description": "Texto ou conteúdo do botão"
+      "description": "Contrato canônico local para texto ou conteúdo do botão; tem precedência sobre a prop label"
     }
   ],
   "events": [
     {
       "name": "click",
-      "description": "Emitido ao clicar (ignora se disabled ou loading)"
+      "description": "Evento canônico local emitido ao clicar (ignora se disabled ou loading). Nesta entrega, não publica assinatura assíncrona com resolve."
     }
   ],
-  "variants": ["primary", "secondary", "success", "danger", "warning", "info", "outline-primary", "outline-secondary", "outline-danger", "link"],
-  "states": ["default", "hover", "active", "disabled", "loading"],
+  "variants": [
+    "primary",
+    "secondary",
+    "success",
+    "danger",
+    "warning",
+    "info",
+    "outline",
+    "outline-primary",
+    "outline-secondary",
+    "outline-danger",
+    "link"
+  ],
+  "states": [
+    "default",
+    "hover",
+    "active",
+    "disabled",
+    "loading"
+  ],
   "a11y": [
     "Usar type='submit' em formulários",
     "Fornecer texto descritivo no slot ou aria-label quando apenas ícone",

@@ -1,16 +1,16 @@
 {
   "name": "EInput",
   "category": "base",
-  "description": "Campo de input de texto com suporte a tipos HTML, tamanhos, estados de validação e integração com v-model.",
+  "description": "Campo de input com contrato canônico mínimo baseado no padrão distribuído verificado de b-form-input no legado. O núcleo publicado é modelValue, type, placeholder e disabled; invalid, readonly, required, size, eventos de foco/blur, exposes e ergonomias específicas permanecem como extensões locais mantidas.",
   "status": "nativo",
   "source": "FrontOffice/src/components/base/EInput.vue",
-  "legacyRef": "https://fabioeducacross.github.io/DesignSystem-Vuexy/?path=/docs/components-input",
+  "legacyRef": "Padrão distribuído de b-form-input validado na Story 4.2, sem componente legado único equivalente ao EInput",
   "props": [
     {
       "name": "modelValue",
       "type": "string | number",
       "default": "",
-      "description": "Valor do input (v-model)"
+      "description": "Contrato canônico mínimo de valor do campo via v-model"
     },
     {
       "name": "id",
@@ -22,65 +22,88 @@
       "name": "type",
       "type": "string",
       "default": "text",
-      "values": ["text", "email", "password", "number", "tel", "url", "date", "datetime-local", "time"],
-      "description": "Tipo do input"
+      "values": [
+        "text",
+        "email",
+        "password",
+        "number",
+        "tel",
+        "url",
+        "date",
+        "datetime-local",
+        "time"
+      ],
+      "description": "Contrato canônico mínimo para tipagem HTML recorrente no baseline distribuído"
     },
     {
       "name": "placeholder",
       "type": "string",
       "default": "",
-      "description": "Texto placeholder"
+      "description": "Contrato canônico mínimo para orientação textual do campo"
     },
     {
       "name": "disabled",
       "type": "boolean",
       "default": false,
-      "description": "Desabilita o campo"
+      "description": "Contrato canônico mínimo para estado desabilitado"
     },
     {
       "name": "readonly",
       "type": "boolean",
       "default": false,
-      "description": "Campo somente leitura"
+      "description": "Extensão local mantida para ergonomia do protótipo; não faz parte do núcleo mínimo comprovado nesta rodada"
     },
     {
       "name": "required",
       "type": "boolean",
       "default": false,
-      "description": "Campo obrigatório"
+      "description": "Extensão local mantida para semântica de formulário; não faz parte do núcleo mínimo comprovado nesta rodada"
     },
     {
       "name": "invalid",
       "type": "boolean",
       "default": false,
-      "description": "Aplica estado de erro visual"
+      "description": "Extensão local mantida para estado visual de erro; não faz parte do núcleo mínimo comprovado nesta rodada"
     },
     {
       "name": "size",
       "type": "string",
       "default": "medium",
-      "values": ["small", "medium", "large"],
-      "description": "Tamanho do campo"
+      "values": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "description": "Extensão local mantida para padronização visual do protótipo; não faz parte do núcleo mínimo comprovado nesta rodada"
     }
   ],
   "slots": [],
   "events": [
     {
       "name": "update:modelValue",
-      "description": "Emitido a cada mudança de valor"
+      "description": "Evento canônico mínimo emitido a cada mudança de valor"
     },
     {
       "name": "blur",
-      "description": "Emitido ao perder foco"
+      "description": "Ergonomia local mantida para interação e composição; não faz parte do núcleo mínimo comprovado nesta rodada"
     },
     {
       "name": "focus",
-      "description": "Emitido ao ganhar foco"
+      "description": "Ergonomia local mantida para interação e composição; não faz parte do núcleo mínimo comprovado nesta rodada"
     }
   ],
-  "exposes": ["focus", "blur"],
+  "exposes": [
+    "focus",
+    "blur"
+  ],
   "variants": [],
-  "states": ["default", "focus", "disabled", "readonly", "invalid"],
+  "states": [
+    "default",
+    "focus",
+    "disabled",
+    "readonly",
+    "invalid"
+  ],
   "a11y": [
     "Sempre associar ao EFormGroup com label correspondente via id",
     "Usar required para campos obrigatórios",

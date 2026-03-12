@@ -2,9 +2,12 @@
   "name": "ProgressBar",
   "category": "feedback",
   "status": "adaptado",
-  "description": "Barra de progresso horizontal com variante automática por percentual. Suporta modo com valores absolutos (value/max) ou percentual direto. Variante visual muda conforme progresso: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%).",
+  "description": "Barra de progresso horizontal publicada canonicamente como ProgressBar no Design System. O runtime técnico atual permanece em ProgressBarHorizontalV2. Suporta modo com valores absolutos (value/max) ou percentual direto. Variante visual muda conforme progresso: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%).",
   "source": "FrontOffice/src/components/base/ProgressBarHorizontalV2.vue",
   "legacyRef": "components/progessBar/ProgressBarHorizontalV2.vue do educacross-frontoffice",
+  "runtimeImplementationName": "ProgressBarHorizontalV2",
+  "publicContractName": "ProgressBar",
+  "publicAlias": null,
   "props": [
     {
       "name": "value",
@@ -71,5 +74,11 @@
   ],
   "a11y": {
     "note": "Usa BProgress do bootstrap-vue-next que renderiza role=progressbar com aria-valuenow/min/max"
+  },
+  "governance": {
+    "adapterCanonicalExport": "ProgressBar",
+    "runtimeTechnicalName": "ProgressBarHorizontalV2",
+    "publicAlias": null,
+    "notes": "O nome público do catálogo permanece ProgressBar. O nome ProgressBarHorizontalV2 não é publicado como alias canônico nesta rodada."
   }
 }

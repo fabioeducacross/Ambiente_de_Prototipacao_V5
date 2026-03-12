@@ -9,7 +9,7 @@
   >
     <BSpinner v-if="loading" small class="me-2" />
     <span v-if="icon && !loading" class="material-symbols-outlined e-button-icon">{{ icon }}</span>
-    <slot />
+    <slot>{{ label }}</slot>
   </BButton>
 </template>
 
@@ -23,6 +23,10 @@ import { computed } from 'vue'
 import { BButton, BSpinner } from 'bootstrap-vue-next'
 
 const props = defineProps({
+  label: {
+    type: String,
+    default: ''
+  },
   variant: {
     type: String,
     default: 'primary',
