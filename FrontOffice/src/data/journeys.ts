@@ -40,8 +40,8 @@ export const personasJourneys: PersonaJourneys[] = [
                 id: 'PROF-CAL-001',
                 label: 'Calendario de Eventos',
                 icon: 'calendar_month',
-                route: '/teacher/calendar',
-                experienceTarget: '/teacher/calendar',
+                route: '/professor/calendario',
+                experienceTarget: '/professor/calendario',
                 status: 'Ativo',
                 jtbd: 'Planejar a rotina pedagogica semanal com visao clara de eventos e conflitos.',
                 checklist: [

@@ -109,7 +109,7 @@ const stats = ref([
 
         <div class="grid grid-cols-2">
           <!-- Calendar Card (TO-BE) -->
-          <RouterLink to="/teacher/calendar" class="journey-card calendar-card">
+          <RouterLink to="/professor/calendario" class="journey-card calendar-card">
             <div class="journey-header">
               <div class="journey-badges">
                 <EBadge variant="info" pill>Nova Feature</EBadge>

@@ -1,8 +1,8 @@
-import ProgressBarHorizontalV2 from '../../FrontOffice/src/components/base/ProgressBarHorizontalV2.vue'
+import { ProgressBar } from '../adapters/vue3/index.js'
 
 export default {
   title: 'Feedback/ProgressBar',
-  component: ProgressBarHorizontalV2,
+  component: ProgressBar,
   tags: ['autodocs'],
   argTypes: {
     value:      { control: { type: 'range', min: 0, max: 100, step: 1 } },
@@ -16,33 +16,33 @@ export default {
 export const Default = {
   args: { value: 72, max: null, showValues: true, reverse: false, height: '6px' },
   render: (args) => ({
-    components: { ProgressBarHorizontalV2 },
+    components: { ProgressBar },
     setup() { return { args } },
-    template: '<div style="padding: 16px; width: 300px;"><ProgressBarHorizontalV2 v-bind="args" /></div>'
+    template: '<div style="padding: 16px; width: 300px;"><ProgressBar v-bind="args" /></div>'
   })
 }
 
 export const AllStates = {
   name: 'Todos os estados — variantes automáticas',
   render: () => ({
-    components: { ProgressBarHorizontalV2 },
+    components: { ProgressBar },
     template: `
       <div style="padding: 16px; width: 320px; display: flex; flex-direction: column; gap: 16px;">
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">Crítico (&lt; 50%) — Danger</p>
-          <ProgressBarHorizontalV2 :value="32" :show-values="true" />
+          <ProgressBar :value="32" :show-values="true" />
         </div>
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">Moderado (50-79%) — Warning</p>
-          <ProgressBarHorizontalV2 :value="65" :show-values="true" />
+          <ProgressBar :value="65" :show-values="true" />
         </div>
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">Satisfatório (80-99%) — Success</p>
-          <ProgressBarHorizontalV2 :value="85" :show-values="true" />
+          <ProgressBar :value="85" :show-values="true" />
         </div>
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">Completo (100%) — Success escuro</p>
-          <ProgressBarHorizontalV2 :value="100" :show-values="true" />
+          <ProgressBar :value="100" :show-values="true" />
         </div>
       </div>
     `
@@ -52,20 +52,20 @@ export const AllStates = {
 export const WithMaxValue = {
   name: 'Com valor absoluto (value + max)',
   render: () => ({
-    components: { ProgressBarHorizontalV2 },
+    components: { ProgressBar },
     template: `
       <div style="padding: 16px; width: 320px; display: flex; flex-direction: column; gap: 16px;">
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">36 de 50 atividades</p>
-          <ProgressBarHorizontalV2 :value="36" :max="50" :show-values="true" />
+          <ProgressBar :value="36" :max="50" :show-values="true" />
         </div>
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">8 de 10 alunos</p>
-          <ProgressBarHorizontalV2 :value="8" :max="10" :show-values="true" />
+          <ProgressBar :value="8" :max="10" :show-values="true" />
         </div>
         <div>
           <p style="font-size: 0.8rem; color: #6e6b7b; margin-bottom: 6px;">3 de 20 tarefas</p>
-          <ProgressBarHorizontalV2 :value="3" :max="20" :show-values="true" />
+          <ProgressBar :value="3" :max="20" :show-values="true" />
         </div>
       </div>
     `
@@ -75,13 +75,13 @@ export const WithMaxValue = {
 export const Tall = {
   name: 'Altura customizada',
   render: () => ({
-    components: { ProgressBarHorizontalV2 },
+    components: { ProgressBar },
     template: `
       <div style="padding: 16px; width: 320px; display: flex; flex-direction: column; gap: 12px;">
-        <ProgressBarHorizontalV2 :value="65" height="4px" />
-        <ProgressBarHorizontalV2 :value="65" height="8px" />
-        <ProgressBarHorizontalV2 :value="65" height="14px" />
-        <ProgressBarHorizontalV2 :value="65" height="20px" />
+        <ProgressBar :value="65" height="4px" />
+        <ProgressBar :value="65" height="8px" />
+        <ProgressBar :value="65" height="14px" />
+        <ProgressBar :value="65" height="20px" />
       </div>
     `
   })
@@ -90,7 +90,7 @@ export const Tall = {
 export const DashboardPattern = {
   name: 'Pattern: Relatório de turmas',
   render: () => ({
-    components: { ProgressBarHorizontalV2 },
+    components: { ProgressBar },
     template: `
       <div style="padding: 16px; width: 380px; display: flex; flex-direction: column; gap: 16px;">
         <div v-for="turma in turmas" :key="turma.nome" style="border: 1px solid #ebe9f1; border-radius: 6px; padding: 12px;">
@@ -98,7 +98,7 @@ export const DashboardPattern = {
             <span style="font-weight: 600; font-size: 0.9rem;">{{ turma.nome }}</span>
             <span style="font-size: 0.8rem; color: #6e6b7b;">{{ turma.alunos }} alunos</span>
           </div>
-          <ProgressBarHorizontalV2 :value="turma.progresso" :show-values="true" />
+          <ProgressBar :value="turma.progresso" :show-values="true" />
         </div>
       </div>
     `,

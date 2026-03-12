@@ -1,0 +1,118 @@
+{
+    "name": "ListTableSelect",
+    "category": "composed",
+    "status": "adaptado",
+    "description": "Tabela composta com seleção, busca, ordenação, paginação simples e slots de célula. Publica o contrato mínimo do modo tabela e admite apenas uma ponte explícita de compatibilidade para o naming de visibilidade da busca.",
+    "source": "FrontOffice/src/components/table/ListTableSelect.vue",
+    "legacyRef": "src/components/table/ListTableSelect.vue do educacross-frontoffice",
+    "props": [
+        {
+            "name": "dataTable",
+            "type": "array",
+            "default": [],
+            "description": "Contrato canônico mínimo para a lista de itens exibidos na tabela"
+        },
+        {
+            "name": "tableColumns",
+            "type": "array",
+            "default": [],
+            "description": "Contrato canônico mínimo para definição das colunas visíveis da tabela"
+        },
+        {
+            "name": "totalData",
+            "type": "number",
+            "default": 0,
+            "description": "Contrato canônico mínimo para total de registros usado na paginação simples"
+        },
+        {
+            "name": "loading",
+            "type": "boolean",
+            "default": false,
+            "description": "Contrato canônico mínimo para estado de carregamento do modo tabela"
+        },
+        {
+            "name": "cardClass",
+            "type": "string",
+            "default": "",
+            "description": "Classe CSS adicional aplicada ao card contêiner do componente"
+        },
+        {
+            "name": "emptyText",
+            "type": "string",
+            "default": "Não há dados para exibir.",
+            "description": "Texto padrão do estado vazio quando o slot empty não é fornecido"
+        },
+        {
+            "name": "showSelectAll",
+            "type": "boolean",
+            "default": true,
+            "description": "Contrato canônico mínimo para exibir controles de seleção por linha, página e tabela"
+        },
+        {
+            "name": "showSearch",
+            "type": "boolean",
+            "default": true,
+            "description": "Contrato canônico mínimo para visibilidade do campo de busca"
+        },
+        {
+            "name": "showSearchQueryInput",
+            "type": "boolean",
+            "default": null,
+            "description": "Alias explícito e limitado de compatibilidade para a visibilidade da busca. Só é usado quando showSearch não for informado."
+        },
+        {
+            "name": "searchPlaceholder",
+            "type": "string",
+            "default": "Pesquisar...",
+            "description": "Placeholder do campo de busca textual"
+        },
+        {
+            "name": "selected",
+            "type": "array",
+            "default": [],
+            "description": "Seleção controlada externamente para sincronizar as linhas selecionadas no modo tabela"
+        }
+    ],
+    "slots": [
+        {
+            "name": "cell(fieldKey)",
+            "description": "Slot de célula por coluna, com acesso a item, value e index"
+        },
+        {
+            "name": "empty",
+            "description": "Slot para customizar o estado vazio da tabela"
+        }
+    ],
+    "events": [
+        {
+            "name": "update:selected",
+            "description": "Evento canônico mínimo emitido com o array de itens selecionados"
+        },
+        {
+            "name": "page-change",
+            "description": "Evento canônico mínimo emitido ao trocar de página"
+        },
+        {
+            "name": "sort-change",
+            "description": "Evento canônico mínimo emitido ao alterar a ordenação da tabela"
+        },
+        {
+            "name": "search-change",
+            "description": "Evento canônico mínimo emitido ao alterar a busca textual"
+        }
+    ],
+    "states": [
+        "default",
+        "loading",
+        "empty",
+        "selected",
+        "sorted",
+        "paginated",
+        "searched"
+    ],
+    "a11y": [
+        "A tabela usa estrutura semântica com thead, tbody e navegação de paginação por botões",
+        "Checkboxes de seleção devem manter associação visual clara com as linhas selecionadas",
+        "O slot empty deve preservar mensagem compreensível quando a tabela não tiver dados"
+    ]
+}

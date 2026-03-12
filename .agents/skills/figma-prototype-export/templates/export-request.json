@@ -1,0 +1,17 @@
+{
+    "routeUrl": "http://localhost:5174/teacher",
+    "frameName": "Professor - Dashboard",
+    "target": {
+        "mode": "existingFile",
+        "figmaUrl": "https://www.figma.com/design/FILE_KEY/Projeto?node-id=123-456",
+        "fileKey": "FILE_KEY",
+        "nodeId": "123:456"
+    },
+    "options": {
+        "preferOfficialMcp": true,
+        "useGuardedCapture": false,
+        "verifyNodeId": "123:456",
+        "captureDelayMs": 1800,
+        "topBlockOffsetPx": 0
+    }
+}

@@ -106,3 +106,35 @@ export const Invalid = {
     `
   })
 }
+
+export const LegacyCompatibility = {
+  name: 'Compatibilidade legada - value/state/input',
+  render: () => ({
+    components: { ESelect },
+    setup() {
+      const legacyValue = ref(sampleOptions[1])
+
+      const handleLegacyInput = (nextValue) => {
+        legacyValue.value = nextValue
+      }
+
+      return { legacyValue, handleLegacyInput, sampleOptions }
+    },
+    template: `
+      <div style="max-width:300px;padding:16px">
+        <ESelect
+          :value="legacyValue"
+          :options="sampleOptions"
+          :state="false"
+          label="name"
+          track-by="id"
+          placeholder="Compatibilidade com legado"
+          @input="handleLegacyInput"
+        />
+        <p style="margin-top:8px;font-size:12px;color:#666">
+          Alias value/input ativo: {{ legacyValue?.name || 'nenhum' }}
+        </p>
+      </div>
+    `
+  })
+}

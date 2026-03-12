@@ -9,18 +9,14 @@ export default {
     type: {
       control: 'select',
       options: ['text', 'email', 'password', 'number', 'tel', 'url', 'date', 'datetime-local', 'time']
-    },
-    size: {
-      control: 'radio',
-      options: ['small', 'medium', 'large']
     }
   }
 }
 
-export const Default = {
+export const CanonicalMinimum = {
+  name: 'Contrato canônico mínimo',
   args: {
     placeholder: 'Digite algo...',
-    size: 'medium',
     type: 'text'
   },
   render: (args) => ({
@@ -33,7 +29,30 @@ export const Default = {
   })
 }
 
-export const AllSizes = {
+export const CanonicalSignals = {
+  name: 'Sinais recorrentes do baseline',
+  render: () => ({
+    components: { EInput },
+    setup() {
+      const values = {
+        text: ref(''),
+        password: ref(''),
+        disabled: ref('Bloqueado')
+      }
+      return { values }
+    },
+    template: `
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px;max-width:320px">
+        <EInput type="text" placeholder="Texto" v-model="values.text.value" />
+        <EInput type="password" placeholder="Senha" v-model="values.password.value" />
+        <EInput :disabled="true" v-model="values.disabled.value" placeholder="Desabilitado" />
+      </div>
+    `
+  })
+}
+
+export const LocalExtensionSizes = {
+  name: 'Extensão local - tamanhos',
   render: () => ({
     components: { EInput },
     setup() {
@@ -50,7 +69,8 @@ export const AllSizes = {
   })
 }
 
-export const Invalid = {
+export const LocalExtensionInvalid = {
+  name: 'Extensão local - invalid',
   args: { invalid: true, placeholder: 'Campo com erro' },
   render: (args) => ({
     components: { EInput },
@@ -62,7 +82,8 @@ export const Invalid = {
   })
 }
 
-export const Disabled = {
+export const CanonicalDisabled = {
+  name: 'Contrato canônico mínimo - disabled',
   args: { disabled: true, modelValue: 'Campo desabilitado' },
   render: (args) => ({
     components: { EInput },
@@ -71,7 +92,8 @@ export const Disabled = {
   })
 }
 
-export const Readonly = {
+export const LocalExtensionReadonly = {
+  name: 'Extensão local - readonly',
   args: { readonly: true, modelValue: 'Somente leitura' },
   render: (args) => ({
     components: { EInput },
@@ -80,7 +102,8 @@ export const Readonly = {
   })
 }
 
-export const Password = {
+export const CanonicalTypePassword = {
+  name: 'Contrato canônico mínimo - type=password',
   args: { type: 'password', placeholder: 'Senha...' },
   render: (args) => ({
     components: { EInput },
@@ -89,5 +112,27 @@ export const Password = {
       return { args, value }
     },
     template: '<EInput v-bind="args" v-model="value" style="max-width:300px" />'
+  })
+}
+
+export const LocalExtensionDateErgonomics = {
+  name: 'Extensão local - ergonomia para date/time',
+  render: () => ({
+    components: { EInput },
+    setup() {
+      const values = {
+        date: ref(''),
+        datetime: ref(''),
+        time: ref('')
+      }
+      return { values }
+    },
+    template: `
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px;max-width:320px">
+        <EInput type="date" v-model="values.date.value" />
+        <EInput type="datetime-local" v-model="values.datetime.value" />
+        <EInput type="time" v-model="values.time.value" />
+      </div>
+    `
   })
 }

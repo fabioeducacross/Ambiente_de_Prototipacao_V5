@@ -6,7 +6,7 @@ description: Mapeamento de todos os componentes do FrontOffice com origem, statu
 
 # Matriz de Migração e Canonicalização de Componentes
 
-Data: 2026-03-10  
+Data: 2026-03-12  
 Plano base: `plano-implementacao-storybook-ds.md` — Sprint 3, FASE 4
 
 ---
@@ -58,9 +58,9 @@ Estes são os componentes atômicos fundamentais — inputs, botões, badges, mo
 | `EModal` | ✅ registrado | 🔴 Alta | — | Spec completa. |
 | `EConfirmDialog` | ✅ registrado | 🔴 Alta | — | Spec completa. Estende EModal. |
 | `EDatePicker` | ✅ registrado | 🟡 Média | — | Adaptado via flatpickr. Spec completa. |
-| `EToast` | 🔲 não registrado | 🔴 Alta | `catalogar` | Existe no FrontOffice; falta entry no registry + spec. |
-| `ProgressBarHorizontalV2` | 🔲 não registrado | 🟡 Média | `catalogar` | Reutilizável em dashboards; adicionar ao registry. |
-| `LegendEnum` | 🔲 não registrado | 🟡 Média | `catalogar` | Utility para renderizar legendas de enum. |
+| `EToast` | ✅ registrado | 🔴 Alta | — | Componente global de feedback já catalogado com spec, story e registry. |
+| `ProgressBar` | ✅ registrado | 🟡 Média | `normalizar` | Nome público canônico do DS. O runtime técnico permanece em `ProgressBarHorizontalV2.vue`; a Story 4.7 fecha o drift nominal e de governança. |
+| `LegendEnum` | ✅ registrado | 🟡 Média | — | Utility de legenda já catalogada como componente de feedback do DS. |
 | `SelectSubject` | 🔲 não registrado | 🟢 Baixa | `adiar` | Domain-specific (disciplinas). Catalogar em sprint futuro. |
 
 ---
@@ -77,9 +77,9 @@ Estes são os componentes atômicos fundamentais — inputs, botões, badges, mo
 
 | Componente | Status Registry | Criticidade | Ação | Nota |
 |---|---|---|---|---|
-| `Sidebar` | 🔲 não registrado | 🔴 Alta | `catalogar` | Layout global. Merece spec de slots e props de navegação. |
-| `AppNavbar` | 🔲 não registrado | 🔴 Alta | `catalogar` | Topbar global com breadcrumb e git info. |
-| `AppBreadcrumb` | 🔲 não registrado | 🟡 Média | `catalogar` | Sub-componente do AppNavbar. |
+| `Sidebar` | ✅ registrado | 🔴 Alta | — | Layout global já catalogado com contrato de navegação e estados de colapso. |
+| `AppNavbar` | ✅ registrado | 🔴 Alta | — | Topbar global já catalogada com variações por persona. |
+| `AppBreadcrumb` | ✅ registrado | 🟡 Média | — | Sub-componente do AppNavbar já catalogado no DS. |
 | `FeatureFlagsPanel` | 🔲 não registrado | 🟢 Baixa | `adiar` | Painel de dev; não é componente de produto. |
 | `SubjectIcon` | 🔲 não registrado | 🟡 Média | `adiar` | Domain-specific; postergar. |
 | `ActivityLegend` | 🔲 não registrado | 🟡 Média | `adiar` | Domain-specific; postergar. |
@@ -97,12 +97,20 @@ Estes são os componentes atômicos fundamentais — inputs, botões, badges, mo
 
 ---
 
+## Tabela: Componentes Compostos (`table/`)
+
+| Componente | Status Registry | Criticidade | Ação | Nota |
+|---|---|---|---|---|
+| `ListTableSelect` | ✅ registrado | 🔴 Alta | `adaptar` | Primeiro componente composto da Fase 4. Catalogado com convergência mínima do modo tabela; grid view, exportação e superfície ampla do legado seguem fora do recorte 4.6. |
+
+---
+
 ## Tabela: Atoms (`atoms/`)
 
 | Componente | Status Registry | Criticidade | Ação | Nota |
 |---|---|---|---|---|
 | `Checkbox` | 🔲 não registrado | 🔴 Alta | `catalogar` | Atom de formulário. Candidato a `ECheckbox` no DS. |
-| `PageCallout` | 🔲 não registrado | 🟡 Média | `catalogar` | Callout informativo. Reutilizável. |
+| `PageCallout` | ✅ registrado | 🟡 Média | — | Callout informativo já catalogado com variantes publicadas. |
 | `NavigationButton` | 🔲 não registrado | 🟡 Média | `adiar` | Específico de layout de navegação do calendário. |
 | `ViewToggleButton` | 🔲 não registrado | 🟢 Baixa | `adiar` | Atom específico de toggle de view do calendário. |
 | `LegendDot` | 🔲 não registrado | 🟢 Baixa | `adiar` | Micro-atom decorativo. |
@@ -117,8 +125,8 @@ Estes são os componentes atômicos fundamentais — inputs, botões, badges, mo
 
 | Componente | Status Registry | Criticidade | Ação | Nota |
 |---|---|---|---|---|
-| `CheckboxGroup` | 🔲 não registrado | 🟡 Média | `catalogar` | Molecule de formulário reutilizável. |
-| `FilterSection` | 🔲 não registrado | 🟡 Média | `catalogar` | Seção genérica de filtros. Candidato a catalogar. |
+| `CheckboxGroup` | ✅ registrado | 🟡 Média | — | Molecule de formulário já catalogada e publicada no DS. |
+| `FilterSection` | ✅ registrado | 🟡 Média | — | Seção de filtros já catalogada com suporte controlado e não-controlado. |
 | `ViewToggleGroup` | 🔲 não registrado | 🟡 Média | `adiar` | Específico de toggle de visualização. |
 | `CalendarHeader` | 🔲 não registrado | 🟢 Baixa | `adiar` | Calendar-specific. |
 | `CalendarMonthHeader` | 🔲 não registrado | 🟢 Baixa | `adiar` | Calendar-specific. |
@@ -157,7 +165,7 @@ Candidatos imediatos ao próximo sprint de catalogação:
 | 3 | `AppNavbar` | `catalogar` | Layout global; usado em todas as telas |
 | 4 | `Checkbox` | `catalogar` | Atom de form; candidato a `ECheckbox` no DS |
 | 5 | `CheckboxGroup` | `catalogar` | Molecule de form reutilizável |
-| 6 | `ProgressBarHorizontalV2` | `catalogar` | Reutilizável em dashboards |
+| 6 | `ProgressBar` | `normalizar` | Drift nominal fechado na Story 4.7; runtime técnico permanece em `ProgressBarHorizontalV2.vue` |
 
 ### Sprint 5 — Componentes Média Prioridade — ✅ CONCLUÍDO
 
@@ -178,12 +186,13 @@ Todos os calendar-specific e domain-specific ficam como `adiar` até haver deman
 
 ```text
 Total componentes no FrontOffice:      57
-  ✅ No registry com spec:             20  (35.1%)
-  🔲 Baixa prioridade / adiar:         37  (64.9%)
+  ✅ No registry com spec:             21  (36.8%)
+  🔲 Baixa prioridade / adiar:         36  (63.2%)
 
-Cobertura atual do registry:          20/57 = 35.1%
+Cobertura atual do registry:          21/57 = 36.8%
 Meta Sprint 4:                        16/57 = 28.1% ✅ ATINGIDA
 Meta Sprint 5:                        20/57 = 35.1% ✅ ATINGIDA
+Marco pós-4.5:                        21/57 = 36.8% ✅ primeiro composto catalogado
 Meta longo prazo (componentes base):  30+/57 = 52%+ (Sprint 6+)
 ```
 

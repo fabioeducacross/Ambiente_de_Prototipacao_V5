@@ -15,4 +15,6 @@ export { default as EBadge } from '../../FrontOffice/src/components/base/EBadge.
 export { default as EModal } from '../../FrontOffice/src/components/base/EModal.vue'
 export { default as EConfirmDialog } from '../../FrontOffice/src/components/base/EConfirmDialog.vue'
 export { default as EDatePicker } from '../../FrontOffice/src/components/base/EDatePicker.vue'
+export { default as ProgressBar } from '../../FrontOffice/src/components/base/ProgressBarHorizontalV2.vue'
 export { default as MaterialIcon } from '../../FrontOffice/src/components/MaterialIcon.vue'
+export { default as ListTableSelect } from '../../FrontOffice/src/components/table/ListTableSelect.vue'

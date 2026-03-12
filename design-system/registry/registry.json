@@ -16,8 +16,24 @@
       "sourceFile": "FrontOffice/src/components/base/EButton.vue",
       "storyFile": "design-system/stories/EButton.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "variants": ["primary", "secondary", "success", "danger", "warning", "info", "outline-primary", "outline-secondary", "outline-danger", "link"],
-      "tags": ["button", "action", "cta", "form"]
+      "variants": [
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+        "outline-primary",
+        "outline-secondary",
+        "outline-danger",
+        "link"
+      ],
+      "tags": [
+        "button",
+        "action",
+        "cta",
+        "form"
+      ]
     },
     {
       "name": "EInput",
@@ -28,7 +44,12 @@
       "sourceFile": "FrontOffice/src/components/base/EInput.vue",
       "storyFile": "design-system/stories/EInput.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["input", "form", "text", "field"]
+      "tags": [
+        "input",
+        "form",
+        "text",
+        "field"
+      ]
     },
     {
       "name": "ESelect",
@@ -39,7 +60,12 @@
       "sourceFile": "FrontOffice/src/components/base/ESelect.vue",
       "storyFile": "design-system/stories/ESelect.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["select", "dropdown", "form", "choice"]
+      "tags": [
+        "select",
+        "dropdown",
+        "form",
+        "choice"
+      ]
     },
     {
       "name": "ETextarea",
@@ -50,7 +76,12 @@
       "sourceFile": "FrontOffice/src/components/base/ETextarea.vue",
       "storyFile": "design-system/stories/ETextarea.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["textarea", "form", "text", "multiline"]
+      "tags": [
+        "textarea",
+        "form",
+        "text",
+        "multiline"
+      ]
     },
     {
       "name": "EFormGroup",
@@ -61,7 +92,12 @@
       "sourceFile": "FrontOffice/src/components/base/EFormGroup.vue",
       "storyFile": "design-system/stories/EFormGroup.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["form-group", "form", "label", "validation"]
+      "tags": [
+        "form-group",
+        "form",
+        "label",
+        "validation"
+      ]
     },
     {
       "name": "EBadge",
@@ -72,8 +108,22 @@
       "sourceFile": "FrontOffice/src/components/base/EBadge.vue",
       "storyFile": "design-system/stories/EBadge.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "variants": ["primary", "secondary", "success", "info", "warning", "danger", "light", "dark"],
-      "tags": ["badge", "status", "label", "tag"]
+      "variants": [
+        "primary",
+        "secondary",
+        "success",
+        "info",
+        "warning",
+        "danger",
+        "light",
+        "dark"
+      ],
+      "tags": [
+        "badge",
+        "status",
+        "label",
+        "tag"
+      ]
     },
     {
       "name": "EModal",
@@ -84,7 +134,12 @@
       "sourceFile": "FrontOffice/src/components/base/EModal.vue",
       "storyFile": "design-system/stories/EModal.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["modal", "dialog", "overlay", "popup"]
+      "tags": [
+        "modal",
+        "dialog",
+        "overlay",
+        "popup"
+      ]
     },
     {
       "name": "EConfirmDialog",
@@ -95,7 +150,13 @@
       "sourceFile": "FrontOffice/src/components/base/EConfirmDialog.vue",
       "storyFile": "design-system/stories/EConfirmDialog.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["confirm", "dialog", "modal", "alert", "destructive"]
+      "tags": [
+        "confirm",
+        "dialog",
+        "modal",
+        "alert",
+        "destructive"
+      ]
     },
     {
       "name": "EDatePicker",
@@ -106,7 +167,12 @@
       "sourceFile": "FrontOffice/src/components/base/EDatePicker.vue",
       "storyFile": "design-system/stories/EDatePicker.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["datepicker", "date", "calendar", "form"]
+      "tags": [
+        "datepicker",
+        "date",
+        "calendar",
+        "form"
+      ]
     },
     {
       "name": "MaterialIcon",
@@ -117,7 +183,11 @@
       "sourceFile": "FrontOffice/src/components/MaterialIcon.vue",
       "storyFile": "design-system/stories/MaterialIcon.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["icon", "material", "symbol"]
+      "tags": [
+        "icon",
+        "material",
+        "symbol"
+      ]
     },
     {
       "name": "EToast",
@@ -128,8 +198,19 @@
       "sourceFile": "FrontOffice/src/components/base/EToast.vue",
       "storyFile": "design-system/stories/EToast.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "variants": ["success", "error", "warning", "info"],
-      "tags": ["toast", "notification", "feedback", "alert", "global"]
+      "variants": [
+        "success",
+        "error",
+        "warning",
+        "info"
+      ],
+      "tags": [
+        "toast",
+        "notification",
+        "feedback",
+        "alert",
+        "global"
+      ]
     },
     {
       "name": "Sidebar",
@@ -140,7 +221,12 @@
       "sourceFile": "FrontOffice/src/components/Sidebar.vue",
       "storyFile": "design-system/stories/Sidebar.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["sidebar", "navigation", "layout", "menu"]
+      "tags": [
+        "sidebar",
+        "navigation",
+        "layout",
+        "menu"
+      ]
     },
     {
       "name": "AppNavbar",
@@ -151,7 +237,13 @@
       "sourceFile": "FrontOffice/src/components/AppNavbar.vue",
       "storyFile": "design-system/stories/AppNavbar.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["navbar", "topbar", "header", "layout", "navigation"]
+      "tags": [
+        "navbar",
+        "topbar",
+        "header",
+        "layout",
+        "navigation"
+      ]
     },
     {
       "name": "ECheckbox",
@@ -162,7 +254,13 @@
       "sourceFile": "FrontOffice/src/components/atoms/Checkbox.vue",
       "storyFile": "design-system/stories/ECheckbox.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["checkbox", "form", "input", "toggle", "boolean"]
+      "tags": [
+        "checkbox",
+        "form",
+        "input",
+        "toggle",
+        "boolean"
+      ]
     },
     {
       "name": "CheckboxGroup",
@@ -173,18 +271,29 @@
       "sourceFile": "FrontOffice/src/components/molecules/CheckboxGroup.vue",
       "storyFile": "design-system/stories/CheckboxGroup.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["checkbox-group", "form", "multi-select", "filter"]
+      "tags": [
+        "checkbox-group",
+        "form",
+        "multi-select",
+        "filter"
+      ]
     },
     {
       "name": "ProgressBar",
       "category": "feedback",
       "status": "adaptado",
-      "description": "Barra de progresso horizontal com variante automática por percentual: danger (<50%), warning (50-79%), success (80-99%), success-dark (100%). Suporta valores absolutos (value/max) ou percentual direto.",
+      "description": "Barra de progresso horizontal publicada canonicamente como ProgressBar. O runtime técnico atual permanece em ProgressBarHorizontalV2, sem alias público nesta rodada.",
       "specFile": "design-system/specs/ProgressBar.json",
       "sourceFile": "FrontOffice/src/components/base/ProgressBarHorizontalV2.vue",
       "storyFile": "design-system/stories/ProgressBar.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["progress", "progress-bar", "feedback", "dashboard", "metrics"]
+      "tags": [
+        "progress",
+        "progress-bar",
+        "feedback",
+        "dashboard",
+        "metrics"
+      ]
     },
     {
       "name": "PageCallout",
@@ -195,8 +304,19 @@
       "sourceFile": "FrontOffice/src/components/atoms/PageCallout.vue",
       "storyFile": "design-system/stories/PageCallout.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "variants": ["primary", "info", "warning", "neutral"],
-      "tags": ["callout", "info", "feedback", "banner", "notice"]
+      "variants": [
+        "primary",
+        "info",
+        "warning",
+        "neutral"
+      ],
+      "tags": [
+        "callout",
+        "info",
+        "feedback",
+        "banner",
+        "notice"
+      ]
     },
     {
       "name": "FilterSection",
@@ -207,7 +327,13 @@
       "sourceFile": "FrontOffice/src/components/molecules/FilterSection.vue",
       "storyFile": "design-system/stories/FilterSection.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["filter", "accordion", "collapsible", "section", "panel"]
+      "tags": [
+        "filter",
+        "accordion",
+        "collapsible",
+        "section",
+        "panel"
+      ]
     },
     {
       "name": "LegendEnum",
@@ -218,7 +344,13 @@
       "sourceFile": "FrontOffice/src/components/base/LegendEnum.vue",
       "storyFile": "design-system/stories/LegendEnum.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["legend", "enum", "colors", "dashboard", "reference"]
+      "tags": [
+        "legend",
+        "enum",
+        "colors",
+        "dashboard",
+        "reference"
+      ]
     },
     {
       "name": "AppBreadcrumb",
@@ -229,7 +361,30 @@
       "sourceFile": "FrontOffice/src/components/AppBreadcrumb.vue",
       "storyFile": "design-system/stories/AppBreadcrumb.stories.js",
       "adapterFile": "design-system/adapters/vue3/index.js",
-      "tags": ["breadcrumb", "navigation", "layout", "route"]
+      "tags": [
+        "breadcrumb",
+        "navigation",
+        "layout",
+        "route"
+      ]
+    },
+    {
+      "name": "ListTableSelect",
+      "category": "composed",
+      "status": "adaptado",
+      "description": "Tabela composta com seleção, busca, ordenação e paginação simples. Publica o contrato mínimo do modo tabela e uma única ponte segura para o naming de visibilidade da busca.",
+      "specFile": "design-system/specs/ListTableSelect.json",
+      "sourceFile": "FrontOffice/src/components/table/ListTableSelect.vue",
+      "storyFile": "design-system/stories/ListTableSelect.stories.js",
+      "adapterFile": "design-system/adapters/vue3/index.js",
+      "tags": [
+        "table",
+        "list",
+        "selection",
+        "pagination",
+        "search",
+        "composed"
+      ]
     }
   ],
   "statusLegend": {
@@ -241,6 +396,7 @@
   "categories": {
     "base": "Componentes atômicos fundamentais (inputs, buttons, badges, modals, checkboxes)",
     "layout": "Componentes estruturais de layout (sidebar, navbar)",
-    "feedback": "Componentes de feedback ao usuário (toast, progress bar)"
+    "feedback": "Componentes de feedback ao usuário (toast, progress bar)",
+    "composed": "Componentes compostos que orquestram múltiplos padrões do Design System em fluxos reutilizáveis"
   }
 }

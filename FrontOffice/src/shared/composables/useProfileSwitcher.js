@@ -10,6 +10,7 @@ import {
 const STORAGE_PREFIX = 'educacross.profile.last-route.'
 const ACTIVE_CONTEXT_STORAGE_KEY = 'educacross.profile.active-context'
 const SHARED_PROTOTYPE_PREFIX = '/professor'
+const SHARED_SCHOOL_ROUTE_PREFIXES = ['/teacher/calendar', '/teacher/calendar-figma']
 
 const getStoredRoute = (profileId) => {
     if (typeof window === 'undefined') {
@@ -47,12 +48,25 @@ const isSharedPrototypeRoute = (routePath) => {
     return typeof routePath === 'string' && routePath.startsWith(SHARED_PROTOTYPE_PREFIX)
 }
 
+const isSharedSchoolExperienceRoute = (routePath) => {
+    if (typeof routePath !== 'string') {
+        return false
+    }
+
+    return isSharedPrototypeRoute(routePath)
+        || SHARED_SCHOOL_ROUTE_PREFIXES.some((prefix) => routePath.startsWith(prefix))
+}
+
+const getStoredActiveContext = () => {
+    return getProfileAccessContextById(getStoredActiveContextId())
+}
+
 const isRouteCompatibleWithProfile = (profile, routePath) => {
     if (!profile || !routePath) {
         return false
     }
 
-    if (profile.source === 'school' && isSharedPrototypeRoute(routePath)) {
+    if (profile.source === 'school' && isSharedSchoolExperienceRoute(routePath)) {
         return true
     }
 
@@ -85,28 +99,38 @@ export function useProfileSwitcher() {
     const accessContexts = computed(() => listProfileAccessContexts())
 
     const currentAccessContext = computed(() => {
+        const storedActiveContext = getStoredActiveContext()
+
+        if (storedActiveContext?.source === 'school' && isSharedSchoolExperienceRoute(route.path)) {
+            return storedActiveContext
+        }
+
         const byPath = resolveProfileAccessByPath(route.path)
         if (byPath) {
             return getProfileAccessContextById(byPath.accessContextId)
         }
 
         if (isSharedPrototypeRoute(route.path)) {
-            return getProfileAccessContextById(getStoredActiveContextId()) || getProfileAccessById('teacher')
+            return storedActiveContext || getProfileAccessById('teacher')
         }
 
         const returnTo = typeof route.query?.returnTo === 'string' ? route.query.returnTo : null
         if (returnTo) {
+            if (storedActiveContext?.source === 'school' && isSharedSchoolExperienceRoute(returnTo)) {
+                return storedActiveContext
+            }
+
             const byReturn = resolveProfileAccessByPath(returnTo)
             if (byReturn) {
                 return getProfileAccessContextById(byReturn.accessContextId)
             }
 
             if (isSharedPrototypeRoute(returnTo)) {
-                return getProfileAccessContextById(getStoredActiveContextId()) || getProfileAccessById('teacher')
+                return storedActiveContext || getProfileAccessById('teacher')
             }
         }
 
-        return getProfileAccessContextById(getStoredActiveContextId())
+        return storedActiveContext
     })
 
     const currentProfile = computed(() => currentAccessContext.value || resolveProfileAccessByPath(route.path))

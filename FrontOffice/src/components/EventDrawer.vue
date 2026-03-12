@@ -142,6 +142,25 @@
           </template>
         </EFormGroup>
 
+        <EFormGroup
+          v-if="showSchoolYearField"
+          id="schoolYearOption"
+          label="Ano escolar"
+          :error-message="errors.schoolYearOption"
+          hint="Selecione o ano escolar para filtrar as turmas"
+        >
+          <template #default="{ invalid, id }">
+            <ESelect
+              :id="id"
+              v-model="formData.schoolYearOption"
+              :invalid="invalid"
+              :options="resolvedSchoolYearOptions"
+              label="name"
+              trackBy="id"
+            />
+          </template>
+        </EFormGroup>
+
         <!-- Turmas -->
         <EFormGroup
           id="turmas"
@@ -154,7 +173,7 @@
               :id="id"
               v-model="formData.turmas"
               :invalid="invalid"
-              :options="turmaOptions"
+              :options="filteredTurmaOptions"
               label="name"
               trackBy="id"
               multiple
@@ -286,6 +305,22 @@ const props = defineProps({
   defaultTurma: {
     type: String,
     default: ''
+  },
+  selectedSchoolYear: {
+    type: [Object, String, Number, null],
+    default: null
+  },
+  showSchoolYearField: {
+    type: Boolean,
+    default: true
+  },
+  schoolYearOptions: {
+    type: Array,
+    default: () => []
+  },
+  turmaOptions: {
+    type: Array,
+    default: () => []
   },
   schoolYear: {
     type: Number,
@@ -455,6 +490,7 @@ const handleOpenReports = async () => {
 const formData = reactive({
   titulo: '',
   atividade: null,
+  schoolYearOption: null,
   turmas: [],
   dataInicio: '',
   dataTermino: '',
@@ -471,24 +507,128 @@ const atividadeOptions = [
   { id: 'lembrete', name: 'Lembrete' }
 ]
 
-const turmaOptions = [
-  { id: '5a-manha', name: '5° A - Manhã' },
-  { id: '5b-manha', name: '5° B - Manhã' },
-  { id: '5a-tarde', name: '5° A - Tarde' },
-  { id: '6a-manha', name: '6° A - Manhã' },
-  { id: '6b-manha', name: '6° B - Manhã' },
-  { id: '7a-manha', name: '7° A - Manhã' }
+const fallbackTurmaOptions = [
+  { id: '5a-manha', name: '5° A - Manhã', grade: '5º ano' },
+  { id: '5b-manha', name: '5° B - Manhã', grade: '5º ano' },
+  { id: '5a-tarde', name: '5° A - Tarde', grade: '5º ano' },
+  { id: '6a-manha', name: '6° A - Manhã', grade: '6º ano' },
+  { id: '6b-manha', name: '6° B - Manhã', grade: '6º ano' },
+  { id: '7a-manha', name: '7° A - Manhã', grade: '7º ano' }
 ]
+
+const resolvedTurmaOptions = computed(() => {
+  if (props.turmaOptions.length > 0) {
+    return props.turmaOptions
+  }
+
+  return fallbackTurmaOptions
+})
+
+const fallbackSchoolYearOption = { id: null, name: 'Todos' }
+
+const resolvedSchoolYearOptions = computed(() => {
+  if (props.schoolYearOptions.length > 0) {
+    return props.schoolYearOptions
+  }
+
+  const seenGrades = new Set()
+  const gradeOptions = resolvedTurmaOptions.value
+    .map((turma) => turma.grade)
+    .filter((grade) => {
+      if (!grade || seenGrades.has(grade)) {
+        return false
+      }
+
+      seenGrades.add(grade)
+      return true
+    })
+    .map((grade) => ({ id: grade, name: grade }))
+
+  return [fallbackSchoolYearOption, ...gradeOptions]
+})
+
+const normalizeSchoolYearOption = (value) => {
+  if (value && typeof value === 'object') {
+    return resolvedSchoolYearOptions.value.find((option) => option.id === value.id)
+      || resolvedSchoolYearOptions.value.find((option) => option.name === value.name)
+      || value
+  }
+
+  return resolvedSchoolYearOptions.value.find((option) => option.id === value)
+    || resolvedSchoolYearOptions.value.find((option) => option.name === value)
+    || resolvedSchoolYearOptions.value[0]
+    || fallbackSchoolYearOption
+}
+
+const deriveSchoolYearOptionFromTurmas = (turmaIds = []) => {
+  const matchingTurmas = resolvedTurmaOptions.value.filter((option) => turmaIds.includes(option.id))
+  const grades = [...new Set(matchingTurmas.map((option) => option.grade).filter(Boolean))]
+
+  if (grades.length === 1) {
+    return normalizeSchoolYearOption(grades[0])
+  }
+
+  return normalizeSchoolYearOption(null)
+}
+
+const filteredTurmaOptions = computed(() => {
+  const selectedOption = formData.schoolYearOption
+
+  if (!selectedOption || selectedOption.id === null) {
+    return resolvedTurmaOptions.value
+  }
+
+  return resolvedTurmaOptions.value.filter((turma) => turma.grade === selectedOption.name || turma.grade === selectedOption.id)
+})
 
 // Errors
 const errors = reactive({
   titulo: '',
   atividade: '',
+  schoolYearOption: '',
   turmas: '',
   dataInicio: '',
   dataTermino: '',
   description: ''
 })
+
+watch(
+  () => props.selectedSchoolYear,
+  (newValue) => {
+    if (!props.isOpen || props.mode === 'view' || props.eventData) {
+      return
+    }
+
+    formData.schoolYearOption = normalizeSchoolYearOption(newValue)
+  },
+  { immediate: true }
+)
+
+watch(
+  resolvedSchoolYearOptions,
+  () => {
+    formData.schoolYearOption = normalizeSchoolYearOption(
+      formData.schoolYearOption?.id ?? props.selectedSchoolYear
+    )
+  },
+  { deep: true }
+)
+
+watch(
+  () => formData.schoolYearOption,
+  (selectedOption) => {
+    if (!selectedOption || selectedOption.id === null) {
+      return
+    }
+
+    formData.turmas = formData.turmas.filter((turma) => {
+      const turmaId = turma?.id || turma
+      const turmaOption = resolvedTurmaOptions.value.find((option) => option.id === turmaId)
+      return turmaOption?.grade === selectedOption.name || turmaOption?.grade === selectedOption.id
+    })
+  },
+  { deep: true }
+)
 
 // Watch for eventData changes (edit mode)
 watch(() => props.eventData, (newData) => {
@@ -502,7 +642,16 @@ watch(() => props.eventData, (newData) => {
     
     // Converter turmas para objetos da lista de opções
     const turmaIds = newData.turmas || newData.classes || []
-    formData.turmas = turmaOptions.filter(opt => turmaIds.includes(opt.id))
+    formData.turmas = resolvedTurmaOptions.value.filter(opt => turmaIds.includes(opt.id))
+    formData.schoolYearOption = normalizeSchoolYearOption(
+      newData.schoolYearOption
+      || newData.school_year_option
+      || newData.schoolYearLabel
+      || newData.school_year_label
+      || newData.schoolYearId
+      || newData.school_year_id
+      || deriveSchoolYearOptionFromTurmas(turmaIds)
+    )
     
     // Datas: suporta tanto formato ISO quanto formato brasileiro
     const dataInicioRaw = newData.dataInicio || newData.start_at || newData.date || ''
@@ -513,6 +662,8 @@ watch(() => props.eventData, (newData) => {
     
     // Descrição: suporta tanto 'descricao' quanto 'description'
     formData.description = newData.descricao || newData.description || ''
+  } else {
+    formData.schoolYearOption = normalizeSchoolYearOption(props.selectedSchoolYear)
   }
 }, { immediate: true, deep: true })
 
@@ -571,6 +722,12 @@ const handleSubmit = () => {
       titulo: formData.titulo,
       tipo: props.eventData?.tipo || props.eventData?.type || 'lembrete',
       turmas: formData.turmas.map(t => t.id || t),
+      schoolYearOption: formData.schoolYearOption,
+      school_year_option: formData.schoolYearOption,
+      schoolYearLabel: formData.schoolYearOption?.name || '',
+      school_year_label: formData.schoolYearOption?.name || '',
+      schoolYearId: formData.schoolYearOption?.id ?? null,
+      school_year_id: formData.schoolYearOption?.id ?? null,
       dataInicio: `${formData.dataInicio}T08:00:00`,
       dataTermino: `${dataTermino}T18:00:00`,
       schoolYear: props.schoolYear,
@@ -623,6 +780,7 @@ const confirmDelete = () => {
 const resetForm = () => {
   formData.titulo = ''
   formData.atividade = null
+  formData.schoolYearOption = normalizeSchoolYearOption(props.selectedSchoolYear)
   formData.turmas = []
   formData.dataInicio = ''
   formData.dataTermino = ''
@@ -641,11 +799,25 @@ watch(() => props.isOpen, (isOpen) => {
 
   if (isOpen) {
     document.body.style.overflow = 'hidden'
+    formData.schoolYearOption = normalizeSchoolYearOption(
+      props.eventData?.schoolYearOption
+      || props.eventData?.school_year_option
+      || props.eventData?.schoolYearLabel
+      || props.eventData?.school_year_label
+      || props.eventData?.schoolYearId
+      || props.eventData?.school_year_id
+      || props.selectedSchoolYear
+    )
     // Pré-selecionar turma no modo criação
     if (props.mode === 'create' && props.defaultTurma) {
       // Converter ID da turma para objeto da lista de opções
-      const turmaObj = turmaOptions.find(opt => opt.id === props.defaultTurma)
-      if (turmaObj) {
+      const turmaObj = resolvedTurmaOptions.value.find(opt => opt.id === props.defaultTurma)
+      const canPreselectTurma = !formData.schoolYearOption
+        || formData.schoolYearOption.id === null
+        || turmaObj?.grade === formData.schoolYearOption.name
+        || turmaObj?.grade === formData.schoolYearOption.id
+
+      if (turmaObj && canPreselectTurma) {
         formData.turmas = [turmaObj]
       }
     }

@@ -6,13 +6,13 @@ description: Status de execucao do plano de implementacao do terceiro asset (Sto
 
 # Status do Plano - Storybook e Expansao do Design System (ASCII)
 
-Atualizado em: 2026-03-11 (Sprint 5 concluido; Fase 4 operacional segue em andamento)
+Atualizado em: 2026-03-12 (Sprint 5 concluido; recorte 4.1-4.5 dos componentes-base encerrado; primeiro componente composto catalogado)
 Plano base: `documentation/docs/design-system/plano-implementacao-storybook-ds.md`
 
 ## Resumo executivo
 
 - Status atual do asset estrutural (Sprints 0+1+2+3+4+5): **concluido**.
-- Status atual do plano operacional: **Fase 4 segue em andamento no plano base, agora com a Story 4.3 pronta para execucao**.
+- Status atual do plano operacional: **Fase 4 segue em andamento no plano base, com o recorte 4.1-4.5 dos componentes-base fechado e o primeiro recorte de componente composto ja executado via Story 4.6**.
 - Documento de plano publicado: `plano-implementacao-storybook-ds.md`.
 - Asset `design-system/` criado com Storybook interno, stories, tokens, specs e registry.
 - MCP com tools `get_spec` e `get_registry` ativas, documentadas e validadas por IA.
@@ -21,8 +21,10 @@ Plano base: `documentation/docs/design-system/plano-implementacao-storybook-ds.m
 - Sprint 4: +6 componentes de alta prioridade catalogados (registry 10→16).
 - Sprint 5: +4 componentes de media prioridade catalogados (registry 16→20, 35% do FrontOffice).
 - Tokens sincronizados com `FrontOffice/src/style.css` (v1.4.0, +ec-text/body/muted/border, +layout).
-- Build Storybook validado: 20 stories compiladas, `built in 8.99s`.
-- Story 4.2 fechou a baseline verificavel de producao e abriu o proximo recorte objetivo: parity direta de API do `ESelect` na Story 4.3.
+- Build Storybook validado: 21 stories publicadas no catalogo atual.
+- Stories 4.1 a 4.5 fecharam o recorte atual dos componentes-base com baseline verificável, parity mínima e convergência funcional/documental dos contratos publicados.
+- Story 4.6 iniciou a trilha de componentes compostos ao catalogar o ListTableSelect com contrato mínimo do modo tabela e bridge única de visibilidade da busca.
+- Story 4.7 saneou o drift nominal do componente ProgressBar sem alterar cobertura do catálogo, estabilizando adapter, Storybook e matriz em torno do nome público canônico.
 
 > Nota: este documento registra o fechamento estrutural do asset Storybook/Design System e da expansao catalogada ate o Sprint 5. Ele nao substitui o status operacional da convergencia com producao, que continua sendo governado pelo plano base e pelas stories ativas da Fase 4.
 
@@ -36,11 +38,13 @@ Execucao tecnica Tokens/Specs  [####################] 100%  (Sprint 1 concluido,
 Execucao tecnica Registry MCP  [####################] 100%  (tools get_spec/get_registry ativas + docs publicados)
 Validacao MCP por IA           [####################] 100%  (Sprint 3: 7 tools, 10 specs, fluxo validado)
 Fluxo designer -> story -> dev [####################] 100%  (Sprint 3: guia end-to-end publicado)
-Convergencia com producao      [##########----------] 50%   (plano base: Fase 4 em andamento; baseline validada e Story 4.3 pronta)
+Convergencia com producao      [###############-----] 75%   (plano base: recorte 4.1-4.5 fechado; primeiro composto catalogado; Fase 4 macro segue aberta)
 Catalogo alta prioridade       [####################] 100%  (Sprint 4: 6 componentes catalogados)
 Catalogo media prioridade      [####################] 100%  (Sprint 5: 4 componentes catalogados)
 
-STATUS ATUAL DO PLANO          [################░░░░] 80%  (asset estrutural concluido; Fase 4 operacional em andamento)
+STATUS ATUAL DO PLANO          [################█░░░] 85%  (asset estrutural concluido; Fase 4 operacional avancou para o primeiro componente composto)
+
+> Atualização operacional: a Story 4.7 foi concluída como recorte de governança nominal do ProgressBar. Esse passo saneia drift documental e contratual, mas não aumenta a contagem de componentes catalogados.
 ```
 
 ## O que ja esta fechado
@@ -90,6 +94,22 @@ AppBreadcrumb catalogado (spec + story + registry)       [##########] 100%
 Registry expandido: 16 → 20 componentes (35.1%)          [##########] 100%
 Tokens sincronizados (v1.3.0→v1.4.0)                    [##########] 100%
 Build Storybook validado: 20 stories OK                  [##########] 100%
+
+## Avanco adicional da Fase 4 — Componente composto inicial
+
+```text
+ListTableSelect catalogado (spec + story + registry)      [##########] 100%
+Adapter Vue3 atualizado para o componente                 [##########] 100%
+Matriz de migracao atualizada para 21/57                  [##########] 100%
+Story 4.6 encerrada com GO final                          [##########] 100%
+```
+
+Novos artefatos:
+- `design-system/specs/` → +1 spec (ListTableSelect)
+- `design-system/stories/` → +1 story
+- `design-system/registry/registry.json` → 21 componentes, 4 categorias (base, layout, feedback, composed)
+- `design-system/adapters/vue3/index.js` → export adicional do `ListTableSelect`
+- `documentation/docs/design-system/matriz-migracao-componentes.md` → cobertura 21/57
 ```
 
 Novos artefatos:
@@ -123,26 +143,27 @@ STATUS ESTRUTURAL DO ASSET = 100% (todos os Sprints concluidos)
 Leitura operacional complementar:
 
 - O plano base continua com a Fase 4 ativa.
-- A Story 4.2 encerrou a descoberta e comparacao factual da baseline de producao.
-- A Story 4.3 assume o proximo recorte executavel, focado exclusivamente em parity direta de API do `ESelect`.
+- O recorte 4.1-4.5 dos componentes-base foi concluido com baseline verificável, parity mínima e convergência funcional/documental já registradas em stories fechadas.
+- A Story 4.6 abre o eixo de componentes compostos com o ListTableSelect catalogado em convergência mínima e sem parity total com a baseline de produção.
+- A continuidade da Fase 4 passa a depender dos próximos compostos e gaps macro fora do bloco atual de componentes-base.
 ```
 
 ## Proximo passo objetivo
 
 O plano estrutural de implementacao do Storybook e Design System (Sprint 0-5) esta **100% concluido**.
 
-A continuidade operacional da Fase 4 permanece aberta no plano base.
+A continuidade operacional da Fase 4 permanece aberta no plano base, mas o recorte atual dos componentes-base tambem foi fechado e o primeiro componente composto ja entrou no catalogo.
 
-Proximo recorte executavel ja preparado:
+Proximo recorte executavel a definir:
 
-- `docs/stories/4.3.parity-api-eselect.md` -> parity direta de API do `ESelect`, em status Ready.
+- nova story da Fase 4 para o proximo componente composto prioritario ou para outro gap macro ainda fora do bloco 4.1-4.5.
 
-Cobertura atual: **20/57 componentes do FrontOffice** (~35%) com spec + story + registry.
+Cobertura atual: **21/57 componentes do FrontOffice** (~36.8%) com spec + story + registry.
 
 Para continuidade futura de catalogacao, consultar a **Matriz de Migracao** (`matriz-migracao-componentes.md`):
 
 **Sprint 6+ — Baixa Prioridade (restante):**
-- 37 componentes marcados como `catalogar-futuro`
+- 36 componentes marcados como `catalogar-futuro`
 - Priorizar por frequencia de uso nas telas de prototipacao
 - Cada componente novo segue o fluxo: spec JSON → story → registry
 

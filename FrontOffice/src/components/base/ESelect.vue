@@ -14,7 +14,7 @@
       tabindex="0"
       :class="[
         'e-select-container',
-        { 'is-invalid': invalid }
+        { 'is-invalid': visualInvalid }
       ]"
       @click="switchDrop"
       @keydown.escape="close"
@@ -171,11 +171,17 @@
  * Baseado no ESelect original da Educacross (educacross-frontoffice)
  * Portado para Vue 3 Composition API + BootstrapVue Next
  */
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick, getCurrentInstance } from 'vue'
 import { BBadge, BFormInput, BFormCheckbox, BSpinner } from 'bootstrap-vue-next'
+
+const instance = getCurrentInstance()
 
 const props = defineProps({
   modelValue: {
+    type: [String, Number, Object, Array],
+    default: null
+  },
+  value: {
     type: [String, Number, Object, Array],
     default: null
   },
@@ -198,6 +204,10 @@ const props = defineProps({
   variant: {
     type: String,
     default: 'primary'
+  },
+  state: {
+    type: [String, Boolean],
+    default: null
   },
   invalid: {
     type: Boolean,
@@ -233,7 +243,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'change', 'clear', 'open', 'close'])
+const emit = defineEmits(['update:modelValue', 'input', 'change', 'clear', 'open', 'close'])
 
 // Refs
 const refContainer = ref(null)
@@ -252,6 +262,23 @@ const dropdownStyle = ref({
 
 // Computed
 const selectedLength = computed(() => internalSelectedOptions.value.length)
+
+const hasExplicitModelValue = computed(() => {
+  const vnodeProps = instance?.vnode.props ?? {}
+
+  return Object.prototype.hasOwnProperty.call(vnodeProps, 'modelValue')
+    || Object.prototype.hasOwnProperty.call(vnodeProps, 'model-value')
+})
+
+const resolvedExternalValue = computed(() => {
+  if (hasExplicitModelValue.value) {
+    return props.modelValue
+  }
+
+  return props.value
+})
+
+const visualInvalid = computed(() => props.invalid || props.state === false)
 
 const selectedOption = computed(() => {
   if (props.multiple) return null
@@ -355,11 +382,12 @@ const emitValue = () => {
     ? internalSelectedOptions.value
     : (internalSelectedOptions.value[0] || null)
   emit('update:modelValue', value)
+  emit('input', value)
   emit('change', value)
 }
 
 const open = () => {
-  if (props.disabled) return
+  if (props.disabled || opened.value) return
   opened.value = true
   emit('open')
   nextTick(() => {
@@ -371,6 +399,7 @@ const open = () => {
 }
 
 const close = () => {
+  if (!opened.value) return
   opened.value = false
   search.value = ''
   emit('close')
@@ -390,7 +419,7 @@ const handleClickOutside = (event) => {
   const clickedInsideTrigger = refContainer.value && refContainer.value.contains(event.target)
   const clickedInsideDropdown = refUl.value && refUl.value.contains(event.target)
 
-  if (!clickedInsideTrigger && !clickedInsideDropdown) {
+  if (opened.value && !clickedInsideTrigger && !clickedInsideDropdown) {
     close()
   }
 }
@@ -401,12 +430,12 @@ const handleViewportChange = () => {
   }
 }
 
-// Watch modelValue changes
-watch(() => props.modelValue, (newVal) => {
+// Watch external value changes
+watch([resolvedExternalValue, () => props.multiple], ([newVal]) => {
   if (props.multiple) {
     internalSelectedOptions.value = Array.isArray(newVal) ? [...newVal] : []
   } else {
-    internalSelectedOptions.value = newVal ? [newVal] : []
+    internalSelectedOptions.value = newVal !== null && newVal !== undefined ? [newVal] : []
   }
 }, { immediate: true, deep: true })
 
