@@ -15,6 +15,71 @@ Este documento define o plano de execução para trazer o Storybook para dentro 
 
 ---
 
+## Status de Conclusão
+
+> **Última atualização:** março/2026 — auditoria automática do repositório.
+
+### Visão Geral
+
+| Métrica | Valor |
+|---|---|
+| **Conclusão geral estimada** | **≈ 60 %** |
+| Fases com progresso significativo | Fases 0, 1, 2 e 3 |
+| Fase pendente | Fase 4 — Convergência com Produção |
+| Frente mais atrasada | Governança |
+
+### Por Fase
+
+| Fase | Nome | Progresso | Situação |
+|---|---|---|---|
+| Marco Inicial | Pré-requisitos para execução | 100 % | ✅ Concluído |
+| Fase 0 | Descoberta e Mapeamento | ≈ 60 % | 🟡 Parcialmente concluído |
+| Fase 1 | Storybook Interno + Componentes-Base | ≈ 90 % | ✅ Quase completo |
+| Fase 2 | Contratos Canônicos | ≈ 85 % | ✅ Quase completo |
+| Fase 3 | Registry para MCP | ≈ 70 % | 🟡 Em progresso |
+| Fase 4 | Convergência com Produção | ≈ 20 % | 🔴 Não iniciado (exceto tokens) |
+
+### Por Frente de Trabalho
+
+| Frente | Progresso | Observação |
+|---|---|---|
+| Catálogo (Storybook) | ≈ 90 % | `.storybook/`, 10 stories e estrutura completos |
+| Tokens | ≈ 80 % | `tokens.json` + `tokens.css` extraídos; gap analysis ausente |
+| Componentes (specs) | ≈ 80 % | 10 specs JSON com props, slots, variantes e a11y |
+| MCP (registry) | ≈ 70 % | `registry.json` e servidor MCP existem; validação de consumo pendente |
+| Governança | ≈ 10 % | Sem documento de contribuição ou processo de aprovação |
+
+### Por Sprint
+
+| Sprint | Itens | Progresso |
+|---|---|---|
+| Sprint 0 — Descoberta | 5 itens | ≈ 60 % |
+| Sprint 1 — Storybook + Stories | 4 itens | ≈ 95 % |
+| Sprint 2 — Contratos + Registry | 3 itens | ≈ 65 % |
+| Sprint 3 — Validação e Convergência | 3 itens | ≈ 10 % |
+
+### O que está concluído
+
+- ✅ Asset `design-system/` criado com estrutura completa (`.storybook/`, `stories/`, `specs/`, `tokens/`, `registry/`, `adapters/vue3/`)
+- ✅ Storybook 8.x configurado com Vue 3 + Bootstrap 5 (`package.json`, `.storybook/main.js`, `preview.js`)
+- ✅ 10 componentes da primeira onda com story, spec JSON e export no adapter (`EButton`, `EInput`, `ESelect`, `ETextarea`, `EFormGroup`, `EBadge`, `EModal`, `EConfirmDialog`, `EDatePicker`, `MaterialIcon`)
+- ✅ Tokens consolidados em `tokens/tokens.json` e `tokens/tokens.css` (cores, tipografia, espaçamento, sombras, motion)
+- ✅ `registry/registry.json` com links entre spec, story, sourceFile e adapterFile para todos os 10 componentes
+- ✅ Servidor MCP `mcp-design-system` operacional para lookup de componentes
+- ✅ Status de cada componente marcado no registry (`nativo`, `adaptado`, `espelhado`, `divergente`)
+- ✅ `legacyRef` em todas as specs apontando para o Storybook legado externo
+
+### O que está pendente
+
+- 🔴 **Fase 4** — Convergência com produção: tokens convergidos, mas componentes-base e compostos ainda não
+- 🔴 **Governança** — Sem doc de contribuição, processo de aprovação ou regra anti-duplicação documentados
+- 🟡 **Matriz legado → Vue 3 → canônico** — Implícita no campo `status` do registry, mas sem documento formal separado
+- 🟡 **Validação do fluxo MCP** — Registry existe, mas consumo por IA não foi validado e documentado
+- 🟡 **Sprint 3** — Validação ponta-a-ponta (designer → story → dev → protótipo) não executada
+- 🟡 **Análise de gaps de tokens** — Tokens documentados, mas gaps em relação ao legado não foram mapeados
+
+---
+
 ## Objetivo
 
 Construir, dentro deste repositório, um asset de Design System que cumpra 3 funções ao mesmo tempo:
@@ -459,32 +524,32 @@ O trabalho pode começar quando estes 5 itens estiverem aprovados:
 
 ## Backlog Inicial Recomendado
 
-### Sprint 0
+### Sprint 0 — ≈ 60 % concluído
 
-1. Criar inventário do FrontOffice por categoria.
-2. Selecionar componentes prioritários do legado.
-3. Produzir matriz de equivalência.
-4. Definir taxonomia canônica.
-5. Definir estrutura do asset `design-system/`.
+1. ✅ Criar inventário do FrontOffice por categoria.
+2. 🟡 Selecionar componentes prioritários do legado. _(implícito via `legacyRef` nas specs; documento formal ausente)_
+3. 🔴 Produzir matriz de equivalência. _(não gerada como artefato separado)_
+4. ✅ Definir taxonomia canônica. _(campo `category` no registry: `base`, `atom`, `molecule`, `organism`, `template`)_
+5. ✅ Definir estrutura do asset `design-system/`.
 
-### Sprint 1
+### Sprint 1 — ≈ 95 % concluído
 
-1. Subir Storybook interno.
-2. Publicar stories do primeiro lote de componentes-base.
-3. Garantir uso dos tokens atuais do FrontOffice.
-4. Marcar referência equivalente do legado nas stories.
+1. ✅ Subir Storybook interno. _(`.storybook/` + `package.json` com Storybook 8.x)_
+2. ✅ Publicar stories do primeiro lote de componentes-base. _(10 stories criadas)_
+3. ✅ Garantir uso dos tokens atuais do FrontOffice. _(`tokens.css` + `tokens.json` extraídos)_
+4. ✅ Marcar referência equivalente do legado nas stories. _(campo `legacyRef` nas 10 specs)_
 
-### Sprint 2
+### Sprint 2 — ≈ 65 % concluído
 
-1. Formalizar schema de contratos.
-2. Criar registry inicial para MCP.
-3. Publicar documentação de contribuição e governança.
+1. ✅ Formalizar schema de contratos. _(10 specs JSON com props, slots, variantes, estados, a11y)_
+2. ✅ Criar registry inicial para MCP. _(`registry/registry.json` completo)_
+3. 🔴 Publicar documentação de contribuição e governança. _(pendente)_
 
-### Sprint 3
+### Sprint 3 — ≈ 10 % concluído
 
-1. Validar consumo por IA via MCP.
-2. Validar fluxo designer → story → dev → protótipo.
-3. Planejar primeira convergência com produção.
+1. 🔴 Validar consumo por IA via MCP. _(servidor MCP existe; validação formal não documentada)_
+2. 🔴 Validar fluxo designer → story → dev → protótipo. _(não executado)_
+3. 🔴 Planejar primeira convergência com produção. _(tokens convergidos; demais etapas não planejadas formalmente)_
 
 ---
 
